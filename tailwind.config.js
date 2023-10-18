@@ -1,3 +1,5 @@
+import buttonUtils from './src/tailwindplugins/buttonUtils'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{html,ts,tsx}", "./index.html"],
@@ -69,9 +71,40 @@ export default {
           900: 'var(--accent-900)',
           950: 'var(--accent-950)',
         },
-      },       
+        'overlay': {
+          900: "var(--overlay-900)"
+        },
+      },
+
+      minWidth: {
+        'modal': '18rem'
+      },
+
+      maxWidth: {
+        'modal': '48rem'
+      },
+
+      minHeight: {
+        "content": "calc(100vh - var(--header-height))",
+      },
+
+      maxHeight: {
+        "modal": "calc(100% - 4em)",
+      },
+
+      height: {
+        "header": "var(--header-height)",
+        "content": "calc(100vh - var(--header-height))"
+      },
+
+      boxShadowColor: {
+        'primary': '0px 8px 0px 0px var(--primary-800)'
+      }
     },
   },
-  plugins: [],
+  darkMode: 'class',
+  plugins: [
+    buttonUtils
+  ],
 }
 

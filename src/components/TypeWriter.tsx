@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 
-// Component Interface
+// TypeWriter Interface
 interface TypeWriterProps {
   className?: string,
   text: string
   delay: number
 }
 
-// Component Function
+// TypeWriter Function: Renders text as if it is being written out.
 const TypeWriter: React.FC<TypeWriterProps> = ({ className, text, delay }) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,7 +24,7 @@ const TypeWriter: React.FC<TypeWriterProps> = ({ className, text, delay }) => {
   }, [currentIndex, delay, text]);
 
   return (
-    <pre className={className}>{`${currentText}`}</pre>
+    <pre className={className}>{currentText}</pre>
   )
 }
 
