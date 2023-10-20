@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'
 import './tailwind.css'
 import './index.css'
 
-import Modalfrom './context/modal/ModalProvider.tsx'
+import ModalProvider from './context/modal/ModalProvider.tsx'
 import Content from './structure/Content.tsx'
 
 ReactModal.setAppElement("#root")
