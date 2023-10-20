@@ -4,11 +4,11 @@ run-name: ${{ github.actor }} Frontend Integration
 on: [push]
 jobs:
   run-eslint:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-    - run: npm install
-    - run: eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0
