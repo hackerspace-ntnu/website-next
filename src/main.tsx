@@ -9,11 +9,11 @@ import './index.css'
 import ModalProvider from './context/modal/ModalProvider.tsx'
 import Content from './structure/Content.tsx'
 
-ReactModal.setAppElement"#root")
+ReactModal.setAppElement("#root")
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-                        <BrowserRouter>
+    <BrowserRouter>
       <ModalProvider>
         <Content />
       </ModalProvider>
