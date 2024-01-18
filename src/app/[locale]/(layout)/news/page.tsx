@@ -1,6 +1,6 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
-export async function generatemeta({
+export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };

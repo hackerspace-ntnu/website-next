@@ -18,9 +18,7 @@ function Header() {
           events={t('events')}
           about={t('about')}
         />
-        <div>
-          <LogoLink />
-        </div>
+        <LogoLink />
         <div className='flex gap-10'>
           <Nav
             className='hidden items-center gap-6 text-sm md:flex'

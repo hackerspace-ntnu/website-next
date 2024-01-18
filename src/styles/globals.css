@@ -52,6 +52,14 @@
     --ring: 142.4 71.8% 29.2%; /* #15803d */
   }
 
+  ::selection {
+    @apply bg-primary/50;
+  }
+
+  ::-moz-selection {
+    @apply bg-primary/50;
+  }
+
   h1 {
     @apply scroll-m-20 font-montserrat text-4xl font-extrabold tracking-tight lg:text-5xl;
   }

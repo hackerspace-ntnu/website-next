@@ -1,7 +1,10 @@
+import { Eye, EyeOff } from 'lucide-react';
+
 import React, { useState } from 'react';
-import classNames from 'classnames';
-import Button from './Button';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import { cx } from '@/lib/utils';
+
+import { Button } from '@/components/ui/Button';
 
 interface FieldProps {
   className?: string;
@@ -16,7 +19,7 @@ interface FieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onEnter?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  _icon?: React.ComponentType<{className: string}>;
+  _icon?: React.ComponentType<{ className: string }>;
   readOnly?: boolean;
   placeholder?: string;
   step?: number;
@@ -53,8 +56,7 @@ const Field: React.FC<FieldProps> = ({
   disabled,
   error,
   id,
-  onClick
-
+  onClick,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -103,126 +105,114 @@ const Field: React.FC<FieldProps> = ({
     if (onClick) {
       onClick(event);
     }
-  }
+  };
 
   const toggleShowPassword = () => {
     setShowPassword((showPassword) => !showPassword);
   };
 
   return (
-    <div className={`text-sm font-bold w-full`}>
-      {
-        title ? 
+    <div className={`w-full text-sm font-bold`}>
+      {title ? (
         <span className='text-text-50 select-none'>
           {title}
-          {
-            required ? 
-            <span className='text-red-500 ml-1'>*</span> 
-            : null
-          }
+          {required ? <span className='ml-1 text-red-500'>*</span> : null}
         </span>
-        : null
-      }
+      ) : null}
       <div className='flex'>
-        <div 
-          className={classNames([
+        <div
+          className={cx([
             className,
-            "flex transition-all duration-200 rounded-md outline-none w-full shadow-md",
-            readOnly || disabled ? 'bg-accent-500' : 'bg-accent-800',
-            disabled ? 'cursor-not-allowed text-text-50' : 'cursor-auto'
+            'flex w-full rounded-md shadow-md outline-none transition-all duration-200',
+            readOnly ?? disabled ? 'bg-accent-500' : 'bg-accent-800',
+            disabled ? 'text-text-50 cursor-not-allowed' : 'cursor-auto',
           ])}
         >
-          <div className='w-full h-full relative'>
+          <div className='relative h-full w-full'>
             <input
               id={id}
-              type={(type === 'password' && showPassword) ? 'text' : type}
+              type={type === 'password' && showPassword ? 'text' : type}
               value={value}
               placeholder={placeholder}
               step={step}
-              readOnly={readOnly || onClick !== undefined}
+              readOnly={readOnly ?? onClick !== undefined}
               disabled={disabled}
               onChange={_onChange}
               onFocus={_onFocus}
               onBlur={_onBlur}
               onClick={_onClick}
               onKeyDown={_onKeyDown}
-              className={classNames([
-                "w-full h-10 bg-transparent border-2 outline-none leading-6 p-2 select-all font-semibold",
-                buttons || (type === 'password') ? 'rounded-l-md' : 'rounded-md',
-                error ? 'border-red-500' : 'border-accent-700 hover:border-accent-600',
+              className={cx([
+                'h-10 w-full select-all border-2 bg-transparent p-2 font-semibold leading-6 outline-none',
+                buttons ?? type === 'password' ? 'rounded-l-md' : 'rounded-md',
+                error
+                  ? 'border-red-500'
+                  : 'border-accent-700 hover:border-accent-600',
                 disabled ? 'cursor-not-allowed' : '',
                 onClick ? 'cursor-pointer' : '',
                 _icon ? 'pr-[1.75rem]' : '',
               ])}
             />
-            {
-              _icon
-              ?
+            {_icon ? (
               <span className='absolute right-2 top-3'>
-                <_icon className='h-4 w-4 text-accent-50'/>
+                <_icon className='text-accent-50 h-4 w-4' />
               </span>
-              : null
-            }
+            ) : null}
           </div>
-          {
-            buttons || (type === 'password')
-            ?
-            <div className='flex items-center relative'>
-              {
-                buttons !== undefined ?
-                buttons.map((value, index) => {
-                  return (
-                    <Button 
-                      className={classNames([
-                        'h-full',
-                        buttons.length === 1 ? 'bg-green-500 px-2' : 'bg-accent-500 w-10',
-                        index === buttons.length - 1 ? ' rounded-l-none rounded-r-md' : 'rounded-none',
-                        'disabled:bg-accent-500',
-                        value.className
-                      ])} 
-                      key={index}
-                      onClick={value.onClick}
-                      disabled={value.disabled || disabled}
-                    >
-                      {value.label}
-                    </Button>
-                  )
-                })
-
-                : null
-              }
-              {
-                type === 'password' ?
-                  <Button 
-                    className={classNames([
-                      'h-full',
-                      'rounded-l-none rounded-r-md',
-                      'disabled:bg-accent-500',
-                      buttons !== undefined ? 'bg-green-500 px-2' : 'bg-accent-500 w-10'
-                    ])} 
-                    onClick={toggleShowPassword}
-                  >
-                    {
-                      showPassword ?
-                      <FaEyeSlash className='w-full'/>
-                      : <FaEye className='w-full'/>
-                    }
-                  </Button>
-                : null
-              }
+          {buttons ?? type === 'password' ? (
+            <div className='relative flex items-center'>
+              {buttons !== undefined
+                ? buttons.map((value, index) => {
+                    return (
+                      <Button
+                        className={cx([
+                          'h-full',
+                          buttons.length === 1
+                            ? 'bg-green-500 px-2'
+                            : 'bg-accent-500 w-10',
+                          index === buttons.length - 1
+                            ? ' rounded-l-none rounded-r-md'
+                            : 'rounded-none',
+                          'disabled:bg-accent-500',
+                          value.className,
+                        ])}
+                        key={index}
+                        onClick={value.onClick}
+                        disabled={value.disabled ?? disabled}
+                      >
+                        {value.label}
+                      </Button>
+                    );
+                  })
+                : null}
+              {type === 'password' ? (
+                <Button
+                  className={cx([
+                    'h-full',
+                    'rounded-l-none rounded-r-md',
+                    'disabled:bg-accent-500',
+                    buttons !== undefined
+                      ? 'bg-green-500 px-2'
+                      : 'bg-accent-500 w-10',
+                  ])}
+                  onClick={toggleShowPassword}
+                >
+                  {showPassword ? (
+                    <EyeOff className='w-full' />
+                  ) : (
+                    <Eye className='w-full' />
+                  )}
+                </Button>
+              ) : null}
             </div>
-            : null
-          }
+          ) : null}
         </div>
-        
       </div>
-      {
-        error
-        ? <span className='text-xs font-light text-red-500'>{error}</span> 
-        : null
-      }
+      {error ? (
+        <span className='text-xs font-light text-red-500'>{error}</span>
+      ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default Field
+export default Field;
