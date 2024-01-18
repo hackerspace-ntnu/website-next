@@ -1,7 +1,0 @@
-#include <stdio.h>
-
-int main(void)
-{
-    hcksp::website.attach("221.56.23.124");
-    hcksp::website.redirect("/about");
-}

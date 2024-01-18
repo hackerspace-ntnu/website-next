@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Slack-kanal for assistanse eller en vennlig prat."
+  },
+  "layout": {
+    "home": "Hjem",
+    "news": "Nyheter",
+    "events": "Arrangementer",
+    "about": "Om oss",
+    "changeLocale": "Bytt språk",
+    "toggleTheme": "Bytt tema",
+    "light": "Lys",
+    "dark": "Mørk",
+    "system": "System",
+    "profile": "Profil",
+    "signIn": "Logg inn"
+  }
+}
