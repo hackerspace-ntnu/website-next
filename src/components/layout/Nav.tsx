@@ -1,5 +1,7 @@
 import { Link } from '@/lib/navigation';
 
+import { Button } from '@/components/ui/Button';
+
 type NavProps = {
   className?: string;
   onClick?: () => void;
@@ -10,28 +12,30 @@ type NavProps = {
 
 function Nav({ className, onClick, news, events, about }: NavProps) {
   return (
-    <nav className={className}>
-      <Link
-        className='text-foreground/60 transition-colors hover:text-foreground/80'
-        href='/news'
-        onClick={onClick}
-      >
-        {news}
-      </Link>
-      <Link
-        className='text-foreground/60 transition-colors hover:text-foreground/80'
-        href='/events'
-        onClick={onClick}
-      >
-        {events}
-      </Link>
-      <Link
-        className='text-foreground/60 transition-colors hover:text-foreground/80'
-        href='/about'
-        onClick={onClick}
-      >
-        {about}
-      </Link>
+    <nav className='flex items-center'>
+      <ul className={className}>
+        <li>
+          <Button asChild variant='nav' size='none'>
+            <Link href='/news' onClick={onClick}>
+              {news}
+            </Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant='nav' size='none'>
+            <Link href='/events' onClick={onClick}>
+              {events}
+            </Link>
+          </Button>
+        </li>
+        <li>
+          <Button asChild variant='nav' size='none'>
+            <Link href='/about' onClick={onClick}>
+              {about}
+            </Link>
+          </Button>
+        </li>
+      </ul>
     </nav>
   );
 }

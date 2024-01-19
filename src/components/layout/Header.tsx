@@ -13,7 +13,7 @@ function Header() {
     <header className='sticky top-0 z-10 flex w-full justify-center border-b border-border/40 bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-11 md:px-16 lg:px-24'>
       <div className='flex h-14 w-full max-w-screen-2xl items-center justify-between'>
         <MobileSheet
-          className='block md:hidden'
+          className='flex md:hidden'
           news={t('news')}
           events={t('events')}
           about={t('about')}

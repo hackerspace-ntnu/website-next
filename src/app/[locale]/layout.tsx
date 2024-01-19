@@ -78,14 +78,16 @@ export default function Localelayout({ children, params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
   return (
     <html
-      className={cx(inter.variable, montserrat.variable)}
+      className={cx('h-full w-full', inter.variable, montserrat.variable)}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='min-h-screen scroll-smooth bg-background font-inter text-foreground antialiased scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
+      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
         <RootProviders params={{ locale: locale }}>
-          <div className='flex flex-col'>{children}</div>
+          <div className='fixed bottom-0 top-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
+            {children}
+          </div>
         </RootProviders>
       </body>
     </html>

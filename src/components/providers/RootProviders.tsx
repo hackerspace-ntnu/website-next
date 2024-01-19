@@ -1,7 +1,7 @@
-import { type ReactNode } from "react";
+import { type ReactNode } from 'react';
 
-import { IntlErrorProvider } from "@/components/providers/IntlErrorProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { IntlErrorProvider } from '@/components/providers/IntlErrorProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 type Props = {
   children: ReactNode;

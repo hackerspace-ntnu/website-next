@@ -1,11 +1,12 @@
 'use client';
 
-import { MenuSquare } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import * as React from 'react';
 
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
+import { Button } from '@/components/ui/Button';
 import {
   Sheet,
   SheetContent,
@@ -25,13 +26,15 @@ function MobileSheet({ className, news, events, about }: MobileSheetProps) {
   const [open, setOpen] = React.useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className={className}>
-        <MenuSquare className='h-5 w-5' />
+      <SheetTrigger asChild>
+        <Button className={className} variant='ghost' size='icon'>
+          <Menu className='h-5 w-5' />
+        </Button>
       </SheetTrigger>
       <SheetContent side='left'>
         <SheetHeader>
-          <SheetTitle>
-            <LogoLink />
+          <SheetTitle className='flex'>
+            <LogoLink onClick={() => setOpen(false)} />
           </SheetTitle>
         </SheetHeader>
         <Nav
