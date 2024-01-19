@@ -51,6 +51,17 @@ function Footer() {
               </ul>
             </nav>
           </div>
+          <div>
+            <h4>{t('socialMedia')}</h4>
+            <ul>
+              <li>
+                <Button asChild variant='ghost' size='icon'>
+                  <ExternalLink href='https://hackerspace-ntnu.slack.com/'></ExternalLink>
+                </Button>
+              </li>
+              <li></li>
+            </ul>
+          </div>
         </div>
       </div>
     </footer>
