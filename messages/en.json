@@ -15,6 +15,15 @@
     "profile": "Profile",
     "signIn": "Sign in",
     "links": "Links",
-    "socialMedia": "Social media"
+    "socialMedia": "Social media",
+    "visitOurSlack": "Visit our Slack",
+    "visitOurFacebook": "Visit our Facebook",
+    "visitOurGithub": "Visit our Github",
+    "visitOurInstagram": "Visit our Instagram",
+    "NTNUIDI": "NTNU Department of Computer Science",
+    "NTNUIDIURL": "https://www.ntnu.edu/idi",
+    "NTNUKiD": "The working life network KID",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved"
   }
 }

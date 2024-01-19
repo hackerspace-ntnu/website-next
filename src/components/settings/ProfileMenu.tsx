@@ -1,7 +1,6 @@
 'use client';
 
 import { User } from 'lucide-react';
-
 import * as React from 'react';
 
 import { Button } from '@/components/ui/Button';

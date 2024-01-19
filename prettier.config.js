@@ -6,7 +6,6 @@ const config = {
   useTabs: false,
   jsxSingleQuote: true,
   importOrder: [
-    '^react$',
     '^[./]',
     '^@/(lib|styles)/(.*)$',
     '^@/hooks/(.*)$',

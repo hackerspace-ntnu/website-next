@@ -15,6 +15,14 @@
     "profile": "Profil",
     "signIn": "Logg inn",
     "links": "Lenker",
-    "socialMedia": "Sosiale medier"
+    "socialMedia": "Sosiale medier",
+    "visitOurSlack": "Besøk vår Slack",
+    "visitOurFacebook": "Besøk vår Facebook",
+    "visitOurGithub": "Besøk vår Github",
+    "visitOurInstagram": "Besøk vår Instagram",
+    "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
+    "NTNUIDIURL": "https://www.ntnu.no/idi",
+    "copyright": "Opphavsrett",
+    "allRightsReserved": "Alle rettigheter reservert"
   }
 }

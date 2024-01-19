@@ -1,5 +1,8 @@
 'use client';
 
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+
 import * as React from 'react';
 
 import { Button } from '@/components/ui/Button';
@@ -9,8 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
-import { Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 type DarkModeMenuProps = {
   toggleTheme: string;
