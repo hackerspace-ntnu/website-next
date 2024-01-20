@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postbuild": "next-sitemap",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
@@ -21,6 +22,7 @@
     "lucide-react": "^0.312.0",
     "next": "^14.0.4",
     "next-intl": "^3.4.4",
+    "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
