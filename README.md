@@ -34,3 +34,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Commit messages
+
+We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our commit messages. This is to ensure that we have a consistent way of writing commit messages and to make it easier to generate changelogs. Try to follow the guidelines as closely as possible.
