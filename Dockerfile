@@ -1,4 +1,4 @@
-FROM oven/bun:1
+FROM imbios/bun-node:20-alpine
 
 WORKDIR /app
 
@@ -8,8 +8,9 @@ RUN bun install --frozen-lockfile --production
 
 COPY . .
 
+ENV NODE_ENV=production
 RUN bun run build
 
 EXPOSE 3000
 
-ENTRYPOINT [ "bun", "start" ]
+ENTRYPOINT [ "bun", "run", "start" ]
