@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 
@@ -24,3 +22,17 @@ next-env.d.ts
 # site map
 public/sitemap.xml
 public/robots.txt
+
+# prettier
+prettier.config.js
+
+# docker
+Dockerfile*
+.dockerignore
+
+# git
+.git
+.gitignore
+
+# docs
+README.md

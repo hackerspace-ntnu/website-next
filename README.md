@@ -19,18 +19,18 @@ Here is a list of documentation to help you get started:
 
 ## Development setup
 
-Make sure you have Node.js installed on your machine. If you don't have it, you can download it [here](https://nodejs.org/en/download/).
+Make sure you have Bun installed on your machine. If you don't have it, you can download it [here](https://bun.sh/docs/installation).
 
 First, install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 Then, run the development server:
 
 ```bash
-npm run dev
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
