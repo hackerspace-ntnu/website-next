@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "postbuild": "next-sitemap",
     "build": "next build",
     "dev": "next dev",
@@ -12,15 +13,11 @@
     "type": "tsc --noEmit",
     "start": "next start"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,cjs,ts,tsx}": [
       "next lint --fix",
-      "prettier --write"
+      "prettier --write",
+      "tsc --noEmit"
     ]
   },
   "dependencies": {
@@ -55,7 +52,7 @@
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.4",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
