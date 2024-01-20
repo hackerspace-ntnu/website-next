@@ -113,7 +113,7 @@ function Footer() {
           <div>
             <h4>{t('links')}</h4>
             <nav>
-              <ul className='mt-2 space-y-1.5'>
+              <ul className='ml-2 mt-2 space-y-1.5'>
                 <li>
                   <Button asChild variant='nav' size='none'>
                     <Link href='/news'>{t('news')}</Link>
@@ -134,7 +134,7 @@ function Footer() {
           </div>
           <div>
             <h4>{t('utilities')}</h4>
-            <p className='[&:not(:first-child)]:mt-0'>
+            <p className='ml-2 [&:not(:first-child)]:mt-0'>
               <Button asChild variant='link' size='none'>
                 <Link href='/'>{t('signIn')}</Link>
               </Button>

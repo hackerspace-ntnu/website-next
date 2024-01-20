@@ -16,6 +16,7 @@ Here is a list of documentation to help you get started:
 ## Quirks to keep in mind
 
 - When you want to link to a new internal page use the `<Link>` component from `@/lib/navigation` instead of the normal anchortag `<a>`. This will ensure that the page is loaded with the correct locale. If you want to link to external resources or other media, use the built-in `<Link>` component from Next.js. Remember to add `prefetch={false}` to the `<Link>` component if the page is not visited often.
+- Remember to surround Links with the `Button` ui component. This will provide some basic styling and accessibility features for keyboard navigation even if it is not supposed to look like a button.
 
 ## Development setup
 
