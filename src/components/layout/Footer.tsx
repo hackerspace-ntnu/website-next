@@ -19,7 +19,7 @@ function Footer() {
   return (
     <footer className='z-10 flex w-full justify-center border-t border-border/40 bg-background/95 px-11 py-10 md:px-16 lg:px-24'>
       <div className='w-full max-w-screen-2xl text-sm'>
-        <div className='xs:grid-cols-2 grid grid-cols-1 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4'>
+        <div className='grid grid-cols-1 gap-x-4 gap-y-12 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
           <div>
             <LogoLink className='justify-start' />
             <p className='ml-2 leading-tight'>
@@ -45,7 +45,7 @@ function Footer() {
           </div>
           <div>
             <h4>{t('socialMedia')}</h4>
-            <ul className='grid-cols-2-auto sm:grid-cols-3-auto grid grid-flow-row justify-start text-foreground/80 xl:grid-flow-col xl:grid-cols-none'>
+            <ul className='grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
               <li>
                 <Button asChild variant='ghost' size='sm-icon'>
                   <ExternalLink

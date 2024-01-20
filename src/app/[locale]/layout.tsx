@@ -1,7 +1,6 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 import { notFound } from 'next/navigation';
-
 import { type ReactNode } from 'react';
 
 import { locales } from '@/lib/config';

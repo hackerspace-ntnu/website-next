@@ -1,7 +1,6 @@
 'use client';
 
 import { Globe2 } from 'lucide-react';
-
 import * as React from 'react';
 
 import { flagIcons, locales } from '@/lib/config';

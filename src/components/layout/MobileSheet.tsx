@@ -1,7 +1,6 @@
 'use client';
 
 import { Menu } from 'lucide-react';
-
 import * as React from 'react';
 
 import { LogoLink } from '@/components/layout/LogoLink';
