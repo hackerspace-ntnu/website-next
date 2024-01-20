@@ -10,11 +10,9 @@ export default {
         inter: ['var(--font-inter)', ...fontFamily.sans],
         montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
       },
-      container: {
-        screens: {
-          xs: '480px',
-          '2xl': '1400px',
-        },
+      screens: {
+        xs: '480px',
+        '2xl': '1400px',
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -55,6 +53,10 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      gridTemplateColumns: {
+        '3-auto': 'repeat(3, auto)',
+        '2-auto': 'repeat(2, auto)',
       },
     },
   },

@@ -11,7 +11,10 @@ type Props = {
 function Main({ children, mainClassName, className }: Props) {
   return (
     <main
-      className={cx('flex h-full w-full flex-1 justify-center', mainClassName)}
+      className={cx(
+        'flex h-full w-full flex-grow justify-center',
+        mainClassName,
+      )}
     >
       <div
         className={cx(

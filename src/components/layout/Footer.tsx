@@ -1,3 +1,4 @@
+import { Bug, Mail } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import ExternalLink from 'next/link';
 
@@ -22,10 +23,17 @@ function Footer() {
           <div>
             <LogoLink className='justify-start' />
             <p className='ml-2 leading-tight'>
+              <strong>{t('openingHours')}:</strong>
+              <br />
+              <span>{t('allWeekdays')}, 10:15-18:00</span>
+              <br />
+              <br />
               <Button asChild variant='link' size='none'>
                 <ExternalLink
                   href='https://use.mazemap.com/#v=1&zlevel=2&center=10.404406,63.415418&zoom=18&sharepoitype=poi&sharepoi=1000391296&campusid=1'
                   prefetch={false}
+                  target='_blank'
+                  rel='noopener noreferrer'
                 >
                   Realfagbygget, A-blokka
                 </ExternalLink>
@@ -36,9 +44,76 @@ function Footer() {
             </p>
           </div>
           <div>
+            <h4>{t('socialMedia')}</h4>
+            <ul className='grid-cols-2-auto sm:grid-cols-3-auto grid grid-flow-row justify-start text-foreground/80 xl:grid-flow-col xl:grid-cols-none'>
+              <li>
+                <Button asChild variant='ghost' size='sm-icon'>
+                  <ExternalLink
+                    href='mailto:hackerspace-styret@idi.ntnu.no'
+                    aria-label={t('sendAnEmail')}
+                  >
+                    <Mail className='h-4 w-4' />
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant='ghost' size='sm-icon'>
+                  <ExternalLink
+                    href='https://hackerspace-ntnu.slack.com/'
+                    prefetch={false}
+                    aria-label={t('visitSlack')}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Slack className='h-4 w-4' />
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant='ghost' size='sm-icon'>
+                  <ExternalLink
+                    href='https://www.facebook.com/hackerspacentnu'
+                    prefetch={false}
+                    aria-label={t('visitFacebook')}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Facebook className='h-4 w-4' />
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant='ghost' size='sm-icon'>
+                  <ExternalLink
+                    href='https://github.com/hackerspace-ntnu/'
+                    prefetch={false}
+                    aria-label={t('visitGithub')}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Github className='h-4 w-4' />
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant='ghost' size='sm-icon'>
+                  <ExternalLink
+                    href='https://www.instagram.com/hackerspacentnu/'
+                    prefetch={false}
+                    aria-label={t('visitInstagram')}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <Instagram className='h-4 w-4' />
+                  </ExternalLink>
+                </Button>
+              </li>
+            </ul>
+          </div>
+          <div>
             <h4>{t('links')}</h4>
             <nav>
-              <ul>
+              <ul className='mt-2 space-y-1.5'>
                 <li>
                   <Button asChild variant='nav' size='none'>
                     <Link href='/news'>{t('news')}</Link>
@@ -58,66 +133,80 @@ function Footer() {
             </nav>
           </div>
           <div>
-            <h4>{t('socialMedia')}</h4>
-            <ul className='flex flex-row text-foreground/80'>
-              <li>
-                <Button asChild variant='ghost' size='sm-icon'>
-                  <ExternalLink
-                    href='https://hackerspace-ntnu.slack.com/'
-                    prefetch={false}
-                    aria-label={t('visitOurSlack')}
-                  >
-                    <Slack className='h-4 w-4' />
-                  </ExternalLink>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant='ghost' size='sm-icon'>
-                  <ExternalLink
-                    href='https://www.facebook.com/hackerspacentnu'
-                    prefetch={false}
-                    aria-label={t('visitOurFacebook')}
-                  >
-                    <Facebook className='h-4 w-4' />
-                  </ExternalLink>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant='ghost' size='sm-icon'>
-                  <ExternalLink
-                    href='https://github.com/hackerspace-ntnu/'
-                    prefetch={false}
-                    aria-label={t('visitOurGithub')}
-                  >
-                    <Github className='h-4 w-4' />
-                  </ExternalLink>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant='ghost' size='sm-icon'>
-                  <ExternalLink
-                    href='https://www.instagram.com/hackerspacentnu/'
-                    prefetch={false}
-                    aria-label={t('visitOurInstagram')}
-                  >
-                    <Instagram className='h-4 w-4' />
-                  </ExternalLink>
-                </Button>
-              </li>
-            </ul>
+            <h4>{t('utilities')}</h4>
+            <p className='[&:not(:first-child)]:mt-0'>
+              <Button asChild variant='link' size='none'>
+                <Link href='/'>{t('signIn')}</Link>
+              </Button>
+              <br />
+              {t('haveYouFoundA')} <Bug className='inline h-4 w-4' />?
+              <br />
+              {t.rich('utilitiesDescription', {
+                MailLink: () => (
+                  <Button className='inline' asChild variant='link' size='none'>
+                    <ExternalLink
+                      href='mailto:hackerspace-dev@idi.ntnu.no'
+                      aria-label={t('sendAnEmail')}
+                    >
+                      <Mail className='inline h-4 w-4' />
+                    </ExternalLink>
+                  </Button>
+                ),
+                SlackLink: (children) => (
+                  <Button asChild variant='link' size='none'>
+                    <ExternalLink
+                      href='https://hackerspace-ntnu.slack.com/archives/CDK99FYTY'
+                      prefetch={false}
+                      aria-label={t('visitSlack')}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {children}
+                    </ExternalLink>
+                  </Button>
+                ),
+                GithubLink: (children) => (
+                  <Button asChild variant='link' size='none'>
+                    <ExternalLink
+                      href='https://github.com/hackerspace-ntnu/website-frontend/issues'
+                      prefetch={false}
+                      aria-label={t('visitGithub')}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      {children}
+                    </ExternalLink>
+                  </Button>
+                ),
+              })}
+            </p>
           </div>
         </div>
         <nav className='py-20'>
           <ul className='flex flex-col justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
             <li>
-              <ExternalLink href={t('NTNUIDIURL')} prefetch={false}>
-                <IDILogo className='p-6' title={t('NTNUIDI')} />
-              </ExternalLink>
+              <Button asChild variant='none' size='none'>
+                <ExternalLink
+                  href={t('NTNUIDIURL')}
+                  prefetch={false}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <IDILogo className='p-6' title={t('NTNUIDI')} />
+                </ExternalLink>
+              </Button>
             </li>
             <li>
-              <ExternalLink href='https://www.ntnu.no/ie/kid/' prefetch={false}>
-                <KiDLogo className='p-6' title={t('NTNUKiD')} />
-              </ExternalLink>
+              <Button asChild variant='none' size='none'>
+                <ExternalLink
+                  href='https://www.ntnu.no/ie/kid/'
+                  prefetch={false}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <KiDLogo className='p-6' title={t('NTNUKiD')} />
+                </ExternalLink>
+              </Button>
             </li>
           </ul>
         </nav>
