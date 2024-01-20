@@ -42,5 +42,4 @@ yarn-error.log*
 
 # site map
 public/sitemap.xml
-public/sitemap-0.xml
 public/robots.txt
