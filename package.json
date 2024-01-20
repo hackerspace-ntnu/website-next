@@ -8,16 +8,16 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "format": "prettier --write .",
+    "format": "prettier --check '**/*.{js,cjs,ts,tsx}'",
     "type": "tsc --noEmit",
     "start": "next start"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "fix-staged"
+      "pre-commit": "lint-staged"
     }
   },
-  "fix-staged": {
+  "lint-staged": {
     "*.{js,cjs,ts,tsx}": [
       "next lint --fix",
       "prettier --write"
@@ -56,6 +56,7 @@
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.4",
     "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
