@@ -17,7 +17,7 @@
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
-    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til DevOps eller bruk #dev-public kanalen på <SlackLink>Slack</SlackLink>! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
+    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til DevOps eller bruk <code>#dev-public</code> kanalen på <SlackLink>Slack</SlackLink>! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Åpningstider",
     "allWeekdays": "Mandag - Fredag",
     "socialMedia": "Sosiale medier",

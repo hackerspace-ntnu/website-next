@@ -142,6 +142,9 @@ function Footer() {
               {t('haveYouFoundA')} <Bug className='inline h-4 w-4' />?
               <br />
               {t.rich('utilitiesDescription', {
+                code: (children) => (
+                  <code className='inline-block text-xs'>{children}</code>
+                ),
                 MailLink: () => (
                   <Button className='inline' asChild variant='link' size='none'>
                     <ExternalLink
@@ -153,7 +156,7 @@ function Footer() {
                   </Button>
                 ),
                 SlackLink: (children) => (
-                  <Button asChild variant='link' size='none'>
+                  <Button className='inline' asChild variant='link' size='none'>
                     <ExternalLink
                       href='https://hackerspace-ntnu.slack.com/archives/CDK99FYTY'
                       prefetch={false}
@@ -166,7 +169,7 @@ function Footer() {
                   </Button>
                 ),
                 GithubLink: (children) => (
-                  <Button asChild variant='link' size='none'>
+                  <Button className='inline' asChild variant='link' size='none'>
                     <ExternalLink
                       href='https://github.com/hackerspace-ntnu/website-frontend/issues'
                       prefetch={false}
