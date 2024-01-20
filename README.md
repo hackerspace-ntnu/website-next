@@ -39,3 +39,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Commit messages
 
 We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our commit messages. This is to ensure that we have a consistent way of writing commit messages and to make it easier to generate changelogs. Try to follow the guidelines as closely as possible.
+
+## Code quality
+
+- In react we want to use functions instead of const variables with arrow function syntax to keep the code as consistant as possible. An exception is when using the forwardRef hook, then we need to use the arrow function syntax.
+- Only use default export for pages or layouts etc. For components we want to use named exports. This is to make it easier to find the components in the codebase.
