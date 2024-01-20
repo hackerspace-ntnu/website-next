@@ -8,7 +8,20 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "format": "prettier --write .",
+    "type": "tsc --noEmit",
     "start": "next start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "fix-staged"
+    }
+  },
+  "fix-staged": {
+    "*.{js,cjs,ts,tsx}": [
+      "next lint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
@@ -42,6 +55,7 @@
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.54.0",
     "eslint-config-next": "^14.0.4",
+    "husky": "^8.0.3",
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
