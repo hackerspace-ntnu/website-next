@@ -7,7 +7,7 @@ export default function Home({
 }) {
   unstable_setRequestLocale(locale);
   return (
-    <div className='h-screen'>
+    <div className='min-h-screen'>
       <h2>Landing Page</h2>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
