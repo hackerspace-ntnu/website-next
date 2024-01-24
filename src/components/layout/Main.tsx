@@ -10,12 +10,7 @@ type Props = {
 
 function Main({ children, mainClassName, className }: Props) {
   return (
-    <main
-      className={cx(
-        'flex h-full w-full flex-grow justify-center',
-        mainClassName,
-      )}
-    >
+    <main className={cx('flex h-full w-full justify-center', mainClassName)}>
       <div
         className={cx(
           'h-full w-full max-w-screen-2xl px-4 sm:px-11 md:px-16 lg:px-24',

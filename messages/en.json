@@ -31,5 +31,8 @@
     "NTNUKiD": "The working life network KID",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "news": {
+    "title": "News"
   }
 }

@@ -1,4 +1,9 @@
+import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+
+import { cx } from '@/lib/utils';
+
+import { NewsCard } from '@/components/news/NewsCard';
 
 export async function generateMetadata({
   params: { locale },
@@ -17,6 +22,52 @@ export default function News({
 }: {
   params: { locale: string };
 }) {
+  const mockData = [
+    {
+      id: 1,
+      title: 'Gruppe status: prosjekt spill',
+      date: '22. oktober 2023',
+      photoUrl: 'mock.jpg',
+    },
+    {
+      id: 2,
+      title: 'DevOps Møtet',
+      date: '69. oktober 6969',
+      photoUrl: 'mock.jpg',
+    },
+    {
+      id: 3,
+      title: 'Jonas er kul',
+      date: '42. november 2023',
+      photoUrl: 'mock.jpg',
+    },
+    {
+      id: 4,
+      title: 'Iskrem er godt',
+      date: '18. februar 1942',
+      photoUrl: 'mock.jpg',
+    },
+  ];
   unstable_setRequestLocale(locale);
-  return <div>this should be news page</div>;
+  const t = useTranslations('news');
+  return (
+    <>
+      <h1 className='my-4'>{t('title')}</h1>
+      <div className='grid h-full max-h-144 min-h-160 grid-rows-4 gap-4 xs:h-1/2 xs:min-h-80 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-3/5'>
+        {mockData.slice(0, 4).map((data, index) => (
+          <NewsCard
+            className={cx(
+              index === 0 && 'row-span-1 xs:col-span-2 md:row-span-2',
+              index === 1 && 'col-span-1 row-span-1 md:col-span-2',
+              index === 3 && 'row-span-1 xs:col-span-2 md:col-span-1',
+            )}
+            key={data.id}
+            title={data.title}
+            date={data.date}
+            photoUrl={data.photoUrl}
+          />
+        ))}
+      </div>
+    </>
+  );
 }
