@@ -47,6 +47,50 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Build
+
+When you build the project, you prerender all the Server Side Generated (SSG) pages. This makes the site load faster and perform better and behave like it will when it is deployed. When serving the built project it will not hot reload when you make changes to the code like it does in development mode.
+
+You can build the project with the following command:
+
+```bash
+bun run build
+```
+
+Then to serve the build locally, run:
+
+```bash
+bun run start
+```
+
+## Check linting, formatting and types
+
+To check linting, formatting or types you run the respective command:
+
+Linting:
+
+```bash
+bun run lint
+```
+
+Formatting:
+
+```bash
+bun run format
+```
+
+Types:
+
+```bash
+bun run type
+```
+
+If you are using vscode and are experiencing issues with types, you can restart the typescript server by pressing `cmd + shift + p` and then type `TypeScript: Restart TS Server` (You need to have a typescript file open for this to work).
+
+You can also try restarting the whole editor by pressing `cmd + shift + p` and then type `Developer: Reload Window`.
+
+On windows you can use `ctrl` instead of `cmd`.
+
 ## Commit messages
 
 We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our commit messages. This is to ensure that we have a consistent way of writing commit messages to make it easier to understand what has been changed and why. Try to follow the guidelines as closely as possible. You can also use [the recommended vscode extension](.vscode/extensions.json) to help you write the commit messages.
