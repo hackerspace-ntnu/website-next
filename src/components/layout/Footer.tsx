@@ -11,6 +11,7 @@ import { Slack } from '@/components/assets/icons/Slack';
 import { IDILogo } from '@/components/assets/sponsors/IDILogo';
 import { KiDLogo } from '@/components/assets/sponsors/KiDLogo';
 import { LogoLink } from '@/components/layout/LogoLink';
+import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
 
 function Footer() {
@@ -112,25 +113,12 @@ function Footer() {
           </div>
           <div>
             <h4>{t('links')}</h4>
-            <nav>
-              <ul className='ml-2 mt-2 space-y-1.5'>
-                <li>
-                  <Button asChild variant='nav' size='none'>
-                    <Link href='/news'>{t('news')}</Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant='nav' size='none'>
-                    <Link href='/events'>{t('events')}</Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant='nav' size='none'>
-                    <Link href='/about'>{t('about')}</Link>
-                  </Button>
-                </li>
-              </ul>
-            </nav>
+            <Nav
+              className='ml-2 mt-2 space-y-1.5'
+              news={t('news')}
+              events={t('events')}
+              about={t('about')}
+            />
           </div>
           <div>
             <h4>{t('utilities')}</h4>
