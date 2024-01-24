@@ -84,7 +84,7 @@ export default function Localelayout({ children, params: { locale } }: Props) {
     >
       <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
         <RootProviders params={{ locale: locale }}>
-          <div className='fixed bottom-0 top-0 h-full w-full overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
+          <div className='fixed bottom-0 top-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
             {children}
           </div>
         </RootProviders>

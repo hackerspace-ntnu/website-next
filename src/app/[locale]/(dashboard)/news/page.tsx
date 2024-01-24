@@ -4,6 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { cx } from '@/lib/utils';
 
 import { NewsCard } from '@/components/news/NewsCard';
+import { Separator } from '@/components/ui/Separator';
 
 export async function generateMetadata({
   params: { locale },
@@ -53,7 +54,7 @@ export default function News({
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
-      <div className='grid h-full max-h-144 min-h-160 grid-rows-4 gap-4 xs:h-1/2 xs:min-h-80 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-3/5'>
+      <div className='grid h-192 grid-rows-4 gap-4 xs:h-96 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-112'>
         {mockData.slice(0, 4).map((data, index) => (
           <NewsCard
             className={cx(
@@ -62,12 +63,14 @@ export default function News({
               index === 3 && 'row-span-1 xs:col-span-2 md:col-span-1',
             )}
             key={data.id}
+            id={data.id}
             title={data.title}
             date={data.date}
             photoUrl={data.photoUrl}
           />
         ))}
       </div>
+      <Separator className='my-6' />
     </>
   );
 }
