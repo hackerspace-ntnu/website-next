@@ -1,39 +1,63 @@
 {
-  "name": "hackerspace-frontend",
+  "name": "website-frontend",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "prepare": "husky install",
+    "postbuild": "next-sitemap",
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "format": "prettier --check '**/*.{js,cjs,ts,tsx}'",
+    "type": "tsc --noEmit",
+    "start": "next start"
+  },
+  "lint-staged": {
+    "*.{js,cjs,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
-    "classnames": "^2.3.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.11.0",
-    "react-modal": "^3.16.1",
-    "react-router-dom": "^6.16.0"
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@t3-oss/env-nextjs": "^0.7.1",
+    "autoprefixer": "^10.4.17",
+    "clsx": "^2.1.0",
+    "country-flag-icons": "^1.5.9",
+    "cva": "^1.0.0-beta.1",
+    "lucide-react": "^0.312.0",
+    "next": "^14.0.4",
+    "next-intl": "^3.4.4",
+    "next-sitemap": "^4.2.3",
+    "next-themes": "^0.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^2.2.0",
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@types/react-icons": "^3.0.0",
-    "@types/react-modal": "^3.16.2",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/tailwindcss": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.0.3",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "postcss": "^8.4.30",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5"
-  }
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/eslint": "^8.44.7",
+    "@types/node": "^18.17.0",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "eslint": "^8.54.0",
+    "eslint-config-next": "^14.0.4",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8.4.31",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^5.1.6"
+  },
+  "packageManager": "bun@1.0.24"
 }

@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Slack-kanal for assistanse eller en vennlig prat."
+  },
+  "layout": {
+    "hackerspaceHome": "Hackerspace hjemmeside",
+    "news": "Nyheter",
+    "events": "Hendelser",
+    "about": "Om oss",
+    "changeLocale": "Bytt språk",
+    "toggleTheme": "Bytt tema",
+    "light": "Lys",
+    "dark": "Mørk",
+    "system": "System",
+    "profile": "Profil",
+    "signIn": "Logg inn",
+    "links": "Lenker",
+    "utilities": "Verktøy",
+    "haveYouFoundA": "Har du funnet en",
+    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til DevOps eller bruk <code>#dev-public</code> kanalen på <SlackLink>Slack</SlackLink>! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
+    "openingHours": "Åpningstider",
+    "allWeekdays": "Mandag - Fredag",
+    "socialMedia": "Sosiale medier",
+    "sendAnEmail": "Send en e-post",
+    "visitSlack": "Besøk Slack",
+    "visitFacebook": "Besøk Facebook",
+    "visitGithub": "Besøk Github",
+    "visitInstagram": "Besøk Instagram",
+    "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
+    "NTNUIDIURL": "https://www.ntnu.no/idi",
+    "NTNUKiD": "Arbeidslivsnettverket KID",
+    "copyright": "Opphavsrett",
+    "allRightsReserved": "Alle rettigheter reservert"
+  }
+}

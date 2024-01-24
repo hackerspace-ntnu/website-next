@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
+  },
+  "layout": {
+    "hackerspaceHome": "Hackerspace homepage",
+    "news": "News",
+    "events": "Events",
+    "about": "About",
+    "changeLocale": "Change language",
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "profile": "Profile",
+    "signIn": "Sign in",
+    "links": "Links",
+    "utilities": "Utilities",
+    "haveYouFoundA": "Have you found a",
+    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
+    "openingHours": "Opening hours",
+    "allWeekdays": "Mon-Fri",
+    "socialMedia": "Social media",
+    "sendAnEmail": "Send an email",
+    "visitSlack": "Visit Slack",
+    "visitFacebook": "Visit Facebook",
+    "visitGithub": "Visit Github",
+    "visitInstagram": "Visit our Instagram",
+    "NTNUIDI": "NTNU Department of Computer Science",
+    "NTNUIDIURL": "https://www.ntnu.edu/idi",
+    "NTNUKiD": "The working life network KID",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved"
+  }
+}
