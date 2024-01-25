@@ -27,7 +27,7 @@ function NewsItem({ className, id, title, date, photoUrl }: NewsCardProps) {
           params: { articleId: id },
         }}
       >
-        <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-muted group-hover:dark:bg-card'>
+        <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='relative h-28 w-28 flex-shrink-0'>
             <Image
               className='rounded-lg object-cover object-center'
