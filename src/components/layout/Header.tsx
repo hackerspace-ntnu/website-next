@@ -26,7 +26,7 @@ function Header() {
             events={t('events')}
             about={t('about')}
           />
-          <div>
+          <div className='flex'>
             <LocaleMenu changeLocale={t('changeLocale')} />
             <DarkModeMenu
               toggleTheme={t('toggleTheme')}
