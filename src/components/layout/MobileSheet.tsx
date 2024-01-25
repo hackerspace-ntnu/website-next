@@ -16,12 +16,15 @@ import {
 
 type MobileSheetProps = {
   className?: string;
-  news: string;
-  events: string;
-  about: string;
+  t: {
+    news: string;
+    events: string;
+    about: string;
+    close: string;
+  };
 };
 
-function MobileSheet({ className, news, events, about }: MobileSheetProps) {
+function MobileSheet({ className, t }: MobileSheetProps) {
   const [open, setOpen] = React.useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -30,7 +33,7 @@ function MobileSheet({ className, news, events, about }: MobileSheetProps) {
           <Menu className='h-5 w-5' />
         </Button>
       </SheetTrigger>
-      <SheetContent side='left'>
+      <SheetContent side='left' close={t.close}>
         <SheetHeader>
           <SheetTitle className='flex'>
             <LogoLink onClick={() => setOpen(false)} />
@@ -39,9 +42,11 @@ function MobileSheet({ className, news, events, about }: MobileSheetProps) {
         <Nav
           className='flex flex-col space-y-3 pt-6'
           onClick={() => setOpen(false)}
-          news={news}
-          events={events}
-          about={about}
+          t={{
+            news: t.news,
+            events: t.events,
+            about: t.about,
+          }}
         />
       </SheetContent>
     </Sheet>

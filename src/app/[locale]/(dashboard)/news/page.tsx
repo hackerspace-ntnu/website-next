@@ -4,6 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { cx } from '@/lib/utils';
 
 import { NewsCard } from '@/components/news/NewsCard';
+import { NewsItemGrid } from '@/components/news/NewsItemGrid';
 import { Separator } from '@/components/ui/Separator';
 
 export async function generateMetadata({
@@ -68,7 +69,7 @@ export default function News({
     },
     {
       id: 8,
-      title: 'Hvorfor er jeg her?',
+      title: 'Dette er en veeeeldig lang overskrift som skal testes',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
@@ -90,52 +91,45 @@ export default function News({
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 12,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 13,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 14,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 15,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 16,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 17,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 18,
-      title: 'Hvorfor er jeg her?',
+      title: '18',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
@@ -146,24 +140,27 @@ export default function News({
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 20,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 21,
       title: 'Hvorfor er jeg her?',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
-
     {
       id: 22,
       title: 'Hvorfor er jeg her?',
+      date: '22. oktober 2023',
+      photoUrl: 'mock.jpg',
+    },
+    {
+      id: 23,
+      title: '23',
       date: '22. oktober 2023',
       photoUrl: 'mock.jpg',
     },
@@ -190,6 +187,17 @@ export default function News({
         ))}
       </div>
       <Separator className='my-6' />
+      <NewsItemGrid
+        pageQueryName={locale === 'en' ? 'page' : 'side'}
+        newsData={mockData}
+        t={{
+          morePages: useTranslations('ui')('morePages'),
+          goToPreviousPage: useTranslations('ui')('goToPreviousPage'),
+          goToNextPage: useTranslations('ui')('goToNextPage'),
+          previous: useTranslations('ui')('previous'),
+          next: useTranslations('ui')('next'),
+        }}
+      />
     </>
   );
 }

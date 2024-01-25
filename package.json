@@ -34,6 +34,7 @@
     "next-intl": "^3.4.4",
     "next-sitemap": "^4.2.3",
     "next-themes": "^0.2.1",
+    "nuqs": "^1.15.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^2.2.0",

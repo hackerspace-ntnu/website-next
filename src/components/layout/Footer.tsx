@@ -115,9 +115,11 @@ function Footer() {
             <h4>{t('links')}</h4>
             <Nav
               className='ml-2 mt-2 space-y-1.5'
-              news={t('news')}
-              events={t('events')}
-              about={t('about')}
+              t={{
+                news: t('news'),
+                events: t('events'),
+                about: t('about'),
+              }}
             />
           </div>
           <div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { Globe2 } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import * as React from 'react';
 
 import { flagIcons, locales } from '@/lib/config';
@@ -14,15 +15,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 
-function LocaleMenu({ changeLocale }: { changeLocale: string }) {
+function LocaleMenu({ t }: { t: { changeLocale: string } }) {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
           <Globe2 className='h-[1.2rem] w-[1.2rem]' />
-          <span className='sr-only'>{changeLocale}</span>
+          <span className='sr-only'>{t.changeLocale}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
@@ -31,7 +33,15 @@ function LocaleMenu({ changeLocale }: { changeLocale: string }) {
           return (
             <DropdownMenuItem
               key={locale}
-              onClick={() => router.push(pathname, { locale: locale })}
+              onClick={() =>
+                router.push(
+                  {
+                    pathname,
+                    params: params as never,
+                  },
+                  { locale: locale },
+                )
+              }
               className='flex items-center'
             >
               <FlagIcon
