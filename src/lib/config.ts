@@ -18,6 +18,14 @@ const pathnames = {
     en: '/news',
     no: '/nyheter',
   },
+  '/news/new': {
+    en: '/news/new',
+    no: '/nyheter/ny',
+  },
+  '/news/[articleId]': {
+    en: '/news/[articleId]',
+    no: '/nyheter/[articleId]',
+  },
   '/about': {
     en: '/about',
     no: '/om-oss',

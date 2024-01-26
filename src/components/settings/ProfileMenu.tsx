@@ -11,17 +11,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 
-function ProfileMenu({ profile, signIn }: { profile: string; signIn: string }) {
+function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
+  // TODO: User Icon Color should only have the primary color when logged in
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
           <User className='h-[1.2rem] w-[1.2rem] text-primary' />
-          <span className='sr-only'>{profile}</span>
+          <span className='sr-only'>{t.profile}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        <DropdownMenuItem>{signIn}</DropdownMenuItem>
+        <DropdownMenuItem>{t.signIn}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

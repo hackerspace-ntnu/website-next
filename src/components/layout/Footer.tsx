@@ -18,7 +18,7 @@ function Footer() {
   const t = useTranslations('layout');
   const year = new Date().getFullYear();
   return (
-    <footer className='z-10 flex w-full justify-center border-t border-border/40 bg-background/95 px-11 py-10 md:px-16 lg:px-24'>
+    <footer className='flex w-full justify-center border-t border-border/40 bg-background/95 px-11 py-10 md:px-16 lg:px-24'>
       <div className='w-full max-w-screen-2xl text-sm'>
         <div className='grid grid-cols-1 gap-x-4 gap-y-12 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
           <div>
@@ -115,9 +115,11 @@ function Footer() {
             <h4>{t('links')}</h4>
             <Nav
               className='ml-2 mt-2 space-y-1.5'
-              news={t('news')}
-              events={t('events')}
-              about={t('about')}
+              t={{
+                news: t('news'),
+                events: t('events'),
+                about: t('about'),
+              }}
             />
           </div>
           <div>

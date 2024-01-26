@@ -2,6 +2,14 @@
   "meta": {
     "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
   },
+  "ui": {
+    "close": "Close",
+    "previous": "Previous",
+    "goToPreviousPage": "Go to previous page",
+    "next": "Next",
+    "goToNextPage": "Go to next page",
+    "morePages": "More pages"
+  },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
     "news": "News",
@@ -31,5 +39,11 @@
     "NTNUKiD": "The working life network KID",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "news": {
+    "title": "News",
+    "page": "Page",
+    "internalArticle": "This is an internal article",
+    "newArticle": "New article"
   }
 }
