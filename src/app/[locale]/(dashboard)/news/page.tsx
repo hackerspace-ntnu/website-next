@@ -188,7 +188,6 @@ export default function News({
       </div>
       <Separator className='my-6' />
       <NewsItemGrid
-        pageQueryName={locale === 'en' ? 'page' : 'side'}
         newsData={mockData}
         t={{
           morePages: useTranslations('ui')('morePages'),
@@ -196,6 +195,7 @@ export default function News({
           goToNextPage: useTranslations('ui')('goToNextPage'),
           previous: useTranslations('ui')('previous'),
           next: useTranslations('ui')('next'),
+          page: t('page'),
         }}
       />
     </>

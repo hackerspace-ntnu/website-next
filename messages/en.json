@@ -41,6 +41,7 @@
     "allRightsReserved": "All rights reserved"
   },
   "news": {
-    "title": "News"
+    "title": "News",
+    "page": "Page"
   }
 }

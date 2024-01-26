@@ -41,6 +41,7 @@
     "allRightsReserved": "Alle rettigheter reservert"
   },
   "news": {
-    "title": "Nyheter"
+    "title": "Nyheter",
+    "page": "Side"
   }
 }
