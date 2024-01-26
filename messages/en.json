@@ -42,6 +42,7 @@
   },
   "news": {
     "title": "News",
-    "page": "Page"
+    "page": "Page",
+    "internalArticle": "This is an internal article"
   }
 }

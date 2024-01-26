@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/lib/navigation';
 import { cx } from '@/lib/utils';
 
+import { InternalBadge } from '@/components/news/InternalBadge';
 import { Button } from '@/components/ui/Button';
 import {
   Card,
@@ -14,12 +15,24 @@ import {
 type NewsCardProps = {
   className?: string;
   id: number;
+  internal: boolean;
   title: string;
   date: string;
   photoUrl: string;
+  t: {
+    internalArticle: string;
+  };
 };
 
-function NewsCard({ className, id, title, date, photoUrl }: NewsCardProps) {
+function NewsCard({
+  className,
+  id,
+  internal,
+  title,
+  date,
+  photoUrl,
+  t,
+}: NewsCardProps) {
   return (
     <Button
       className={cx('group whitespace-normal font-normal', className)}
@@ -34,6 +47,7 @@ function NewsCard({ className, id, title, date, photoUrl }: NewsCardProps) {
         }}
       >
         <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>
+          <InternalBadge internal={internal} t={t} />
           <Image
             className='rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105'
             src={`/${photoUrl}`}

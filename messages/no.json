@@ -42,6 +42,7 @@
   },
   "news": {
     "title": "Nyheter",
-    "page": "Side"
+    "page": "Side",
+    "internalArticle": "Dette er en intern artikkel"
   }
 }

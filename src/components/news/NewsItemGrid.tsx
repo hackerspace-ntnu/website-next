@@ -8,6 +8,7 @@ import { NewsItem } from '@/components/news/NewsItem';
 type NewsItemGridProps = {
   newsData: {
     id: number;
+    internal: boolean;
     title: string;
     date: string;
     photoUrl: string;
@@ -19,6 +20,7 @@ type NewsItemGridProps = {
     previous: string;
     next: string;
     page: string;
+    internalArticle: string;
   };
 };
 
@@ -42,9 +44,13 @@ function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
           <NewsItem
             key={data.id}
             id={data.id}
+            internal={data.internal}
             title={data.title}
             date={data.date}
             photoUrl={data.photoUrl}
+            t={{
+              internalArticle: t.internalArticle,
+            }}
           />
         ))}
       </div>
