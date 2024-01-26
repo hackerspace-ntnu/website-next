@@ -22,7 +22,9 @@ function Footer() {
       <div className='w-full max-w-screen-2xl text-sm'>
         <div className='grid grid-cols-1 gap-x-4 gap-y-12 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
           <div>
-            <LogoLink className='justify-start' />
+            <div className='flex'>
+              <LogoLink className='justify-start' />
+            </div>
             <p className='ml-2 leading-tight'>
               <strong>{t('openingHours')}:</strong>
               <br />
