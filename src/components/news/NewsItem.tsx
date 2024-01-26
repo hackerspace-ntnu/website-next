@@ -36,8 +36,8 @@ function NewsItem({
     >
       <Link
         href={{
-          pathname: '/news/[articleId]',
-          params: { articleId: id },
+          pathname: '/news/[article]',
+          params: { article: id },
         }}
       >
         <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>

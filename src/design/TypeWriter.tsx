@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
 
 // TypeWriter Interface
 interface TypeWriterProps {
@@ -9,10 +9,10 @@ interface TypeWriterProps {
 
 // TypeWriter Function: Renders text as if it is being written out.
 const TypeWriter: React.FC<TypeWriterProps> = ({ className, text, delay }) => {
-  const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentText, setCurrentText] = React.useState('');
+  const [currentIndex, setCurrentIndex] = React.useState(0);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
         setCurrentText((prevText) => prevText + text[currentIndex]);

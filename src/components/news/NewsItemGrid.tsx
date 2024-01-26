@@ -65,4 +65,4 @@ function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
   );
 }
 
-export { NewsItemGrid };
+export { NewsItemGrid, type NewsItemGridProps };

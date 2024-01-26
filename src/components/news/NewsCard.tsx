@@ -42,8 +42,8 @@ function NewsCard({
     >
       <Link
         href={{
-          pathname: '/news/[articleId]',
-          params: { articleId: id },
+          pathname: '/news/[article]',
+          params: { article: id },
         }}
       >
         <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>
