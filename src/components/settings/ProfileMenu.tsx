@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 
 function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
+  // TODO: User Icon Color should only have the primary color when logged in
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

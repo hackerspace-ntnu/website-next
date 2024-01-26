@@ -43,6 +43,7 @@
   "news": {
     "title": "News",
     "page": "Page",
-    "internalArticle": "This is an internal article"
+    "internalArticle": "This is an internal article",
+    "newArticle": "New article"
   }
 }

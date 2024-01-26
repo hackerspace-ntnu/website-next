@@ -1,10 +1,13 @@
+import { SquarePen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
+import { Link } from '@/lib/navigation';
 import { cx } from '@/lib/utils';
 
 import { NewsCard } from '@/components/news/NewsCard';
 import { NewsItemGrid } from '@/components/news/NewsItemGrid';
+import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
 
 export async function generateMetadata({
@@ -190,9 +193,18 @@ export default function News({
   ];
   unstable_setRequestLocale(locale);
   const t = useTranslations('news');
+  // TODO: Button to create new article should only be visible when logged in
   return (
     <>
-      <h1 className='my-4'>{t('title')}</h1>
+      <div className='flex items-center justify-between'>
+        <h1 className='my-4'>{t('title')}</h1>
+        <Button asChild size='sm'>
+          <Link href='/news/new'>
+            <SquarePen className='mr-2 h-4 w-4' />
+            {t('newArticle')}
+          </Link>
+        </Button>
+      </div>
       <div className='grid h-192 grid-rows-4 gap-4 xs:h-96 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-112'>
         {mockData.slice(0, 4).map((data, index) => (
           <NewsCard

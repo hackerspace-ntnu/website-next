@@ -43,6 +43,7 @@
   "news": {
     "title": "Nyheter",
     "page": "Side",
-    "internalArticle": "Dette er en intern artikkel"
+    "internalArticle": "Dette er en intern artikkel",
+    "newArticle": "Ny artikkel"
   }
 }
