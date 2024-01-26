@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function NewsItemSkeleton() {
+function ArticleItemSkeleton() {
   return (
     <div className='flex gap-4 overflow-hidden rounded-lg'>
       <div className='relative h-28 w-28 flex-shrink-0'>
@@ -14,4 +14,4 @@ function NewsItemSkeleton() {
   );
 }
 
-export { NewsItemSkeleton };
+export { ArticleItemSkeleton };

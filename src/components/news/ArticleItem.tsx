@@ -6,7 +6,7 @@ import { cx } from '@/lib/utils';
 import { InternalBadge } from '@/components/news/InternalBadge';
 import { Button } from '@/components/ui/Button';
 
-type NewsCardProps = {
+type ArticleItemProps = {
   className?: string;
   id: number;
   internal: boolean;
@@ -18,7 +18,7 @@ type NewsCardProps = {
   };
 };
 
-function NewsItem({
+function ArticleItem({
   className,
   id,
   internal,
@@ -26,7 +26,7 @@ function NewsItem({
   date,
   photoUrl,
   t,
-}: NewsCardProps) {
+}: ArticleItemProps) {
   return (
     <Button
       className={cx('group block whitespace-normal font-normal', className)}
@@ -64,4 +64,4 @@ function NewsItem({
   );
 }
 
-export { NewsItem };
+export { ArticleItem };

@@ -4,8 +4,8 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import { Link } from '@/lib/navigation';
 
-import { NewsCardGridSuspense } from '@/components/news/NewsCardGridSuspense';
-import { NewsItemGridSuspense } from '@/components/news/NewsItemGridSuspense';
+import { CardGridSuspense } from '@/components/news/CardGridSuspense';
+import { ItemGridSuspense } from '@/components/news/ItemGridSuspense';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
 
@@ -204,14 +204,14 @@ export default function News({
           </Link>
         </Button>
       </div>
-      <NewsCardGridSuspense
+      <CardGridSuspense
         newsData={mockData}
         t={{
           internalArticle: t('internalArticle'),
         }}
       />
       <Separator className='my-6' />
-      <NewsItemGridSuspense
+      <ItemGridSuspense
         newsData={mockData}
         t={{
           morePages: useTranslations('ui')('morePages'),

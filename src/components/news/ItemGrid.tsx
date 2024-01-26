@@ -3,9 +3,9 @@
 import { parseAsInteger, useQueryState } from 'nuqs';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
-import { NewsItem } from '@/components/news/NewsItem';
+import { ArticleItem } from '@/components/news/ArticleItem';
 
-type NewsItemGridProps = {
+type ItemGridProps = {
   newsData: {
     id: number;
     internal: boolean;
@@ -24,7 +24,7 @@ type NewsItemGridProps = {
   };
 };
 
-function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
+function ItemGrid({ newsData, t }: ItemGridProps) {
   const itemsDisplayedAsCards = 4;
   const itemsPerPage = 6;
   const [page, setPage] = useQueryState(t.page, parseAsInteger.withDefault(1));
@@ -41,7 +41,7 @@ function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
     <>
       <div className='grid min-h-[752px] grid-cols-1 gap-4 sm:min-h-[368px] sm:grid-cols-2 lg:min-h-[240px] lg:grid-cols-3'>
         {currentData.map((data) => (
-          <NewsItem
+          <ArticleItem
             key={data.id}
             id={data.id}
             internal={data.internal}
@@ -65,4 +65,4 @@ function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
   );
 }
 
-export { NewsItemGrid, type NewsItemGridProps };
+export { ItemGrid, type ItemGridProps };

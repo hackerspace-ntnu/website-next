@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 
-type NewsCardProps = {
+type ArticleCardProps = {
   className?: string;
   id: number;
   internal: boolean;
@@ -24,7 +24,7 @@ type NewsCardProps = {
   };
 };
 
-function NewsCard({
+function ArticleCard({
   className,
   id,
   internal,
@@ -32,7 +32,7 @@ function NewsCard({
   date,
   photoUrl,
   t,
-}: NewsCardProps) {
+}: ArticleCardProps) {
   return (
     <Button
       className={cx('group whitespace-normal font-normal', className)}
@@ -68,4 +68,4 @@ function NewsCard({
   );
 }
 
-export { NewsCard };
+export { ArticleCard };

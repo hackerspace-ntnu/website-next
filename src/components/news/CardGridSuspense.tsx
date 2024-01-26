@@ -2,13 +2,10 @@ import * as React from 'react';
 
 import { cx } from '@/lib/utils';
 
-import {
-  NewsCardGrid,
-  type NewsCardGridProps,
-} from '@/components/news/NewsCardGrid';
+import { CardGrid, type CardGridProps } from '@/components/news/CardGrid';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function NewsCardGridSuspense({ ...props }: NewsCardGridProps) {
+function CardGridSuspense({ ...props }: CardGridProps) {
   return (
     <React.Suspense
       fallback={
@@ -27,9 +24,9 @@ function NewsCardGridSuspense({ ...props }: NewsCardGridProps) {
         </div>
       }
     >
-      <NewsCardGrid {...props} />
+      <CardGrid {...props} />
     </React.Suspense>
   );
 }
 
-export { NewsCardGridSuspense };
+export { CardGridSuspense };

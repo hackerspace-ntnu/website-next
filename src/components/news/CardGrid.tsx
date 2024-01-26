@@ -1,8 +1,8 @@
 import { cx } from '@/lib/utils';
 
-import { NewsCard } from '@/components/news/NewsCard';
+import { ArticleCard } from '@/components/news/ArticleCard';
 
-type NewsCardGridProps = {
+type CardGridProps = {
   newsData: {
     id: number;
     internal: boolean;
@@ -15,11 +15,11 @@ type NewsCardGridProps = {
   };
 };
 
-function NewsCardGrid({ newsData, t }: NewsCardGridProps) {
+function CardGrid({ newsData, t }: CardGridProps) {
   return (
     <div className='grid h-192 grid-rows-4 gap-4 xs:h-96 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-112'>
       {newsData.slice(0, 4).map((data, index) => (
-        <NewsCard
+        <ArticleCard
           className={cx(
             index === 0 && 'row-span-1 xs:col-span-2 md:row-span-2',
             index === 1 && 'col-span-1 row-span-1 md:col-span-2',
@@ -40,4 +40,4 @@ function NewsCardGrid({ newsData, t }: NewsCardGridProps) {
   );
 }
 
-export { NewsCardGrid, type NewsCardGridProps };
+export { CardGrid, type CardGridProps };
