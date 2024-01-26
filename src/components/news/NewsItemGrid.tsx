@@ -39,7 +39,7 @@ function NewsItemGrid({ newsData, t }: NewsItemGridProps) {
 
   return (
     <>
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      <div className='grid min-h-[752px] grid-cols-1 gap-4 sm:min-h-[368px] sm:grid-cols-2 lg:min-h-[240px] lg:grid-cols-3'>
         {currentData.map((data) => (
           <NewsItem
             key={data.id}
