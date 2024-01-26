@@ -36,7 +36,7 @@ export async function generateMetadata({
 
   return {
     title: {
-      template: 'Hackerspace NTNU | %s',
+      template: '%s | Hackerspace NTNU',
       default: 'Hackerspace NTNU',
     },
     description: t('description'),

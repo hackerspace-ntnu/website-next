@@ -1,18 +1,12 @@
 'use client';
 
+import { articleMockData as articleData } from '@/mock-data/article';
 import { parseAsInteger, useQueryState } from 'nuqs';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 import { ArticleItem } from '@/components/news/ArticleItem';
 
 type ItemGridProps = {
-  newsData: {
-    id: number;
-    internal: boolean;
-    title: string;
-    date: string;
-    photoUrl: string;
-  }[];
   t: {
     morePages: string;
     goToPreviousPage: string;
@@ -24,17 +18,17 @@ type ItemGridProps = {
   };
 };
 
-function ItemGrid({ newsData, t }: ItemGridProps) {
+function ItemGrid({ t }: ItemGridProps) {
   const itemsDisplayedAsCards = 4;
   const itemsPerPage = 6;
   const [page, setPage] = useQueryState(t.page, parseAsInteger.withDefault(1));
 
   const start = (page - 1) * itemsPerPage + itemsDisplayedAsCards;
   const end = start + itemsPerPage;
-  const currentData = newsData.slice(start, end);
+  const currentData = articleData.slice(start, end);
 
   const totalPages = Math.ceil(
-    (newsData.length - itemsDisplayedAsCards) / itemsPerPage,
+    (articleData.length - itemsDisplayedAsCards) / itemsPerPage,
   );
 
   return (

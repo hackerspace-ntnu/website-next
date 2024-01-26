@@ -1,24 +1,19 @@
+import { articleMockData as articleData } from '@/mock-data/article';
+
 import { cx } from '@/lib/utils';
 
 import { ArticleCard } from '@/components/news/ArticleCard';
 
 type CardGridProps = {
-  newsData: {
-    id: number;
-    internal: boolean;
-    title: string;
-    date: string;
-    photoUrl: string;
-  }[];
   t: {
     internalArticle: string;
   };
 };
 
-function CardGrid({ newsData, t }: CardGridProps) {
+function CardGrid({ t }: CardGridProps) {
   return (
     <div className='grid h-192 grid-rows-4 gap-4 xs:h-96 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-112'>
-      {newsData.slice(0, 4).map((data, index) => (
+      {articleData.slice(0, 4).map((data, index) => (
         <ArticleCard
           className={cx(
             index === 0 && 'row-span-1 xs:col-span-2 md:row-span-2',
