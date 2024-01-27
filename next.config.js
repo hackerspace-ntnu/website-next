@@ -8,4 +8,6 @@ await import('./src/env.js');
 const withNextIntl = nextIntl('./src/i18n.ts');
 
 /** @type {import("next").NextConfig} */
-export default withNextIntl({});
+const config = {};
+
+export default withNextIntl(config);

@@ -1,5 +1,5 @@
 /** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions & import("@trivago/prettier-plugin-sort-imports").PluginConfig} */
-export default {
+const config = {
   semi: true,
   singleQuote: true,
   tabWidth: 2,
@@ -19,3 +19,5 @@ export default {
     'prettier-plugin-tailwindcss',
   ],
 };
+
+export default config;
