@@ -1,5 +1,5 @@
 /** @type {import("eslint").Linter.Config} */
-const config = {
+module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: true,
@@ -34,5 +34,3 @@ const config = {
     ],
   },
 };
-
-module.exports = config;
