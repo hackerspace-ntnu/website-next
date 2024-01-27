@@ -67,22 +67,16 @@ bun run start
 
 To check linting, formatting or types you run the respective command:
 
-Linting:
+Check linting and formatting:
 
 ```bash
-bun run lint
+bun lint
 ```
 
-Formatting:
+Check types:
 
 ```bash
-bun run format
-```
-
-Types:
-
-```bash
-bun run type
+bun type-check
 ```
 
 If you are using vscode and are experiencing issues with types, you can restart the typescript server by pressing `cmd + shift + p` and then type `TypeScript: Restart TS Server` (You need to have a typescript file open for this to work).

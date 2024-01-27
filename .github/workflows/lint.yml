@@ -1,8 +1,8 @@
-name: Lint and Format
+name: Lint
 
 on: push
 jobs:
-  lint-and-format:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -11,4 +11,3 @@ jobs:
           bun-version: 1.0.24
       - run: bun install
       - run: bun lint
-      - run: bun format
