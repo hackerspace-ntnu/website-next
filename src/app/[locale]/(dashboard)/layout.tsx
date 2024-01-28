@@ -5,13 +5,15 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
 
-export default function Dashboardlayout({
-  children,
-  params: { locale },
-}: {
+type DashboardProps = {
   children: ReactNode;
   params: { locale: string };
-}) {
+};
+
+export default function Dashboard({
+  children,
+  params: { locale },
+}: DashboardProps) {
   unstable_setRequestLocale(locale);
   return (
     <>

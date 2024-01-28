@@ -1,3 +1,7 @@
+'use client';
+
+import { parseAsInteger, useQueryState } from 'nuqs';
+
 import { cx } from '@/lib/utils';
 
 import {
@@ -12,8 +16,6 @@ import {
 
 type PaginationCarouselProps = {
   className?: string;
-  page: number;
-  setPage: (page: number) => void;
   totalPages: number;
   t: {
     goToPreviousPage: string;
@@ -21,36 +23,37 @@ type PaginationCarouselProps = {
     morePages: string;
     goToNextPage: string;
     next: string;
+    page: string;
   };
 };
 
 function PaginationCarousel({
   className,
-  page,
-  setPage,
   totalPages,
   t,
 }: PaginationCarouselProps) {
-  async function handlePrevious(e: React.MouseEvent<HTMLAnchorElement>) {
+  const [page, setPage] = useQueryState(t.page, parseAsInteger.withDefault(1));
+
+  function handlePrevious(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     if (page > 1) {
-      setPage(page - 1);
+      void setPage(page - 1);
     }
   }
 
-  async function handleNext(e: React.MouseEvent<HTMLAnchorElement>) {
+  function handleNext(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     if (page < totalPages) {
-      setPage(page + 1);
+      void setPage(page + 1);
     }
   }
 
-  async function handlePageClick(
+  function handlePageClick(
     e: React.MouseEvent<HTMLAnchorElement>,
     pageNum: number,
   ) {
     e.preventDefault();
-    setPage(pageNum);
+    void setPage(pageNum);
   }
 
   let pagesToDisplay = [];

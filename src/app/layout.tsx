@@ -2,10 +2,10 @@ import { type ReactNode } from 'react';
 
 import '@/styles/globals.css';
 
-type Props = {
+type RootlayoutProps = {
   children: ReactNode;
 };
 
-export default function Rootlayout({ children }: Props) {
+export default function Rootlayout({ children }: RootlayoutProps) {
   return children;
 }

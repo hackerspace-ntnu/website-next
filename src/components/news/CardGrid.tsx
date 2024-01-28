@@ -5,15 +5,19 @@ import { cx } from '@/lib/utils';
 import { ArticleCard } from '@/components/news/ArticleCard';
 
 type CardGridProps = {
-  t: {
-    internalArticle: string;
-  };
+  topArticles: {
+    id: number;
+    internal: boolean;
+    title: string;
+    date: string;
+    photoUrl: string;
+  }[];
 };
 
-function CardGrid({ t }: CardGridProps) {
+function CardGrid({ topArticles }: CardGridProps) {
   return (
     <div className='grid h-192 grid-rows-4 gap-4 xs:h-96 xs:grid-cols-3 xs:grid-rows-2 md:grid-cols-4 lg:h-112'>
-      {articleData.slice(0, 4).map((data, index) => (
+      {topArticles.map((data, index) => (
         <ArticleCard
           className={cx(
             index === 0 && 'row-span-1 xs:col-span-2 md:row-span-2',
@@ -26,9 +30,6 @@ function CardGrid({ t }: CardGridProps) {
           title={data.title}
           date={data.date}
           photoUrl={data.photoUrl}
-          t={{
-            internalArticle: t.internalArticle,
-          }}
         />
       ))}
     </div>

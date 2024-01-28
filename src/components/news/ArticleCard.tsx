@@ -19,9 +19,6 @@ type ArticleCardProps = {
   title: string;
   date: string;
   photoUrl: string;
-  t: {
-    internalArticle: string;
-  };
 };
 
 function ArticleCard({
@@ -31,7 +28,6 @@ function ArticleCard({
   title,
   date,
   photoUrl,
-  t,
 }: ArticleCardProps) {
   return (
     <Button
@@ -47,7 +43,7 @@ function ArticleCard({
         }}
       >
         <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>
-          <InternalBadge internal={internal} t={t} />
+          <InternalBadge internal={internal} />
           <Image
             className='rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105'
             src={`/${photoUrl}`}

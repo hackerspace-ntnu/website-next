@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import {
   Pagination,
   PaginationContent,
@@ -9,19 +11,12 @@ import {
 
 type PaginationCarouselSkeletonProps = {
   className?: string;
-  t: {
-    goToPreviousPage: string;
-    previous: string;
-    morePages: string;
-    goToNextPage: string;
-    next: string;
-  };
 };
 
 function PaginationCarouselSkeleton({
   className,
-  t,
 }: PaginationCarouselSkeletonProps) {
+  const t = useTranslations('ui');
   return (
     <Pagination className={className}>
       <PaginationContent>
@@ -29,8 +24,8 @@ function PaginationCarouselSkeleton({
           <PaginationPrevious
             className='cursor-not-allowed opacity-50 hover:bg-transparent'
             href='#'
-            goToPreviousPage={t.goToPreviousPage}
-            previous={t.previous}
+            goToPreviousPage={t('goToPreviousPage')}
+            previous={t('previous')}
             aria-disabled={true}
             tabIndex={-1}
           />
@@ -44,8 +39,8 @@ function PaginationCarouselSkeleton({
           <PaginationNext
             className='cursor-not-allowed opacity-50 hover:bg-transparent'
             href='#'
-            goToNextPage={t.goToNextPage}
-            next={t.next}
+            goToNextPage={t('goToNextPage')}
+            next={t('next')}
             aria-disabled={true}
             tabIndex={-1}
           />

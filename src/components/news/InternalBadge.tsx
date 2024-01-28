@@ -1,4 +1,5 @@
 import { ShieldAlert } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { cx } from '@/lib/utils';
 
@@ -13,12 +14,10 @@ import {
 type InternalBadgeProps = {
   className?: string;
   internal: boolean;
-  t: {
-    internalArticle: string;
-  };
 };
 
-function InternalBadge({ className, internal, t }: InternalBadgeProps) {
+function InternalBadge({ className, internal }: InternalBadgeProps) {
+  const t = useTranslations('news');
   if (!internal) return null;
   return (
     <TooltipProvider>
@@ -39,7 +38,7 @@ function InternalBadge({ className, internal, t }: InternalBadgeProps) {
           </Button>
         </TooltipTrigger>
         <TooltipContent sideOffset={3}>
-          <p>{t.internalArticle}</p>
+          <p>{t('internalArticle')}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

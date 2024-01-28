@@ -8,7 +8,7 @@ import { cx } from '@/lib/utils';
 
 import { RootProviders } from '@/components/providers/RootProviders';
 
-type Props = {
+type LocalelayoutProps = {
   children: ReactNode;
   params: { locale: string };
 };
@@ -31,7 +31,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params: { locale },
-}: Omit<Props, 'children'>) {
+}: Omit<LocalelayoutProps, 'children'>) {
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -72,7 +72,10 @@ export async function generateMetadata({
   };
 }
 
-export default function Localelayout({ children, params: { locale } }: Props) {
+export default function Localelayout({
+  children,
+  params: { locale },
+}: LocalelayoutProps) {
   if (!locales.includes(locale)) notFound();
   unstable_setRequestLocale(locale);
   return (

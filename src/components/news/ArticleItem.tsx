@@ -13,9 +13,6 @@ type ArticleItemProps = {
   title: string;
   date: string;
   photoUrl: string;
-  t: {
-    internalArticle: string;
-  };
 };
 
 function ArticleItem({
@@ -25,7 +22,6 @@ function ArticleItem({
   title,
   date,
   photoUrl,
-  t,
 }: ArticleItemProps) {
   return (
     <Button
@@ -42,7 +38,7 @@ function ArticleItem({
       >
         <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='relative h-28 w-28 flex-shrink-0'>
-            <InternalBadge className='h-5 w-5' internal={internal} t={t} />
+            <InternalBadge className='h-5 w-5' internal={internal} />
             <Image
               className='rounded-lg object-cover object-center'
               src={`/${photoUrl}`}
