@@ -44,6 +44,7 @@
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",
-    "newArticle": "New article"
+    "newArticle": "New article",
+    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read"
   }
 }
