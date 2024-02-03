@@ -14,11 +14,11 @@ function AvatarIcon({ className, photoUrl, name, initials }: AvatarIconProps) {
     <Avatar className={className}>
       {photoUrl && (
         <Image
-          className='aspect-square h-full w-full'
+          className='object-cover object-center'
           src={photoUrl}
           alt={name}
-          sizes='(max-width: 768px) 100%, 100%'
-          fill
+          width={40}
+          height={40}
         />
       )}
       {!photoUrl && <AvatarFallback>{initials}</AvatarFallback>}

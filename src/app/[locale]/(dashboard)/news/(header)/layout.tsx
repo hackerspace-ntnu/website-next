@@ -1,14 +1,13 @@
 import { SquarePen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { type ReactNode } from 'react';
 
 import { Link } from '@/lib/navigation';
 
 import { Button } from '@/components/ui/Button';
 
 type NewsHeaderProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { locale: string };
 };
 

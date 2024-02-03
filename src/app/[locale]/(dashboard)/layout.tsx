@@ -1,12 +1,11 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { type ReactNode } from 'react';
 
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
 
 type DashboardProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { locale: string };
 };
 

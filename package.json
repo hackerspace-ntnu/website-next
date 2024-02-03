@@ -39,8 +39,6 @@
     "reading-time": "^1.5.0",
     "sharp": "^0.33.2",
     "tailwind-merge": "^2.2.0",
-    "tailwind-scrollbar": "^3.0.5",
-    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -60,7 +58,9 @@
     "postcss": "^8.4.31",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.3.5",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.1.6"
   },
   "packageManager": "bun@1.0.24"

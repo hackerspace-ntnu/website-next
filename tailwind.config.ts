@@ -1,4 +1,6 @@
+import tailwindScrollbar from 'tailwind-scrollbar';
 import { type Config } from 'tailwindcss';
+import tailwindAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config = {
@@ -69,11 +71,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
-    require('tailwind-scrollbar')({ nocompatible: true }),
-  ],
+  plugins: [tailwindAnimate, tailwindScrollbar({ nocompatible: true })],
 } satisfies Config;
 
 export default config;

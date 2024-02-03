@@ -4,6 +4,7 @@ import {
 } from '@/mock-data/article';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import readingTime from 'reading-time';
 
@@ -49,7 +50,16 @@ export default function Article({
   return (
     <>
       <h2 className='first:my-4'>{article.title}</h2>
-      <section className='flex items-center gap-4'>
+      <section className='mb-6 md:mb-10'>
+        <Image
+          className='h-full w-full rounded-lg'
+          src={`/${article.photoUrl}`}
+          alt={article.title}
+          width={100}
+          height={100}
+        />
+      </section>
+      <section className='mb-12 flex items-center gap-4'>
         <AvatarIcon
           photoUrl={`/${author.photoUrl}`}
           name={author.name}

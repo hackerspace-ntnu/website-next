@@ -7,6 +7,5 @@
     ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "i18n-ally.localesPaths": ["messages"],
-  "i18n-ally.keystyle": "nested",
-  "codeQL.githubDatabase.download": "never"
+  "i18n-ally.keystyle": "nested"
 }
