@@ -10,11 +10,11 @@ import readingTime from 'reading-time';
 
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
 
-export async function generateStaticParams() {
-  return articleData.map((article) => ({
-    article: String(article.id),
-  }));
-}
+// export async function generateStaticParams() {
+//   return articleData.map((article) => ({
+//     article: String(article.id),
+//   }));
+// }
 
 export async function generateMetadata({
   params,

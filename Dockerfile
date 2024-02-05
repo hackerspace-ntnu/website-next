@@ -1,10 +1,10 @@
-FROM imbios/bun-node:20-alpine
+FROM imbios/bun-node:20-slim
 
 WORKDIR /app
 
 COPY package.json bun.lockb ./
 
-RUN bun install --frozen-lockfile --production
+RUN bun install --production --frozen-lockfile
 
 COPY . .
 

@@ -1,5 +1,3 @@
-import { articleMockData as articleData } from '@/mock-data/article';
-
 import { cx } from '@/lib/utils';
 
 import { ArticleCard } from '@/components/news/ArticleCard';
