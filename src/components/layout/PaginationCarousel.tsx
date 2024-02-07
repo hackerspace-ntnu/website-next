@@ -32,7 +32,10 @@ function PaginationCarousel({
   totalPages,
   t,
 }: PaginationCarouselProps) {
-  const [page, setPage] = useQueryState(t.page, parseAsInteger.withDefault(1));
+  const [page, setPage] = useQueryState(
+    t.page,
+    parseAsInteger.withDefault(1).withOptions({ shallow: false }),
+  );
 
   function handlePrevious(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();

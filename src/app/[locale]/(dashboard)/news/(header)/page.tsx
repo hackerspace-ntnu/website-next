@@ -22,10 +22,6 @@ export async function generateMetadata({
   };
 }
 
-const searchParamsCache = createSearchParamsCache({
-  page: parseAsInteger.withDefault(1),
-});
-
 export default function News({
   params: { locale },
   searchParams,
@@ -35,7 +31,11 @@ export default function News({
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('ui');
-  const { page } = searchParamsCache.parse(searchParams);
+  const searchParamsCache = createSearchParamsCache({
+    [t('page')]: parseAsInteger.withDefault(1),
+  });
+
+  const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
   // TODO: Button to create new article should only be visible when logged in
   return (
     <>
