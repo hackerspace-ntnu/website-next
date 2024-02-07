@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import readingTime from 'reading-time';
 
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { Badge } from '@/components/ui/Badge';
 
 // export async function generateStaticParams() {
 //   return articleData.map((article) => ({
@@ -48,33 +49,39 @@ export default function Article({
   const { minutes } = readingTime(article.content!);
   const author = authorData[0]!;
   return (
-    <>
-      <h2 className='first:my-4'>{article.title}</h2>
-      <section className='mb-6 md:mb-10'>
-        <Image
-          className='h-full w-full rounded-lg'
-          src={`/${article.photoUrl}`}
-          alt={article.title}
-          width={100}
-          height={100}
-        />
-      </section>
-      <section className='mb-12 flex items-center gap-4'>
-        <AvatarIcon
-          photoUrl={`/${author.photoUrl}`}
-          name={author.name}
-          initials={author.initials}
-        />
-        <div className='flex flex-col'>
-          <p className='font-montserrat font-semibold'>{author.name}</p>
-          <small className='text-foreground/60'>
-            {t('readTime', { count: Math.ceil(minutes) })}
-            &nbsp;&nbsp;•&nbsp;&nbsp;
-            {article.date}
-          </small>
+    <article>
+      <header>
+        <div className='mb-10 mt-5 flex justify-center'>
+          <Image
+            className='h-auto w-full max-w-4xl rounded-lg'
+            src={`/${article.photoUrl}`}
+            alt={article.title}
+            width={1600}
+            height={900}
+            priority
+          />
         </div>
+        <h2 className='my-4'>{article.title}</h2>
+      </header>
+      <section className='mb-6 space-y-4'>
+        <div className='flex items-center gap-4'>
+          <AvatarIcon
+            photoUrl={`/${author.photoUrl}`}
+            name={author.name}
+            initials={author.initials}
+          />
+          <div className='flex flex-col'>
+            <p className='font-montserrat font-semibold'>{author.name}</p>
+            <small className='text-foreground/60'>
+              {t('readTime', { count: Math.ceil(minutes) })}
+              &nbsp;&nbsp;•&nbsp;&nbsp;
+              {article.date}
+            </small>
+          </div>
+        </div>
+        <Badge variant='secondary'>{article.views + ' ' + t('views')}</Badge>
       </section>
-      <p>{article.content}</p>
-    </>
+      <section className='my-6'>{article.content}</section>
+    </article>
   );
 }

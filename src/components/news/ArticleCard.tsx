@@ -48,6 +48,7 @@ function ArticleCard({
             className='rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105'
             src={`/${photoUrl}`}
             alt={title}
+            priority
             fill
           />
           <CardHeader className='mt-auto w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:p-6'>
