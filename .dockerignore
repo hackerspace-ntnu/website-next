@@ -23,9 +23,6 @@ next-env.d.ts
 public/sitemap.xml
 public/robots.txt
 
-# prettier
-prettier.config.js
-
 # docker
 Dockerfile*
 .dockerignore

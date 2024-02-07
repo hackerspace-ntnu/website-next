@@ -8,7 +8,8 @@
     "goToPreviousPage": "Go to previous page",
     "next": "Next",
     "goToNextPage": "Go to next page",
-    "morePages": "More pages"
+    "morePages": "More pages",
+    "page": "page"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
@@ -42,8 +43,9 @@
   },
   "news": {
     "title": "News",
-    "page": "Page",
     "internalArticle": "This is an internal article",
-    "newArticle": "New article"
+    "newArticle": "New article",
+    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
+    "views": "Views"
   }
 }

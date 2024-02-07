@@ -1,5 +1,5 @@
 import { Eye, EyeOff } from 'lucide-react';
-import React, { useState } from 'react';
+import * as React from 'react';
 
 import { cx } from '@/lib/utils';
 
@@ -57,7 +57,7 @@ const Field: React.FC<FieldProps> = ({
   id,
   onClick,
 }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const _onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {

@@ -22,9 +22,9 @@ const pathnames = {
     en: '/news/new',
     no: '/nyheter/ny',
   },
-  '/news/[articleId]': {
-    en: '/news/[articleId]',
-    no: '/nyheter/[articleId]',
+  '/news/[article]': {
+    en: '/news/[article]',
+    no: '/nyheter/[article]',
   },
   '/about': {
     en: '/about',

@@ -63,26 +63,12 @@ Then to serve the build locally, run:
 bun run start
 ```
 
-## Check linting, formatting and types
+## Check linting and formatting
 
-To check linting, formatting or types you run the respective command:
-
-Linting:
+To check linting and formatting you run the respective command:
 
 ```bash
-bun run lint
-```
-
-Formatting:
-
-```bash
-bun run format
-```
-
-Types:
-
-```bash
-bun run type
+bun lint
 ```
 
 If you are using vscode and are experiencing issues with types, you can restart the typescript server by pressing `cmd + shift + p` and then type `TypeScript: Restart TS Server` (You need to have a typescript file open for this to work).

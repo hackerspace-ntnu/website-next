@@ -8,7 +8,8 @@
     "goToPreviousPage": "Gå til forrige side",
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
-    "morePages": "Flere sider"
+    "morePages": "Flere sider",
+    "page": "side"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
@@ -42,8 +43,9 @@
   },
   "news": {
     "title": "Nyheter",
-    "page": "Side",
     "internalArticle": "Dette er en intern artikkel",
-    "newArticle": "Ny artikkel"
+    "newArticle": "Ny artikkel",
+    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} read",
+    "views": "Visninger"
   }
 }

@@ -1,7 +1,9 @@
+import tailwindScrollbar from 'tailwind-scrollbar';
 import { type Config } from 'tailwindcss';
+import tailwindAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
-export default {
+const config = {
   content: ['./src/**/*.tsx'],
   darkMode: 'class',
   theme: {
@@ -69,9 +71,7 @@ export default {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
-    require('tailwind-scrollbar')({ nocompatible: true }),
-  ],
+  plugins: [tailwindAnimate, tailwindScrollbar({ nocompatible: true })],
 } satisfies Config;
+
+export default config;

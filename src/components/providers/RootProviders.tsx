@@ -1,19 +1,15 @@
-import { type ReactNode } from 'react';
-
 import { IntlErrorProvider } from '@/components/providers/IntlErrorProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
-type Props = {
-  children: ReactNode;
-  params: { locale: string };
+type RootProvidersProps = {
+  children: React.ReactNode;
+  locale: string;
 };
 
-function RootProviders({ children, params: { locale } }: Props) {
+function RootProviders({ children, locale }: RootProvidersProps) {
   return (
     <ThemeProvider>
-      <IntlErrorProvider params={{ locale: locale }}>
-        {children}
-      </IntlErrorProvider>
+      <IntlErrorProvider locale={locale}>{children}</IntlErrorProvider>
     </ThemeProvider>
   );
 }

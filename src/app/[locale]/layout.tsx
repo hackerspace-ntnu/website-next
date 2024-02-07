@@ -1,15 +1,14 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { type ReactNode } from 'react';
 
 import { locales } from '@/lib/config';
 import { cx } from '@/lib/utils';
 
 import { RootProviders } from '@/components/providers/RootProviders';
 
-type Props = {
-  children: ReactNode;
+type LocalelayoutProps = {
+  children: React.ReactNode;
   params: { locale: string };
 };
 
@@ -31,12 +30,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params: { locale },
-}: Omit<Props, 'children'>) {
+}: Omit<LocalelayoutProps, 'children'>) {
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
     title: {
-      template: 'Hackerspace NTNU | %s',
+      template: '%s | Hackerspace NTNU',
       default: 'Hackerspace NTNU',
     },
     description: t('description'),
@@ -72,7 +71,10 @@ export async function generateMetadata({
   };
 }
 
-export default function Localelayout({ children, params: { locale } }: Props) {
+export default function Localelayout({
+  children,
+  params: { locale },
+}: LocalelayoutProps) {
   if (!locales.includes(locale)) notFound();
   unstable_setRequestLocale(locale);
   return (
@@ -83,7 +85,7 @@ export default function Localelayout({ children, params: { locale } }: Props) {
       suppressHydrationWarning
     >
       <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
-        <RootProviders params={{ locale: locale }}>
+        <RootProviders locale={locale}>
           <div className='fixed bottom-0 top-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
             {children}
           </div>

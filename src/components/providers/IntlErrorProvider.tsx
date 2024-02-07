@@ -1,12 +1,11 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { type ReactNode } from 'react';
 
 type Props = {
-  children: ReactNode;
-  params: { locale: string };
+  children: React.ReactNode;
+  locale: string;
 };
 
-function IntlErrorProvider({ children, params: { locale } }: Props) {
+function IntlErrorProvider({ children, locale }: Props) {
   const messages = useMessages();
   return (
     <NextIntlClientProvider

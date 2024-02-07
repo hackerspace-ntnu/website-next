@@ -6,27 +6,23 @@ import { cx } from '@/lib/utils';
 import { InternalBadge } from '@/components/news/InternalBadge';
 import { Button } from '@/components/ui/Button';
 
-type NewsCardProps = {
+type ArticleItemProps = {
   className?: string;
   id: number;
   internal: boolean;
   title: string;
   date: string;
   photoUrl: string;
-  t: {
-    internalArticle: string;
-  };
 };
 
-function NewsItem({
+function ArticleItem({
   className,
   id,
   internal,
   title,
   date,
   photoUrl,
-  t,
-}: NewsCardProps) {
+}: ArticleItemProps) {
   return (
     <Button
       className={cx('group block whitespace-normal font-normal', className)}
@@ -36,13 +32,13 @@ function NewsItem({
     >
       <Link
         href={{
-          pathname: '/news/[articleId]',
-          params: { articleId: id },
+          pathname: '/news/[article]',
+          params: { article: id },
         }}
       >
         <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='relative h-28 w-28 flex-shrink-0'>
-            <InternalBadge className='h-5 w-5' internal={internal} t={t} />
+            <InternalBadge className='h-5 w-5' internal={internal} />
             <Image
               className='rounded-lg object-cover object-center'
               src={`/${photoUrl}`}
@@ -64,4 +60,4 @@ function NewsItem({
   );
 }
 
-export { NewsItem };
+export { ArticleItem };

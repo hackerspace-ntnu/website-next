@@ -1,9 +1,8 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
-import { type ReactNode } from 'react';
 
-function NextThemeProvider({ children }: { children: ReactNode }) {
+function NextThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       attribute='class'
