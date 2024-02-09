@@ -17,6 +17,7 @@ import {
 type MobileSheetProps = {
   className?: string;
   t: {
+    navigationMenu: string;
     news: string;
     events: string;
     about: string;
@@ -29,7 +30,12 @@ function MobileSheet({ className, t }: MobileSheetProps) {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button className={className} variant='ghost' size='icon'>
+        <Button
+          className={className}
+          variant='ghost'
+          size='icon'
+          aria-label={t.navigationMenu}
+        >
           <Menu className='h-5 w-5' />
         </Button>
       </SheetTrigger>

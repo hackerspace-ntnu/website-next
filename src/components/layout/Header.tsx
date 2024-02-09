@@ -14,6 +14,7 @@ function Header() {
       <MobileSheet
         className='flex md:hidden'
         t={{
+          navigationMenu: t('navigationMenu'),
           news: t('news'),
           events: t('events'),
           about: t('about'),
