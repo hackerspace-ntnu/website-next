@@ -48,5 +48,17 @@
     "newArticle": "New article",
     "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
     "views": "Views"
+  },
+  "storage": {
+    "title": "Storage",
+    "hereYouCanSearch": "Here you can search in our storage!",
+    "wantToBorrow": "Want to borrow something?",
+    "comeWorkshop": "Come to the workshop!",
+    "name": "Name",
+    "sort": "Sort",
+    "category": "Category",
+    "borrow": "Borrow",
+    "itemCount": "{count, plural, =1 {1 piece} other {# pieces}}. in stock.",
+    "itemLocation": "Shelf location {location}."
   }
 }

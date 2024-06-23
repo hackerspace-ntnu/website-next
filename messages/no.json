@@ -48,5 +48,17 @@
     "newArticle": "Ny artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger"
+  },
+  "storage": {
+    "title": "Lager",
+    "hereYouCanSearch": "Her kan du søke i lageret vårt!",
+    "wantToBorrow": "Lyst til å låne noe?",
+    "comeWorkshop": "Kom innom verkstedet!",
+    "name": "Navn",
+    "sort": "Sorter",
+    "category": "Kategori",
+    "borrow": "Lån",
+    "itemCount": "{count, plural, =1 {1 stykke} other {# stykk}}. på lager.",
+    "itemLocation": "Hylleplass {location}."
   }
 }
