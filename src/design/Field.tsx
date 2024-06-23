@@ -170,7 +170,7 @@ const Field: React.FC<FieldProps> = ({
                             ? 'bg-green-500 px-2'
                             : 'bg-accent-500 w-10',
                           index === buttons.length - 1
-                            ? ' rounded-l-none rounded-r-md'
+                            ? 'rounded-l-none rounded-r-md'
                             : 'rounded-none',
                           'disabled:bg-accent-500',
                           value.className,

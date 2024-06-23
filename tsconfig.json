@@ -26,17 +26,17 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-    },
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
-    ".eslintrc.cjs",
+    ".eslintrc.js",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
