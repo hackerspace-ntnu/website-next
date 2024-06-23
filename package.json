@@ -8,9 +8,8 @@
     "postbuild": "next-sitemap",
     "build": "next build",
     "dev": "next dev --turbo",
-    "lint": "next lint",
-    "start": "next start",
-    "format": "prettier --write ."
+    "lint": "next lint && prettier --write .",
+    "start": "next start"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
