@@ -13,8 +13,8 @@
     "format": "prettier --write ."
   },
   "lint-staged": {
-    "*.{js,cjs,ts,tsx}": [
-      "next lint",
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
       "prettier --write"
     ]
   },
