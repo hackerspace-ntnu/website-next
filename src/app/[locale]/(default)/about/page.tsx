@@ -12,7 +12,7 @@ export async function generateMetadata({
   };
 }
 
-export default function About({
+export default function AboutPage({
   params: { locale },
 }: {
   params: { locale: string };

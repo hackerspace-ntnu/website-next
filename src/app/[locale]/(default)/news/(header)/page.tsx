@@ -22,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default function News({
+export default function NewsPage({
   params: { locale },
   searchParams,
 }: {
