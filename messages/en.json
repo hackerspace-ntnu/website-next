@@ -52,6 +52,10 @@
   },
   "storage": {
     "title": "Storage",
+    "card": {
+      "quantityInfo": "{quantity} units available",
+      "locationInfo": "Location: {location}"
+    },
     "combobox": {
       "popularity": "Popularity",
       "sortDescending": "Inventory (descending)",
