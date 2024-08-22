@@ -1,8 +1,7 @@
+import { Search } from 'lucide-react';
 import * as React from 'react';
 
 import { cx } from '@/lib/utils';
-
-import { SearchIcon } from '@/components/assets/icons/Search';
 
 type SearchBarProps = React.InputHTMLAttributes<HTMLInputElement>;
 
@@ -19,7 +18,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
           className,
         )}
       >
-        <SearchIcon />
+        <Search />
         <input
           type={type}
           className={cx(
