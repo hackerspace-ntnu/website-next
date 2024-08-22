@@ -46,12 +46,16 @@ export default function Article({
     return notFound();
   }
 
-  const { minutes } = readingTime(article.content!);
-  const author = authorData[0]!;
+  const { minutes } = readingTime(article.content as string); // assert because its a mock data file
+  const author = authorData[0] as {
+    name: string;
+    photoUrl: string;
+    initials: string;
+  }; // same as above
   return (
     <article>
       <header>
-        <div className='mb-10 mt-5 flex justify-center'>
+        <div className='mt-5 mb-10 flex justify-center'>
           <Image
             className='h-auto w-full max-w-4xl rounded-lg'
             src={`/${article.photoUrl}`}
@@ -79,7 +83,7 @@ export default function Article({
             </small>
           </div>
         </div>
-        <Badge variant='secondary'>{article.views + ' ' + t('views')}</Badge>
+        <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
       </section>
       <section className='my-6'>{article.content}</section>
     </article>

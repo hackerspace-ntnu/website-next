@@ -18,8 +18,8 @@ function Footer() {
   const t = useTranslations('layout');
   const year = new Date().getFullYear();
   return (
-    <footer className='mx-auto w-full max-w-screen-2xl border-t border-border/40 bg-background/95 px-11 py-10 text-sm md:px-16 lg:px-24'>
-      <div className='grid grid-cols-1 gap-x-4 gap-y-12 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
+    <footer className='mx-auto w-full max-w-screen-2xl border-border/40 border-t bg-background/95 px-11 py-10 text-sm md:px-16 lg:px-24'>
+      <div className='grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4'>
         <div>
           <div className='flex'>
             <LogoLink className='justify-start' />
@@ -115,7 +115,7 @@ function Footer() {
         <div>
           <h4>{t('links')}</h4>
           <Nav
-            className='ml-2 mt-2 space-y-1.5'
+            className='mt-2 ml-2 space-y-1.5'
             t={{
               news: t('news'),
               events: t('events'),

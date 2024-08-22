@@ -1,1 +1,1 @@
-bunx lint-staged
+bunx biome check --staged --write --unsafe

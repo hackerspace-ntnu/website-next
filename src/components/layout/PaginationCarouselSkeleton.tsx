@@ -31,7 +31,10 @@ function PaginationCarouselSkeleton({
           />
         </PaginationItem>
         {Array.from({ length: 4 }).map((_, index) => (
-          <PaginationItem className='cursor-not-allowed opacity-50' key={index}>
+          <PaginationItem
+            className='cursor-not-allowed opacity-50'
+            key={`Item ${index + 1}`}
+          >
             <PaginationEllipsis morePages='' />
           </PaginationItem>
         ))}

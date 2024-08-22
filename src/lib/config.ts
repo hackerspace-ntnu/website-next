@@ -1,6 +1,6 @@
 import GBflagIcon from 'country-flag-icons/react/1x1/GB';
 import NOflagIcon from 'country-flag-icons/react/1x1/NO';
-import { type Pathnames } from 'next-intl/navigation';
+import type { Pathnames } from 'next-intl/navigation';
 
 const flagIcons = { en: GBflagIcon, no: NOflagIcon };
 

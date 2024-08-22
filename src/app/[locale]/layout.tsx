@@ -86,7 +86,7 @@ export default function Localelayout({
     >
       <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
         <RootProviders locale={locale}>
-          <div className='fixed bottom-0 top-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80'>
+          <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth'>
             {children}
           </div>
         </RootProviders>

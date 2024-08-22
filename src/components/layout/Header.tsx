@@ -10,7 +10,7 @@ import { ProfileMenu } from '@/components/settings/ProfileMenu';
 function Header() {
   const t = useTranslations('layout');
   return (
-    <header className='sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-b border-border/40 bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-11 md:px-16 lg:px-24'>
+    <header className='sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 sm:px-11 md:px-16 lg:px-24'>
       <MobileSheet
         className='flex md:hidden'
         t={{
