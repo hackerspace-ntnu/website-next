@@ -31,7 +31,7 @@ export async function generateMetadata({
   };
 }
 
-export default function Article({
+export default function ArticlePage({
   params,
 }: {
   params: { locale: string; article: string };

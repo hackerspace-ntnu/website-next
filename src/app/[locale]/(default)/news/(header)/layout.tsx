@@ -6,15 +6,15 @@ import { Link } from '@/lib/navigation';
 
 import { Button } from '@/components/ui/Button';
 
-type NewsHeaderProps = {
+type NewsHeaderLayoutProps = {
   children: React.ReactNode;
   params: { locale: string };
 };
 
-export default function NewsHeader({
+export default function NewsHeaderLayout({
   children,
   params: { locale },
-}: NewsHeaderProps) {
+}: NewsHeaderLayoutProps) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('news');
   return (

@@ -7,7 +7,7 @@ import { cx } from '@/lib/utils';
 
 import { RootProviders } from '@/components/providers/RootProviders';
 
-type LocalelayoutProps = {
+type LocaleLayoutProps = {
   children: React.ReactNode;
   params: { locale: string };
 };
@@ -30,7 +30,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params: { locale },
-}: Omit<LocalelayoutProps, 'children'>) {
+}: Omit<LocaleLayoutProps, 'children'>) {
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -71,10 +71,10 @@ export async function generateMetadata({
   };
 }
 
-export default function Localelayout({
+export default function LocaleLayout({
   children,
   params: { locale },
-}: LocalelayoutProps) {
+}: LocaleLayoutProps) {
   if (!locales.includes(locale)) notFound();
   unstable_setRequestLocale(locale);
   return (

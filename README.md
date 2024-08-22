@@ -86,3 +86,8 @@ We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.
 - To keep the code as consistent as possible use functions for react components or hooks instead of const variables with arrow function syntax. An exception is when using the forwardRef hook or when creating compound components.
 - Only use default export for pages or layouts etc. since it is required by Next.js. For everything else use named exports. This is to make it easier to find the components in the codebase or change them without ending up with different names for the same component.
 - Use `type` instead of `interface` for typescript types. This is to keep the code consistent and to make it easier to read. Aldso `type` is more flexible than `interface` since it can be used for unions and intersections.
+
+### Naming conventions
+
+- All layout components should end with Layout. For example: `DefaultLayout`.
+- All page components should end with Page to make it clear it is a whole page. For example: `AboutPage`.

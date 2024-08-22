@@ -4,15 +4,15 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
 
-type DashboardProps = {
+type DefaultLayoutProps = {
   children: React.ReactNode;
   params: { locale: string };
 };
 
-export default function Dashboard({
+export default function DefaultLayout({
   children,
   params: { locale },
-}: DashboardProps) {
+}: DefaultLayoutProps) {
   unstable_setRequestLocale(locale);
   return (
     <>
