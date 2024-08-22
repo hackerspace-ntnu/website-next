@@ -51,6 +51,14 @@
     "views": "Visninger"
   },
   "storage": {
-    "title": "Lager"
+    "title": "Lager",
+    "combobox": {
+      "popularity": "Popularitet",
+      "sortDescending": "Lagerbeholdning (synkende)",
+      "sortAscending": "Lagerbeholdning (stigende)",
+      "name": "Navn (alfabetisk)",
+      "defaultDescription": "Velg sortering...",
+      "defaultPlaceholder": "Søk etter filtere..."
+    }
   }
 }

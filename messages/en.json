@@ -51,6 +51,14 @@
     "views": "Views"
   },
   "storage": {
-    "title": "Storage"
+    "title": "Storage",
+    "combobox": {
+      "popularity": "Popularity",
+      "sortDescending": "Inventory (descending)",
+      "sortAscending": "Inventory (ascending)",
+      "name": "Name (in alphabetical order)",
+      "defaultDescription": "Choose sorting...",
+      "defaultPlaceholder": "Search filters..."
+    }
   }
 }
