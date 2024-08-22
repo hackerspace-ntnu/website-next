@@ -1,5 +1,7 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
+import { SearchBar } from '@/components/ui/SearchBar';
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -18,5 +20,10 @@ export default function StoragePage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div>This should be the storage page</div>;
+  return (
+    <>
+      <h1>Storage</h1>
+      <SearchBar />
+    </>
+  );
 }
