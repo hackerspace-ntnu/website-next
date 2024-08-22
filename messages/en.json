@@ -56,13 +56,21 @@
       "quantityInfo": "{quantity} units available",
       "locationInfo": "Location: {location}"
     },
-    "combobox": {
+    "dropdown": {
+      "filters": "Filters",
+      "buttonLabel": "Sort results",
       "popularity": "Popularity",
       "sortDescending": "Inventory (descending)",
       "sortAscending": "Inventory (ascending)",
-      "name": "Name (in alphabetical order)",
-      "defaultDescription": "Choose sorting...",
-      "defaultPlaceholder": "Search filters..."
+      "name": "Name (in alphabetical order)"
+    },
+    "combobox": {
+      "defaultDescription": "Choose category...",
+      "defaultPlaceholder": "Search category...",
+      "cables": "Cables",
+      "sensors": "Sensors",
+      "peripherals": "PC peripherals",
+      "miniPC": "Mini PC"
     }
   }
 }

@@ -56,13 +56,21 @@
       "quantityInfo": "{quantity} stk. på lager",
       "locationInfo": "Hylleplass: {location}"
     },
-    "combobox": {
+    "dropdown": {
+      "filters": "Filtre",
+      "buttonLabel": "Sorter resultater",
       "popularity": "Popularitet",
       "sortDescending": "Lagerbeholdning (synkende)",
       "sortAscending": "Lagerbeholdning (stigende)",
-      "name": "Navn (alfabetisk)",
-      "defaultDescription": "Velg sortering...",
-      "defaultPlaceholder": "Søk etter filtere..."
+      "name": "Navn (alfabetisk)"
+    },
+    "combobox": {
+      "defaultDescription": "Velg kategori...",
+      "defaultPlaceholder": "Søk etter kategori...",
+      "cables": "Cables",
+      "sensors": "Sensors",
+      "peripherals": "PC peripherals",
+      "miniPC": "Mini PC"
     }
   }
 }

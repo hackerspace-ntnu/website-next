@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { Button } from '@/components/ui/Button';
 import {
   Card,
   CardContent,
@@ -14,6 +15,14 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Combobox } from '@/components/ui/Combobox';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
 import { SearchBar } from '@/components/ui/SearchBar';
 
 export async function generateMetadata({
@@ -49,27 +58,48 @@ export default function StoragePage({
 
   const categories = [
     {
-      value: 'popularity',
-      label: t('combobox.popularity'),
+      value: 'cables',
+      label: t('combobox.cables'),
     },
     {
-      value: 'sortDescending',
-      label: t('combobox.sortDescending'),
+      value: 'sensors',
+      label: t('combobox.sensors'),
     },
     {
-      value: 'sortAscending',
-      label: t('combobox.sortAscending'),
+      value: 'peripherals',
+      label: t('combobox.peripherals'),
     },
     {
-      value: 'name',
-      label: t('combobox.name'),
+      value: 'miniPC',
+      label: t('combobox.miniPC'),
     },
   ];
+
+  const filters = [
+    'dropdown.popularity',
+    'dropdown.sortDescending',
+    'dropdown.sortAscending',
+    'dropdown.name',
+  ] as const;
+
   return (
     <>
       <h1>{t('title')}</h1>
       <div className='my-4 flex justify-center gap-2'>
         <SearchBar className='max-w-2xl' />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>{t('dropdown.buttonLabel')}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>{t('dropdown.filters')}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {filters.map((filter) => (
+              <DropdownMenuItem key={filter}>{t(filter)}</DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
         <Combobox
           choices={categories}
           defaultDescription={t('combobox.defaultDescription')}
