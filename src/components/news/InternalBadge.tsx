@@ -32,7 +32,7 @@ function InternalBadge({ className, internal }: InternalBadgeProps) {
             variant='ghost'
             size='xs-icon'
           >
-            <span tabIndex={0}>
+            <span>
               <ShieldAlert />
             </span>
           </Button>

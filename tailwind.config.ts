@@ -1,5 +1,5 @@
 import tailwindScrollbar from 'tailwind-scrollbar';
-import { type Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
