@@ -26,6 +26,10 @@ const pathnames = {
     en: '/news/[article]',
     no: '/nyheter/[article]',
   },
+  '/storage': {
+    en: '/storage',
+    no: '/lager',
+  },
   '/about': {
     en: '/about',
     no: '/om-oss',
