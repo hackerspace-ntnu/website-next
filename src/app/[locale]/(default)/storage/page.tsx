@@ -56,6 +56,7 @@ export default function StoragePage({
 
   const { [t_ui('page')]: page = 1 } = searchParamsCache.parse(searchParams);
 
+  // TODO: Implement filters and category selection
   const categories = [
     {
       value: 'cables',
@@ -106,7 +107,7 @@ export default function StoragePage({
           defaultPlaceholder={t('combobox.defaultPlaceholder')}
         />
       </div>
-      <div className='grid grid-cols-4 gap-3'>
+      <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {items
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((item) => (
