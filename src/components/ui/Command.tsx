@@ -1,6 +1,6 @@
 'use client';
 
-import { type DialogProps } from '@radix-ui/react-dialog';
+import type { DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 import * as React from 'react';
@@ -90,7 +90,7 @@ const CommandGroup = React.forwardRef<
   <CommandPrimitive.Group
     ref={ref}
     className={cx(
-      'overflow-hidden p-1 text-neutral-950 dark:text-neutral-50 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-neutral-500 dark:[&_[cmdk-group-heading]]:text-neutral-400',
+      'overflow-hidden p-1 text-neutral-950 dark:text-neutral-50 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-neutral-500 [&_[cmdk-group-heading]]:text-xs dark:[&_[cmdk-group-heading]]:text-neutral-400',
       className,
     )}
     {...props}
@@ -134,7 +134,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cx(
-        'ml-auto text-xs tracking-widest text-neutral-500 dark:text-neutral-400',
+        'ml-auto text-neutral-500 text-xs tracking-widest dark:text-neutral-400',
         className,
       )}
       {...props}
