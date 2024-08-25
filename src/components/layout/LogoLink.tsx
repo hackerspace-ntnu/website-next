@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 import { Logo } from '@/components/assets/Logo';

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 import { InternalBadge } from '@/components/news/InternalBadge';

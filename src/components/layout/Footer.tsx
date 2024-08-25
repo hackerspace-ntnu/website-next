@@ -2,7 +2,7 @@ import { Bug, Mail } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import ExternalLink from 'next/link';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 
 import { Facebook } from '@/components/assets/icons/Facebook';
 import { Github } from '@/components/assets/icons/Github';

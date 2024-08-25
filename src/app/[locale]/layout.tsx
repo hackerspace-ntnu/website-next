@@ -2,7 +2,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { locales } from '@/lib/config';
+import { locales } from '@/lib/locale/config';
 import { cx } from '@/lib/utils';
 
 import { RootProviders } from '@/components/providers/RootProviders';

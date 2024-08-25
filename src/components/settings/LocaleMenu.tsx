@@ -4,8 +4,8 @@ import { Globe2 } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import * as React from 'react';
 
-import { flagIcons, locales } from '@/lib/config';
-import { usePathname, useRouter } from '@/lib/navigation';
+import { flagIcons, locales } from '@/lib/locale/config';
+import { usePathname, useRouter } from '@/lib/locale/navigation';
 
 import { Button } from '@/components/ui/Button';
 import {

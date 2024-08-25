@@ -1,4 +1,4 @@
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 
 import { Button } from '@/components/ui/Button';
 

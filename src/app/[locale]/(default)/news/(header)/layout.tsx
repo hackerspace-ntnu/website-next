@@ -2,7 +2,7 @@ import { SquarePen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 
 import { Button } from '@/components/ui/Button';
 
