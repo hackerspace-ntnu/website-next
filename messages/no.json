@@ -67,10 +67,10 @@
     "combobox": {
       "defaultDescription": "Velg kategori...",
       "defaultPlaceholder": "Søk etter kategori...",
-      "cables": "Cables",
-      "sensors": "Sensors",
-      "peripherals": "PC peripherals",
-      "miniPC": "Mini PC"
+      "cables": "Kabler",
+      "sensors": "Sensorer",
+      "peripherals": "PC-tilbehør",
+      "miniPC": "Mini-PC"
     }
   }
 }
