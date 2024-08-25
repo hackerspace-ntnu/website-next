@@ -9,7 +9,10 @@ Here is a list of documentation to help you get started:
 - [Class Variance Authority](https://beta.cva.style/) - Tool for creating style variants in our UI components
 - [Shadcn/ui](https://ui.shadcn.com/docs) - Reusable UI components
   - [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) - Primitives library that Shadcn/ui is built on, great documentation if you need to access the underlying components
+- [Aceternity/ui](https://ui.aceternity.com/components) - More fancy components
 - [Lucide](https://lucide.dev/icons/) - Icons library
+- [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database
+- [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
 
 ### Other resources
 
@@ -24,8 +27,8 @@ Here is a list of documentation to help you get started:
 
 - When you want to link to a new internal page use the `<Link>` component from `@/lib/navigation` instead of the normal anchortag `<a>`. This will ensure that the page is loaded with the correct locale. If you want to link to external resources or other media, use the built-in `<Link>` component from Next.js. Remember to add `prefetch={false}` to the `<Link>` component if the page is not visited often.
   - If you need to use both `<Link>` components from `@/lib/navigation` and Next.js, make sure to import the Next.js `<Link>` component as `ExternalLink` to avoid naming conflicts.
-- Remember to surround Links with the `Button` ui component. This will provide some basic styling and accessibility features for keyboard navigation even if it is not supposed to look like a button.
-- For interationalization use the `useTranslations` hook from `next-intl`. For client components you can pass the translations as props.
+- Remember to surround Links with the `Button` UI component. This will provide some basic styling and accessibility features for keyboard navigation even if it is not supposed to look like a button.
+- For internationalization use the `useTranslations` hook from `next-intl`. For client components you can pass the translations as props.
 
 ## Development setup
 
@@ -49,7 +52,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Build
 
-When you build the project, you prerender all the Server Side Generated (SSG) pages. This makes the site load faster and perform better and behave like it will when it is deployed. When serving the built project it will not hot reload when you make changes to the code like it does in development mode.
+When you build the project, you pre-render all the Server Side Generated (SSG) pages. This makes the site load faster and perform better and behave like it will when it is deployed. When serving the built project it will not hot reload when you make changes to the code like it does in development mode.
 
 You can build the project with the following command:
 
