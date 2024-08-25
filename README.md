@@ -2,15 +2,27 @@
 
 Here is a list of documentation to help you get started:
 
+### Frontend
+
 - [React](https://react.dev/reference/react) - Library for building user interfaces
 - [Next.js](https://nextjs.org/docs) - Framework for routing and server-side rendering
 - [Next-intl](https://next-intl-docs.vercel.app/) - Internationalization library
+- [nuqs](https://nuqs.47ng.com/docs/installation) - Easy to use query params
+- [Tanstack Form](https://tanstack.com/form/latest/docs/overview) - When we need to handle form validation (shadcn/ui uses react-hook-form. but I think this is better, we will figure it out)
+- [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) - TRPC wraps Tanstack Query which is how we fetch data from the backend
+
+#### Styling
+
 - [Tailwind CSS](https://tailwindcss.com/docs) - Styling library
 - [Class Variance Authority](https://beta.cva.style/) - Tool for creating style variants in our UI components
-- [Shadcn/ui](https://ui.shadcn.com/docs) - Reusable UI components
-  - [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) - Primitives library that Shadcn/ui is built on, great documentation if you need to access the underlying components
-- [Aceternity/ui](https://ui.aceternity.com/components) - More fancy components
+- [shadcn/ui](https://ui.shadcn.com/docs) - Reusable UI components
+  - [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) - Primitives library that shadcn/ui is built on, great documentation if you need to access the underlying components
+- [Aceternity/ui](https://ui.aceternity.com/components) - More fancy components that can be used (matches shadcn/ui)
+- [tsparticles](https://github.com/tsparticles/react) - Cool particles library we can use as backgrounds
 - [Lucide](https://lucide.dev/icons/) - Icons library
+
+### Backend
+
 - [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database
 - [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
 
