@@ -56,9 +56,9 @@
       "quantityInfo": "{quantity} units available",
       "locationInfo": "Location: {location}"
     },
-    "dropdown": {
+    "select": {
       "filters": "Filters",
-      "buttonLabel": "Sort results",
+      "defaultPlaceholder": "Sort results",
       "popularity": "Popularity",
       "sortDescending": "Inventory (descending)",
       "sortAscending": "Inventory (ascending)",

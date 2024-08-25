@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
-import { Button } from '@/components/ui/Button';
 import {
   Card,
   CardContent,
@@ -15,15 +14,14 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Combobox } from '@/components/ui/Combobox';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
 import { SearchBar } from '@/components/ui/SearchBar';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/Select';
 
 export async function generateMetadata({
   params: { locale },
@@ -77,34 +75,36 @@ export default function StoragePage({
   ];
 
   const filters = [
-    'dropdown.popularity',
-    'dropdown.sortDescending',
-    'dropdown.sortAscending',
-    'dropdown.name',
+    'select.popularity',
+    'select.sortDescending',
+    'select.sortAscending',
+    'select.name',
   ] as const;
 
   return (
     <>
       <h1>{t('title')}</h1>
-      <div className='my-4 flex justify-center gap-2'>
-        <SearchBar className='max-w-2xl' />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button>{t('dropdown.buttonLabel')}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>{t('dropdown.filters')}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+      <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
+        <SearchBar className='lg:max-w-2xl' />
+        <Select>
+          <SelectTrigger className='w-full lg:w-[250px]'>
+            <SelectValue placeholder={t('select.defaultPlaceholder')} />
+          </SelectTrigger>
+          <SelectContent>
             {filters.map((filter) => (
-              <DropdownMenuItem key={filter}>{t(filter)}</DropdownMenuItem>
+              <SelectItem key={filter} value={filter}>
+                {t(filter)}
+              </SelectItem>
             ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          </SelectContent>
+        </Select>
 
         <Combobox
           choices={categories}
           defaultDescription={t('combobox.defaultDescription')}
           defaultPlaceholder={t('combobox.defaultPlaceholder')}
+          buttonClassName='w-full lg:w-[250px]'
+          contentClassName='w-full lg:w-[200px]'
         />
       </div>
       <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>

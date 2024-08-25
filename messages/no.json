@@ -56,9 +56,9 @@
       "quantityInfo": "{quantity} stk. på lager",
       "locationInfo": "Hylleplass: {location}"
     },
-    "dropdown": {
+    "select": {
       "filters": "Filtre",
-      "buttonLabel": "Sorter resultater",
+      "defaultPlaceholder": "Sorter resultater",
       "popularity": "Popularitet",
       "sortDescending": "Lagerbeholdning (synkende)",
       "sortAscending": "Lagerbeholdning (stigende)",
