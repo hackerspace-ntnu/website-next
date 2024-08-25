@@ -27,12 +27,16 @@ type ComboboxProps = {
   }[];
   defaultDescription: string;
   defaultPlaceholder: string;
+  buttonClassName?: string;
+  contentClassName?: string;
 };
 
 function Combobox({
   choices,
   defaultDescription,
   defaultPlaceholder,
+  buttonClassName,
+  contentClassName,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
@@ -44,7 +48,7 @@ function Combobox({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className='w-[200px] justify-between'
+          className={cx('w-[200px] justify-between', buttonClassName)}
         >
           {value
             ? choices.find((choice) => choice.value === value)?.label
@@ -52,7 +56,7 @@ function Combobox({
           <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[200px] p-0'>
+      <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
         <Command>
           <CommandInput placeholder={defaultPlaceholder} />
           <CommandList>
