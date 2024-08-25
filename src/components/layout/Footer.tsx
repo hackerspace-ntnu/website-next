@@ -9,7 +9,7 @@ import { Github } from '@/components/assets/icons/Github';
 import { Instagram } from '@/components/assets/icons/Instagram';
 import { Slack } from '@/components/assets/icons/Slack';
 import { IDILogo } from '@/components/assets/sponsors/IDILogo';
-import { KiDLogo } from '@/components/assets/sponsors/KiDLogo';
+import { NexusLogo } from '@/components/assets/sponsors/NexusLogo';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
@@ -198,7 +198,7 @@ function Footer() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <KiDLogo className='p-6' title={t('NTNUKiD')} />
+                <NexusLogo className='p-6' title={t('NTNUKiD')} />
               </ExternalLink>
             </Button>
           </li>
