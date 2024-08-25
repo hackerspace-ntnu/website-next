@@ -24,6 +24,14 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
+import { ShoppingCart } from 'lucide-react';
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -84,7 +92,21 @@ export default function StoragePage({
 
   return (
     <>
-      <h1 className='my-4 text-center'>{t('title')}</h1>
+      <div className='relative'>
+        <h1 className='my-4 md:text-center'>{t('title')}</h1>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button className='absolute right-0 bottom-0 md:right-5'>
+                <ShoppingCart />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t('tooltips.viewShoppingCart')}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar className='lg:max-w-2xl' />
         <Select>
@@ -123,7 +145,7 @@ export default function StoragePage({
                     width={192}
                     height={192}
                     alt={`Photo of ${item.name}`}
-                    className='mx-auto duration-200 group-hover:scale-105'
+                    className='mx-auto rounded-md duration-200 group-hover:scale-105'
                   />
                 </div>
                 <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>

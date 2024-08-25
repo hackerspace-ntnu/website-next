@@ -71,6 +71,9 @@
       "sensors": "Sensorer",
       "peripherals": "PC-tilbehør",
       "miniPC": "Mini-PC"
+    },
+    "tooltips": {
+      "viewShoppingCart": "Vis handlekurv"
     }
   }
 }

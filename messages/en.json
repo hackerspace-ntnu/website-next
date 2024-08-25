@@ -71,6 +71,9 @@
       "sensors": "Sensors",
       "peripherals": "PC peripherals",
       "miniPC": "Mini PC"
+    },
+    "tooltips": {
+      "viewShoppingCart": "View shopping cart"
     }
   }
 }
