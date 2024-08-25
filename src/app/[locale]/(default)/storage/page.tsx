@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { Button } from '@/components/ui/Button';
 import {
   Card,
   CardContent,
@@ -22,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
-import { Button } from '@/components/ui/Button';
 
 export async function generateMetadata({
   params: { locale },
@@ -127,7 +127,7 @@ export default function StoragePage({
                 </CardDescription>
               </CardHeader>
               <CardFooter className='justify-center gap-2'>
-                <span className='text-sm whitespace-nowrap'>
+                <span className='whitespace-nowrap text-sm'>
                   {t('card.quantityInfo', { quantity: item.quantity })}
                 </span>
                 <Button className='whitespace-break-spaces'>
