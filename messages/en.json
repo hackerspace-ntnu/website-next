@@ -53,8 +53,8 @@
   "storage": {
     "title": "Storage",
     "card": {
-      "quantityInfo": "{quantity} units available",
-      "locationInfo": "Location: {location}"
+      "quantityInfo": "{quantity} units",
+      "addToCart": "Add to cart"
     },
     "select": {
       "filters": "Filters",

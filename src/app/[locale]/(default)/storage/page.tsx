@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
+import { Button } from '@/components/ui/Button';
 
 export async function generateMetadata({
   params: { locale },
@@ -113,17 +114,6 @@ export default function StoragePage({
           .map((item) => (
             <Card key={item.name} className='text-center'>
               <CardHeader>
-                <CardTitle className='truncate'>{item.name}</CardTitle>
-                <CardDescription className='flex flex-col gap-1'>
-                  <span>
-                    {t('card.quantityInfo', { quantity: item.quantity })}
-                  </span>
-                  <span>
-                    {t('card.locationInfo', { location: item.location })}
-                  </span>
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
                 <Image
                   src='/unknown.png'
                   width={192}
@@ -131,9 +121,18 @@ export default function StoragePage({
                   alt={`Photo of ${item.name}`}
                   className='mx-auto'
                 />
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
+                <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>
+                <CardDescription className='flex flex-col gap-1'>
+                  <span>{item.location}</span>
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className='justify-center gap-2'>
+                <span className='text-sm whitespace-nowrap'>
+                  {t('card.quantityInfo', { quantity: item.quantity })}
+                </span>
+                <Button className='whitespace-break-spaces'>
+                  {t('card.addToCart')}
+                </Button>
               </CardFooter>
             </Card>
           ))}

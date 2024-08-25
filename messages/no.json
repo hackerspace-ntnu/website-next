@@ -53,8 +53,8 @@
   "storage": {
     "title": "Lager",
     "card": {
-      "quantityInfo": "{quantity} stk. på lager",
-      "locationInfo": "Hylleplass: {location}"
+      "quantityInfo": "{quantity} stk.",
+      "addToCart": "Legg i handlekurven"
     },
     "select": {
       "filters": "Filtre",
