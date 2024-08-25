@@ -112,15 +112,20 @@ export default function StoragePage({
         {items
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((item) => (
-            <Card key={item.name} className='text-center'>
+            <Card
+              key={item.name}
+              className='group text-center duration-200 hover:box-border hover:border-primary'
+            >
               <CardHeader>
-                <Image
-                  src='/unknown.png'
-                  width={192}
-                  height={192}
-                  alt={`Photo of ${item.name}`}
-                  className='mx-auto'
-                />
+                <div className='inline-block overflow-hidden'>
+                  <Image
+                    src='/unknown.png'
+                    width={192}
+                    height={192}
+                    alt={`Photo of ${item.name}`}
+                    className='mx-auto duration-200 group-hover:scale-105'
+                  />
+                </div>
                 <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>
                 <CardDescription className='flex flex-col gap-1'>
                   <span>{item.location}</span>
