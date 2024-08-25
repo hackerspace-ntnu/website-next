@@ -83,7 +83,7 @@ export default function StoragePage({
 
   return (
     <>
-      <h1>{t('title')}</h1>
+      <h1 className='my-4 text-center'>{t('title')}</h1>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar className='lg:max-w-2xl' />
         <Select>
