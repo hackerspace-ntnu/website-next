@@ -107,7 +107,7 @@ export default function StoragePage({
           contentClassName='w-full lg:w-[200px]'
         />
       </div>
-      <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+      <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
         {items
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((item) => (
@@ -131,7 +131,7 @@ export default function StoragePage({
                 </CardDescription>
               </CardHeader>
               <CardFooter className='justify-center gap-2'>
-                <span className='whitespace-nowrap text-sm'>
+                <span className='text-sm'>
                   {t('card.quantityInfo', { quantity: item.quantity })}
                 </span>
                 <Button className='whitespace-break-spaces'>
