@@ -16,6 +16,7 @@
     "navigationMenu": "Navigation menu",
     "news": "News",
     "events": "Events",
+    "storage": "Storage",
     "about": "About",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
@@ -48,5 +49,31 @@
     "newArticle": "New article",
     "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
     "views": "Views"
+  },
+  "storage": {
+    "title": "Storage",
+    "card": {
+      "quantityInfo": "{quantity} units",
+      "addToCart": "Add to cart"
+    },
+    "select": {
+      "filters": "Filters",
+      "defaultPlaceholder": "Sort results",
+      "popularity": "Popularity",
+      "sortDescending": "Inventory (descending)",
+      "sortAscending": "Inventory (ascending)",
+      "name": "Name (in alphabetical order)"
+    },
+    "combobox": {
+      "defaultDescription": "Choose category...",
+      "defaultPlaceholder": "Search category...",
+      "cables": "Cables",
+      "sensors": "Sensors",
+      "peripherals": "PC peripherals",
+      "miniPC": "Mini PC"
+    },
+    "tooltips": {
+      "viewShoppingCart": "View shopping cart"
+    }
   }
 }
