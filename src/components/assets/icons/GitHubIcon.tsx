@@ -1,4 +1,4 @@
-function Github({ className, ...rest }: { className?: string }) {
+function GitHubIcon({ className, ...rest }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -20,4 +20,4 @@ function Github({ className, ...rest }: { className?: string }) {
   );
 }
 
-export { Github };
+export { GitHubIcon };

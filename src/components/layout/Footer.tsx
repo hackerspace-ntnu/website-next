@@ -1,18 +1,17 @@
-import { Bug, Mail } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import ExternalLink from 'next/link';
-
-import { Link } from '@/lib/locale/navigation';
-
-import { Facebook } from '@/components/assets/icons/Facebook';
-import { Github } from '@/components/assets/icons/Github';
-import { Instagram } from '@/components/assets/icons/Instagram';
-import { Slack } from '@/components/assets/icons/Slack';
-import { IDILogo } from '@/components/assets/sponsors/IDILogo';
-import { NexusLogo } from '@/components/assets/sponsors/NexusLogo';
+import {
+  FacebookIcon,
+  GitHubIcon,
+  InstagramIcon,
+  SlackIcon,
+} from '@/components/assets/icons';
+import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
+import { BugIcon, MailIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import ExternalLink from 'next/link';
 
 function Footer() {
   const t = useTranslations('layout');
@@ -54,7 +53,7 @@ function Footer() {
                   href='mailto:hackerspace-styret@idi.ntnu.no'
                   aria-label={t('sendAnEmail')}
                 >
-                  <Mail className='h-4 w-4' />
+                  <MailIcon className='h-4 w-4' />
                 </ExternalLink>
               </Button>
             </li>
@@ -67,7 +66,7 @@ function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Slack className='h-4 w-4' />
+                  <SlackIcon className='h-4 w-4' />
                 </ExternalLink>
               </Button>
             </li>
@@ -80,7 +79,7 @@ function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Facebook className='h-4 w-4' />
+                  <FacebookIcon className='h-4 w-4' />
                 </ExternalLink>
               </Button>
             </li>
@@ -93,7 +92,7 @@ function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Github className='h-4 w-4' />
+                  <GitHubIcon className='h-4 w-4' />
                 </ExternalLink>
               </Button>
             </li>
@@ -106,7 +105,7 @@ function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <Instagram className='h-4 w-4' />
+                  <InstagramIcon className='h-4 w-4' />
                 </ExternalLink>
               </Button>
             </li>
@@ -130,7 +129,7 @@ function Footer() {
               <Link href='/'>{t('signIn')}</Link>
             </Button>
             <br />
-            {t('haveYouFoundA')} <Bug className='inline h-4 w-4' />?
+            {t('haveYouFoundA')} <BugIcon className='inline h-4 w-4' />?
             <br />
             {t.rich('utilitiesDescription', {
               code: (children) => (
@@ -142,7 +141,7 @@ function Footer() {
                     href='mailto:hackerspace-dev@idi.ntnu.no'
                     aria-label={t('sendAnEmail')}
                   >
-                    <Mail className='inline h-4 w-4' />
+                    <MailIcon className='inline h-4 w-4' />
                   </ExternalLink>
                 </Button>
               ),

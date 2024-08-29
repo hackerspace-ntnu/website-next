@@ -1,4 +1,4 @@
-function Slack({ className, ...rest }: { className?: string }) {
+function SlackIcon({ className, ...rest }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -26,4 +26,4 @@ function Slack({ className, ...rest }: { className?: string }) {
   );
 }
 
-export { Slack };
+export { SlackIcon };

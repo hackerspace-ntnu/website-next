@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/Pagination';
-
+import { useTranslations } from 'next-intl';
 type PaginationCarouselSkeletonProps = {
   className?: string;
 };

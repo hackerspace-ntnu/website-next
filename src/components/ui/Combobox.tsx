@@ -1,10 +1,5 @@
 'use client';
 
-import { Check, ChevronsUpDown } from 'lucide-react';
-import * as React from 'react';
-
-import { cx } from '@/lib/utils';
-
 import { Button } from '@/components/ui/Button';
 import {
   Command,
@@ -19,6 +14,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/Popover';
+import { cx } from '@/lib/utils';
+import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
+import * as React from 'react';
 
 type ComboboxProps = {
   choices: {
@@ -53,7 +51,7 @@ function Combobox({
           {value
             ? choices.find((choice) => choice.value === value)?.label
             : defaultDescription}
-          <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+          <ChevronsUpDownIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
@@ -71,7 +69,7 @@ function Combobox({
                     setOpen(false);
                   }}
                 >
-                  <Check
+                  <CheckIcon
                     className={cx(
                       'mr-2 h-4 w-4',
                       value === choice.value ? 'opacity-100' : 'opacity-0',

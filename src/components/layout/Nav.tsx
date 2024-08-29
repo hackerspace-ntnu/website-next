@@ -1,6 +1,5 @@
-import { Link } from '@/lib/locale/navigation';
-
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
 
 type NavProps = {
   className?: string;

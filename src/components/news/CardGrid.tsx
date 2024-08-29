@@ -1,7 +1,5 @@
-import { cx } from '@/lib/utils';
-
 import { ArticleCard } from '@/components/news/ArticleCard';
-
+import { cx } from '@/lib/utils';
 type CardGridProps = {
   topArticles: {
     id: number;

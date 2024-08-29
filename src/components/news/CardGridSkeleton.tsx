@@ -1,8 +1,6 @@
-import * as React from 'react';
-
-import { cx } from '@/lib/utils';
-
 import { Skeleton } from '@/components/ui/Skeleton';
+import { cx } from '@/lib/utils';
+import * as React from 'react';
 
 function CardGridSkeleton() {
   return (

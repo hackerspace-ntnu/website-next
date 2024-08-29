@@ -1,11 +1,10 @@
-import { useTranslations } from 'next-intl';
-
 import { LogoLink } from '@/components/layout/LogoLink';
 import { MobileSheet } from '@/components/layout/MobileSheet';
 import { Nav } from '@/components/layout/Nav';
 import { DarkModeMenu } from '@/components/settings/DarkModeMenu';
 import { LocaleMenu } from '@/components/settings/LocaleMenu';
 import { ProfileMenu } from '@/components/settings/ProfileMenu';
+import { useTranslations } from 'next-intl';
 
 function Header() {
   const t = useTranslations('layout');
