@@ -74,6 +74,14 @@
     },
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
+    },
+    "shoppingCart": {
+      "title": "Handlekurv",
+      "productId": "Produkt id",
+      "productName": "Produktnavn",
+      "location": "Plass",
+      "unitsAvailable": "Stk tilgjengelig",
+      "tableDescription": "En liste over handlekurven din."
     }
   }
 }

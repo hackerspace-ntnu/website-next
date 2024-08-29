@@ -74,6 +74,14 @@
     },
     "tooltips": {
       "viewShoppingCart": "View shopping cart"
+    },
+    "shoppingCart": {
+      "title": "Shopping Cart",
+      "productId": "Product id",
+      "productName": "Product Name",
+      "location": "Location",
+      "unitsAvailable": "Units available",
+      "tableDescription": "A list of your shopping cart items."
     }
   }
 }

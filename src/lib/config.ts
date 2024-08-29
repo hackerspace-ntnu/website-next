@@ -30,6 +30,10 @@ const pathnames = {
     en: '/storage',
     no: '/lager',
   },
+  '/storage/shopping-cart': {
+    en: '/storage/shopping-cart',
+    no: '/lager/handlekurv',
+  },
   '/about': {
     en: '/about',
     no: '/om-oss',
