@@ -8,6 +8,7 @@ Here is a list of documentation to help you get started:
 - [Next.js](https://nextjs.org/docs) - Framework for routing and server-side rendering
 - [Next-intl](https://next-intl-docs.vercel.app/) - Internationalization library
 - [nuqs](https://nuqs.47ng.com/docs/installation) - Easy to use query params
+- [BlockNote](https://www.blocknotejs.org/docs) - Tool for markdown textboxes
 - [Tanstack Form](https://tanstack.com/form/latest/docs/overview) - When we need to handle form validation (shadcn/ui uses react-hook-form. but I think this is better, we will figure it out)
 - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) - TRPC wraps Tanstack Query which is how we fetch data from the backend
 
