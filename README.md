@@ -26,6 +26,7 @@ Here is a list of documentation to help you get started:
 
 - [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database
 - [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
+- [Lucia](https://lucia-auth.com) - Authentication library
 
 ### Other resources
 

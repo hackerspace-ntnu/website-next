@@ -1,10 +1,9 @@
 'use client';
 
+import { routing } from '@/lib/locale';
 import { redirect, usePathname } from 'next/navigation';
-
-import { defaultLocale } from '@/lib/locale/config';
 
 export default function NotFound() {
   const pathname = usePathname();
-  redirect(`/${defaultLocale}${pathname}`);
+  redirect(`/${routing.defaultLocale}/${pathname}`);
 }

@@ -1,36 +1,67 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
-import { sql } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
-  index,
-  pgTableCreator,
+  integer,
+  pgTable,
+  primaryKey,
   serial,
+  text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
-export const createTable = pgTableCreator((name) => `test-t3_${name}`);
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  username: varchar('username', { length: 8 }).unique().notNull(),
+  passwordHash: text('password_hash').notNull(),
+  name: varchar('name', { length: 256 }).notNull(),
+});
 
-export const posts = createTable(
-  'post',
+export const usersRelations = relations(users, ({ many }) => ({
+  usersHasSkills: many(usersHasSkills),
+}));
+
+export const sessions = pgTable('session', {
+  id: text('id').primaryKey(),
+  userId: integer('user_id')
+    .references(() => users.id)
+    .notNull(),
+  expiresAt: timestamp('expires_at', {
+    withTimezone: true,
+    mode: 'date',
+  }).notNull(),
+});
+
+export const skills = pgTable('skills', {
+  id: serial('id').primaryKey(),
+  identifier: varchar('identifier', { length: 256 }).unique().notNull(),
+});
+
+export const skillsRelations = relations(skills, ({ many }) => ({
+  usersHasSkills: many(usersHasSkills),
+}));
+
+export const usersHasSkills = pgTable(
+  'users_has_skills',
   {
-    id: serial('id').primaryKey(),
-    name: varchar('name', { length: 256 }),
-    createdAt: timestamp('created_at', { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
+    userId: integer('user_id')
+      .references(() => users.id)
       .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
-      () => new Date(),
-    ),
+    skillId: integer('skill_id')
+      .references(() => skills.id)
+      .notNull(),
   },
-  (example) => ({
-    nameIndex: index('name_idx').on(example.name),
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.skillId] }),
   }),
 );
+
+export const usersHasSkillsRelations = relations(usersHasSkills, ({ one }) => ({
+  group: one(skills, {
+    fields: [usersHasSkills.skillId],
+    references: [skills.id],
+  }),
+  user: one(users, {
+    fields: [usersHasSkills.userId],
+    references: [users.id],
+  }),
+}));
