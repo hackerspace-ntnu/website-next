@@ -16,6 +16,7 @@
     "navigationMenu": "Navigasjonsmeny",
     "news": "Nyheter",
     "events": "Hendelser",
+    "storage": "Lager",
     "about": "Om oss",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
@@ -48,5 +49,31 @@
     "newArticle": "Ny artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger"
+  },
+  "storage": {
+    "title": "Lager",
+    "card": {
+      "quantityInfo": "{quantity} stk.",
+      "addToCart": "Legg i handlekurven"
+    },
+    "select": {
+      "filters": "Filtre",
+      "defaultPlaceholder": "Sorter resultater",
+      "popularity": "Popularitet",
+      "sortDescending": "Lagerbeholdning (synkende)",
+      "sortAscending": "Lagerbeholdning (stigende)",
+      "name": "Navn (alfabetisk)"
+    },
+    "combobox": {
+      "defaultDescription": "Velg kategori...",
+      "defaultPlaceholder": "Søk etter kategori...",
+      "cables": "Kabler",
+      "sensors": "Sensorer",
+      "peripherals": "PC-tilbehør",
+      "miniPC": "Mini-PC"
+    },
+    "tooltips": {
+      "viewShoppingCart": "Vis handlekurv"
+    }
   }
 }
