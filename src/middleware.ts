@@ -24,5 +24,5 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ['/', '/(en|no)/:path*'],
+  matcher: ['/', '/(en|no)/:path*', '/((?!_next|.*\\..*).*)'],
 };

@@ -20,7 +20,7 @@ import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
+import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 
 export async function generateMetadata({
   params: { locale },
