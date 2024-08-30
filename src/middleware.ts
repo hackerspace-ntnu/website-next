@@ -6,20 +6,22 @@ import { type NextRequest, NextResponse } from 'next/server';
 const handleI18nRouting = createMiddleware(routing);
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
-  if (request.method !== 'GET') {
-    const originHeader = request.headers.get('Origin');
-    const hostHeader = request.headers.get('Host');
-    if (
-      !originHeader ||
-      !hostHeader ||
-      !verifyRequestOrigin(originHeader, [hostHeader])
-    ) {
-      return new NextResponse(null, {
-        status: 403,
-      });
+  if (request.url.startsWith('/api')) {
+    if (request.method !== 'GET') {
+      const originHeader = request.headers.get('Origin');
+      const hostHeader = request.headers.get('Host');
+      if (
+        !originHeader ||
+        !hostHeader ||
+        !verifyRequestOrigin(originHeader, [hostHeader])
+      ) {
+        return new NextResponse(null, {
+          status: 403,
+        });
+      }
     }
+    return NextResponse.next();
   }
-
   return handleI18nRouting(request);
 }
 

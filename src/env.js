@@ -19,6 +19,11 @@ export const env = createEnv({
     STORAGE_USER: z.string(),
     STORAGE_PASSWORD: z.string(),
     STORAGE_NAME: z.string(),
+    FEIDE_CLIENT_ID: z.string(),
+    FEIDE_CLIENT_SECRET: z.string(),
+    FEIDE_AUTHORIZATION_ENDPOINT: z.string(),
+    FEIDE_TOKEN_ENDPOINT: z.string(),
+    FEIDE_USERINFO_ENDPOINT: z.string(),
   },
 
   /**
@@ -47,6 +52,11 @@ export const env = createEnv({
     STORAGE_USER: process.env.STORAGE_USER,
     STORAGE_PASSWORD: process.env.STORAGE_PASSWORD,
     STORAGE_NAME: process.env.STORAGE_NAME,
+    FEIDE_CLIENT_ID: process.env.FEIDE_CLIENT_ID,
+    FEIDE_CLIENT_SECRET: process.env.FEIDE_CLIENT_SECRET,
+    FEIDE_AUTHORIZATION_ENDPOINT: process.env.FEIDE_AUTHORIZATION_ENDPOINT,
+    FEIDE_TOKEN_ENDPOINT: process.env.FEIDE_TOKEN_ENDPOINT,
+    FEIDE_USERINFO_ENDPOINT: process.env.FEIDE_USERINFO_ENDPOINT,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

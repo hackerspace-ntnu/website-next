@@ -24,9 +24,17 @@ Here is a list of documentation to help you get started:
 
 ### Backend
 
-- [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database
 - [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
 - [Lucia](https://lucia-auth.com) - Authentication library
+- [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database (Postgres under the hood)
+- [s3-client](https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-s3) - AWS S3 client for uploading files
+
+### Infrastructure
+
+- [Docker](https://docs.docker.com/get-started/) - Containerization tool for the application, database and storage
+- [Colima](https://github.com/abiosoft/colima) - Container runtime for docker, I recommend this over Docker Desktop because of performance and license
+- [Docker Compose](https://docs.docker.com/compose/) - Tool for running multi-container applications
+- [nginx](https://nginx.org/en/docs/) - Reverse proxy for routing requests to the correct service
 
 ### Other resources
 
