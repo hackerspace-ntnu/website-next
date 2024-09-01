@@ -6,7 +6,7 @@ import { Lucia } from 'lucia';
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
 
-export const auth = new Lucia(adapter, {
+const auth = new Lucia(adapter, {
   sessionCookie: {
     // this sets cookies with super long expiration
     // since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages
@@ -41,3 +41,5 @@ type DatabaseUserAttributes = {
   username: string;
   name: string;
 };
+
+export { auth };

@@ -9,18 +9,18 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 
-export const users = pgTable('users', {
+const users = pgTable('users', {
   id: serial('id').primaryKey(),
   username: varchar('username', { length: 8 }).unique().notNull(),
   passwordHash: text('password_hash').notNull(),
   name: varchar('name', { length: 256 }).notNull(),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+const usersRelations = relations(users, ({ many }) => ({
   usersHasSkills: many(usersHasSkills),
 }));
 
-export const sessions = pgTable('session', {
+const sessions = pgTable('session', {
   id: text('id').primaryKey(),
   userId: integer('user_id')
     .references(() => users.id)
@@ -31,16 +31,16 @@ export const sessions = pgTable('session', {
   }).notNull(),
 });
 
-export const skills = pgTable('skills', {
+const skills = pgTable('skills', {
   id: serial('id').primaryKey(),
   identifier: varchar('identifier', { length: 256 }).unique().notNull(),
 });
 
-export const skillsRelations = relations(skills, ({ many }) => ({
+const skillsRelations = relations(skills, ({ many }) => ({
   usersHasSkills: many(usersHasSkills),
 }));
 
-export const usersHasSkills = pgTable(
+const usersHasSkills = pgTable(
   'users_has_skills',
   {
     userId: integer('user_id')
@@ -55,7 +55,7 @@ export const usersHasSkills = pgTable(
   }),
 );
 
-export const usersHasSkillsRelations = relations(usersHasSkills, ({ one }) => ({
+const usersHasSkillsRelations = relations(usersHasSkills, ({ one }) => ({
   group: one(skills, {
     fields: [usersHasSkills.skillId],
     references: [skills.id],
@@ -65,3 +65,13 @@ export const usersHasSkillsRelations = relations(usersHasSkills, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export {
+  users,
+  usersRelations,
+  sessions,
+  skills,
+  skillsRelations,
+  usersHasSkills,
+  usersHasSkillsRelations,
+};

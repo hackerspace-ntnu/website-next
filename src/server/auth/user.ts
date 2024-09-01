@@ -2,7 +2,7 @@ import { auth } from '@/server/auth';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 
-export const getUser = cache(async () => {
+const getUser = cache(async () => {
   const sessionId = cookies().get(auth.sessionCookieName)?.value ?? null;
   if (!sessionId) return null;
   const { user, session } = await auth.validateSession(sessionId);
@@ -28,3 +28,5 @@ export const getUser = cache(async () => {
   }
   return user;
 });
+
+export { getUser };
