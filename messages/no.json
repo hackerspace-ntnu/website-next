@@ -81,7 +81,8 @@
       "productName": "Produktnavn",
       "location": "Plass",
       "unitsAvailable": "Stk tilgjengelig",
-      "tableDescription": "En liste over handlekurven din."
+      "tableDescription": "En liste over handlekurven din.",
+      "cartEmpty": "Handlekurven din er tom."
     }
   }
 }

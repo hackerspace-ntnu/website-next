@@ -1,51 +1,26 @@
+import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
+import ShoppingCartTableSkeleton from '@/components/storage/ShoppingCartTableSkeleton';
 import { useTranslations } from 'next-intl';
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/Table';
+import { Suspense } from 'react';
 
 export default function StorageShoppingCartPage() {
   const t = useTranslations('storage.shoppingCart');
+
+  const tableMessages = {
+    tableDescription: t('tableDescription'),
+    productId: t('productId'),
+    productName: t('productName'),
+    location: t('location'),
+    unitsAvailable: t('unitsAvailable'),
+    cartEmpty: t('cartEmpty'),
+  };
+
   return (
     <>
       <h1 className='my-4 md:text-center'>{t('title')}</h1>
-      <Table className='my-4'>
-        <TableCaption>{t('tableDescription')}</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className='w-[150px]'>{t('productId')}</TableHead>
-            <TableHead>{t('productName')}</TableHead>
-            <TableHead>{t('location')}</TableHead>
-            <TableHead className='text-right'>{t('unitsAvailable')}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className='font-medium'>01</TableCell>
-            <TableCell>Laptop</TableCell>
-            <TableCell>Storage Room A</TableCell>
-            <TableCell className='text-right'>15</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>01</TableCell>
-            <TableCell>Laptop</TableCell>
-            <TableCell>Storage Room A</TableCell>
-            <TableCell className='text-right'>15</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className='font-medium'>01</TableCell>
-            <TableCell>Laptop</TableCell>
-            <TableCell>Storage Room A</TableCell>
-            <TableCell className='text-right'>15</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <Suspense fallback={<ShoppingCartTableSkeleton />}>
+        <ShoppingCartTable messages={tableMessages} />
+      </Suspense>
     </>
   );
 }

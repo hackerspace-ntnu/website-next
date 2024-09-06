@@ -81,7 +81,8 @@
       "productName": "Product Name",
       "location": "Location",
       "unitsAvailable": "Units available",
-      "tableDescription": "A list of your shopping cart items."
+      "tableDescription": "A list of your shopping cart items.",
+      "cartEmpty": "Your shopping cart is empty."
     }
   }
 }
