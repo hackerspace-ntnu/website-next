@@ -32,6 +32,8 @@ import {
 } from '@/components/ui/Tooltip';
 import { ShoppingCart } from 'lucide-react';
 
+import { AddToCartButton } from '@/components/storage/AddToCartButton';
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -157,9 +159,7 @@ export default function StoragePage({
                 <span className='text-sm'>
                   {t('card.quantityInfo', { quantity: item.quantity })}
                 </span>
-                <Button className='whitespace-break-spaces'>
-                  {t('card.addToCart')}
-                </Button>
+                <AddToCartButton item={item} label={t('card.addToCart')} />
               </CardFooter>
             </Card>
           ))}
