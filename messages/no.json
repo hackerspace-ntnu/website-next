@@ -54,7 +54,8 @@
     "title": "Lager",
     "card": {
       "quantityInfo": "{quantity} stk.",
-      "addToCart": "Legg i handlekurven"
+      "addToCart": "Legg i handlekurven",
+      "removeFromCart": "Fjern fra handlekurven"
     },
     "select": {
       "filters": "Filtre",

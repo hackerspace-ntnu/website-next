@@ -159,7 +159,11 @@ export default function StoragePage({
                 <span className='text-sm'>
                   {t('card.quantityInfo', { quantity: item.quantity })}
                 </span>
-                <AddToCartButton item={item} label={t('card.addToCart')} />
+                <AddToCartButton
+                  item={item}
+                  addToCart={t('card.addToCart')}
+                  removeFromCart={t('card.removeFromCart')}
+                />
               </CardFooter>
             </Card>
           ))}

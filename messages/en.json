@@ -54,7 +54,8 @@
     "title": "Storage",
     "card": {
       "quantityInfo": "{quantity} units",
-      "addToCart": "Add to cart"
+      "addToCart": "Add to cart",
+      "removeFromCart": "Remove from cart"
     },
     "select": {
       "filters": "Filters",

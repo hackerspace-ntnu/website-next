@@ -2,10 +2,10 @@
 
 import { Button } from '@/components/ui/Button';
 import { cx } from 'cva';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
-// TODO: Must be replaced by the type provided from database ORM.
+// TODO: Type must be replaced by the type provided from database ORM.
 export type StorageItem = {
   id: number;
   name: string;
@@ -17,46 +17,46 @@ export type StorageItem = {
 
 function AddToCartButton({
   item,
-  label,
+  addToCart,
+  removeFromCart,
   className,
-}: { item: StorageItem; className?: string; label: string }) {
+}: {
+  item: StorageItem;
+  className?: string;
+  addToCart: string;
+  removeFromCart: string;
+}) {
   const [cart, setCart, removeCart] = useLocalStorage<StorageItem[]>(
     'shopping-cart',
     [],
   );
-  const [isInCart, setIsInCart] = useState(cart.includes(item));
+  // Set isInCart to null initially as we can update it on the client side with useEffect,
+  // and null evaluates to false, so the server prerenders all buttons as "Add to cart".
+  const [isInCart, setIsInCart] = useState<boolean | null>(null);
 
-  if (isInCart) {
-    return (
-      <Button
-        className={cx('whitespace-break-spaces', className)}
-        variant='destructive'
-        onClick={() => {
-          const newCart = cart;
-          const index = cart.indexOf(item);
-          if (index !== -1) {
-            newCart.splice(index, 1);
-          }
-          setCart(newCart);
-          setIsInCart(false);
-        }}
-      >
-        Remove
-      </Button>
-    );
-  }
+  useEffect(() => {
+    if (isInCart !== null) return;
+    setIsInCart(cart.some((i) => i.id === item.id));
+  });
+
+  const updateState = (addToCart: boolean) => {
+    let newCart = cart;
+    if (addToCart) {
+      newCart.push(item);
+    } else {
+      newCart = newCart.filter((i) => i.id !== item.id);
+    }
+    setCart(newCart);
+    setIsInCart(addToCart);
+  };
 
   return (
     <Button
       className={cx('whitespace-break-spaces', className)}
-      onClick={() => {
-        const newCart = cart;
-        newCart.push(item);
-        setCart(newCart);
-        setIsInCart(true);
-      }}
+      variant={!isInCart ? 'default' : 'destructive'}
+      onClick={() => updateState(!isInCart)}
     >
-      {label}
+      {isInCart ? removeFromCart : addToCart}
     </Button>
   );
 }
