@@ -33,6 +33,7 @@ import {
 import { ShoppingCart } from 'lucide-react';
 
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
+import { Link } from '@/lib/navigation';
 
 export async function generateMetadata({
   params: { locale },
@@ -98,11 +99,13 @@ export default function StoragePage({
         <h1 className='my-4 md:text-center'>{t('title')}</h1>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Button className='absolute right-0 bottom-0 md:right-5'>
-                <ShoppingCart />
-              </Button>
-            </TooltipTrigger>
+            <Link href='/storage/shopping-cart'>
+              <TooltipTrigger asChild>
+                <Button className='absolute right-0 bottom-0 md:right-5'>
+                  <ShoppingCart />
+                </Button>
+              </TooltipTrigger>
+            </Link>
             <TooltipContent>
               <p>{t('tooltips.viewShoppingCart')}</p>
             </TooltipContent>
