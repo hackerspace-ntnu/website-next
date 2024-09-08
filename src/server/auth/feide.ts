@@ -11,7 +11,7 @@ const feideOAuthClient = new OAuth2Client(
   env.FEIDE_AUTHORIZATION_ENDPOINT,
   env.FEIDE_TOKEN_ENDPOINT,
   {
-    redirectURI: `${env.SITE_URL}/api/auth/feide`,
+    redirectURI: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/feide`,
   },
 );
 

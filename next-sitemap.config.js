@@ -2,7 +2,7 @@ import { env } from '@/env';
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-  siteUrl: env.SITE_URL,
+  siteUrl: env.NEXT_PUBLIC_SITE_URL,
   generateRobotsTxt: true,
   generateIndexSitemap: false,
 };
