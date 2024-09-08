@@ -17,6 +17,7 @@
     "news": "Nyheter",
     "events": "Hendelser",
     "about": "Om oss",
+    "members": "Medlemmer",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -48,5 +49,8 @@
     "newArticle": "Ny artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger"
+  },
+  "members": {
+    "title": "Medlemmer"
   }
 }

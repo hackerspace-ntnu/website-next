@@ -30,6 +30,14 @@ const pathnames = {
     en: '/about',
     no: '/om-oss',
   },
+  '/members': {
+    en: '/members',
+    no: '/medlemmer',
+  },
+  '/members/[member]': {
+    en: '/members/[member]',
+    no: '/medlemmer/[member]',
+  },
 } satisfies Pathnames<typeof locales>;
 
 export { flagIcons, locales, defaultLocale, localePrefix, pathnames };

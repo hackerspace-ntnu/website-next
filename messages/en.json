@@ -17,6 +17,7 @@
     "news": "News",
     "events": "Events",
     "about": "About",
+    "members": "Members",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -48,5 +49,8 @@
     "newArticle": "New article",
     "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
     "views": "Views"
+  },
+  "members": {
+    "title": "Members"
   }
 }
