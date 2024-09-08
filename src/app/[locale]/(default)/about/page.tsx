@@ -1,6 +1,8 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import {Button} from 'src/components/ui/Button';
-import {Card} from 'src/components/ui/Card';
+import Link from 'next/link'
+import React from 'react'
+
 
 export async function generateMetadata({
   params: { locale },
@@ -54,15 +56,12 @@ export default function AboutPage({
 
     </div>
     <div>
-      <p className='text-xl'> Oversikt over gruppene </p>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 content-stretch'>
-        <Card > Ledelsen</Card>
-        <Card>Tillitsvalg</Card>
-        <Card>DevOps</Card>
-        <Card>LavOps</Card>
-        <Card>Prosjekt: Spill</Card>
-        <Card>Prosjekt: Breadboard Computer</Card>
-      </div>
+      <p className='text-xl'> Våre aktive grupper </p>
+      <Link href="/leaderboard" passHref>
+        <Button>
+          Ledelsen
+        </Button>
+      </Link>
     </div>
     
 </div>;
