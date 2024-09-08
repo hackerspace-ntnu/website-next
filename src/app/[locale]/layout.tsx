@@ -1,11 +1,8 @@
+import { RootProviders } from '@/components/providers/RootProviders';
+import { routing } from '@/lib/locale';
+import { cx } from '@/lib/utils';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
-import { notFound } from 'next/navigation';
-
-import { locales } from '@/lib/config';
-import { cx } from '@/lib/utils';
-
-import { RootProviders } from '@/components/providers/RootProviders';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -25,7 +22,7 @@ const montserrat = Montserrat({
 });
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({
@@ -75,7 +72,6 @@ export default function LocaleLayout({
   children,
   params: { locale },
 }: LocaleLayoutProps) {
-  if (!locales.includes(locale)) notFound();
   unstable_setRequestLocale(locale);
   return (
     <html

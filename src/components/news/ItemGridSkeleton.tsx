@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { ArticleItemSkeleton } from '@/components/news/ArticleItemSkeleton';
+import * as React from 'react';
 
 function ItemGridSkeleton() {
   return (

@@ -1,10 +1,8 @@
-import { useTranslations } from 'next-intl';
-
-import { Link } from '@/lib/navigation';
-import { cx } from '@/lib/utils';
-
 import { Logo } from '@/components/assets/Logo';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
+import { cx } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 function LogoLink({
   className,

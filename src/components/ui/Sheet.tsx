@@ -1,10 +1,9 @@
 'use client';
 
-import * as SheetPrimitive from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
-import * as React from 'react';
-
 import { type VariantProps, cva, cx } from '@/lib/utils';
+import * as SheetPrimitive from '@radix-ui/react-dialog';
+import { XIcon } from 'lucide-react';
+import * as React from 'react';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -65,7 +64,7 @@ const SheetContent = React.forwardRef<
     >
       {children}
       <SheetPrimitive.Close className='absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'>
-        <X className='h-4 w-4' />
+        <XIcon className='h-4 w-4' />
         <span className='sr-only'>{close}</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>

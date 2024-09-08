@@ -1,14 +1,12 @@
-import { useTranslations } from 'next-intl';
-
 import { Button } from '@/components/ui/Button';
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCartIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function StorageLayout({
   children,
@@ -25,7 +23,7 @@ export default function StorageLayout({
           <Tooltip>
             <TooltipTrigger asChild>
               <Button className='absolute right-0 bottom-0 md:right-5'>
-                <ShoppingCart />
+                <ShoppingCartIcon />
               </Button>
             </TooltipTrigger>
             <TooltipContent>

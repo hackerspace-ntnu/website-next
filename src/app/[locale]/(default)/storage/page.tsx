@@ -1,14 +1,7 @@
-import { items } from '@/mock-data/items';
-import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
-
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 import { Button } from '@/components/ui/Button';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -23,6 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
+import { items } from '@/mock-data/items';
+import { useTranslations } from 'next-intl';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
+import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 
 export async function generateMetadata({
   params: { locale },

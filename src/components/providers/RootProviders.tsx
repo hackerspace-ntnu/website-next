@@ -1,4 +1,5 @@
 import { IntlErrorProvider } from '@/components/providers/IntlErrorProvider';
+import { TRPCProvider } from '@/components/providers/TRPCProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 type RootProvidersProps = {
@@ -9,7 +10,9 @@ type RootProvidersProps = {
 function RootProviders({ children, locale }: RootProvidersProps) {
   return (
     <ThemeProvider>
-      <IntlErrorProvider locale={locale}>{children}</IntlErrorProvider>
+      <TRPCProvider>
+        <IntlErrorProvider locale={locale}>{children}</IntlErrorProvider>
+      </TRPCProvider>
     </ThemeProvider>
   );
 }

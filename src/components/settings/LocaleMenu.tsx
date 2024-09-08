@@ -1,12 +1,5 @@
 'use client';
 
-import { Globe2 } from 'lucide-react';
-import { useParams } from 'next/navigation';
-import * as React from 'react';
-
-import { flagIcons, locales } from '@/lib/config';
-import { usePathname, useRouter } from '@/lib/navigation';
-
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -14,6 +7,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { localeIcons, routing } from '@/lib/locale';
+import { usePathname, useRouter } from '@/lib/locale/navigation';
+import { Globe2Icon } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import * as React from 'react';
 
 function LocaleMenu({ t }: { t: { changeLocale: string } }) {
   const router = useRouter();
@@ -23,13 +21,13 @@ function LocaleMenu({ t }: { t: { changeLocale: string } }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
-          <Globe2 className='h-[1.2rem] w-[1.2rem]' />
+          <Globe2Icon className='h-[1.2rem] w-[1.2rem]' />
           <span className='sr-only'>{t.changeLocale}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        {locales.map((locale) => {
-          const FlagIcon = flagIcons[locale as keyof typeof flagIcons];
+        {routing.locales.map((locale) => {
+          const FlagIcon = localeIcons[locale as keyof typeof localeIcons];
           return (
             <DropdownMenuItem
               key={locale}

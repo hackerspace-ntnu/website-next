@@ -1,8 +1,5 @@
 'use client';
 
-import { Menu } from 'lucide-react';
-import * as React from 'react';
-
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
@@ -13,6 +10,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/Sheet';
+import { MenuIcon } from 'lucide-react';
+import * as React from 'react';
 
 type MobileSheetProps = {
   className?: string;
@@ -36,7 +35,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           size='icon'
           aria-label={t.navigationMenu}
         >
-          <Menu className='h-5 w-5' />
+          <MenuIcon className='h-5 w-5' />
         </Button>
       </SheetTrigger>
       <SheetContent side='left' close={t.close}>
