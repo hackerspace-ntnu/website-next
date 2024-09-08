@@ -1,7 +1,9 @@
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 
 const testRouter = createTRPCRouter({
-  newCofee: publicProcedure.query(async ({ ctx }) => {}),
+  helloWorld: publicProcedure.query(async () => {
+    return 'Hello, World!';
+  }),
 });
 
 export { testRouter };
