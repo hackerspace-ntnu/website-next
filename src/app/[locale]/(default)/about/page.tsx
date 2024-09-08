@@ -57,10 +57,13 @@ export default function AboutPage({
     </div>
     <div>
       <p className='text-xl'> Våre aktive grupper </p>
-      <Link href="/leaderboard" passHref>
+      <Link href="/about/leaderboard">
         <Button>
           Ledelsen
         </Button>
+      </Link>
+      <Link href="/about/LabOps"> 
+        <Button> LabOps </Button>
       </Link>
     </div>
     

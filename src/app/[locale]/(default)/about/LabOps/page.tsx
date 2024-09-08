@@ -8,17 +8,15 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
-    title: t('leaderboard'),
+    title: t('LabOps'),
   };
 }
 
-export default function LeaderboardPage({
+export default function LabOpsPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div>
-    leaderboard
-    </div>;
+  return <div>This should be LabOps page</div>;
 }
