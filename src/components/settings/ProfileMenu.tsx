@@ -11,7 +11,6 @@ import { UserIcon } from 'lucide-react';
 import * as React from 'react';
 
 function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
-  // TODO: User Icon Color should only have the primary color when logged in
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

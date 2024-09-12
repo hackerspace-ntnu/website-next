@@ -4,7 +4,7 @@ import {
   InstagramIcon,
   SlackIcon,
 } from '@/components/assets/icons';
-import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
+import { IDILogo, NexusLogo } from '@/components/assets/logos';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
@@ -197,7 +197,7 @@ function Footer() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <NexusLogo className='p-6' title={t('NTNUKiD')} />
+                <NexusLogo className='p-6' title={t('NTNUNexus')} />
               </ExternalLink>
             </Button>
           </li>

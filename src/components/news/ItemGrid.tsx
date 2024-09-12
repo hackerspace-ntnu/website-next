@@ -1,13 +1,15 @@
 import { ArticleItem } from '@/components/news/ArticleItem';
+import { api } from '@/lib/api/server';
 import { articleMockData as articleData } from '@/mock-data/article';
 
 type ItemGridProps = {
   page: number;
 };
 
-function ItemGrid({ page }: ItemGridProps) {
+async function ItemGrid({ page }: ItemGridProps) {
   const itemsDisplayedAsCards = 4;
   const itemsPerPage = 6;
+  const hello = await api.test.helloWorld();
 
   const start = (page - 1) * itemsPerPage + itemsDisplayedAsCards;
   const end = start + itemsPerPage;
