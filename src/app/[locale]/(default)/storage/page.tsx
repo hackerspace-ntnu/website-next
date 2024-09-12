@@ -1,19 +1,10 @@
 import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 import { Button } from '@/components/ui/Button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
 import { Combobox } from '@/components/ui/Combobox';
 import { SearchBar } from '@/components/ui/SearchBar';
 import {
@@ -23,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
-
+import { ItemCard } from '@/components/storage/ItemCard';
 import {
   Tooltip,
   TooltipContent,
@@ -32,7 +23,6 @@ import {
 } from '@/components/ui/Tooltip';
 import { ShoppingCart } from 'lucide-react';
 
-import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import { Link } from '@/lib/navigation';
 
 export async function generateMetadata({
@@ -139,36 +129,13 @@ export default function StoragePage({
         {items
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((item) => (
-            <Card
-              key={item.name}
-              className='group text-center duration-200 hover:box-border hover:border-primary'
-            >
-              <CardHeader>
-                <div className='inline-block overflow-hidden'>
-                  <Image
-                    src='/unknown.png'
-                    width={192}
-                    height={192}
-                    alt={`Photo of ${item.name}`}
-                    className='mx-auto rounded-md duration-200 group-hover:scale-105'
-                  />
-                </div>
-                <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>
-                <CardDescription className='flex flex-col gap-1'>
-                  <span>{item.location}</span>
-                </CardDescription>
-              </CardHeader>
-              <CardFooter className='justify-center gap-2'>
-                <span className='text-sm'>
-                  {t('card.quantityInfo', { quantity: item.quantity })}
-                </span>
-                <AddToCartButton
-                  item={item}
-                  addToCart={t('card.addToCart')}
-                  removeFromCart={t('card.removeFromCart')}
-                />
-              </CardFooter>
-            </Card>
+            <ItemCard
+              key={item.id}
+              item={item}
+              addToCart={t('card.addToCart')}
+              removeFromCart={t('card.removeFromCart')}
+              quantityInfo={t('card.quantityInfo', { quantity: item.quantity })}
+            />
           ))}
       </div>
       <PaginationCarousel
