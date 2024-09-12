@@ -30,14 +30,14 @@ function AddToCartButton({
     'shopping-cart',
     [],
   );
-  // Set isInCart to null initially as we can update it on the client side with useEffect,
-  // and null evaluates to false, so the server prerenders all buttons as "Add to cart".
-  const [isInCart, setIsInCart] = useState<boolean | null>(null);
+  // Set isInCart to false initially as we can update it on the client side with useEffect,
+  // and the server prerenders all buttons as "Add to cart".
+  const [isInCart, setIsInCart] = useState(false);
 
+  // On cart/item/page/etc change, check if we must update the isInCart state.
   useEffect(() => {
-    if (isInCart !== null) return;
     setIsInCart(cart.some((i) => i.id === item.id));
-  });
+  }, [cart, item.id]);
 
   const updateState = (addToCart: boolean) => {
     let newCart = cart;

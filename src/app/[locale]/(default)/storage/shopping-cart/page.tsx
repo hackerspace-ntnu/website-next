@@ -4,9 +4,15 @@ import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
-export default function StorageShoppingCartPage() {
+export default function StorageShoppingCartPage({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');
 
   const tableMessages = {
