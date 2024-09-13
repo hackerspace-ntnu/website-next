@@ -1,11 +1,9 @@
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
-import ShoppingCartTableSkeleton from '@/components/storage/ShoppingCartTableSkeleton';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { Suspense } from 'react';
 
 export default function StorageShoppingCartPage({
   params: { locale },
@@ -27,9 +25,7 @@ export default function StorageShoppingCartPage({
   return (
     <>
       <h1 className='my-4 md:text-center'>{t('title')}</h1>
-      <Suspense fallback={<ShoppingCartTableSkeleton />}>
-        <ShoppingCartTable messages={tableMessages} />
-      </Suspense>
+      <ShoppingCartTable messages={tableMessages} />
       <Link href='/storage'>
         <Button className='mx-auto flex gap-2'>
           <ArrowLeft />

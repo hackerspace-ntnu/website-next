@@ -1,5 +1,6 @@
 'use client';
 
+import ShoppingCartTableSkeleton from '@/components/storage/ShoppingCartTableSkeleton';
 import {
   Table,
   TableBody,
@@ -9,10 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { useLocalStorage } from 'usehooks-ts';
-
-// TODO: Must be replaced by the type provided from database ORM.
-import type { StorageItem } from '@/components/storage/AddToCartButton';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 // TODO: Must be replaced by requesting the data from a database.
 import { items } from '@/mock-data/items';
@@ -28,8 +26,12 @@ type ShoppingCartTableProps = {
   };
 };
 
-async function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
-  const [cart] = useLocalStorage<number[]>('shopping-cart', []);
+function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
+  const cart = useReadLocalStorage<number[]>('shopping-cart', {
+    initializeWithValue: false,
+  });
+
+  if (!cart) return <ShoppingCartTableSkeleton />;
 
   const itemsInCart = items.filter((item) => cart.includes(item.id));
 
