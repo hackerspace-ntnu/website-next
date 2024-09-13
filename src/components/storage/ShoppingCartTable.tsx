@@ -1,6 +1,7 @@
 'use client';
 
 import ShoppingCartTableSkeleton from '@/components/storage/ShoppingCartTableSkeleton';
+import { Button } from '@/components/ui/Button';
 import {
   Table,
   TableBody,
@@ -10,7 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { useReadLocalStorage } from 'usehooks-ts';
+import { X } from 'lucide-react';
+import { useLocalStorage } from 'usehooks-ts';
 
 // TODO: Must be replaced by requesting the data from a database.
 import { items } from '@/mock-data/items';
@@ -27,7 +29,7 @@ type ShoppingCartTableProps = {
 };
 
 function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
-  const cart = useReadLocalStorage<number[]>('shopping-cart', {
+  const [cart, setCart] = useLocalStorage<number[]>('shopping-cart', [], {
     initializeWithValue: false,
   });
 
@@ -37,6 +39,11 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
 
   if (cart.length <= 0) {
     return <h3 className='text-center'>{messages.cartEmpty}</h3>;
+  }
+
+  function removeItem(id: number) {
+    if (!cart) return;
+    setCart(cart.filter((itemId) => itemId !== id));
   }
 
   return (
@@ -50,6 +57,7 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
           <TableHead className='text-right'>
             {messages.unitsAvailable}
           </TableHead>
+          <TableHead className='w-[100px]' />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -59,6 +67,16 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.location}</TableCell>
             <TableCell className='text-right'>{item.quantity}</TableCell>
+            <TableCell>
+              <Button
+                key={item.id}
+                variant='destructive'
+                className='h-8 p-1'
+                onClick={() => removeItem(item.id)}
+              >
+                <X />
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
