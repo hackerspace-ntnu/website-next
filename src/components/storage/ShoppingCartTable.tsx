@@ -14,6 +14,9 @@ import { useLocalStorage } from 'usehooks-ts';
 // TODO: Must be replaced by the type provided from database ORM.
 import type { StorageItem } from '@/components/storage/AddToCartButton';
 
+// TODO: Must be replaced by requesting the data from a database.
+import { items } from '@/mock-data/items';
+
 type ShoppingCartTableProps = {
   messages: {
     tableDescription: string;
@@ -26,7 +29,9 @@ type ShoppingCartTableProps = {
 };
 
 async function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
-  const [cart] = useLocalStorage<StorageItem[]>('shopping-cart', []);
+  const [cart] = useLocalStorage<number[]>('shopping-cart', []);
+
+  const itemsInCart = items.filter((item) => cart.includes(item.id));
 
   if (cart.length <= 0) {
     return <h3 className='text-center'>{messages.cartEmpty}</h3>;
@@ -46,7 +51,7 @@ async function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {cart.map((item) => (
+        {itemsInCart.map((item) => (
           <TableRow key={item.name}>
             <TableCell className='font-medium'>{item.id}</TableCell>
             <TableCell>{item.name}</TableCell>

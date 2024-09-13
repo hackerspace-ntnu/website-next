@@ -26,7 +26,7 @@ function AddToCartButton({
   addToCart: string;
   removeFromCart: string;
 }) {
-  const [cart, setCart, removeCart] = useLocalStorage<StorageItem[]>(
+  const [cart, setCart, removeCart] = useLocalStorage<number[]>(
     'shopping-cart',
     [],
   );
@@ -36,15 +36,15 @@ function AddToCartButton({
 
   // On cart/item/page/etc change, check if we must update the isInCart state.
   useEffect(() => {
-    setIsInCart(cart.some((i) => i.id === item.id));
+    setIsInCart(cart.some((i) => i === item.id));
   }, [cart, item.id]);
 
   const updateState = (addToCart: boolean) => {
     let newCart = cart;
     if (addToCart) {
-      newCart.push(item);
+      newCart.push(item.id);
     } else {
-      newCart = newCart.filter((i) => i.id !== item.id);
+      newCart = newCart.filter((i) => i !== item.id);
     }
     setCart(newCart);
     setIsInCart(addToCart);

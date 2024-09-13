@@ -4,6 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { ItemCard } from '@/components/storage/ItemCard';
 import { Button } from '@/components/ui/Button';
 import { Combobox } from '@/components/ui/Combobox';
 import { SearchBar } from '@/components/ui/SearchBar';
@@ -14,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
-import { ItemCard } from '@/components/storage/ItemCard';
 import {
   Tooltip,
   TooltipContent,
