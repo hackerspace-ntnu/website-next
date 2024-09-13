@@ -27,7 +27,7 @@ export default function StorageShoppingCartPage({
     <>
       <h1 className='my-4 md:text-center'>{t('title')}</h1>
       <ShoppingCartTable messages={tableMessages} />
-      <div className='flex justify-center gap-2'>
+      <div className='my-4 flex justify-center gap-2'>
         <Link href='/storage'>
           <Button className='flex gap-2'>
             <ArrowLeft />
