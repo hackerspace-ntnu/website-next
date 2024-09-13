@@ -1,3 +1,4 @@
+import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/navigation';
@@ -26,12 +27,15 @@ export default function StorageShoppingCartPage({
     <>
       <h1 className='my-4 md:text-center'>{t('title')}</h1>
       <ShoppingCartTable messages={tableMessages} />
-      <Link href='/storage'>
-        <Button className='mx-auto flex gap-2'>
-          <ArrowLeft />
-          {t('backToStorage')}
-        </Button>
-      </Link>
+      <div className='flex justify-center gap-2'>
+        <Link href='/storage'>
+          <Button className='flex gap-2'>
+            <ArrowLeft />
+            {t('backToStorage')}
+          </Button>
+        </Link>
+        <ShoppingCartClearButton caption={t('clearCart')} />
+      </div>
     </>
   );
 }

@@ -84,7 +84,8 @@
       "unitsAvailable": "Stk tilgjengelig",
       "tableDescription": "En liste over handlekurven din.",
       "backToStorage": "Tilbake til lageret",
-      "cartEmpty": "Handlekurven din er tom."
+      "cartEmpty": "Handlekurven din er tom.",
+      "clearCart": "Tøm handlekurven"
     }
   }
 }

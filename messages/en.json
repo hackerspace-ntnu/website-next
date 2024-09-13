@@ -84,7 +84,8 @@
       "unitsAvailable": "Units available",
       "tableDescription": "A list of your shopping cart items.",
       "backToStorage": "Back to storage",
-      "cartEmpty": "Your shopping cart is empty."
+      "cartEmpty": "Your shopping cart is empty.",
+      "clearCart": "Empty shopping cart"
     }
   }
 }
