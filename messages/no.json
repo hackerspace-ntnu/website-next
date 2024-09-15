@@ -51,6 +51,8 @@
     "views": "Visninger"
   },
   "members": {
-    "title": "Medlemmer"
+    "title": "Medlemmer",
+    "internalArticle": "Dette er et internt medlem"
+
   }
 }

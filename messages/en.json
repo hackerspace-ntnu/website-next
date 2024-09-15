@@ -51,6 +51,7 @@
     "views": "Views"
   },
   "members": {
-    "title": "Members"
+    "title": "Members",
+    "internalArticle": "This is an internal member"
   }
 }
