@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/Pagination';
-
+import { useTranslations } from 'next-intl';
 type PaginationCarouselSkeletonProps = {
   className?: string;
 };
@@ -31,7 +29,10 @@ function PaginationCarouselSkeleton({
           />
         </PaginationItem>
         {Array.from({ length: 4 }).map((_, index) => (
-          <PaginationItem className='cursor-not-allowed opacity-50' key={index}>
+          <PaginationItem
+            className='cursor-not-allowed opacity-50'
+            key={`Item ${index + 1}`}
+          >
             <PaginationEllipsis morePages='' />
           </PaginationItem>
         ))}

@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { cx } from '@/lib/utils';
+import * as React from 'react';
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -36,7 +35,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cx(
-      'text-2xl font-semibold leading-none tracking-tight',
+      'font-semibold text-2xl leading-none tracking-tight',
       className,
     )}
     {...props}
@@ -50,7 +49,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cx('text-sm text-muted-foreground', className)}
+    className={cx('text-muted-foreground text-sm', className)}
     {...props}
   />
 ));

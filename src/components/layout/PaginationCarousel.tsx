@@ -1,9 +1,5 @@
 'use client';
 
-import { parseAsInteger, useQueryState } from 'nuqs';
-
-import { cx } from '@/lib/utils';
-
 import {
   Pagination,
   PaginationContent,
@@ -13,7 +9,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/Pagination';
-
+import { cx } from '@/lib/utils';
+import { parseAsInteger, useQueryState } from 'nuqs';
 type PaginationCarouselProps = {
   className?: string;
   totalPages: number;
@@ -70,6 +67,8 @@ function PaginationCarousel({
     pagesToDisplay = [page - 1, page, page + 1];
   }
 
+  const lastPage = pagesToDisplay[pagesToDisplay.length - 1];
+
   return (
     <Pagination className={className}>
       <PaginationContent>
@@ -107,12 +106,11 @@ function PaginationCarousel({
               </PaginationItem>
             ),
         )}
-        {pagesToDisplay[pagesToDisplay.length - 1] !== undefined &&
-          pagesToDisplay[pagesToDisplay.length - 1]! < totalPages && (
-            <PaginationItem>
-              <PaginationEllipsis morePages={t.morePages} />
-            </PaginationItem>
-          )}
+        {lastPage !== undefined && lastPage < totalPages && (
+          <PaginationItem>
+            <PaginationEllipsis morePages={t.morePages} />
+          </PaginationItem>
+        )}
         <PaginationItem>
           <PaginationNext
             className={cx(

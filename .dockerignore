@@ -33,3 +33,6 @@ Dockerfile*
 
 # docs
 README.md
+
+# data
+/data

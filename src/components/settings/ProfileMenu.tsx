@@ -1,8 +1,5 @@
 'use client';
 
-import { User } from 'lucide-react';
-import * as React from 'react';
-
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -10,6 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { UserIcon } from 'lucide-react';
+import * as React from 'react';
 
 function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
   // TODO: User Icon Color should only have the primary color when logged in
@@ -17,7 +16,7 @@ function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='icon'>
-          <User className='h-[1.2rem] w-[1.2rem] text-primary' />
+          <UserIcon className='h-[1.2rem] w-[1.2rem] text-primary' />
           <span className='sr-only'>{t.profile}</span>
         </Button>
       </DropdownMenuTrigger>

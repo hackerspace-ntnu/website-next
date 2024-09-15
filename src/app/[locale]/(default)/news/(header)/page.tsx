@@ -1,7 +1,7 @@
 import { articleMockData as articleData } from '@/mock-data/article';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
+import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';

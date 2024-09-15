@@ -1,8 +1,3 @@
-import { ShieldAlert } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-import { cx } from '@/lib/utils';
-
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -10,6 +5,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
+import { cx } from '@/lib/utils';
+import { ShieldAlertIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type InternalBadgeProps = {
   className?: string;
@@ -32,8 +30,8 @@ function InternalBadge({ className, internal }: InternalBadgeProps) {
             variant='ghost'
             size='xs-icon'
           >
-            <span tabIndex={0}>
-              <ShieldAlert />
+            <span>
+              <ShieldAlertIcon />
             </span>
           </Button>
         </TooltipTrigger>

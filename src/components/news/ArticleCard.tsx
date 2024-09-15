@@ -1,8 +1,3 @@
-import Image from 'next/image';
-
-import { Link } from '@/lib/navigation';
-import { cx } from '@/lib/utils';
-
 import { InternalBadge } from '@/components/news/InternalBadge';
 import { Button } from '@/components/ui/Button';
 import {
@@ -11,7 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
-
+import { Link } from '@/lib/locale/navigation';
+import { cx } from '@/lib/utils';
+import Image from 'next/image';
 type ArticleCardProps = {
   className?: string;
   id: number;
