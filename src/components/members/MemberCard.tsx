@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/lib/navigation';
 import { cx } from '@/lib/utils';
 
-import { InternalBadge } from '@/components/news/InternalBadge';
+import { InternalBadge } from '@/components/members/InternalBadge';
 import { Button } from '@/components/ui/Button';
 import {
   Card,
@@ -19,6 +19,12 @@ type MemberCardProps = {
   name: string;
   group: string;
   photoUrl: string;
+  bio: string;
+  mail: string;
+  instagram: string;
+  discord: string;
+  github: string;
+  linkedin: string;
 };
 
 function MemberCard({
@@ -28,6 +34,12 @@ function MemberCard({
   name,
   group,
   photoUrl,
+  bio,
+  mail,
+  instagram,
+  discord,
+  github,
+  linkedin,
 }: MemberCardProps) {
   return (
     <Button

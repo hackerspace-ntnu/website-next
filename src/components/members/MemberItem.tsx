@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/lib/navigation';
 import { cx } from '@/lib/utils';
 
-import { InternalBadge } from '@/components/news/InternalBadge';
+import { InternalBadge } from '@/components/members/InternalBadge';
 import { Button } from '@/components/ui/Button';
 
 type MemberItemProps = {
