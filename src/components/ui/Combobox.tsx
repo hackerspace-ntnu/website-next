@@ -30,6 +30,7 @@ type ComboboxProps = {
   buttonClassName?: string;
   contentClassName?: string;
   valueCallback?: (value: string | null) => void;
+  initialValue?: string;
 };
 
 function Combobox({
@@ -39,9 +40,10 @@ function Combobox({
   buttonClassName,
   contentClassName,
   valueCallback,
+  initialValue,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState<string | null>(null);
+  const [value, setValue] = React.useState<string | null>(initialValue ?? '');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

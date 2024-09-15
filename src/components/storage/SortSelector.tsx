@@ -13,16 +13,17 @@ type SortSelectorProps = {
     name: string;
     urlName: string;
   }[];
-  filtersUrlNames: string;
   t: {
     sort: string;
     defaultPlaceholder: string;
   };
+  searchParams: Record<string, string | string[] | undefined>;
 };
-function SortSelector({ filters, t }: SortSelectorProps) {
+
+function SortSelector({ filters, t, searchParams }: SortSelectorProps) {
   const [filter, setFilter] = useQueryState(
     t.sort,
-    parseAsString.withDefault(''),
+    parseAsString.withDefault(searchParams.sort?.toString() ?? ''),
   );
 
   return (
@@ -33,6 +34,9 @@ function SortSelector({ filters, t }: SortSelectorProps) {
           setFilter(filterUrlName);
         }
       }}
+      defaultValue={
+        filters.find((f) => f.urlName === filter)?.name ?? undefined
+      }
     >
       <SelectTrigger className='w-full lg:w-[250px]'>
         <SelectValue placeholder={t.defaultPlaceholder} />

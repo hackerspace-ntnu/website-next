@@ -15,12 +15,17 @@ type CategorySelectorProps = {
     defaultDescription: string;
     defaultPlaceholder: string;
   };
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
-function CategorySelector({ categories, t }: CategorySelectorProps) {
+function CategorySelector({
+  categories,
+  t,
+  searchParams,
+}: CategorySelectorProps) {
   const [category, setCategory] = useQueryState(
     t.category,
-    parseAsString.withDefault(''),
+    parseAsString.withDefault(searchParams.category?.toString() ?? ''),
   );
 
   function valueCallback(category: string | null) {
@@ -35,6 +40,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
       buttonClassName='w-full lg:w-[250px]'
       contentClassName='w-full lg:w-[200px]'
       valueCallback={valueCallback}
+      initialValue={category}
     />
   );
 }

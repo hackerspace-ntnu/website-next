@@ -106,6 +106,7 @@ export default function StoragePage({
             sort: t_ui('sort'),
             defaultPlaceholder: t('select.defaultPlaceholder'),
           }}
+          searchParams={searchParams}
         />
         <CategorySelector
           categories={categories}
@@ -115,6 +116,7 @@ export default function StoragePage({
             defaultDescription: t('combobox.defaultDescription'),
             defaultPlaceholder: t('combobox.defaultPlaceholder'),
           }}
+          searchParams={searchParams}
         />
       </div>
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
