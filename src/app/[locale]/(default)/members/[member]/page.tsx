@@ -3,6 +3,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 //import { useRouter } from 'next/navigation';
+import { MemberViewCard } from '@/components/members/MemberViewCard';
 
 export async function generateMetadata({
   params,
@@ -34,7 +35,25 @@ export default function memberPage({
   }
 
   return (
-    <div>hei</div>
+    <>
+      <h2 className='my-4 py-4'>{member.name}</h2>
+      <div className='h-screen'>
+        <MemberViewCard
+          key={member.id}
+          id={member.id}
+          internal={member.internal}
+          name={member.name}
+          group={member.group}
+          photoUrl={member.photoUrl}
+          bio={member.bio}
+          mail={member.mail}
+          instagram={member.instagram}
+          discord={member.discord}
+          github={member.github}
+          linkedin={member.linkedin}
+        />
+      </div>
+    </>
     /* <article>
       <header>
         <div className='mb-10 mt-5 flex justify-center grid-cols-2 bg-red-500'>
