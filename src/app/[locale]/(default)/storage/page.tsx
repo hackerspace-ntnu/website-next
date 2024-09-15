@@ -8,13 +8,7 @@ import { ItemCard } from '@/components/storage/ItemCard';
 import { Button } from '@/components/ui/Button';
 import { Combobox } from '@/components/ui/Combobox';
 import { SearchBar } from '@/components/ui/SearchBar';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/Select';
+
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +19,7 @@ import { ShoppingCart } from 'lucide-react';
 
 import { Link } from '@/lib/navigation';
 import { CategorySelector } from '@/components/storage/CategorySelector';
+import { SortSelector } from '@/components/storage/SortSelector';
 
 export async function generateMetadata({
   params: { locale },
@@ -78,11 +73,11 @@ export default function StoragePage({
   ];
 
   const filters = [
-    'select.popularity',
-    'select.sortDescending',
-    'select.sortAscending',
-    'select.name',
-  ] as const;
+    { name: t('select.popularity'), urlName: 'popularity' },
+    { name: t('select.sortDescending'), urlName: 'descending' },
+    { name: t('select.sortAscending'), urlName: 'ascending' },
+    { name: t('select.name'), urlName: 'name' },
+  ];
 
   return (
     <>
@@ -105,19 +100,13 @@ export default function StoragePage({
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar className='lg:max-w-2xl' />
-        <Select>
-          <SelectTrigger className='w-full lg:w-[250px]'>
-            <SelectValue placeholder={t('select.defaultPlaceholder')} />
-          </SelectTrigger>
-          <SelectContent>
-            {filters.map((filter) => (
-              <SelectItem key={filter} value={filter}>
-                {t(filter)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
+        <SortSelector
+          filters={filters}
+          t={{
+            sort: t_ui('sort'),
+            defaultPlaceholder: t('select.defaultPlaceholder'),
+          }}
+        />
         <CategorySelector
           categories={categories}
           t={{

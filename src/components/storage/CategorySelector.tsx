@@ -22,7 +22,6 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
     t.category,
     parseAsString.withDefault(''),
   );
-  const [sort, setSort] = useQueryState(t.sort, parseAsString.withDefault(''));
 
   function valueCallback(category: string | null) {
     setCategory(category);
