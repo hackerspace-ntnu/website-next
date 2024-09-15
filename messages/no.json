@@ -9,7 +9,9 @@
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
     "morePages": "Flere sider",
-    "page": "side"
+    "page": "side",
+    "category": "kategori",
+    "sort": "sortering"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",

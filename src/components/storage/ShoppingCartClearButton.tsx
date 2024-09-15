@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button';
 import { X } from 'lucide-react';
 import { useLocalStorage } from 'usehooks-ts';
 
-function ShoppingCartClearButton({ caption }: { caption: string }) {
+async function ShoppingCartClearButton({ caption }: { caption: string }) {
   const [cart, setCart] = useLocalStorage<number[]>('shopping-cart', []);
 
   function clearCart() {

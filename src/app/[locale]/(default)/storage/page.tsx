@@ -24,6 +24,7 @@ import {
 import { ShoppingCart } from 'lucide-react';
 
 import { Link } from '@/lib/navigation';
+import { CategorySelector } from '@/components/storage/CategorySelector';
 
 export async function generateMetadata({
   params: { locale },
@@ -117,12 +118,14 @@ export default function StoragePage({
           </SelectContent>
         </Select>
 
-        <Combobox
-          choices={categories}
-          defaultDescription={t('combobox.defaultDescription')}
-          defaultPlaceholder={t('combobox.defaultPlaceholder')}
-          buttonClassName='w-full lg:w-[250px]'
-          contentClassName='w-full lg:w-[200px]'
+        <CategorySelector
+          categories={categories}
+          t={{
+            category: t_ui('category'),
+            sort: t_ui('sort'),
+            defaultDescription: t('combobox.defaultDescription'),
+            defaultPlaceholder: t('combobox.defaultPlaceholder'),
+          }}
         />
       </div>
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>

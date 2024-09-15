@@ -9,7 +9,9 @@
     "next": "Next",
     "goToNextPage": "Go to next page",
     "morePages": "More pages",
-    "page": "page"
+    "page": "page",
+    "category": "category",
+    "sort": "sort"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",

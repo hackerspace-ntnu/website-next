@@ -29,6 +29,7 @@ type ComboboxProps = {
   defaultPlaceholder: string;
   buttonClassName?: string;
   contentClassName?: string;
+  valueCallback?: (value: string | null) => void;
 };
 
 function Combobox({
@@ -37,9 +38,10 @@ function Combobox({
   defaultPlaceholder,
   buttonClassName,
   contentClassName,
+  valueCallback,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<string | null>(null);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -67,8 +69,14 @@ function Combobox({
                   key={choice.value}
                   value={choice.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
+                    // Set newValue to null if user selects the same value twice
+                    const newValue =
+                      currentValue === value ? null : currentValue;
+                    setValue(newValue);
                     setOpen(false);
+                    if (valueCallback) {
+                      valueCallback(newValue);
+                    }
                   }}
                 >
                   <Check
