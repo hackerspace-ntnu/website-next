@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 function Header() {
   const t = useTranslations('layout');
   return (
-    <header className='sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 ~px-4/24 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <MobileSheet
         className='flex md:hidden'
         t={{

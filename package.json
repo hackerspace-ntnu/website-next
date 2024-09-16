@@ -9,7 +9,7 @@
     "prebuild": "next telemetry disable",
     "build": "next build",
     "dev": "next dev --turbo",
-    "lint": "biome check --write --unsafe",
+    "lint": "biome check --write",
     "start": "next start",
     "db:start": "docker-compose up db",
     "db:generate": "drizzle-kit generate",
