@@ -5,6 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_SITE_URL
+        - DATABASE_USER
+        - DATABASE_PASSWORD
+        - DATABASE_HOST
+        - DATABASE_PORT
+        - DATABASE_NAME
     ports:
       - "3000:3000"
   db:
