@@ -1,10 +1,14 @@
+import tailwindFluid, { extract, screens, fontSize } from 'fluid-tailwind';
 import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config = {
-  content: ['./src/**/*.tsx'],
+  content: {
+    files: ['./src/**/*.tsx'],
+    extract,
+  },
   darkMode: 'class',
   theme: {
     extend: {
@@ -12,9 +16,10 @@ const config = {
         inter: ['var(--font-inter)', ...fontFamily.sans],
         montserrat: ['var(--font-montserrat)', ...fontFamily.sans],
       },
+      fontSize,
       screens: {
-        xs: '480px',
-        '2xl': '1400px',
+        xs: '30rem',
+        ...screens,
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -71,7 +76,11 @@ const config = {
       },
     },
   },
-  plugins: [tailwindAnimate, tailwindScrollbar({ nocompatible: true })],
+  plugins: [
+    tailwindFluid,
+    tailwindAnimate,
+    tailwindScrollbar({ nocompatible: true }),
+  ],
 } satisfies Config;
 
 export default config;
