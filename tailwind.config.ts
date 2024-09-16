@@ -20,6 +20,7 @@ const config = {
       screens: {
         xs: '30rem',
         ...screens,
+        '2xl': '90rem',
       },
       colors: {
         border: 'hsl(var(--border))',
