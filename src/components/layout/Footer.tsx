@@ -175,7 +175,7 @@ function Footer() {
           </p>
         </div>
       </div>
-      <ul className='flex flex-col py-20 justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
+      <ul className='flex flex-col justify-center gap-6 py-20 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
         <li>
           <Button asChild variant='none' size='none'>
             <ExternalLink
