@@ -1,3 +1,4 @@
+import { LoanForm } from '@/components/storage/LoanForm';
 import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { Button } from '@/components/ui/Button';
@@ -36,6 +37,7 @@ export default function StorageShoppingCartPage({
         </Link>
         <ShoppingCartClearButton caption={t('clearCart')} />
       </div>
+      <LoanForm />
     </>
   );
 }
