@@ -26,6 +26,7 @@ export default function StorageShoppingCartPage({
   };
 
   const loanFormMessages = {
+    borrowNow: tLoanForm('borrowNow'),
     name: tLoanForm('name'),
     nameDescription: tLoanForm('nameDescription'),
     email: tLoanForm('email'),
@@ -51,7 +52,6 @@ export default function StorageShoppingCartPage({
         <ShoppingCartClearButton caption={t('clearCart')} />
       </div>
       <div className='my-6'>
-        <h2 className='text-center'>{t('borrowNow')}</h2>
         <LoanForm t={loanFormMessages} />
       </div>
     </>

@@ -87,10 +87,10 @@
       "tableDescription": "En liste over handlekurven din.",
       "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
-      "clearCart": "Tøm handlekurven",
-      "borrowNow": "Lån nå"
+      "clearCart": "Tøm handlekurven"
     },
     "loanForm": {
+      "borrowNow": "Lån nå",
       "name": "Navn",
       "nameDescription": "Personen som låner gjenstanden(e).",
       "email": "Epost",

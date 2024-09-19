@@ -87,10 +87,10 @@
       "tableDescription": "A list of your shopping cart items.",
       "backToStorage": "Back to storage",
       "cartEmpty": "Your shopping cart is empty.",
-      "clearCart": "Empty shopping cart",
-      "borrowNow": "Borrow now"
+      "clearCart": "Empty shopping cart"
     },
     "loanForm": {
+      "borrowNow": "Borrow now",
       "name": "Name",
       "nameDescription": "Person lending the item(s).",
       "email": "Email",
