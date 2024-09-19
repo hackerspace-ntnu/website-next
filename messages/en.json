@@ -80,7 +80,7 @@
     },
     "shoppingCart": {
       "title": "Shopping Cart",
-      "productId": "Product id",
+      "productId": "Product ID",
       "productName": "Product Name",
       "location": "Location",
       "unitsAvailable": "Units available",

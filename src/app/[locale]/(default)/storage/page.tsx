@@ -14,7 +14,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCartIcon } from 'lucide-react';
 
 import { CategorySelector } from '@/components/storage/CategorySelector';
 import { SortSelector } from '@/components/storage/SortSelector';
@@ -87,7 +87,7 @@ export default function StoragePage({
             <Link href='/storage/shopping-cart'>
               <TooltipTrigger asChild>
                 <Button className='absolute right-0 bottom-0 md:right-5'>
-                  <ShoppingCart />
+                  <ShoppingCartIcon />
                 </Button>
               </TooltipTrigger>
             </Link>

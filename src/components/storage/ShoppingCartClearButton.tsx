@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { X } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 import { useLocalStorage } from 'usehooks-ts';
 
 function ShoppingCartClearButton({ caption }: { caption: string }) {
@@ -21,7 +21,7 @@ function ShoppingCartClearButton({ caption }: { caption: string }) {
       variant='destructive'
       onClick={() => clearCart()}
     >
-      <X />
+      <XIcon />
       {caption}
     </Button>
   );

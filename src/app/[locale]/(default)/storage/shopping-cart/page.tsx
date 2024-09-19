@@ -3,7 +3,7 @@ import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearB
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
@@ -45,7 +45,7 @@ export default function StorageShoppingCartPage({
       <div className='my-4 flex justify-center gap-2'>
         <Link href='/storage'>
           <Button className='flex gap-2'>
-            <ArrowLeft />
+            <ArrowLeftIcon />
             {t('backToStorage')}
           </Button>
         </Link>

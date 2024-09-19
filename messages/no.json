@@ -80,7 +80,7 @@
     },
     "shoppingCart": {
       "title": "Handlekurv",
-      "productId": "Produkt id",
+      "productId": "Produkt-ID",
       "productName": "Produktnavn",
       "location": "Plass",
       "unitsAvailable": "Stk tilgjengelig",

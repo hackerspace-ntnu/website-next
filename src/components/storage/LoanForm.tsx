@@ -23,7 +23,7 @@ const formSchema = z.object({
   returnBy: z.date().min(new Date()),
 });
 
-type LoanFormParams = {
+type LoanFormProps = {
   t: {
     borrowNow: string;
     name: string;
@@ -38,7 +38,7 @@ type LoanFormParams = {
   };
 };
 
-function LoanForm({ t }: LoanFormParams) {
+function LoanForm({ t }: LoanFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { X } from 'lucide-react';
+import { XIcon } from 'lucide-react';
 import { useLocalStorage } from 'usehooks-ts';
 
 // TODO: Must be replaced by requesting the data from a database.
@@ -74,7 +74,7 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
                 className='h-8 p-1'
                 onClick={() => removeItem(item.id)}
               >
-                <X />
+                <XIcon />
               </Button>
             </TableCell>
           </TableRow>
