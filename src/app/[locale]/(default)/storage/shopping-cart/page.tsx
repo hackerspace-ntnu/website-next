@@ -14,6 +14,7 @@ export default function StorageShoppingCartPage({
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');
+  const tLoanForm = useTranslations('storage.loanForm');
 
   const tableMessages = {
     tableDescription: t('tableDescription'),
@@ -22,6 +23,18 @@ export default function StorageShoppingCartPage({
     location: t('location'),
     unitsAvailable: t('unitsAvailable'),
     cartEmpty: t('cartEmpty'),
+  };
+
+  const loanFormMessages = {
+    name: tLoanForm('name'),
+    nameDescription: tLoanForm('nameDescription'),
+    email: tLoanForm('email'),
+    emailExample: tLoanForm('emailExample'),
+    phoneNumber: tLoanForm('phoneNumber'),
+    phoneNumberDescription: tLoanForm('phoneNumberDescription'),
+    returnBy: tLoanForm('returnBy'),
+    returnByDescription: tLoanForm('returnByDescription'),
+    submit: tLoanForm('submit'),
   };
 
   return (
@@ -37,7 +50,10 @@ export default function StorageShoppingCartPage({
         </Link>
         <ShoppingCartClearButton caption={t('clearCart')} />
       </div>
-      <LoanForm />
+      <div className='my-6'>
+        <h2 className='text-center'>{t('borrowNow')}</h2>
+        <LoanForm t={loanFormMessages} />
+      </div>
     </>
   );
 }

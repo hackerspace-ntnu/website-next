@@ -19,11 +19,25 @@ import { z } from 'zod';
 const formSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
-  phone: z.string(),
+  phone: z.string().min(1),
   returnBy: z.date().min(new Date()),
 });
 
-function LoanForm() {
+type LoanFormParams = {
+  t: {
+    name: string;
+    nameDescription: string;
+    email: string;
+    emailExample: string;
+    phoneNumber: string;
+    phoneNumberDescription: string;
+    returnBy: string;
+    returnByDescription: string;
+    submit: string;
+  };
+};
+
+function LoanForm({ t }: LoanFormParams) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,6 +49,7 @@ function LoanForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // TODO: Add new loan to database
     console.log(values);
   }
 
@@ -47,11 +62,11 @@ function LoanForm() {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t.name}</FormLabel>
                 <FormControl>
-                  <Input placeholder='name' {...field} />
+                  <Input placeholder={t.name} {...field} />
                 </FormControl>
-                <FormDescription>Person lending the item(s).</FormDescription>
+                <FormDescription>{t.nameDescription}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -61,13 +76,10 @@ function LoanForm() {
             name='email'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t.email}</FormLabel>
                 <FormControl>
-                  <Input placeholder='name' {...field} />
+                  <Input placeholder={t.emailExample} {...field} />
                 </FormControl>
-                {/* <FormDescription>
-                  This is your public display name.
-                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
@@ -77,25 +89,23 @@ function LoanForm() {
             name='phone'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone number</FormLabel>
+                <FormLabel>{t.phoneNumber}</FormLabel>
                 <FormControl>
-                  <Input placeholder='name' {...field} />
+                  <Input placeholder='123 456 789' {...field} />
                 </FormControl>
-                {/* <FormDescription>
-                  This is your public display name.
-                </FormDescription> */}
+                <FormDescription>{t.phoneNumberDescription}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <div className='flex justify-center'>
+        <div className='mx-auto max-w-[280px]'>
           <FormField
             control={form.control}
             name='returnBy'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t.returnBy}</FormLabel>
                 <FormControl>
                   <DatePicker
                     buttonClassName='flex'
@@ -103,33 +113,15 @@ function LoanForm() {
                     disabled={{ before: new Date() }}
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+                <FormDescription>{t.returnByDescription}</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type='submit' className='flex mx-auto w-fit'>
-          Submit
+        <Button type='submit' className='mx-auto flex w-fit'>
+          {t.submit}
         </Button>
-        {/* <FormField
-          control={form.control}
-          name='username'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder='example' {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
       </form>
     </Form>
   );

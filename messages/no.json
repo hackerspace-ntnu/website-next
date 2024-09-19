@@ -87,7 +87,19 @@
       "tableDescription": "En liste over handlekurven din.",
       "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
-      "clearCart": "Tøm handlekurven"
+      "clearCart": "Tøm handlekurven",
+      "borrowNow": "Lån nå"
+    },
+    "loanForm": {
+      "name": "Navn",
+      "nameDescription": "Personen som låner gjenstanden(e).",
+      "email": "Epost",
+      "emailExample": "navn@example.com",
+      "phoneNumber": "Mobilnummer",
+      "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
+      "returnBy": "Lån fram til",
+      "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "submit": "Send"
     }
   }
 }
