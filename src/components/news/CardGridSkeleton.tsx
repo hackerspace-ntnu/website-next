@@ -8,7 +8,7 @@ function CardGridSkeleton() {
       {Array.from({ length: 4 }).map((_, index) => (
         <Skeleton
           className={cx(
-            'h-full w-full',
+            'size-full',
             index === 0 && 'xs:col-span-2 row-span-1 md:row-span-2',
             index === 1 && 'col-span-1 row-span-1 md:col-span-2',
             index === 3 && 'xs:col-span-2 row-span-1 md:col-span-1',

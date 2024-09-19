@@ -15,6 +15,9 @@ Here is a list of documentation to help you get started:
 #### Styling
 
 - [Tailwind CSS](https://tailwindcss.com/docs) - Styling library
+  - [Fluid for Tailwind](https://fluid.tw/#basic-usage) - Fluid scale utility breakpoints
+  - [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate) - Animation utility classes
+  - [tailwind-scrollbar](https://github.com/adoxography/tailwind-scrollbar) - Customize scrollbar with tailwind
 - [Class Variance Authority](https://beta.cva.style/) - Tool for creating style variants in our UI components
 - [shadcn/ui](https://ui.shadcn.com/docs) - Reusable UI components
   - [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/overview/introduction) - Primitives library that shadcn/ui is built on, great documentation if you need to access the underlying components
