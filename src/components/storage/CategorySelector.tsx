@@ -1,7 +1,7 @@
 'use client';
-import { useTranslations } from 'next-intl';
+
 import { useQueryState } from 'nuqs';
-import { createSearchParamsCache, parseAsString } from 'nuqs/parsers';
+import { parseAsString } from 'nuqs/parsers';
 import { Combobox } from '../ui/Combobox';
 
 type CategorySelectorProps = {
