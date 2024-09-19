@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 type ItemCardProps = {
@@ -23,6 +24,7 @@ function ItemCard({
   removeFromCart,
   quantityInfo,
 }: ItemCardProps) {
+  const t = useTranslations('ui');
   return (
     <Card
       key={item.name}
@@ -34,7 +36,7 @@ function ItemCard({
             src='/unknown.png'
             width={192}
             height={192}
-            alt={`Photo of ${item.name}`}
+            alt={t('photoOf', { name: item.name })}
             className='mx-auto rounded-md duration-200 group-hover:scale-105'
           />
         </div>

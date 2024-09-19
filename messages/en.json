@@ -11,7 +11,8 @@
     "morePages": "More pages",
     "page": "page",
     "category": "category",
-    "sort": "sort"
+    "sort": "sort",
+    "photoOf": "Photo of {name}"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",

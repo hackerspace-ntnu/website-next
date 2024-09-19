@@ -11,7 +11,8 @@
     "morePages": "Flere sider",
     "page": "side",
     "category": "kategori",
-    "sort": "sortering"
+    "sort": "sortering",
+    "photoOf": "Bilde av {name}"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
