@@ -2,7 +2,7 @@ import { LoanForm } from '@/components/storage/LoanForm';
 import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';

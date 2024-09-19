@@ -1,6 +1,5 @@
-import Image from 'next/image';
-
 import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
+import Image from 'next/image';
 
 type AvatarIconProps = {
   className?: string;

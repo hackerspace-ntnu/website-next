@@ -1,8 +1,8 @@
-import { SquarePen } from 'lucide-react';
+import { SquarePenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 
 import { Button } from '@/components/ui/Button';
 
@@ -23,7 +23,7 @@ export default function NewsHeaderLayout({
         <h1 className='my-4'>{t('title')}</h1>
         <Button asChild size='sm'>
           <Link href='/news/new'>
-            <SquarePen className='mr-2 h-4 w-4' />
+            <SquarePenIcon className='mr-2 h-4 w-4' />
             {t('newArticle')}
           </Link>
         </Button>

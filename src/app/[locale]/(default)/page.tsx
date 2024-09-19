@@ -1,14 +1,17 @@
+import { HelloWorld } from '@/components/home/HelloWorld';
+import { api } from '@/lib/api/server';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-export default function HomePage({
+export default async function HomePage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
+  const hello = await api.test.helloWorld();
   return (
     <div className='min-h-screen'>
-      <h2>Landing Page</h2>
+      <h2>{hello}</h2>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
         cupiditate debitis! Fuga minus quod ea eligendi exercitationem. Sequi
@@ -44,6 +47,7 @@ export default function HomePage({
         assumenda sequi dolorem asperiores quidem quis eos quaerat dolor.
         Excepturi, aspernatur suscipit.
       </p>
+      <HelloWorld />
     </div>
   );
 }

@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/Tooltip';
 import { ShoppingCart } from 'lucide-react';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { CategorySelector } from '@/components/storage/CategorySelector';
 import { SortSelector } from '@/components/storage/SortSelector';
 
