@@ -33,13 +33,11 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
     initializeWithValue: false,
   });
 
-  if (!cart) return <ShoppingCartTableSkeleton />;
-
-  const itemsInCart = items.filter((item) => cart.includes(item.id));
-
   if (cart.length <= 0) {
     return <h3 className='text-center'>{messages.cartEmpty}</h3>;
   }
+
+  const itemsInCart = items.filter((item) => cart.includes(item.id));
 
   function removeItem(id: number) {
     if (!cart) return;
