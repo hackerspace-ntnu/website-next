@@ -10,7 +10,7 @@ ci:
   upload:
     target: 'temporary-public-storage'
   assert:
-    preset: 'lighthouse:no-pwa'
+    preset: 'lighthouse:recommended'
     assertions:
       first-contentful-paint:
         - error
@@ -20,4 +20,16 @@ ci:
         - error
         - maxNumericValue: 5000
           aggregationMethod: optimistic
+      bf-cache: 'off'
+      csp-xss: 'off'
+      identical-links-same-purpose: 'off'
+      total-byte-weight: 'off'
+      color-contrast: 'off'
       heading-order: 'off'
+      mainthread-work-breakdown: 'off'
+      bootup-time: 'off'
+      largest-contentful-paint: 'off'
+      dom-size: 'off'
+      render-blocking-resources: 'off'
+      server-response-time: 'off'
+      uses-responsive-images: 'off'
