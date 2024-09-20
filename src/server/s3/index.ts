@@ -27,6 +27,6 @@ const s3 =
 if (env.NODE_ENV !== 'production') globalForS3.s3 = s3;
 
 const buckets = env.STORAGE_NAME.split(',');
-const imageBucket = buckets[0] as string;
+const imageBucket = buckets[0];
 
 export { s3, endpoint, imageBucket, PutObjectCommand, DeleteObjectCommand };
