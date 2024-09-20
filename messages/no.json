@@ -76,6 +76,16 @@
       "peripherals": "PC-tilbehør",
       "miniPC": "Mini-PC"
     },
+    "searchParams": {
+      "popularity": "popularitet",
+      "descending": "synkende",
+      "ascending": "stigende",
+      "name": "navn",
+      "cables": "kabler",
+      "sensors": "sensorer",
+      "peripherals": "tilbehoer",
+      "miniPC": "minipc"
+    },
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
     },

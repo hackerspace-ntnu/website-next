@@ -76,6 +76,16 @@
       "peripherals": "PC peripherals",
       "miniPC": "Mini PC"
     },
+    "searchParams": {
+      "popularity": "popularity",
+      "descending": "descending",
+      "ascending": "ascending",
+      "name": "name",
+      "cables": "cables",
+      "sensors": "sensors",
+      "peripherals": "peripherals",
+      "miniPC": "minipc"
+    },
     "tooltips": {
       "viewShoppingCart": "View shopping cart"
     },

@@ -54,28 +54,28 @@ export default function StoragePage({
   // TODO: Implement filters and category selection
   const categories = [
     {
-      value: 'cables',
       label: t('combobox.cables'),
+      value: t('searchParams.cables'),
     },
     {
-      value: 'sensors',
       label: t('combobox.sensors'),
+      value: t('searchParams.sensors'),
     },
     {
-      value: 'peripherals',
       label: t('combobox.peripherals'),
+      value: t('searchParams.peripherals'),
     },
     {
-      value: 'miniPC',
       label: t('combobox.miniPC'),
+      value: t('searchParams.miniPC'),
     },
   ];
 
   const filters = [
-    { name: t('select.popularity'), urlName: 'popularity' },
-    { name: t('select.sortDescending'), urlName: 'descending' },
-    { name: t('select.sortAscending'), urlName: 'ascending' },
-    { name: t('select.name'), urlName: 'name' },
+    { name: t('select.popularity'), urlName: t('searchParams.popularity') },
+    { name: t('select.sortDescending'), urlName: t('searchParams.descending') },
+    { name: t('select.sortAscending'), urlName: t('searchParams.ascending') },
+    { name: t('select.name'), urlName: t('searchParams.name') },
   ];
 
   return (
