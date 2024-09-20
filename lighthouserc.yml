@@ -33,3 +33,5 @@ ci:
       render-blocking-resources: 'off'
       server-response-time: 'off'
       uses-responsive-images: 'off'
+      maskable-icon: 'off'
+      installable-manifest: 'off'
