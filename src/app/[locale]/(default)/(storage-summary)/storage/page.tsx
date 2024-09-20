@@ -1,7 +1,7 @@
+import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
-import { items } from '@/mock-data/items';
 
 import { ItemCard } from '@/components/storage/ItemCard';
 

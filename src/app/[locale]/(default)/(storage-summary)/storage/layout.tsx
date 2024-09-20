@@ -1,19 +1,19 @@
-import { useTranslations } from 'next-intl';
-import { ShoppingCartIcon } from 'lucide-react';
-import { items } from '@/mock-data/items';
 import { Link } from '@/lib/locale/navigation';
+import { items } from '@/mock-data/items';
+import { ShoppingCartIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
+import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { CategorySelector } from '@/components/storage/CategorySelector';
+import { SortSelector } from '@/components/storage/SortSelector';
+import { Button } from '@/components/ui/Button';
+import { SearchBar } from '@/components/ui/SearchBar';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { Button } from '@/components/ui/Button';
-import { SearchBar } from '@/components/ui/SearchBar';
-import { CategorySelector } from '@/components/storage/CategorySelector';
-import { SortSelector } from '@/components/storage/SortSelector';
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 
 export default function StorageLayout({
   children,
