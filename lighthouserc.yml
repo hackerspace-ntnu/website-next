@@ -2,6 +2,10 @@ ci:
   collect:
     url:
       - 'http://localhost:3000/en'
+      - 'http://localhost:3000/en/events'
+      - 'http://localhost:3000/en/news'
+      - 'http://localhost:3000/en/news/1'
+      - 'http://localhost:3000/en/about'
     startServerCommand: 'bun run start'
   upload:
     target: 'temporary-public-storage'
