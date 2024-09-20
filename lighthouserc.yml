@@ -20,4 +20,4 @@ ci:
         - error
         - maxNumericValue: 5000
           aggregationMethod: optimistic
-      'heading-order': 'off'
+      heading-order: 'off'
