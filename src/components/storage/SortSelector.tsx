@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
+import { useSearchParams } from 'next/navigation';
 import { parseAsString, useQueryState } from 'nuqs';
 
 type SortSelectorProps = {
@@ -18,13 +19,13 @@ type SortSelectorProps = {
     sort: string;
     defaultPlaceholder: string;
   };
-  searchParams: Record<string, string | string[] | undefined>;
 };
 
-function SortSelector({ filters, t, searchParams }: SortSelectorProps) {
+function SortSelector({ filters, t }: SortSelectorProps) {
+  const initialSort = useSearchParams().get(t.sort);
   const [filter, setFilter] = useQueryState(
     t.sort,
-    parseAsString.withDefault(searchParams.sort?.toString() ?? ''),
+    parseAsString.withDefault(initialSort ?? ''),
   );
 
   return (

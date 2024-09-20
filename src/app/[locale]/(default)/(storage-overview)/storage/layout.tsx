@@ -1,12 +1,7 @@
-import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
-
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
-import { ItemCard } from '@/components/storage/ItemCard';
-import { Button } from '@/components/ui/Button';
-import { SearchBar } from '@/components/ui/SearchBar';
+import { ShoppingCartIcon } from 'lucide-react';
+import { items } from '@/mock-data/items';
+import { Link } from '@/lib/locale/navigation';
 
 import {
   Tooltip,
@@ -14,44 +9,21 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { ShoppingCartIcon } from 'lucide-react';
-
+import { Button } from '@/components/ui/Button';
+import { SearchBar } from '@/components/ui/SearchBar';
 import { CategorySelector } from '@/components/storage/CategorySelector';
 import { SortSelector } from '@/components/storage/SortSelector';
-import { Link } from '@/lib/locale/navigation';
+import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 
-export async function generateMetadata({
-  params: { locale },
+export default function StorageLayout({
+  children,
 }: {
-  params: { locale: string };
+  children: React.ReactNode;
 }) {
-  const t = await getTranslations({ locale, namespace: 'layout' });
-
-  return {
-    title: t('storage'),
-  };
-}
-
-export default function StoragePage({
-  params: { locale },
-  searchParams,
-}: {
-  params: { locale: string };
-  searchParams: Record<string, string | string[] | undefined>;
-}) {
-  unstable_setRequestLocale(locale);
   const t = useTranslations('storage');
-  const t_ui = useTranslations('ui');
-
+  const tUI = useTranslations('ui');
   const itemsPerPage = 12;
 
-  const searchParamsCache = createSearchParamsCache({
-    [t_ui('page')]: parseAsInteger.withDefault(1),
-  });
-
-  const { [t_ui('page')]: page = 1 } = searchParamsCache.parse(searchParams);
-
-  // TODO: Implement filters and category selection
   const categories = [
     {
       label: t('combobox.cables'),
@@ -102,45 +74,31 @@ export default function StoragePage({
         <SortSelector
           filters={filters}
           t={{
-            sort: t_ui('sort'),
+            sort: tUI('sort'),
             defaultPlaceholder: t('select.defaultPlaceholder'),
           }}
-          searchParams={searchParams}
         />
         <CategorySelector
           categories={categories}
           t={{
-            category: t_ui('category'),
-            sort: t_ui('sort'),
+            category: tUI('category'),
+            sort: tUI('sort'),
             defaultDescription: t('combobox.defaultDescription'),
             defaultPlaceholder: t('combobox.defaultPlaceholder'),
           }}
-          searchParams={searchParams}
         />
       </div>
-      <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
-        {items
-          .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-          .map((item) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              addToCart={t('card.addToCart')}
-              removeFromCart={t('card.removeFromCart')}
-              quantityInfo={t('card.quantityInfo', { quantity: item.quantity })}
-            />
-          ))}
-      </div>
+      {children}
       <PaginationCarousel
         className='my-6'
         totalPages={Math.ceil(items.length / itemsPerPage)}
         t={{
-          goToPreviousPage: t_ui('goToPreviousPage'),
-          previous: t_ui('previous'),
-          morePages: t_ui('morePages'),
-          goToNextPage: t_ui('goToNextPage'),
-          next: t_ui('next'),
-          page: t_ui('page'),
+          goToPreviousPage: tUI('goToPreviousPage'),
+          previous: tUI('previous'),
+          morePages: tUI('morePages'),
+          goToNextPage: tUI('goToNextPage'),
+          next: tUI('next'),
+          page: tUI('page'),
         }}
       />
     </>
