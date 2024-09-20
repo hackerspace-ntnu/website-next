@@ -23,6 +23,25 @@ jobs:
   performance-audit:
     name: Performance Audit
     runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: true
+      NODE_ENV: "production"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      DATABASE_HOST: "localhost"
+      DATABASE_PORT: "5432"
+      DATABASE_USER: "user"
+      DATABASE_PASSWORD: "password"
+      DATABASE_NAME: "database"
+      STORAGE_HOST: "localhost"
+      STORAGE_PORT: "9000"
+      STORAGE_USER: "user"
+      STORAGE_PASSWORD: "password"
+      STORAGE_NAME: "images"
+      FEIDE_CLIENT_ID: " "
+      FEIDE_CLIENT_SECRET: " "
+      FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
+      FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
+      FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,25 +52,6 @@ jobs:
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Build
-        env:
-          NEXT_TELEMETRY_DISABLED: true
-          NODE_ENV: "production"
-          NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
-          DATABASE_HOST: "localhost"
-          DATABASE_PORT: "5432"
-          DATABASE_USER: "user"
-          DATABASE_PASSWORD: "password"
-          DATABASE_NAME: "database"
-          STORAGE_HOST: "localhost"
-          STORAGE_PORT: "9000"
-          STORAGE_USER: "user"
-          STORAGE_PASSWORD: "password"
-          STORAGE_NAME: "images"
-          FEIDE_CLIENT_ID: " "
-          FEIDE_CLIENT_SECRET: " "
-          FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
-          FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
-          FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
         run: bun run build
       - name: Setup Lighthouse
         env:
