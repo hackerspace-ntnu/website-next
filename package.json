@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prepare": "lefthook install",
+    "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then lefthook install; fi",
     "postbuild": "next-sitemap",
     "prebuild": "next telemetry disable",
     "build": "next build",
