@@ -9,7 +9,6 @@
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
     "build": "next build",
-    "postbuild": "next-sitemap && mkdir -p .next/standalone/public && mkdir -p .next/standalone/.next/static && cp -R public/* .next/standalone/public/ && cp -R .next/static/* .next/standalone/.next/static/",
     "start": "bun run .next/standalone/server.js",
     "db:start": "docker-compose up db",
     "db:generate": "drizzle-kit generate",

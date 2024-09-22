@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executing remote SSH commands using SSH key
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.USERNAME }}
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            git pull
+            bun run build
+            cd docs
+            docker compose down
+            docker compose up -d

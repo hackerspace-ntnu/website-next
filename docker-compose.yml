@@ -5,25 +5,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - DATABASE_HOST
-        - DATABASE_PORT
-        - DATABASE_USER
-        - DATABASE_PASSWORD
-        - DATABASE_NAME
-        - STORAGE_HOST
-        - STORAGE_PORT
-        - STORAGE_USER
-        - STORAGE_PASSWORD
-        - STORAGE_NAME
-        - FEIDE_CLIENT_ID
-        - FEIDE_CLIENT_SECRET
-        - FEIDE_AUTHORIZATION_ENDPOINT
-        - FEIDE_TOKEN_ENDPOINT
-        - FEIDE_USERINFO_ENDPOINT
-        - NEXT_PUBLIC_SITE_URL
-    env_file:
-      - .env
     ports:
       - "3000:3000"
   db:
