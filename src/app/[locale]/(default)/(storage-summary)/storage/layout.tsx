@@ -1,9 +1,7 @@
 import { Link } from '@/lib/locale/navigation';
-import { items } from '@/mock-data/items';
 import { ShoppingCartIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 import { CategorySelector } from '@/components/storage/CategorySelector';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { SortSelector } from '@/components/storage/SortSelector';
@@ -24,7 +22,6 @@ export default function StorageLayout({
 }) {
   const t = useTranslations('storage');
   const tUI = useTranslations('ui');
-  const itemsPerPage = 12;
 
   const categories = [
     {
@@ -93,18 +90,6 @@ export default function StorageLayout({
         </Suspense>
       </div>
       {children}
-      <PaginationCarousel
-        className='my-6'
-        totalPages={Math.ceil(items.length / itemsPerPage)}
-        t={{
-          goToPreviousPage: tUI('goToPreviousPage'),
-          previous: tUI('previous'),
-          morePages: tUI('morePages'),
-          goToNextPage: tUI('goToNextPage'),
-          next: tUI('next'),
-          page: tUI('page'),
-        }}
-      />
     </>
   );
 }

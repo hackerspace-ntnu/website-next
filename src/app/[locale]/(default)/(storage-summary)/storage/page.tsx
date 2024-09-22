@@ -4,6 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
 import { ItemCard } from '@/components/storage/ItemCard';
+import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 
 export async function generateMetadata({
   params: { locale },
@@ -26,15 +27,15 @@ export default function StoragePage({
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('storage');
-  const t_ui = useTranslations('ui');
+  const tUI = useTranslations('ui');
 
   const itemsPerPage = 12;
 
   const searchParamsCache = createSearchParamsCache({
-    [t_ui('page')]: parseAsInteger.withDefault(1),
+    [tUI('page')]: parseAsInteger.withDefault(1),
   });
 
-  const { [t_ui('page')]: page = 1 } = searchParamsCache.parse(searchParams);
+  const { [tUI('page')]: page = 1 } = searchParamsCache.parse(searchParams);
 
   return (
     <>
@@ -51,6 +52,20 @@ export default function StoragePage({
             />
           ))}
       </div>
+      {/* This would usually be placed in layout.tsx, however client hooks like useSearchParams cannot be used there.
+          To avoid a headache, you should probably leave this here. */}
+      <PaginationCarousel
+        className='my-6'
+        totalPages={Math.ceil(items.length / itemsPerPage)}
+        t={{
+          goToPreviousPage: tUI('goToPreviousPage'),
+          previous: tUI('previous'),
+          morePages: tUI('morePages'),
+          goToNextPage: tUI('goToNextPage'),
+          next: tUI('next'),
+          page: tUI('page'),
+        }}
+      />
     </>
   );
 }
