@@ -6,7 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_SITE_URL
         - DATABASE_HOST
         - DATABASE_PORT
         - DATABASE_USER
@@ -22,6 +21,9 @@ services:
         - FEIDE_AUTHORIZATION_ENDPOINT
         - FEIDE_TOKEN_ENDPOINT
         - FEIDE_USERINFO_ENDPOINT
+        - NEXT_PUBLIC_SITE_URL
+    env_file:
+      - .env
     ports:
       - "3000:3000"
   db:
