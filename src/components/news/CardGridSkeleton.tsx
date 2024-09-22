@@ -13,7 +13,7 @@ function CardGridSkeleton() {
             index === 1 && 'col-span-1 row-span-1 md:col-span-2',
             index === 3 && 'xs:col-span-2 row-span-1 md:col-span-1',
           )}
-          key={`Grid ${index + 1}`}
+          key={React.useId()}
         />
       ))}
     </div>

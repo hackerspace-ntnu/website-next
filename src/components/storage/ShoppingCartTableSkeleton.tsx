@@ -1,19 +1,17 @@
 import { Skeleton } from '@/components/ui/Skeleton';
+import { useId } from 'react';
 
 export default function ShoppingCartTableSkeleton() {
   return (
     <>
       <div className='mt-4 grid grid-cols-10 gap-2'>
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Skeleton className='col-span-1 h-5' key={`s_1_${index + 1}`} />
+        {Array.from({ length: 4 }).map(() => (
+          <Skeleton className='col-span-1 h-5' key={useId()} />
         ))}
       </div>
-      {Array.from({ length: 4 }).map((_, index) => {
+      {Array.from({ length: 4 }).map(() => {
         return (
-          <div
-            key={`s_2_${index + 1}`}
-            className='my-4 grid grid-cols-10 gap-2'
-          >
+          <div key={useId()} className='my-4 grid grid-cols-10 gap-2'>
             <Skeleton className='col-span-1 h-10' />
             <Skeleton className='col-span-3 h-10' />
             <Skeleton className='col-span-5 h-10' />
