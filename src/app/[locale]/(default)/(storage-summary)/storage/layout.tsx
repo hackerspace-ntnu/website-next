@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
 import { CategorySelector } from '@/components/storage/CategorySelector';
+import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { SortSelector } from '@/components/storage/SortSelector';
 import { Button } from '@/components/ui/Button';
 import { SearchBar } from '@/components/ui/SearchBar';
@@ -14,6 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
+import { Suspense } from 'react';
 
 export default function StorageLayout({
   children,
@@ -71,22 +73,24 @@ export default function StorageLayout({
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar className='lg:max-w-2xl' />
-        <SortSelector
-          filters={filters}
-          t={{
-            sort: tUI('sort'),
-            defaultPlaceholder: t('select.defaultPlaceholder'),
-          }}
-        />
-        <CategorySelector
-          categories={categories}
-          t={{
-            category: tUI('category'),
-            sort: tUI('sort'),
-            defaultDescription: t('combobox.defaultDescription'),
-            defaultPlaceholder: t('combobox.defaultPlaceholder'),
-          }}
-        />
+        <Suspense fallback={<SelectorsSkeleton />}>
+          <SortSelector
+            filters={filters}
+            t={{
+              sort: tUI('sort'),
+              defaultPlaceholder: t('select.defaultPlaceholder'),
+            }}
+          />
+          <CategorySelector
+            categories={categories}
+            t={{
+              category: tUI('category'),
+              sort: tUI('sort'),
+              defaultDescription: t('combobox.defaultDescription'),
+              defaultPlaceholder: t('combobox.defaultPlaceholder'),
+            }}
+          />
+        </Suspense>
       </div>
       {children}
       <PaginationCarousel
