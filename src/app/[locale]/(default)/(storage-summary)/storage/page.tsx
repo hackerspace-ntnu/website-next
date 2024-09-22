@@ -3,8 +3,8 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 
-import { ItemCard } from '@/components/storage/ItemCard';
 import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { ItemCard } from '@/components/storage/ItemCard';
 
 export async function generateMetadata({
   params: { locale },
