@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
-import { parseAsString } from 'nuqs/parsers';
+import { parseAsString } from 'nuqs/server';
 import { Combobox } from '../ui/Combobox';
 
 type CategorySelectorProps = {
