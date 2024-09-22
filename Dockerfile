@@ -18,7 +18,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=true
 ENV SKIP_ENV_VALIDATION=true
 
 # Set environment variables during the build
@@ -57,8 +56,7 @@ ENV FEIDE_TOKEN_ENDPOINT=$FEIDE_TOKEN_ENDPOINT
 ENV FEIDE_USERINFO_ENDPOINT=$FEIDE_USERINFO_ENDPOINT
 
 # Build the application
-RUN bunx next build
-
+RUN bun run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
