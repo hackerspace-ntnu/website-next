@@ -1,4 +1,4 @@
-import { SkeletonCard } from '@/components/storage/SkeletonCard';
+import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export default function ShoppingCartSkeleton() {
@@ -6,17 +6,7 @@ export default function ShoppingCartSkeleton() {
     <>
       <div className='my-4'>
         <Skeleton className='mx-auto h-14 w-1/2 rounded-full' />
-        <div className='my-4 flex flex-col items-center gap-2'>
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-10 w-full' />
-          <Skeleton className='h-6 w-[250px] rounded-full' />
-        </div>
-        <div className='flex justify-center gap-2'>
-          <Skeleton className='h-10 w-[200px] rounded-lg' />
-          <Skeleton className='h-10 w-[200px] rounded-lg' />
-        </div>
+        <ShoppingCartTableSkeleton />
         <div className='my-6 space-y-4'>
           <Skeleton className='mx-auto h-8 w-[250px]' />
           <Skeleton className='h-1 w-full' />

@@ -1,6 +1,5 @@
 'use client';
 
-import ShoppingCartTableSkeleton from '@/components/storage/ShoppingCartTableSkeleton';
 import { Button } from '@/components/ui/Button';
 import {
   Table,
