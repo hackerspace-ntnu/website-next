@@ -6,6 +6,8 @@ ci:
       - 'http://localhost:3000/en/news'
       - 'http://localhost:3000/en/news/1'
       - 'http://localhost:3000/en/about'
+      - 'http://localhost:3000/en/storage'
+      - 'http://localhost:3000/en/shopping-cart'
     startServerCommand: 'bun run start'
   upload:
     target: 'temporary-public-storage'
