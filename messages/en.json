@@ -55,6 +55,7 @@
   },
   "storage": {
     "title": "Storage",
+    "searchPlaceholder": "Search for product...",
     "card": {
       "quantityInfo": "{quantity} units",
       "addToCart": "Add to cart",

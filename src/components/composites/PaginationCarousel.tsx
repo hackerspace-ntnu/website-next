@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/Pagination';
 import { cx } from '@/lib/utils';
 import { parseAsInteger, useQueryState } from 'nuqs';
+
 type PaginationCarouselProps = {
   className?: string;
   totalPages: number;

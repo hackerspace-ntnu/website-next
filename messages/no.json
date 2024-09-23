@@ -55,6 +55,7 @@
   },
   "storage": {
     "title": "Lager",
+    "searchPlaceholder": "Søk etter produkt...",
     "card": {
       "quantityInfo": "{quantity} stk.",
       "addToCart": "Legg i handlekurven",

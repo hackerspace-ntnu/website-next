@@ -9,7 +9,7 @@ const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   ({ className, ...props }, ref) => {
     return (
       <div className={cx('relative flex items-center', className)}>
-        <SearchIcon className='absolute left-2 size-4' />
+        <SearchIcon className='absolute left-2 size-4 text-muted-foreground' />
         <Input className='pl-8' ref={ref} {...props} />
       </div>
     );

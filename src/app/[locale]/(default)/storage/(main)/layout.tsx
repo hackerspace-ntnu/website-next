@@ -69,7 +69,10 @@ export default function StorageLayout({
         </TooltipProvider>
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
-        <SearchBar className='lg:max-w-2xl' />
+        <SearchBar
+          className='lg:max-w-2xl'
+          placeholder={t('searchPlaceholder')}
+        />
         <Suspense fallback={<SelectorsSkeleton />}>
           <SortSelector
             filters={filters}
