@@ -40,7 +40,6 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     DATABASE_HOST: process.env.DATABASE_HOST,
     DATABASE_PORT: process.env.DATABASE_PORT,
     DATABASE_USER: process.env.DATABASE_USER,
@@ -56,6 +55,7 @@ export const env = createEnv({
     FEIDE_AUTHORIZATION_ENDPOINT: process.env.FEIDE_AUTHORIZATION_ENDPOINT,
     FEIDE_TOKEN_ENDPOINT: process.env.FEIDE_TOKEN_ENDPOINT,
     FEIDE_USERINFO_ENDPOINT: process.env.FEIDE_USERINFO_ENDPOINT,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

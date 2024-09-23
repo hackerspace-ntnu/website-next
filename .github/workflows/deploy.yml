@@ -1,0 +1,55 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'Development'
+        enum: ['Production', 'Development']
+
+jobs:
+  deploy-prod:
+    name: Production
+    runs-on: ubuntu-latest
+    environment: Production
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Production')
+    steps:
+      - name: Executing remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          username: ${{ secrets.USERNAME }}
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${GITHUB_REPOSITORY##*/}
+            git checkout ${GITHUB_REF##*/}
+            git pull
+            docker compose down
+            docker compose up -d
+
+  deploy-dev:
+    name: Development
+    runs-on: ubuntu-latest
+    environment: Development
+    if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Development')
+    steps:
+      - name: Executing remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          username: ${{ secrets.USERNAME }}
+          host: ${{ secrets.HOST }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ${GITHUB_REPOSITORY##*/}
+            git checkout ${GITHUB_REF##*/}
+            git pull
+            docker compose down
+            docker compose up -d
