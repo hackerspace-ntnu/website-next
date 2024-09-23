@@ -23,7 +23,6 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "production"
-      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
       DATABASE_HOST: "localhost"
       DATABASE_PORT: "5432"
       DATABASE_USER: "user"
@@ -39,6 +38,7 @@ jobs:
       FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
       FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
       FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
