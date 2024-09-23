@@ -20,7 +20,8 @@ on:
         required: true
 
 jobs:
-  deploy:
+  script:
+    name: Script
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:

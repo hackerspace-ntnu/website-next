@@ -22,10 +22,10 @@ jobs:
       environment: Production
       branch: main
     secrets:
-      host: ${{ secrets.ssh_host }}
-      port: ${{ secrets.ssh_port }}
-      key: ${{ secrets.ssh_key }}
-      username: ${{ secrets.username }}
+      host: ${{ secrets.HOST }}
+      port: ${{ secrets.PORT }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.KEY }}
 
   deploy-dev:
     name: Development
@@ -35,7 +35,7 @@ jobs:
       environment: Development
       branch: dev
     secrets:
-      host: ${{ secrets.ssh_host }}
-      port: ${{ secrets.ssh_port }}
-      key: ${{ secrets.ssh_key }}
-      username: ${{ secrets.username }}
+      host: ${{ secrets.HOST }}
+      port: ${{ secrets.PORT }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.KEY }}
