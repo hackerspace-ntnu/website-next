@@ -2,11 +2,11 @@ import { Link } from '@/lib/locale/navigation';
 import { ShoppingCartIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { SearchBar } from '@/components/composites/SearchBar';
 import { CategorySelector } from '@/components/storage/CategorySelector';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { SortSelector } from '@/components/storage/SortSelector';
 import { Button } from '@/components/ui/Button';
-import { SearchBar } from '@/components/ui/SearchBar';
 import {
   Tooltip,
   TooltipContent,

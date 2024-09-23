@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemCard } from '@/components/storage/ItemCard';
 
 export async function generateMetadata({

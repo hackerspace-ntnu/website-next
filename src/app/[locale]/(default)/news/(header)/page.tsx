@@ -4,7 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { Suspense } from 'react';
 
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { CardGrid } from '@/components/news/CardGrid';
 import { ItemGrid } from '@/components/news/ItemGrid';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
