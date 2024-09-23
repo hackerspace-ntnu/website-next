@@ -9,6 +9,9 @@ on:
       branch:
         required: true
         type: string
+      path:
+        required: true
+        type: string
     secrets:
       host:
         required: true
@@ -32,7 +35,7 @@ jobs:
           key: ${{ secrets.key }}
           username: ${{ secrets.username }}
           script: |
-            cd ${GITHUB_REPOSITORY##*/}
+            cd ${{ inputs.path }}
             git checkout ${{ inputs.branch }}
             git pull
             docker compose down
