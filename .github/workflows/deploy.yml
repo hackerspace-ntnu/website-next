@@ -29,6 +29,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${GITHUB_REPOSITORY##*/}
+            git checkout ${GITHUB_REF##*/}
             git pull
             docker compose down
             docker compose up -d
@@ -48,6 +49,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd ${GITHUB_REPOSITORY##*/}
+            git checkout ${GITHUB_REF##*/}
             git pull
             docker compose down
             docker compose up -d
