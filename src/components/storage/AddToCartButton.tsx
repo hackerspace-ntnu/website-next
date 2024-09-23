@@ -26,10 +26,7 @@ function AddToCartButton({
   addToCart: string;
   removeFromCart: string;
 }) {
-  const [cart, setCart, removeCart] = useLocalStorage<number[]>(
-    'shopping-cart',
-    [],
-  );
+  const [cart, setCart, _] = useLocalStorage<number[]>('shopping-cart', []);
   // Set isInCart to false initially as we can update it on the client side with useEffect,
   // and the server prerenders all buttons as "Add to cart".
   const [isInCart, setIsInCart] = useState(false);

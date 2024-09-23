@@ -9,16 +9,12 @@ function ShoppingCartClearButton({ caption }: { caption: string }) {
     initializeWithValue: false,
   });
 
-  function clearCart() {
-    setCart([]);
-  }
-
   return (
     <Button
       className='flex gap-2'
       variant='destructive'
       disabled={cart.length <= 0}
-      onClick={() => clearCart()}
+      onClick={() => setCart([])}
     >
       <XIcon />
       {caption}

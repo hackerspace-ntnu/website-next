@@ -33,7 +33,7 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
   });
 
   if (cart.length <= 0) {
-    return <h3 className='text-center'>{messages.cartEmpty}</h3>;
+    return <p className='text-center'>{messages.cartEmpty}</p>;
   }
 
   const itemsInCart = items.filter((item) => cart.includes(item.id));

@@ -4,10 +4,6 @@ import * as React from 'react';
 
 type SearchBarProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-/**
- * This component creates a full search bar with an icon.
- * The ref, if used, is passed onto the input element, not the wrapper for the component.
- */
 const SearchBar = React.forwardRef<HTMLInputElement, SearchBarProps>(
   ({ className, type, ...props }, ref) => {
     return (

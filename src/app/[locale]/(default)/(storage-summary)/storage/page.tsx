@@ -52,8 +52,6 @@ export default function StoragePage({
             />
           ))}
       </div>
-      {/* This would usually be placed in layout.tsx, however client hooks like useSearchParams cannot be used there.
-          To avoid a headache, you should probably leave this here. */}
       <PaginationCarousel
         className='my-6'
         totalPages={Math.ceil(items.length / itemsPerPage)}
