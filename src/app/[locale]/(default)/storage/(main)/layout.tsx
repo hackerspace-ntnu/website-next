@@ -79,6 +79,7 @@ export default function StorageLayout({
             t={{
               sort: tUI('sort'),
               defaultPlaceholder: t('select.defaultPlaceholder'),
+              defaultSorting: t('searchParams.popularity'),
             }}
           />
           <CategorySelector

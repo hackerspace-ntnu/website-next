@@ -18,6 +18,7 @@ type SortSelectorProps = {
   t: {
     sort: string;
     defaultPlaceholder: string;
+    defaultSorting: string;
   };
 };
 
@@ -25,7 +26,9 @@ function SortSelector({ filters, t }: SortSelectorProps) {
   const initialSort = useSearchParams().get(t.sort);
   const [filter, setFilter] = useQueryState(
     t.sort,
-    parseAsString.withDefault(initialSort ?? ''),
+    parseAsString
+      .withDefault(initialSort ?? t.defaultSorting)
+      .withOptions({ shallow: false, clearOnDefault: true }),
   );
 
   return (

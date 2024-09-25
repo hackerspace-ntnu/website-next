@@ -28,7 +28,7 @@ type ComboboxProps = {
   buttonClassName?: string;
   contentClassName?: string;
   valueCallback?: (value: string | null) => void;
-  initialValue?: string;
+  initialValue?: string | null;
 };
 
 function Combobox({
