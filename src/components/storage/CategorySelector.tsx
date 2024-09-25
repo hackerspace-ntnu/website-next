@@ -40,6 +40,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
       contentClassName='w-full lg:w-[200px]'
       valueCallback={valueCallback}
       initialValue={category}
+      ariaLabel={t.defaultDescription}
     />
   );
 }

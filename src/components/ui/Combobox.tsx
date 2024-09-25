@@ -29,6 +29,7 @@ type ComboboxProps = {
   contentClassName?: string;
   valueCallback?: (value: string | null) => void;
   initialValue?: string | null;
+  ariaLabel?: string;
 };
 
 function Combobox({
@@ -39,6 +40,7 @@ function Combobox({
   contentClassName,
   valueCallback,
   initialValue,
+  ariaLabel,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<string | null>(initialValue ?? '');
@@ -50,6 +52,7 @@ function Combobox({
           variant='outline'
           role='combobox'
           aria-expanded={open}
+          aria-label={ariaLabel}
           className={cx('w-[200px] justify-between', buttonClassName)}
         >
           {value
