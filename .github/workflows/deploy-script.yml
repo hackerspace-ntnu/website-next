@@ -1,0 +1,42 @@
+name: SSH Deploy Script
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      branch:
+        required: true
+        type: string
+      path:
+        required: true
+        type: string
+    secrets:
+      host:
+        required: true
+      port:
+        required: true
+      key:
+        required: true
+      username:
+        required: true
+
+jobs:
+  script:
+    name: Script
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.host }}
+          port: ${{ secrets.port }}
+          key: ${{ secrets.key }}
+          username: ${{ secrets.username }}
+          script: |
+            cd ${{ inputs.path }}
+            git checkout ${{ inputs.branch }}
+            git pull
+            docker compose down
+            docker compose up --build -d

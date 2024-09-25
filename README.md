@@ -9,7 +9,7 @@ Here is a list of documentation to help you get started:
 - [Next-intl](https://next-intl-docs.vercel.app/) - Internationalization library
 - [nuqs](https://nuqs.47ng.com/docs/installation) - Easy to use query params
 - [BlockNote](https://www.blocknotejs.org/docs) - Tool for markdown textboxes
-- [Tanstack Form](https://tanstack.com/form/latest/docs/overview) - When we need to handle form validation (shadcn/ui uses react-hook-form. but I think this is better, we will figure it out)
+- [React Hook Form](https://react-hook-form.com/get-started) - When we need to handle form validation
 - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) - TRPC wraps Tanstack Query which is how we fetch data from the backend
 
 #### Styling
@@ -85,7 +85,9 @@ You can build the project with the following command:
 bun run build
 ```
 
-Then to serve the build locally, run:
+Then setup environment variables by copying the `.env.example` file to `.env` and fill in the values. `.env` files are used to store sensitive information like API keys and database credentials and it will not be committed to the repository.
+
+To serve the build locally, run:
 
 ```bash
 bun run start
@@ -113,7 +115,7 @@ We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.
 
 - To keep the code as consistent as possible use functions for react components or hooks instead of const variables with arrow function syntax. An exception is when using the forwardRef hook or when creating compound components.
 - Only use default export for pages or layouts etc. since it is required by Next.js. For everything else use named exports. This is to make it easier to find the components in the codebase or change them without ending up with different names for the same component.
-- Use `type` instead of `interface` for typescript types. This is to keep the code consistent and to make it easier to read. Aldso `type` is more flexible than `interface` since it can be used for unions and intersections.
+- Use `type` instead of `interface` for typescript types. This is to keep the code consistent and to make it easier to read. Also `type` is more flexible than `interface` since it can be used for unions and intersections.
 
 ### Naming conventions
 

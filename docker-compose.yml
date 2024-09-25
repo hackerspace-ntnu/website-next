@@ -1,46 +1,32 @@
 services:
   app:
-    depends_on:
-      - db
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_SITE_URL
-        - DATABASE_HOST
-        - DATABASE_PORT
-        - DATABASE_USER
-        - DATABASE_PASSWORD
-        - DATABASE_NAME
-        - STORAGE_HOST
-        - STORAGE_PORT
-        - STORAGE_USER
-        - STORAGE_PASSWORD
-        - STORAGE_NAME
-        - FEIDE_CLIENT_ID
-        - FEIDE_CLIENT_SECRET
-        - FEIDE_AUTHORIZATION_ENDPOINT
-        - FEIDE_TOKEN_ENDPOINT
-        - FEIDE_USERINFO_ENDPOINT
-    ports:
-      - "3000:3000"
+    depends_on:
+    - db
+    - s3
+    restart: unless-stopped
+    networks:
+      - nginx_default
   db:
     image: postgres:16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
   s3:
     image: bitnami/minio:2024
+    restart: unless-stopped
     environment:
       MINIO_ROOT_USER: ${STORAGE_USER}
       MINIO_ROOT_PASSWORD: ${STORAGE_PASSWORD}
       MINIO_DEFAULT_BUCKETS: ${STORAGE_NAME}
     volumes:
       - ./data/s3:/bitnami/minio/data
-    ports:
-      - "9000:9000"
+networks:
+  nginx_default:
+    external: true
