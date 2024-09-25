@@ -55,9 +55,15 @@ export default function StorageLayout({
         <h1 className='my-4 md:text-center'>{t('title')}</h1>
         <TooltipProvider>
           <Tooltip>
-            <Link href='/storage/shopping-cart'>
+            <Link
+              href='/storage/shopping-cart'
+              aria-label={t('tooltips.viewShoppingCart')}
+            >
               <TooltipTrigger asChild>
-                <Button className='absolute right-0 bottom-0 md:right-5'>
+                <Button
+                  className='absolute right-0 bottom-0 md:right-5'
+                  aria-label={t('tooltips.viewShoppingCart')}
+                >
                   <ShoppingCartIcon />
                 </Button>
               </TooltipTrigger>

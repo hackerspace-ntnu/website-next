@@ -38,9 +38,12 @@ function ItemCard({
             height={192}
             alt={t('photoOf', { name: item.name })}
             className='rounded-md duration-200 group-hover:scale-105'
+            priority={true}
           />
         </div>
-        <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>
+        <CardTitle className='mt-2 truncate leading-tight'>
+          {item.name}
+        </CardTitle>
         <CardDescription className='flex flex-col gap-1'>
           <span>{item.location}</span>
         </CardDescription>
