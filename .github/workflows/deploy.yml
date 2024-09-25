@@ -11,7 +11,10 @@ on:
         description: 'Deployment environment'
         required: true
         default: 'Development'
-        enum: ['Production', 'Development']
+        type: choice
+        options:
+          - Development
+          - Production
 
 jobs:
   deploy-prod:
