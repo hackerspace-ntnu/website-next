@@ -31,13 +31,13 @@ function ItemCard({
       className='group text-center duration-200 hover:box-border hover:border-primary'
     >
       <CardHeader>
-        <div className='inline-block overflow-hidden'>
+        <div className='mx-auto inline-block overflow-hidden'>
           <Image
             src='/unknown.png'
             width={192}
             height={192}
             alt={t('photoOf', { name: item.name })}
-            className='mx-auto rounded-md duration-200 group-hover:scale-105'
+            className='rounded-md duration-200 group-hover:scale-105'
           />
         </div>
         <CardTitle className='mt-2 truncate'>{item.name}</CardTitle>
