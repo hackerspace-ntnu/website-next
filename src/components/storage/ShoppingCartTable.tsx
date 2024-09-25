@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import {
   Table,
   TableBody,
@@ -17,26 +18,43 @@ import { useLocalStorage } from 'usehooks-ts';
 import { items } from '@/mock-data/items';
 
 type ShoppingCartTableProps = {
-  messages: {
+  t: {
     tableDescription: string;
     productId: string;
     productName: string;
     location: string;
     unitsAvailable: string;
     cartEmpty: string;
+    amountOfItemARIA: string;
   };
 };
 
-function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
+function ShoppingCartTable({ t }: ShoppingCartTableProps) {
   const [cart, setCart] = useLocalStorage<number[]>('shopping-cart', [], {
     initializeWithValue: false,
   });
 
   if (cart.length <= 0) {
-    return <p className='text-center'>{messages.cartEmpty}</p>;
+    return <p className='text-center'>{t.cartEmpty}</p>;
   }
 
   const itemsInCart = items.filter((item) => cart.includes(item.id));
+
+  function updateAmountInCart(id: number, newValue: number) {
+    const amountInCart = cart.filter((i) => i === id).length;
+    const diff = newValue - amountInCart;
+
+    let newCart = cart;
+    // If we're adding elements, add x new elements
+    // Else, remove all occurences of the item, and re-add the correct amount
+    if (diff > 0) {
+      newCart = newCart.concat(Array(diff).fill(id));
+    } else {
+      newCart = newCart.filter((i) => i !== id);
+      newCart = newCart.concat(Array(newValue).fill(id));
+    }
+    setCart(newCart);
+  }
 
   function removeItem(id: number) {
     if (!cart) return;
@@ -45,21 +63,33 @@ function ShoppingCartTable({ messages }: ShoppingCartTableProps) {
 
   return (
     <Table className='my-4'>
-      <TableCaption>{messages.tableDescription}</TableCaption>
+      <TableCaption>{t.tableDescription}</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-[150px]'>{messages.productId}</TableHead>
-          <TableHead>{messages.productName}</TableHead>
-          <TableHead>{messages.location}</TableHead>
-          <TableHead className='text-right'>
-            {messages.unitsAvailable}
-          </TableHead>
-          <TableHead className='w-[100px]' />
+          <TableHead className='w-[80px]' />
+          <TableHead className='w-[150px]'>{t.productId}</TableHead>
+          <TableHead>{t.productName}</TableHead>
+          <TableHead>{t.location}</TableHead>
+          <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
+          <TableHead className='w-[80px]' />
         </TableRow>
       </TableHeader>
       <TableBody>
         {itemsInCart.map((item) => (
           <TableRow key={item.name}>
+            <TableCell>
+              <Input
+                type='number'
+                min={1}
+                max={100}
+                defaultValue={cart.filter((i) => i === item.id).length}
+                onChange={(e) =>
+                  updateAmountInCart(item.id, Number(e.currentTarget.value))
+                }
+                className='w-[80px]'
+                aria-label={t.amountOfItemARIA}
+              />
+            </TableCell>
             <TableCell className='font-medium'>{item.id}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.location}</TableCell>

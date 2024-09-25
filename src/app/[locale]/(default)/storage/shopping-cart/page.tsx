@@ -23,6 +23,7 @@ export default function StorageShoppingCartPage({
     location: t('location'),
     unitsAvailable: t('unitsAvailable'),
     cartEmpty: t('cartEmpty'),
+    amountOfItemARIA: t('amountOfItemARIA'),
   };
 
   const loanFormMessages = {
@@ -41,7 +42,7 @@ export default function StorageShoppingCartPage({
   return (
     <>
       <h1 className='my-4 md:text-center'>{t('title')}</h1>
-      <ShoppingCartTable messages={tableMessages} />
+      <ShoppingCartTable t={tableMessages} />
       <div className='my-4 flex justify-center gap-2'>
         <Link href='/storage'>
           <Button className='flex gap-2'>

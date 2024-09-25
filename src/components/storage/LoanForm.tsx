@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useReadLocalStorage } from 'usehooks-ts';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -39,6 +40,9 @@ type LoanFormProps = {
 };
 
 function LoanForm({ t }: LoanFormProps) {
+  const cart = useReadLocalStorage<number[]>('shopping-cart', {
+    initializeWithValue: false,
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +57,8 @@ function LoanForm({ t }: LoanFormProps) {
     // TODO: Add new loan to database
     console.log(values);
   }
+
+  if (!cart || cart.length <= 0) return;
 
   return (
     <>
