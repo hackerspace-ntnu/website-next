@@ -11,6 +11,14 @@
     "morePages": "More pages",
     "page": "page"
   },
+  "error": {
+    "notFound": "404 - Page not found",
+    "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
+    "error": "Oops! Something went wrong",
+    "errorDescription": "Don't worry, our best hackers are on it!",
+    "goToHomepage": "Return to homepage",
+    "again": "Try again"
+  },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
     "navigationMenu": "Navigation menu",
