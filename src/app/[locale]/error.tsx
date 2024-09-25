@@ -33,7 +33,7 @@ export default function ErrorPage({
       )}
       <div className='flex w-full xs:w-auto xs:flex-row flex-col xs:space-x-4 space-y-4 xs:space-y-0'>
         <Button onClick={reset} variant='outline' className='w-full xs:w-auto'>
-          {t('again')}
+          {t('tryAgain')}
         </Button>
         <Button asChild className='w-full xs:w-auto'>
           <Link href='/'>{t('goToHomepage')}</Link>
