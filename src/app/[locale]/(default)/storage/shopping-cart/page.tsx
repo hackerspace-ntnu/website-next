@@ -1,4 +1,4 @@
-import { LoanForm } from '@/components/storage/LoanForm';
+import { BorrowNowDialog } from '@/components/storage/BorrowNowDialog';
 import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { Button } from '@/components/ui/Button';
@@ -26,8 +26,8 @@ export default function StorageShoppingCartPage({
     amountOfItemARIA: t('amountOfItemARIA'),
   };
 
-  const loanFormMessages = {
-    borrowNow: tLoanForm('borrowNow'),
+  const borrowNowMessages = {
+    borrowNow: t('borrowNow'),
     name: tLoanForm('name'),
     nameDescription: tLoanForm('nameDescription'),
     email: tLoanForm('email'),
@@ -41,19 +41,25 @@ export default function StorageShoppingCartPage({
 
   return (
     <>
-      <h1 className='my-4 md:text-center'>{t('title')}</h1>
-      <ShoppingCartTable t={tableMessages} />
-      <div className='my-4 flex justify-center gap-2'>
+      <div className='relative'>
+        <h1 className='mx-auto my-4 md:text-center'>{t('title')}</h1>
         <Link href='/storage'>
-          <Button className='flex gap-2'>
+          <Button
+            className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
+            variant='ghost'
+          >
             <ArrowLeftIcon />
             {t('backToStorage')}
           </Button>
         </Link>
-        <ShoppingCartClearButton caption={t('clearCart')} />
       </div>
-      <div className='my-6'>
-        <LoanForm t={loanFormMessages} />
+      <ShoppingCartTable t={tableMessages} />
+      <div className='relative my-4'>
+        <BorrowNowDialog t={borrowNowMessages} className='mx-auto block' />
+        <ShoppingCartClearButton
+          className='-translate-y-1/2 absolute top-1/2 right-3'
+          caption={t('clearCart')}
+        />
       </div>
     </>
   );

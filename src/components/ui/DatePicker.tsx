@@ -62,7 +62,6 @@ function DatePicker({
           mode='single'
           selected={date}
           onSelect={(date) => handleDateChange(date)}
-          initialFocus
           disabled={disabled}
         />
       </PopoverContent>

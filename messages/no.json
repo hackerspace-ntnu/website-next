@@ -100,10 +100,10 @@
       "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
+      "borrowNow": "Lån nå",
       "amountOfItemARIA": "Velg antallet av denne gjenstanden"
     },
     "loanForm": {
-      "borrowNow": "Lån nå",
       "name": "Navn",
       "nameDescription": "Personen som låner gjenstanden(e).",
       "email": "Epost",

@@ -14,7 +14,6 @@ import {
 import { Input } from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useReadLocalStorage } from 'usehooks-ts';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -40,9 +39,6 @@ type LoanFormProps = {
 };
 
 function LoanForm({ t }: LoanFormProps) {
-  const cart = useReadLocalStorage<number[]>('shopping-cart', {
-    initializeWithValue: false,
-  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,14 +54,11 @@ function LoanForm({ t }: LoanFormProps) {
     console.log(values);
   }
 
-  if (!cart || cart.length <= 0) return;
-
   return (
     <>
-      <h2 className='text-center'>{t.borrowNow}</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='my-5 space-y-8'>
-          <div className='grid grid-cols-3 space-x-2'>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className='grid grid-cols-1 space-y-2 md:grid-cols-3 md:space-x-2 md:space-y-0'>
             <FormField
               control={form.control}
               name='name'
@@ -108,7 +101,7 @@ function LoanForm({ t }: LoanFormProps) {
               )}
             />
           </div>
-          <div className='mx-auto max-w-[280px]'>
+          <div className='mx-auto mt-16 max-w-[280px]'>
             <FormField
               control={form.control}
               name='returnBy'

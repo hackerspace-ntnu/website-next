@@ -100,10 +100,10 @@
       "backToStorage": "Back to storage",
       "cartEmpty": "Your shopping cart is empty.",
       "clearCart": "Empty shopping cart",
+      "borrowNow": "Borrow now",
       "amountOfItemARIA": "Select number of this item"
     },
     "loanForm": {
-      "borrowNow": "Borrow now",
       "name": "Name",
       "nameDescription": "Person lending the item(s).",
       "email": "Email",
