@@ -4,7 +4,7 @@ import {
   InstagramIcon,
   SlackIcon,
 } from '@/components/assets/icons';
-import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
+import { IDILogo, NexusLogo } from '@/components/assets/logos';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
@@ -175,32 +175,34 @@ function Footer() {
           </p>
         </div>
       </div>
-      <ul className='flex flex-col justify-center gap-6 py-20 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
-        <li>
-          <Button asChild variant='none' size='none'>
-            <ExternalLink
-              href={t('NTNUIDIURL')}
-              prefetch={false}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <IDILogo className='p-6' title={t('NTNUIDI')} />
-            </ExternalLink>
-          </Button>
-        </li>
-        <li>
-          <Button asChild variant='none' size='none'>
-            <ExternalLink
-              href='https://www.ntnu.no/ie/kid/'
-              prefetch={false}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <NexusLogo className='p-6' title={t('NTNUKiD')} />
-            </ExternalLink>
-          </Button>
-        </li>
-      </ul>
+      <nav className='py-20'>
+        <ul className='flex flex-col justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
+          <li>
+            <Button asChild variant='none' size='none'>
+              <ExternalLink
+                href={t('NTNUIDIURL')}
+                prefetch={false}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <IDILogo className='p-6' title={t('NTNUIDI')} />
+              </ExternalLink>
+            </Button>
+          </li>
+          <li>
+            <Button asChild variant='none' size='none'>
+              <ExternalLink
+                href='https://www.ntnu.no/ie/kid/'
+                prefetch={false}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <NexusLogo className='p-6' title={t('NTNUNexus')} />
+              </ExternalLink>
+            </Button>
+          </li>
+        </ul>
+      </nav>
       <p className='text-center'>
         {t('copyright')} &copy; {year}, Hackerspace NTNU.{' '}
         {t('allRightsReserved')}.

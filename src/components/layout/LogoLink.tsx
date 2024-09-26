@@ -1,4 +1,4 @@
-import { Logo } from '@/components/assets/Logo';
+import { HackerspaceLogo } from '@/components/assets/logos';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';

@@ -27,7 +27,8 @@ Here is a list of documentation to help you get started:
 
 ### Backend
 
-- [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
+- [TRPC](https://trpc.io/docs/client/react/server-components) - Tool for creating API endpoints as functions
+  - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#streaming-with-server-components) - TRPC wraps Tanstack Query which is how we fetch data from the backend on the client
 - [Lucia](https://lucia-auth.com) - Authentication library
 - [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database (Postgres under the hood)
 - [s3-client](https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-s3) - AWS S3 client for uploading files
@@ -121,3 +122,5 @@ We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.
 
 - All layout components should end with Layout. For example: `DefaultLayout`.
 - All page components should end with Page to make it clear it is a whole page. For example: `AboutPage`.
+- All icons should end with Icon. For example: `HomeIcon`.
+- React components should be named with PascalCase. For example: `Button`. The filename should match the component name.

@@ -48,6 +48,7 @@ function Header() {
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
+              feideLogin: t('feideLogin'),
             }}
           />
         </div>
