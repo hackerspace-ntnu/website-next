@@ -1,17 +1,31 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export function SkeletonCard() {
   return (
-    <div className='flex h-[350px] flex-col gap-5'>
-      <div className='flex flex-col items-center justify-center gap-2'>
-        <Skeleton className='h-[192px] w-[192px] rounded-lg' />
-        <Skeleton className='h-[24px] w-[120px] rounded-full' />
-        <Skeleton className='h-[14px] w-[70px] rounded-full' />
-      </div>
-      <div className='flex items-center justify-center gap-2'>
-        <Skeleton className='h-[14px] w-[70px] rounded-full' />
-        <Skeleton className='h-8 w-[100px] rounded-lg' />
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <div className='mx-auto inline-block'>
+          <Skeleton className='h-48 w-48 rounded-lg' />
+        </div>
+        <CardTitle className='mt-2 truncate leading-tight'>
+          <Skeleton className='mx-auto h-8 w-[150px]' />
+        </CardTitle>
+        <CardDescription className='my-2 flex flex-col gap-1'>
+          <Skeleton className='mx-auto h-5 w-[100px]' />
+        </CardDescription>
+      </CardHeader>
+      <CardFooter className='justify-center gap-2'>
+        <Skeleton className='h-4 w-[50px]' />
+        <Skeleton className='h-10 w-24' />
+      </CardFooter>
+    </Card>
   );
 }

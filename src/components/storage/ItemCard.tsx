@@ -2,7 +2,6 @@ import type { StorageItem } from '@/components/storage/AddToCartButton';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -31,13 +30,13 @@ function ItemCard({
       className='group text-center duration-200 hover:box-border hover:border-primary'
     >
       <CardHeader>
-        <div className='mx-auto inline-block overflow-hidden'>
+        <div className='mx-auto inline-block overflow-hidden rounded-md'>
           <Image
             src='/unknown.png'
             width={192}
             height={192}
             alt={t('photoOf', { name: item.name })}
-            className='rounded-md duration-200 group-hover:scale-105'
+            className='duration-200 group-hover:scale-105'
             priority={true}
           />
         </div>
