@@ -1,6 +1,6 @@
 import { LogoLink } from '@/components/layout/LogoLink';
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Separator } from '@radix-ui/react-dropdown-menu';
+import { Separator } from '@/components/ui/Separator';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
@@ -28,13 +28,13 @@ export default function AboutPage({
       <CardHeader>
         <LogoLink
           className='mb-4'
-          logoClassName='md:size-6 lg:size-6'
-          titleClassName='md:text-md lg:text-md'
+          logoClassName='md:size-6 xl:size-6'
+          titleClassName='md:text-md xl:text-md'
         />
         <CardTitle className='text-center'>{t('welcome')}</CardTitle>
         <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
-      <Separator className='mb-2 bg-red-500' />
+      <Separator />
     </>
   );
 }
