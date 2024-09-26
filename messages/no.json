@@ -49,13 +49,14 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
-    "feideLogin": "Logg in med Feide",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
   "login": {
     "welcome": "Velkommen!",
-    "description": "Er du her for første gang? Logg inn med Feide"
+    "description": "Er du her for første gang? Bruk Feide",
+    "loginWith": "Logg inn med",
+    "hackerspaceAccount": "Hackerspace-konto"
   },
   "news": {
     "title": "Nyheter",

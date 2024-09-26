@@ -192,7 +192,7 @@ function Footer() {
           <li>
             <Button asChild variant='none' size='none'>
               <ExternalLink
-                href='https://www.ntnu.no/ie/kid/'
+                href='https://www.ntnu.no/ie/nexus/'
                 prefetch={false}
                 target='_blank'
                 rel='noopener noreferrer'

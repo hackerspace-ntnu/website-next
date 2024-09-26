@@ -14,7 +14,7 @@ export default function LoginLayout({
   unstable_setRequestLocale(locale);
   return (
     <Main className='flex items-center justify-center'>
-      <Card className='rounded-xl bg-background'>{children}</Card>
+      <Card className='~p-4/8 rounded-xl bg-background'>{children}</Card>
     </Main>
   );
 }

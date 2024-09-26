@@ -15,7 +15,7 @@ function FeideLogo({
       height='100%'
       viewBox='0 0 114 39'
       xmlns='http://www.w3.org/2000/svg'
-      aria-describedby='feielogo'
+      aria-describedby='feidelogo'
       {...rest}
     >
       <title id='feidelogo'>{title}</title>

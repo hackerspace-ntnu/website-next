@@ -49,13 +49,14 @@
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUNexus": "The working life network Nexus",
-    "feideInlogin": "Login with Feide",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
   "login": {
     "welcome": "Welcome!",
-    "description": "Is it your first time here? Login with Feide"
+    "description": "Is it your first time here? Use Feide",
+    "loginWith": "Login with",
+    "hackerspaceAccount": "Hackerspace Account"
   },
   "news": {
     "title": "News",
