@@ -1,20 +1,17 @@
 import { cx } from '@/lib/utils';
 
-type MainProps = {
-  children: React.ReactNode;
-  className?: string;
-};
-
-function Main({ children, className }: MainProps) {
+function Main({
+  className,
+  ...props
+}: { className?: string } & React.HTMLAttributes<HTMLDivElement>) {
   return (
     <main
       className={cx(
         '~px-4/24 mx-auto w-full max-w-screen-2xl flex-grow',
         className,
       )}
-    >
-      {children}
-    </main>
+      {...props}
+    />
   );
 }
 

@@ -14,6 +14,7 @@
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",
+    "login": "Logg inn",
     "news": "Nyheter",
     "events": "Hendelser",
     "storage": "Lager",
@@ -42,6 +43,10 @@
     "NTNUKiD": "Arbeidslivsnettverket KID",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "login": {
+    "welcome": "Velkommen!",
+    "description": "Er du her for første gang? Logg inn med Feide"
   },
   "news": {
     "title": "Nyheter",

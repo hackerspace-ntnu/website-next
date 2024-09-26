@@ -6,9 +6,13 @@ import { useTranslations } from 'next-intl';
 
 function LogoLink({
   className,
+  logoClassName,
+  titleClassName,
   onClick,
 }: {
   className?: string;
+  logoClassName?: string;
+  titleClassName?: string;
   onClick?: () => void;
 }) {
   const t = useTranslations('layout');
@@ -20,8 +24,13 @@ function LogoLink({
       size='none'
     >
       <Link href='/' aria-label={t('hackerspaceHome')} onClick={onClick}>
-        <Logo className='size-6 md:size-8 lg:size-10' />
-        <span className='font-bold font-montserrat text-md md:text-lg lg:text-2xl'>
+        <Logo className={cx('size-6 md:size-8 lg:size-10', logoClassName)} />
+        <span
+          className={cx(
+            'font-bold font-montserrat text-md md:text-lg lg:text-2xl',
+            titleClassName,
+          )}
+        >
           HACKERSPACE
         </span>
       </Link>

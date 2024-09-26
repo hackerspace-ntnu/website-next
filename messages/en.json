@@ -14,6 +14,7 @@
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
     "navigationMenu": "Navigation menu",
+    "login": "Login",
     "news": "News",
     "events": "Events",
     "storage": "Storage",
@@ -42,6 +43,10 @@
     "NTNUKiD": "The working life network KID",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "login": {
+    "welcome": "Welcome!",
+    "description": "Is it your first time here? Login with Feide"
   },
   "news": {
     "title": "News",
