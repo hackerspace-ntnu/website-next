@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/Input';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -63,7 +62,6 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
 
   return (
     <Table className='my-4'>
-      <TableCaption>{t.tableDescription}</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className='w-[80px]' />

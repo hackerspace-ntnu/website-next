@@ -1,26 +1,57 @@
 import { Skeleton } from '@/components/ui/Skeleton';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/Table';
+import { useTranslations } from 'next-intl';
 import { useId } from 'react';
 
 function ShoppingCartTableSkeleton() {
+  const t = useTranslations('storage.shoppingCart');
   return (
     <>
-      <div className='mt-4 grid grid-cols-10 gap-2'>
-        <Skeleton className='col-span-1 h-5 w-[100px]' key={useId()} />
-        <Skeleton className='col-span-3 h-5 w-[150px]' key={useId()} />
-        <Skeleton className='col-span-4 h-5 w-[150px]' key={useId()} />
-        <Skeleton className='col-span-2 h-5 w-[150px]' key={useId()} />
-      </div>
-      {Array.from({ length: 4 }).map(() => {
-        return (
-          <div key={useId()} className='my-4 grid grid-cols-10 gap-2'>
-            <Skeleton className='col-span-1 h-10' />
-            <Skeleton className='col-span-3 h-10' />
-            <Skeleton className='col-span-4 h-10' />
-            <Skeleton className='col-span-2 h-10' />
-          </div>
-        );
-      })}
-      <Skeleton className='mx-auto mt-2 h-5 w-[200px]' />
+      <Table className='my-4'>
+        <TableHeader>
+          <TableRow>
+            <TableHead className='w-[80px]'>
+              <Skeleton />
+            </TableHead>
+            <TableHead className='w-[150px]'>{t('productId')}</TableHead>
+            <TableHead>{t('productName')}</TableHead>
+            <TableHead>{t('location')}</TableHead>
+            <TableHead className='text-right'>{t('unitsAvailable')}</TableHead>
+            <TableHead className='w-[80px]' />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {Array.from({ length: 3 }).map(() => (
+            <TableRow key={useId()}>
+              <TableCell>
+                <Skeleton className='h-10 w-[80px]' />
+              </TableCell>
+              <TableCell>
+                <Skeleton className='h-4 w-[80px] rounded-lg' />
+              </TableCell>
+              <TableCell>
+                <Skeleton className='h-4 w-[80px] rounded-lg' />
+              </TableCell>
+              <TableCell>
+                <Skeleton className='h-4 w-[150px]' />
+              </TableCell>
+              <TableCell className='relative'>
+                <Skeleton className='ml-auto h-4 w-[30px]' />
+              </TableCell>
+              <TableCell>
+                <Skeleton className='h-8 w-8' />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </>
   );
 }
