@@ -36,14 +36,12 @@ function ItemCard({
         <CardTitle className='mt-2 truncate leading-tight'>
           {item.name}
         </CardTitle>
-        <CardDescription className='flex flex-col gap-1'>
-          <span>{item.location}</span>
-        </CardDescription>
+        <CardDescription>{item.location}</CardDescription>
       </CardHeader>
       <CardFooter className='justify-center gap-2'>
-        <span className='text-sm'>
+        <p className='text-sm'>
           {t('card.quantityInfo', { quantity: item.quantity })}
-        </span>
+        </p>
         <AddToCartButton
           item={item}
           t={{
