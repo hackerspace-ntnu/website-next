@@ -21,6 +21,7 @@ export default function StorageLayout({
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');
 
+  // This does not make much sense with a backend, most likely the categories in the backend will have a name in both languages and an ID
   const categories = [
     {
       label: t('combobox.cables'),
@@ -53,19 +54,18 @@ export default function StorageLayout({
         <h1 className='my-4 md:text-center'>{t('title')}</h1>
         <TooltipProvider>
           <Tooltip>
-            <Link
-              href='/storage/shopping-cart'
-              aria-label={t('tooltips.viewShoppingCart')}
-            >
-              <TooltipTrigger asChild>
-                <Button
-                  className='absolute right-0 bottom-0 md:right-5'
-                  aria-label={t('tooltips.viewShoppingCart')}
-                >
-                  <ShoppingCartIcon />
+            <TooltipTrigger asChild>
+              <div className='absolute right-0 bottom-0 md:right-5'>
+                <Button asChild size='icon'>
+                  <Link
+                    href='/storage/shopping-cart'
+                    aria-label={t('tooltips.viewShoppingCart')}
+                  >
+                    <ShoppingCartIcon />
+                  </Link>
                 </Button>
-              </TooltipTrigger>
-            </Link>
+              </div>
+            </TooltipTrigger>
             <TooltipContent>
               <p>{t('tooltips.viewShoppingCart')}</p>
             </TooltipContent>

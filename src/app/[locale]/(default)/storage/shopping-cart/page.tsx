@@ -43,15 +43,15 @@ export default function StorageShoppingCartPage({
     <>
       <div className='relative'>
         <h1 className='mx-auto my-4 md:text-center'>{t('title')}</h1>
-        <Link href='/storage'>
-          <Button
+        <Button asChild variant='ghost'>
+          <Link
             className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
-            variant='ghost'
+            href='/storage'
           >
-            <ArrowLeftIcon />
+            <ArrowLeftIcon aria-hidden='true' />
             {t('backToStorage')}
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
       <ShoppingCartTable t={tableMessages} />
       <div className='relative my-4'>
