@@ -83,6 +83,7 @@ export default function StorageLayout({
           <SortSelector
             filters={filters}
             t={{
+              ariaLabel: t('select.ariaLabel'),
               sort: tUI('sort'),
               defaultPlaceholder: t('select.defaultPlaceholder'),
               defaultSorting: t('searchParams.popularity'),

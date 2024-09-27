@@ -19,6 +19,7 @@ type SortSelectorProps = {
     sort: string;
     defaultPlaceholder: string;
     defaultSorting: string;
+    ariaLabel: string;
   };
 };
 
@@ -43,7 +44,7 @@ function SortSelector({ filters, t }: SortSelectorProps) {
         filters.find((f) => f.urlName === filter)?.name ?? undefined
       }
     >
-      <SelectTrigger className='w-full lg:w-[250px]'>
+      <SelectTrigger className='w-full lg:w-[250px]' aria-label={t.ariaLabel}>
         <SelectValue placeholder={t.defaultPlaceholder} />
       </SelectTrigger>
       <SelectContent>
