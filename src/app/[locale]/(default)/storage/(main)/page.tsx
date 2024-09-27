@@ -26,16 +26,15 @@ export default function StoragePage({
   searchParams: Record<string, string | string[] | undefined>;
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('storage');
-  const tUI = useTranslations('ui');
+  const t = useTranslations('ui');
 
   const itemsPerPage = 12;
 
   const searchParamsCache = createSearchParamsCache({
-    [tUI('page')]: parseAsInteger.withDefault(1),
+    [t('page')]: parseAsInteger.withDefault(1),
   });
 
-  const { [tUI('page')]: page = 1 } = searchParamsCache.parse(searchParams);
+  const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
 
   return (
     <>
@@ -43,26 +42,12 @@ export default function StoragePage({
         {items
           .slice((page - 1) * itemsPerPage, page * itemsPerPage)
           .map((item) => (
-            <ItemCard
-              key={item.id}
-              item={item}
-              addToCart={t('card.addToCart')}
-              removeFromCart={t('card.removeFromCart')}
-              quantityInfo={t('card.quantityInfo', { quantity: item.quantity })}
-            />
+            <ItemCard key={item.id} item={item} />
           ))}
       </div>
       <PaginationCarousel
         className='my-6'
         totalPages={Math.ceil(items.length / itemsPerPage)}
-        t={{
-          goToPreviousPage: tUI('goToPreviousPage'),
-          previous: tUI('previous'),
-          morePages: tUI('morePages'),
-          goToNextPage: tUI('goToNextPage'),
-          next: tUI('next'),
-          page: tUI('page'),
-        }}
       />
     </>
   );

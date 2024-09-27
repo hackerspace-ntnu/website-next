@@ -10,20 +10,13 @@ import {
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-type ItemCardProps = {
-  item: StorageItem;
-  addToCart: string;
-  removeFromCart: string;
-  quantityInfo: string;
-};
-
 function ItemCard({
   item,
-  addToCart,
-  removeFromCart,
-  quantityInfo,
-}: ItemCardProps) {
-  const t = useTranslations('ui');
+}: {
+  item: StorageItem;
+}) {
+  const t = useTranslations('storage');
+  const tUi = useTranslations('ui');
   return (
     <Card
       key={item.name}
@@ -35,7 +28,7 @@ function ItemCard({
             src='/unknown.png'
             width={192}
             height={192}
-            alt={t('photoOf', { name: item.name })}
+            alt={tUi('photoOf', { name: item.name })}
             className='duration-200 group-hover:scale-105'
             priority={true}
           />
@@ -48,11 +41,15 @@ function ItemCard({
         </CardDescription>
       </CardHeader>
       <CardFooter className='justify-center gap-2'>
-        <span className='text-sm'>{quantityInfo}</span>
+        <span className='text-sm'>
+          {t('card.quantityInfo', { quantity: item.quantity })}
+        </span>
         <AddToCartButton
           item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
+          t={{
+            addToCart: t('card.addToCart'),
+            removeFromCart: t('card.removeFromCart'),
+          }}
         />
       </CardFooter>
     </Card>

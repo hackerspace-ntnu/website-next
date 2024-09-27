@@ -16,17 +16,16 @@ export type StorageItem = {
   location: string;
 };
 
-function AddToCartButton({
-  className,
-  item,
-  addToCart,
-  removeFromCart,
-}: {
+type AddToCartButtonProps = {
   className?: string;
   item: StorageItem;
-  addToCart: string;
-  removeFromCart: string;
-}) {
+  t: {
+    addToCart: string;
+    removeFromCart: string;
+  };
+};
+
+function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
   const [cart, setCart, loading] = useLocalStorage<number[]>(
     'shopping-cart',
     [],
@@ -63,7 +62,7 @@ function AddToCartButton({
       variant={!isInCart ? 'default' : 'destructive'}
       onClick={() => updateState(!isInCart)}
     >
-      {isInCart ? removeFromCart : addToCart}
+      {isInCart ? t.removeFromCart : t.addToCart}
     </Button>
   );
 }

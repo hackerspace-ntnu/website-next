@@ -47,14 +47,6 @@ export default function NewsPage({
       <PaginationCarousel
         className='my-6'
         totalPages={Math.ceil(articleData.length / 6)}
-        t={{
-          goToPreviousPage: t('goToPreviousPage'),
-          previous: t('previous'),
-          morePages: t('morePages'),
-          goToNextPage: t('goToNextPage'),
-          next: t('next'),
-          page: t('page'),
-        }}
       />
     </>
   );
