@@ -108,6 +108,9 @@
       "backToStorage": "Back to storage",
       "cartEmpty": "Your shopping cart is empty.",
       "clearCart": "Empty shopping cart",
+      "cancel": "Cancel",
+      "clear": "Clear",
+      "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "borrowNow": "Borrow now",
       "amountOfItemARIA": "Select number of this item"
     },

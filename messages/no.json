@@ -108,6 +108,9 @@
       "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
+      "cancel": "Avbryt",
+      "clear": "Tøm",
+      "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "borrowNow": "Lån nå",
       "amountOfItemARIA": "Velg antallet av denne gjenstanden"
     },

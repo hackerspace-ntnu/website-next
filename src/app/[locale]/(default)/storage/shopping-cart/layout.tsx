@@ -18,14 +18,15 @@ export default function StorageLayout({
   return (
     <>
       <div className='relative'>
-        <h1 className='mx-auto my-4 md:text-center'>{t('title')}</h1>
+        <h1 className='mx-auto my-4 text-right md:text-center'>{t('title')}</h1>
         <Button asChild variant='ghost'>
           <Link
             className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
             href='/storage'
+            aria-label={t('backToStorage')}
           >
             <ArrowLeftIcon aria-hidden='true' />
-            {t('backToStorage')}
+            <span className='xs:inline hidden'>{t('backToStorage')}</span>
           </Link>
         </Button>
       </div>

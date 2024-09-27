@@ -1,5 +1,5 @@
 import { BorrowDialog } from '@/components/storage/BorrowDialog';
-import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
+import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
@@ -37,11 +37,15 @@ export default function StorageShoppingCartPage({
   return (
     <>
       <ShoppingCartTable t={tableMessages} />
-      <div className='relative my-4'>
-        <BorrowDialog t={borrowNowMessages} className='mx-auto' />
-        <ShoppingCartClearButton
-          className='-translate-y-1/2 absolute top-1/2 right-3'
-          t={{ clearCart: t('clearCart') }}
+      <div className='mb-8 flex xs:flex-row flex-col justify-between gap-4'>
+        <BorrowDialog t={borrowNowMessages} className='' />
+        <ShoppingCartClearDialog
+          t={{
+            clearCart: t('clearCart'),
+            cancel: t('cancel'),
+            clearCartDescription: t('clearCartDescription'),
+            clear: t('clear'),
+          }}
         />
       </div>
     </>

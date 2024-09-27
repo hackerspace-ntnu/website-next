@@ -52,7 +52,7 @@ function LoanForm({ t }: LoanFormProps) {
   return (
     <>
       <Form {...form}>
-        <form className='space-y-3' onSubmit={form.handleSubmit(onSubmit)}>
+        <form className='xs:space-y-3' onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name='phone'
