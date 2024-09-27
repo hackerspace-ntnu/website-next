@@ -1,5 +1,6 @@
 'use client';
 
+import type { CartItem } from '@/components/storage/AddToCartButton';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {
@@ -30,40 +31,37 @@ type ShoppingCartTableProps = {
 };
 
 function ShoppingCartTable({ t }: ShoppingCartTableProps) {
-  const [cart, setCart, loading] = useLocalStorage<number[]>(
+  const [cart, setCart, isLoading] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     [],
   );
 
-  if (loading) {
+  if (isLoading) {
     return <ShoppingCartTableSkeleton t={t} />;
   }
 
-  if (cart.length <= 0) {
+  if (!cart) {
     return <p className='py-20 text-center font-medium'>{t.cartEmpty}</p>;
   }
 
-  const itemsInCart = items.filter((item) => cart.includes(item.id));
+  const itemsInCart = items.filter((item) =>
+    cart.some((cartItem) => cartItem.id === item.id),
+  );
 
   function updateAmountInCart(id: number, newValue: number) {
-    const amountInCart = cart.filter((i) => i === id).length;
-    const diff = newValue - amountInCart;
+    if (!cart) return;
 
-    let newCart = cart;
-    // If we're adding elements, add x new elements
-    // Else, remove all occurences of the item, and re-add the correct amount
-    if (diff > 0) {
-      newCart = newCart.concat(Array(diff).fill(id));
-    } else {
-      newCart = newCart.filter((i) => i !== id);
-      newCart = newCart.concat(Array(newValue).fill(id));
-    }
+    const newCart = cart.map((cartItem) =>
+      cartItem.id === id ? { ...cartItem, amount: newValue } : cartItem,
+    );
     setCart(newCart);
   }
 
   function removeItem(id: number) {
     if (!cart) return;
-    setCart(cart.filter((itemId) => itemId !== id));
+
+    const newCart = cart.filter((cartItem: CartItem) => cartItem.id !== id);
+    setCart(newCart);
   }
 
   return (
@@ -85,8 +83,10 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
               <Input
                 type='number'
                 min={1}
-                max={100}
-                defaultValue={cart.filter((i) => i === item.id).length}
+                max={5}
+                defaultValue={
+                  cart.find((cartItem) => cartItem.id === item.id)?.amount || 0
+                }
                 onChange={(e) =>
                   updateAmountInCart(item.id, Number(e.currentTarget.value))
                 }

@@ -1,5 +1,6 @@
 'use client';
 
+import type { CartItem } from '@/components/storage/AddToCartButton';
 import { Button } from '@/components/ui/Button';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
@@ -9,7 +10,8 @@ function ShoppingCartClearButton({
   caption,
   className,
 }: { caption: string; className?: string }) {
-  const [cart, setCart, isLoading] = useLocalStorage<number[]>('shopping-cart');
+  const [cart, setCart, isLoading] =
+    useLocalStorage<CartItem[]>('shopping-cart');
 
   if (!cart) return;
 
@@ -17,7 +19,7 @@ function ShoppingCartClearButton({
     <Button
       className={cx('flex gap-2', className)}
       variant='destructive'
-      onClick={() => setCart([])}
+      onClick={() => setCart(null)}
       disabled={isLoading}
     >
       <XIcon />

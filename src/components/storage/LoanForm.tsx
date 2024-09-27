@@ -79,6 +79,7 @@ function LoanForm({ t }: LoanFormProps) {
                     mode='single'
                     selected={field.value}
                     onSelect={field.onChange}
+                    showOutsideDays={false}
                     disabled={{
                       before: new Date(),
                       after: addDays(endOfWeek(addWeeks(new Date(), 2)), 2),

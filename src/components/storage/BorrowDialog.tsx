@@ -1,5 +1,6 @@
 'use client';
 
+import type { CartItem } from '@/components/storage/AddToCartButton';
 import { LoanForm } from '@/components/storage/LoanForm';
 import { Button } from '@/components/ui/Button';
 import {
@@ -15,9 +16,7 @@ type BorrowNowDialogProps = {
   t: {
     borrowNow: string;
     name: string;
-    nameDescription: string;
     email: string;
-    emailExample: string;
     phoneNumber: string;
     phoneNumberDescription: string;
     returnBy: string;
@@ -28,7 +27,7 @@ type BorrowNowDialogProps = {
 };
 
 function BorrowDialog({ t, className }: BorrowNowDialogProps) {
-  const [cart, _, isLoading] = useLocalStorage<number[]>('shopping-cart');
+  const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   if (!cart) return;
 

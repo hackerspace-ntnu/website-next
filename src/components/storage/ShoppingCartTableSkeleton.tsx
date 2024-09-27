@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
@@ -39,7 +40,7 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
         {Array.from({ length: 3 }).map(() => (
           <TableRow key={useId()}>
             <TableCell>
-              <Skeleton className='h-10 w-20' />
+              <Input type='number' disabled className='w-20' />
             </TableCell>
             <TableCell>
               <Skeleton className='my-[3px] h-[14px] w-1/4 rounded-lg' />

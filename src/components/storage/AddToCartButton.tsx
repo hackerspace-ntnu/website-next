@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { Loader } from '@/components/ui/Loader';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from 'cva';
-import { useEffect, useState } from 'react';
 
 // TODO: Type must be replaced by the type provided from database ORM.
 export type StorageItem = {
@@ -14,6 +13,11 @@ export type StorageItem = {
   status: string;
   quantity: number;
   location: string;
+};
+
+export type CartItem = {
+  id: number;
+  amount: number;
 };
 
 type AddToCartButtonProps = {
@@ -26,43 +30,42 @@ type AddToCartButtonProps = {
 };
 
 function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
-  const [cart, setCart, loading] = useLocalStorage<number[]>(
+  const [cart, setCart, loading] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     [],
   );
-  const [isInCart, setIsInCart] = useState(false);
-
-  useEffect(() => {
-    setIsInCart(cart.some((i) => i === item.id));
-  }, [cart, item.id]);
 
   if (loading) {
     return <Loader className='mx-[41px]' />;
   }
 
-  const updateState = (addToCart: boolean) => {
-    if (addToCart) {
-      setCart((prevCart) => {
-        const newCart = [...prevCart, item.id];
-        console.log(newCart);
-        return newCart;
-      });
+  function updateCart() {
+    if (!cart) return;
+
+    const isInCart = cart.some((cartItem) => cartItem.id === item.id);
+
+    if (isInCart) {
+      const newCart = cart.filter((cartItem) => cartItem.id !== item.id);
+      setCart(newCart);
     } else {
-      setCart((prevCart) => {
-        const newCart = prevCart.filter((i) => i !== item.id);
-        console.log(newCart);
-        return newCart;
-      });
+      const newCart = [...cart, { id: item.id, amount: 1 }];
+      setCart(newCart);
     }
-  };
+  }
 
   return (
     <Button
       className={cx('whitespace-break-spaces', className)}
-      variant={!isInCart ? 'default' : 'destructive'}
-      onClick={() => updateState(!isInCart)}
+      variant={
+        cart?.some((cartItem) => cartItem.id === item.id)
+          ? 'destructive'
+          : 'default'
+      }
+      onClick={updateCart}
     >
-      {isInCart ? t.removeFromCart : t.addToCart}
+      {cart?.some((cartItem) => cartItem.id === item.id)
+        ? t.removeFromCart
+        : t.addToCart}
     </Button>
   );
 }

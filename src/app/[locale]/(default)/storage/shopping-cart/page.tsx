@@ -26,9 +26,7 @@ export default function StorageShoppingCartPage({
   const borrowNowMessages = {
     borrowNow: t('borrowNow'),
     name: tLoanForm('name'),
-    nameDescription: tLoanForm('nameDescription'),
     email: tLoanForm('email'),
-    emailExample: tLoanForm('emailExample'),
     phoneNumber: tLoanForm('phoneNumber'),
     phoneNumberDescription: tLoanForm('phoneNumberDescription'),
     returnBy: tLoanForm('returnBy'),
