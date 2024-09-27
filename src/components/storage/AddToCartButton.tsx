@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from 'cva';
 import { useEffect, useState } from 'react';
-import { useLocalStorage } from 'usehooks-ts';
 
 // TODO: Type must be replaced by the type provided from database ORM.
 export type StorageItem = {
@@ -26,25 +26,34 @@ function AddToCartButton({
   addToCart: string;
   removeFromCart: string;
 }) {
-  const [cart, setCart, _] = useLocalStorage<number[]>('shopping-cart', []);
-  // Set isInCart to false initially as we can update it on the client side with useEffect,
-  // and the server prerenders all buttons as "Add to cart".
+  const [cart, setCart, loading] = useLocalStorage<number[]>(
+    'shopping-cart',
+    [],
+  );
   const [isInCart, setIsInCart] = useState(false);
 
-  // On cart/item/page/etc change, check if we must update the isInCart state.
   useEffect(() => {
     setIsInCart(cart.some((i) => i === item.id));
   }, [cart, item.id]);
 
+  // if (loading) {
+  //   return <div>need loading indicator here</div>;
+  // }
+
   const updateState = (addToCart: boolean) => {
-    let newCart = cart;
     if (addToCart) {
-      newCart.push(item.id);
+      setCart((prevCart) => {
+        const newCart = [...prevCart, item.id];
+        console.log(newCart);
+        return newCart;
+      });
     } else {
-      newCart = newCart.filter((i) => i !== item.id);
+      setCart((prevCart) => {
+        const newCart = prevCart.filter((i) => i !== item.id);
+        console.log(newCart);
+        return newCart;
+      });
     }
-    setCart(newCart);
-    setIsInCart(addToCart);
   };
 
   return (

@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/Dialog';
-import { useReadLocalStorage } from 'usehooks-ts';
+import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 
 type BorrowNowDialogProps = {
   t: {
@@ -28,9 +28,7 @@ type BorrowNowDialogProps = {
 };
 
 function BorrowNowDialog({ t, className }: BorrowNowDialogProps) {
-  const cart = useReadLocalStorage<number[]>('shopping-cart', {
-    initializeWithValue: false,
-  });
+  const cart = useLocalStorage<number[]>('shopping-cart');
 
   return (
     <>
