@@ -14,6 +14,14 @@
     "sort": "sortering",
     "photoOf": "Bilde av {name}"
   },
+  "error": {
+    "notFound": "404 - Siden ble ikke funnet",
+    "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
+    "error": "Oops! Noe gikk galt",
+    "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "goToHomepage": "Gå tilbake til hjemmesiden",
+    "tryAgain": "Prøv igjen"
+  },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",

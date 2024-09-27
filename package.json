@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then lefthook install; fi",
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
     "build": "next build",
