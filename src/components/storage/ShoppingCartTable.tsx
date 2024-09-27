@@ -15,6 +15,8 @@ import { useLocalStorage } from 'usehooks-ts';
 
 // TODO: Must be replaced by requesting the data from a database.
 import { items } from '@/mock-data/items';
+import { useEffect, useState } from 'react';
+import { ShoppingCartTableSkeleton } from './ShoppingCartTableSkeleton';
 
 type ShoppingCartTableProps = {
   t: {
@@ -29,12 +31,23 @@ type ShoppingCartTableProps = {
 };
 
 function ShoppingCartTable({ t }: ShoppingCartTableProps) {
+  const [loading, setLoading] = useState(true);
   const [cart, setCart] = useLocalStorage<number[]>('shopping-cart', [], {
     initializeWithValue: false,
   });
 
+  useEffect(() => {
+    if (cart !== undefined) {
+      setLoading(false);
+    }
+  }, [cart]);
+
+  if (loading) {
+    return <ShoppingCartTableSkeleton t={t} />;
+  }
+
   if (cart.length <= 0) {
-    return <p className='text-center'>{t.cartEmpty}</p>;
+    return <p className='py-20 text-center font-medium'>{t.cartEmpty}</p>;
   }
 
   const itemsInCart = items.filter((item) => cart.includes(item.id));

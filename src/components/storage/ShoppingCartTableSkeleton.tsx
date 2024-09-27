@@ -7,11 +7,18 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { useTranslations } from 'next-intl';
 import { useId } from 'react';
 
-function ShoppingCartTableSkeleton() {
-  const t = useTranslations('storage.shoppingCart');
+type ShoppingCartTableSkeletonProps = {
+  t: {
+    productId: string;
+    productName: string;
+    location: string;
+    unitsAvailable: string;
+  };
+};
+
+function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
   return (
     <>
       <Table className='my-4'>
@@ -20,10 +27,10 @@ function ShoppingCartTableSkeleton() {
             <TableHead className='w-[80px]'>
               <Skeleton />
             </TableHead>
-            <TableHead className='w-[150px]'>{t('productId')}</TableHead>
-            <TableHead>{t('productName')}</TableHead>
-            <TableHead>{t('location')}</TableHead>
-            <TableHead className='text-right'>{t('unitsAvailable')}</TableHead>
+            <TableHead className='w-[150px]'>{t.productId}</TableHead>
+            <TableHead>{t.productName}</TableHead>
+            <TableHead>{t.location}</TableHead>
+            <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
             <TableHead className='w-[80px]' />
           </TableRow>
         </TableHeader>
