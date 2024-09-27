@@ -13,11 +13,9 @@ function ShoppingCartClearButton({
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
 
-  if (!cart) return;
-
   return (
     <Button
-      className={cx('flex gap-2', className)}
+      className={cx('flex gap-2', !cart && 'hidden', className)}
       variant='destructive'
       onClick={() => setCart(null)}
       disabled={isLoading}

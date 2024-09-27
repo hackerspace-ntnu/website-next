@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/Dialog';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { cx } from '@/lib/utils';
 
 type BorrowNowDialogProps = {
   t: {
@@ -29,13 +30,15 @@ type BorrowNowDialogProps = {
 function BorrowDialog({ t, className }: BorrowNowDialogProps) {
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
-  if (!cart) return;
-
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className={className} variant='default' disabled={isLoading}>
+          <Button
+            className={cx(!cart && 'hidden', className)}
+            variant='default'
+            disabled={isLoading}
+          >
             {t.borrowNow}
           </Button>
         </DialogTrigger>

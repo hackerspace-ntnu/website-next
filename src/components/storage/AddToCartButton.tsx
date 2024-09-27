@@ -30,12 +30,12 @@ type AddToCartButtonProps = {
 };
 
 function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
-  const [cart, setCart, loading] = useLocalStorage<CartItem[]>(
+  const [cart, setCart, isLoading] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     [],
   );
 
-  if (loading) {
+  if (isLoading) {
     return <Loader className='mx-[41px]' />;
   }
 
