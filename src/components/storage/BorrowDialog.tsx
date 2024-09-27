@@ -35,7 +35,7 @@ function BorrowDialog({ t, className }: BorrowNowDialogProps) {
       <Dialog>
         <DialogTrigger asChild>
           <Button
-            className={cx(!cart && 'hidden', className)}
+            className={cx(!isLoading && !cart && 'hidden', className)}
             variant='default'
             disabled={isLoading}
           >

@@ -7,21 +7,21 @@ import { cx } from '@/lib/utils';
 import { XIcon } from 'lucide-react';
 
 function ShoppingCartClearButton({
-  caption,
   className,
-}: { caption: string; className?: string }) {
+  t,
+}: { className?: string; t: { clearCart: string } }) {
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
 
   return (
     <Button
-      className={cx('flex gap-2', !cart && 'hidden', className)}
+      className={cx('flex gap-2', !isLoading && !cart && 'hidden', className)}
       variant='destructive'
       onClick={() => setCart(null)}
       disabled={isLoading}
     >
       <XIcon />
-      {caption}
+      {t.clearCart}
     </Button>
   );
 }

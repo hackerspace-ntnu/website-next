@@ -40,7 +40,7 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
     return <ShoppingCartTableSkeleton t={t} />;
   }
 
-  if (!cart) {
+  if (!cart || cart.length === 0) {
     return <p className='py-20 text-center font-medium'>{t.cartEmpty}</p>;
   }
 

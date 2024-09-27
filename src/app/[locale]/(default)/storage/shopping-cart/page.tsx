@@ -38,10 +38,10 @@ export default function StorageShoppingCartPage({
     <>
       <ShoppingCartTable t={tableMessages} />
       <div className='relative my-4'>
-        <BorrowDialog t={borrowNowMessages} className='mx-auto block' />
+        <BorrowDialog t={borrowNowMessages} className='mx-auto' />
         <ShoppingCartClearButton
           className='-translate-y-1/2 absolute top-1/2 right-3'
-          caption={t('clearCart')}
+          t={{ clearCart: t('clearCart') }}
         />
       </div>
     </>
