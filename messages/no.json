@@ -70,7 +70,7 @@
       "removeFromCart": "Fjern fra handlekurven"
     },
     "select": {
-      "ariaLabel": "Velg hvordan du vil filtrere lager varene",
+      "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
       "filters": "Filtre",
       "popularity": "Popularitet",
       "sortDescending": "Lagerbeholdning (synkende)",

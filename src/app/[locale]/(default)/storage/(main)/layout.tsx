@@ -1,9 +1,11 @@
 import { CategorySelector } from '@/components/composites/CategorySelector';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
+import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
@@ -58,24 +60,26 @@ export default function StorageLayout({
           className='lg:max-w-2xl'
           placeholder={t('searchPlaceholder')}
         />
-        <SortSelector
-          filters={filters}
-          t={{
-            ariaLabel: t('select.ariaLabel'),
-            sort: tUi('sort'),
-            defaultValue: t('select.popularity'),
-            defaultSorting: t('searchParams.popularity'),
-          }}
-        />
-        <CategorySelector
-          categories={categories}
-          t={{
-            category: tUi('category'),
-            sort: tUi('sort'),
-            defaultDescription: t('combobox.defaultDescription'),
-            defaultPlaceholder: t('combobox.defaultPlaceholder'),
-          }}
-        />
+        <Suspense fallback={<SelectorsSkeleton />}>
+          <SortSelector
+            filters={filters}
+            t={{
+              ariaLabel: t('select.ariaLabel'),
+              sort: tUi('sort'),
+              defaultValue: t('select.popularity'),
+              defaultSorting: t('searchParams.popularity'),
+            }}
+          />
+          <CategorySelector
+            categories={categories}
+            t={{
+              category: tUi('category'),
+              sort: tUi('sort'),
+              defaultDescription: t('combobox.defaultDescription'),
+              defaultPlaceholder: t('combobox.defaultPlaceholder'),
+            }}
+          />
+        </Suspense>
       </div>
       {children}
     </>
