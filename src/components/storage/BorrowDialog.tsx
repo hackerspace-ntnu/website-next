@@ -27,8 +27,8 @@ type BorrowNowDialogProps = {
   className?: string;
 };
 
-function BorrowNowDialog({ t, className }: BorrowNowDialogProps) {
-  const cart = useLocalStorage<number[]>('shopping-cart');
+function BorrowDialog({ t, className }: BorrowNowDialogProps) {
+  const [cart, _, isLoading] = useLocalStorage<number[]>('shopping-cart');
 
   return (
     <>
@@ -37,7 +37,7 @@ function BorrowNowDialog({ t, className }: BorrowNowDialogProps) {
           <Button
             className={className}
             variant='default'
-            disabled={!cart || cart.length <= 0}
+            disabled={isLoading ?? cart.length === 0}
           >
             {t.borrowNow}
           </Button>
@@ -53,4 +53,4 @@ function BorrowNowDialog({ t, className }: BorrowNowDialogProps) {
   );
 }
 
-export { BorrowNowDialog };
+export { BorrowDialog };

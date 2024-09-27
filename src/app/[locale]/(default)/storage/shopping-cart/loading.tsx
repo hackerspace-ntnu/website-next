@@ -1,5 +1,5 @@
 import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { Loader } from '@/components/ui/Loader';
 import { useTranslations } from 'next-intl';
 
 export default function ShoppingCartSkeleton() {
@@ -13,13 +13,9 @@ export default function ShoppingCartSkeleton() {
 
   return (
     <>
-      <div className='my-4'>
-        <h1 className='mx-auto my-4 md:text-center'>{t('title')}</h1>
-        <ShoppingCartTableSkeleton t={tableMessages} />
-        <div className='relative my-4'>
-          <Skeleton className='mx-auto block h-10 w-[100px]' />
-          <Skeleton className='-translate-y-1/2 absolute top-1/2 right-3 h-10 w-[225px]' />
-        </div>
+      <ShoppingCartTableSkeleton t={tableMessages} />
+      <div className='flex justify-center'>
+        <Loader className='mt-0 mb-10' size='lg' />
       </div>
     </>
   );

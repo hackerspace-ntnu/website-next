@@ -12,12 +12,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
+import { unstable_setRequestLocale } from 'next-intl/server';
+
+type StorageLayoutProps = {
+  children: React.ReactNode;
+  params: { locale: string };
+};
 
 export default function StorageLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  params: { locale },
+}: StorageLayoutProps) {
+  unstable_setRequestLocale(locale);
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');
 

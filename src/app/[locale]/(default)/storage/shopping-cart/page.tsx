@@ -1,9 +1,6 @@
-import { BorrowNowDialog } from '@/components/storage/BorrowNowDialog';
+import { BorrowDialog } from '@/components/storage/BorrowDialog';
 import { ShoppingCartClearButton } from '@/components/storage/ShoppingCartClearButton';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
-import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/locale/navigation';
-import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
@@ -41,21 +38,9 @@ export default function StorageShoppingCartPage({
 
   return (
     <>
-      <div className='relative'>
-        <h1 className='mx-auto my-4 md:text-center'>{t('title')}</h1>
-        <Button asChild variant='ghost'>
-          <Link
-            className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
-            href='/storage'
-          >
-            <ArrowLeftIcon aria-hidden='true' />
-            {t('backToStorage')}
-          </Link>
-        </Button>
-      </div>
       <ShoppingCartTable t={tableMessages} />
       <div className='relative my-4'>
-        <BorrowNowDialog t={borrowNowMessages} className='mx-auto block' />
+        <BorrowDialog t={borrowNowMessages} className='mx-auto block' />
         <ShoppingCartClearButton
           className='-translate-y-1/2 absolute top-1/2 right-3'
           caption={t('clearCart')}

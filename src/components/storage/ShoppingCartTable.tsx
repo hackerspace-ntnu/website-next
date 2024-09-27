@@ -70,12 +70,12 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
     <Table className='my-4'>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-[80px]' />
-          <TableHead className='w-[150px]'>{t.productId}</TableHead>
+          <TableHead className='w-20' />
+          <TableHead className='w-40'>{t.productId}</TableHead>
           <TableHead>{t.productName}</TableHead>
           <TableHead>{t.location}</TableHead>
           <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
-          <TableHead className='w-[80px]' />
+          <TableHead className='w-20' />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -100,9 +100,8 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
             <TableCell className='text-right'>{item.quantity}</TableCell>
             <TableCell>
               <Button
-                key={item.id}
                 variant='destructive'
-                className='h-8 p-1'
+                size='xs-icon'
                 onClick={() => removeItem(item.id)}
               >
                 <XIcon />

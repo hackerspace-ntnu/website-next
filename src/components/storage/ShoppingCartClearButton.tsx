@@ -9,15 +9,14 @@ function ShoppingCartClearButton({
   caption,
   className,
 }: { caption: string; className?: string }) {
-  const [cart, setCart] = useLocalStorage<number[]>('shopping-cart', []);
-
-  if (!cart || cart.length <= 0) return;
+  const [cart, setCart, isLoading] = useLocalStorage<number[]>('shopping-cart');
 
   return (
     <Button
       className={cx('flex gap-2', className)}
       variant='destructive'
       onClick={() => setCart([])}
+      disabled={isLoading ?? cart.length === 0}
     >
       <XIcon />
       {caption}
