@@ -2,10 +2,9 @@ import { Link } from '@/lib/locale/navigation';
 import { ShoppingCartIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { CategorySelector } from '@/components/composites/CategorySelector';
 import { SearchBar } from '@/components/composites/SearchBar';
-import { CategorySelector } from '@/components/storage/CategorySelector';
-import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
-import { SortSelector } from '@/components/storage/SortSelector';
+import { SortSelector } from '@/components/composites/SortSelector';
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -13,7 +12,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { Suspense } from 'react';
 
 export default function StorageLayout({
   children,
@@ -21,7 +19,7 @@ export default function StorageLayout({
   children: React.ReactNode;
 }) {
   const t = useTranslations('storage');
-  const tUI = useTranslations('ui');
+  const tUi = useTranslations('ui');
 
   const categories = [
     {
@@ -79,26 +77,24 @@ export default function StorageLayout({
           className='lg:max-w-2xl'
           placeholder={t('searchPlaceholder')}
         />
-        <Suspense fallback={<SelectorsSkeleton />}>
-          <SortSelector
-            filters={filters}
-            t={{
-              ariaLabel: t('select.ariaLabel'),
-              sort: tUI('sort'),
-              defaultPlaceholder: t('select.defaultPlaceholder'),
-              defaultSorting: t('searchParams.popularity'),
-            }}
-          />
-          <CategorySelector
-            categories={categories}
-            t={{
-              category: tUI('category'),
-              sort: tUI('sort'),
-              defaultDescription: t('combobox.defaultDescription'),
-              defaultPlaceholder: t('combobox.defaultPlaceholder'),
-            }}
-          />
-        </Suspense>
+        <SortSelector
+          filters={filters}
+          t={{
+            ariaLabel: t('select.ariaLabel'),
+            sort: tUi('sort'),
+            defaultPlaceholder: t('select.defaultPlaceholder'),
+            defaultSorting: t('searchParams.popularity'),
+          }}
+        />
+        <CategorySelector
+          categories={categories}
+          t={{
+            category: tUi('category'),
+            sort: tUi('sort'),
+            defaultDescription: t('combobox.defaultDescription'),
+            defaultPlaceholder: t('combobox.defaultPlaceholder'),
+          }}
+        />
       </div>
       {children}
     </>
