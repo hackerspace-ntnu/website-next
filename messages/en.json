@@ -114,9 +114,7 @@
     },
     "loanForm": {
       "name": "Name",
-      "nameDescription": "Person lending the item(s).",
       "email": "Email",
-      "emailExample": "name@example.com",
       "phoneNumber": "Phone number",
       "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
       "returnBy": "Return by",

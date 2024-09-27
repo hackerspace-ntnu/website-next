@@ -114,9 +114,7 @@
     },
     "loanForm": {
       "name": "Navn",
-      "nameDescription": "Personen som låner gjenstanden(e).",
       "email": "Epost",
-      "emailExample": "navn@example.com",
       "phoneNumber": "Mobilnummer",
       "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
       "returnBy": "Lån fram til",

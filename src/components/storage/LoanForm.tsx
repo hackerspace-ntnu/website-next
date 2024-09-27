@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { DatePicker } from '@/components/ui/DatePicker';
+import { Calendar } from '@/components/ui/Calendar';
 import {
   Form,
   FormControl,
@@ -13,12 +13,11 @@ import {
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { addDays, addWeeks, endOfWeek } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
   phone: z.string().min(1),
   returnBy: z.date().min(new Date()),
 });
@@ -27,9 +26,7 @@ type LoanFormProps = {
   t: {
     borrowNow: string;
     name: string;
-    nameDescription: string;
     email: string;
-    emailExample: string;
     phoneNumber: string;
     phoneNumberDescription: string;
     returnBy: string;
@@ -42,8 +39,6 @@ function LoanForm({ t }: LoanFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      email: '',
       phone: '',
       returnBy: new Date(),
     },
@@ -57,70 +52,44 @@ function LoanForm({ t }: LoanFormProps) {
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className='grid grid-cols-1 space-y-2 md:grid-cols-3 md:space-x-2 md:space-y-0'>
-            <FormField
-              control={form.control}
-              name='name'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.name}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t.name} {...field} />
-                  </FormControl>
-                  <FormDescription>{t.nameDescription}</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.email}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t.emailExample} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='phone'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.phoneNumber}</FormLabel>
-                  <FormControl>
-                    <Input placeholder='123 456 789' {...field} />
-                  </FormControl>
-                  <FormDescription>{t.phoneNumberDescription}</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className='mx-auto mt-16 max-w-[280px]'>
-            <FormField
-              control={form.control}
-              name='returnBy'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t.returnBy}</FormLabel>
-                  <FormControl>
-                    <DatePicker
-                      buttonClassName='flex'
-                      dateCallback={field.onChange}
-                      disabled={{ before: new Date() }}
-                    />
-                  </FormControl>
-                  <FormDescription>{t.returnByDescription}</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+        <form className='space-y-3' onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name='phone'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.phoneNumber}</FormLabel>
+                <FormControl>
+                  <Input placeholder='420 69 420' {...field} />
+                </FormControl>
+                <FormDescription>{t.phoneNumberDescription}</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='returnBy'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t.returnBy}</FormLabel>
+                <FormControl>
+                  <Calendar
+                    className='mx-auto w-fit rounded-md border'
+                    mode='single'
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={{
+                      before: new Date(),
+                      after: addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
+                    }}
+                  />
+                </FormControl>
+                <FormDescription>{t.returnByDescription}</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type='submit' className='mx-auto flex w-fit'>
             {t.submit}
           </Button>
