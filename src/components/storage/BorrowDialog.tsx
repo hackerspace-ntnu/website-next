@@ -30,15 +30,13 @@ type BorrowNowDialogProps = {
 function BorrowDialog({ t, className }: BorrowNowDialogProps) {
   const [cart, _, isLoading] = useLocalStorage<number[]>('shopping-cart');
 
+  if (!cart) return;
+
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            className={className}
-            variant='default'
-            disabled={isLoading ?? cart.length === 0}
-          >
+          <Button className={className} variant='default' disabled={isLoading}>
             {t.borrowNow}
           </Button>
         </DialogTrigger>
