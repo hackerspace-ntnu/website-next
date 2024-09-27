@@ -13,7 +13,7 @@ import {
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
 
-type BorrowNowDialogProps = {
+type BorrowDialogProps = {
   t: {
     borrowNow: string;
     name: string;
@@ -27,7 +27,7 @@ type BorrowNowDialogProps = {
   className?: string;
 };
 
-function BorrowDialog({ t, className }: BorrowNowDialogProps) {
+function BorrowDialog({ t, className }: BorrowDialogProps) {
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   return (

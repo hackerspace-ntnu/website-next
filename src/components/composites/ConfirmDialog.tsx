@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/Dialog';
 import type { VariantProps } from '@/lib/utils';
+import { useState } from 'react';
 
 type ConfirmDialogProps = {
   t: {
@@ -26,8 +27,10 @@ type ConfirmDialogProps = {
   VariantProps<typeof buttonVariants>;
 
 function ConfirmDialog({ confirmAction, t, ...props }: ConfirmDialogProps) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant='destructive' {...props} />
       </DialogTrigger>
@@ -42,7 +45,13 @@ function ConfirmDialog({ confirmAction, t, ...props }: ConfirmDialogProps) {
               {t.cancel}
             </Button>
           </DialogClose>
-          <Button variant='destructive' onClick={confirmAction}>
+          <Button
+            variant='destructive'
+            onClick={() => {
+              setOpen(false);
+              confirmAction();
+            }}
+          >
             {t.confirm}
           </Button>
         </DialogFooter>
