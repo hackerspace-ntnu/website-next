@@ -1,6 +1,5 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
 import { parseAsString } from 'nuqs/server';
 import { Combobox } from '../ui/Combobox';
@@ -19,11 +18,10 @@ type CategorySelectorProps = {
 };
 
 function CategorySelector({ categories, t }: CategorySelectorProps) {
-  const initialCategory = useSearchParams().get(t.category);
   const [category, setCategory] = useQueryState(
     t.category,
     parseAsString
-      .withDefault(initialCategory ?? '')
+      .withDefault('')
       .withOptions({ shallow: false, clearOnDefault: true }),
   );
 
