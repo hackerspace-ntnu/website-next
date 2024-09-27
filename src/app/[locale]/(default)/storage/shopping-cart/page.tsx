@@ -37,8 +37,8 @@ export default function StorageShoppingCartPage({
   return (
     <>
       <ShoppingCartTable t={tableMessages} />
-      <div className='mb-8 flex xs:flex-row flex-col justify-between gap-4'>
-        <BorrowDialog t={borrowNowMessages} className='' />
+      <div className='relative mb-8 flex flex-col gap-4'>
+        <BorrowDialog t={borrowNowMessages} className='sm:mx-auto' />
         <ShoppingCartClearDialog
           t={{
             clearCart: t('clearCart'),
@@ -46,6 +46,7 @@ export default function StorageShoppingCartPage({
             clearCartDescription: t('clearCartDescription'),
             clear: t('clear'),
           }}
+          className='sm:-translate-y-1/2 sm:absolute sm:top-1/2 sm:right-0'
         />
       </div>
     </>
