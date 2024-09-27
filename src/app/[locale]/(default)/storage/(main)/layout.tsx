@@ -1,17 +1,8 @@
-import { Link } from '@/lib/locale/navigation';
-import { ShoppingCartIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
 import { CategorySelector } from '@/components/composites/CategorySelector';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
-import { Button } from '@/components/ui/Button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/Tooltip';
+import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
+import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 type StorageLayoutProps = {
@@ -58,25 +49,9 @@ export default function StorageLayout({
     <>
       <div className='relative'>
         <h1 className='my-4 md:text-center'>{t('title')}</h1>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className='absolute right-0 bottom-0 md:right-5'>
-                <Button asChild size='icon'>
-                  <Link
-                    href='/storage/shopping-cart'
-                    aria-label={t('tooltips.viewShoppingCart')}
-                  >
-                    <ShoppingCartIcon />
-                  </Link>
-                </Button>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{t('tooltips.viewShoppingCart')}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <ShoppingCartLink
+          t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
+        />
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar
@@ -88,7 +63,7 @@ export default function StorageLayout({
           t={{
             ariaLabel: t('select.ariaLabel'),
             sort: tUi('sort'),
-            defaultPlaceholder: t('select.defaultPlaceholder'),
+            defaultValue: t('select.popularity'),
             defaultSorting: t('searchParams.popularity'),
           }}
         />

@@ -16,7 +16,7 @@ type SortSelectorProps = {
   }[];
   t: {
     sort: string;
-    defaultPlaceholder: string;
+    defaultValue: string;
     defaultSorting: string;
     ariaLabel: string;
   };
@@ -39,11 +39,11 @@ function SortSelector({ filters, t }: SortSelectorProps) {
         }
       }}
       defaultValue={
-        filters.find((f) => f.urlName === filter)?.name ?? undefined
+        filters.find((f) => f.urlName === filter)?.name ?? t.defaultValue
       }
     >
       <SelectTrigger className='w-full lg:w-[250px]' aria-label={t.ariaLabel}>
-        <SelectValue placeholder={t.defaultPlaceholder} />
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {filters.map((filter) => (

@@ -72,7 +72,6 @@
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere lager varene",
       "filters": "Filtre",
-      "defaultPlaceholder": "Sorter resultater",
       "popularity": "Popularitet",
       "sortDescending": "Lagerbeholdning (synkende)",
       "sortAscending": "Lagerbeholdning (stigende)",

@@ -72,7 +72,6 @@
     "select": {
       "ariaLabel": "Select how to filter the storage items",
       "filters": "Filters",
-      "defaultPlaceholder": "Sort results",
       "popularity": "Popularity",
       "sortDescending": "Inventory (descending)",
       "sortAscending": "Inventory (ascending)",
