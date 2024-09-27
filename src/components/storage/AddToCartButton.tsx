@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { Loader } from '@/components/ui/Loader';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from 'cva';
 import { useEffect, useState } from 'react';
@@ -16,13 +17,13 @@ export type StorageItem = {
 };
 
 function AddToCartButton({
+  className,
   item,
   addToCart,
   removeFromCart,
-  className,
 }: {
-  item: StorageItem;
   className?: string;
+  item: StorageItem;
   addToCart: string;
   removeFromCart: string;
 }) {
@@ -36,9 +37,9 @@ function AddToCartButton({
     setIsInCart(cart.some((i) => i === item.id));
   }, [cart, item.id]);
 
-  // if (loading) {
-  //   return <div>need loading indicator here</div>;
-  // }
+  if (loading) {
+    return <Loader className='mx-[41px]' />;
+  }
 
   const updateState = (addToCart: boolean) => {
     if (addToCart) {
