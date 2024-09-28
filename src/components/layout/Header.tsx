@@ -10,17 +10,19 @@ function Header() {
   const t = useTranslations('layout');
   return (
     <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
-      <MobileSheet
-        className='flex md:hidden'
-        t={{
-          navigationMenu: t('navigationMenu'),
-          news: t('news'),
-          events: t('events'),
-          about: t('about'),
-          close: useTranslations('ui')('close'),
-        }}
-      />
-      <LogoLink />
+      <div className='flex gap-2'>
+        <MobileSheet
+          className='flex md:hidden'
+          t={{
+            navigationMenu: t('navigationMenu'),
+            news: t('news'),
+            events: t('events'),
+            about: t('about'),
+            close: useTranslations('ui')('close'),
+          }}
+        />
+        <LogoLink />
+      </div>
       <div className='flex gap-10'>
         <Nav
           className='hidden items-center gap-6 text-sm md:flex'
