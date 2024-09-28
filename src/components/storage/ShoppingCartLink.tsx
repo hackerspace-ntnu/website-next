@@ -25,7 +25,7 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className='absolute right-0 bottom-0 md:right-5'>
+          <div className='absolute right-0 xs:right-5 bottom-0'>
             <Button asChild size='icon'>
               <Link
                 href='/storage/shopping-cart'
