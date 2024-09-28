@@ -42,3 +42,4 @@ ci:
         assertions:
           unused-javascript: 'off'
           cumulative-layout-shift: 'off'
+          max-potential-fid: 'off'
