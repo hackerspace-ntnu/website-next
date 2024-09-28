@@ -55,5 +55,5 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
-          bun add -g @lhci/cli@0.13.x
+          bun add -g @lhci/cli@0.14.x
           lhci autorun
