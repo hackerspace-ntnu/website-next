@@ -10,9 +10,9 @@ ci:
   upload:
     target: 'temporary-public-storage'
   assert:
-    preset: 'lighthouse:recommended'
     assertMatrix:
       - matchingUrlPattern: ".*"
+        preset: 'lighthouse:recommended'
         assertions:
           first-contentful-paint:
             - error
@@ -38,6 +38,7 @@ ci:
           maskable-icon: 'off'
           installable-manifest: 'off'
       - matchingUrlPattern: "http://[^/]+/storage.*"
+        preset: 'lighthouse:recommended'
         assertions:
           unused-javascript: 'off'
           cumulative-layout-shift: 'off'
