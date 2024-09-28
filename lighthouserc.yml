@@ -10,28 +10,36 @@ ci:
   upload:
     target: 'temporary-public-storage'
   assert:
-    preset: 'lighthouse:recommended'
-    assertions:
-      first-contentful-paint:
-        - error
-        - maxNumericValue: 2000
-          aggregationMethod: optimistic
-      interactive:
-        - error
-        - maxNumericValue: 5000
-          aggregationMethod: optimistic
-      bf-cache: 'off'
-      csp-xss: 'off'
-      identical-links-same-purpose: 'off'
-      total-byte-weight: 'off'
-      color-contrast: 'off'
-      heading-order: 'off'
-      mainthread-work-breakdown: 'off'
-      bootup-time: 'off'
-      largest-contentful-paint: 'off'
-      dom-size: 'off'
-      render-blocking-resources: 'off'
-      server-response-time: 'off'
-      uses-responsive-images: 'off'
-      maskable-icon: 'off'
-      installable-manifest: 'off'
+    assertMatrix:
+      - matchingUrlPattern: ".*"
+        preset: 'lighthouse:recommended'
+        assertions:
+          first-contentful-paint:
+            - error
+            - maxNumericValue: 2000
+              aggregationMethod: optimistic
+          interactive:
+            - error
+            - maxNumericValue: 5000
+              aggregationMethod: optimistic
+          bf-cache: 'off'
+          csp-xss: 'off'
+          identical-links-same-purpose: 'off'
+          total-byte-weight: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          mainthread-work-breakdown: 'off'
+          bootup-time: 'off'
+          largest-contentful-paint: 'off'
+          dom-size: 'off'
+          render-blocking-resources: 'off'
+          server-response-time: 'off'
+          uses-responsive-images: 'off'
+          maskable-icon: 'off'
+          installable-manifest: 'off'
+      - matchingUrlPattern: "http://[^/]+/storage.*"
+        preset: 'lighthouse:recommended'
+        assertions:
+          unused-javascript: 'off'
+          cumulative-layout-shift: 'off'
+          max-potential-fid: 'off'
