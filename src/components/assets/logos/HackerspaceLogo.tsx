@@ -1,4 +1,4 @@
-function Logo({ className, ...rest }: { className?: string }) {
+function HackerspaceLogo({ className, ...rest }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -25,4 +25,4 @@ function Logo({ className, ...rest }: { className?: string }) {
   );
 }
 
-export { Logo };
+export { HackerspaceLogo };

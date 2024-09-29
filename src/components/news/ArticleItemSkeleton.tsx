@@ -7,8 +7,10 @@ function ArticleItemSkeleton() {
         <Skeleton className='size-full rounded-lg object-cover object-center' />
       </div>
       <div className='w-full py-2 pr-1'>
-        <Skeleton className='h-[18px] w-5/6 py-[5px]' />
-        <Skeleton className='h-[12px] w-2/3 py-[2px] sm:h-[14px] sm:py-[3px] [&:not(:first-child)]:mt-2' />
+        <Skeleton className='my-[5px] h-[18px] w-5/6 rounded-lg' />
+        <div className='[&:not(:first-child)]:pt-2'>
+          <Skeleton className='my-[2px] h-[12px] w-1/2 rounded-lg sm:my-[3px] sm:h-[14px]' />
+        </div>
       </div>
     </div>
   );

@@ -22,6 +22,7 @@
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",
+    "login": "Logg inn",
     "news": "Nyheter",
     "events": "Hendelser",
     "storage": "Lager",
@@ -47,9 +48,15 @@
     "visitInstagram": "Besøk Instagram",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
-    "NTNUKiD": "Arbeidslivsnettverket KID",
+    "NTNUNexus": "Arbeidslivsnettverket Nexus",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "login": {
+    "welcome": "Velkommen!",
+    "description": "Er du her for første gang? Bruk Feide",
+    "loginWith": "Logg inn med",
+    "hackerspaceAccount": "Hackerspace-konto"
   },
   "news": {
     "title": "Nyheter",
