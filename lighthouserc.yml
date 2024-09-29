@@ -8,10 +8,11 @@ ci:
       - 'http://localhost:3000/en/about'
     startServerCommand: 'bun run start'
   upload:
-    target: 'temporary-public-storage'
+    target: 'lhci'
+    serverBaseUrl: 'https://lhci.hackerspace-ntnu.no' # build token is set by the GH Action
   assert:
     assertMatrix:
-      - matchingUrlPattern: ".*"
+      - matchingUrlPattern: '.*'
         preset: 'lighthouse:recommended'
         assertions:
           first-contentful-paint:
@@ -37,7 +38,7 @@ ci:
           uses-responsive-images: 'off'
           maskable-icon: 'off'
           installable-manifest: 'off'
-      - matchingUrlPattern: "http://[^/]+/storage.*"
+      - matchingUrlPattern: 'http://[^/]+/storage.*'
         preset: 'lighthouse:recommended'
         assertions:
           unused-javascript: 'off'
