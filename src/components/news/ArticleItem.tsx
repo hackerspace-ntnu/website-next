@@ -1,10 +1,8 @@
-import Image from 'next/image';
-
-import { Link } from '@/lib/navigation';
-import { cx } from '@/lib/utils';
-
 import { InternalBadge } from '@/components/news/InternalBadge';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
+import { cx } from '@/lib/utils';
+import Image from 'next/image';
 
 type ArticleItemProps = {
   className?: string;

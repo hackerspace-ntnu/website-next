@@ -1,6 +1,5 @@
-import { articleMockData as articleData } from '@/mock-data/article';
-
 import { ArticleItem } from '@/components/news/ArticleItem';
+import { articleMockData as articleData } from '@/mock-data/article';
 
 type ItemGridProps = {
   page: number;

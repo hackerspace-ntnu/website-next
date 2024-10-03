@@ -1,11 +1,9 @@
+import { RootProviders } from '@/components/providers/RootProviders';
+import { routing } from '@/lib/locale';
+import { cx } from '@/lib/utils';
+import type { Viewport } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
-import { notFound } from 'next/navigation';
-
-import { locales } from '@/lib/config';
-import { cx } from '@/lib/utils';
-
-import { RootProviders } from '@/components/providers/RootProviders';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -25,8 +23,12 @@ const montserrat = Montserrat({
 });
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
+
+export const viewport: Viewport = {
+  themeColor: '#0c0a09',
+};
 
 export async function generateMetadata({
   params: { locale },
@@ -64,10 +66,6 @@ export async function generateMetadata({
       },
       { rel: 'manifest', url: '/favicon/site.webmanifest' },
     ],
-    meta: [
-      { name: 'msapplication-TileColor', content: '#0c0a09' },
-      { name: 'theme-color', content: '#0c0a09' },
-    ],
   };
 }
 
@@ -75,18 +73,17 @@ export default function LocaleLayout({
   children,
   params: { locale },
 }: LocaleLayoutProps) {
-  if (!locales.includes(locale)) notFound();
   unstable_setRequestLocale(locale);
   return (
     <html
-      className={cx('h-full w-full', inter.variable, montserrat.variable)}
+      className={cx('size-full', inter.variable, montserrat.variable)}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
+      <body className='size-full bg-background font-inter text-foreground antialiased'>
         <RootProviders locale={locale}>
-          <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth'>
+          <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex size-full flex-col overflow-y-scroll scroll-smooth'>
             {children}
           </div>
         </RootProviders>

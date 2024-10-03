@@ -1,10 +1,13 @@
 'use client';
 
-import { redirect, usePathname } from 'next/navigation';
+import NextError from 'next/error';
 
-import { defaultLocale } from '@/lib/config';
-
-export default function NotFound() {
-  const pathname = usePathname();
-  redirect(`/${defaultLocale}${pathname}`);
+export default function NotFoundPage() {
+  return (
+    <html lang='en'>
+      <body>
+        <NextError statusCode={404} />
+      </body>
+    </html>
+  );
 }

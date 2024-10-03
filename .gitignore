@@ -3,18 +3,13 @@
 
 # next.js
 /.next/
-/out/
 next-env.d.ts
-
-# production
-/build
 
 # misc
 .DS_Store
 
 # local env files
 .env
-.env*.local
 
 # typescript
 *.tsbuildinfo
@@ -22,3 +17,9 @@ next-env.d.ts
 # site map
 public/sitemap.xml
 public/robots.txt
+
+# data
+/data
+
+# Ignore husky files, see PR #54
+/.husky/*

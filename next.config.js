@@ -5,9 +5,12 @@ import nextIntl from 'next-intl/plugin';
  * for Docker builds.
  */
 await import('./src/env.js');
-const withNextIntl = nextIntl('./src/i18n.ts');
+const withNextIntl = nextIntl('./src/lib/locale/i18n.ts');
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  reactStrictMode: true,
+  output: 'standalone',
+};
 
 export default withNextIntl(config);
