@@ -7,10 +7,11 @@ const memberMockData = [
     group: 'DevOps',
     bio: 'Hei jeg er så glad i Hackerspace, det gir meg livsglede og har stoppet meg flere ganger fra å hoppe utfor elgseterbroen',
     mail: 'lisay20.03@hotmail.com',
-    instagram: '',
-    discord: '',
-    github: '',
-    linkedin: '',
+    instagram: 'lisayuuuuuuuu2.0',
+    discord: 'hei på deg din ku',
+    github: 'lisayu03',
+    linkedin:
+      'https://www.linkedin.com/authwall?trk=bf&trkInfo=AQHYfT6P9sYR0gAAAZH2C2qIIxaA6fZELF1Hya73jEN85udhyvPoWrVGhYkTvnTq73IlCrWeRtNw0EF5fI9gih73GvGVPC4Xc4V_nULr3UakTjKFQhJwdbmO4416LH34VhIDC1c=&original_referer=&sessionRedirect=https%3A%2F%2Fno.linkedin.com%2Fin%2Fbj%25C3%25B8rn-johan-muri-a5bb2084',
   },
   {
     id: 2,
