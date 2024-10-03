@@ -64,8 +64,22 @@
     "Answer_3": "<p1> Hackerspace has ongoing admissions. You can therefore apply whenever you want. We usually respond within 3 working weeks. </p1><p2> Note that you don't need a membership to borrow equipment or try something cool. Come in for a chat during our opening hours to find out more about our offer and what it's like to be a member. </p2>",
     "ActiveGroup": "Active groups",
     "Show_More": "Show more",
+    "example_title": "Lorem Ipsum",
+    "example_text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione."
+  },
+  "leaderboard": {
     "Leaderboard": "Leaderboard",
     "About_Leaderboard": "The leaderboard team includes Leader, Secound-in-command, finiancal manager in Hackerspace. They ensure the optimal operation of Hackerspace NTNU and handle decision-making and planning of operations with the board.",
     "Member_Representativ": "Member Representativ"
-  }
+  },
+  "DevOps": {
+    "information": "The main tasks of DevOps are to develop and operate Hackerspace's website, but we also work with the operation of infrastructure, databases, servers, and much more."
+  },
+  "member_representative": {
+    "information": "<p1> Hackerspace has a member representative who is appointed during the general meeting. This representative member does not have a vote in the board, but is a contact person for members of Hackerspace for matters that you do not want to be taken up directly with the board. They has a duty of confidentiality, and will, if necessary, forward matters anonymously to the board. </p1> <p2> If you want to contact the member representative, they're available on Slack. </p2>"
+  },
+  "LabOps": {},
+  "breadboard_computer": {},
+  "game": {},
+  "ttrpg": {}
 }

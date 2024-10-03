@@ -1,20 +1,54 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
-import { Card } from '@/components/ui/Card';
+import { Card, CardContent} from '@/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
-export default function LabOpsPage({
-    params: { locale },
-  }: {
-    params: { locale: string};
-  }) {
-    unstable_setRequestLocale(locale);
-    const t = useTranslations('LabOps');
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/Carousel"
+ 
 
-    return (
-        <div> 
-            <div className='mt-10 mb-10'>
+export default function DevOpsPage({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations('DevOps');
+
+  return (
+    <div>
+        <div>
+            <Carousel className="w-full max-w-xs">
+                <CarouselContent>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <CarouselItem key={index}>
+                            <div className="p-1">
+                                <Card>
+                                    <CardContent className="flex aspect-square items-center justify-center p-6">
+                                        <span className="text-4xl font-semibold">{index + 1}</span>
+                                    </CardContent>
+                                </Card>
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+        </div>
+        <h1 className='items-cemter justify-center w-full flex mt-4 mb-5 dark:text-primary'> DevOps </h1>
+      <div className='flex w-full'>
+        <p>
+          {t('information')}
+        </p>
+      </div>
+      <div className='mt-10 mb-10'>
         <h3> FAQ'S </h3>
         <Accordion type="single" collapsible className='w-full dark:text-foreground'>
             <AccordionItem value='item-1'>
@@ -106,7 +140,7 @@ export default function LabOpsPage({
                 </ul>
             </div>
         </div>
+      </div>
     </div>
-    </div>
-    );
+  );
 }

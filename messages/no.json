@@ -61,9 +61,24 @@
     "Quesition_3": "Hvordan blir jeg medlem?",
     "Answer_3": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>",
     "ActiveGroup": "Våre aktive grupper",
+
     "Show_More": "Vis mer",
+    "example_title": "Lorem Ipsum",
+    "example_text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione."
+  },
+  "leaderboard": {
     "Leaderboard": "Ledelsen",
     "About_Leaderboard": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
     "Member_Representativ": "Tillitsvalgt"
-  }
+  },
+  "DevOps": {
+    "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser."
+  },
+  "member_representative": {
+    "information": "<p1> Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret. </p1> <p2> Dersom du ønsker å ta kontakt er tillitsvalgt tilgjengelig på Slack. </p2>"
+  },
+  "LabOps": {},
+  "breadboard_computer": {},
+  "game": {},
+  "ttrpg": {}
 }
