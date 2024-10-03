@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'Development'
+        type: choice
+        options:
+          - Development
+          - Production
+
+jobs:
+  deploy-prod:
+    name: Production
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Production')
+    uses: ./.github/workflows/deploy-script.yml
+    with:
+      environment: Production
+      branch: main
+      path: website-next
+    secrets:
+      host: ${{ secrets.HOST }}
+      port: ${{ secrets.PORT }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.KEY }}
+
+  deploy-dev:
+    name: Development
+    if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Development')
+    uses: ./.github/workflows/deploy-script.yml
+    with:
+      environment: Development
+      branch: dev
+      path: website-next
+    secrets:
+      host: ${{ secrets.HOST }}
+      port: ${{ secrets.PORT }}
+      username: ${{ secrets.USERNAME }}
+      key: ${{ secrets.KEY }}

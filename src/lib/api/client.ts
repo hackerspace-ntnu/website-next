@@ -1,4 +1,5 @@
 'use client';
+import 'client-only';
 
 import type { AppRouter } from '@/server/api/root';
 import { createTRPCReact } from '@trpc/react-query';

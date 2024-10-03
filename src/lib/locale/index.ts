@@ -37,5 +37,13 @@ export const routing = defineRouting({
       en: '/members/[member]',
       no: '/medlemmer/[member]',
     },
+    '/storage': {
+      en: '/storage',
+      no: '/lager',
+    },
+    '/storage/shopping-cart': {
+      en: '/storage/shopping-cart',
+      no: '/lager/handlekurv',
+    },
   },
 });
