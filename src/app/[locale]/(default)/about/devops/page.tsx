@@ -23,7 +23,8 @@ export default function DevOpsPage({
 
   return (
     <div>
-        <div>
+        <h1 className='items-center justify-center w-full flex mt-4 mb-5 dark:text-primary'> DevOps </h1>
+        <div className='items-center justify-center w-full flex '>
             <Carousel className="w-full max-w-xs">
                 <CarouselContent>
                     {Array.from({ length: 5 }).map((_, index) => (
@@ -42,8 +43,7 @@ export default function DevOpsPage({
                 <CarouselNext />
             </Carousel>
         </div>
-        <h1 className='items-cemter justify-center w-full flex mt-4 mb-5 dark:text-primary'> DevOps </h1>
-      <div className='flex w-full'>
+      <div className='flex w-full mt-5 mb-5'>
         <p>
           {t('information')}
         </p>
