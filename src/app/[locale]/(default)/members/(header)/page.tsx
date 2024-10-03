@@ -4,7 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 import { Suspense } from 'react';
 
-import { PaginationCarousel } from '@/components/layout/PaginationCarousel';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemGrid } from '@/components/members/ItemGrid';
 import { ItemGridSkeleton } from '@/components/members/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
@@ -45,7 +45,7 @@ export default function NewsPage({
       </Suspense>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(articleData.length / 6)}
+        totalPages={Math.ceil(articleData.length / 12)}
         t={{
           goToPreviousPage: t('goToPreviousPage'),
           previous: t('previous'),
