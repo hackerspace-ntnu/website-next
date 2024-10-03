@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 import { InternalBadge } from '@/components/members/InternalBadge';
@@ -67,7 +67,7 @@ function MemberCard({
             <CardTitle className='line-clamp-1 text-lg transition-colors group-hover:text-primary sm:text-xl lg:text-2xl'>
               {name}
             </CardTitle>
-            <CardDescription className='line-clamp-1 text-xs sm:text-sm'></CardDescription>
+            <CardDescription className='line-clamp-1 text-xs sm:text-sm' />
           </CardHeader>
         </Card>
       </Link>

@@ -37,7 +37,9 @@
     "visitSlack": "Besøk Slack",
     "visitFacebook": "Besøk Facebook",
     "visitGithub": "Besøk Github",
+    "visitLinkedin": "Besøk Linkedin",
     "visitInstagram": "Besøk Instagram",
+    "dicordTag": "Kopier Discordtaggen",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUKiD": "Arbeidslivsnettverket KID",
@@ -53,7 +55,7 @@
   },
   "members": {
     "title": "Medlemmer",
-    "internalArticle": "Dette er et internt medlem"
+    "internalMember": "Dette er et internt medlem"
   },
   "storage": {
     "title": "Lager",

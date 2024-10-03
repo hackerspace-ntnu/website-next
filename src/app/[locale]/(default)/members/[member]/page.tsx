@@ -37,7 +37,7 @@ export default function memberPage({
   return (
     <>
       <h2 className='my-4 py-4'>{member.name}</h2>
-      <div className='h-screen'>
+      <div className='h-screen mt-10'>
         <MemberViewCard
           key={member.id}
           id={member.id}

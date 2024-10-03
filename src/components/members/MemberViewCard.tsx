@@ -1,16 +1,18 @@
-import { Mail } from 'lucide-react';
+'use client';
+import { MailIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import ExternalLink from 'next/link';
 
-import { Link } from '@/lib/navigation';
+import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
-import { Facebook } from '@/components/assets/icons/Facebook';
-import { Github } from '@/components/assets/icons/Github';
-import { Instagram } from '@/components/assets/icons/Instagram';
-import { Linkedin } from '@/components/assets/icons/Linkedin';
-import { Slack } from '@/components/assets/icons/Slack';
+import {
+  DiscordIcon,
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+} from '@/components/assets/icons';
 import { InternalBadge } from '@/components/members/InternalBadge';
 import {
   MemberCard,
@@ -23,6 +25,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
+import { toast } from 'sonner';
 
 function MemberViewCard({
   className,
@@ -40,7 +49,7 @@ function MemberViewCard({
 }: MemberCardProps) {
   const t = useTranslations('layout');
   return (
-    <Card className='relative flex w-2/5 overflow-hidden rounded-xl bg-blue-500'>
+    <Card className='relative flex w-2/5 overflow-hidden rounded-xl '>
       <InternalBadge internal={internal} />
 
       <div className='flex w-full flex-col items-center justify-center'>
@@ -60,10 +69,13 @@ function MemberViewCard({
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink
-                href={`mailto:${mail}`}
-                aria-label={t('sendAnEmail')}
+                href={`https://github.com/${github}`}
+                prefetch={false}
+                aria-label={t('visitGithub')}
+                target='_blank'
+                rel='noopener noreferrer'
               >
-                <Mail className='h-4 w-4' />
+                <GitHubIcon className='h-4 w-4' />
               </ExternalLink>
             </Button>
           </li>
@@ -72,50 +84,63 @@ function MemberViewCard({
               <ExternalLink
                 href={linkedin}
                 prefetch={false}
-                aria-label={t('visitFacebook')}
+                aria-label={t('visitLinkedin')}
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Linkedin className='h-4 w-4' />
+                <LinkedInIcon className='h-4 w-4' />
               </ExternalLink>
             </Button>
           </li>
           <li>
-            <Button asChild variant='ghost' size='sm-icon'>
-              <ExternalLink
-                href=''
-                prefetch={false}
-                aria-label={t('visitFacebook')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Facebook className='h-4 w-4' />
-              </ExternalLink>
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    asChild
+                    variant='ghost'
+                    size='sm-icon'
+                    onClick={() => toast('Username copied')}
+                  >
+                    <ExternalLink
+                      onClick={() => {
+                        navigator.clipboard.writeText(discord);
+                      }}
+                      href=''
+                      prefetch={false}
+                      aria-label={t('discordTag')}
+                      rel='noopener noreferrer'
+                    >
+                      <DiscordIcon className='h-4 w-4' />
+                    </ExternalLink>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className='bg-background'>
+                  <p>{discord}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </li>
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink
-                href='https://github.com/hackerspace-ntnu/'
-                prefetch={false}
-                aria-label={t('visitGithub')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <Github className='h-4 w-4' />
-              </ExternalLink>
-            </Button>
-          </li>
-          <li>
-            <Button asChild variant='ghost' size='sm-icon'>
-              <ExternalLink
-                href='https://www.instagram.com/hackerspacentnu/'
+                href={`https://www.instagram.com/${instagram}`}
                 prefetch={false}
                 aria-label={t('visitInstagram')}
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <Instagram className='h-4 w-4' />
+                <InstagramIcon className='h-4 w-4' />
+              </ExternalLink>
+            </Button>
+          </li>
+          <li>
+            <Button asChild variant='ghost' size='sm-icon'>
+              <ExternalLink
+                href={`mailto:${mail}`}
+                aria-label={t('sendAnEmail')}
+              >
+                <MailIcon className='h-4 w-4' />
               </ExternalLink>
             </Button>
           </li>

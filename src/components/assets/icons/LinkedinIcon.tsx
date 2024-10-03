@@ -1,4 +1,4 @@
-function Linkedin({ className, ...rest }: { className?: string }) {
+function LinkedInIcon({ className, ...rest }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -8,9 +8,10 @@ function Linkedin({ className, ...rest }: { className?: string }) {
       viewBox='0 0 24 24'
       fill='none'
       stroke='currentColor'
-      stroke-width='2'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      aria-hidden='true'
       {...rest}
     >
       <path d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z' />
@@ -19,5 +20,4 @@ function Linkedin({ className, ...rest }: { className?: string }) {
     </svg>
   );
 }
-
-export { Linkedin };
+export { LinkedInIcon };

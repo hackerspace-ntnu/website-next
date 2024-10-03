@@ -37,7 +37,9 @@
     "visitSlack": "Visit Slack",
     "visitFacebook": "Visit Facebook",
     "visitGithub": "Visit Github",
+    "visitLinkedin": "Visit Linkedin",
     "visitInstagram": "Visit our Instagram",
+    "discordTag": "Copy the discord tag",
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUKiD": "The working life network KID",
@@ -53,7 +55,7 @@
   },
   "members": {
     "title": "Members",
-    "internalArticle": "This is an internal member"
+    "internalMember": "This is an internal member"
   },
   "storage": {
     "title": "Storage",

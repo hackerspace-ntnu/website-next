@@ -6,6 +6,9 @@
 /out/
 next-env.d.ts
 
+# vscode
+.vscode/
+
 # production
 /build
 

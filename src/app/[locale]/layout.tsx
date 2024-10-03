@@ -1,4 +1,5 @@
 import { RootProviders } from '@/components/providers/RootProviders';
+import { Toaster } from 'sonner';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
@@ -86,6 +87,7 @@ export default function LocaleLayout({
             {children}
           </div>
         </RootProviders>
+        <Toaster/>
       </body>
     </html>
   );

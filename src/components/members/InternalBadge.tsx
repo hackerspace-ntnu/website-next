@@ -32,13 +32,13 @@ function InternalBadge({ className, internal }: InternalBadgeProps) {
             variant='ghost'
             size='xs-icon'
           >
-            <span tabIndex={0}>
+            <span>
               <ShieldAlert />
             </span>
           </Button>
         </TooltipTrigger>
         <TooltipContent sideOffset={3}>
-          <p>{t('internalArticle')}</p>
+          <p>{t('internalMember')}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

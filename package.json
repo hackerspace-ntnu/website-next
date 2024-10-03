@@ -53,8 +53,10 @@
     "reading-time": "^1.5.0",
     "server-only": "^0.0.1",
     "sharp": "^0.33.4",
+    "sonner": "^1.5.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.5.2",
+    "website-next": "file:",
     "zod": "^3.23.8"
   },
   "devDependencies": {
