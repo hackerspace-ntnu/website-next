@@ -121,7 +121,7 @@ const cardData = [
           <AccordionTrigger> 
             <div className='flex items-center m-2'> 
               <SquareUserRound className='mr-2'/>
-              <h4 className='font-medium'>{t('Quesition_3')}</h4>
+              <h4 className='font-medium'>{t('Question_3')}</h4>
             </div>
           </AccordionTrigger>
           <AccordionContent className='text-base m-2'> 
