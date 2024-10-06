@@ -1,4 +1,4 @@
-import { articleMockData as articleData } from '@/mock-data/article';
+import { memberMockData as memberData } from '@/mock-data/member';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
@@ -21,7 +21,7 @@ export async function generateMetadata({
   };
 }
 
-export default function NewsPage({
+export default function MembersPage({
   params: { locale },
   searchParams,
 }: {
@@ -38,22 +38,13 @@ export default function NewsPage({
   // TODO: Button to create new article should only be visible when logged in
   return (
     <>
-      {/* <CardGrid topArticles={articleData.slice(0, 4)} /> */}
       <Separator className='my-6' />
       <Suspense key={page} fallback={<ItemGridSkeleton />}>
         <ItemGrid page={page} />
       </Suspense>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(articleData.length / 12)}
-        t={{
-          goToPreviousPage: t('goToPreviousPage'),
-          previous: t('previous'),
-          morePages: t('morePages'),
-          goToNextPage: t('goToNextPage'),
-          next: t('next'),
-          page: t('page'),
-        }}
+        totalPages={Math.ceil(memberData.length / 12)}
       />
     </>
   );

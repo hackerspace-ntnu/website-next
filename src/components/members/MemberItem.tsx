@@ -36,7 +36,7 @@ function MemberItem({
           params: { member: id },
         }}
       >
-        <div className='flex h-72 w-64 flex-col gap-4 overflow-hidden rounded-lg bg-card p-3 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
+        <div className='flex h-72 flex-col gap-4 overflow-hidden rounded-lg bg-card px-10 py-3 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='relative h-44 w-44 self-center'>
             <InternalBadge className='h-5 w-5' internal={internal} />
             <Image

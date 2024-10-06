@@ -67,7 +67,8 @@
   "members": {
     "title": "Medlemmer",
     "internalMember": "Dette er et internt medlem",
-    "backToMember": "Tilbake til medlemmer"
+    "backToMember": "Tilbake til medlemmer",
+    "searchPlaceholder": "Søk etter et medlem..."
   },
   "storage": {
     "title": "Lager",

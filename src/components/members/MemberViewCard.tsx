@@ -82,7 +82,7 @@ function MemberViewCard({
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink
-                href={linkedin}
+                href={`https://linkedin.com/in/${linkedin}`}
                 prefetch={false}
                 aria-label={t('visitLinkedin')}
                 target='_blank'

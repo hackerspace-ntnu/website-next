@@ -1,27 +1,26 @@
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { SearchBar } from '@/components/composites/SearchBar';
 
-type NewsHeaderLayoutProps = {
+type MemberHeaderLayoutProps = {
   children: React.ReactNode;
   params: { locale: string };
 };
 
-export default function NewsHeaderLayout({
+export default function MemberHeaderLayout({
   children,
   params: { locale },
-}: NewsHeaderLayoutProps) {
+}: MemberHeaderLayoutProps) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('members');
   return (
     <>
       <div className='flex items-center justify-between'>
         <h1 className='my-4'>{t('title')}</h1>
-        {/* <Button asChild size='sm'>
-          <Link href='/news/new'>
-            <SquarePen className='mr-2 h-4 w-4' />
-            {t('newArticle')}
-          </Link>
-        </Button> */}
+        <SearchBar
+          className='mt-5 mr-10 lg:max-w-full'
+          placeholder={t('searchPlaceholder')}
+        />
       </div>
       {children}
     </>

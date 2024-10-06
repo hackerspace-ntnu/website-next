@@ -40,9 +40,9 @@ export default function memberPage({
 
   return (
     <>
-      <h2 className='my-4 py-4'>{member.name}</h2>
-
-      <div>
+    <div className='relative'>
+      <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>{member.name}</h2>
+      <div className='mt-0'>
         <Button asChild variant='ghost'>
           <Link
             className='flex gap-2'
@@ -70,6 +70,7 @@ export default function memberPage({
           github={member.github}
           linkedin={member.linkedin}
         />
+      </div>
       </div>
     </>
   );

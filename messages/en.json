@@ -67,7 +67,8 @@
   "members": {
     "title": "Members",
     "internalMember": "This is an internal member",
-    "backToMember": "Back to members"
+    "backToMember": "Back to members",
+    "searchPlaceholder": "Search for a member..."
   },
   "storage": {
     "title": "Storage",
