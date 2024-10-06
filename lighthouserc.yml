@@ -14,7 +14,7 @@ ci:
     serverBaseUrl: 'https://lhci.hackerspace-ntnu.no' # build token is set by the GH Action
   assert:
     assertMatrix:
-      - matchingUrlPattern: 'http://localhost:3000/en/news.*'
+      - matchingUrlPattern: '*.news.*'
         preset: 'lighthouse:recommended'
         assertions:
           bf-cache: 'off'
@@ -24,7 +24,7 @@ ci:
           render-blocking-resources: 'off'
           interactive: 'off'
           uses-responsive-images: 'off' # Should be removed when we obtain images from backend
-      - matchingUrlPattern: 'http://localhost:3000/en/storage.*'
+      - matchingUrlPattern: '*.storage.*'
         preset: 'lighthouse:recommended'
         assertions:
           bf-cache: 'off'
