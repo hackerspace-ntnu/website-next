@@ -22,7 +22,7 @@ ci:
           heading-order: 'off'
           largest-contentful-paint: 'off'
           render-blocking-resources: 'off'
-      - matchingUrlPattern: 'http://.*/news.*'
+      - matchingUrlPattern: 'http://[^/]+/news.*'
         preset: 'lighthouse:recommended'
         assertions:
           bf-cache: 'off'
@@ -30,8 +30,9 @@ ci:
           heading-order: 'off'
           largest-contentful-paint: 'off'
           render-blocking-resources: 'off'
-          user-responsive-images: 'off' # Should be removed when we obtain images from backend
-      - matchingUrlPattern: 'http://.*/storage.*'
+          interactive: 'off'
+          uses-responsive-images: 'off' # Should be removed when we obtain images from backend
+      - matchingUrlPattern: 'http://[^/]+/storage.*'
         preset: 'lighthouse:recommended'
         assertions:
           bf-cache: 'off'
