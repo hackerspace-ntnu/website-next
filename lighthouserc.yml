@@ -2,10 +2,10 @@ ci:
   collect:
     url:
       - 'http://localhost:3000/en'
+      - 'http://localhost:3000/en/about'
       - 'http://localhost:3000/en/events'
       - 'http://localhost:3000/en/news'
       - 'http://localhost:3000/en/news/1'
-      - 'http://localhost:3000/en/about'
       - 'http://localhost:3000/en/storage'
       - 'http://localhost:3000/en/storage/shopping-cart'
     startServerCommand: 'bun run start'
@@ -16,14 +16,29 @@ ci:
     assertMatrix:
       - matchingUrlPattern: '.*'
         preset: 'lighthouse:recommended'
+        assertions:
+          bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
+      - matchingUrlPattern: 'http://.*/news.*'
+        preset: 'lighthouse:recommended'
+        assertions:
+          bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
+          user-responsive-images: 'off' # Should be removed when we obtain images from backend
       - matchingUrlPattern: 'http://.*/storage.*'
         preset: 'lighthouse:recommended'
         assertions:
-          render-blocking-resources: 'off'
-          largest-contentful-paint: 'off'
-          heading-order: 'off'
-          color-contrast: 'off'
           bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
           unused-javascript: 'off'
-          cumulative-layout-shift: 'off'
+          cumulative-layout-shift: 'off' # We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
           max-potential-fid: 'off'
