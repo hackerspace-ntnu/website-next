@@ -13,35 +13,17 @@ ci:
     target: 'lhci'
     serverBaseUrl: 'https://lhci.hackerspace-ntnu.no' # build token is set by the GH Action
   assert:
-    preset: 'lighthouse:recommended'
-    assertions:
-      first-contentful-paint:
-        - error
-        - maxNumericValue: 2000
-          aggregationMethod: optimistic
-      interactive:
-        - error
-        - maxNumericValue: 5000
-          aggregationMethod: optimistic
-      bf-cache: 'off'
-      csp-xss: 'off'
-      identical-links-same-purpose: 'off'
-      heading-order: 'off'
-      total-byte-weight: 'off'
-      color-contrast: 'off'
-      mainthread-work-breakdown: 'off'
-      bootup-time: 'off'
-      largest-contentful-paint: 'off'
-      dom-size: 'off'
-      render-blocking-resources: 'off'
-      server-response-time: 'off'
-      uses-responsive-images: 'off'
-      maskable-icon: 'off'
-      installable-manifest: 'off'
-      unused-javascript: 'off'
     assertMatrix:
+      - matchingUrlPattern: '.*'
+        preset: 'lighthouse:recommended'
       - matchingUrlPattern: 'http://.*/storage.*'
+        preset: 'lighthouse:recommended'
         assertions:
+          render-blocking-resources: 'off'
+          largest-contentful-paint: 'off'
+          heading-order: 'off'
+          color-contrast: 'off'
+          bf-cache: 'off'
           unused-javascript: 'off'
           cumulative-layout-shift: 'off'
           max-potential-fid: 'off'
