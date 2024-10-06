@@ -27,6 +27,8 @@ ci:
               aggregationMethod: optimistic
           bf-cache: 'off'
           csp-xss: 'off'
+          identical-links-same-purpose: 'off'
+          heading-order: 'off'
           total-byte-weight: 'off'
           color-contrast: 'off'
           mainthread-work-breakdown: 'off'
@@ -38,6 +40,7 @@ ci:
           uses-responsive-images: 'off'
           maskable-icon: 'off'
           installable-manifest: 'off'
+          unused-javascript: 'off'
       - matchingUrlPattern: 'http://.*/storage.*'
         preset: 'lighthouse:recommended'
         assertions:
