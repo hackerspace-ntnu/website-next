@@ -48,7 +48,6 @@ function Combobox({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        {/* biome-ignore lint: Button is styled, so we're not using the select element */}
         <Button
           variant='outline'
           role='combobox'
