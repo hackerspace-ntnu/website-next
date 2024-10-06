@@ -37,7 +37,7 @@ export default function StorageShoppingCartPage({
   return (
     <>
       <ShoppingCartTable t={tableMessages} />
-      <div className='relative mb-8 flex flex-col gap-4'>
+      <div className='relative flex flex-col gap-4'>
         <BorrowDialog t={borrowNowMessages} className='sm:mx-auto' />
         <ShoppingCartClearDialog
           t={{
