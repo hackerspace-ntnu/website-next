@@ -50,7 +50,7 @@ export default function StorageLayout({
   return (
     <>
       <div className='relative'>
-        <h1 className='my-4 text-center'>{t('title')}</h1>
+        <h1 className='text-center'>{t('title')}</h1>
         <ShoppingCartLink
           t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
         />
