@@ -42,10 +42,9 @@ export default function memberPage({
     <>
     <div className='relative'>
       <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>{member.name}</h2>
-      <div className='mt-0'>
         <Button asChild variant='ghost'>
           <Link
-            className='flex gap-2'
+            className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
             href='/members'
             aria-label={t('backToMember')}
           >
@@ -70,7 +69,6 @@ export default function memberPage({
           github={member.github}
           linkedin={member.linkedin}
         />
-      </div>
       </div>
     </>
   );
