@@ -48,9 +48,9 @@ function Combobox({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
+        {/* biome-ignore: role-has-required-aria-props */}
         <Button
           variant='outline'
-          {/* biome-ignore lint: Button is styled, so we're not using the select element */}
           role='combobox'
           aria-expanded={open}
           aria-label={ariaLabel}
