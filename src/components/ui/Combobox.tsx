@@ -50,7 +50,7 @@ function Combobox({
       <PopoverTrigger asChild>
         <Button
           variant='outline'
-          role='combobox'
+          role='combobox' // biome-ignore lint: Button is styled, so we're not using the select element
           aria-expanded={open}
           aria-label={ariaLabel}
           className={cx('w-[200px] justify-between', buttonClassName)}
