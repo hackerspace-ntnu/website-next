@@ -27,6 +27,9 @@ type ComboboxProps = {
   defaultPlaceholder: string;
   buttonClassName?: string;
   contentClassName?: string;
+  valueCallback?: (value: string | null) => void;
+  initialValue?: string | null;
+  ariaLabel?: string;
 };
 
 function Combobox({
@@ -35,17 +38,21 @@ function Combobox({
   defaultPlaceholder,
   buttonClassName,
   contentClassName,
+  valueCallback,
+  initialValue,
+  ariaLabel,
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState<string | null>(initialValue ?? '');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant='outline'
-          role='combobox'
+          role='combobox' // biome-ignore lint: Button is styled, so we're not using the select element
           aria-expanded={open}
+          aria-label={ariaLabel}
           className={cx('w-[200px] justify-between', buttonClassName)}
         >
           {value
@@ -65,8 +72,14 @@ function Combobox({
                   key={choice.value}
                   value={choice.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
+                    // Set newValue to null if user selects the same value twice
+                    const newValue =
+                      currentValue === value ? null : currentValue;
+                    setValue(newValue);
                     setOpen(false);
+                    if (valueCallback) {
+                      valueCallback(newValue);
+                    }
                   }}
                 >
                   <CheckIcon

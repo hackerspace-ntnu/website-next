@@ -6,12 +6,9 @@ type Props = {
 };
 
 function IntlErrorProvider({ children, locale }: Props) {
-  const messages = useMessages();
+  const { error } = useMessages();
   return (
-    <NextIntlClientProvider
-      locale={locale}
-      messages={messages.error as Messages}
-    >
+    <NextIntlClientProvider locale={locale} messages={{ error } as Messages}>
       {children}
     </NextIntlClientProvider>
   );
