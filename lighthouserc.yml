@@ -38,9 +38,10 @@ ci:
       uses-responsive-images: 'off'
       maskable-icon: 'off'
       installable-manifest: 'off'
-  assertMatrix:
-    - matchingUrlPattern: 'http://.*/storage.*'
-      assertions:
-        unused-javascript: 'off'
-        cumulative-layout-shift: 'off'
-        max-potential-fid: 'off'
+      unused-javascript: 'off'
+    assertMatrix:
+      - matchingUrlPattern: 'http://.*/storage.*'
+        assertions:
+          unused-javascript: 'off'
+          cumulative-layout-shift: 'off'
+          max-potential-fid: 'off'
