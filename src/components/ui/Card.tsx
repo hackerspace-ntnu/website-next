@@ -1,6 +1,10 @@
 import { cx } from '@/lib/utils';
 import * as React from 'react';
 
+type CardTitleProps = {
+  level?: 'h2' | 'h3' | 'h4';
+} & React.HTMLAttributes<HTMLHeadingElement>;
+
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -28,19 +32,22 @@ const CardHeader = React.forwardRef<
 ));
 CardHeader.displayName = 'CardHeader';
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cx(
-      'font-semibold text-2xl leading-none tracking-tight',
-      className,
-    )}
-    {...props}
-  />
-));
+const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
+  ({ level = 'h3', className, ...props }, ref) => {
+    const Component = level;
+
+    return (
+      <Component
+        ref={ref}
+        className={cx(
+          'font-semibold text-2xl leading-none tracking-tight',
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 CardTitle.displayName = 'CardTitle';
 
 const CardDescription = React.forwardRef<
