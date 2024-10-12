@@ -9,7 +9,10 @@
     "next": "Next",
     "goToNextPage": "Go to next page",
     "morePages": "More pages",
-    "page": "page"
+    "page": "page",
+    "category": "category",
+    "sort": "sort",
+    "photoOf": "Photo of {name}"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -67,13 +70,15 @@
   },
   "storage": {
     "title": "Storage",
+    "searchPlaceholder": "Search for product...",
     "card": {
       "quantityInfo": "{quantity} units",
-      "addToCart": "Add to cart"
+      "addToCart": "Add to cart",
+      "removeFromCart": "Remove from cart"
     },
     "select": {
+      "ariaLabel": "Select how to filter the storage items",
       "filters": "Filters",
-      "defaultPlaceholder": "Sort results",
       "popularity": "Popularity",
       "sortDescending": "Inventory (descending)",
       "sortAscending": "Inventory (ascending)",
@@ -87,8 +92,43 @@
       "peripherals": "PC peripherals",
       "miniPC": "Mini PC"
     },
+    "searchParams": {
+      "popularity": "popularity",
+      "descending": "descending",
+      "ascending": "ascending",
+      "name": "name",
+      "cables": "cables",
+      "sensors": "sensors",
+      "peripherals": "peripherals",
+      "miniPC": "minipc"
+    },
     "tooltips": {
       "viewShoppingCart": "View shopping cart"
+    },
+    "shoppingCart": {
+      "title": "Shopping Cart",
+      "productId": "Product ID",
+      "productName": "Product Name",
+      "location": "Location",
+      "unitsAvailable": "Units available",
+      "tableDescription": "A list of your shopping cart items.",
+      "backToStorage": "Back to storage",
+      "cartEmpty": "Your shopping cart is empty.",
+      "clearCart": "Empty shopping cart",
+      "cancel": "Cancel",
+      "clear": "Clear",
+      "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
+      "borrowNow": "Borrow now",
+      "amountOfItemARIA": "Select number of this item"
+    },
+    "loanForm": {
+      "name": "Name",
+      "email": "Email",
+      "phoneNumber": "Phone number",
+      "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
+      "returnBy": "Return by",
+      "returnByDescription": "Select how long you would like to borrow the item for.",
+      "submit": "Submit"
     }
   }
 }
