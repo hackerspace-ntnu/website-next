@@ -3,7 +3,7 @@ import { cx } from '@/lib/utils';
 function FeideLogo({
   className,
   title,
-  ...rest
+  ...props
 }: {
   className?: string;
   title: string;
@@ -16,7 +16,7 @@ function FeideLogo({
       viewBox='0 0 114 39'
       xmlns='http://www.w3.org/2000/svg'
       aria-describedby='feidelogo'
-      {...rest}
+      {...props}
     >
       <title id='feidelogo'>{title}</title>
       <rect x='27.99' y='20.34' width='4.24' height='10.18' fill='#1f4698' />

@@ -1,4 +1,4 @@
-function HackerspaceLogo({ className, ...rest }: { className?: string }) {
+function HackerspaceLogo({ className, ...props }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -7,7 +7,7 @@ function HackerspaceLogo({ className, ...rest }: { className?: string }) {
       height='102.587px'
       viewBox='0 0 71.453 102.587'
       aria-hidden='true'
-      {...rest}
+      {...props}
     >
       <path
         className='fill-primary'
