@@ -19,7 +19,7 @@ jobs:
         run: biome ci .
   performance-audit:
     name: Performance Audit
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "production"
