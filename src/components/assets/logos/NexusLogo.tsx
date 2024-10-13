@@ -3,7 +3,7 @@ import { cx } from '@/lib/utils';
 function NexusLogo({
   className,
   title,
-  ...rest
+  ...props
 }: {
   className?: string;
   title: string;
@@ -16,7 +16,7 @@ function NexusLogo({
       viewBox='0 0 1226 406'
       xmlns='http://www.w3.org/2000/svg'
       aria-describedby='nexuslogo'
-      {...rest}
+      {...props}
     >
       <title id='nexuslogo'>{title}</title>
       <path

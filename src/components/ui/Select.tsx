@@ -74,9 +74,9 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cx(
-        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in',
+        'rdx-state-closed:fade-out-0 rdx-state-open:fade-in-0 rdx-state-closed:zoom-out-95 rdx-state-open:zoom-in-95 rdx-side-bottom:slide-in-from-top-2 rdx-side-left:slide-in-from-right-2 rdx-side-right:slide-in-from-left-2 rdx-side-top:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] rdx-state-closed:animate-out rdx-state-open:animate-in overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md',
         position === 'popper' &&
-          'data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1',
+          'rdx-side-left:-translate-x-1 rdx-side-top:-translate-y-1 rdx-side-right:translate-x-1 rdx-side-bottom:translate-y-1',
         className,
       )}
       position={position}
@@ -117,7 +117,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cx(
-      'relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+      'rdx-disabled:pointer-events-none relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm rdx-disabled:opacity-50 outline-none focus:bg-accent focus:text-accent-foreground',
       className,
     )}
     {...props}

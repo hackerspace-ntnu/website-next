@@ -3,7 +3,7 @@ import { cx } from '@/lib/utils';
 function IDILogo({
   className,
   title,
-  ...rest
+  ...props
 }: {
   className?: string;
   title: string;
@@ -16,7 +16,7 @@ function IDILogo({
       viewBox='0 0 438 129'
       xmlns='http://www.w3.org/2000/svg'
       aria-describedby='idilogo'
-      {...rest}
+      {...props}
     >
       <title id='idilogo'>{title}</title>
       <path

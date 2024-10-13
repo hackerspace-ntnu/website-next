@@ -9,6 +9,10 @@ export const routing = defineRouting({
   localePrefix: 'as-needed',
   pathnames: {
     '/': '/',
+    '/sign-in': {
+      en: '/sign-in',
+      no: '/logg-inn',
+    },
     '/events': {
       en: '/events',
       no: '/arrangementer',

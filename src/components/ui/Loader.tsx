@@ -5,10 +5,10 @@ const loaderVariants = cva({
   base: 'animate-spin text-muted-foreground',
   variants: {
     size: {
-      default: 'mx-4 my-2 size-6',
-      sm: 'mx-3 my-1.5 size-4',
-      lg: 'mx-6 my-6 size-8',
-      xl: 'mx-8 my-8 size-10',
+      default: 'mx-4 my-2 h-6 w-6',
+      sm: 'mx-3 my-1.5 h-4 w-4',
+      lg: 'mx-6 my-6 h-8 w-8',
+      xl: 'mx-8 my-8 h-10 w-10',
       none: '',
     },
   },
