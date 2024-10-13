@@ -1,8 +1,8 @@
 import { LogoLink } from '@/components/layout/LogoLink';
-import { Nav } from '@/components/layout/Nav';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
+import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
 import { useTranslations } from 'next-intl';
 
