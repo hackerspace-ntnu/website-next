@@ -2,10 +2,10 @@ ci:
   collect:
     url:
       - 'http://localhost:3000/en'
+      - 'http://localhost:3000/en/about'
       - 'http://localhost:3000/en/events'
       - 'http://localhost:3000/en/news'
       - 'http://localhost:3000/en/news/1'
-      - 'http://localhost:3000/en/about'
       - 'http://localhost:3000/en/storage'
       - 'http://localhost:3000/en/storage/shopping-cart'
     startServerCommand: 'bun run start'
@@ -14,35 +14,32 @@ ci:
     serverBaseUrl: 'https://lhci.hackerspace-ntnu.no' # build token is set by the GH Action
   assert:
     assertMatrix:
+      - matchingUrlPattern: 'http://[^/]+/news'
+        preset: 'lighthouse:recommended'
+        assertions:
+          bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
+          interactive: 'off'
+          uses-responsive-images: 'off' # Should be removed when we obtain images from backend
+      - matchingUrlPattern: 'http://[^/]+/storage'
+        preset: 'lighthouse:recommended'
+        assertions:
+          bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
+          unused-javascript: 'off'
+          cumulative-layout-shift: 'off' # We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
+          max-potential-fid: 'off'
       - matchingUrlPattern: '.*'
         preset: 'lighthouse:recommended'
         assertions:
-          first-contentful-paint:
-            - error
-            - maxNumericValue: 2000
-              aggregationMethod: optimistic
-          interactive:
-            - error
-            - maxNumericValue: 5000
-              aggregationMethod: optimistic
           bf-cache: 'off'
-          csp-xss: 'off'
-          identical-links-same-purpose: 'off'
-          total-byte-weight: 'off'
           color-contrast: 'off'
           heading-order: 'off'
-          mainthread-work-breakdown: 'off'
-          bootup-time: 'off'
           largest-contentful-paint: 'off'
-          dom-size: 'off'
           render-blocking-resources: 'off'
-          server-response-time: 'off'
-          uses-responsive-images: 'off'
-          maskable-icon: 'off'
-          installable-manifest: 'off'
-      - matchingUrlPattern: 'http://[^/]+/storage.*'
-        preset: 'lighthouse:recommended'
-        assertions:
-          unused-javascript: 'off'
-          cumulative-layout-shift: 'off'
-          max-potential-fid: 'off'
