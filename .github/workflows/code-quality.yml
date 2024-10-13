@@ -55,6 +55,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 120
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Build
