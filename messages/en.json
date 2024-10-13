@@ -25,7 +25,6 @@
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
     "navigationMenu": "Navigation menu",
-    "login": "Login",
     "news": "News",
     "events": "Events",
     "storage": "Storage",
@@ -55,10 +54,10 @@
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
-  "login": {
+  "signIn": {
     "welcome": "Welcome!",
     "description": "Is it your first time here? Use Feide",
-    "loginWith": "Login with",
+    "signInWith": "Sign in with",
     "hackerspaceAccount": "Hackerspace Account"
   },
   "news": {

@@ -20,17 +20,17 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
-    title: t('login'),
+    title: t('signIn'),
   };
 }
 
-export default function AboutPage({
+export default function SignInPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('login');
+  const t = useTranslations('signIn');
   return (
     <>
       <CardHeader>
@@ -47,7 +47,7 @@ export default function AboutPage({
       <CardContent className='flex flex-col items-center gap-4'>
         <div className='w-full'>
           <Separator />
-          <p className='text-center font-montserrat'>{t('loginWith')}</p>
+          <p className='text-center font-montserrat'>{t('signInWith')}</p>
         </div>
         <Button className='w-full bg-[#3FACC2]/90 hover:bg-[#3FACC2] dark:bg-[#222832] hover:dark:bg-[#222832]/90'>
           <FeideLogo title='Feide' />

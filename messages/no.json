@@ -25,7 +25,6 @@
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",
-    "login": "Logg inn",
     "news": "Nyheter",
     "events": "Hendelser",
     "storage": "Lager",
@@ -55,10 +54,10 @@
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
-  "login": {
+  "signIn": {
     "welcome": "Velkommen!",
     "description": "Er du her for første gang? Bruk Feide",
-    "loginWith": "Logg inn med",
+    "signInWith": "Logg inn med",
     "hackerspaceAccount": "Hackerspace-konto"
   },
   "news": {

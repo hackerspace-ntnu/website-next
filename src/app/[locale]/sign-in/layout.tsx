@@ -7,7 +7,7 @@ type DefaultLayoutProps = {
   params: { locale: string };
 };
 
-export default function LoginLayout({
+export default function SignInLayout({
   children,
   params: { locale },
 }: DefaultLayoutProps) {
