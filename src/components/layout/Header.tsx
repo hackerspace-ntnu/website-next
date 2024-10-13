@@ -21,7 +21,7 @@ function Header() {
             close: useTranslations('ui')('close'),
           }}
         />
-        <LogoLink />
+        <LogoLink className='md:~md:~ml-12/0 ml-0' />
       </div>
       <div className='flex gap-10'>
         <Nav

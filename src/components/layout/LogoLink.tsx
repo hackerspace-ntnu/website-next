@@ -24,12 +24,10 @@ function LogoLink({
       size='none'
     >
       <Link href='/' aria-label={t('hackerspaceHome')} onClick={onClick}>
-        <HackerspaceLogo
-          className={cx('h-6 w-6 md:h-8 md:w-8 xl:h-10 xl:w-10', logoClassName)}
-        />
+        <HackerspaceLogo className={cx('~w-7/11 ~h-7/11', logoClassName)} />
         <span
           className={cx(
-            'font-bold font-montserrat text-md md:text-lg xl:text-2xl',
+            '~text-lg/2xl font-bold font-montserrat',
             titleClassName,
           )}
         >
