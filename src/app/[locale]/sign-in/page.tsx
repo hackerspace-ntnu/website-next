@@ -36,7 +36,7 @@ export default function SignInPage({
       <CardHeader>
         <LogoLink
           className='mx-16 mb-5'
-          logoClassName='md:size-6 xl:size-6'
+          logoClassName='md:h-6 md:w-6'
           titleClassName='md:text-md xl:text-md'
         />
         <CardTitle className='text-center'>{t('welcome')}</CardTitle>
