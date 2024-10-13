@@ -14,14 +14,6 @@ ci:
     serverBaseUrl: 'https://lhci.hackerspace-ntnu.no' # build token is set by the GH Action
   assert:
     assertMatrix:
-      - matchingUrlPattern: '.*'
-        preset: 'lighthouse:recommended'
-        assertions:
-          bf-cache: 'off'
-          color-contrast: 'off'
-          heading-order: 'off'
-          largest-contentful-paint: 'off'
-          render-blocking-resources: 'off'
       - matchingUrlPattern: 'http://[^/]+/news'
         preset: 'lighthouse:recommended'
         assertions:
@@ -32,7 +24,7 @@ ci:
           render-blocking-resources: 'off'
           interactive: 'off'
           uses-responsive-images: 'off' # Should be removed when we obtain images from backend
-      - matchingUrlPattern: '.*storage.*'
+      - matchingUrlPattern: 'http://[^/]+/storage'
         preset: 'lighthouse:recommended'
         assertions:
           bf-cache: 'off'
@@ -43,3 +35,11 @@ ci:
           unused-javascript: 'off'
           cumulative-layout-shift: 'off' # We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
           max-potential-fid: 'off'
+      - matchingUrlPattern: '.*'
+        preset: 'lighthouse:recommended'
+        assertions:
+          bf-cache: 'off'
+          color-contrast: 'off'
+          heading-order: 'off'
+          largest-contentful-paint: 'off'
+          render-blocking-resources: 'off'
