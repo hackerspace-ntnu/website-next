@@ -49,7 +49,7 @@ function MemberViewCard({
 }: MemberCardProps) {
   const t = useTranslations('layout');
   return (
-    <Card className='relative flex w-2/5 overflow-hidden rounded-xl '>
+    <Card className='relative flex w-4/5 overflow-hidden rounded-xl '>
       <InternalBadge internal={internal} />
 
       <div className='flex w-full flex-col items-center justify-center'>
@@ -63,9 +63,9 @@ function MemberViewCard({
         </div>
         <h3 className='mt-4 text-center'>{name}</h3>
         <h5 className='text-center'>{group}</h5>
-        <p className='m-10 text-center'>{bio}</p>
+        <p className='mx-52 my-10 text-center'>{bio}</p>
 
-        <ul className='grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
+        <ul className='mb-5 grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink

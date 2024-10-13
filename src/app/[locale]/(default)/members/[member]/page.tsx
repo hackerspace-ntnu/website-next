@@ -54,7 +54,7 @@ export default function memberPage({
         </Button>
         </div>
 
-        <div className='my-10'>
+        <div className='my-10 flex justify-center'>
         <MemberViewCard
           key={member.id}
           id={member.id}
