@@ -22,42 +22,42 @@ const cardData = [
     id: 1,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+    
     link: `/${locale}/about/leaderboard`
   },
   {
     id: 2,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+  
     link: `/${locale}/about/leaderboard`
   },
   {
     id: 3,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+   
     link: `/${locale}/about/leaderboard`
   },
   {
     id: 3,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+  
     link: `/${locale}/about/leaderboard`
   },
   {
     id: 3,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+   
     link: `/${locale}/about/leaderboard`
   },
   {
     id: 3,
     title: t('example_title'),
     content: t('example_text'),
-    buttonText: t('Show_More'),
+   
     link: `/${locale}/about/leaderboard`
   },
 ]
@@ -83,13 +83,15 @@ const cardData = [
       </div>
     </div>
     <div className='flex felx-col items-center justify-center '>
-      <Button className=''> <Map className='m-1'/> {t('ShowMaps')} </Button>
+      <Link href="https://link.mazemap.com/PPDMWZlM" passHref target="_blank" rel="noopener noreferrer">
+        <Button className=''> <Map className='m-1'/> {t('ShowMaps')} </Button>
+      </Link>
 
     </div>
 
     <div> 
       <h3 className='mt-10'> FAQ's </h3>
-      <Accordion type="single" collapsible className='w-full'>
+      <Accordion type="single" collapsible className='w-full mb-10'>
         <AccordionItem value="item-1">
           <AccordionTrigger> 
             <div className='flex items-center m-2'>
@@ -135,19 +137,14 @@ const cardData = [
     </div>
 
     <div className='w-full relative max-x-xs'>
-      <h2 className='items-center content-center text-center m-10'> {t('ActiveGroup')} </h2>
+      <h2 className='items-center content-center text-center'> {t('ActiveGroup')} </h2>
       <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {cardData.map(card => (
           <div key={card.id} className="relative group p-4">
-            <Card className="overflow-hidden relative">
+            <Card className="overflow-hidden relative group-hover:underline">
               <CardHeader className='text-xl font-semibold'>{card.title}</CardHeader>
               <CardContent>{card.content}</CardContent>
-              <CardFooter>
-                <Button>
-                  <Link href={card.link}>{card.buttonText}</Link>  
-                </Button>
-              </CardFooter>
-              <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 <Meteors number={10} className={'absolute inset-0 z-10'} hoverDelay='0.5s' />
               </div>
             </Card>            

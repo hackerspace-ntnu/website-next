@@ -1,17 +1,11 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
-import { Card, CardContent} from '@/components/ui/Card';
+import { Card} from '@/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/Carousel"
- 
+import * as React from 'react';
+import ClientDevOpsPage from './ClientPage';
 
 export default function DevOpsPage({
   params: { locale },
@@ -23,26 +17,13 @@ export default function DevOpsPage({
 
   return (
     <div>
-        <h1 className='items-center justify-center w-full flex mt-4 mb-5 dark:text-primary'> DevOps </h1>
-        <div className='items-center justify-center w-full flex '>
-            <Carousel className="w-full max-w-xs">
-                <CarouselContent>
-                    {Array.from({ length: 5 }).map((_, index) => (
-                        <CarouselItem key={index}>
-                            <div className="p-1">
-                                <Card>
-                                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                                        <span className="text-4xl font-semibold">{index + 1}</span>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-            </Carousel>
+        <div className=' items-center flex flex-col'>
+            <h1 className=' flex items-center justify-center w-full mt-4 mb-5 dark:text-primary'> DevOps </h1>
+            <div className='flex items-center justify-center w-full max-w-full max-h-[600px] sm:max-w-[400px] sm:max-h-[400px]'>
+                <ClientDevOpsPage locale={locale} />
+            </div>
         </div>
+        
       <div className='flex w-full mt-5 mb-5'>
         <p>
           {t('information')}
@@ -77,7 +58,7 @@ export default function DevOpsPage({
             </AccordionItem>
         </Accordion>
       </div>
-      <div className='w-full max-x-xs px-20'>
+      <div className='w-full max-x-xs px-10'>
         <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>
             <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
                 <div>
@@ -102,7 +83,7 @@ export default function DevOpsPage({
                                 height={40} 
                                 width={40}/>
                             <div className='min-w-0 flex-center'>
-                                <p className='leading-10 text-'>
+                                <p className='leading-10 '>
                                     John Doe
                                 </p>
                             </div>
