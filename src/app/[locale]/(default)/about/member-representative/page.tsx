@@ -33,7 +33,7 @@ export default function MemberRepresentativePage({
                         <Accordion type="single" collapsible className='w-full dark:text-foreground'>
                             <AccordionItem value='item-1'>
                                 <AccordionTrigger className='text-left text-xl font-medium m-2'> 
-                                   hvilken saker kan tillitsvalgt ta opp for meg
+                                   bruh
                                 </AccordionTrigger>
                                 <AccordionContent className='text-base m-2'> Non fugiat labore quo consequatur molestiae nam sequi dignissimos sit voluptas nostrum nam autem Quis. </AccordionContent>
                             
