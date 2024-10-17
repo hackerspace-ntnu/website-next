@@ -83,7 +83,13 @@
     "Member_Representativ": "Tillitsvalgt"
   },
   "devops": {
-    "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser."
+    "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",
+    "question1": "Må jeg kunne programmere for å bli medlem?",
+    "answer1": "Du trenger ingen forskunnskap om programmering for å søke medlemskap i DevOps. Vi tar imot alle så lenge man ønsker å lære! Ny medlem vil gå gjennom vår 'bli kjent'-program hvor man kan bli kjent med vår prosedure og teknologien som vi tar i bruk. Men ikke stress, man kan ta det med eget tempo!",
+    "question2": "Hva er hovedfokus for DevOps i dette semesteret?",
+    "answer2": "Dette semesteret fokuserer vi på å lage ny nettside for Hackerspace. Vi bruker React og .... ",
+    "question3": "Kan jeg velge selv hva jeg vil jobbe med?",
+    "answer3": "Ja, selvfølgelig skal man kunne velge hva man vil jobbe med. Akkurat nå er det ny nettside som er i fokus, dermed vil oppagavene være relatert til dette. Men man kan også pitche noe kult som man ønsker å ha på nettsiden og jobbe med det dersom gruppen er enig om ideet. "
   },
   "member_representative": {
     "information": "<p1> Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret. </p1> <p2> Dersom du ønsker å ta kontakt er tillitsvalgt tilgjengelig på Slack. </p2>"
