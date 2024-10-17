@@ -7,23 +7,22 @@ import Image from 'next/image';
 import * as React from 'react';
 import ClientDevOpsPage from './ClientPage';
 
-export default function DevOpsPage({
+export default function devopsPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('DevOps');
+  const t = useTranslations('devops');
 
   return (
     <div>
         <div className=' items-center flex flex-col'>
-            <h1 className=' flex items-center justify-center w-full mt-4 mb-5 dark:text-primary'> DevOps </h1>
             <div className='flex items-center justify-center w-full max-w-full max-h-[600px] sm:max-w-[400px] sm:max-h-[400px]'>
                 <ClientDevOpsPage locale={locale} />
             </div>
         </div>
-        
+        <h1 className='w-full mt-4 mb-5 dark:text-primary'> DevOps </h1>
       <div className='flex w-full mt-5 mb-5'>
         <p>
           {t('information')}
@@ -70,8 +69,6 @@ export default function DevOpsPage({
                     <Card className='py-30'> nestleder </Card>
                 </div>
             </div>
-
-
             <div>
                 <h3 className=''> Medlemmer </h3>
                 <ul role='list' className='divide-y divide-grey-100 dark:text-foreground'>

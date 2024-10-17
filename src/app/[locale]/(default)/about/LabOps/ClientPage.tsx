@@ -14,7 +14,7 @@ const images = [
 ];
 
 export default function ClientPage({ locale }: { locale: string }) {
-  const t = useTranslations('devops');
+  const t = useTranslations('labops');
   const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (

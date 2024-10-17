@@ -1,7 +1,7 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { Button } from 'src/components/ui/Button';
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader } from 'src/components/ui/Card';
+import { Card, CardContent, CardHeader } from 'src/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { Map, Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
@@ -73,9 +73,9 @@ const cardData = [
     </div>
 
     <div>
-      <h1 className='dark:text-primary mt-8 mb-4 '> {t('WhatIsHackerspace')} </h1>
+      <h1 className='dark:text-primary mt-8 mb-4 '> {t('whatIsHackerspace')} </h1>
       <div className='mb-6 text-base'> 
-        {t.rich('WhatIsHackerspace_info', {
+        {t.rich('inforAboutHackerSpace', {
         p1: (chunks) => <p className="/p1"> {chunks}</p>,
         p2: (chunks) => <p className="/p2"> {chunks}</p>,
         p3: (chunks) => <p className="/p3"> {chunks}</p>
@@ -84,7 +84,7 @@ const cardData = [
     </div>
     <div className='flex felx-col items-center justify-center '>
       <Link href="https://link.mazemap.com/PPDMWZlM" passHref target="_blank" rel="noopener noreferrer">
-        <Button className=''> <Map className='m-1'/> {t('ShowMaps')} </Button>
+        <Button className=''> <Map className='m-1'/> {t('showMaps')} </Button>
       </Link>
 
     </div>
@@ -96,11 +96,11 @@ const cardData = [
           <AccordionTrigger> 
             <div className='flex items-center m-2'>
               <Printer className='mr-2'/>
-              <h4 className='font-medium'>{t('Question_1')}</h4>
+              <h4 className='font-medium text-left'>{t('canIUseThe3dPriner?')}</h4>
             </div>
           </AccordionTrigger>
           <AccordionContent className='text-base m-2'>
-            {t.rich('Answer_1', {
+            {t.rich('answerCanIUseThe3dPriner', {
               p1: (chunks) => <p className="/p1"> {chunks} </p>,
               p2: (chunks) => <p className="/p2"> {chunks} </p>
             })}           
@@ -111,11 +111,11 @@ const cardData = [
           <AccordionTrigger> 
             <div className='flex items-center m-2'> 
               <Gamepad2 className='mr-2'/>
-              <h4 className='font-medium'>{t('Question_2')}</h4>
+              <h4 className='font-medium text-left'>{t('canITryVRGames/Equipment?')}</h4>
             </div>
           </AccordionTrigger>
           <AccordionContent className='text-base m-2'>
-            {t('Answer_2')}
+            {t('answerCanITryVRGames/Equipment')}
           </AccordionContent>
         </AccordionItem>
         
@@ -123,11 +123,11 @@ const cardData = [
           <AccordionTrigger> 
             <div className='flex items-center m-2'> 
               <SquareUserRound className='mr-2'/>
-              <h4 className='font-medium'>{t('Question_3')}</h4>
+              <h4 className='font-medium text-left'>{t('howDoIBecomeAMember?')}</h4>
             </div>
           </AccordionTrigger>
           <AccordionContent className='text-base m-2'> 
-            {t.rich('Answer_3', {
+            {t.rich('answerHowDoIBecomeAMember', {
               p1:  (chucks) => <p className="/p1"> {chucks} </p>,
               p2:  (chucks) => <p className="/p2"> {chucks} </p>
             })}
@@ -137,8 +137,8 @@ const cardData = [
     </div>
 
     <div className='w-full relative max-x-xs'>
-      <h2 className='items-center content-center text-center'> {t('ActiveGroup')} </h2>
-      <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+      <h2 className='items-center content-center text-center'> {t('activeGroup')} </h2>
+      <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {cardData.map(card => (
           <div key={card.id} className="relative group p-4">
             <Card className="overflow-hidden relative group-hover:underline">
