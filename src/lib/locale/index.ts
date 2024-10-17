@@ -29,13 +29,13 @@ export const routing = defineRouting({
       en: '/about',
       no: '/om-oss',
     },
-    '/storage': {
-      en: '/storage',
-      no: '/lager',
+    '/rules': {
+      en: '/rules',
+      no: '/regler',
     },
-    '/storage/shopping-cart': {
-      en: '/storage/shopping-cart',
-      no: '/lager/handlekurv',
+    '/rules/[subset]': {
+      en: '/rules/[subset]',
+      no: '/regler/[subset]',
     },
   },
 });
