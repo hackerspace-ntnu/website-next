@@ -29,6 +29,7 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
+    "rules": "Rules",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -123,5 +124,10 @@
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
     }
+  },
+  "rules": {
+    "title": "Rules",
+    "forEveryone": "For everyone",
+    "internal": "Internal rules"
   }
 }

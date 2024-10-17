@@ -29,6 +29,7 @@
     "events": "Hendelser",
     "storage": "Lager",
     "about": "Om oss",
+    "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -123,5 +124,10 @@
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send"
     }
+  },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle ",
+    "internal": "Interne regler "
   }
 }
