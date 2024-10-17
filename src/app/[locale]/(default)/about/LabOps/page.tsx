@@ -25,6 +25,7 @@ export default function labopsPage({
             <h1 className='w-full mt-4 mb-5 dark:text-primary'> LabOps </h1>
           <div className='flex w-full mt-5 mb-5'>
             <p>
+                {t('aboutLabOps')}
             </p>
           </div>
           <div className='mt-10 mb-10'>
