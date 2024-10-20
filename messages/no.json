@@ -78,9 +78,11 @@
     "example_text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione."
   },
   "leaderboard": {
-    "Leaderboard": "Ledelsen",
-    "About_Leaderboard": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
-    "Member_Representativ": "Tillitsvalgt"
+    "leaderboard": "Ledelsen",
+    "aboutLeaderboard": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
+    "leader": "Tillitsvalgt",
+    "deputyLeader": "",
+    "financialManager": ""
   },
   "devops": {
     "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",

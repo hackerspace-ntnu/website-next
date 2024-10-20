@@ -77,9 +77,11 @@
     "example_text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione."
   },
   "leaderboard": {
-    "Leaderboard": "Leadership",
-    "About_Leaderboard": "The leadership consists of a Leader, Deputy Leader, and Financial Officer in Hackerspace. They ensure that Hackerspace NTNU operates optimally and make decisions and planning for operations with the board.",
-    "Member_Representativ": "Representative"
+    "leaderboard": "Leaderboard",
+    "aboutLeaderboard": "The leadership consists of a Leader, Deputy Leader, and Financial Officer in Hackerspace. They ensure that Hackerspace NTNU operates optimally and make decisions and planning for operations with the board.",
+    "leader": "Representative",
+    "deputyLeader": "",
+    "financialManager": "Financial Manager"
   },
   "devops": {
     "information": "The main tasks of DevOps are to develop and manage Hackerspace's website, but we also work on the operation of infrastructure, databases, servers, and are responsible for various gadgets.",
