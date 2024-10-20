@@ -22,12 +22,10 @@ export default function devopsPage({
                 <ClientDevOpsPage locale={locale} />
             </div>
         </div>
-        <h1 className='w-full mt-4 mb-5 dark:text-primary'> DevOps </h1>
-      <div className='flex w-full mt-5 mb-5'>
-        <p>
-          {t('information')}
-        </p>
-      </div>
+        <h1 className='w-full mt-4 mb-4 dark:text-primary'> DevOps </h1>
+        <div className='flex w-full mt-5 mb-5'>
+            {t('information')}
+        </div>
       <div className='mt-10 mb-10'>
         <h3> FAQ'S </h3>
         <Accordion type="single" collapsible className='w-full mb-10'>
@@ -49,7 +47,7 @@ export default function devopsPage({
             </AccordionItem>
             <AccordionItem value='item-3'>
                 <AccordionTrigger className='m-2'>
-                        <h4 className='font-medium text-left'>{t('question3')}</h4>              
+                    <h4 className='font-medium text-left'>{t('question3')}</h4>              
                 </AccordionTrigger>
                 <AccordionContent className='text-base m-2'>
                 {t('answer3')}

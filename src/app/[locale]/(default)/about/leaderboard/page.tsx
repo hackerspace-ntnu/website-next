@@ -52,8 +52,8 @@ export default function LeaderboardPage({
           </AccordionItem>
         </Accordion>
       </div>
-      <div className='w-full max-x-xs px-20'>
-        <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 dark:text-primary'>
+      <div className='w-full max-x-xs px-10'>
+        <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 dark:text-primary'>
             <div className=''>
               <h3 className='mb-2'> {t('leader')} </h3>
               <Card className='p-20'>
