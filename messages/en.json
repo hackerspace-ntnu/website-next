@@ -61,7 +61,7 @@
     "views": "Views"
   },
   "about": {
-    "whatIsHackerspace": "What is Hackerspace",
+    "whatIsHackerspace": "What is Hackerspace?",
     "inforAboutHackerSpace": "<p1> Hackerspace NTNU is a student-driven project open to all students, regardless of study direction or Hackerspace membership. We offer a creative arena where students from different disciplines can get help realizing their ideas in an engaged and inclusive environment. Here, you will find new technology at your disposal, including drones, 3D printers, and Virtual Reality equipment. </p1> <p2> Whether you are a first-year student needing help with your first Arduino project or a fourth-year student wanting to create a 3D model of Trondheim, we can provide both equipment and expertise. We also regularly hold courses for both beginners and advanced students in many exciting subjects. </p2> <p3> Come by to see what we're doing and have a chat. </p3> You can find us on the second floor of the A-block in the Realfagbygget at NTNU Gløshaugen.",
     "showMaps": "Show map!",
     "FAQ": "Frequently Asked Questions",

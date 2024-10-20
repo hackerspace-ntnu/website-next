@@ -18,49 +18,40 @@ export default function AboutPage({
   const t = useTranslations('about');
 
 const cardData = [
+  { id: 1, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 2, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+];
+
+const faqItems = [
   {
-    id: 1,
-    title: t('example_title'),
-    content: t('example_text'),
-    
-    link: `/${locale}/about/leaderboard`
+    id: 'item-1',
+    icon: Printer,
+    question: t('canIUseThe3dPriner?'),
+    answer: t.rich('answerCanIUseThe3dPriner', {
+      p1: (chunks) => <p className="p1">{chunks}</p>,
+      p2: (chunks) => <p className="p2">{chunks}</p>
+    })
   },
   {
-    id: 2,
-    title: t('example_title'),
-    content: t('example_text'),
-  
-    link: `/${locale}/about/leaderboard`
+    id: 'item-2',
+    icon: Gamepad2,
+    question: t('canITryVRGames/Equipment?'),
+    answer: t('answerCanITryVRGames/Equipment')
   },
   {
-    id: 3,
-    title: t('example_title'),
-    content: t('example_text'),
-   
-    link: `/${locale}/about/leaderboard`
-  },
-  {
-    id: 3,
-    title: t('example_title'),
-    content: t('example_text'),
-  
-    link: `/${locale}/about/leaderboard`
-  },
-  {
-    id: 3,
-    title: t('example_title'),
-    content: t('example_text'),
-   
-    link: `/${locale}/about/leaderboard`
-  },
-  {
-    id: 3,
-    title: t('example_title'),
-    content: t('example_text'),
-   
-    link: `/${locale}/about/leaderboard`
-  },
-]
+    id: 'item-3',
+    icon: SquareUserRound,
+    question: t('howDoIBecomeAMember?'),
+    answer: t.rich('answerHowDoIBecomeAMember', {
+      p1: (chunks) => <p className="p1">{chunks}</p>,
+      p2: (chunks) => <p className="p2">{chunks}</p>
+    })
+  }
+];
 
   return <div>
     <div className='flex flex-col items-center justify-center mt-7 mb-5'>
@@ -68,74 +59,43 @@ const cardData = [
       src="/about/pizzaWolfs-min.png" 
       alt="pizza wolfs" 
       height={400} 
-      width={400} 
+      width={400}
+      priority 
       />
     </div>
-
     <div>
       <h1 className='dark:text-primary mt-8 mb-4 '> {t('whatIsHackerspace')} </h1>
       <div className='mb-6 text-base'> 
         {t.rich('inforAboutHackerSpace', {
-        p1: (chunks) => <p className="/p1"> {chunks}</p>,
-        p2: (chunks) => <p className="/p2"> {chunks}</p>,
-        p3: (chunks) => <p className="/p3"> {chunks}</p>
+          p1: (chunks) => <p className="p1"> {chunks} </p>,
+          p2: (chunks) => <p className="p2"> {chunks} </p>,
+          p3: (chunks) => <p className="p3"> {chunks} </p>
         })} 
       </div>
     </div>
-    <div className='flex felx-col items-center justify-center '>
+    <div className='flex flex-col items-center justify-center '>
       <Link href="https://link.mazemap.com/PPDMWZlM" passHref target="_blank" rel="noopener noreferrer">
         <Button className=''> <Map className='m-1'/> {t('showMaps')} </Button>
       </Link>
-
     </div>
-
     <div> 
       <h3 className='mt-10'> FAQ's </h3>
-      <Accordion type="single" collapsible className='w-full mb-10'>
-        <AccordionItem value="item-1">
-          <AccordionTrigger> 
-            <div className='flex items-center m-2'>
-              <Printer className='mr-2'/>
-              <h4 className='font-medium text-left'>{t('canIUseThe3dPriner?')}</h4>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className='text-base m-2'>
-            {t.rich('answerCanIUseThe3dPriner', {
-              p1: (chunks) => <p className="/p1"> {chunks} </p>,
-              p2: (chunks) => <p className="/p2"> {chunks} </p>
-            })}           
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-2">
-          <AccordionTrigger> 
-            <div className='flex items-center m-2'> 
-              <Gamepad2 className='mr-2'/>
-              <h4 className='font-medium text-left'>{t('canITryVRGames/Equipment?')}</h4>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className='text-base m-2'>
-            {t('answerCanITryVRGames/Equipment')}
-          </AccordionContent>
-        </AccordionItem>
-        
-        <AccordionItem value="item-3">
-          <AccordionTrigger> 
-            <div className='flex items-center m-2'> 
-              <SquareUserRound className='mr-2'/>
-              <h4 className='font-medium text-left'>{t('howDoIBecomeAMember?')}</h4>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className='text-base m-2'> 
-            {t.rich('answerHowDoIBecomeAMember', {
-              p1:  (chucks) => <p className="/p1"> {chucks} </p>,
-              p2:  (chucks) => <p className="/p2"> {chucks} </p>
-            })}
-          </AccordionContent>
-        </AccordionItem>
+      <Accordion type="single" collapsible className="w-full mb-10">
+        {faqItems.map(item => (
+          <AccordionItem key={item.id} value={item.id}>
+            <AccordionTrigger>
+              <div className='flex items-center m-2'>
+                <item.icon className='mr-2' />
+                <h4 className='font-medium text-left'>{item.question}</h4>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className='text-base m-2'>
+              {item.answer}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     </div>
-
     <div className='w-full relative max-x-xs'>
       <h2 className='items-center content-center text-center'> {t('activeGroup')} </h2>
       <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
