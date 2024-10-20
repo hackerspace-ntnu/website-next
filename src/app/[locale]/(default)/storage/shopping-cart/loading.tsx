@@ -14,7 +14,7 @@ export default function ShoppingCartSkeleton() {
   return (
     <>
       <ShoppingCartTableSkeleton t={tableMessages} />
-      <div className='relative mb-8 flex flex-col gap-4'>
+      <div className='relative flex flex-col gap-4'>
         <Skeleton className='h-10 w-full sm:mx-auto sm:w-32' />
         <Skeleton className='sm:-translate-y-1/2 h-10 w-full sm:absolute sm:top-1/2 sm:right-0 sm:w-44' />
       </div>

@@ -45,7 +45,7 @@ export default function NewsPage({
         <ItemGrid page={page} />
       </Suspense>
       <PaginationCarousel
-        className='my-6'
+        className='mt-6'
         totalPages={Math.ceil(articleData.length / 6)}
       />
     </>
