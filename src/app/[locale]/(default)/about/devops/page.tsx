@@ -17,45 +17,45 @@ export default function devopsPage({
 
   return (
     <div>
-        <div className=' items-center flex flex-col'>
-            <div className='flex items-center justify-center w-full max-w-full max-h-[600px] sm:max-w-[400px] sm:max-h-[400px]'>
+        <div className='flex flex-col items-center'>
+            <div className='flex max-h-[600px] w-full max-w-full items-center justify-center sm:max-h-[400px] sm:max-w-[400px]'>
                 <ClientDevOpsPage locale={locale} />
             </div>
         </div>
-        <h1 className='w-full mt-4 mb-4 dark:text-primary'> DevOps </h1>
-        <div className='flex w-full mt-5 mb-5'>
+        <h1 className='mt-4 mb-4 w-full dark:text-primary'> DevOps </h1>
+        <div className='mt-5 mb-5 flex w-full'>
             {t('information')}
         </div>
       <div className='mt-10 mb-10'>
         <h3> FAQ'S </h3>
-        <Accordion type="single" collapsible className='w-full mb-10'>
+        <Accordion type="single" collapsible className='mb-10 w-full'>
             <AccordionItem value='item-1'>
                 <AccordionTrigger className='m-2'>                  
-                        <h4 className='font-medium text-left'>{t('question1')}</h4>
+                        <h4 className='text-left font-medium'>{t('question1')}</h4>
                 </AccordionTrigger>
-                <AccordionContent className='text-base m-2'>
+                <AccordionContent className='m-2 text-base'>
                     {t('answer1')}
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-2'>
                 <AccordionTrigger className='m-2'>
-                    <h4 className='font-medium text-left'>{t('question2')}</h4>
+                    <h4 className='text-left font-medium'>{t('question2')}</h4>
                 </AccordionTrigger>
-                <AccordionContent className='text-base m-2'>
+                <AccordionContent className='m-2 text-base'>
                 {t('answer2')}
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-3'>
                 <AccordionTrigger className='m-2'>
-                    <h4 className='font-medium text-left'>{t('question3')}</h4>              
+                    <h4 className='text-left font-medium'>{t('question3')}</h4>              
                 </AccordionTrigger>
-                <AccordionContent className='text-base m-2'>
+                <AccordionContent className='m-2 text-base'>
                 {t('answer3')}
                 </AccordionContent>
             </AccordionItem>
         </Accordion>
       </div>
-      <div className='w-full max-x-xs px-10'>
+      <div className='max-x-xs w-full px-10'>
         <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>
             <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
                 <div>
@@ -69,6 +69,7 @@ export default function devopsPage({
             </div>
             <div>
                 <h3 className=''> Medlemmer </h3>
+                {/* biome-ignore lint/a11y/noRedundantRoles: <explanation> */}
                 <ul role='list' className='divide-y divide-grey-100 dark:text-foreground'>
                     <li className='flex justify-between gap-x-6 py-1'>
                         <div className='flex min-w-0 gap-4'>
@@ -92,7 +93,7 @@ export default function devopsPage({
                                 height={40} 
                                 width={40}/>
                             <div className='min-w-0 flex-center'>
-                                <p className='leading-10 text-'>
+                                <p className='text- leading-10'>
                                     Kari Nordmann
                                 </p>
                             </div>
@@ -106,7 +107,7 @@ export default function devopsPage({
                                 height={40} 
                                 width={40}/>
                             <div className='min-w-0 flex-center'>
-                                <p className='leading-10 text-'>
+                                <p className='text- leading-10'>
                                     Ola Nordmann
                                 </p>
                             </div>

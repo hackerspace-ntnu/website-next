@@ -18,9 +18,9 @@ export default function ClientPage({ locale }: { locale: string }) {
   const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
-      <div className='flex items-center justify-center w-full max-w-full'>
+      <div className='flex w-full max-w-full items-center justify-center'>
         <Carousel
-          className="w-full max-w-2xl h-auto"
+          className='h-auto w-full max-w-2xl'
           plugins={[plugin.current]}
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
@@ -28,9 +28,9 @@ export default function ClientPage({ locale }: { locale: string }) {
           <CarouselContent>
             {images.map((image, index) => (
               <CarouselItem key={index}>
-                <div className='flex items-center justify-center h-full p-0 m-0'>
+                <div className='m-0 flex h-full items-center justify-center p-0'>
                   <Image 
-                    className='max-w-full max-h-[400px] sm:max-h-[600px] lg:max-h-[800px]'
+                    className='max-h-[400px] max-w-full sm:max-h-[600px] lg:max-h-[800px]'
                     src={image.src}
                     alt={image.alt}
                     width={image.width}

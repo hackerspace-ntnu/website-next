@@ -54,7 +54,7 @@ const faqItems = [
 ];
 
   return <div>
-    <div className='flex flex-col items-center justify-center mt-7 mb-5'>
+    <div className='mt-7 mb-5 flex flex-col items-center justify-center'>
       <Image className='pizzaWolfs'
       src="/about/pizzaWolfs-min.png" 
       alt="pizza wolfs" 
@@ -64,7 +64,7 @@ const faqItems = [
       />
     </div>
     <div>
-      <h1 className='dark:text-primary mt-8 mb-4 '> {t('whatIsHackerspace')} </h1>
+      <h1 className='mt-8 mb-4 dark:text-primary '> {t('whatIsHackerspace')} </h1>
       <div className='mb-6 text-base'> 
         {t.rich('inforAboutHackerSpace', {
           p1: (chunks) => <p className="p1"> {chunks} </p>,
@@ -80,31 +80,31 @@ const faqItems = [
     </div>
     <div> 
       <h3 className='mt-10'> FAQ's </h3>
-      <Accordion type="single" collapsible className="w-full mb-10">
+      <Accordion type="single" collapsible className='mb-10 w-full'>
         {faqItems.map(item => (
           <AccordionItem key={item.id} value={item.id}>
             <AccordionTrigger>
-              <div className='flex items-center m-2'>
+              <div className='m-2 flex items-center'>
                 <item.icon className='mr-2' />
-                <h4 className='font-medium text-left'>{item.question}</h4>
+                <h4 className='text-left font-medium'>{item.question}</h4>
               </div>
             </AccordionTrigger>
-            <AccordionContent className='text-base m-2'>
+            <AccordionContent className='m-2 text-base'>
               {item.answer}
             </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
     </div>
-    <div className='w-full relative max-x-xs'>
-      <h2 className='items-center content-center text-center'> {t('activeGroup')} </h2>
+    <div className='max-x-xs relative w-full'>
+      <h2 className='content-center items-center text-center'> {t('activeGroup')} </h2>
       <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
         {cardData.map(card => (
-          <div key={card.id} className="relative group p-4">
-            <Card className="overflow-hidden relative group-hover:underline">
-              <CardHeader className='text-xl font-semibold'>{card.title}</CardHeader>
+          <div key={card.id} className='group relative p-4'>
+            <Card className='relative overflow-hidden group-hover:underline'>
+              <CardHeader className='font-semibold text-xl'>{card.title}</CardHeader>
               <CardContent>{card.content}</CardContent>
-              <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div className='absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
                 <Meteors number={10} className={'absolute inset-0 z-10'} hoverDelay='0.5s' />
               </div>
             </Card>            

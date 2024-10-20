@@ -17,13 +17,13 @@ export default function labopsPage({
 
     return (
         <div>
-            <div className=' items-center flex flex-col'>
-                <div className='flex items-center justify-center w-full max-w-full max-h-[600px] sm:max-w-[400px] sm:max-h-[400px]'>
+            <div className=' flex flex-col items-center'>
+                <div className='flex max-h-[600px] w-full max-w-full items-center justify-center sm:max-h-[400px] sm:max-w-[400px]'>
                     <ClientLabOpsPage locale={locale} />
                 </div>
             </div>
-            <h1 className='w-full mt-4 mb-5 dark:text-primary'> LabOps </h1>
-          <div className='flex w-full mt-5 mb-5'>
+            <h1 className='mt-4 mb-5 w-full dark:text-primary'> LabOps </h1>
+          <div className='mt-5 mb-5 flex w-full'>
             <p>
                 {t('aboutLabOps')}
             </p>
@@ -35,7 +35,7 @@ export default function labopsPage({
                     <AccordionTrigger className='m-2'>
                         hei
                     </AccordionTrigger>
-                    <AccordionContent className='text-base m-2'>
+                    <AccordionContent className='m-2 text-base'>
                         heheeh
                     </AccordionContent>
                 </AccordionItem>
@@ -43,7 +43,7 @@ export default function labopsPage({
                     <AccordionTrigger className='m-2'>
                         hei
                     </AccordionTrigger>
-                    <AccordionContent className='text-base m-2'>
+                    <AccordionContent className='m-2 text-base'>
                         heheeh
                     </AccordionContent>
                 </AccordionItem>
@@ -51,13 +51,13 @@ export default function labopsPage({
                     <AccordionTrigger className='m-2'>
                         hei
                     </AccordionTrigger>
-                    <AccordionContent className='text-base m-2'>
+                    <AccordionContent className='m-2 text-base'>
                         heheeh
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
           </div>
-          <div className='w-full max-x-xs px-10'>
+          <div className='max-x-xs w-full px-10'>
             <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>
                 <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
                     <div>
@@ -94,7 +94,7 @@ export default function labopsPage({
                                     height={40} 
                                     width={40}/>
                                 <div className='min-w-0 flex-center'>
-                                    <p className='leading-10 text-'>
+                                    <p className='text- leading-10'>
                                         Kari Nordmann
                                     </p>
                                 </div>
@@ -108,7 +108,7 @@ export default function labopsPage({
                                     height={40} 
                                     width={40}/>
                                 <div className='min-w-0 flex-center'>
-                                    <p className='leading-10 text-'>
+                                    <p className='text- leading-10'>
                                         Ola Nordmann
                                     </p>
                                 </div>

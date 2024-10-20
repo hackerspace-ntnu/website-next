@@ -13,14 +13,14 @@ export default function MemberRepresentativePage({
 
     return  (
         <div>
-            <h1 className='items-center justify-center w-full flex mt-4 dark:text-primary'> Member Representative </h1>
+            <h1 className='mt-4 flex w-full items-center justify-center dark:text-primary'> Member Representative </h1>
             <div className=' w-full py-5'>
                 {t.rich('information', {
                 p1: (chunks) => <p className="/p1"> {chunks}</p>,
                 p2: (chunks) => <p className="/p2"> {chunks}</p>
                 })} 
             </div>
-            <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-20 dark:text-primary w-full'>
+            <div className='grid w-full gap-6 px-20 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>
                 <div className='flex content-center justify-center'>
                     <Card>
                         hihi
@@ -32,19 +32,19 @@ export default function MemberRepresentativePage({
                     
                         <Accordion type="single" collapsible className='w-full dark:text-foreground'>
                             <AccordionItem value='item-1'>
-                                <AccordionTrigger className='text-left text-xl font-medium m-2'> 
+                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> 
                                    bruh
                                 </AccordionTrigger>
-                                <AccordionContent className='text-base m-2'> Non fugiat labore quo consequatur molestiae nam sequi dignissimos sit voluptas nostrum nam autem Quis. </AccordionContent>
+                                <AccordionContent className='m-2 text-base'> Non fugiat labore quo consequatur molestiae nam sequi dignissimos sit voluptas nostrum nam autem Quis. </AccordionContent>
                             
                             </AccordionItem>
                             <AccordionItem value='item-2'>
-                                <AccordionTrigger className='text-left text-xl font-medium m-2'> Non fugiat labore quo consequatur</AccordionTrigger>
-                                <AccordionContent className='text-base m-2'> svaret ligger her  </AccordionContent>
+                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> Non fugiat labore quo consequatur</AccordionTrigger>
+                                <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value='item-3'>
                                 <AccordionTrigger className='text-left text-xl font-medium m-2'> hihi </AccordionTrigger>
-                                <AccordionContent className='text-base m-2'> svaret ligger her  </AccordionContent>
+                                <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
                             </AccordionItem>
                         </Accordion>
                     
