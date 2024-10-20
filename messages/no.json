@@ -80,9 +80,9 @@
   "leaderboard": {
     "leaderboard": "Ledelsen",
     "aboutLeaderboard": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
-    "leader": "Tillitsvalgt",
-    "deputyLeader": "",
-    "financialManager": ""
+    "leader": "Leder",
+    "deputyLeader": "Nestleder",
+    "financialManager": "Økonomiansvarlig"
   },
   "devops": {
     "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",

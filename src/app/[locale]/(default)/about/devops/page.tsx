@@ -32,11 +32,8 @@ export default function devopsPage({
         <h3> FAQ'S </h3>
         <Accordion type="single" collapsible className='w-full mb-10'>
             <AccordionItem value='item-1'>
-                <AccordionTrigger className='m-2'>
-                    <div className='mr-2'>
-                        
+                <AccordionTrigger className='m-2'>                  
                         <h4 className='font-medium text-left'>{t('question1')}</h4>
-                    </div>
                 </AccordionTrigger>
                 <AccordionContent className='text-base m-2'>
                     {t('answer1')}
@@ -44,10 +41,7 @@ export default function devopsPage({
             </AccordionItem>
             <AccordionItem value='item-2'>
                 <AccordionTrigger className='m-2'>
-                    <div className='mr-2'>
-
-                        <h4 className='font-medium text-left'>{t('question2')}</h4>
-                    </div>
+                    <h4 className='font-medium text-left'>{t('question2')}</h4>
                 </AccordionTrigger>
                 <AccordionContent className='text-base m-2'>
                 {t('answer2')}
@@ -55,10 +49,7 @@ export default function devopsPage({
             </AccordionItem>
             <AccordionItem value='item-3'>
                 <AccordionTrigger className='m-2'>
-                    <div className='mr-2'>
-
-                        <h4 className='font-medium text-left'>{t('question3')}</h4>
-                    </div>
+                        <h4 className='font-medium text-left'>{t('question3')}</h4>              
                 </AccordionTrigger>
                 <AccordionContent className='text-base m-2'>
                 {t('answer3')}

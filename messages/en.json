@@ -79,8 +79,8 @@
   "leaderboard": {
     "leaderboard": "Leaderboard",
     "aboutLeaderboard": "The leadership consists of a Leader, Deputy Leader, and Financial Officer in Hackerspace. They ensure that Hackerspace NTNU operates optimally and make decisions and planning for operations with the board.",
-    "leader": "Representative",
-    "deputyLeader": "",
+    "leader": "Leader",
+    "deputyLeader": "Deputy Leader",
     "financialManager": "Financial Manager"
   },
   "devops": {
