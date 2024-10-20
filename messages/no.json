@@ -29,6 +29,7 @@
     "events": "Hendelser",
     "storage": "Lager",
     "about": "Om oss",
+    "shiftSchedule": "Vaktliste",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -122,6 +123,27 @@
       "returnBy": "Lån fram til",
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send"
+    }
+  },
+  "shiftSchedule": {
+    "title": "Vaktliste",
+    "scheduleTable": {
+      "time": "Tid",
+      "monday": "Mandag",
+      "tuesday": "Tirsdag",
+      "wednesday": "Onsdag",
+      "thursday": "Torsdag",
+      "friday": "Fredag",
+      "scheduleCellContent": {
+        "empty": "Tomt",
+        "member": "person",
+        "members": "personer",
+        "present": "på vakt"
+      },
+      "scheduleCellDialog": {
+        "onShift": "På vakt",
+        "register": "Registrer"
+      }
     }
   }
 }

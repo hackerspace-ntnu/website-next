@@ -29,6 +29,7 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
+    "shiftSchedule": "Shift Schedule",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -122,6 +123,27 @@
       "returnBy": "Return by",
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
+    }
+  },
+  "shiftSchedule": {
+    "title": "Shift Schedule",
+    "scheduleTable": {
+      "time": "Time",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "scheduleCellContent": {
+        "empty": "Empty",
+        "member": "person",
+        "members": "people",
+        "present": "on shift"
+      },
+      "scheduleCellDialog": {
+        "onShift": "On shift",
+        "register": "Register"
+      }
     }
   }
 }

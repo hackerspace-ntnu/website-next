@@ -37,5 +37,9 @@ export const routing = defineRouting({
       en: '/storage/shopping-cart',
       no: '/lager/handlekurv',
     },
+    '/shift-schedule': {
+      en: '/shift-schedule',
+      no: '/vaktliste',
+    },
   },
 });
