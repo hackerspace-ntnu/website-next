@@ -18,20 +18,20 @@ export default function AboutPage({
   const t = useTranslations('about');
 
 const cardData = [
-  { id: 1, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
-  { id: 2, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example_title'), content: t('example_text'), link: `/${locale}/about/leaderboard`},
+  { id: 1, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 2, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
 ];
 
 const faqItems = [
   {
     id: 'item-1',
     icon: Printer,
-    question: t('canIUseThe3dPriner?'),
-    answer: t.rich('answerCanIUseThe3dPriner', {
+    question: t('canIUseThe3dPrinter'),
+    answer: t.rich('answerCanIUseThe3dPrinter', {
       p1: (chunks) => <p className="p1">{chunks}</p>,
       p2: (chunks) => <p className="p2">{chunks}</p>
     })
@@ -39,13 +39,13 @@ const faqItems = [
   {
     id: 'item-2',
     icon: Gamepad2,
-    question: t('canITryVRGames/Equipment?'),
-    answer: t('answerCanITryVRGames/Equipment')
+    question: t('canITryVRGames-Equipment'),
+    answer: t('answerCanITryVRGames-Equipment')
   },
   {
     id: 'item-3',
     icon: SquareUserRound,
-    question: t('howDoIBecomeAMember?'),
+    question: t('howDoIBecomeAMember'),
     answer: t.rich('answerHowDoIBecomeAMember', {
       p1: (chunks) => <p className="p1">{chunks}</p>,
       p2: (chunks) => <p className="p2">{chunks}</p>
@@ -66,7 +66,7 @@ const faqItems = [
     <div>
       <h1 className='mt-8 mb-4 dark:text-primary '> {t('whatIsHackerspace')} </h1>
       <div className='mb-6 text-base'> 
-        {t.rich('inforAboutHackerSpace', {
+        {t.rich('aboutDescription', {
           p1: (chunks) => <p className="p1"> {chunks} </p>,
           p2: (chunks) => <p className="p2"> {chunks} </p>,
           p3: (chunks) => <p className="p3"> {chunks} </p>
@@ -75,7 +75,7 @@ const faqItems = [
     </div>
     <div className='flex flex-col items-center justify-center '>
       <Link href="https://link.mazemap.com/PPDMWZlM" passHref target="_blank" rel="noopener noreferrer">
-        <Button className=''> <Map className='m-1'/> {t('showMaps')} </Button>
+        <Button className=''> <Map className='m-1'/> {t('showMap')} </Button>
       </Link>
     </div>
     <div> 

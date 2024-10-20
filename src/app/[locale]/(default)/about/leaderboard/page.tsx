@@ -15,7 +15,7 @@ export default function LeaderboardPage({
   return (
     
     <div>
-      <h1 className='mt-4 mb-5 w-full dark:text-primary'> {t('leaderboard')} </h1>
+      <h1 className='mt-4 mb-5 w-full dark:text-primary'> {t('leaderboard.title')} </h1>
       <div className='mt-5 mb-5 flex w-full'>
         <p>
           {t('aboutLeaderboard')}

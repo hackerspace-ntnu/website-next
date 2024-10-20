@@ -9,7 +9,7 @@ export default function MemberRepresentativePage({
     params: { locale: string };
   }) {
     unstable_setRequestLocale(locale);
-    const t = useTranslations('member_representative')
+    const t = useTranslations('member-representative')
 
     return  (
         <div>
@@ -43,7 +43,7 @@ export default function MemberRepresentativePage({
                                 <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value='item-3'>
-                                <AccordionTrigger className='text-left text-xl font-medium m-2'> hihi </AccordionTrigger>
+                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> hihi </AccordionTrigger>
                                 <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
                             </AccordionItem>
                         </Accordion>

@@ -63,96 +63,115 @@
   },
   "about": {
     "whatIsHackerspace": "Hva er Hackerspace?",
-    "inforAboutHackerSpace": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
-    "showMaps": "Vis kart!",
-    "FAQ": "Ofte stilte spørsmål",
-    "canIUseThe3dPriner?": "Kan jeg bruke 3D-printer?",
-    "answerCanIUseThe3dPriner": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
-    "canITryVRGames/Equipment?": "Kan jeg prøve VR spill/utstyr?",
-    "answerCanITryVRGames/Equipment": "VR utstyret vårt kan lånes og prøves ut av alle studenter uavhengig av medlemskap i Hackerspace. Vi har eget VR-rom der man kan komme og spille så lenge et Hackerspace-medlem er tilgjengelig ved oppsett og avslutning. Utstyret kan lånes ut på vanlig måte gjennom lagersystemet. Kom innom i våre åpningstider om dette interesserer deg.",
-    "howDoIBecomeAMember?": "Hvordan blir jeg medlem?",
-    "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>",
+    "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
+    "showMap": "Vis kart!",
+    "FAQ": {
+      "FAQ-title": "Ofte stilte spørsmål",
+      "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
+      "answerCanIUseThe3dPrinter": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
+      "canITryVRGames-Equipment": "Kan jeg prøve VR spill/utstyr?",
+      "answerCanITryVRGames-Equipment": "VR utstyret vårt kan lånes og prøves ut av alle studenter uavhengig av medlemskap i Hackerspace. Vi har eget VR-rom der man kan komme og spille så lenge et Hackerspace-medlem er tilgjengelig ved oppsett og avslutning. Utstyret kan lånes ut på vanlig måte gjennom lagersystemet. Kom innom i våre åpningstider om dette interesserer deg.",
+      "howDoIBecomeAMember": "Hvordan blir jeg medlem?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
+    },
     "activeGroup": "Våre aktive grupper",
-
-    "example_title": "Lorem Ipsum",
-    "example_text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione."
-  },
-  "leaderboard": {
-    "leaderboard": "Ledelsen",
-    "aboutLeaderboard": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "financialManager": "Økonomiansvarlig"
-  },
-  "member_representative": {
-    "information": "<p1> Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret. </p1> <p2> Dersom du ønsker å ta kontakt er tillitsvalgt tilgjengelig på Slack. </p2>",
-    "question1": "",
-    "answer1": "",
-    "question2": "",
-    "answer2": "",
-    "question3": "",
-    "answer3": ""
-  },
-  "devops": {
-    "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",
-    "question1": "Må jeg kunne programmere for å bli medlem?",
-    "answer1": "Du trenger ingen forskunnskap om programmering for å søke medlemskap i DevOps. Vi tar imot alle så lenge man ønsker å lære! Ny medlem vil gå gjennom vår 'bli kjent'-program hvor man kan bli kjent med vår prosedure og teknologien som vi tar i bruk. Men ikke stress, man kan ta det med eget tempo!",
-    "question2": "Hva er hovedfokus for DevOps i dette semesteret?",
-    "answer2": "Dette semesteret fokuserer vi på å lage ny nettside for Hackerspace. Vi bruker React og .... ",
-    "question3": "Kan jeg velge selv hva jeg vil jobbe med?",
-    "answer3": "Ja, selvfølgelig skal man kunne velge hva man vil jobbe med. Akkurat nå er det ny nettside som er i fokus, dermed vil oppagavene være relatert til dette. Men man kan også pitche noe kult som man ønsker å ha på nettsiden og jobbe med det dersom gruppen er enig om ideet. ",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "member": "Medlemmer"
-  },
-  "labops": {
-    "aboutLabOps": "Hovedoppgavene til LabOps er å drifte Hackerspace sine lokaler, planlegge og gjennomføre arrangement, holde stands og drive annen promotering.",
-    "question1": "",
-    "answer1": "",
-    "question2": "",
-    "answer2": "",
-    "question3": "",
-    "answer3": "",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "member": "Medlemmer"
-  },
-  "breadboard_computer": {
-    "breadboard_computer": "Breadboard Computer",
-    "aboutBreadboardComputer": "",
-    "question1": "",
-    "answer1": "",
-    "question2": "",
-    "answer2": "",
-    "question3": "",
-    "answer3": "",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "member": "Medlemmer"
-  },
-  "game": {
-    "aboutGameDevelopment": "",
-    "question1": "",
-    "answer1": "",
-    "question2": "",
-    "answer2": "",
-    "question3": "",
-    "answer3": "",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "member": "Medlemmer"
-  },
-  "ttrpg": {
-    "aboutTableTopRolePlayingGame": "",
-    "question1": "",
-    "answer1": "",
-    "question2": "",
-    "answer2": "",
-    "question3": "",
-    "answer3": "",
-    "leader": "Leder",
-    "deputyLeader": "Nestleder",
-    "member": "Medlemmer"
+    "example-title": "Lorem Ipsum",
+    "example-text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione.",
+    "leaderboard": {
+      "leaderboard.title": "Ledelsen",
+      "leaderboard.about": "Ledelsen består av Leder, Nestleder og Økonomiansvarlig i Hackerspace. Disse sørger for at Hackerspace NTNU driftes optimalt og gjennomfører avgjørelser og planlegging av drift med styret.",
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "financialManager": "Økonomiansvarlig"
+    },
+    "member-representative": {
+      "member-representative.about": "<p1> Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret. </p1> <p2> Dersom du ønsker å ta kontakt er tillitsvalgt tilgjengelig på Slack. </p2>",
+      "FAQ": {
+        "FAQ-title": "Ofte stilte spørsmål",
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
+      }
+    },
+    "devops": {
+      "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",
+      "FAQ": {
+        "FAQ-title": "Ofte stilte spørsmål",
+        "question1": "Må jeg kunne programmere for å bli medlem?",
+        "answer1": "Du trenger ingen forskunnskap om programmering for å søke medlemskap i DevOps. Vi tar imot alle så lenge man ønsker å lære! Ny medlem vil gå gjennom vår 'bli kjent'-program hvor man kan bli kjent med vår prosedure og teknologien som vi tar i bruk. Men ikke stress, man kan ta det med eget tempo!",
+        "question2": "Hva er hovedfokus for DevOps i dette semesteret?",
+        "answer2": "Dette semesteret fokuserer vi på å lage ny nettside for Hackerspace. Vi bruker React og .... ",
+        "question3": "Kan jeg velge selv hva jeg vil jobbe med?",
+        "answer3": "Ja, selvfølgelig skal man kunne velge hva man vil jobbe med. Akkurat nå er det ny nettside som er i fokus, dermed vil oppagavene være relatert til dette. Men man kan også pitche noe kult som man ønsker å ha på nettsiden og jobbe med det dersom gruppen er enig om ideet. "
+      },
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "member": "Medlemmer"
+    },
+    "labops": {
+      "labOps.about": "Hovedoppgavene til LabOps er å drifte Hackerspace sine lokaler, planlegge og gjennomføre arrangement, holde stands og drive annen promotering.",
+      "FAQ": {
+        "FAQ-title": "Ofte stilte spørsmål",
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
+      },
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "member": "Medlemmer"
+    },
+    "breadboard-computer-group": {
+      "breadboard-computer.title": "Breadboard Computer",
+      "breadboardComputer.about": "",
+      "FAQ": {
+        "FAQ-title": "Ofte stilte spørsmål",
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
+      },
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "member": "Medlemmer"
+    },
+    "game-group": {
+      "game.about": "",
+      "FAQ": {
+        "FAQ-title": "Frequently Asked Questions",
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
+      },
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "member": "Medlemmer"
+    },
+    "ttrpg-group": {
+      "ttrpg.about": "",
+      "FAQ": {
+        "FAQ-title": "Frequently Asked Questions",
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
+      },
+      "leader": "Leder",
+      "deputyLeader": "Nestleder",
+      "member": "Medlemmer"
+    }
   },
   "storage": {
     "title": "Lager",

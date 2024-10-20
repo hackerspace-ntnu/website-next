@@ -42,7 +42,7 @@ Here is a list of documentation to help you get started:
 ### Other resources
 
 - [Mozilla](https://developer.mozilla.org/en-US/) - Great resource for looking up documentation for web technologies
-- [Can I use](htt ps://caniuse.com/) - Check browser support for different web technologies (especially useful for CSS)
+- [Can I use](https://caniuse.com/) - Check browser support for different web technologies (especially useful for CSS)
 
 ## Icons
 
