@@ -1,14 +1,10 @@
 import type { ScheduleCellProps } from '@/components/shift-schedule/ScheduleTable';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
-import {
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/Dialog';
+import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
 import { Label } from '@/components/ui/Label';
 import { useTranslations } from 'next-intl';
+import { RegisterSection } from './RegisterSection';
 
 function ScheduleCellDialog({ members }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCellDialog');
@@ -37,17 +33,11 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
           {t('onShift')}
         </DialogTitle>
       </DialogHeader>
-      <section className='flex justify-between space-x-8'>
+      <section className='w- flex justify-between space-x-8 px-2'>
         <section className='flex flex-1 flex-col space-y-0'>
           {membersDisplay}
         </section>
-        <section className='mt-auto flex w-1/5 flex-col space-y-2'>
-          <section className='flex flex-row space-x-2'>
-            <Label htmlFor='recurring'>Recurring: </Label>
-            <Checkbox id='recurring' />
-          </section>
-          <Button>{t('register')}</Button>
-        </section>
+        <RegisterSection className='mt-auto flex flex-col space-y-3' />
       </section>
     </>
   );

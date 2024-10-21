@@ -25,10 +25,7 @@ export default function AboutPage({
 
   return (
     <>
-      <div>
-        <ScheduleTable week={shiftScheduleMochData} />
-        <section>[Skill icons + names]</section>
-      </div>
+      <ScheduleTable week={shiftScheduleMochData} />
     </>
   );
 }

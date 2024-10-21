@@ -143,7 +143,10 @@
       "scheduleCellDialog": {
         "onShift": "On shift",
         "empty": "No-one on shift",
-        "register": "Register"
+        "registerSection": {
+          "recurring": "Recurring",
+          "register": "Registrer"
+        }
       }
     }
   }

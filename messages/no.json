@@ -143,7 +143,10 @@
       "scheduleCellDialog": {
         "onShift": "På vakt",
         "empty": "Ingen på vakt",
-        "register": "Registrer"
+        "registerSection": {
+          "recurring": "Gjentagende",
+          "register": "Registrer"
+        }
       }
     }
   }
