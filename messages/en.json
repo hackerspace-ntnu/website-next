@@ -142,6 +142,7 @@
       },
       "scheduleCellDialog": {
         "onShift": "On shift",
+        "empty": "No-one on shift",
         "register": "Register"
       }
     }

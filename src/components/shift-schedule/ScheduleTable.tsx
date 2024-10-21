@@ -2,6 +2,7 @@ import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -39,9 +40,10 @@ type ScheduleTableProps = {
     thursday: ScheduleDayProps;
     friday: ScheduleDayProps;
   };
+  className?: string;
 };
 
-function ScheduleTable({ week }: ScheduleTableProps) {
+function ScheduleTable({ week, className }: ScheduleTableProps) {
   const t = useTranslations('shiftSchedule.scheduleTable');
   // Cannot use translation unless days and times are of these types
   const days: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday')[] = [
@@ -60,7 +62,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
 
   return (
     <>
-      <Table>
+      <Table className={className}>
         <TableHeader>
           <TableRow>
             <TableHead className='w-1/6'>{t('time')}</TableHead>
@@ -81,6 +83,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
             </TableRow>
           ))}
         </TableBody>
+        <TableCaption>[skill icons legend]</TableCaption>
       </Table>
     </>
   );

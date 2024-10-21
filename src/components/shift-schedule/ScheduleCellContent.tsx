@@ -47,7 +47,7 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
           )}
         >
           {membersDisplay}
-          <div className='leading-none'>[skill icons]</div>
+          <section className='leading-none'>[skill icons total]</section>
         </div>
       </TableCell>
     </>

@@ -142,6 +142,7 @@
       },
       "scheduleCellDialog": {
         "onShift": "På vakt",
+        "empty": "Ingen på vakt",
         "register": "Registrer"
       }
     }
