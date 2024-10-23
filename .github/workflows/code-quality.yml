@@ -19,7 +19,7 @@ jobs:
         run: biome ci .
   performance-audit:
     name: Performance Audit
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "production"
@@ -51,15 +51,6 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: latest
-          install-dependencies: true
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Build
