@@ -6,7 +6,7 @@ module.exports = {
   ci: {
     collect: {
       url: [
-        'http://localhost:3000/en',
+        'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
         'http://localhost:3000/en/about',
         'http://localhost:3000/en/events',
         'http://localhost:3000/en/news',
