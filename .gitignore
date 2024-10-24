@@ -20,3 +20,6 @@ public/robots.txt
 
 # data
 /data
+
+# Ignore husky files, see PR #54
+/.husky/*
