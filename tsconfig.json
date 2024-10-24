@@ -31,10 +31,10 @@
   },
   "include": [
     ".eslintrc.js",
-    "postcss.config.js",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts"
   ],

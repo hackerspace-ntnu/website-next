@@ -7,8 +7,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/Pagination';
 import { useTranslations } from 'next-intl';
-import { useId } from 'react';
-
 type PaginationCarouselSkeletonProps = {
   className?: string;
 };
@@ -30,10 +28,10 @@ function PaginationCarouselSkeleton({
             tabIndex={-1}
           />
         </PaginationItem>
-        {Array.from({ length: 4 }).map(() => (
+        {Array.from({ length: 4 }).map((_, index) => (
           <PaginationItem
             className='cursor-not-allowed opacity-50'
-            key={useId()}
+            key={`Item ${index + 1}`}
           >
             <PaginationEllipsis morePages='' />
           </PaginationItem>

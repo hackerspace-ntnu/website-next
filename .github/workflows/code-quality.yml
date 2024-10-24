@@ -39,14 +39,9 @@ jobs:
       FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
       FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
-      LHCI_TOKEN: ${{ secrets.LHCI_BUILD_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 20
-      - name: Fetch base_ref HEAD
-        run: git fetch --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
       - name: Setup bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -59,5 +54,5 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
-          bun add -g @lhci/cli@0.14.x
+          bun add -g @lhci/cli@0.13.x
           lhci autorun

@@ -9,7 +9,7 @@ function Main({ children, className }: MainProps) {
   return (
     <main
       className={cx(
-        '~px-4/24 mx-auto my-6 w-full max-w-screen-2xl flex-grow',
+        '~px-4/24 mx-auto w-full max-w-screen-2xl flex-grow',
         className,
       )}
     >
