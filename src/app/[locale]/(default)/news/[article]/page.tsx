@@ -55,7 +55,7 @@ export default function ArticlePage({
   return (
     <article>
       <header>
-        <div className='mt-5 mb-10 flex justify-center'>
+        <div className='mb-10 flex justify-center'>
           <Image
             className='h-auto w-full max-w-4xl rounded-lg'
             src={`/${article.photoUrl}`}
@@ -85,7 +85,7 @@ export default function ArticlePage({
         </div>
         <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
       </section>
-      <section className='my-6'>{article.content}</section>
+      <section>{article.content}</section>
     </article>
   );
 }
