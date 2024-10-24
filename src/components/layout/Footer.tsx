@@ -6,7 +6,7 @@ import {
 } from '@/components/assets/icons';
 import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
 import { LogoLink } from '@/components/layout/LogoLink';
-import { Nav } from '@/components/layout/Nav';
+import { Nav } from '@/components/layout/header/Nav';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { BugIcon, MailIcon } from 'lucide-react';
