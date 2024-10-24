@@ -1,4 +1,9 @@
+import { EventCard } from '@/components/events/EventCard';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+
+// TODO: Must be replaced with actual events
+import { events } from '@/mock-data/events';
+import { useId } from 'react';
 
 export async function generateMetadata({
   params: { locale },
@@ -18,5 +23,50 @@ export default function EventsPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div>This should be events page</div>;
+  return (
+    <>
+      <h1 className='my-4'>Events</h1>
+      <h2 className='my-2'>Active events</h2>
+      {events.slice(0, 1).map((event) => (
+        <EventCard
+          key={useId()}
+          title={event.title}
+          subheader={event.descriptionShort}
+          description={event.descriptionFull}
+          imagePath={event.imagePath}
+          startTime={new Date(event.startTime)}
+          endTime={new Date(event.endTime)}
+          _active
+        />
+      ))}
+      <h2 className='my-4'>Upcoming events</h2>
+      <div className='grid grid-cols-2 gap-2'>
+        {events.slice(1, 5).map((event) => (
+          <EventCard
+            key={useId()}
+            title={event.title}
+            subheader={event.descriptionShort}
+            description={event.descriptionFull}
+            imagePath={event.imagePath}
+            startTime={new Date(event.startTime)}
+            endTime={new Date(event.endTime)}
+          />
+        ))}
+      </div>
+      <h2 className='my-4'>Past events</h2>
+      <div className='grid grid-cols-2 gap-2'>
+        {events.slice(5).map((event) => (
+          <EventCard
+            key={useId()}
+            title={event.title}
+            subheader={event.descriptionShort}
+            description={event.descriptionFull}
+            imagePath={event.imagePath}
+            startTime={new Date(event.startTime)}
+            endTime={new Date(event.endTime)}
+          />
+        ))}
+      </div>
+    </>
+  );
 }
