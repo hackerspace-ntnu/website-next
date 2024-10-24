@@ -9,7 +9,18 @@
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
     "morePages": "Flere sider",
-    "page": "side"
+    "page": "side",
+    "category": "kategori",
+    "sort": "sortering",
+    "photoOf": "Bilde av {name}"
+  },
+  "error": {
+    "notFound": "404 - Siden ble ikke funnet",
+    "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
+    "error": "Oops! Noe gikk galt",
+    "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "goToHomepage": "Gå tilbake til hjemmesiden",
+    "tryAgain": "Prøv igjen"
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
@@ -52,13 +63,15 @@
   },
   "storage": {
     "title": "Lager",
+    "searchPlaceholder": "Søk etter produkt...",
     "card": {
       "quantityInfo": "{quantity} stk.",
-      "addToCart": "Legg i handlekurven"
+      "addToCart": "Legg i handlekurven",
+      "removeFromCart": "Fjern fra handlekurven"
     },
     "select": {
+      "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
       "filters": "Filtre",
-      "defaultPlaceholder": "Sorter resultater",
       "popularity": "Popularitet",
       "sortDescending": "Lagerbeholdning (synkende)",
       "sortAscending": "Lagerbeholdning (stigende)",
@@ -72,8 +85,43 @@
       "peripherals": "PC-tilbehør",
       "miniPC": "Mini-PC"
     },
+    "searchParams": {
+      "popularity": "popularitet",
+      "descending": "synkende",
+      "ascending": "stigende",
+      "name": "navn",
+      "cables": "kabler",
+      "sensors": "sensorer",
+      "peripherals": "tilbehoer",
+      "miniPC": "minipc"
+    },
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
+    },
+    "shoppingCart": {
+      "title": "Handlekurv",
+      "productId": "Produkt-ID",
+      "productName": "Produktnavn",
+      "location": "Plass",
+      "unitsAvailable": "Stk tilgjengelig",
+      "tableDescription": "En liste over handlekurven din.",
+      "backToStorage": "Tilbake til lageret",
+      "cartEmpty": "Handlekurven din er tom.",
+      "clearCart": "Tøm handlekurven",
+      "cancel": "Avbryt",
+      "clear": "Tøm",
+      "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
+      "borrowNow": "Lån nå",
+      "amountOfItemARIA": "Velg antallet av denne gjenstanden"
+    },
+    "loanForm": {
+      "name": "Navn",
+      "email": "Epost",
+      "phoneNumber": "Mobilnummer",
+      "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
+      "returnBy": "Lån fram til",
+      "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "submit": "Send"
     }
   }
 }
