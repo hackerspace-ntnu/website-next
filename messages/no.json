@@ -135,7 +135,7 @@
       "thursday": "Torsdag",
       "friday": "Fredag",
       "scheduleCellContent": {
-        "empty": "Tomt",
+        "empty": "Lukket",
         "member": "person",
         "members": "personer",
         "present": "på vakt"

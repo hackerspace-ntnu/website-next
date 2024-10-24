@@ -10,8 +10,9 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
 
   const colorStyle =
     members.length === 0
-      ? 'bg-destructive text-destructive-foreground'
-      : 'bg-primary text-primary-foreground';
+      ? 'bg-accent/50 hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60 text-accent-foreground'
+      : 'bg-foreground/20 hover:bg-foreground/25';
+
   let membersDisplay: React.ReactNode;
   const membersDisplayStyle = 'flex align-bottom space-x-1 space-y-0';
 
@@ -21,7 +22,7 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
     membersDisplay = (
       <div className={membersDisplayStyle}>
         <UserIcon className='h-4 w-4' />
-        <p className='leading-none'>
+        <p className='bg-accent/ leading-none'>
           1 {t('member')} {t('present')}
         </p>
       </div>
@@ -37,17 +38,21 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
     );
   }
 
+  let iconsDisplay: React.ReactNode;
+
+  if (members.length === 0) {
+  } else {
+    iconsDisplay = (
+      <section className='leading-none'>[skill icons total]</section>
+    );
+  }
+
   return (
     <>
-      <TableCell className='flex-l border p-1.5'>
-        <div
-          className={cx(
-            colorStyle,
-            'flex flex-col space-y-2 rounded-md p-2 transition delay-150 duration-300 ease-in-out hover:scale-105 hover:shadow-lg',
-          )}
-        >
+      <TableCell className='h-20 min-w-44 border p-1.5'>
+        <div className={cx(colorStyle, 'size-full space-y-3 rounded-md p-3')}>
           {membersDisplay}
-          <section className='leading-none'>[skill icons total]</section>
+          {iconsDisplay}
         </div>
       </TableCell>
     </>

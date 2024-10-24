@@ -135,7 +135,7 @@
       "thursday": "Thursday",
       "friday": "Friday",
       "scheduleCellContent": {
-        "empty": "Empty",
+        "empty": "Closed",
         "member": "person",
         "members": "people",
         "present": "on shift"

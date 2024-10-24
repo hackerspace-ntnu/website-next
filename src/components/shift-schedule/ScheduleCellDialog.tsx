@@ -1,8 +1,5 @@
 import type { ScheduleCellProps } from '@/components/shift-schedule/ScheduleTable';
-import { Button } from '@/components/ui/Button';
-import { Checkbox } from '@/components/ui/Checkbox';
 import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
-import { Label } from '@/components/ui/Label';
 import { useTranslations } from 'next-intl';
 import { RegisterSection } from './RegisterSection';
 
