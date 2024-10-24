@@ -25,7 +25,7 @@ on:
 jobs:
   script:
     name: Script
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
       - uses: appleboy/ssh-action@v1.0.3

@@ -1,6 +1,5 @@
 const items = [
   {
-    id: 34872,
     name: 'Laptop',
     photo_url: 'https://example.com/photos/laptop.jpg',
     status: 'Operational',
@@ -8,7 +7,6 @@ const items = [
     location: 'Storage Room A',
   },
   {
-    id: 58392,
     name: 'Desktop PC',
     photo_url: 'https://example.com/photos/desktop_pc.jpg',
     status: 'Operational',
@@ -16,7 +14,6 @@ const items = [
     location: 'Workstation Area 1',
   },
   {
-    id: 72541,
     name: 'Monitor',
     photo_url: 'https://example.com/photos/monitor.jpg',
     status: 'Operational',
@@ -24,7 +21,6 @@ const items = [
     location: 'Storage Room B',
   },
   {
-    id: 91834,
     name: 'Keyboard',
     photo_url: 'https://example.com/photos/keyboard.jpg',
     status: 'Operational',
@@ -32,7 +28,6 @@ const items = [
     location: 'Storage Room A',
   },
   {
-    id: 12095,
     name: 'Mouse',
     photo_url: 'https://example.com/photos/mouse.jpg',
     status: 'Operational',
@@ -40,7 +35,6 @@ const items = [
     location: 'Storage Room A',
   },
   {
-    id: 65738,
     name: 'Router',
     photo_url: 'https://example.com/photos/router.jpg',
     status: 'Operational',
@@ -48,7 +42,6 @@ const items = [
     location: 'Networking Room',
   },
   {
-    id: 23984,
     name: 'Ethernet Cable',
     photo_url: 'https://example.com/photos/ethernet_cable.jpg',
     status: 'Operational',
@@ -56,7 +49,6 @@ const items = [
     location: 'Networking Room',
   },
   {
-    id: 48152,
     name: 'External Hard Drive',
     photo_url: 'https://example.com/photos/external_hard_drive.jpg',
     status: 'Operational',
@@ -64,7 +56,6 @@ const items = [
     location: 'Storage Room B',
   },
   {
-    id: 36829,
     name: 'USB Flash Drive',
     photo_url: 'https://example.com/photos/usb_flash_drive.jpg',
     status: 'Operational',
@@ -72,7 +63,6 @@ const items = [
     location: 'Storage Room B',
   },
   {
-    id: 50273,
     name: 'Power Supply Unit (PSU)',
     photo_url: 'https://example.com/photos/psu.jpg',
     status: 'Operational',
@@ -80,7 +70,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 17492,
     name: 'Graphics Card',
     photo_url: 'https://example.com/photos/graphics_card.jpg',
     status: 'Operational',
@@ -88,7 +77,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 78356,
     name: 'RAM Module',
     photo_url: 'https://example.com/photos/ram_module.jpg',
     status: 'Operational',
@@ -96,7 +84,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 92031,
     name: 'Motherboard',
     photo_url: 'https://example.com/photos/motherboard.jpg',
     status: 'Operational',
@@ -104,7 +91,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 38627,
     name: 'CPU',
     photo_url: 'https://example.com/photos/cpu.jpg',
     status: 'Operational',
@@ -112,7 +98,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 49082,
     name: 'SSD',
     photo_url: 'https://example.com/photos/ssd.jpg',
     status: 'Operational',
@@ -120,7 +105,6 @@ const items = [
     location: 'Storage Room C',
   },
   {
-    id: 85731,
     name: 'Network Switch',
     photo_url: 'https://example.com/photos/network_switch.jpg',
     status: 'Operational',
@@ -128,7 +112,6 @@ const items = [
     location: 'Networking Room',
   },
   {
-    id: 37429,
     name: 'Soldering Iron',
     photo_url: 'https://example.com/photos/soldering_iron.jpg',
     status: 'Operational',
@@ -136,7 +119,6 @@ const items = [
     location: 'Repair Station',
   },
   {
-    id: 90321,
     name: 'Multimeter',
     photo_url: 'https://example.com/photos/multimeter.jpg',
     status: 'Operational',
@@ -144,7 +126,6 @@ const items = [
     location: 'Repair Station',
   },
   {
-    id: 65704,
     name: 'Screwdriver Set',
     photo_url: 'https://example.com/photos/screwdriver_set.jpg',
     status: 'Operational',
@@ -152,7 +133,6 @@ const items = [
     location: 'Toolbox 1',
   },
   {
-    id: 48139,
     name: 'Anti-static Wrist Strap',
     photo_url: 'https://example.com/photos/anti_static_wrist_strap.jpg',
     status: 'Operational',

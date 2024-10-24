@@ -1,4 +1,4 @@
-import { PaginationCarouselSkeleton } from '@/components/composites/PaginationCarouselSkeleton';
+import { PaginationCarouselSkeleton } from '@/components/layout/PaginationCarouselSkeleton';
 import { CardGridSkeleton } from '@/components/news/CardGridSkeleton';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';

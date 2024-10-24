@@ -1,14 +1,9 @@
 'use client';
 
 import { routing } from '@/lib/locale';
-import NextError from 'next/error';
+import { redirect, usePathname } from 'next/navigation';
 
-export default function NotFoundPage() {
-  return (
-    <html lang={routing.defaultLocale}>
-      <body>
-        <NextError statusCode={404} />
-      </body>
-    </html>
-  );
+export default function NotFound() {
+  const pathname = usePathname();
+  redirect(`/${routing.defaultLocale}/${pathname}`);
 }

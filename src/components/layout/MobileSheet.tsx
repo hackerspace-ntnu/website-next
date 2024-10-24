@@ -1,7 +1,7 @@
 'use client';
 
 import { LogoLink } from '@/components/layout/LogoLink';
-import { Nav } from '@/components/layout/header/Nav';
+import { Nav } from '@/components/layout/Nav';
 import { Button } from '@/components/ui/Button';
 import {
   Sheet,

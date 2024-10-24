@@ -1,5 +1,4 @@
 'use client';
-
 import { api } from '@/lib/api/client';
 
 function HelloWorld() {
