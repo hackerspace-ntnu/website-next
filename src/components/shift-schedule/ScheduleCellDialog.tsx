@@ -14,9 +14,9 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
     membersDisplay = (
       <>
         {members.map((member) => (
-          <section key={member.name} className='flex justify-between space-x-2'>
+          <section key={member.name} className=''>
             <p>{member.name}</p>
-            <section>[skill icons]</section>
+            <section className='ml-5'>[skill icons]</section>
           </section>
         ))}
       </>
@@ -30,11 +30,9 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
           {t('onShift')}
         </DialogTitle>
       </DialogHeader>
-      <section className='w- flex justify-between space-x-8 px-2'>
-        <section className='flex flex-1 flex-col space-y-0'>
-          {membersDisplay}
-        </section>
-        <RegisterSection className='mt-auto flex flex-col space-y-3' />
+      <section className='flex justify-between space-x-8 px-2 pb-1'>
+        <section className='flex flex-1 flex-col'>{membersDisplay}</section>
+        <RegisterSection className='mt-auto flex w-fit flex-col space-y-3' />
       </section>
     </>
   );

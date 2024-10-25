@@ -14,15 +14,6 @@ import { useTranslations } from 'next-intl';
 export type ScheduleCellProps = {
   members: {
     name: string;
-    skills: {
-      _3dPrinting: boolean;
-      laserCutting: boolean;
-      microcontrollers: boolean;
-      raspberryPi: boolean;
-      soldering: boolean;
-      terminal: boolean;
-      workshop: boolean;
-    };
   }[];
 };
 

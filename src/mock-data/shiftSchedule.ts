@@ -1,102 +1,64 @@
 const shiftScheduleMochData = {
   monday: {
     '10:15 - 12:07': {
-      members: [
-        {
-          name: 'En person',
-          skills: {
-            _3dPrinting: false,
-            laserCutting: false,
-            microcontrollers: false,
-            raspberryPi: true,
-            soldering: false,
-            terminal: true,
-            workshop: true,
-          },
-        },
-        {
-          name: 'En annen person',
-          skills: {
-            _3dPrinting: true,
-            laserCutting: true,
-            microcontrollers: true,
-            raspberryPi: false,
-            soldering: false,
-            terminal: true,
-            workshop: true,
-          },
-        },
-        {
-          name: 'Person 3',
-          skills: {
-            _3dPrinting: false,
-            laserCutting: false,
-            microcontrollers: false,
-            raspberryPi: false,
-            soldering: false,
-            terminal: false,
-            workshop: false,
-          },
-        },
-      ],
+      members: [{ name: 'En person' }],
     },
     '12:07 - 14:07': {
-      members: [
-        {
-          name: 'Person 3',
-          skills: {
-            _3dPrinting: false,
-            laserCutting: true,
-            microcontrollers: false,
-            raspberryPi: true,
-            soldering: false,
-            terminal: true,
-            workshop: false,
-          },
-        },
-      ],
+      members: [{ name: 'En person' }],
     },
     '14:07 - 16:07': {
-      members: [],
+      members: [
+        { name: 'En person' },
+        { name: 'En annen person' },
+        { name: 'Person 3' },
+      ],
     },
     '16:07 - 18:00': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
   },
   tuesday: {
     '10:15 - 12:07': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
     '12:07 - 14:07': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
     '14:07 - 16:07': {
-      members: [],
+      members: [
+        { name: 'En person' },
+        { name: 'En annen person' },
+        { name: 'Person 3' },
+      ],
     },
     '16:07 - 18:00': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
   },
   wednesday: {
     '10:15 - 12:07': {
-      members: [],
+      members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
     '12:07 - 14:07': {
       members: [],
     },
     '14:07 - 16:07': {
-      members: [],
+      members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
     '16:07 - 18:00': {
-      members: [],
+      members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
   },
   thursday: {
     '10:15 - 12:07': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
     '12:07 - 14:07': {
-      members: [],
+      members: [
+        { name: 'En person' },
+        { name: 'En annen person' },
+        { name: 'Person 3' },
+      ],
     },
     '14:07 - 16:07': {
       members: [],
@@ -110,26 +72,13 @@ const shiftScheduleMochData = {
       members: [],
     },
     '12:07 - 14:07': {
-      members: [
-        {
-          name: 'En person',
-          skills: {
-            _3dPrinting: false,
-            laserCutting: false,
-            microcontrollers: false,
-            raspberryPi: false,
-            soldering: false,
-            terminal: false,
-            workshop: false,
-          },
-        },
-      ],
+      members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
     '14:07 - 16:07': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
     '16:07 - 18:00': {
-      members: [],
+      members: [{ name: 'En person' }],
     },
   },
 };

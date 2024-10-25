@@ -13,46 +13,56 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
       ? 'bg-accent/50 hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60 text-accent-foreground'
       : 'bg-foreground/20 hover:bg-foreground/25';
 
-  let membersDisplay: React.ReactNode;
-  const membersDisplayStyle = 'flex align-bottom space-x-1 space-y-0';
+  let memberCountIcon: React.ReactNode;
+  const memberCountIconStyle = 'w-6 h-6';
+  let memberCount: React.ReactNode;
+  const memberCountStyle = 'flex align-bottom space-x-1 space-y-0';
+  let skillIcons: React.ReactNode;
 
+  // Set member count icon, member count, and skill icons based on amount of members present
   if (members.length === 0) {
-    membersDisplay = <p className='leading-none'>{t('empty')}</p>;
-  } else if (members.length === 1) {
-    membersDisplay = (
-      <div className={membersDisplayStyle}>
-        <UserIcon className='h-4 w-4' />
-        <p className='bg-accent/ leading-none'>
-          1 {t('member')} {t('present')}
-        </p>
-      </div>
-    );
+    // Empty shift
+    memberCount = <p className='leading-none'>{t('empty')}</p>;
   } else {
-    membersDisplay = (
-      <div className={membersDisplayStyle}>
-        <UsersIcon className='h-4 w-4' />
-        <p className='leading-none'>
-          {members.length} {t('members')} {t('present')}
-        </p>
-      </div>
-    );
-  }
-
-  let iconsDisplay: React.ReactNode;
-
-  if (members.length === 0) {
-  } else {
-    iconsDisplay = (
+    // At least 1 person on shift
+    skillIcons = (
       <section className='leading-none'>[skill icons total]</section>
     );
+
+    if (members.length === 1) {
+      // 1 person on shit
+      memberCountIcon = <UserIcon className={memberCountIconStyle} />;
+      memberCount = (
+        <div className={memberCountStyle}>
+          <p className='leading-none'>
+            1 {t('member')} {t('present')}
+          </p>
+        </div>
+      );
+    } else {
+      // 2 or more people on shift
+      memberCountIcon = <UsersIcon className={memberCountIconStyle} />;
+      memberCount = (
+        <div className={memberCountStyle}>
+          <p className='leading-none'>
+            {members.length} {t('members')} {t('present')}
+          </p>
+        </div>
+      );
+    }
   }
 
   return (
     <>
-      <TableCell className='h-20 min-w-44 border p-1.5'>
-        <div className={cx(colorStyle, 'size-full space-y-3 rounded-md p-3')}>
-          {membersDisplay}
-          {iconsDisplay}
+      <TableCell className='h-20 min-w-52 flex-1 border p-1.5'>
+        <div
+          className={cx(colorStyle, 'flex size-full space-x-2 rounded-md p-3')}
+        >
+          {memberCountIcon}
+          <section className='flex flex-1 flex-col space-y-3'>
+            {memberCount}
+            {skillIcons}
+          </section>
         </div>
       </TableCell>
     </>
