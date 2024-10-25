@@ -110,6 +110,13 @@ Here is a list of documentations that will help you contribute to the project:
 - [Docker Compose](https://docs.docker.com/compose/) - Tool for running multi-container applications
 - [nginx](https://nginx.org/en/docs/) - Reverse proxy for routing requests to the correct service
 
+### VS Code extensions
+
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+- [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)
+
 ### Other
 
 - [Mozilla](https://developer.mozilla.org/en-US/) - Great resource for looking up documentation for web technologies
