@@ -14,6 +14,8 @@ First, install dependencies:
 bun install
 ```
 
+Also, setup environment variables by copying the `.env.example` file to `.env` and fill in the values. `.env` files are used to store sensitive information like API keys and database credentials and it will not be committed to the repository.
+
 Then, run the development server:
 
 ```bash
@@ -31,8 +33,6 @@ You can build the project with the following command:
 ```bash
 bun run build
 ```
-
-Then setup environment variables by copying the `.env.example` file to `.env` and fill in the values. `.env` files are used to store sensitive information like API keys and database credentials and it will not be committed to the repository.
 
 To serve the build locally, run:
 
