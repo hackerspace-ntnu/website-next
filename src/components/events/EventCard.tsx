@@ -9,12 +9,14 @@ import {
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { cx } from '@/lib/utils';
+import Link from 'next/link';
 
 type EventCardProps = {
+  id: number;
   title: string;
   subheader: string;
   description: string;
-  imagePath: string;
+  imagePath?: string;
   startTime: Date;
   endTime: Date;
   _active?: boolean;
@@ -41,28 +43,32 @@ function EventCard(props: EventCardProps) {
   const ended = props.endTime < new Date();
 
   return (
-    <Card className={cx('text-center', { 'bg-secondary': started && !ended })}>
-      <CardHeader>
-        <CardTitle>{props.title}</CardTitle>
-        <CardDescription>{props.subheader}</CardDescription>
-      </CardHeader>
-      <CardContent className='flex justify-between gap-2'>
-        <p>{props.description}</p>
-        <Avatar className='h-48 w-48'>
-          <AvatarImage src='/event.webp' className='object-cover' />
-        </Avatar>
-      </CardContent>
-      <CardFooter className='flex-col gap-2'>
-        <span>
-          {started ? <>Started at</> : <>Starts at</>} {formattedStartTime},{' '}
-          {formattedStartDate}
-        </span>
-        <span>
-          {ended ? <>Ended at</> : <>Ends at</>} {formattedEndTime},{' '}
-          {formattedEndDate}
-        </span>
-      </CardFooter>
-    </Card>
+    <Link href={`/events/${props.id}`} aria-label={'Open event details'}>
+      <Card
+        className={cx('text-center', { 'bg-secondary': started && !ended })}
+      >
+        <CardHeader>
+          <CardTitle>{props.title}</CardTitle>
+          <CardDescription>{props.subheader}</CardDescription>
+        </CardHeader>
+        <CardContent className='flex justify-between gap-2'>
+          <p>{props.description}</p>
+          <Avatar className='h-48 w-48'>
+            <AvatarImage src='/event.webp' alt='' className='object-cover' />
+          </Avatar>
+        </CardContent>
+        <CardFooter className='flex-col gap-2'>
+          <span>
+            {started ? <>Started at</> : <>Starts at</>} {formattedStartTime},{' '}
+            {formattedStartDate}
+          </span>
+          <span>
+            {ended ? <>Ended at</> : <>Ends at</>} {formattedEndTime},{' '}
+            {formattedEndDate}
+          </span>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }
 
