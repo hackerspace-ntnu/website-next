@@ -30,9 +30,10 @@ export default function EventsPage({
       {events.slice(0, 1).map((event) => (
         <EventCard
           key={useId()}
+          id={event.id}
           title={event.title}
-          subheader={event.descriptionShort}
-          description={event.descriptionFull}
+          subheader={event.subheader}
+          description={event.description}
           imagePath={event.imagePath}
           startTime={new Date(event.startTime)}
           endTime={new Date(event.endTime)}
@@ -44,9 +45,10 @@ export default function EventsPage({
         {events.slice(1, 5).map((event) => (
           <EventCard
             key={useId()}
+            id={event.id}
             title={event.title}
-            subheader={event.descriptionShort}
-            description={event.descriptionFull}
+            subheader={event.subheader}
+            description={event.description}
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
@@ -58,9 +60,10 @@ export default function EventsPage({
         {events.slice(5).map((event) => (
           <EventCard
             key={useId()}
+            id={event.id}
             title={event.title}
-            subheader={event.descriptionShort}
-            description={event.descriptionFull}
+            subheader={event.subheader}
+            description={event.description}
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
