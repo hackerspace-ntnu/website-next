@@ -1,4 +1,5 @@
-import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
+import { ScheduleCellSkeleton } from '@/components/shift-schedule/ScheduleCellSkeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
   TableBody,
@@ -10,30 +11,7 @@ import {
 } from '@/components/ui/Table';
 import { useTranslations } from 'next-intl';
 
-export type ScheduleCellProps = {
-  members: {
-    name: string;
-  }[];
-};
-
-type ScheduleDayProps = {
-  '10:15 - 12:07': ScheduleCellProps;
-  '12:07 - 14:07': ScheduleCellProps;
-  '14:07 - 16:07': ScheduleCellProps;
-  '16:07 - 18:00': ScheduleCellProps;
-};
-
-type ScheduleTableProps = {
-  week: {
-    monday: ScheduleDayProps;
-    tuesday: ScheduleDayProps;
-    wednesday: ScheduleDayProps;
-    thursday: ScheduleDayProps;
-    friday: ScheduleDayProps;
-  };
-};
-
-function ScheduleTable({ week }: ScheduleTableProps) {
+function ScheduleTableSkeleton() {
   const t = useTranslations('shiftSchedule.scheduleTable');
   // Cannot use translation unless days and times are of these types
   const days: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday')[] = [
@@ -66,7 +44,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
               {times.map((time) => (
                 <TableRow key={time}>
                   <TableCell className='border-y'>{time}</TableCell>
-                  <ScheduleCell members={week[day][time].members} />
+                  <ScheduleCellSkeleton />
                 </TableRow>
               ))}
             </TableBody>
@@ -94,7 +72,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
             <TableRow key={time}>
               <TableCell className='min-w-32 border-y'>{time}</TableCell>
               {days.map((day) => (
-                <ScheduleCell key={day} members={week[day][time].members} />
+                <ScheduleCellSkeleton key={day} />
               ))}
             </TableRow>
           ))}
@@ -105,4 +83,4 @@ function ScheduleTable({ week }: ScheduleTableProps) {
   );
 }
 
-export { ScheduleTable };
+export { ScheduleTableSkeleton };

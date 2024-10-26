@@ -15,13 +15,12 @@ export async function generateMetadata({
   };
 }
 
-export default function AboutPage({
+export default function ShiftSchedulePage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('shiftSchedule');
 
   return (
     <>
