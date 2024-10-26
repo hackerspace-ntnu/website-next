@@ -1,13 +1,11 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
+import { Avatar, AvatarImage } from '@/components/ui/Avatar';
+import { Separator } from '@/components/ui/Separator';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { ArrowLeftIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/Separator';
-import { Button } from '@/components/ui/Button';
-import Link from 'next/link';
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 
 export async function generateMetadata({
   params: { locale },
@@ -29,7 +27,7 @@ function datesOnSameDay(date1: Date, date2: Date) {
   );
 }
 
-export default function EventPage({
+export default function EventDetailsPage({
   params: { locale, id },
 }: {
   params: { locale: string; id: string };
@@ -53,12 +51,6 @@ export default function EventPage({
 
   return (
     <>
-      <Link href='/events' aria-label={'Back to events'}>
-        <Button variant='secondary' className='flex gap-2'>
-          <ArrowLeftIcon aria-hidden='true' />
-          <span>Back to Events</span>
-        </Button>
-      </Link>
       <h1 className='my-4'>{event.title}</h1>
       <h3>{event.subheader}</h3>
       <div className='mt-4 space-y-4'>
