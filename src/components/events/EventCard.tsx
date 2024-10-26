@@ -49,7 +49,7 @@ function EventCard(props: EventCardProps) {
       <CardContent className='flex justify-between gap-2'>
         <p>{props.description}</p>
         <Avatar className='h-48 w-48'>
-          <AvatarImage src='/event.jpg' className='object-cover' />
+          <AvatarImage src='/event.webp' className='object-cover' />
         </Avatar>
       </CardContent>
       <CardFooter className='flex-col gap-2'>
