@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
 //import { useRouter } from 'next/navigation';
 import { MemberViewCard } from '@/components/members/MemberViewCard';
+import { SkillCard } from '@/components/members/SkillCard';
 import { Link } from '@/lib/locale/navigation';
 import { Button } from '@/components/ui/Button';
 import { useTranslations } from 'next-intl';
@@ -54,7 +55,7 @@ export default function memberPage({
         </Button>
         </div>
 
-        <div className='my-10 flex justify-center'>
+        <div className='my-10 flex flex-col items-center space-y-5'>
         <MemberViewCard
           key={member.id}
           id={member.id}
@@ -68,6 +69,20 @@ export default function memberPage({
           discord={member.discord}
           github={member.github}
           linkedin={member.linkedin}
+        />
+        <SkillCard 
+        key={member.id}
+        id={member.id}
+        internal={member.internal}
+        name={member.name}
+        group={member.group}
+        photoUrl={member.photoUrl}
+        bio={member.bio}
+        mail={member.mail}
+        instagram={member.instagram}
+        discord={member.discord}
+        github={member.github}
+        linkedin={member.linkedin}
         />
       </div>
     </>

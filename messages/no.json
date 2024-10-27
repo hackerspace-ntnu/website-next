@@ -68,7 +68,16 @@
     "title": "Medlemmer",
     "internalMember": "Dette er et internt medlem",
     "backToMember": "Tilbake til medlemmer",
-    "searchPlaceholder": "Søk etter et medlem..."
+    "searchPlaceholder": "Søk etter et medlem...",
+    "skills": {
+      "arduinoMicrocontrollers": "Arduino og mikrokontrollere",
+      "rasberryPi": "Rasberry Pi",
+      "linuxTerminal": "Linux/Terminal",
+      "workshop": "Verksted",
+      "3dPrinting": "3D printing",
+      "solderingSmallElectronics": "Lodding og småelektronikk",
+      "laserCutting": "Laserkutting"
+    }
   },
   "storage": {
     "title": "Lager",
