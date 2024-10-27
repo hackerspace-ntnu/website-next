@@ -7,7 +7,7 @@ import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 const inter = Inter({
@@ -30,9 +30,13 @@ export const viewport: Viewport = {
   themeColor: '#0c0a09',
 };
 
-export async function generateMetadata({
-  params: { locale },
-}: Omit<LocaleLayoutProps, 'children'>) {
+export async function generateMetadata(
+  props: Omit<LocaleLayoutProps, 'children'>,
+) {
+  const params = await props.params;
+
+  const { locale } = params;
+
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -69,10 +73,13 @@ export async function generateMetadata({
   };
 }
 
-export default function LocaleLayout({
-  children,
-  params: { locale },
-}: LocaleLayoutProps) {
+export default async function LocaleLayout(props: LocaleLayoutProps) {
+  const params = await props.params;
+
+  const { locale } = params;
+
+  const { children } = props;
+
   unstable_setRequestLocale(locale);
   return (
     <html

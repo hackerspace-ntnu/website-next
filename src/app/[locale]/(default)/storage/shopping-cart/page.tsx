@@ -3,12 +3,15 @@ import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearD
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { use } from 'react';
 
-export default function StorageShoppingCartPage({
-  params: { locale },
-}: {
-  params: { locale: string };
+export default function StorageShoppingCartPage(props: {
+  params: Promise<{ locale: string }>;
 }) {
+  const params = use(props.params);
+
+  const { locale } = params;
+
   unstable_setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');
   const tLoanForm = useTranslations('storage.loanForm');

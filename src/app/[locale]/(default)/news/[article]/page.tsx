@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 import readingTime from 'reading-time';
 
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
@@ -17,11 +18,10 @@ import { Badge } from '@/components/ui/Badge';
 //   }));
 // }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { article: string };
+export async function generateMetadata(props: {
+  params: Promise<{ article: string }>;
 }) {
+  const params = await props.params;
   const article = articleData.find(
     (article) => article.id === Number(params.article),
   );
@@ -31,11 +31,10 @@ export async function generateMetadata({
   };
 }
 
-export default function ArticlePage({
-  params,
-}: {
-  params: { locale: string; article: string };
+export default function ArticlePage(props: {
+  params: Promise<{ locale: string; article: string }>;
 }) {
+  const params = use(props.params);
   unstable_setRequestLocale(params.locale);
   const t = useTranslations('news');
 

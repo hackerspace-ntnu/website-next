@@ -2,11 +2,13 @@ import { HelloWorld } from '@/components/home/HelloWorld';
 import { api } from '@/lib/api/server';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-export default async function HomePage({
-  params: { locale },
-}: {
-  params: { locale: string };
+export default async function HomePage(props: {
+  params: Promise<{ locale: string }>;
 }) {
+  const params = await props.params;
+
+  const { locale } = params;
+
   unstable_setRequestLocale(locale);
   const hello = await api.test.helloWorld();
   return (

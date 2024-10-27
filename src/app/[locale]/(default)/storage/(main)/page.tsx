@@ -2,15 +2,18 @@ import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
+import { use } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemCard } from '@/components/storage/ItemCard';
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
 }) {
+  const params = await props.params;
+
+  const { locale } = params;
+
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
@@ -18,13 +21,15 @@ export async function generateMetadata({
   };
 }
 
-export default function StoragePage({
-  params: { locale },
-  searchParams,
-}: {
-  params: { locale: string };
-  searchParams: Record<string, string | string[] | undefined>;
+export default function StoragePage(props: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  const searchParams = use(props.searchParams);
+  const params = use(props.params);
+
+  const { locale } = params;
+
   unstable_setRequestLocale(locale);
   const t = useTranslations('ui');
 
