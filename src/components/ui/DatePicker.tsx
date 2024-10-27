@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 import type { Matcher } from 'react-day-picker';
 
 type DatePickerProps = {
@@ -21,17 +22,13 @@ type DatePickerProps = {
   buttonClassName?: string;
 };
 
-/**
- * This is a sligtly modified version of shadcn's Date Picker built on top of Calendar.
- * The component has a state, but also allows adding an additional date callback function which
- * provides a way to have side effects and/or state updates on the parent component whenever a new date is selected.
- */
 function DatePicker({
   initialDate,
   dateCallback,
   disabled,
   buttonClassName,
 }: DatePickerProps) {
+  const t = useTranslations('ui');
   const [date, setDate] = React.useState<Date>(initialDate ?? new Date());
 
   function handleDateChange(date: Date | undefined) {
@@ -54,7 +51,7 @@ function DatePicker({
           )}
         >
           <CalendarIcon className='mr-2 h-4 w-4' />
-          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+          {date ? format(date, 'PPP') : <span>{t('pickDate')}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0'>

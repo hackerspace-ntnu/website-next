@@ -12,7 +12,15 @@
     "page": "page",
     "category": "category",
     "sort": "sort",
-    "photoOf": "Photo of {name}"
+    "photoOf": "Photo of {name}",
+    "today": "Today",
+    "selected": "Selected",
+    "week": "Week",
+    "nextMonth": "Next month",
+    "previousMonth": "Previous month",
+    "selectMonth": "Select month",
+    "selectYear": "Select year",
+    "pickDate": "Pick a date"
   },
   "error": {
     "notFound": "404 - Page not found",

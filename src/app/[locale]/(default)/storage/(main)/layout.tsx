@@ -4,7 +4,7 @@ import { SortSelector } from '@/components/composites/SortSelector';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { Suspense, use } from 'react';
 
 type StorageLayoutProps = {
@@ -19,7 +19,7 @@ export default function StorageLayout(props: StorageLayoutProps) {
 
   const { children } = props;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');
 

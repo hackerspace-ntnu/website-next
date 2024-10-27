@@ -2,7 +2,7 @@ const PAGES_EXCLUDED = ['news', 'storage'];
 
 // Do not convert into an ES6 export.
 // lighthouse-ci (as of 0.14.0) uses require() to import, and this is not supported with ES6 modules.
-module.exports = {
+const config = {
   ci: {
     collect: {
       url: [
@@ -64,3 +64,5 @@ module.exports = {
     },
   },
 };
+
+module.exports = config;

@@ -1,6 +1,6 @@
 import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { use } from 'react';
 
@@ -30,7 +30,7 @@ export default function StoragePage(props: {
 
   const { locale } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('ui');
 
   const itemsPerPage = 12;

@@ -1,64 +1,202 @@
 'use client';
 
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import type * as React from 'react';
-import { DayPicker } from 'react-day-picker';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
+import {
+  DayPicker,
+  type DayPickerProps,
+  type DropdownOption,
+  type DropdownProps,
+} from 'react-day-picker';
 
-import { buttonVariants } from '@/components/ui/Button';
+import { dayPickerLocales } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+import { Button, buttonVariants } from '@/components/ui/Button';
+import { ScrollArea } from '@/components/ui/ScrollArea';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/Select';
+
+export type CalendarProps = DayPickerProps;
+
+function Dropdown({
+  value,
+  onChange,
+  options,
+  formatSelectedOption,
+}: DropdownProps & {
+  formatSelectedOption?: (option?: DropdownOption) => string | undefined;
+}) {
+  const selectedOption = options?.find((option) => option.value === value);
+
+  function handleChange(value: string) {
+    const changeEvent = {
+      target: { value },
+    } as React.ChangeEvent<HTMLSelectElement>;
+    onChange?.(changeEvent);
+  }
+
+  return (
+    <Select value={String(selectedOption?.value)} onValueChange={handleChange}>
+      <SelectTrigger tabIndex={0}>
+        <SelectValue>
+          {formatSelectedOption
+            ? formatSelectedOption(selectedOption)
+            : selectedOption?.label}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent position='popper' side='bottom'>
+        <ScrollArea className='h-80'>
+          {options?.map((option) => (
+            <SelectItem key={option.value} value={String(option.value)}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </ScrollArea>
+      </SelectContent>
+    </Select>
+  );
+}
 
 function Calendar({
   className,
   classNames,
-  showOutsideDays = true,
-  locale,
+  showOutsideDays = false,
   ...props
 }: CalendarProps) {
+  const t = useTranslations('ui');
+  const format = useFormatter();
+  const currentLocale = useLocale();
   return (
     <DayPicker
-      showOutsideDays={showOutsideDays}
       className={cx('p-3', className)}
       classNames={{
-        months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
+        root: '~p-2/6',
+        months: 'relative',
         month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        nav: 'flex items-center justify-between absolute w-full z-10 px-1',
+        button_previous: cx(
+          buttonVariants({
+            variant: 'outline',
+            className:
+              'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+          }),
+        ),
+        button_next: cx(
+          buttonVariants({
+            variant: 'outline',
+            className:
+              'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+          }),
+        ),
+        month_caption: 'flex justify-center items-center h-7',
         caption_label: 'text-sm font-medium',
-        nav: 'space-x-1 flex items-center',
-        nav_button: cx(
-          buttonVariants({ variant: 'outline' }),
-          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-        ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-y-1',
-        head_row: 'flex',
-        head_cell:
-          'text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
-        cell: 'h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-        day: cx(
-          buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 font-normal aria-selected:opacity-100',
-        ),
-        day_range_end: 'day-range-end',
-        day_selected:
-          'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
-        day_today: 'bg-accent text-accent-foreground',
-        day_outside:
-          'day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
-        day_disabled: 'text-muted-foreground opacity-50',
-        day_range_middle:
-          'aria-selected:bg-accent aria-selected:text-accent-foreground',
-        day_hidden: 'invisible',
+        dropdowns: 'flex justify-center gap-1 z-10 w-full mx-9',
+        month_grid: 'border-collapse space-y-1',
+        weekdays: 'flex',
+        weekday: 'text-muted-foreground w-9 font-normal text-xs',
+        weeks: '',
+        week: 'flex mt-2',
+        day: 'p-0',
+        outside: 'bg-accent/40',
+        range_middle: 'bg-accent last:rounded-e-md first:rounded-s-md',
+        range_start: 'bg-accent rounded-s-md',
+        range_end: 'bg-accent rounded-e-md',
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeftIcon className='h-4 w-4' />,
-        IconRight: ({ ...props }) => <ChevronRightIcon className='h-4 w-4' />,
+        DayButton({ modifiers, className, ...buttonProps }) {
+          return (
+            <Button
+              variant={'ghost'}
+              className={cx(
+                className,
+                'h-9 w-9 p-0 font-normal',
+                modifiers?.today && 'bg-accent text-accent-foreground',
+                modifiers?.selected &&
+                  'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
+                modifiers?.outside &&
+                  'pointer-events-none text-muted-foreground opacity-50',
+                modifiers?.disabled && 'text-muted-foreground opacity-50',
+                modifiers?.hidden && 'invisible',
+                modifiers.range_middle &&
+                  'rounded-none bg-accent text-accent-foreground first:rounded-s-md last:rounded-e-md hover:bg-accent hover:text-accent-foreground',
+                modifiers.outside &&
+                  modifiers.selected &&
+                  'bg-accent/40 text-muted-foreground',
+              )}
+              {...buttonProps}
+              aria-selected={modifiers.selected ?? buttonProps['aria-selected']}
+              aria-disabled={modifiers.disabled ?? buttonProps['aria-disabled']}
+              aria-hidden={modifiers.hidden ?? buttonProps['aria-hidden']}
+            />
+          );
+        },
+        Chevron({ orientation, disabled, className }) {
+          const Component =
+            orientation === 'left'
+              ? ChevronLeftIcon
+              : orientation === 'right'
+                ? ChevronRightIcon
+                : orientation === 'up'
+                  ? ChevronUpIcon
+                  : ChevronDownIcon;
+
+          return (
+            <Component
+              className={cx('h-4 w-4', className)}
+              aria-disabled={disabled}
+            />
+          );
+        },
+        YearsDropdown: Dropdown,
+        MonthsDropdown({ ...props }) {
+          return (
+            <Dropdown
+              {...props}
+              formatSelectedOption={(option) => {
+                const month = option?.value ?? 0;
+                const year = new Date().getFullYear();
+                const date = new Date(year, month);
+                return format.dateTime(date, {
+                  month: 'short',
+                });
+              }}
+            />
+          );
+        },
       }}
-      weekStartsOn={1}
+      showOutsideDays={showOutsideDays}
+      fixedWeeks
+      locale={dayPickerLocales[currentLocale as keyof typeof dayPickerLocales]}
+      labels={{
+        labelDayButton: (date, { today, selected }) => {
+          let label = format.dateTime(date, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+          if (today) label = `${t('today')}, ${label}`;
+          if (selected) label = `${label}, ${t('selected')}`;
+          return label;
+        },
+        labelWeekNumber: (weekNumber) => `${t('week')} ${weekNumber}`,
+        labelNext: () => t('nextMonth'),
+        labelPrevious: () => t('previousMonth'),
+        labelMonthDropdown: () => t('selectMonth'),
+        labelYearDropdown: () => t('selectYear'),
+      }}
       {...props}
     />
   );

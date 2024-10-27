@@ -1,7 +1,7 @@
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 type DefaultLayoutProps = {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default async function DefaultLayout(props: DefaultLayoutProps) {
 
   const { children } = props;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   return (
     <>
       <Header />

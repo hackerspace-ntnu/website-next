@@ -2,7 +2,7 @@ import { BorrowDialog } from '@/components/storage/BorrowDialog';
 import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
 
 export default function StorageShoppingCartPage(props: {
@@ -12,7 +12,7 @@ export default function StorageShoppingCartPage(props: {
 
   const { locale } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');
   const tLoanForm = useTranslations('storage.loanForm');
 

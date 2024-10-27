@@ -21,6 +21,7 @@ jobs:
     name: Performance Audit
     runs-on: ubuntu-latest
     env:
+      CI: true
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "production"
       DATABASE_HOST: "localhost"

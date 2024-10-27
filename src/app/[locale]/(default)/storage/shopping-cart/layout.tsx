@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
 
 type ShoppingCartLayoutProps = {
@@ -17,7 +17,7 @@ export default function StorageLayout(props: ShoppingCartLayoutProps) {
 
   const { children } = props;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');
   return (
     <>

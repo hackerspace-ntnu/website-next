@@ -9,8 +9,9 @@ Here is a list of documentation to help you get started:
 - [Next-intl](https://next-intl-docs.vercel.app/) - Internationalization library
 - [nuqs](https://nuqs.47ng.com/docs/installation) - Easy to use query params
 - [BlockNote](https://www.blocknotejs.org/docs) - Tool for markdown textboxes
-- [React Hook Form](https://react-hook-form.com/get-started) - When we need to handle form validation
 - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) - TRPC wraps Tanstack Query which is how we fetch data from the backend
+- [Tanstack Table](https://tanstack.com/table/latest/docs/introduction) - For dynamic tables with filtering, sorting, pagination etc
+- [Tanstack Form](https://tanstack.com/form/latest/docs/overview) - When we need to handle form validation
 
 #### Styling
 
@@ -28,7 +29,7 @@ Here is a list of documentation to help you get started:
 ### Backend
 
 - [TRPC](https://trpc.io/docs) - Tool for creating API endpoints as functions
-- [Lucia](https://lucia-auth.com) - Authentication library
+- [Lucia](https://lucia-auth.com) - Authentication learning resource (former library)
 - [Drizzle](https://orm.drizzle.team/docs/overview) - ORM for interacting with the database (Postgres under the hood)
 - [s3-client](https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-s3) - AWS S3 client for uploading files
 

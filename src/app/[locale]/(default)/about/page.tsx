@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -21,6 +21,6 @@ export default async function AboutPage(props: {
 
   const { locale } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   return <div>this should be about page</div>;
 }

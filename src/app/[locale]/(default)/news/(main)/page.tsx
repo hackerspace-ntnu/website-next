@@ -1,6 +1,6 @@
 import { articleMockData as articleData } from '@/mock-data/article';
 import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { Suspense, use } from 'react';
 
@@ -33,7 +33,7 @@ export default function NewsPage(props: {
 
   const { locale } = params;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),

@@ -1,8 +1,7 @@
 import { RootProviders } from '@/components/providers/RootProviders';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
-import type { Viewport } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
@@ -25,10 +24,6 @@ const montserrat = Montserrat({
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
-
-export const viewport: Viewport = {
-  themeColor: '#0c0a09',
-};
 
 export async function generateMetadata(
   props: Omit<LocaleLayoutProps, 'children'>,
@@ -80,7 +75,7 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
 
   const { children } = props;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   return (
     <html
       className={cx('size-full', inter.variable, montserrat.variable)}
