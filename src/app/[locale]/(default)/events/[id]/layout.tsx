@@ -7,8 +7,12 @@ export default function EventDetailsLayout({
 }: { children: React.ReactNode }) {
   return (
     <>
-      <Link href='/events' aria-label={'Back to events'}>
-        <Button variant='secondary' className='flex gap-2'>
+      <Link href='/events'>
+        <Button
+          variant='secondary'
+          className='flex gap-2'
+          aria-label='Back to Events'
+        >
           <ArrowLeftIcon aria-hidden='true' />
           <span>Back to Events</span>
         </Button>
