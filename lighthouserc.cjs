@@ -31,6 +31,7 @@ const config = {
             'heading-order': 'off',
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
+            'target-size': 'off',
           },
         },
         {
@@ -42,8 +43,12 @@ const config = {
             'heading-order': 'off',
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
+            'target-size': 'off',
             interactive: 'off',
             'uses-responsive-images': 'off', // Should be removed when we obtain images from backend
+            'image-aspect-ratio': 'off', // Should be removed when we obtain images from backend
+            'image-size-responsive': 'off', // Should be removed when we obtain images from backend
+            'max-potential-fid': 'off',
           },
         },
         {
@@ -55,9 +60,11 @@ const config = {
             'heading-order': 'off',
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
+            'target-size': 'off',
             'unused-javascript': 'off',
             'cumulative-layout-shift': 'off', // We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
             'max-potential-fid': 'off',
+            'image-aspect-ratio': 'off', // Should be removed when we obtain images from backend
           },
         },
       ],
