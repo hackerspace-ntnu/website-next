@@ -2,8 +2,7 @@ import {
   articleMockData as articleData,
   authorMockData as authorData,
 } from '@/mock-data/article';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import readingTime from 'reading-time';
@@ -37,7 +36,7 @@ export default async function ArticlePage({
 }) {
   const { locale, article } = await params;
   setRequestLocale(locale);
-  const t = useTranslations('news');
+  const t = await getTranslations('news');
 
   const data = articleData.find((a) => a.id === Number(article));
   if (!data) {

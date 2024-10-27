@@ -1,5 +1,4 @@
 import { articleMockData as articleData } from '@/mock-data/article';
-import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   type SearchParams,
@@ -37,7 +36,7 @@ export default async function NewsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations('ui');
+  const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
   });

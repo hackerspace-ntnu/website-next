@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 type ShoppingCartLayoutProps = {
   children: React.ReactNode;
@@ -16,7 +15,7 @@ export default async function StorageLayout({
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = useTranslations('storage.shoppingCart');
+  const t = await getTranslations('storage.shoppingCart');
   return (
     <>
       <div className='relative'>

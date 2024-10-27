@@ -1,5 +1,4 @@
 import { items } from '@/mock-data/items';
-import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   type SearchParams,
@@ -34,7 +33,7 @@ export default async function StoragePage({
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = useTranslations('ui');
+  const t = await getTranslations('ui');
 
   const itemsPerPage = 12;
 

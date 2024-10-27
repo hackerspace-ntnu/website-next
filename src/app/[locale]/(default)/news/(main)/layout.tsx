@@ -1,6 +1,5 @@
 import { SquarePenIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Link } from '@/lib/locale/navigation';
 
@@ -18,7 +17,7 @@ export default async function NewsHeaderLayout({
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = useTranslations('news');
+  const t = await getTranslations('news');
   return (
     <>
       <div className='flex items-center justify-between'>
