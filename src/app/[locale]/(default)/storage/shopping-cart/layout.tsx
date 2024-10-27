@@ -3,19 +3,17 @@ import { Link } from '@/lib/locale/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { use } from 'react';
 
 type ShoppingCartLayoutProps = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 
-export default function StorageLayout(props: ShoppingCartLayoutProps) {
-  const params = use(props.params);
-
-  const { locale } = params;
-
-  const { children } = props;
+export default async function StorageLayout({
+  params,
+  children,
+}: ShoppingCartLayoutProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
   const t = useTranslations('storage.shoppingCart');

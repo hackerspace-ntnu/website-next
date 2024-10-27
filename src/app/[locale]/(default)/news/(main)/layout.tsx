@@ -1,7 +1,6 @@
 import { SquarePenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { use } from 'react';
 
 import { Link } from '@/lib/locale/navigation';
 
@@ -12,12 +11,11 @@ type NewsHeaderLayoutProps = {
   params: Promise<{ locale: string }>;
 };
 
-export default function NewsHeaderLayout(props: NewsHeaderLayoutProps) {
-  const params = use(props.params);
-
-  const { locale } = params;
-
-  const { children } = props;
+export default async function NewsHeaderLayout({
+  params,
+  children,
+}: NewsHeaderLayoutProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
   const t = useTranslations('news');

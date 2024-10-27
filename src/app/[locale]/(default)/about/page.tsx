@@ -1,11 +1,11 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata(props: {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ locale: string }>;
 }) {
-  const params = await props.params;
-
-  const { locale } = params;
+  const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: 'layout' });
 
@@ -14,13 +14,12 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function AboutPage(props: {
+export default async function AboutPage({
+  params,
+}: {
   params: Promise<{ locale: string }>;
 }) {
-  const params = await props.params;
-
-  const { locale } = params;
-
+  const { locale } = await params;
   setRequestLocale(locale);
   return <div>this should be about page</div>;
 }

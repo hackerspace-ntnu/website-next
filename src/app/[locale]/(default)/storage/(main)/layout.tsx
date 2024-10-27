@@ -5,19 +5,18 @@ import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { Suspense, use } from 'react';
+import { Suspense } from 'react';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 
-export default function StorageLayout(props: StorageLayoutProps) {
-  const params = use(props.params);
-
-  const { locale } = params;
-
-  const { children } = props;
+export default async function StorageLayout({
+  params,
+  children,
+}: StorageLayoutProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
   const t = useTranslations('storage');

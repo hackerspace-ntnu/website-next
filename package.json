@@ -48,7 +48,7 @@
     "next": "15.0.1",
     "next-intl": "^3.23.5",
     "next-themes": "1.0.0-beta.0",
-    "nuqs": "^1.17.4",
+    "nuqs": "^2.0.4",
     "postgres": "^3.4.4",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-day-picker": "^9.1.4",

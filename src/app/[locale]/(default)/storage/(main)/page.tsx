@@ -1,18 +1,21 @@
 import { items } from '@/mock-data/items';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
-import { use } from 'react';
+import {
+  type SearchParams,
+  createSearchParamsCache,
+  parseAsInteger,
+} from 'nuqs/server';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemCard } from '@/components/storage/ItemCard';
 
-export async function generateMetadata(props: {
+export async function generateMetadata({
+  params,
+}: {
   params: Promise<{ locale: string }>;
 }) {
-  const params = await props.params;
-
-  const { locale } = params;
+  const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: 'layout' });
 
@@ -21,14 +24,14 @@ export async function generateMetadata(props: {
   };
 }
 
-export default function StoragePage(props: {
+export default async function StoragePage({
+  params,
+  searchParams,
+}: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  searchParams: Promise<SearchParams>;
 }) {
-  const searchParams = use(props.searchParams);
-  const params = use(props.params);
-
-  const { locale } = params;
+  const { locale } = await params;
 
   setRequestLocale(locale);
   const t = useTranslations('ui');
@@ -39,7 +42,7 @@ export default function StoragePage(props: {
     [t('page')]: parseAsInteger.withDefault(1),
   });
 
-  const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
+  const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
 
   return (
     <>

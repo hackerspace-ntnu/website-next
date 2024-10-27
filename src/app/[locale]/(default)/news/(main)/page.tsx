@@ -1,8 +1,12 @@
 import { articleMockData as articleData } from '@/mock-data/article';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
-import { Suspense, use } from 'react';
+import {
+  type SearchParams,
+  createSearchParamsCache,
+  parseAsInteger,
+} from 'nuqs/server';
+import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { CardGrid } from '@/components/news/CardGrid';
@@ -24,22 +28,21 @@ export async function generateMetadata(props: {
   };
 }
 
-export default function NewsPage(props: {
+export default async function NewsPage({
+  params,
+  searchParams,
+}: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  searchParams: Promise<SearchParams>;
 }) {
-  const searchParams = use(props.searchParams);
-  const params = use(props.params);
-
-  const { locale } = params;
-
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = useTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
   });
 
-  const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
+  const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
   // TODO: Button to create new article should only be visible when logged in
   return (
     <>
