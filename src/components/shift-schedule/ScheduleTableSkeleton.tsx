@@ -1,5 +1,4 @@
 import { ScheduleCellSkeleton } from '@/components/shift-schedule/ScheduleCellSkeleton';
-import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
   TableBody,

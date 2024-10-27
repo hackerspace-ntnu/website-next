@@ -1,7 +1,7 @@
+import { RegisterSection } from '@/components/shift-schedule/RegisterSection';
 import type { ScheduleCellProps } from '@/components/shift-schedule/ScheduleTable';
 import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
 import { useTranslations } from 'next-intl';
-import { RegisterSection } from './RegisterSection';
 
 function ScheduleCellDialog({ members }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCellDialog');

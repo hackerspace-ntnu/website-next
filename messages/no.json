@@ -127,6 +127,10 @@
   },
   "shiftSchedule": {
     "title": "Vaktliste",
+    "administratorMenu": {
+      "administratorMenu": "Administrator-meny",
+      "clearShiftSchedule": "Tøm vaktliste"
+    },
     "scheduleTable": {
       "time": "Tid",
       "monday": "Mandag",

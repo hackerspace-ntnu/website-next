@@ -14,7 +14,7 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
       : 'bg-foreground/20 hover:bg-foreground/25';
 
   let memberCountIcon: React.ReactNode;
-  const memberCountIconStyle = 'w-6 h-6';
+  const memberCountIconStyle = 'w-7 h-7';
   let memberCount: React.ReactNode;
   const memberCountStyle = 'flex align-bottom space-x-1 space-y-0';
   let skillIcons: React.ReactNode;
@@ -53,19 +53,17 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
   }
 
   return (
-    <>
-      <TableCell className='h-20 min-w-52 flex-1 border p-1.5'>
-        <div
-          className={cx(colorStyle, 'flex size-full space-x-2 rounded-md p-3')}
-        >
-          {memberCountIcon}
-          <section className='flex flex-1 flex-col space-y-3'>
-            {memberCount}
-            {skillIcons}
-          </section>
-        </div>
-      </TableCell>
-    </>
+    <TableCell className='h-20 min-w-52 flex-1 border p-1.5'>
+      <div
+        className={cx(colorStyle, 'flex size-full space-x-2 rounded-md p-3')}
+      >
+        {memberCountIcon}
+        <section className='flex flex-1 flex-col space-y-3'>
+          {memberCount}
+          {skillIcons}
+        </section>
+      </div>
+    </TableCell>
   );
 }
 

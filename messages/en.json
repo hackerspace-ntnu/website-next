@@ -127,6 +127,10 @@
   },
   "shiftSchedule": {
     "title": "Shift Schedule",
+    "administratorMenu": {
+      "administratorMenu": "Administrator Menu",
+      "clearShiftSchedule": "Clear shift schedule"
+    },
     "scheduleTable": {
       "time": "Time",
       "monday": "Monday",

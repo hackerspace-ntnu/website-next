@@ -1,7 +1,7 @@
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { shiftScheduleMochData } from '@/mock-data/shiftSchedule';
+import { AdministratorMenu } from '@/components/shift-schedule/AdministratorMenu';
 
 export async function generateMetadata({
   params: { locale },
@@ -24,6 +24,7 @@ export default function ShiftSchedulePage({
 
   return (
     <>
+      <AdministratorMenu />
       <ScheduleTable week={shiftScheduleMochData} />
     </>
   );

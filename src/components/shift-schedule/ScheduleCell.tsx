@@ -6,16 +6,14 @@ import React from 'react';
 
 function ScheduleCell({ members }: ScheduleCellProps) {
   return (
-    <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <ScheduleCellContent members={members} />
-        </DialogTrigger>
-        <DialogContent className='w-1/3 min-w-80 p-3'>
-          <ScheduleCellDialog members={members} />
-        </DialogContent>
-      </Dialog>
-    </>
+    <Dialog>
+      <DialogTrigger asChild>
+        <ScheduleCellContent members={members} />
+      </DialogTrigger>
+      <DialogContent className='w-1/3 min-w-80 p-3'>
+        <ScheduleCellDialog members={members} />
+      </DialogContent>
+    </Dialog>
   );
 }
 

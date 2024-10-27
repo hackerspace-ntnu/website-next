@@ -1,7 +1,7 @@
+import { Button } from '@/components/ui/Button';
+import { Checkbox } from '@/components/ui/Checkbox';
+import { Label } from '@/components/ui/Label';
 import { useTranslations } from 'next-intl';
-import { Button } from '../ui/Button';
-import { Checkbox } from '../ui/Checkbox';
-import { Label } from '../ui/Label';
 
 function RegisterSection({ className }: { className?: string }) {
   const t = useTranslations(
