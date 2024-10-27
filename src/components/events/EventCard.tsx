@@ -43,7 +43,10 @@ function EventCard(props: EventCardProps) {
   const ended = props.endTime < new Date();
 
   return (
-    <Link href={`/events/${props.id}`} aria-label={'Open event details'}>
+    <Link
+      href={`/events/${props.id}`}
+      aria-label={`Read more about ${props.title}`}
+    >
       <Card
         className={cx('text-center', { 'bg-secondary': started && !ended })}
       >

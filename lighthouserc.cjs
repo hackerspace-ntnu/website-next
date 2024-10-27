@@ -70,9 +70,9 @@ module.exports = {
             'heading-order': 'off',
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
-            'uses-responsive-images': 'off'
+            'uses-responsive-images': 'off',
           },
-        }
+        },
       ],
     },
   },
