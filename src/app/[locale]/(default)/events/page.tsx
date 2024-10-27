@@ -41,7 +41,7 @@ export default function EventsPage({
         />
       ))}
       <h2 className='my-4'>Upcoming events</h2>
-      <div className='grid grid-cols-2 gap-2'>
+      <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
           <EventCard
             key={useId()}
@@ -52,11 +52,13 @@ export default function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            wrapperClassName='lg:last:odd:col-span-2'
+            cardClassName='h-full'
           />
         ))}
       </div>
       <h2 className='my-4'>Past events</h2>
-      <div className='grid grid-cols-2 gap-2'>
+      <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
           <EventCard
             key={useId()}
@@ -67,6 +69,8 @@ export default function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            wrapperClassName='lg:last:odd:col-span-2'
+            cardClassName='h-full'
           />
         ))}
       </div>

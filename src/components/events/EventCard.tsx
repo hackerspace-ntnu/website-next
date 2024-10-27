@@ -19,6 +19,8 @@ type EventCardProps = {
   imagePath?: string;
   startTime: Date;
   endTime: Date;
+  wrapperClassName?: string;
+  cardClassName?: string;
   _active?: boolean;
 };
 
@@ -46,21 +48,24 @@ function EventCard(props: EventCardProps) {
     <Link
       href={`/events/${props.id}`}
       aria-label={`Read more about ${props.title}`}
+      className={props.wrapperClassName}
     >
       <Card
-        className={cx('text-center', { 'bg-secondary': started && !ended })}
+        className={cx('flex flex-col text-center', props.cardClassName, {
+          'bg-secondary': started && !ended,
+        })}
       >
         <CardHeader>
           <CardTitle>{props.title}</CardTitle>
           <CardDescription>{props.subheader}</CardDescription>
         </CardHeader>
-        <CardContent className='flex justify-between gap-2'>
+        <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>
           <p>{props.description}</p>
           <Avatar className='h-48 w-48'>
             <AvatarImage src='/event.webp' alt='' className='object-cover' />
           </Avatar>
         </CardContent>
-        <CardFooter className='flex-col gap-2'>
+        <CardFooter className='mt-auto flex-col gap-2'>
           <span>
             {started ? <>Started at</> : <>Starts at</>} {formattedStartTime},{' '}
             {formattedStartDate}
