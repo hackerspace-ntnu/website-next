@@ -1,7 +1,7 @@
-import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { shiftScheduleMockData } from '@/mock-data/shiftSchedule';
 import { AdministratorMenu } from '@/components/shift-schedule/AdministratorMenu';
+import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
+import { shiftScheduleMockData } from '@/mock-data/shiftSchedule';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
   params: { locale },

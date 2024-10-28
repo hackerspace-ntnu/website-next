@@ -1,9 +1,9 @@
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 type ShiftScheduleHeaderProps = {
-  children: React.ReactNode,
-  params: { locale: string }
+  children: React.ReactNode;
+  params: { locale: string };
 };
 
 export default function ShiftScheduleHeaderLayout({

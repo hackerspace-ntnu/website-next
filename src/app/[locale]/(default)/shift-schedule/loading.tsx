@@ -13,8 +13,19 @@ import { useTranslations } from 'next-intl';
 export default function ShiftScheduleLoading() {
   const t = useTranslations('shiftSchedule.scheduleTable');
   // Cannot use translation unless days and times are of these types
-  const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
-  const times = ['10:15 - 12:07', '12:07 - 14:07', '14:07 - 16:07', '16:07 - 18:00'] as const;
+  const days = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+  ] as const;
+  const times = [
+    '10:15 - 12:07',
+    '12:07 - 14:07',
+    '14:07 - 16:07',
+    '16:07 - 18:00',
+  ] as const;
 
   return (
     <>
