@@ -33,7 +33,7 @@ function ItemCard({
             priority={true}
           />
         </div>
-        <CardTitle className='mt-2 truncate leading-tight'>
+        <CardTitle className='mt-2 truncate leading-tight' level='h2'>
           {item.name}
         </CardTitle>
         <CardDescription>{item.location}</CardDescription>
