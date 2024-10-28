@@ -24,8 +24,18 @@ type DatePickerProps = {
   avoidCollisions?: boolean;
   date: Date | undefined;
   setDate: (date: Date | undefined) => void;
-  id: string;
-} & Omit<DayPickerProps, 'selected' | 'onSelect' | 'autoFocus' | 'mode'>;
+  disabled?: boolean;
+} & Omit<
+  DayPickerProps,
+  | 'fixedWeeks'
+  | 'today'
+  | 'selected'
+  | 'disabled'
+  | 'onSelect'
+  | 'autoFocus'
+  | 'mode'
+> &
+  React.HTMLAttributes<HTMLInputElement>;
 
 /**
  * This is a sligtly modified version of shadcn's Date Picker built on top of Calendar.
@@ -34,13 +44,20 @@ type DatePickerProps = {
  * UPDATE: Now supports an input field so it actually works as a date picker in a form. State is passed to it via props
  * so it works in a form. Also included i18n support.
  */
+
 function DatePicker({
   className,
   side,
   avoidCollisions = true,
   date,
   setDate,
-  id,
+  captionLayout,
+  footer,
+  hideWeekdays,
+  numberOfMonths,
+  showOutsideDays,
+  showWeekNumber,
+  disabled,
   ...props
 }: DatePickerProps) {
   const t = useTranslations('ui');
@@ -81,10 +98,11 @@ function DatePicker({
       <div className='relative'>
         <Input
           className={className}
-          id={id}
           placeholder={t('dateFormat')}
           value={inputValue}
           onChange={handleInputChange}
+          disabled={disabled}
+          {...props}
         />
         <PopoverTrigger asChild>
           <Button
@@ -94,6 +112,7 @@ function DatePicker({
               '-translate-y-1/2 absolute top-1/2 right-1.5 h-7 rounded-sm border px-2 font-normal',
               !date && 'text-muted-foreground',
             )}
+            disabled={disabled}
           >
             <CalendarIcon className='h-4 w-4' />
           </Button>
@@ -111,7 +130,12 @@ function DatePicker({
           selected={date}
           onSelect={handleSelectDate}
           autoFocus
-          {...props}
+          captionLayout={captionLayout}
+          footer={footer}
+          hideWeekdays={hideWeekdays}
+          numberOfMonths={numberOfMonths}
+          showOutsideDays={showOutsideDays}
+          showWeekNumber={showWeekNumber}
         />
       </PopoverContent>
     </Popover>
