@@ -139,10 +139,7 @@
       "thursday": "Torsdag",
       "friday": "Fredag",
       "scheduleCellContent": {
-        "empty": "Lukket",
-        "member": "person",
-        "members": "personer",
-        "present": "på vakt"
+        "onShift": "{count, plural, =0 {Lukket} =1 {1 person på vakt} other {# personer på vakt}}"
       },
       "scheduleCellDialog": {
         "onShift": "På vakt",

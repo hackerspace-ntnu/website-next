@@ -9,17 +9,17 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
   let membersDisplay: React.ReactNode;
 
   if (members.length === 0) {
-    membersDisplay = <p className='leading-none'>{t('empty')}</p>;
+    membersDisplay = <p className='leading-tight'>{t('empty')}</p>;
   } else {
     membersDisplay = (
-      <>
+      <section>
         {members.map((member) => (
-          <section key={member.name} className=''>
-            <p>{member.name}</p>
-            <section className='ml-5'>[skill icons]</section>
+          <section key={member.name} className='mb-3 last:mb-0'>
+            <p className='leading-tight'>{member.name}</p>
+            <section className='mt-0.5 ml-5'>[skill icons]</section>
           </section>
         ))}
-      </>
+      </section>
     );
   }
 
@@ -30,9 +30,9 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
           {t('onShift')}
         </DialogTitle>
       </DialogHeader>
-      <section className='flex justify-between space-x-8 px-2 pb-1'>
-        <section className='flex flex-1 flex-col'>{membersDisplay}</section>
-        <RegisterSection className='mt-auto flex w-fit flex-col space-y-3' />
+      <section className='flex justify-between gap-8 px-1.5 pb-1.5'>
+        {membersDisplay}
+        <RegisterSection className='mt-auto min-w-fit' />
       </section>
     </>
   );

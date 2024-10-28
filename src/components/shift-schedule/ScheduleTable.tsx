@@ -36,19 +36,19 @@ type ScheduleTableProps = {
 function ScheduleTable({ week }: ScheduleTableProps) {
   const t = useTranslations('shiftSchedule.scheduleTable');
   // Cannot use translation unless days and times are of these types
-  const days: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday')[] = [
+  const days = [
     'monday',
     'tuesday',
     'wednesday',
     'thursday',
     'friday',
-  ];
-  const times: (
-    | '10:15 - 12:07'
-    | '12:07 - 14:07'
-    | '14:07 - 16:07'
-    | '16:07 - 18:00'
-  )[] = ['10:15 - 12:07', '12:07 - 14:07', '14:07 - 16:07', '16:07 - 18:00'];
+  ] as const;
+  const times = [
+    '10:15 - 12:07',
+    '12:07 - 14:07',
+    '14:07 - 16:07',
+    '16:07 - 18:00',
+  ] as const;
 
   return (
     <>

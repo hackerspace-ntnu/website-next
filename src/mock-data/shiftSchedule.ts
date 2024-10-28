@@ -1,4 +1,4 @@
-const shiftScheduleMochData = {
+const shiftScheduleMockData = {
   monday: {
     '10:15 - 12:07': {
       members: [{ name: 'En person' }],
@@ -72,7 +72,12 @@ const shiftScheduleMochData = {
       members: [],
     },
     '12:07 - 14:07': {
-      members: [{ name: 'En person' }, { name: 'En annen person' }],
+      members: [
+        {
+          name: 'En person med veldig langt navn så jeg kan teste navn som bruker to linjer',
+        },
+        { name: 'En annen person' },
+      ],
     },
     '14:07 - 16:07': {
       members: [{ name: 'En person' }],
@@ -83,4 +88,4 @@ const shiftScheduleMochData = {
   },
 };
 
-export { shiftScheduleMochData };
+export { shiftScheduleMockData };

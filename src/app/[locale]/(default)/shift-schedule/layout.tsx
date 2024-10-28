@@ -15,7 +15,7 @@ export default function ShiftScheduleHeaderLayout({
 
   return (
     <>
-      <h1 className='relative mb-8 text-center'>{t('title')}</h1>
+      <h1 className='mb-8 text-center'>{t('title')}</h1>
       {children}
     </>
   );

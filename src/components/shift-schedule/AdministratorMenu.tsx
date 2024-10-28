@@ -12,9 +12,9 @@ function AdministratorMenu() {
         <CardTitle>{t('administratorMenu')}</CardTitle>
       </CardHeader>
       <CardContent>
-        <Button variant='link' className='flex flex-row space-x-3 space-y-0'>
+        <Button variant='link' className='flex gap-3'>
           <Trash2Icon />
-          <p>{t('clearShiftSchedule')}</p>
+          <span>{t('clearShiftSchedule')}</span>
         </Button>
       </CardContent>
     </Card>

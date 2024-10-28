@@ -13,52 +13,28 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
       ? 'bg-accent/50 hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60 text-accent-foreground'
       : 'bg-foreground/20 hover:bg-foreground/25';
 
-  let memberCountIcon: React.ReactNode;
-  const memberCountIconStyle = 'w-7 h-7';
-  let memberCount: React.ReactNode;
-  const memberCountStyle = 'flex align-bottom space-x-1 space-y-0';
-  let skillIcons: React.ReactNode;
-
-  // Set member count icon, member count, and skill icons based on amount of members present
-  if (members.length === 0) {
-    // Empty shift
-    memberCount = <p className='leading-none'>{t('empty')}</p>;
-  } else {
-    // At least 1 person on shift
-    skillIcons = (
-      <section className='leading-none'>[skill icons total]</section>
+  const skillIcons =
+    members.length === 0 ? (
+      <></>
+    ) : (
+      <section className='leading-7'>[skill icons total]</section>
     );
 
-    if (members.length === 1) {
-      // 1 person on shit
-      memberCountIcon = <UserIcon className={memberCountIconStyle} />;
-      memberCount = (
-        <div className={memberCountStyle}>
-          <p className='leading-none'>
-            1 {t('member')} {t('present')}
-          </p>
-        </div>
-      );
-    } else {
-      // 2 or more people on shift
-      memberCountIcon = <UsersIcon className={memberCountIconStyle} />;
-      memberCount = (
-        <div className={memberCountStyle}>
-          <p className='leading-none'>
-            {members.length} {t('members')} {t('present')}
-          </p>
-        </div>
-      );
-    }
+  const memberCount = <span>{t('onShift', { count: members.length })}</span>;
+
+  const memberCountIconStyle = 'w-7 h-7';
+  let memberCountIcon: React.ReactNode;
+  if (members.length === 1) {
+    memberCountIcon = <UserIcon className={memberCountIconStyle} />;
+  } else if (members.length >= 1) {
+    memberCountIcon = <UsersIcon className={memberCountIconStyle} />;
   }
 
   return (
-    <TableCell className='h-20 min-w-52 flex-1 border p-1.5'>
-      <div
-        className={cx(colorStyle, 'flex size-full space-x-2 rounded-md p-3')}
-      >
+    <TableCell className='h-20 min-w-52 border p-1.5'>
+      <div className={cx(colorStyle, 'flex size-full gap-2 rounded-md p-3')}>
         {memberCountIcon}
-        <section className='flex flex-1 flex-col space-y-3'>
+        <section>
           {memberCount}
           {skillIcons}
         </section>

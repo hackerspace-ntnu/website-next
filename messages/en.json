@@ -139,10 +139,7 @@
       "thursday": "Thursday",
       "friday": "Friday",
       "scheduleCellContent": {
-        "empty": "Closed",
-        "member": "person",
-        "members": "people",
-        "present": "on shift"
+        "onShift": "{count, plural, =0 {Closed} =1 {1 member on shift} other {# members on shift}}"
       },
       "scheduleCellDialog": {
         "onShift": "On shift",
