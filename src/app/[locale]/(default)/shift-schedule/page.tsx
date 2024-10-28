@@ -24,10 +24,16 @@ export default async function ShiftSchedulePage({
   const { locale } = await params;
 
   setRequestLocale(locale);
+  const t = await getTranslations('shiftSchedule');
 
   return (
     <>
-      <AdministratorMenu />
+      <AdministratorMenu
+        messages = {{
+          administratorMenu: t('administratorMenu.administratorMenu'),
+          clearShiftSchedule: t('administratorMenu.clearShiftSchedule')
+        }}
+      />
       <ScheduleTable week={shiftScheduleMockData} />
     </>
   );

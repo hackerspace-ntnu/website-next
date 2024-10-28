@@ -1,31 +1,49 @@
+'use client';
+
 import { Button } from '@/components/ui/Button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/Collapsible';
-import { ChevronDownIcon, Trash2Icon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { Separator } from '@/components/ui/Separator';
+import { ChevronDownIcon, ChevronUpIcon, Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
 
-function AdministratorMenu() {
-  const t = useTranslations('shiftSchedule.administratorMenu');
+type AdministratorMenuProps = {
+  messages: {
+    administratorMenu: string;
+    clearShiftSchedule: string;
+  };
+};
+
+function AdministratorMenu({ messages }: AdministratorMenuProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Collapsible className='mx-auto xs:mx-8 my-8 rounded border p-3'>
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className='data-[state] mx-auto xs:mx-8 my-8 rounded border p-3'
+    >
       <section className='mx-1 flex justify-between'>
         <span className='my-auto font-semibold text-xl'>
-          {t('administratorMenu')}
+          {messages.administratorMenu}
         </span>
         <CollapsibleTrigger asChild>
           <Button variant='ghost'>
-            <ChevronDownIcon className='size-4' />
+            {isOpen ? (
+              <ChevronUpIcon className='size-4' />
+            ) : (
+              <ChevronDownIcon className='size-4' />
+            )}
           </Button>
         </CollapsibleTrigger>
       </section>
       <CollapsibleContent className='mt-2'>
-        <Button variant='link' className='flex gap-3'>
+        <Button variant='link' className='flex gap-3 text-destructive'>
           <Trash2Icon />
-          <span>{t('clearShiftSchedule')}</span>
+          <span>{messages.clearShiftSchedule}</span>
         </Button>
       </CollapsibleContent>
     </Collapsible>
