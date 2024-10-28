@@ -1,10 +1,9 @@
+import type { NextConfig } from 'next';
 import nextIntl from 'next-intl/plugin';
-await import('./src/env.js');
 
 const withNextIntl = nextIntl('./src/lib/locale/request.ts');
 
-/** @type {import("next").NextConfig} */
-const config = {
+const config: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
 };

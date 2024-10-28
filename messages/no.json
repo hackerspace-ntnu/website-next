@@ -12,7 +12,16 @@
     "page": "side",
     "category": "kategori",
     "sort": "sortering",
-    "photoOf": "Bilde av {name}"
+    "photoOf": "Bilde av {name}",
+    "today": "I dag",
+    "selected": "Valgt",
+    "week": "Uke",
+    "nextMonth": "Neste måned",
+    "previousMonth": "Forrige måned",
+    "selectMonth": "Velg måned",
+    "selectYear": "Velg år",
+    "pickDate": "Velg en dato",
+    "dateFormat": "dd.MM.yyyy"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",

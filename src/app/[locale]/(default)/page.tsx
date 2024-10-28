@@ -1,13 +1,14 @@
 import { HelloWorld } from '@/components/home/HelloWorld';
 import { api } from '@/lib/api/server';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   const hello = await api.test.helloWorld();
   return (
     <div className='min-h-screen'>

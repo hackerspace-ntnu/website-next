@@ -2,7 +2,7 @@
 
 The overhauled website for the [Hackerspace NTNU](https://www.hackerspace-ntnu.no/) student organization.
 
-## Did you encouter an issue with the website?
+## Did you encounter an issue with the website?
 
 Please report it as an [issue](https://github.com/hackerspace-ntnu/website-next/issues)!
 

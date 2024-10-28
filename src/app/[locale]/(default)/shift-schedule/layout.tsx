@@ -1,17 +1,18 @@
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-type ShiftScheduleHeaderProps = {
+type ShiftScheduleLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string}>;
 };
 
-export default function ShiftScheduleHeaderLayout({
+export default async function ShiftScheduleLayout({
+  params,
   children,
-  params: { locale },
-}: ShiftScheduleHeaderProps) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('shiftSchedule');
+}: ShiftScheduleLayoutProps) {
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+  const t = await getTranslations('shiftSchedule');
 
   return (
     <>

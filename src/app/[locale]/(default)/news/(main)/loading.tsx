@@ -3,7 +3,7 @@ import { CardGridSkeleton } from '@/components/news/CardGridSkeleton';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
 
-export default function NewsSkeleton() {
+export default function NewsLoading() {
   return (
     <>
       <CardGridSkeleton />
