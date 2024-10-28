@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 type ShiftScheduleLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string}>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function ShiftScheduleLayout({
