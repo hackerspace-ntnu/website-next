@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
-import { useId } from 'react';
 
 export async function generateMetadata({
   params,
@@ -32,7 +31,7 @@ export default async function EventsPage({
       <h2 className='my-2'>Active events</h2>
       {events.slice(0, 1).map((event) => (
         <EventCard
-          key={useId()}
+          key={event.id}
           id={event.id}
           title={event.title}
           subheader={event.subheader}
@@ -47,7 +46,7 @@ export default async function EventsPage({
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
           <EventCard
-            key={useId()}
+            key={event.id}
             id={event.id}
             title={event.title}
             subheader={event.subheader}
@@ -64,7 +63,7 @@ export default async function EventsPage({
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
           <EventCard
-            key={useId()}
+            key={event.id}
             id={event.id}
             title={event.title}
             subheader={event.subheader}
