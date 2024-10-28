@@ -1,17 +1,18 @@
 import { BorrowDialog } from '@/components/storage/BorrowDialog';
 import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export default function StorageShoppingCartPage({
-  params: { locale },
+export default async function StorageShoppingCartPage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('storage.shoppingCart');
-  const tLoanForm = useTranslations('storage.loanForm');
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+  const t = await getTranslations('storage.shoppingCart');
+  const tLoanForm = await getTranslations('storage.loanForm');
 
   const tableMessages = {
     tableDescription: t('tableDescription'),

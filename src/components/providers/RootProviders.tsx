@@ -1,4 +1,5 @@
-import { IntlErrorProvider } from '@/components/providers/IntlErrorProvider';
+import { IntlClientProvider } from '@/components/providers/IntlClientProvider';
+import { NuqsProvider } from '@/components/providers/NuqsProvider';
 import { TRPCProvider } from '@/components/providers/TRPCProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
@@ -11,7 +12,9 @@ function RootProviders({ children, locale }: RootProvidersProps) {
   return (
     <ThemeProvider>
       <TRPCProvider>
-        <IntlErrorProvider locale={locale}>{children}</IntlErrorProvider>
+        <NuqsProvider>
+          <IntlClientProvider locale={locale}>{children}</IntlClientProvider>
+        </NuqsProvider>
       </TRPCProvider>
     </ThemeProvider>
   );

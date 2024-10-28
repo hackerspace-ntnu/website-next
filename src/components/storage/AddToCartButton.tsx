@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { Loader } from '@/components/ui/Loader';
+import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from 'cva';
 
@@ -36,7 +36,7 @@ function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
   );
 
   if (isLoading) {
-    return <Loader className='mx-[41px]' />;
+    return <Spinner className='mx-[41px] my-2' />;
   }
 
   function updateCart() {
