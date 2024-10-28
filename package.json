@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prepare": "lefthook install",
+    "prepare": "cross-env-shell '[ \"$NODE_ENV\" != \"production\" ] && lefthook install || exit 0'",
     "dev": "next dev --turbopack",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
@@ -67,6 +67,7 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "autoprefixer": "^10.4.20",
     "client-only": "^0.0.1",
+    "cross-env": "^7.0.3",
     "drizzle-kit": "^0.24.1",
     "fluid-tailwind": "^1.0.3",
     "lefthook": "^1.7.14",

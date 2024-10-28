@@ -17,7 +17,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV CI=true
 ENV NODE_ENV=production
 ENV SKIP_ENV_VALIDATION=true
 
@@ -28,7 +27,6 @@ RUN bun run build
 FROM base AS runner
 WORKDIR /app
 
-ENV CI=true
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=true
 ENV SKIP_ENV_VALIDATION=true
