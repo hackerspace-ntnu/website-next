@@ -62,7 +62,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.1",
     "@fluid-tailwind/tailwind-merge": "^0.0.2",
-    "@types/node": "^20.14.8",
+    "@types/bun": "^1.1.12",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "autoprefixer": "^10.4.20",

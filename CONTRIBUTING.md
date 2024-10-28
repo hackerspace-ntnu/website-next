@@ -4,7 +4,7 @@
 
 ### Development setup
 
-Make sure you have Bun installed on your machine. If you don't have it, you can download it [here](https://bun.sh/docs/installation).
+Make sure you have Bun installed on your machine. If you don't have it, you can download it [here](https://bun.sh/docs/installation). Here is some information about Bun in Next.js: [Build an app with Next.js and Bun](https://bun.sh/guides/ecosystem/nextjs).
 
 If you can't install Bun, you can always use [Node.js](https://nodejs.org/en/) with the `npm` command instead, but it will not be as fast as Bun.
 
