@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils';
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import * as React from 'react';
+import { useState } from 'react';
 
 type ComboboxProps = {
   choices: {
@@ -42,8 +42,8 @@ function Combobox({
   initialValue,
   ariaLabel,
 }: ComboboxProps) {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState<string | null>(initialValue ?? '');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<string | null>(initialValue ?? '');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
