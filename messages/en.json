@@ -20,7 +20,8 @@
     "previousMonth": "Previous month",
     "selectMonth": "Select month",
     "selectYear": "Select year",
-    "pickDate": "Pick a date"
+    "pickDate": "Pick a date",
+    "dateFormat": "dd/MM/yyyy"
   },
   "error": {
     "notFound": "404 - Page not found",

@@ -30,12 +30,12 @@
     }
   },
   "include": [
-    ".eslintrc.js",
-    "postcss.config.ts",
+    "postcss.config.js",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
+    "**/*.cjs",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]

@@ -16,6 +16,12 @@ import { cx } from '@/lib/utils';
 
 import { Label } from '@/components/ui/Label';
 
+/**
+ * This is a completely custom component and not the Form component from shadcn. This is because we are using Tanstack Form instead of React Hook Form.
+ * Short explanation: Tanstack Form is a much better form library than React Hook Form. It has better validation, better performance, and better documentation.
+ * (The last sentence was ChatGPT's opinion, the real reason is that React hook form does not support async validation which is nice to have)
+ * On how to use this look where it has been used in the codebase or ask Michael.
+ */
 function useFormWithZod<
   TFormSchema extends z.ZodType,
   TFormData extends object = z.infer<TFormSchema>,

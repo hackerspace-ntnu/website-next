@@ -30,6 +30,12 @@ import {
 
 export type CalendarProps = DayPickerProps;
 
+/**
+ * This component is also customised a lot from its shadcn counterpart.
+ * We have updated to use React Day Picker V9 (which has a lot of breaking changes).
+ * Our version supports a dropdown for the month and year if enabled via the captionLayout prop.
+ * Also it uses the correct locale labels for everything based on the current locale.
+ */
 function Dropdown({
   value,
   onChange,
