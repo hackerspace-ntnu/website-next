@@ -1,15 +1,17 @@
 import { EventCard } from '@/components/events/EventCard';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
 import { useId } from 'react';
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
@@ -17,12 +19,13 @@ export async function generateMetadata({
   };
 }
 
-export default function EventsPage({
-  params: { locale },
+export default async function EventsPage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       <h1 className='my-4'>Events</h1>
