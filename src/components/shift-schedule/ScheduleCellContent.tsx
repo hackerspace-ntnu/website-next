@@ -22,7 +22,7 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
 
   const memberCount = <span>{t('onShift', { count: members.length })}</span>;
 
-  const memberCountIconStyle = 'w-7 h-7';
+  const memberCountIconStyle = 'size-7';
   let memberCountIcon: React.ReactNode;
   if (members.length === 1) {
     memberCountIcon = <UserIcon className={memberCountIconStyle} />;
