@@ -151,7 +151,6 @@
         "onShift": "{count, plural, =0 {Closed} =1 {1 person on shift} other {# people on shift}}"
       },
       "scheduleCellDialog": {
-        "onShift": "On shift",
         "empty": "No-one on shift",
         "registerSection": {
           "recurring": "Recurring",

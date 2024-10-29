@@ -10,17 +10,17 @@ import {
 } from '@/components/ui/Table';
 import { useTranslations } from 'next-intl';
 
-export type ScheduleCellProps = {
+export type ScheduleEntryProps = {
   members: {
     name: string;
   }[];
 };
 
 type ScheduleDayProps = {
-  '10:15 - 12:07': ScheduleCellProps;
-  '12:07 - 14:07': ScheduleCellProps;
-  '14:07 - 16:07': ScheduleCellProps;
-  '16:07 - 18:00': ScheduleCellProps;
+  '10:15 - 12:07': ScheduleEntryProps;
+  '12:07 - 14:07': ScheduleEntryProps;
+  '14:07 - 16:07': ScheduleEntryProps;
+  '16:07 - 18:00': ScheduleEntryProps;
 };
 
 type ScheduleTableProps = {
@@ -66,7 +66,13 @@ function ScheduleTable({ week }: ScheduleTableProps) {
               {times.map((time) => (
                 <TableRow key={time}>
                   <TableCell className='border-y'>{time}</TableCell>
-                  <ScheduleCell members={week[day][time].members} />
+                  <ScheduleCell
+                    messages={{
+                      day: t(day),
+                      time: time,
+                    }}
+                    members={week[day][time].members}
+                  />
                 </TableRow>
               ))}
             </TableBody>
@@ -94,7 +100,14 @@ function ScheduleTable({ week }: ScheduleTableProps) {
             <TableRow key={time}>
               <TableCell className='min-w-32 border-y'>{time}</TableCell>
               {days.map((day) => (
-                <ScheduleCell key={day} members={week[day][time].members} />
+                <ScheduleCell
+                  key={day}
+                  messages={{
+                    day: t(day),
+                    time: time,
+                  }}
+                  members={week[day][time].members}
+                />
               ))}
             </TableRow>
           ))}

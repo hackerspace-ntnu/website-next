@@ -151,7 +151,6 @@
         "onShift": "{count, plural, =0 {Stengt} =1 {1 person på vakt} other {# personer på vakt}}"
       },
       "scheduleCellDialog": {
-        "onShift": "På vakt",
         "empty": "Ingen på vakt",
         "registerSection": {
           "recurring": "Gjentagende",

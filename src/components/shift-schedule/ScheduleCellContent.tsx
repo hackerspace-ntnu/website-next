@@ -1,11 +1,16 @@
-import type { ScheduleCellProps } from '@/components/shift-schedule/ScheduleTable';
 import { TableCell } from '@/components/ui/Table';
 import { cx } from '@/lib/utils';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type React from 'react';
 
-function ScheduleCellContent({ members }: ScheduleCellProps) {
+type ScheduleCellContentProps = {
+  members: {
+    name: string;
+  }[];
+};
+
+function ScheduleCellContent({ members }: ScheduleCellContentProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCellContent');
 
   const colorStyle =
@@ -26,7 +31,7 @@ function ScheduleCellContent({ members }: ScheduleCellProps) {
   let memberCountIcon: React.ReactNode;
   if (members.length === 1) {
     memberCountIcon = <UserIcon className={memberCountIconStyle} />;
-  } else if (members.length >= 1) {
+  } else if (members.length > 1) {
     memberCountIcon = <UsersIcon className={memberCountIconStyle} />;
   }
 

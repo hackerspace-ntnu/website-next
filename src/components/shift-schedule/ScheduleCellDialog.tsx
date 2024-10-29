@@ -1,9 +1,18 @@
 import { RegisterSection } from '@/components/shift-schedule/RegisterSection';
-import type { ScheduleCellProps } from '@/components/shift-schedule/ScheduleTable';
 import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
 import { useTranslations } from 'next-intl';
 
-function ScheduleCellDialog({ members }: ScheduleCellProps) {
+type ScheduleCellDialogProps = {
+  messages: {
+    day: string;
+    time: string;
+  };
+  members: {
+    name: string;
+  }[];
+};
+
+function ScheduleCellDialog({ messages, members }: ScheduleCellDialogProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCellDialog');
 
   let membersDisplay: React.ReactNode;
@@ -26,8 +35,9 @@ function ScheduleCellDialog({ members }: ScheduleCellProps) {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className='font-semibold text-3xl'>
-          {t('onShift')}
+        <DialogTitle className='space-x-5'>
+          <span className='font-semibold text-3xl'>{messages.day}</span>
+          <span className='font-semibold text-lg'>{messages.time}</span>
         </DialogTitle>
       </DialogHeader>
       <section className='flex justify-between gap-8 px-1.5 pb-1.5'>
