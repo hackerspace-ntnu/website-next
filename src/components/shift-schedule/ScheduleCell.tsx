@@ -19,7 +19,7 @@ function ScheduleCell({ messages, members }: ScheduleCellProps) {
       <DialogTrigger asChild>
         <ScheduleCellContent members={members} />
       </DialogTrigger>
-      <DialogContent className='w-1/3 min-w-80 p-3'>
+      <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
         <ScheduleCellDialog messages={messages} members={members} />
       </DialogContent>
     </Dialog>

@@ -35,9 +35,9 @@ function ScheduleCellDialog({ messages, members }: ScheduleCellDialogProps) {
   return (
     <>
       <DialogHeader>
-        <DialogTitle className='space-x-5'>
+        <DialogTitle className='flex flex-col text-left lg:block lg:flex-none lg:space-x-5'>
           <span className='font-semibold text-3xl'>{messages.day}</span>
-          <span className='font-semibold text-lg'>{messages.time}</span>
+          <span className='mt-auto font-semibold text-lg'>{messages.time}</span>
         </DialogTitle>
       </DialogHeader>
       <section className='flex justify-between gap-8 px-1.5 pb-1.5'>
