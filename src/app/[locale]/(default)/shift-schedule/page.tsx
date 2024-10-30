@@ -29,9 +29,9 @@ export default async function ShiftSchedulePage({
   return (
     <>
       <AdministratorMenu
-        messages = {{
+        messages={{
           administratorMenu: t('administratorMenu.administratorMenu'),
-          clearShiftSchedule: t('administratorMenu.clearShiftSchedule')
+          clearShiftSchedule: t('administratorMenu.clearShiftSchedule'),
         }}
       />
       <ScheduleTable week={shiftScheduleMockData} />

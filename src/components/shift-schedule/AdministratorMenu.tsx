@@ -6,7 +6,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/Collapsible';
-import { Separator } from '@/components/ui/Separator';
 import { ChevronDownIcon, ChevronUpIcon, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 
@@ -24,7 +23,7 @@ function AdministratorMenu({ messages }: AdministratorMenuProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className='data-[state] mx-auto xs:mx-8 my-8 rounded border p-3'
+      className='mx-auto xs:mx-8 my-8 rounded border p-3'
     >
       <section className='mx-1 flex justify-between'>
         <span className='my-auto font-semibold text-xl'>
@@ -33,9 +32,15 @@ function AdministratorMenu({ messages }: AdministratorMenuProps) {
         <CollapsibleTrigger asChild>
           <Button variant='ghost'>
             {isOpen ? (
-              <ChevronUpIcon className='size-4' />
+              <ChevronUpIcon
+                aria-label='Close Administrator Menu'
+                className='size-4'
+              />
             ) : (
-              <ChevronDownIcon className='size-4' />
+              <ChevronDownIcon
+                aria-label='Open Administrator Menu'
+                className='size-4'
+              />
             )}
           </Button>
         </CollapsibleTrigger>
