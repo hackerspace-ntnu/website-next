@@ -15,7 +15,7 @@ function RegisterSection({ className }: { className?: string }) {
         <Label htmlFor='recurring'>{t('recurring')}: </Label>
         <Checkbox id='recurring' />
       </section>
-      <Button>{t('register')}</Button>
+      <Button className='float-right'>{t('register')}</Button>
     </section>
   );
 }
