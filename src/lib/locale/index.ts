@@ -30,32 +30,32 @@ export const routing = defineRouting({
       no: '/om-oss',
     },
     '/about/leaderboard': {
-      en: '/leaderboard',
-      no: '/ledelsen',
-    },
-    '/about/devops': {
-      en: '/devops',
-      no: '/devops',
+      en: '/about/leaderboard',
+      no: '/om-oss/ledelsen',
     },
     '/about/member-representative': {
-      en: '/member-representative',
-      no: '/tillitsvalgt',
+      en: '/about/member-representative',
+      no: '/om-oss/tillitsvalgt',
+    },
+    '/about/devops': {
+      en: '/about/devops',
+      no: '/om-oss/devops',
     },
     '/about/labops': {
-      en: '/labops',
-      no: '/labops',
+      en: '/about/labops',
+      no: '/om-oss/labops',
     },
     '/about/breadboard-computer': {
-      en: '/breadboard-computer',
-      no: '/breadboard-computer',
+      en: '/about/breadboard-computer-group',
+      no: '/om-oss/breadboard-computer-gruppe',
     },
     '/about/game': {
-      en: '/game',
-      no: '/spill',
+      en: '/about/game-group',
+      no: '/om-oss/spill-gruppe',
     },
     '/about/ttrpg': {
-      en: '/ttrpg',
-      no: '/ttrpg',
+      en: '/about/ttrpg-group',
+      no: '/om-oss/ttrpg-gruppe',
     },
     '/storage': {
       en: '/storage',
