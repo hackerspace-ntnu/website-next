@@ -4,14 +4,26 @@ import {
   TableCaption,
   TableRow,
 } from '@/components/ui/Table';
+import { useTransition } from 'react';
+
+type Member = {
+  name: string;
+  image: string;
+};
+
+type MembersTableProps = {
+  Members: Member[];
+};
 
 function MembersTable() {
   return (
-    <Table>
-      <TableRow />
-      <TableBody> name of a member </TableBody>
-      <TableRow />
-    </Table>
+    <div>
+      <Table>
+        <TableRow />
+        <TableBody> name of a member </TableBody>
+        <TableRow />
+      </Table>
+    </div>
   );
 }
 
