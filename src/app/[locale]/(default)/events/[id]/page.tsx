@@ -1,12 +1,12 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
+import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { Badge } from '@/components/ui/Badge';
 
 export async function generateMetadata({
   params,
