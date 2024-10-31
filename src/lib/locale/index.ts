@@ -18,9 +18,17 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
-    '/sign-in': {
-      en: '/sign-in',
-      no: '/logg-inn',
+    '/auth/sign-in': {
+      en: '/auth/sign-in',
+      no: '/autentisering/logg-inn',
+    },
+    '/auth/create-account': {
+      en: '/auth/create-account',
+      no: '/autentisering/opprett-konto',
+    },
+    '/auth/forgot-password': {
+      en: '/auth/forgot-password',
+      no: '/autentisering/glemt-passord',
     },
     '/events': {
       en: '/events',

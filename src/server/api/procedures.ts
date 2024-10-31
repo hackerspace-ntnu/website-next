@@ -1,9 +1,9 @@
-import { t } from '@/server/api/trpc';
+import { trpc } from '@/server/api/trpc';
 
-const timingMiddleware = t.middleware(async ({ next, path }) => {
+const timingMiddleware = trpc.middleware(async ({ next, path }) => {
   const start = Date.now();
 
-  if (t._config.isDev) {
+  if (trpc._config.isDev) {
     const waitMs = Math.floor(Math.random() * 400) + 100;
     await new Promise((resolve) => setTimeout(resolve, waitMs));
   }
@@ -16,6 +16,6 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   return result;
 });
 
-const publicProcedure = t.procedure.use(timingMiddleware);
+const publicProcedure = trpc.procedure.use(timingMiddleware);
 
 export { publicProcedure };

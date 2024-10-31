@@ -1,17 +1,18 @@
 import { Main } from '@/components/layout/Main';
 import { Card } from '@/components/ui/Card';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
-type DefaultLayoutProps = {
+type SignInLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function SignInLayout({
+export default async function SignInLayout({
   children,
-  params: { locale },
-}: DefaultLayoutProps) {
-  unstable_setRequestLocale(locale);
+  params,
+}: SignInLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <Main className='flex items-center justify-center'>
       <Card className='~p-4/8 rounded-xl bg-background'>{children}</Card>

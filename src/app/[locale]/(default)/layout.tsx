@@ -8,13 +8,11 @@ type DefaultLayoutProps = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function DefaultLayout(props: DefaultLayoutProps) {
-  const params = await props.params;
-
-  const { locale } = params;
-
-  const { children } = props;
-
+export default async function DefaultLayout({
+  children,
+  params,
+}: DefaultLayoutProps) {
+  const { locale } = await params;
   setRequestLocale(locale);
   return (
     <>

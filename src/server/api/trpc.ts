@@ -3,7 +3,7 @@ import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
-const t = initTRPC.context<typeof createContext>().create({
+const trpc = initTRPC.context<typeof createContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {
@@ -17,8 +17,8 @@ const t = initTRPC.context<typeof createContext>().create({
   },
 });
 
-const createCallerFactory = t.createCallerFactory;
+const createCallerFactory = trpc.createCallerFactory;
 
-const createRouter = t.router;
+const createRouter = trpc.router;
 
-export { createRouter, createCallerFactory, t };
+export { createRouter, createCallerFactory, trpc };
