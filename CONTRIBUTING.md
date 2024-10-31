@@ -19,7 +19,7 @@ Also, setup environment variables by copying the `.env.example` file to `.env` a
 Then, run the development server:
 
 ```bash
-bun dev
+bun --bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -31,13 +31,13 @@ When you build the project, you pre-render all the Server Side Generated (SSG) p
 You can build the project with the following command:
 
 ```bash
-bun run build
+bun --bun run build
 ```
 
 To serve the build locally, run:
 
 ```bash
-bun run start
+bun --bun run start
 ```
 
 ### Check linting and formatting

@@ -1,12 +1,4 @@
 services:
-  app:
-    build: .
-    depends_on:
-    - db
-    - s3
-    restart: unless-stopped
-    networks:
-      - nginx_default
   db:
     image: postgres:16
     restart: unless-stopped
@@ -16,8 +8,9 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    networks:
-      - nginx_default
+    ports:
+      - 5432:5432
+    user: '501:20'
   s3:
     image: bitnami/minio:2024
     restart: unless-stopped
@@ -27,8 +20,7 @@ services:
       MINIO_DEFAULT_BUCKETS: ${STORAGE_NAME}
     volumes:
       - ./data/s3:/bitnami/minio/data
-    networks:
-      - nginx_default
-networks:
-  nginx_default:
-    external: true
+    ports:
+      - 9000:9000
+      - 9001:9001
+    user: '501:20'

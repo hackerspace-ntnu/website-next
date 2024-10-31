@@ -5,18 +5,20 @@
   "type": "module",
   "scripts": {
     "prepare": "cross-env-shell '[ \"$NODE_ENV\" != \"production\" ] && lefthook install || exit 0'",
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
     "build": "next build",
     "postbuild": "mkdir -p .next/standalone/public .next/standalone/.next/static && cp -r public/* .next/standalone/public && cp -r .next/static/* .next/standalone/.next/static",
-    "start": "bun run .next/standalone/server.js",
-    "db:start": "docker-compose up db",
+    "start": "drizzle-kit migrate && bun run .next/standalone/server.js",
+    "db:start": "docker-compose -f compose.local.yml up db -d",
+    "db:stop": "docker-compose -f compose.local.yml down",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "s3:start": "docker-compose up s3"
+    "s3:start": "docker-compose -f compose.local.yml up s3 -d",
+    "s3:stop": "docker-compose -f compose.local.yml down"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.679.0",
@@ -43,7 +45,6 @@
     "cva": "^1.0.0-beta.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.33.0",
-    "lucia": "3.2.0",
     "lucide-react": "^0.396.0",
     "next": "^15.0.1",
     "next-intl": "^3.23.5",
