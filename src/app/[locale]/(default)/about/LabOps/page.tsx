@@ -1,11 +1,9 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
-import { Card } from '@/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
+import { Card } from '@/components/ui/Card';
 
-import * as React from 'react';
-import ClientLabOpsPage from './ClientPage'; // Ensure this path is correct
+import { FAQAccordion } from '@/components/about/FAQAccordion';
 
 export default function labopsPage({
     params: { locale },
@@ -13,49 +11,21 @@ export default function labopsPage({
     params: { locale: string};
   }) {
     unstable_setRequestLocale(locale);
-    const t = useTranslations('labops');
+    const t = useTranslations('about.labops');
+
+    const faqs = [
+        { id: 'faq1', question: t('FAQ.question1'), answer: t('FAQ.answer1') },
+        { id: 'faq1', question: t('FAQ.question2'), answer: t('FAQ.answer2') },
+        { id: 'faq1', question: t('FAQ.question3'), answer: t('FAQ.answer3') },
+      ];
+    
 
     return (
         <div>
-            <div className=' flex flex-col items-center'>
-                <div className='flex max-h-[600px] w-full max-w-full items-center justify-center sm:max-h-[400px] sm:max-w-[400px]'>
-                    <ClientLabOpsPage locale={locale} />
-                </div>
-            </div>
-            <h1 className='mt-4 mb-5 w-full dark:text-primary'> LabOps </h1>
-          <div className='mt-5 mb-5 flex w-full'>
-            <p>
-                {t('aboutLabOps')}
-            </p>
-          </div>
+            <h1 className='mt-4 mb-4 w-full dark:text-primary'> {t('title')} </h1>
+          <div className='flex w-full'> {t('about')} </div>
           <div className='mt-10 mb-10'>
-            <h3> FAQ'S </h3>
-            <Accordion type="single" collapsible className='w-full dark:text-foreground'>
-                <AccordionItem value='item-1'>
-                    <AccordionTrigger className='m-2'>
-                        hei
-                    </AccordionTrigger>
-                    <AccordionContent className='m-2 text-base'>
-                        heheeh
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value='item-2'>
-                    <AccordionTrigger className='m-2'>
-                        hei
-                    </AccordionTrigger>
-                    <AccordionContent className='m-2 text-base'>
-                        heheeh
-                    </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value='item-3'>
-                    <AccordionTrigger className='m-2'>
-                        hei
-                    </AccordionTrigger>
-                    <AccordionContent className='m-2 text-base'>
-                        heheeh
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
+            <FAQAccordion faqs={(faqs)}/>
           </div>
           <div className='max-x-xs w-full px-10'>
             <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>

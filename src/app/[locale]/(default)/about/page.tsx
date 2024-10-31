@@ -3,9 +3,9 @@ import { Button } from 'src/components/ui/Button';
 import React from 'react';
 import { Card, CardContent, CardHeader } from 'src/components/ui/Card';
 import { useTranslations } from 'next-intl';
-import { Map, Printer, Gamepad2, SquareUserRound } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
+import { Map , Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Meteors } from '@/components/ui/Meteor';
+import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,37 +16,44 @@ export default function AboutPage({
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('about');
+  const tFAQ = useTranslations('about.FAQ')
 
 const cardData = [
-  { id: 1, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
-  { id: 2, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
-  { id: 3, title: t('example-title'), content: t('example-text'), link: `/${locale}/about/leaderboard`},
+  { id: 1, title: t('leaderboard.title'), content: t('leaderboard.about'), link: `/${locale}/about/leaderboard`},
+  { id: 2, title: t('memberRepresentative.title'), 
+    content: t.rich('memberRepresentative.about', {
+      p1: (chunks) => <p className='p1'> {chunks}</p>,
+      p2: (chunks) => <p className='p2'> {chunks}</p>
+    }), 
+    link: `/${locale}/about/leaderboard`},
+  { id: 3, title: t('devops.title'), content: t('devops.about'), link: `/${locale}/about/leaderboard`},
+  { id: 4, title: t('labops.title'), content: t('labops.about'), link: `/${locale}/about/leaderboard`},
+  { id: 5, title: t('breadboard-computer-group.title'), content: t('breadboard-computer-group.about'), link: `/${locale}/about/labops`},
+  { id: 6, title: t('game-group.title'), content: t('game-group.about'), link: `/${locale}/about/devops`},
+  { id: 7, title: t('ttrpg-group.title'), content: t('ttrpg-group.about'), link: ''},
 ];
 
-const faqItems = [
+const faqs: FAQ[] = [
   {
     id: 'item-1',
-    icon: Printer,
-    question: t('canIUseThe3dPrinter'),
-    answer: t.rich('answerCanIUseThe3dPrinter', {
+    icon: <Printer />,
+    question: tFAQ('canIUseThe3dPrinter'),
+    answer: tFAQ.rich('answerCanIUseThe3dPrinter', {
       p1: (chunks) => <p className="p1">{chunks}</p>,
       p2: (chunks) => <p className="p2">{chunks}</p>
     })
   },
   {
     id: 'item-2',
-    icon: Gamepad2,
-    question: t('canITryVRGames-Equipment'),
-    answer: t('answerCanITryVRGames-Equipment')
+    icon: <Gamepad2/>,
+    question: tFAQ('canITryVRGames-Equipment'),
+    answer: tFAQ('answerCanITryVRGames-Equipment')
   },
   {
     id: 'item-3',
-    icon: SquareUserRound,
-    question: t('howDoIBecomeAMember'),
-    answer: t.rich('answerHowDoIBecomeAMember', {
+    icon: <SquareUserRound/>,
+    question: tFAQ('howDoIBecomeAMember'),
+    answer: tFAQ.rich('answerHowDoIBecomeAMember', {
       p1: (chunks) => <p className="p1">{chunks}</p>,
       p2: (chunks) => <p className="p2">{chunks}</p>
     })
@@ -78,24 +85,9 @@ const faqItems = [
         <Button className=''> <Map className='m-1'/> {t('showMap')} </Button>
       </Link>
     </div>
-    <div> 
-      <h3 className='mt-10'> FAQ's </h3>
-      <Accordion type="single" collapsible className='mb-10 w-full'>
-        {faqItems.map(item => (
-          <AccordionItem key={item.id} value={item.id}>
-            <AccordionTrigger>
-              <div className='m-2 flex items-center'>
-                <item.icon className='mr-2' />
-                <h4 className='text-left font-medium'>{item.question}</h4>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className='m-2 text-base'>
-              {item.answer}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
+
+    <FAQAccordion faqs={(faqs)}/>
+
     <div className='max-x-xs relative w-full'>
       <h2 className='content-center items-center text-center'> {t('activeGroup')} </h2>
       <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
@@ -103,7 +95,7 @@ const faqItems = [
           <div key={card.id} className='group relative p-4'>
             <Card className='relative overflow-hidden group-hover:underline'>
               <CardHeader className='font-semibold text-xl'>{card.title}</CardHeader>
-              <CardContent>{card.content}</CardContent>
+              <CardContent className='max-h-30 overflow-hidden text-ellipsis whitespace-normal'>{card.content}</CardContent>
               <div className='absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
                 <Meteors number={10} className={'absolute inset-0 z-10'} hoverDelay='0.5s' />
               </div>

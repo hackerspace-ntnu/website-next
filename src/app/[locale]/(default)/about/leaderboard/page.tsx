@@ -10,15 +10,15 @@ export default function LeaderboardPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  const t = useTranslations('leaderboard');
+  const t = useTranslations('about.leaderboard');
+  
 
   return (
-    
     <div>
-      <h1 className='mt-4 mb-5 w-full dark:text-primary'> {t('leaderboard.title')} </h1>
+      <h1 className='mt-4 mb-5 w-full dark:text-primary'> {t('title')} </h1>
       <div className='mt-5 mb-5 flex w-full'>
         <p>
-          {t('aboutLeaderboard')}
+          {t('about')}
         </p>
       </div>
       <div>

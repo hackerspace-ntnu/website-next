@@ -4,8 +4,6 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
-import * as React from 'react';
-import ClientBreadboardComputerPage from './ClientPage';
 
 export default function BreadBoardComputerPage({
     params: { locale },
