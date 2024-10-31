@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/Card';
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
+import { Badge } from '@/components/ui/Badge';
 import { cx } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -20,6 +21,7 @@ type EventCardProps = {
   imagePath?: string;
   startTime: Date;
   endTime: Date;
+  internal: boolean;
   locale: string;
   wrapperClassName?: string;
   cardClassName?: string;
@@ -62,6 +64,9 @@ async function EventCard(props: EventCardProps) {
         <CardHeader>
           <CardTitle>{props.title}</CardTitle>
           <CardDescription>{props.subheader}</CardDescription>
+          {props.internal && (
+            <Badge className='mx-auto w-fit rounded-full'>Internal</Badge>
+          )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>
           <p>{props.description}</p>

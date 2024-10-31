@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/Separator';
 import { events } from '@/mock-data/events';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { Badge } from '@/components/ui/Badge';
 
 export async function generateMetadata({
   params,
@@ -57,6 +58,7 @@ export default async function EventDetailsPage({
       <h1 className='my-4'>{event.title}</h1>
       <h3>{event.subheader}</h3>
       <div className='mt-4 space-y-4'>
+        {event.internal && <Badge className='rounded-full'>Internal</Badge>}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />
           {

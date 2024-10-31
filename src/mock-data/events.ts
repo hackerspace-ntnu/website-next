@@ -9,6 +9,7 @@ export const events = [
     endTime: '2025-01-12T19:00:00+02:00',
     imagePath: '/events.jpg',
     location: 'Hackerspace verkstedet',
+    internal: true,
   },
   {
     id: 2,
@@ -21,6 +22,7 @@ export const events = [
     endTime: '2025-01-14T20:30:00+02:00',
     imagePath: '/events.jpg',
     location: 'R50',
+    internal: false,
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ export const events = [
     endTime: '2025-01-16T17:30:00+02:00',
     imagePath: '/events.jpg',
     location: 'Smia',
+    internal: false,
   },
   {
     id: 4,
@@ -44,6 +47,7 @@ export const events = [
     endTime: '2025-01-22T21:00:00+02:00',
     imagePath: '/events.jpg',
     location: 'Hackerspace verkstedet',
+    internal: false,
   },
   {
     id: 5,
@@ -56,6 +60,7 @@ export const events = [
     endTime: '2025-01-22T19:30:00+02:00',
     imagePath: '/events.jpg',
     location: 'Hackerspace verkstedet',
+    internal: false,
   },
   {
     id: 6,
@@ -67,6 +72,7 @@ export const events = [
     endTime: '2024-10-09T17:30:00+02:00',
     imagePath: '/events.jpg',
     location: 'R51',
+    internal: true,
   },
   {
     id: 7,
@@ -78,6 +84,7 @@ export const events = [
     endTime: '2024-10-11T19:00:00+02:00',
     imagePath: '/events.jpg',
     location: 'Hackerspace verkstedet',
+    internal: true,
   },
   {
     id: 8,
@@ -90,5 +97,6 @@ export const events = [
     endTime: '2024-10-14T20:00:00+02:00',
     imagePath: '/events.jpg',
     location: 'R50',
+    internal: false,
   },
 ];

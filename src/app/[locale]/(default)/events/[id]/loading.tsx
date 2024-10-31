@@ -1,7 +1,6 @@
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Separator } from '@/components/ui/Separator';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { ArrowLeftIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
 
 export default function EventDetailsLoading() {
   return (

@@ -41,6 +41,7 @@ export default async function EventsPage({
           imagePath={event.imagePath}
           startTime={new Date(event.startTime)}
           endTime={new Date(event.endTime)}
+          internal={event.internal}
           locale={locale}
           _active
         />
@@ -57,6 +58,7 @@ export default async function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            internal={event.internal}
             locale={locale}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
@@ -75,6 +77,7 @@ export default async function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            internal={event.internal}
             locale={locale}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
