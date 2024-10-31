@@ -9,7 +9,7 @@ import {
   useForm,
 } from '@tanstack/react-form';
 import { zodValidator } from '@tanstack/zod-form-adapter';
-import * as React from 'react';
+import { createContext, useContext, useId } from 'react';
 import type { z } from 'zod';
 
 import { cx } from '@/lib/utils';
@@ -64,7 +64,7 @@ type FormItemContextValue = {
   errors: ValidationError[];
 };
 
-const FormItemContext = React.createContext<FormItemContextValue>(
+const FormItemContext = createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
 
@@ -73,7 +73,7 @@ const FormItem = ({
   errors,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { errors: ValidationError[] }) => {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <FormItemContext.Provider value={{ id, errors }}>
@@ -83,7 +83,7 @@ const FormItem = ({
 };
 
 const useFormItem = () => {
-  const itemContext = React.useContext(FormItemContext);
+  const itemContext = useContext(FormItemContext);
 
   if (!itemContext) {
     throw new Error('useFormField should be used within <FormItem>');
