@@ -1,6 +1,7 @@
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { publicProcedure } from '@/server/api/procedures';
+import { createRouter } from '@/server/api/trpc';
 
-const testRouter = createTRPCRouter({
+const testRouter = createRouter({
   helloWorld: publicProcedure.query(async () => {
     return 'Hello, World!';
   }),

@@ -13,6 +13,9 @@ const routing = defineRouting({
   locales: ['en', 'no'],
   defaultLocale: 'no',
   localePrefix: 'as-needed',
+  localeCookie: {
+    name: 'locale',
+  },
   pathnames: {
     '/': '/',
     '/sign-in': {
