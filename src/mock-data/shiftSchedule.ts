@@ -1,77 +1,77 @@
 const shiftScheduleMockData = {
   monday: {
-    '10:15 - 12:07': {
+    first: {
       members: [{ name: 'En person' }],
     },
-    '12:07 - 14:07': {
+    second: {
       members: [{ name: 'En person' }],
     },
-    '14:07 - 16:07': {
+    third: {
       members: [
         { name: 'En person' },
         { name: 'En annen person' },
         { name: 'Person 3' },
       ],
     },
-    '16:07 - 18:00': {
+    fourth: {
       members: [{ name: 'En person' }],
     },
   },
   tuesday: {
-    '10:15 - 12:07': {
+    first: {
       members: [{ name: 'En person' }],
     },
-    '12:07 - 14:07': {
+    second: {
       members: [{ name: 'En person' }],
     },
-    '14:07 - 16:07': {
+    third: {
       members: [
         { name: 'En person' },
         { name: 'En annen person' },
         { name: 'Person 3' },
       ],
     },
-    '16:07 - 18:00': {
+    fourth: {
       members: [{ name: 'En person' }],
     },
   },
   wednesday: {
-    '10:15 - 12:07': {
+    first: {
       members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
-    '12:07 - 14:07': {
+    second: {
       members: [],
     },
-    '14:07 - 16:07': {
+    third: {
       members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
-    '16:07 - 18:00': {
+    fourth: {
       members: [{ name: 'En person' }, { name: 'En annen person' }],
     },
   },
   thursday: {
-    '10:15 - 12:07': {
+    first: {
       members: [{ name: 'En person' }],
     },
-    '12:07 - 14:07': {
+    second: {
       members: [
         { name: 'En person' },
         { name: 'En annen person' },
         { name: 'Person 3' },
       ],
     },
-    '14:07 - 16:07': {
+    third: {
       members: [],
     },
-    '16:07 - 18:00': {
+    fourth: {
       members: [],
     },
   },
   friday: {
-    '10:15 - 12:07': {
+    first: {
       members: [],
     },
-    '12:07 - 14:07': {
+    second: {
       members: [
         {
           name: 'En person med veldig langt navn så jeg kan teste navn som bruker to linjer',
@@ -79,10 +79,10 @@ const shiftScheduleMockData = {
         { name: 'En annen person' },
       ],
     },
-    '14:07 - 16:07': {
+    third: {
       members: [{ name: 'En person' }],
     },
-    '16:07 - 18:00': {
+    fourth: {
       members: [{ name: 'En person' }],
     },
   },

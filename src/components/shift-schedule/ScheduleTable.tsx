@@ -8,21 +8,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { getTime, toDate } from 'date-fns';
-import { TimeSpan } from 'lucia';
 import { useFormatter, useTranslations } from 'next-intl';
 
-export type ScheduleEntryProps = {
+type ScheduleEntryProps = {
   members: {
     name: string;
   }[];
 };
 
 type ScheduleDayProps = {
-  '10:15 - 12:07': ScheduleEntryProps;
-  '12:07 - 14:07': ScheduleEntryProps;
-  '14:07 - 16:07': ScheduleEntryProps;
-  '16:07 - 18:00': ScheduleEntryProps;
+  first: ScheduleEntryProps;
+  second: ScheduleEntryProps;
+  third: ScheduleEntryProps;
+  fourth: ScheduleEntryProps;
 };
 
 type ScheduleTableProps = {
@@ -46,12 +44,44 @@ function ScheduleTable({ week }: ScheduleTableProps) {
     'thursday',
     'friday',
   ] as const;
-  const times = [
-    '10:15 - 12:07',
-    '12:07 - 14:07',
-    '14:07 - 16:07',
-    '16:07 - 18:00',
-  ] as const;
+  const timeslots = ['first', 'second', 'third', 'fourth'] as const;
+
+  function getDateTimeRange(timeslot: string) {
+    let firstDate: Date;
+    let secondDate: Date;
+
+    switch (timeslot) {
+      case timeslots[0]:
+        firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
+        secondDate = new Date(0, 0, 0, 12, 7, 0, 0);
+        break;
+
+      case timeslots[1]:
+        firstDate = new Date(0, 0, 0, 12, 7, 0, 0);
+        secondDate = new Date(0, 0, 0, 14, 7, 0, 0);
+        break;
+
+      case timeslots[2]:
+        firstDate = new Date(0, 0, 0, 14, 7, 0, 0);
+        secondDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        break;
+
+      case timeslots[3]:
+        firstDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        secondDate = new Date(0, 0, 0, 18, 0, 0, 0);
+        break;
+
+      default:
+        firstDate = new Date();
+        secondDate = new Date();
+    }
+
+    return format.dateTimeRange(firstDate, secondDate, {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  }
 
   return (
     <>
@@ -68,15 +98,17 @@ function ScheduleTable({ week }: ScheduleTableProps) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {times.map((time) => (
-                <TableRow key={time}>
-                  <TableCell className='border-y'>{time}</TableCell>
+              {timeslots.map((timeslot) => (
+                <TableRow key={timeslot}>
+                  <TableCell className='border-y'>
+                    {getDateTimeRange(timeslot)}
+                  </TableCell>
                   <ScheduleCell
                     tDialog={{
                       day: t('day', { day: day }),
-                      time: time,
+                      time: getDateTimeRange(timeslot),
                     }}
-                    members={week[day][time].members}
+                    members={week[day][timeslot].members}
                   />
                 </TableRow>
               ))}
@@ -101,17 +133,19 @@ function ScheduleTable({ week }: ScheduleTableProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {times.map((time) => (
-            <TableRow key={time}>
-              <TableCell className='min-w-32 border-y'>{time}</TableCell>
+          {timeslots.map((timeslot) => (
+            <TableRow key={timeslot}>
+              <TableCell className='min-w-32 border-y'>
+                {getDateTimeRange(timeslot)}
+              </TableCell>
               {days.map((day) => (
                 <ScheduleCell
                   key={day}
                   tDialog={{
                     day: t('day', { day: day }),
-                    time: time,
+                    time: getDateTimeRange(timeslot),
                   }}
-                  members={week[day][time].members}
+                  members={week[day][timeslot].members}
                 />
               ))}
             </TableRow>
