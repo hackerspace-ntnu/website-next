@@ -21,17 +21,12 @@ export default function ShiftScheduleLayout() {
     'thursday',
     'friday',
   ] as const;
-  const timeslots = [
-    'first',
-    'second',
-    'third',
-    'fourth',
-  ] as const;
+  const timeslots = ['first', 'second', 'third', 'fourth'] as const;
 
   function getDateTimeRange(timeslot: string) {
     let firstDate: Date;
     let secondDate: Date;
-  
+
     switch (timeslot) {
       case timeslots[0]:
         firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
@@ -58,17 +53,11 @@ export default function ShiftScheduleLayout() {
         secondDate = new Date();
     }
 
-    return (
-      format.dateTimeRange(
-        firstDate,
-        secondDate,
-        {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false
-        }
-      )
-    )
+    return format.dateTimeRange(firstDate, secondDate, {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
   }
 
   return (
@@ -88,7 +77,9 @@ export default function ShiftScheduleLayout() {
             <TableBody>
               {timeslots.map((timeslot) => (
                 <TableRow key={timeslot}>
-                  <TableCell className='border-y'>{getDateTimeRange(timeslot)}</TableCell>
+                  <TableCell className='border-y'>
+                    {getDateTimeRange(timeslot)}
+                  </TableCell>
                   <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
                     <Skeleton className='size-full' />
                   </TableCell>
@@ -117,7 +108,9 @@ export default function ShiftScheduleLayout() {
         <TableBody>
           {timeslots.map((timeslot) => (
             <TableRow key={timeslot}>
-              <TableCell className='min-w-32 border-y'>{getDateTimeRange(timeslot)}</TableCell>
+              <TableCell className='min-w-32 border-y'>
+                {getDateTimeRange(timeslot)}
+              </TableCell>
               {days.map((day) => (
                 <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
                   <Skeleton className='size-full' />

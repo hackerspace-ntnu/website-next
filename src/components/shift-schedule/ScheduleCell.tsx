@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
 import { TableCell } from '@/components/ui/Table';
 import { cx } from '@/lib/utils';
 import { UserIcon, UsersIcon } from 'lucide-react';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 type ScheduleCellProps = {
   tDialog: {
@@ -22,9 +22,10 @@ function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
     <TableCell className='h-20 min-w-52 border p-1.5'>
       <Dialog>
         <DialogTrigger asChild>
-          <div
+          <button
+            type='button'
             className={cx(
-              'flex size-full gap-2 rounded-md p-3',
+              'flex size-full gap-2 rounded-md p-3 text-left',
               members.length === 0
                 ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
                 : 'bg-foreground/20 hover:bg-foreground/25',
@@ -38,17 +39,17 @@ function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
             ) : (
               <></>
             )}
-            <div>
+            <div className='flex flex-col'>
               {/* Amount of people on shift */}
               <span>{t('onShift', { count: members.length })}</span>
               {/* Skill icons */}
               {members.length === 0 ? (
                 <></>
               ) : (
-                <section className='leading-7'>[skill icons total]</section>
+                <span className='leading-7'>[skill icons total]</span>
               )}
             </div>
-          </div>
+          </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
           <ScheduleCellDialog tDialog={tDialog} members={members} />
