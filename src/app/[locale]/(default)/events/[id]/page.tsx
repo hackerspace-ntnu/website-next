@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Separator } from '@/components/ui/Separator';
@@ -8,10 +8,11 @@ import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
@@ -27,12 +28,13 @@ function datesOnSameDay(date1: Date, date2: Date) {
   );
 }
 
-export default function EventDetailsPage({
-  params: { locale, id },
+export default async function EventDetailsPage({
+  params,
 }: {
-  params: { locale: string; id: string };
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  unstable_setRequestLocale(locale);
+  const { locale, id } = await params;
+  setRequestLocale(locale);
   const event = events.find((event) => event.id.toString() === id);
 
   if (!event) return notFound();
