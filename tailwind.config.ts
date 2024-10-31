@@ -6,7 +6,7 @@ import tailwindAnimate from 'tailwindcss-animate';
 import tailwindRadix from 'tailwindcss-radix';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
-const config = {
+const config: Config = {
   content: {
     files: ['./src/**/*.tsx'],
     extract,
@@ -80,12 +80,14 @@ const config = {
     },
   },
   plugins: [
-    tailwindContainerQueries,
+    tailwindRadix({
+      variantPrefix: false,
+    }),
     tailwindFluid,
     tailwindAnimate,
     tailwindScrollbar({ nocompatible: true }),
     tailwindRadix({ variantPrefix: 'rdx' }),
   ],
-} satisfies Config;
+};
 
 export default config;

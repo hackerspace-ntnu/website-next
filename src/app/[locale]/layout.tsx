@@ -1,13 +1,12 @@
 import { RootProviders } from '@/components/providers/RootProviders';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
-import type { Viewport } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 const inter = Inter({
@@ -26,13 +25,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const viewport: Viewport = {
-  themeColor: '#0c0a09',
-};
-
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: Omit<LocaleLayoutProps, 'children'>) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -69,11 +65,14 @@ export async function generateMetadata({
   };
 }
 
-export default function LocaleLayout({
-  children,
-  params: { locale },
-}: LocaleLayoutProps) {
-  unstable_setRequestLocale(locale);
+export default async function LocaleLayout(props: LocaleLayoutProps) {
+  const params = await props.params;
+
+  const { locale } = params;
+
+  const { children } = props;
+
+  setRequestLocale(locale);
   return (
     <html
       className={cx('h-full w-full', inter.variable, montserrat.variable)}

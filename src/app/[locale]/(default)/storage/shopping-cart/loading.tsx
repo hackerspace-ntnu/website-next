@@ -2,7 +2,7 @@ import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTabl
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useTranslations } from 'next-intl';
 
-export default function ShoppingCartSkeleton() {
+export default function ShoppingCartLoading() {
   const t = useTranslations('storage.shoppingCart');
   const tableMessages = {
     productId: t('productId'),
