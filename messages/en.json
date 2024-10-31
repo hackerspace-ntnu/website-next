@@ -99,12 +99,12 @@
       "about": "The main tasks of DevOps are to develop and manage Hackerspace's website, but we also work on the operation of infrastructure, databases, servers, and are responsible for various gadgets.",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
-        "question1": "Does DevOps requires any programming-knowledge before becoming a member? ",
-        "answer1": "You don't need any programming-knowledge before joing our group. Our group are welcome for everybody who wants to learn. As a new member, you'll go through our 'get-to-know'-program that will show you our prosedure and technoliges that we use. But don't worry, you can take everything in your own tempo!",
-        "question2": "What is the main focus for DevOps this semester?",
-        "answer2": "We are focusing on launching a new website for Hackerspace. The technologies that we use is ....",
-        "question3": "Can I choose what I want to work with?",
-        "answer3": "Yes, of course everybody get to choose the task they want to work with. Prior to our focus on luanching new website, the tasks wil be related to this. But you can also pitche an idea that you want to implement on our website and hear what the rest of the groups think about it."
+        "question1": "",
+        "answer1": "",
+        "question2": "",
+        "answer2": "",
+        "question3": "",
+        "answer3": ""
       },
       "leader": "Leader",
       "deputyLeader": "Deputy Leader",
@@ -115,12 +115,12 @@
       "about": "The main tasks of LabOps are to run Hackerspace's premises, plan and carry out events, hold stands and run other promotions.",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
-        "question1": "",
-        "answer1": "",
-        "question2": "",
-        "answer2": "",
-        "question3": "",
-        "answer3": ""
+        "question1": "hei?",
+        "answer1": "hallo <3",
+        "question2": "hei?",
+        "answer2": "hallo <3",
+        "question3": "hei?",
+        "answer3": "hallo <3"
       },
       "leader": "Leader",
       "deputyLeader": "Deputy Leader",
@@ -160,7 +160,7 @@
     },
     "ttrpg-group": {
       "title": "Project: ttrpg",
-      "about": "bruhugrugeueu",
+      "about": "",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
