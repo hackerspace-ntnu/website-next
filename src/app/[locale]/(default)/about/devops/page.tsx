@@ -14,13 +14,13 @@ export default function devopsPage({
 
   return (
     <div>
-        <h1 className='mt-4 mb-4 w-full dark:text-primary'> DevOps </h1>
+        <h1 className='mt-4 mb-4 w-full'> DevOps </h1>
         <div className='flex w-full'> {t('about')} </div>
       <div className='mt-10 mb-10'>
         
       </div>
       <div className='max-x-xs w-full px-10'>
-        <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 dark:text-primary'>
+        <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
             <div className='grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2'>
                 <div>
                     <h3 className='mb-2'> Leder </h3>
@@ -33,51 +33,6 @@ export default function devopsPage({
             </div>
             <div>
                 <h3 className=''> Medlemmer </h3>
-                <ul role='list' className='divide-y divide-grey-100 dark:text-foreground'>
-                    <li className='flex justify-between gap-x-6 py-1'>
-                        <div className='flex min-w-0 gap-4'>
-                            <Image className='pizzaWolfs flex-none rounded-full bg-grey-50'
-                                src="/about/pizzaWolfs-min.png" 
-                                alt="pizza wolfs" 
-                                height={40} 
-                                width={40}/>
-                            <div className='min-w-0 flex-center'>
-                                <p className='leading-10 '>
-                                    John Doe
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li className='flex justify-between gap-x-6 py-1'>
-                        <div className='flex min-w-0 gap-4'>
-                            <Image className='pizzaWolfs flex-none rounded-full bg-grey-50'
-                                src="/about/pizzaWolfs-min.png" 
-                                alt="pizza wolfs" 
-                                height={40} 
-                                width={40}/>
-                            <div className='min-w-0 flex-center'>
-                                <p className='text- leading-10'>
-                                    Kari Nordmann
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                    <li className='flex justify-between gap-x-6 py-1'>
-                        <div className='flex min-w-0 gap-4'>
-                            <Image className='pizzaWolfs flex-none rounded-full bg-grey-50'
-                                src="/about/pizzaWolfs-min.png" 
-                                alt="pizza wolfs" 
-                                height={40} 
-                                width={40}/>
-                            <div className='min-w-0 flex-center'>
-                                <p className='text- leading-10'>
-                                    Ola Nordmann
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
             </div>
         </div>
       </div>
