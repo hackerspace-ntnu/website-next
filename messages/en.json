@@ -74,19 +74,16 @@
       "answerHowDoIBecomeAMember": "<p1> Hackerspace has ongoing admissions. You can apply whenever you want. We usually respond within 3 working weeks. </p1> <p2> Note that you do not need membership to borrow equipment or try something cool. Come by for a chat during our opening hours to learn more about our offerings and what it's like to be a member. </p2>"
     },
     "activeGroup": "Our Active Groups",
-
-    "example-title": "Lorem Ipsum",
-    "example-text": "Lorem ipsum dolor sit amet. Aut rerum illum ut voluptatem enim qui consequatur exercitationem nam molestias fugit est expedita voluptas. Ad quas reiciendis non voluptas recusandae qui optio ratione.",
-
     "leaderboard": {
-      "leaderboard.title": "Leaderboard",
-      "leaderboard.about": "The leadership consists of a Leader, Deputy Leader, and Financial Officer in Hackerspace. They ensure that Hackerspace NTNU operates optimally and make decisions and planning for operations with the board.",
+      "title": "Leaderboard",
+      "about": "The leadership consists of a Leader, Deputy Leader, and Financial Officer in Hackerspace. They ensure that Hackerspace NTNU operates optimally and make decisions and planning for operations with the board.",
       "leader": "Leader",
       "deputyLeader": "Deputy Leader",
       "financialManager": "Financial Manager"
     },
-    "member-representative": {
-      "member-representative.about": "<p1> Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board. </p1> <p2> If you wish to get in touch, the representative is available on Slack. </p2>",
+    "memberRepresentative": {
+      "title": "Member representative",
+      "about": "<p1> Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board. </p1> <p2> If you wish to get in touch, the representative is available on Slack. </p2>",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
@@ -98,7 +95,8 @@
       }
     },
     "devops": {
-      "devOps.about": "The main tasks of DevOps are to develop and manage Hackerspace's website, but we also work on the operation of infrastructure, databases, servers, and are responsible for various gadgets.",
+      "title": "DevOps",
+      "about": "The main tasks of DevOps are to develop and manage Hackerspace's website, but we also work on the operation of infrastructure, databases, servers, and are responsible for various gadgets.",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "Does DevOps requires any programming-knowledge before becoming a member? ",
@@ -113,7 +111,8 @@
       "member": "Member"
     },
     "labops": {
-      "labOps.about": "The main tasks of LabOps are to run Hackerspace's premises, plan and carry out events, hold stands and run other promotions.",
+      "title": "LabOps",
+      "about": "The main tasks of LabOps are to run Hackerspace's premises, plan and carry out events, hold stands and run other promotions.",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
@@ -128,8 +127,8 @@
       "member": "Member"
     },
     "breadboard-computer-group": {
-      "breadboard-computer.title": "Breadboard Computer",
-      "breadboardComputer.about": "",
+      "title": " Project: Breadboard Computer",
+      "about": "",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
@@ -144,7 +143,8 @@
       "member": "Member"
     },
     "game-group": {
-      "game.about": "",
+      "title": "Project: game",
+      "about": "",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
@@ -159,7 +159,8 @@
       "member": "Member"
     },
     "ttrpg-group": {
-      "ttrpg.about": "",
+      "title": "Project: ttrpg",
+      "about": "bruhugrugeueu",
       "FAQ": {
         "FAQ-title": "Frequently Asked Questions",
         "question1": "",
