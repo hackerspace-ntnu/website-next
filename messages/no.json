@@ -31,6 +31,14 @@
     "goToHomepage": "Gå tilbake til hjemmesiden",
     "tryAgain": "Prøv igjen"
   },
+  "auth": {
+    "welcome": "Velkommen!",
+    "description": "Er du her for første gang? Bruk Feide",
+    "signInWith": "Logg inn med",
+    "hackerspaceAccount": "Hackerspace-konto",
+    "success": "Suksess!",
+    "home": "Hjem"
+  },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",
@@ -62,12 +70,6 @@
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
-  },
-  "signIn": {
-    "welcome": "Velkommen!",
-    "description": "Er du her for første gang? Bruk Feide",
-    "signInWith": "Logg inn med",
-    "hackerspaceAccount": "Hackerspace-konto"
   },
   "news": {
     "title": "Nyheter",

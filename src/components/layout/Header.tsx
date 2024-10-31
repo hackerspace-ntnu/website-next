@@ -18,7 +18,6 @@ function Header() {
             news: t('news'),
             events: t('events'),
             about: t('about'),
-            close: useTranslations('ui')('close'),
           }}
         />
         <LogoLink className='md:~md:~ml-12/0 ml-0' />

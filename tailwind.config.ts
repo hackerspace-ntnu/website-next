@@ -1,4 +1,3 @@
-import tailwindContainerQueries from '@tailwindcss/container-queries';
 import tailwindFluid, { extract, screens, fontSize } from 'fluid-tailwind';
 import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';

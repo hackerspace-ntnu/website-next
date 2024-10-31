@@ -18,9 +18,9 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
-    '/auth/sign-in': {
-      en: '/auth/sign-in',
-      no: '/autentisering/logg-inn',
+    '/auth': {
+      en: '/auth',
+      no: '/autentisering',
     },
     '/auth/create-account': {
       en: '/auth/create-account',
@@ -29,6 +29,10 @@ const routing = defineRouting({
     '/auth/forgot-password': {
       en: '/auth/forgot-password',
       no: '/autentisering/glemt-passord',
+    },
+    '/auth/success': {
+      en: '/auth/success',
+      no: '/autentisering/success',
     },
     '/events': {
       en: '/events',

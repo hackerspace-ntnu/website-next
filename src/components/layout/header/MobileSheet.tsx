@@ -20,7 +20,6 @@ type MobileSheetProps = {
     news: string;
     events: string;
     about: string;
-    close: string;
   };
 };
 
@@ -38,7 +37,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           <MenuIcon className='h-5 w-5' />
         </Button>
       </SheetTrigger>
-      <SheetContent side='left' close={t.close}>
+      <SheetContent side='left'>
         <SheetHeader>
           <SheetTitle className='flex'>
             <LogoLink onClick={() => setOpen(false)} />

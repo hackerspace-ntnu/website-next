@@ -31,6 +31,14 @@
     "goToHomepage": "Return to homepage",
     "tryAgain": "Try again"
   },
+  "auth": {
+    "welcome": "Welcome!",
+    "description": "Is it your first time here? Use Feide",
+    "signInWith": "Sign in with",
+    "hackerspaceAccount": "Hackerspace Account",
+    "success": "Success!",
+    "home": "Home"
+  },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
     "navigationMenu": "Navigation menu",
@@ -62,12 +70,6 @@
     "NTNUNexus": "The working life network Nexus",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
-  },
-  "signIn": {
-    "welcome": "Welcome!",
-    "description": "Is it your first time here? Use Feide",
-    "signInWith": "Sign in with",
-    "hackerspaceAccount": "Hackerspace Account"
   },
   "news": {
     "title": "News",
