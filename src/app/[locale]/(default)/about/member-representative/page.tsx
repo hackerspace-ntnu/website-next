@@ -2,6 +2,7 @@ import { Card, CardFooter } from '@/components/ui/Card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { FAQAccordion } from '@/components/about/FAQAccordion';
 
 export default function MemberRepresentativePage({
     params: { locale },
@@ -29,24 +30,7 @@ export default function MemberRepresentativePage({
                 </div>
                 <div>
                     <h3 className='dark:text-foreground'> FAQ'S </h3>
-                    
-                        <Accordion type="single" collapsible className='w-full dark:text-foreground'>
-                            <AccordionItem value='item-1'>
-                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> 
-                                   bruh
-                                </AccordionTrigger>
-                                <AccordionContent className='m-2 text-base'> Non fugiat labore quo consequatur molestiae nam sequi dignissimos sit voluptas nostrum nam autem Quis. </AccordionContent>
-                            
-                            </AccordionItem>
-                            <AccordionItem value='item-2'>
-                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> Non fugiat labore quo consequatur</AccordionTrigger>
-                                <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value='item-3'>
-                                <AccordionTrigger className='m-2 text-left font-medium text-xl'> hihi </AccordionTrigger>
-                                <AccordionContent className='m-2 text-base'> svaret ligger her  </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                    <h2> faq accordion </h2>
                     
                 </div>
             </div>
