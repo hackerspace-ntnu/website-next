@@ -25,10 +25,12 @@ export default async function EventsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('events');
+
   return (
     <>
-      <h1 className='my-4'>Events</h1>
-      <h2 className='my-2'>Active events</h2>
+      <h1 className='my-4'>{t('title')}</h1>
+      <h2 className='my-2'>{t('activeEvents')}</h2>
       {events.slice(0, 1).map((event) => (
         <EventCard
           key={event.id}
@@ -39,10 +41,11 @@ export default async function EventsPage({
           imagePath={event.imagePath}
           startTime={new Date(event.startTime)}
           endTime={new Date(event.endTime)}
+          locale={locale}
           _active
         />
       ))}
-      <h2 className='my-4'>Upcoming events</h2>
+      <h2 className='my-4'>{t('upcomingEvents')}</h2>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
           <EventCard
@@ -54,12 +57,13 @@ export default async function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            locale={locale}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
           />
         ))}
       </div>
-      <h2 className='my-4'>Past events</h2>
+      <h2 className='my-4'>{t('pastEvents')}</h2>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
           <EventCard
@@ -71,6 +75,7 @@ export default async function EventsPage({
             imagePath={event.imagePath}
             startTime={new Date(event.startTime)}
             endTime={new Date(event.endTime)}
+            locale={locale}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
           />

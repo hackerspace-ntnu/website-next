@@ -44,12 +44,13 @@ export default async function EventDetailsPage({
   const timeOptions = {
     hour: '2-digit',
     minute: '2-digit',
+    hour12: false,
   } as const;
 
-  const formattedStartTime = startDate.toLocaleTimeString('en-GB', timeOptions);
-  const formattedEndTime = endDate.toLocaleTimeString('en-GB', timeOptions);
-  const formattedStartDay = startDate.toLocaleDateString('en-GB');
-  const formattedEndDay = endDate.toLocaleDateString('en-GB');
+  const formattedStartTime = startDate.toLocaleTimeString(locale, timeOptions);
+  const formattedEndTime = endDate.toLocaleTimeString(locale, timeOptions);
+  const formattedStartDay = startDate.toLocaleDateString(locale);
+  const formattedEndDay = endDate.toLocaleDateString(locale);
 
   return (
     <>

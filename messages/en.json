@@ -132,5 +132,17 @@
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
     }
+  },
+  "events": {
+    "title": "Events",
+    "activeEvents": "Active events",
+    "upcomingEvents": "Upcoming events",
+    "pastEvents": "Past events",
+    "detailsAboutEvent": "Read more about {eventName}",
+    "startsAt": "Starts at",
+    "startedAt": "Started at",
+    "endsAt": "Ends at",
+    "endedAt": "Ended at",
+    "backToEvents": "Back to Events"
   }
 }

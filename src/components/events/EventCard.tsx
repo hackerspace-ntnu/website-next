@@ -9,6 +9,7 @@ import {
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { cx } from '@/lib/utils';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
 type EventCardProps = {
@@ -19,6 +20,7 @@ type EventCardProps = {
   imagePath?: string;
   startTime: Date;
   endTime: Date;
+  locale: string;
   wrapperClassName?: string;
   cardClassName?: string;
   _active?: boolean;
@@ -28,18 +30,20 @@ type EventCardProps = {
  * A card for an event.
  * Only set the _active prop to true if you're testing active events.
  */
-function EventCard(props: EventCardProps) {
+async function EventCard(props: EventCardProps) {
+  const t = await getTranslations('events');
+
   const dateOptions = { hour: '2-digit', minute: '2-digit' } as const;
   const formattedStartTime = props.startTime.toLocaleTimeString(
-    'en-GB',
+    props.locale,
     dateOptions,
   );
-  const formattedStartDate = props.startTime.toLocaleDateString('en-GB');
+  const formattedStartDate = props.startTime.toLocaleDateString(props.locale);
   const formattedEndTime = props.endTime.toLocaleTimeString(
-    'en-GB',
+    props.locale,
     dateOptions,
   );
-  const formattedEndDate = props.endTime.toLocaleDateString('en-GB');
+  const formattedEndDate = props.endTime.toLocaleDateString(props.locale);
 
   const started = props.startTime < new Date() || props._active;
   const ended = props.endTime < new Date();
@@ -47,7 +51,7 @@ function EventCard(props: EventCardProps) {
   return (
     <Link
       href={`/events/${props.id}`}
-      aria-label={`Read more about ${props.title}`}
+      aria-label={t('detailsAboutEvent', { eventName: props.title })}
       className={props.wrapperClassName}
     >
       <Card
@@ -67,12 +71,12 @@ function EventCard(props: EventCardProps) {
         </CardContent>
         <CardFooter className='mt-auto flex-col gap-2'>
           <span>
-            {started ? <>Started at</> : <>Starts at</>} {formattedStartTime},{' '}
-            {formattedStartDate}
+            {started ? <>{t('startedAt')}</> : <>{t('startsAt')}</>}{' '}
+            {formattedStartTime}, {formattedStartDate}
           </span>
           <span>
-            {ended ? <>Ended at</> : <>Ends at</>} {formattedEndTime},{' '}
-            {formattedEndDate}
+            {ended ? <>{t('endedAt')}</> : <>{t('endsAt')}</>}{' '}
+            {formattedEndTime}, {formattedEndDate}
           </span>
         </CardFooter>
       </Card>

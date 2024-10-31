@@ -1,10 +1,12 @@
 import { Button } from '@/components/ui/Button';
 import { ArrowLeftIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
-export default function EventDetailsLayout({
+export default async function EventDetailsLayout({
   children,
 }: { children: React.ReactNode }) {
+  const t = await getTranslations('events');
   return (
     <>
       <Link href='/events'>
@@ -14,7 +16,7 @@ export default function EventDetailsLayout({
           aria-label='Back to Events'
         >
           <ArrowLeftIcon aria-hidden='true' />
-          <span>Back to Events</span>
+          <span>{t('backToEvents')}</span>
         </Button>
       </Link>
       {children}

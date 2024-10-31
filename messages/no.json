@@ -132,5 +132,17 @@
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send"
     }
+  },
+  "events": {
+    "title": "Arrangementer",
+    "activeEvents": "Pågående arrangementer",
+    "upcomingEvents": "Kommende arrangementer",
+    "pastEvents": "Tidligere arrangementer",
+    "detailsAboutEvent": "Les mer om {eventName}",
+    "startsAt": "Starter kl.",
+    "startedAt": "Startet kl.",
+    "endsAt": "Slutter kl.",
+    "endedAt": "Sluttet kl.",
+    "backToEvents": "Tilbake til arrangementer"
   }
 }
