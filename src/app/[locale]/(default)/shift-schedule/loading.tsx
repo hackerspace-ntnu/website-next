@@ -1,4 +1,4 @@
-import { ScheduleCellSkeleton } from '@/components/shift-schedule/ScheduleCellSkeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
   TableBody,
@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/Table';
 import { useTranslations } from 'next-intl';
 
-export default function ShiftScheduleLoading() {
+export default function ShiftScheduleLayout() {
   const t = useTranslations('shiftSchedule.scheduleTable');
-  // Cannot use translation unless days and times are of these types
+
   const days = [
     'monday',
     'tuesday',
@@ -36,14 +36,16 @@ export default function ShiftScheduleLoading() {
             <TableHeader>
               <TableRow>
                 <TableHead className='w-2/5'>{t('time')}</TableHead>
-                <TableHead className='w-3/5 border-x'>{t(day)}</TableHead>
+                <TableHead className='w-3/5 border-x'>{t('day', { day: day })}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {times.map((time) => (
                 <TableRow key={time}>
                   <TableCell className='border-y'>{time}</TableCell>
-                  <ScheduleCellSkeleton />
+                  <TableCell className='h-20 min-w-52 border p-1.5'>
+                    <Skeleton className='size-full' />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -61,7 +63,7 @@ export default function ShiftScheduleLoading() {
             <TableHead className='w-1/6'>{t('time')}</TableHead>
             {days.map((day) => (
               <TableHead key={day} className='w-1/6 border-x'>
-                {t(day)}
+                {t('day', { day: day })}
               </TableHead>
             ))}
           </TableRow>
@@ -71,7 +73,9 @@ export default function ShiftScheduleLoading() {
             <TableRow key={time}>
               <TableCell className='min-w-32 border-y'>{time}</TableCell>
               {days.map((day) => (
-                <ScheduleCellSkeleton key={day} />
+                <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
+                  <Skeleton className='size-full' />
+                </TableCell>
               ))}
             </TableRow>
           ))}

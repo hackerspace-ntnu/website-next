@@ -29,8 +29,10 @@ export default async function ShiftSchedulePage({
   return (
     <>
       <AdministratorMenu
-        messages={{
-          administratorMenu: t('administratorMenu.administratorMenu'),
+        t={{
+          label: t('administratorMenu.label'),
+          open: t('administratorMenu.open'),
+          close: t('administratorMenu.close'),
           clearShiftSchedule: t('administratorMenu.clearShiftSchedule'),
         }}
       />

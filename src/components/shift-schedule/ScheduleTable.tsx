@@ -8,7 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { useTranslations } from 'next-intl';
+import { getTime, toDate } from 'date-fns';
+import { TimeSpan } from 'lucia';
+import { useFormatter, useTranslations } from 'next-intl';
 
 export type ScheduleEntryProps = {
   members: {
@@ -35,7 +37,8 @@ type ScheduleTableProps = {
 
 function ScheduleTable({ week }: ScheduleTableProps) {
   const t = useTranslations('shiftSchedule.scheduleTable');
-  // Cannot use translation unless days and times are of these types
+  const format = useFormatter();
+
   const days = [
     'monday',
     'tuesday',
@@ -59,7 +62,9 @@ function ScheduleTable({ week }: ScheduleTableProps) {
             <TableHeader>
               <TableRow>
                 <TableHead className='w-2/5'>{t('time')}</TableHead>
-                <TableHead className='w-3/5 border-x'>{t(day)}</TableHead>
+                <TableHead className='w-3/5 border-x'>
+                  {t('day', { day: day })}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -67,8 +72,8 @@ function ScheduleTable({ week }: ScheduleTableProps) {
                 <TableRow key={time}>
                   <TableCell className='border-y'>{time}</TableCell>
                   <ScheduleCell
-                    messages={{
-                      day: t(day),
+                    tDialog={{
+                      day: t('day', { day: day }),
                       time: time,
                     }}
                     members={week[day][time].members}
@@ -90,7 +95,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
             <TableHead className='w-1/6'>{t('time')}</TableHead>
             {days.map((day) => (
               <TableHead key={day} className='w-1/6 border-x'>
-                {t(day)}
+                {t('day', { day: day })}
               </TableHead>
             ))}
           </TableRow>
@@ -102,8 +107,8 @@ function ScheduleTable({ week }: ScheduleTableProps) {
               {days.map((day) => (
                 <ScheduleCell
                   key={day}
-                  messages={{
-                    day: t(day),
+                  tDialog={{
+                    day: t('day', { day: day }),
                     time: time,
                   }}
                   members={week[day][time].members}

@@ -16,7 +16,7 @@ export default async function ShiftScheduleLayout({
 
   return (
     <>
-      <h1 className='mb-8 text-center'>{t('title')}</h1>
+      <h1 className='mb-4 text-center'>{t('title')}</h1>
       {children}
     </>
   );
