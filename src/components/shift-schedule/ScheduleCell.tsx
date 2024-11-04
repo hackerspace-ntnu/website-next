@@ -34,18 +34,14 @@ function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
             {/* Icon displaying amount of people on shift */}
             {members.length === 1 ? (
               <UserIcon className='size-7' />
-            ) : members.length > 1 ? (
-              <UsersIcon className='size-7' />
             ) : (
-              <></>
+              members.length > 1 && <UsersIcon className='size-7' />
             )}
             <div className='flex flex-col'>
               {/* Amount of people on shift */}
               <span>{t('onShift', { count: members.length })}</span>
               {/* Skill icons */}
-              {members.length === 0 ? (
-                <></>
-              ) : (
+              {members.length !== 0 && (
                 <span className='leading-7'>[skill icons total]</span>
               )}
             </div>

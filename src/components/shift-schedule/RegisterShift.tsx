@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/Label';
 import { cx } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
-function RegisterSection({ className }: { className?: string }) {
+function RegisterShift({ className }: { className?: string }) {
   const t = useTranslations(
     'shiftSchedule.scheduleTable.scheduleCell.scheduleCellDialog.registerSection',
   );
@@ -20,4 +20,4 @@ function RegisterSection({ className }: { className?: string }) {
   );
 }
 
-export { RegisterSection };
+export { RegisterShift };

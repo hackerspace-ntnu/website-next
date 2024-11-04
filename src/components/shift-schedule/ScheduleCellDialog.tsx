@@ -1,4 +1,4 @@
-import { RegisterSection } from '@/components/shift-schedule/RegisterSection';
+import { RegisterShift } from '@/components/shift-schedule/RegisterShift';
 import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
 import { useTranslations } from 'next-intl';
 
@@ -17,23 +17,6 @@ function ScheduleCellDialog({ tDialog, members }: ScheduleCellDialogProps) {
     'shiftSchedule.scheduleTable.scheduleCell.scheduleCellDialog',
   );
 
-  let membersDisplay: React.ReactNode;
-
-  if (members.length === 0) {
-    membersDisplay = <p className='leading-tight'>{t('empty')}</p>;
-  } else {
-    membersDisplay = (
-      <div>
-        {members.map((member) => (
-          <section key={member.name} className='mb-3 last:mb-0'>
-            <p className='leading-tight'>{member.name}</p>
-            <section className='mt-0.5 ml-5'>[skill icons]</section>
-          </section>
-        ))}
-      </div>
-    );
-  }
-
   return (
     <>
       <DialogHeader>
@@ -43,8 +26,19 @@ function ScheduleCellDialog({ tDialog, members }: ScheduleCellDialogProps) {
         </DialogTitle>
       </DialogHeader>
       <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-        {membersDisplay}
-        <RegisterSection className='mt-auto min-w-fit' />
+        {members.length === 0 ? (
+          <p className='leading-tight'>{t('empty')}</p>
+        ) : (
+          <div>
+            {members.map((member) => (
+              <section key={member.name} className='mb-3 last:mb-0'>
+                <p className='leading-tight'>{member.name}</p>
+                <section className='mt-0.5 ml-5'>[skill icons]</section>
+              </section>
+            ))}
+          </div>
+        )}
+        <RegisterShift className='mt-auto min-w-fit' />
       </div>
     </>
   );
