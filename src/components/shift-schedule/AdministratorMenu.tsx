@@ -30,11 +30,11 @@ function AdministratorMenu({ t }: AdministratorMenuProps) {
       <div className='mx-1 flex justify-between'>
         <span className='my-auto font-semibold text-xl'>{t.label}</span>
         <CollapsibleTrigger asChild>
-          <Button variant='ghost'>
+          <Button variant='ghost' aria-label={isOpen ? t.close : t.open}>
             {isOpen ? (
-              <ChevronUpIcon aria-label={t.close} className='size-4' />
+              <ChevronUpIcon aria-hidden='true' className='size-4' />
             ) : (
-              <ChevronDownIcon aria-label={t.open} className='size-4' />
+              <ChevronDownIcon aria-hidden='true' className='size-4' />
             )}
           </Button>
         </CollapsibleTrigger>
@@ -42,7 +42,7 @@ function AdministratorMenu({ t }: AdministratorMenuProps) {
       <CollapsibleContent className='mt-2'>
         <Button variant='link' className='flex gap-3 text-destructive'>
           <Trash2Icon />
-          <span>{t.clearShiftSchedule}</span>
+          {t.clearShiftSchedule}
         </Button>
       </CollapsibleContent>
     </Collapsible>
