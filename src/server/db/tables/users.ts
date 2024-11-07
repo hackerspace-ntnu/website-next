@@ -34,5 +34,15 @@ const sessions = pgTable('session', {
 
 type SelectUser = InferSelectModel<typeof users>;
 type InsertUser = InferInsertModel<typeof users>;
+type SelectSession = InferSelectModel<typeof sessions>;
+type InsertSession = InferInsertModel<typeof sessions>;
 
-export { users, usersRelations, sessions, type SelectUser, type InsertUser };
+export {
+  users,
+  usersRelations,
+  sessions,
+  type SelectUser,
+  type InsertUser,
+  type SelectSession,
+  type InsertSession,
+};

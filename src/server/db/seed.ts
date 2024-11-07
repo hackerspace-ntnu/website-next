@@ -1,4 +1,4 @@
-import { locales, users } from '@/server/db/tables';
+import { type InsertUser, locales, users } from '@/server/db/tables';
 import { fakerEN, fakerNB_NO, fakerSV } from '@faker-js/faker';
 
 import { routing } from '@/lib/locale';
@@ -23,15 +23,11 @@ const insertedLocales = await db
   .insert(locales)
   .values(routing.locales.map((locale) => ({ locale })))
   .returning();
-console.log('Locales inserted');
+console.log('Locales inserted:', insertedLocales);
 
-const user = {
-  firstName: 'Frank',
-  lastName: 'Sinatra',
-  birthDate: new Date('1915-12-12'),
-  phone: '+1234567890',
-  email: 'm@example.com',
-  emailVerifiedAt: new Date(),
+const user: InsertUser = {
+  name: 'Frank Sinatra',
+  username: 'fransin',
   passwordHash: await hashPassword('Password1!'),
 };
 
