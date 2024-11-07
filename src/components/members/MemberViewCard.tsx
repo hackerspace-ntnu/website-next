@@ -66,74 +66,82 @@ function MemberViewCard({
         <p className='mx-10 my-10 text-center lg:mx-52'>{bio}</p>
 
         <ul className='mb-5 flex flex-wrap justify-center gap-1 sm:grid sm:grid-cols-3-auto md:grid-flow-col xl:grid-flow-col xl:grid-cols-none md:xl:grid-cols-none'>
-          <li>
-            <Button asChild variant='ghost' size='sm-icon'>
-              <ExternalLink
-                href={`https://github.com/${github}`}
-                prefetch={false}
-                aria-label={t('visitGithub')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <GitHubIcon className='h-4 w-4' />
-              </ExternalLink>
-            </Button>
-          </li>
-          <li>
-            <Button asChild variant='ghost' size='sm-icon'>
-              <ExternalLink
-                href={`https://linkedin.com/in/${linkedin}`}
-                prefetch={false}
-                aria-label={t('visitLinkedin')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <LinkedInIcon className='h-4 w-4' />
-              </ExternalLink>
-            </Button>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    asChild
-                    variant='ghost'
-                    size='sm-icon'
-                    onClick={() => toast('Username copied')}
-                  >
-                    <ExternalLink
-                      onClick={() => {
-                        navigator.clipboard.writeText(discord);
-                      }}
-                      href=''
-                      prefetch={false}
-                      aria-label={t('discordTag')}
-                      rel='noopener noreferrer'
+          {github && (
+            <li>
+              <Button asChild variant='ghost' size='sm-icon'>
+                <ExternalLink
+                  href={`https://github.com/${github}`}
+                  prefetch={false}
+                  aria-label={t('visitGithub')}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <GitHubIcon className='h-4 w-4' />
+                </ExternalLink>
+              </Button>
+            </li>
+          )}
+          {linkedin && (
+            <li>
+              <Button asChild variant='ghost' size='sm-icon'>
+                <ExternalLink
+                  href={`https://linkedin.com/in/${linkedin}`}
+                  prefetch={false}
+                  aria-label={t('visitLinkedin')}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <LinkedInIcon className='h-4 w-4' />
+                </ExternalLink>
+              </Button>
+            </li>
+          )}
+          {discord && (
+            <li>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      asChild
+                      variant='ghost'
+                      size='sm-icon'
+                      onClick={() => toast('Username copied')}
                     >
-                      <DiscordIcon className='h-4 w-4' />
-                    </ExternalLink>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{discord}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <Button asChild variant='ghost' size='sm-icon'>
-              <ExternalLink
-                href={`https://www.instagram.com/${instagram}`}
-                prefetch={false}
-                aria-label={t('visitInstagram')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <InstagramIcon className='h-4 w-4' />
-              </ExternalLink>
-            </Button>
-          </li>
+                      <ExternalLink
+                        onClick={() => {
+                          navigator.clipboard.writeText(discord);
+                        }}
+                        href=''
+                        prefetch={false}
+                        aria-label={t('discordTag')}
+                        rel='noopener noreferrer'
+                      >
+                        <DiscordIcon className='h-4 w-4' />
+                      </ExternalLink>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className='bg-background'>
+                    <p>{discord}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </li>
+          )}
+          {instagram && (
+            <li>
+              <Button asChild variant='ghost' size='sm-icon'>
+                <ExternalLink
+                  href={`https://www.instagram.com/${instagram}`}
+                  prefetch={false}
+                  aria-label={t('visitInstagram')}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <InstagramIcon className='h-4 w-4' />
+                </ExternalLink>
+              </Button>
+            </li>
+          )}
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink
@@ -146,14 +154,6 @@ function MemberViewCard({
           </li>
         </ul>
       </div>
-
-      {/*
-          <CardHeader className='mt-auto w-full p-4 lg:p-6'>
-            <CardTitle className='line-clamp-1 text-lg transition-colors group-hover:text-primary sm:text-xl lg:text-2xl'>
-              {name}
-            </CardTitle>
-            <CardDescription className='line-clamp-1 text-xs sm:text-sm'>hei</CardDescription>
-          </CardHeader> */}
     </Card>
   );
 }

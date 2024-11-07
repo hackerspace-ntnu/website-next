@@ -50,7 +50,7 @@
     "visitGithub": "Visit Github",
     "visitLinkedin": "Visit Linkedin",
     "visitInstagram": "Visit our Instagram",
-    "discordTag": "Copy the discord tag",
+    "discordTag": "Copy the discord-tag",
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUKiD": "The working life network KID",
@@ -71,7 +71,7 @@
     "searchPlaceholder": "Search for a member...",
     "skills": {
       "arduinoMicrocontrollers": "Arduino and microcontrollers",
-      "rasberryPi": "Rasberry Pi",
+      "raspberryPi": "Raspberry Pi",
       "linuxTerminal": "Linux/Terminal",
       "workshop": "Workshop",
       "3dPrinting": "3D printing",

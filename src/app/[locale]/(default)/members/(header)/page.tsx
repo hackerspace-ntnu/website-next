@@ -5,9 +5,8 @@ import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
-import { ItemGrid } from '@/components/members/ItemGrid';
+import { MemberGrid } from '@/components/members/MemberGrid';
 import { ItemGridSkeleton } from '@/components/members/ItemGridSkeleton';
-import { Separator } from '@/components/ui/Separator';
 
 export async function generateMetadata({
   params: { locale },
@@ -35,12 +34,10 @@ export default function MembersPage({
   });
 
   const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
-  // TODO: Button to create new article should only be visible when logged in
   return (
     <>
-      <Separator className='my-6' />
       <Suspense key={page} fallback={<ItemGridSkeleton />}>
-        <ItemGrid page={page} />
+        <MemberGrid page={page} />
       </Suspense>
       <PaginationCarousel
         className='my-6'

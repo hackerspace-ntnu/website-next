@@ -50,7 +50,7 @@
     "visitGithub": "Besøk Github",
     "visitLinkedin": "Besøk Linkedin",
     "visitInstagram": "Besøk Instagram",
-    "dicordTag": "Kopier Discordtaggen",
+    "dicordTag": "Kopier Discord-taggen",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUKiD": "Arbeidslivsnettverket KID",
@@ -71,7 +71,7 @@
     "searchPlaceholder": "Søk etter et medlem...",
     "skills": {
       "arduinoMicrocontrollers": "Arduino og mikrokontrollere",
-      "rasberryPi": "Rasberry Pi",
+      "raspberryPi": "Raspberry Pi",
       "linuxTerminal": "Linux/Terminal",
       "workshop": "Verksted",
       "3dPrinting": "3D printing",

@@ -17,14 +17,14 @@ type MemberCardProps = {
   id: number;
   internal: boolean;
   name: string;
-  group: string;
+  group?: string;
   photoUrl: string;
   bio: string;
   mail: string;
-  instagram: string;
-  discord: string;
-  github: string;
-  linkedin: string;
+  instagram?: string;
+  discord?: string;
+  github?: string;
+  linkedin?: string;
 };
 
 function MemberCard({

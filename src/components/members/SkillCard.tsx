@@ -86,7 +86,7 @@ function SkillCard({
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className='bg-background'>
-                  <p>{t('rasberryPi')}</p>
+                  <p>{t('raspberryPi')}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

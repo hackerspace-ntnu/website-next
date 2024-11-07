@@ -2,11 +2,11 @@ import { memberMockData as memberData } from '@/mock-data/member';
 
 import { MemberItem } from '@/components/members/MemberItem';
 
-type ItemGridProps = {
+type MemberGridProps = {
   page: number;
 };
 
-function ItemGrid({ page }: ItemGridProps) {
+function MemberGrid({ page }: MemberGridProps) {
   const itemsDisplayedAsCards = 0;
   const itemsPerPage = 9;
 
@@ -14,7 +14,7 @@ function ItemGrid({ page }: ItemGridProps) {
   const end = start + itemsPerPage;
   const currentData = memberData.slice(start, end);
   return (
-    <div className='mx-auto grid min-h-[752px] w-11/12 grid-cols-1 justify-items-center gap-10 sm:min-h-[368px] sm:grid-cols-3 sm:gap-24 lg:min-h-[240px] lg:grid-cols-4'>
+    <div className='mx-auto grid w-11/12 grid-cols-1 justify-items-center gap-10 sm:grid-cols-3 sm:gap-24 lg:grid-cols-4'>
       {currentData.map((data) => (
         <MemberItem
           key={data.id}
@@ -29,4 +29,4 @@ function ItemGrid({ page }: ItemGridProps) {
   );
 }
 
-export { ItemGrid, type ItemGridProps };
+export { MemberGrid, type MemberGridProps };

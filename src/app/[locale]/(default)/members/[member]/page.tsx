@@ -2,7 +2,6 @@ import { memberMockData as memberData } from '@/mock-data/member';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
-//import { useRouter } from 'next/navigation';
 import { MemberViewCard } from '@/components/members/MemberViewCard';
 import { SkillCard } from '@/components/members/SkillCard';
 import { Link } from '@/lib/locale/navigation';

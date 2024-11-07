@@ -3,9 +3,11 @@ import { useId } from 'react';
 import { MemberItemSkeleton } from '@/components/members/MemberItemSkeleton';
 
 function ItemGridSkeleton() {
+  const itemsPerPage = 9;
+
   return (
-    <div className='grid min-h-[752px] grid-cols-1 gap-4 sm:min-h-[368px] sm:grid-cols-2 lg:min-h-[240px] lg:grid-cols-3'>
-      {Array.from({ length: 6 }).map((_, index) => (
+    <div className='mx-auto grid w-11/12 grid-cols-1 justify-items-center gap-10 sm:grid-cols-3 sm:gap-24 lg:grid-cols-4'>
+      {Array.from({ length: itemsPerPage }).map(() => (
         <MemberItemSkeleton key={useId()} />
       ))}
     </div>
