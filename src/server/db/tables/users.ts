@@ -1,8 +1,9 @@
+import { usersSkills } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
   integer,
   pgTable,
-  primaryKey,
   serial,
   text,
   timestamp,
@@ -17,7 +18,7 @@ const users = pgTable('users', {
 });
 
 const usersRelations = relations(users, ({ many }) => ({
-  usersHasSkills: many(usersHasSkills),
+  usersSkills: many(usersSkills),
 }));
 
 const sessions = pgTable('session', {
@@ -31,47 +32,7 @@ const sessions = pgTable('session', {
   }).notNull(),
 });
 
-const skills = pgTable('skills', {
-  id: serial('id').primaryKey(),
-  identifier: varchar('identifier', { length: 256 }).unique().notNull(),
-});
+type SelectUser = InferSelectModel<typeof users>;
+type InsertUser = InferInsertModel<typeof users>;
 
-const skillsRelations = relations(skills, ({ many }) => ({
-  usersHasSkills: many(usersHasSkills),
-}));
-
-const usersHasSkills = pgTable(
-  'users_has_skills',
-  {
-    userId: integer('user_id')
-      .references(() => users.id)
-      .notNull(),
-    skillId: integer('skill_id')
-      .references(() => skills.id)
-      .notNull(),
-  },
-  (t) => ({
-    pk: primaryKey({ columns: [t.userId, t.skillId] }),
-  }),
-);
-
-const usersHasSkillsRelations = relations(usersHasSkills, ({ one }) => ({
-  group: one(skills, {
-    fields: [usersHasSkills.skillId],
-    references: [skills.id],
-  }),
-  user: one(users, {
-    fields: [usersHasSkills.userId],
-    references: [users.id],
-  }),
-}));
-
-export {
-  users,
-  usersRelations,
-  sessions,
-  skills,
-  skillsRelations,
-  usersHasSkills,
-  usersHasSkillsRelations,
-};
+export { users, usersRelations, sessions, type SelectUser, type InsertUser };

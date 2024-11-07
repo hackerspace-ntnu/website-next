@@ -9,7 +9,7 @@ export default async function CreateAccountPage({
   setRequestLocale(locale);
   return (
     <div className='flex h-full flex-col transition-opacity duration-500'>
-      This page is for adding info to account after first login
+      forgot password page
     </div>
   );
 }

@@ -17,6 +17,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "db:seed": "bun run src/server/db/seed.ts",
     "s3:start": "docker-compose -f compose.local.yml up s3 -d",
     "s3:stop": "docker-compose -f compose.local.yml down s3"
   },
@@ -65,6 +66,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@faker-js/faker": "^9.2.0",
     "@fluid-tailwind/tailwind-merge": "^0.0.2",
     "@types/bun": "^1.1.12",
     "@types/react": "npm:types-react@19.0.0-rc.1",

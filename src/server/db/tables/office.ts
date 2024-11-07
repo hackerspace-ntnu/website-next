@@ -1,3 +1,4 @@
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
 
 const coffee = pgTable('coffee', {
@@ -5,4 +6,7 @@ const coffee = pgTable('coffee', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-export { coffee };
+type SelectCoffee = InferSelectModel<typeof coffee>;
+type InsertCoffee = InferInsertModel<typeof coffee>;
+
+export { coffee, type SelectCoffee, type InsertCoffee };
