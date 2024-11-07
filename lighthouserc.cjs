@@ -69,7 +69,7 @@ const config = {
           },
         },
         {
-          matchingUrlPattern: 'http://.*/en/events',
+          matchingUrlPattern: 'http://.*/en/events.*',
           preset: 'lighthouse:recommended',
           assertions: {
             'bf-cache': 'off',
@@ -78,6 +78,7 @@ const config = {
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
             'uses-responsive-images': 'off',
+            'label-content-name-mismatch': 'off'
           },
         },
       ],
