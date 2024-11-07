@@ -86,9 +86,9 @@ function ScheduleTable({ week }: ScheduleTableProps) {
   return (
     <>
       {/* Table shown on small screens */}
-      <div className='sm:hidden'>
-        {days.map((day, index) => (
-          <Table key={day} className={index === 0 ? '' : 'mt-8'}>
+      <div className='sm:hidden [&>div]:mt-8'>
+        {days.map((day) => (
+          <Table key={day}>
             <TableHeader>
               <TableRow>
                 <TableHead className='w-2/5'>{t('time')}</TableHead>
@@ -121,7 +121,7 @@ function ScheduleTable({ week }: ScheduleTableProps) {
       </div>
 
       {/* Table shown on all other screens */}
-      <Table className='hidden sm:table'>
+      <Table className='mt-8 hidden sm:table'>
         <TableHeader>
           <TableRow>
             <TableHead className='w-1/6'>{t('time')}</TableHead>

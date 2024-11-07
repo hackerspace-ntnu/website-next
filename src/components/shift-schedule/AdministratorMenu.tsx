@@ -25,7 +25,7 @@ function AdministratorMenu({ t }: AdministratorMenuProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className='mx-auto xs:mx-8 my-8 rounded border p-3'
+      className='mx-auto xs:mx-8 mt-8 rounded border p-3'
     >
       <div className='mx-1 flex justify-between'>
         <span className='my-auto font-semibold text-xl'>{t.label}</span>
