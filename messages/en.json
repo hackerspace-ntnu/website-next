@@ -21,7 +21,9 @@
     "selectMonth": "Select month",
     "selectYear": "Select year",
     "pickDate": "Pick a date",
-    "dateFormat": "dd/MM/yyyy"
+    "dateFormat": "dd/MM/yyyy",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -37,7 +39,31 @@
     "signInWith": "Sign in with",
     "hackerspaceAccount": "Hackerspace Account",
     "success": "Success!",
-    "home": "Home"
+    "home": "Home",
+    "signIn": "Sign in",
+    "useYourAccount": "Use your account",
+    "forgotPassword": "Forgot password?",
+    "submit": "Submit",
+    "form": {
+      "username": {
+        "label": "Username",
+        "required": "Username is required",
+        "minLength": "Username must be at least 5 characters",
+        "maxLength": "Username must be less than 8 characters",
+        "invalid": "Username must contain only letters"
+      },
+      "password": {
+        "label": "Password",
+        "required": "Password is required",
+        "minLength": "Password must be at least 8 characters",
+        "maxLength": "Password must be less than 50 characters",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "confirmLabel": "Confirm password",
+        "mismatch": "Passwords do not match",
+        "weak": "Password is too weak"
+      }
+    }
   },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",

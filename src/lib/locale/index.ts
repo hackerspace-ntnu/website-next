@@ -22,6 +22,10 @@ const routing = defineRouting({
       en: '/auth',
       no: '/autentisering',
     },
+    '/auth/account': {
+      en: '/auth/account',
+      no: '/autentisering/konto',
+    },
     '/auth/create-account': {
       en: '/auth/create-account',
       no: '/autentisering/opprett-konto',

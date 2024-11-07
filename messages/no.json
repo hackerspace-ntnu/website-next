@@ -21,7 +21,9 @@
     "selectMonth": "Velg måned",
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
-    "dateFormat": "dd.MM.yyyy"
+    "dateFormat": "dd.MM.yyyy",
+    "hidePassword": "Gjem passord",
+    "showPassword": "Vis passord"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -37,7 +39,31 @@
     "signInWith": "Logg inn med",
     "hackerspaceAccount": "Hackerspace-konto",
     "success": "Suksess!",
-    "home": "Hjem"
+    "home": "Hjem",
+    "signIn": "Logg inn",
+    "useYourAccount": "Bruk din konto",
+    "forgotPassword": "Glemt passord?",
+    "submit": "Send",
+    "form": {
+      "username": {
+        "label": "Brukernavn",
+        "required": "Brukernavn er påkrevd",
+        "minLength": "Brukernavn må være minst 5 tegn",
+        "maxLength": "Brukernavn må være mindre enn 8 tegn",
+        "invalid": "Brukernavn må kun inneholde bokstaver"
+      },
+      "password": {
+        "label": "Passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst 8 tegn",
+        "maxLength": "Passord må være mindre enn 50 tegn",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "confirmLabel": "Bekreft passord",
+        "mismatch": "Passordene stemmer ikke overens",
+        "weak": "Passordet er for svakt"
+      }
+    }
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
