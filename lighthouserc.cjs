@@ -78,7 +78,7 @@ const config = {
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
             'uses-responsive-images': 'off',
-            'label-content-name-mismatch': 'off'
+            'label-content-name-mismatch': 'off',
           },
         },
       ],
