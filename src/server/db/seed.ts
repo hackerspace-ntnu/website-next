@@ -14,7 +14,6 @@ const fakerMap = {
 
 console.log('Deleting existing data...');
 await db.delete(users);
-// eslint-disable-next-line drizzle/enforce-delete-with-where
 await db.delete(locales);
 console.log('Existing data deleted.');
 
