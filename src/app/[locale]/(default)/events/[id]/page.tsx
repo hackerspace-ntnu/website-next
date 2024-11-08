@@ -36,6 +36,7 @@ export default async function EventDetailsPage({
 }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('ui');
   const event = events.find((event) => event.id.toString() === id);
 
   if (!event) return notFound();
@@ -58,7 +59,9 @@ export default async function EventDetailsPage({
       <h1 className='my-4'>{event.title}</h1>
       <h3>{event.subheader}</h3>
       <div className='mt-4 space-y-4'>
-        {event.internal && <Badge className='rounded-full'>Internal</Badge>}
+        {event.internal && (
+          <Badge className='rounded-full'>{t('internal')}</Badge>
+        )}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />
           {

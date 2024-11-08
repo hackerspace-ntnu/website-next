@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/lib/locale/navigation';
 
 export default async function EventDetailsLayout({
   children,

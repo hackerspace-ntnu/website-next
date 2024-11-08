@@ -21,7 +21,8 @@
     "selectMonth": "Velg måned",
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
-    "dateFormat": "dd.MM.yyyy"
+    "dateFormat": "dd.MM.yyyy",
+    "internal": "Intern"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",

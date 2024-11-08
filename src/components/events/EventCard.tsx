@@ -9,9 +9,9 @@ import {
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
+import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 
 type EventCardProps = {
   id: number;
@@ -34,6 +34,7 @@ type EventCardProps = {
  */
 async function EventCard(props: EventCardProps) {
   const t = await getTranslations('events');
+  const tUi = await getTranslations('ui');
 
   const dateOptions = {
     hour: '2-digit',
@@ -72,7 +73,9 @@ async function EventCard(props: EventCardProps) {
           <CardTitle>{props.title}</CardTitle>
           <CardDescription>{props.subheader}</CardDescription>
           {props.internal && (
-            <Badge className='mx-auto w-fit rounded-full'>Internal</Badge>
+            <Badge className='mx-auto w-fit rounded-full'>
+              {tUi('internal')}
+            </Badge>
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>

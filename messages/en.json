@@ -21,7 +21,8 @@
     "selectMonth": "Select month",
     "selectYear": "Select year",
     "pickDate": "Pick a date",
-    "dateFormat": "dd/MM/yyyy"
+    "dateFormat": "dd/MM/yyyy",
+    "internal": "Internal"
   },
   "error": {
     "notFound": "404 - Page not found",
