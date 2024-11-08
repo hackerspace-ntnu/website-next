@@ -7,28 +7,22 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
-import { cx } from '@/lib/utils';
-import { Skeleton } from '../ui/Skeleton';
+import { Skeleton } from '@/components/ui/Skeleton';
 
-/**
- * A card for an event.
- * Only set the _active prop to true if you're testing active events.
- */
 function EventCardSkeleton() {
   return (
-    <Card className={cx('text-center')}>
+    <Card className='flex flex-col text-center'>
       <CardHeader>
         <Skeleton className='mx-auto h-8 w-3/4' />
         <Skeleton className='mx-auto h-5 w-1/2' />
       </CardHeader>
-      <CardContent className='grid grid-cols-10 gap-2'>
-        <Skeleton className='col-span-6 h-3/4 w-ful flex-1' />
-        <Skeleton className='col-span-4 ml-auto h-48 w-48 rounded-full' />
+      <CardContent className='flex flex-col-reverse items-center gap-8 md:flex-row md:justify-between'>
+        <Skeleton className='h-16 w-full md:h-16 md:w-3/5 md:flex-1' />
+        <Skeleton className='h-36 w-36 rounded-full md:h-48 md:w-48' />
       </CardContent>
-      <CardFooter className='flex-col gap-2'>
-        <Skeleton className='h-5 w-56' />
-        <Skeleton className='h-5 w-52' />
+      <CardFooter className='mt-auto flex-col gap-2'>
+        <Skeleton className='h-5 w-32 md:w-56' />
+        <Skeleton className='h-5 w-28 md:w-52' />
       </CardFooter>
     </Card>
   );
