@@ -35,11 +35,18 @@ type EventCardProps = {
 async function EventCard(props: EventCardProps) {
   const t = await getTranslations('events');
 
-  const dateOptions = { hour: '2-digit', minute: '2-digit' } as const;
+  const dateOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  } as const;
+
+  // For example "18:00", same for end time
   const formattedStartTime = props.startTime.toLocaleTimeString(
     props.locale,
     dateOptions,
   );
+  // For example "22/8/2024" or "22.8.2024", same for end date
   const formattedStartDate = props.startTime.toLocaleDateString(props.locale);
   const formattedEndTime = props.endTime.toLocaleTimeString(
     props.locale,
@@ -71,7 +78,11 @@ async function EventCard(props: EventCardProps) {
         <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>
           <p>{props.description}</p>
           <Avatar className='h-48 w-48'>
-            <AvatarImage src='/event.webp' alt='' className='object-cover' />
+            <AvatarImage
+              src='/event.webp'
+              alt={`Photo of ${props.title}`}
+              className='object-cover'
+            />
           </Avatar>
         </CardContent>
         <CardFooter className='mt-auto flex-col gap-2'>
