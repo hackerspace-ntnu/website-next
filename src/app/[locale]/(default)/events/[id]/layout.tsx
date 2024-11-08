@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
+import { Link } from '@/lib/locale/navigation';
 
 export default async function EventDetailsLayout({
   children,
@@ -9,16 +9,12 @@ export default async function EventDetailsLayout({
   const t = await getTranslations('events');
   return (
     <>
-      <Link href='/events'>
-        <Button
-          variant='secondary'
-          className='flex gap-2'
-          aria-label='Back to Events'
-        >
+      <Button variant='secondary' aria-label='Back to Events' asChild>
+        <Link href='/events' className='flex gap-2'>
           <ArrowLeftIcon aria-hidden='true' />
           <span>{t('backToEvents')}</span>
-        </Button>
-      </Link>
+        </Link>
+      </Button>
       {children}
     </>
   );
