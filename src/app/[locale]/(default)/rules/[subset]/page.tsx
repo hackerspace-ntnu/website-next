@@ -1,15 +1,14 @@
 import { rulesMockdata } from '@/mock-data/rules';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
-export default function SubPage({
+export default function RuleSubSetPage({
   params: { subset },
 }: { params: { subset: string } }) {
+  unstable_setRequestLocale(subset);
   const page = rulesMockdata.find(
     (rule) => rule.id === Number.parseInt(subset),
   );
-  if (!page) return null;
-  return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1>{page.title}</h1>
-    </div>
-  );
+  if (!page) return notFound();
+  return <h1 className='text-center'>{page.title}</h1>;
 }
