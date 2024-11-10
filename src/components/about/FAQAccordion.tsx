@@ -19,7 +19,7 @@ type FAQAccordionProps = {
 
 function FAQAccordion({ faqs }: FAQAccordionProps) {
   return (
-    <div>
+    <div className='mt-10 mb-10'>
       <h3> FAQ'S </h3>
       <Accordion
         type='single'
