@@ -71,15 +71,15 @@ async function EventCard({
             />
           </Avatar>
         </CardContent>
-        <CardFooter className='mt-auto flex-col gap-2'>
-          <span>
+        <CardFooter className='mt-auto flex-col'>
+          <p>
             {started ? <>{t('startedAt')}</> : <>{t('startsAt')}</>}{' '}
             {formattedStartDate}
-          </span>
-          <span>
+          </p>
+          <p className='[&:not(:first-child)]:mt-2'>
             {ended ? <>{t('endedAt')}</> : <>{t('endsAt')}</>}{' '}
             {formattedEndDate}
-          </span>
+          </p>
         </CardFooter>
       </Card>
     </Link>
