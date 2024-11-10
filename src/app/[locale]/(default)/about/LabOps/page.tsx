@@ -22,7 +22,6 @@ export default function labopsPage({
             <h1 className='w-full'> {t('title')} </h1>
             <p> {t('about')} </p>
             <FAQAccordion faqs={(faqs)} m-20/>
-            <MembersTable />
             
         </div>
       );
