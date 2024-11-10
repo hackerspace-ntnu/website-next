@@ -7,7 +7,7 @@ import { Map , Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Meteors } from '@/components/ui/Meteor';
 import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
-import Link from 'next/link';
+import pizzaWolfs from '/public/about/pizzaWolfs-min.png';
 
 export default function AboutPage({
   params: { locale },
@@ -63,7 +63,7 @@ const faqs: FAQ[] = [
   return <div>
     <div className='mt-7 mb-5 flex flex-col items-center justify-center'>
       <Image className='pizzaWolfs'
-      src="/about/pizzaWolfs-min.png" 
+      src={pizzaWolfs} 
       alt="pizza wolfs" 
       height={400} 
       width={400}
