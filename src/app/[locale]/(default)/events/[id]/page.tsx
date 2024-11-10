@@ -1,32 +1,25 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { format, isSameDay } from 'date-fns';
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
-import { CalendarIcon, MapPinIcon } from 'lucide-react';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'layout' });
+  const { locale, id } = await params;
+  const event = events.find((event) => event.id.toString() === id);
 
   return {
-    title: t('events'),
+    title: `${event?.title}`,
   };
-}
-
-function datesOnSameDay(date1: Date, date2: Date) {
-  return (
-    date1.getUTCFullYear() === date2.getUTCFullYear() &&
-    date1.getUTCMonth() === date2.getUTCMonth() &&
-    date1.getUTCDay() === date2.getUTCDay()
-  );
 }
 
 export default async function EventDetailsPage({
@@ -43,16 +36,10 @@ export default async function EventDetailsPage({
 
   const startDate = new Date(event.startTime);
   const endDate = new Date(event.endTime);
-  const timeOptions = {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  } as const;
 
-  const formattedStartTime = startDate.toLocaleTimeString(locale, timeOptions);
-  const formattedEndTime = endDate.toLocaleTimeString(locale, timeOptions);
-  const formattedStartDay = startDate.toLocaleDateString(locale);
-  const formattedEndDay = endDate.toLocaleDateString(locale);
+  const formattedRange = isSameDay(startDate, endDate)
+    ? `${format(startDate, 'HH:mm')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`
+    : `${format(startDate, 'HH:mm, dd/MM/yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
 
   return (
     <>
@@ -64,19 +51,7 @@ export default async function EventDetailsPage({
         )}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />
-          {
-            /* Specify the day if the event starts and ends on different days */
-            datesOnSameDay(startDate, endDate) ? (
-              <span>
-                {formattedStartTime} - {formattedEndTime}, {formattedStartDay}
-              </span>
-            ) : (
-              <span>
-                {formattedStartTime}, {formattedStartDay} - {formattedEndTime},{' '}
-                {formattedEndDay}
-              </span>
-            )
-          }
+          {formattedRange}
         </div>
         <div className='flex items-center gap-2'>
           <MapPinIcon className='h-8 w-8' />

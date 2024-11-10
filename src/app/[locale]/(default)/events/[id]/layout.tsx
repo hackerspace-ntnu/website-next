@@ -12,7 +12,7 @@ export default async function EventDetailsLayout({
       <Button variant='secondary' aria-label='Back to Events' asChild>
         <Link href='/events' className='flex gap-2'>
           <ArrowLeftIcon aria-hidden='true' />
-          <span>{t('backToEvents')}</span>
+          {t('backToEvents')}
         </Link>
       </Button>
       {children}

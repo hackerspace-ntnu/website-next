@@ -11,6 +11,7 @@ import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
+import { format } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
 type EventCardProps = {
@@ -36,24 +37,8 @@ async function EventCard(props: EventCardProps) {
   const t = await getTranslations('events');
   const tUi = await getTranslations('ui');
 
-  const dateOptions = {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  } as const;
-
-  // For example "18:00", same for end time
-  const formattedStartTime = props.startTime.toLocaleTimeString(
-    props.locale,
-    dateOptions,
-  );
-  // For example "22/8/2024" or "22.8.2024", same for end date
-  const formattedStartDate = props.startTime.toLocaleDateString(props.locale);
-  const formattedEndTime = props.endTime.toLocaleTimeString(
-    props.locale,
-    dateOptions,
-  );
-  const formattedEndDate = props.endTime.toLocaleDateString(props.locale);
+  const formattedStartDate = format(props.startTime, 'HH:mm, dd.MM.yyyy');
+  const formattedEndDate = format(props.endTime, 'HH:mm, dd.MM.yyyy');
 
   const started = props.startTime < new Date() || props._active;
   const ended = props.endTime < new Date();
@@ -91,11 +76,11 @@ async function EventCard(props: EventCardProps) {
         <CardFooter className='mt-auto flex-col gap-2'>
           <span>
             {started ? <>{t('startedAt')}</> : <>{t('startsAt')}</>}{' '}
-            {formattedStartTime}, {formattedStartDate}
+            {formattedStartDate}
           </span>
           <span>
             {ended ? <>{t('endedAt')}</> : <>{t('endsAt')}</>}{' '}
-            {formattedEndTime}, {formattedEndDate}
+            {formattedEndDate}
           </span>
         </CardFooter>
       </Card>
