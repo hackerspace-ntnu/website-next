@@ -11,19 +11,12 @@ import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
+import type { events } from '@/mock-data/events';
 import { format } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
 type EventCardProps = {
-  id: number;
-  title: string;
-  subheader: string;
-  description: string;
-  imagePath?: string;
-  startTime: Date;
-  endTime: Date;
-  internal: boolean;
-  locale: string;
+  event: (typeof events)[number];
   wrapperClassName?: string;
   cardClassName?: string;
   _active?: boolean;
@@ -33,42 +26,47 @@ type EventCardProps = {
  * A card for an event.
  * Only set the _active prop to true if you're testing active events.
  */
-async function EventCard(props: EventCardProps) {
+async function EventCard({
+  event,
+  wrapperClassName,
+  cardClassName,
+  _active,
+}: EventCardProps) {
   const t = await getTranslations('events');
   const tUi = await getTranslations('ui');
 
-  const formattedStartDate = format(props.startTime, 'HH:mm, dd.MM.yyyy');
-  const formattedEndDate = format(props.endTime, 'HH:mm, dd.MM.yyyy');
+  const formattedStartDate = format(event.startTime, 'HH:mm, dd.MM.yyyy');
+  const formattedEndDate = format(event.endTime, 'HH:mm, dd.MM.yyyy');
 
-  const started = props.startTime < new Date() || props._active;
-  const ended = props.endTime < new Date();
+  const started = event.startTime < new Date() || _active;
+  const ended = event.endTime < new Date();
 
   return (
     <Link
-      href={`/events/${props.id}`}
-      aria-label={t('detailsAboutEvent', { eventName: props.title })}
-      className={props.wrapperClassName}
+      href={`/events/${event.id}`}
+      aria-label={t('detailsAboutEvent', { eventName: event.title })}
+      className={wrapperClassName}
     >
       <Card
-        className={cx('flex flex-col text-center', props.cardClassName, {
+        className={cx('flex flex-col text-center', cardClassName, {
           'bg-secondary': started && !ended,
         })}
       >
         <CardHeader>
-          <CardTitle>{props.title}</CardTitle>
-          <CardDescription>{props.subheader}</CardDescription>
-          {props.internal && (
+          <CardTitle>{event.title}</CardTitle>
+          <CardDescription>{event.subheader}</CardDescription>
+          {event.internal && (
             <Badge className='mx-auto w-fit rounded-full'>
               {tUi('internal')}
             </Badge>
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>
-          <p>{props.description}</p>
+          <p>{event.description}</p>
           <Avatar className='h-48 w-48'>
             <AvatarImage
               src='/event.webp'
-              alt={`Photo of ${props.title}`}
+              alt={`Photo of ${event.title}`}
               className='object-cover'
             />
           </Avatar>
