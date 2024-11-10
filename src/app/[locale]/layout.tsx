@@ -1,4 +1,5 @@
 import { RootProviders } from '@/components/providers/RootProviders';
+import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -84,6 +85,7 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
         <RootProviders locale={locale}>
           <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth'>
             {children}
+            <Toaster />
           </div>
         </RootProviders>
       </body>
