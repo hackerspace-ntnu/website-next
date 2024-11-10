@@ -31,7 +31,8 @@
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
     "goToHomepage": "Return to homepage",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "invalidLocale": "Invalid locale: {locale}"
   },
   "auth": {
     "welcome": "Welcome!",

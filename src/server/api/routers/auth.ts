@@ -17,6 +17,9 @@ const authRouter = createRouter({
       throw new TRPCError({
         code: 'TOO_MANY_REQUESTS',
         message: 'Rate limit exceeded. Please try again later.',
+        data: {
+          toast: 'error',
+        },
       });
     }
     return getFeideAuthorizationURL();
