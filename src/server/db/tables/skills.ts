@@ -46,6 +46,8 @@ const usersSkillsRelations = relations(usersSkills, ({ one }) => ({
 
 type SelectSkill = InferSelectModel<typeof skills>;
 type InsertSkill = InferInsertModel<typeof skills>;
+type SelectUserSkill = InferSelectModel<typeof usersSkills>;
+type InsertUserSkill = InferInsertModel<typeof usersSkills>;
 
 export {
   skills,
@@ -54,4 +56,6 @@ export {
   usersSkillsRelations,
   type SelectSkill,
   type InsertSkill,
+  type SelectUserSkill,
+  type InsertUserSkill,
 };
