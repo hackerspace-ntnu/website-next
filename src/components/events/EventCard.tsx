@@ -66,7 +66,7 @@ async function EventCard({
           <Avatar className='h-48 w-48'>
             <AvatarImage
               src='/event.webp'
-              alt={`Photo of ${event.title}`}
+              alt={tUi('photoOf', { name: event.title })}
               className='object-cover'
             />
           </Avatar>
