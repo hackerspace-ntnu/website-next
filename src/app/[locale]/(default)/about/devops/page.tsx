@@ -1,8 +1,6 @@
 import { Card} from '@/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { FAQAccordion } from '@/components/about/FAQAccordion';
 
 export default function devopsPage({
   params: { locale },
@@ -31,9 +29,8 @@ export default function devopsPage({
                     <Card className='py-30'> nestleder </Card>
                 </div>
             </div>
-            <div>
-                <h3 className=''> Medlemmer </h3>
-            </div>
+
+            
         </div>
       </div>
     </div>
