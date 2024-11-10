@@ -14,7 +14,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { locale, id } = await params;
+  const { id } = await params;
   const event = events.find((event) => event.id.toString() === id);
 
   return {
@@ -29,6 +29,7 @@ export default async function EventDetailsPage({
 }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('ui');
   const event = events.find((event) => event.id.toString() === id);
 
@@ -44,7 +45,7 @@ export default async function EventDetailsPage({
   return (
     <>
       <h1 className='my-4'>{event.title}</h1>
-      <h3>{event.subheader}</h3>
+      <h2 className='border-b-0 text-2xl'>{event.subheader}</h2>
       <div className='mt-4 space-y-4'>
         {event.internal && (
           <Badge className='rounded-full'>{t('internal')}</Badge>
@@ -55,7 +56,7 @@ export default async function EventDetailsPage({
         </div>
         <div className='flex items-center gap-2'>
           <MapPinIcon className='h-8 w-8' />
-          <span>{event.location}</span>
+          {event.location}
         </div>
         <Separator />
         <div className='flex justify-between'>
