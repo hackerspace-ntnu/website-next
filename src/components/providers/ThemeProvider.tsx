@@ -9,6 +9,10 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
       defaultTheme='system'
       enableSystem
       disableTransitionOnChange
+      themeColor={{
+        light: 'hsl(0 0% 100%)',
+        dark: 'hsl(20 14.3% 4.1%)',
+      }}
     >
       {children}
     </NextThemeProvider>

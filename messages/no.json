@@ -12,7 +12,16 @@
     "page": "side",
     "category": "kategori",
     "sort": "sortering",
-    "photoOf": "Bilde av {name}"
+    "photoOf": "Bilde av {name}",
+    "today": "I dag",
+    "selected": "Valgt",
+    "week": "Uke",
+    "nextMonth": "Neste måned",
+    "previousMonth": "Forrige måned",
+    "selectMonth": "Velg måned",
+    "selectYear": "Velg år",
+    "pickDate": "Velg en dato",
+    "dateFormat": "dd.MM.yyyy"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -29,6 +38,7 @@
     "events": "Hendelser",
     "storage": "Lager",
     "about": "Om oss",
+    "shiftSchedule": "Vaktliste",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -237,6 +247,29 @@
       "returnBy": "Lån fram til",
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send"
+    }
+  },
+  "shiftSchedule": {
+    "title": "Vaktliste",
+    "administratorMenu": {
+      "label": "Administrator-meny",
+      "open": "Åpne Administrator-meny",
+      "close": "Lukk Administrator-meny",
+      "clearShiftSchedule": "Tøm vaktliste"
+    },
+    "scheduleTable": {
+      "time": "Tid",
+      "day": "{day, select, monday {Mandag} tuesday {Tirsdag} wednesday {Onsdag} thursday {Torsdag} other {Fredag}}",
+      "scheduleCell": {
+        "onShift": "{count, plural, =0 {Stengt} =1 {1 person på vakt} other {# personer på vakt}}",
+        "scheduleCellDialog": {
+          "empty": "Ingen på vakt",
+          "registerSection": {
+            "recurring": "Gjentagende",
+            "register": "Registrer"
+          }
+        }
+      }
     }
   }
 }

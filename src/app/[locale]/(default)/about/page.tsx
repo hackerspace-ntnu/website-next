@@ -8,10 +8,10 @@ import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
 import pizzaWolfs from '/public/about/pizzaWolfs-min.png';
 
-export default function AboutPage({
-  params: { locale },
+export default async function AboutPage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('about');
