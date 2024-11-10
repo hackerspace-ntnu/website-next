@@ -71,7 +71,7 @@ const faqs: FAQ[] = [
       />
     </div>
     <div>
-      <h1 className='mt-8 mb-4 dark:text-primary '> {t('whatIsHackerspace')} </h1>
+      <h1 className='mt-8 mb-4'> {t('whatIsHackerspace')} </h1>
       <div className='mb-6 text-base'> 
         {t.rich('aboutDescription', {
           p1: (chunks) => <p className="p1"> {chunks} </p>,
