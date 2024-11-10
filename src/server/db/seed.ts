@@ -94,5 +94,6 @@ const usersSkillsData: InsertUserSkill[] = [
   },
 ];
 await db.insert(usersSkills).values(usersSkillsData);
+console.log('Userskills inserted');
 
 process.exit();
