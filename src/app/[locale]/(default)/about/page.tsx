@@ -80,22 +80,20 @@ const faqs: FAQ[] = [
       </div>
     </div>
     <FAQAccordion faqs={(faqs)}/>
-
-    <div className='max-x-xs relative w-full'>
-      <h2 className='content-center items-center text-center'> {t('activeGroup')} </h2>
-      <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-        {cardData.map(card => (
-          <div key={card.id} className='group relative p-4'>
-            <Card className='relative overflow-hidden group-hover:underline'>
-              <CardHeader className='font-semibold text-xl'>{card.title}</CardHeader>
-              <CardContent className='max-h-30 overflow-hidden text-ellipsis whitespace-normal'>{card.content}</CardContent>
-              <div className='absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-                <Meteors number={10} className={'absolute inset-0 z-10'} hoverDelay='0.5s' />
-              </div>
-            </Card>            
-          </div>
+    <h2 className='m-5 content-center items-center text-center'> {t('activeGroup')} </h2>
+    <div className='grid gap-4 lg:grid-cols-1'>
+      {cardData.map(card => (
+        
+        <div key={card.id} className='group relative p-4'>
+          <Card className='relative overflow-hidden group-hover:underline'>
+            <CardHeader className='font-semibold text-xl'>{card.title}</CardHeader>
+            <CardContent className='max-h-30 overflow-hidden text-ellipsis whitespace-normal'>{card.content}</CardContent>
+            <div className='absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+              <Meteors number={15} className={'absolute inset-0 z-10'} hoverDelay='0.5s' />
+            </div>
+          </Card>            
+        </div>
         ))}
       </div>
-    </div>
   </div>;
 }
