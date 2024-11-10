@@ -1,7 +1,6 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import React from 'react';
 import { Card, CardContent, CardHeader } from 'src/components/ui/Card';
-import { useTranslations } from 'next-intl';
 import { Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Meteors } from '@/components/ui/Meteor';
 import { FAQAccordion } from '@/components/about/FAQAccordion';
@@ -13,9 +12,9 @@ export default async function AboutPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('about');
-  const tFAQ = useTranslations('about.FAQ')
+  const { locale } = await params;
+  const t = await getTranslations('about');
+  const tFAQ = await getTranslations('about.FAQ')
 
 const cardData = [
   { id: 1, title: t('leaderboard.title'), content: t('leaderboard.about'), link: `/${locale}/about/leaderboard`},
