@@ -1,0 +1,57 @@
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
+import { Card, CardTitle } from '@/components/ui/Card';
+import { Link } from '@/lib/locale/navigation';
+import { cx } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+type RuleCardProps = {
+  className?: string;
+  id: number;
+  internal: boolean;
+  title: string;
+  photoUrl: string;
+};
+
+function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
+  const t = useTranslations('rules');
+
+  return (
+    <Button
+      className={cx('group whitespace-normal font-normal ring-0', className)}
+      asChild
+      variant='none'
+      size='none'
+    >
+      <Link
+        href={{
+          pathname: '/rules/[subset]',
+          params: { subset: id },
+        }}
+        aria-label={title}
+      >
+        <Card className='flex size-full transform overflow-hidden rounded-xl brightness-95 transition delay-150 duration-300 ease-in-out hover:scale-105 hover:border-primary hover:shadow-lg hover:brightness-100 dark:brightness-100 hover:dark:brightness-110'>
+          {internal ? (
+            <Badge className='flex w-1/3 items-center justify-center rounded-none text-lg hover:bg-primary '>
+              {t('internal')}
+            </Badge>
+          ) : (
+            <Image
+              className='flex w-1/3 rounded-none'
+              src={`/${photoUrl}`}
+              alt={title}
+              width={150}
+              height={150}
+            />
+          )}
+          <CardTitle className='flex w-2/3 items-center justify-center text-center text-lg sm:text-xl lg:text-2xl'>
+            {title}
+          </CardTitle>
+        </Card>
+      </Link>
+    </Button>
+  );
+}
+
+export { RuleCard };
