@@ -19,6 +19,10 @@ const routing = defineRouting({
       en: '/events',
       no: '/arrangementer',
     },
+    '/events/[id]': {
+      en: '/events/[id]',
+      no: '/arrangementer/[id]',
+    },
     '/news': {
       en: '/news',
       no: '/nyheter',

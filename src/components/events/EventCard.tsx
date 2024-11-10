@@ -43,7 +43,7 @@ async function EventCard({
 
   return (
     <Link
-      href={`/events/${event.id}`}
+      href={{ pathname: '/events/[id]', params: { id: event.id } }}
       aria-label={t('detailsAboutEvent', { eventName: event.title })}
       className={wrapperClassName}
     >
