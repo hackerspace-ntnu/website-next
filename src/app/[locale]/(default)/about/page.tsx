@@ -1,9 +1,8 @@
 import { unstable_setRequestLocale } from 'next-intl/server';
-import { Button } from 'src/components/ui/Button';
 import React from 'react';
 import { Card, CardContent, CardHeader } from 'src/components/ui/Card';
 import { useTranslations } from 'next-intl';
-import { Map , Printer, Gamepad2, SquareUserRound } from 'lucide-react';
+import { Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Meteors } from '@/components/ui/Meteor';
 import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
@@ -80,12 +79,6 @@ const faqs: FAQ[] = [
         })} 
       </div>
     </div>
-    <div className='flex flex-col items-center justify-center '>
-      <Link href="https://link.mazemap.com/PPDMWZlM" passHref target="_blank" rel="noopener noreferrer">
-        <Button className=''> <Map className='m-1'/> {t('showMap')} </Button>
-      </Link>
-    </div>
-
     <FAQAccordion faqs={(faqs)}/>
 
     <div className='max-x-xs relative w-full'>
