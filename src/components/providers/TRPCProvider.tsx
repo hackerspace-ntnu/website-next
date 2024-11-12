@@ -5,6 +5,7 @@ import { api } from '@/lib/api/client';
 import { createQueryClient } from '@/lib/api/queryClient';
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import { useLocale } from 'next-intl';
 import { useState } from 'react';
 import SuperJSON from 'superjson';
 
@@ -23,6 +24,7 @@ const getQueryClient = () => {
 
 function TRPCProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
+  const locale = useLocale();
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -38,6 +40,7 @@ function TRPCProvider(props: { children: React.ReactNode }) {
           headers: () => {
             const headers = new Headers();
             headers.set('x-trpc-source', 'nextjs-react');
+            headers.set('accept-language', locale);
             return headers;
           },
         }),

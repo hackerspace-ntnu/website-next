@@ -1,6 +1,5 @@
 import type { createContext } from '@/server/api/context';
-import type { TRPCError } from '@/server/api/types';
-import { initTRPC } from '@trpc/server';
+import { type TRPCError, initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
@@ -16,7 +15,6 @@ const trpc = initTRPC.context<typeof createContext>().create({
           TRPCError.cause instanceof ZodError
             ? TRPCError.cause.flatten()
             : null,
-        toast: TRPCError.toast,
       },
     };
   },

@@ -31,8 +31,7 @@
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
     "goToHomepage": "Gå tilbake til hjemmesiden",
-    "tryAgain": "Prøv igjen",
-    "invalidLocale": "Ugyldig språk: {locale}"
+    "tryAgain": "Prøv igjen"
   },
   "auth": {
     "welcome": "Velkommen!",
