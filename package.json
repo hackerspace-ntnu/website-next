@@ -63,7 +63,6 @@
     "sonner": "^1.5.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.5.2",
-    "website-next": "file:",
     "zod": "^3.23.8"
   },
   "devDependencies": {
