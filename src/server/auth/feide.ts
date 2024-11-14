@@ -15,7 +15,7 @@ const feideOAuthClient = new OAuth2Client(
   },
 );
 
-function getFeideAuthorizationURL() {
+function getFeideAuthorizationUrl() {
   const state = generateState();
   const codeVerifier = generateCodeVerifier(); // Optional for PKCE flow
 
@@ -48,4 +48,4 @@ async function validateFeideAuthorizationCode(
   }
 }
 
-export { getFeideAuthorizationURL, validateFeideAuthorizationCode };
+export { getFeideAuthorizationUrl, validateFeideAuthorizationCode };

@@ -1,20 +1,19 @@
-import { TRPCError } from '@trpc/server';
-import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
-
 import { routing } from '@/lib/locale';
 
-async function getLocaleFromCookie() {
-  const cookieStore = await cookies();
-  const locale = cookieStore.get('locale')?.value ?? routing.defaultLocale;
-  if (!routing.locales.includes(locale as 'en')) {
-    const t = await getTranslations('error');
-    throw new TRPCError({
-      code: 'BAD_REQUEST',
-      message: t('invalidLocale', { locale }),
-    });
+function getLocaleFromRequest(request: Request) {
+  const acceptLanguage = request.headers.get('accept-language');
+  if (!acceptLanguage) {
+    return routing.defaultLocale;
   }
-  return locale;
+  const preferredLocale =
+    acceptLanguage.split(',').at(0)?.split(';').at(0)?.toLowerCase().trim() ??
+    '';
+
+  return routing.locales.includes(
+    preferredLocale as (typeof routing.locales)[number],
+  )
+    ? (preferredLocale as (typeof routing.locales)[number])
+    : routing.defaultLocale;
 }
 
-export { getLocaleFromCookie };
+export { getLocaleFromRequest };
