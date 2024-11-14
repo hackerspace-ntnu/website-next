@@ -1,9 +1,9 @@
 import { RootProviders } from '@/components/providers/RootProviders';
-import { Toaster } from 'sonner';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
+import { Toaster } from 'sonner';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -87,7 +87,7 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
             {children}
           </div>
         </RootProviders>
-        <Toaster/>
+        <Toaster />
       </body>
     </html>
   );

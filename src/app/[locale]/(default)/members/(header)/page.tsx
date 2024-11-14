@@ -5,8 +5,8 @@ import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
 import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
-import { MemberGrid } from '@/components/members/MemberGrid';
 import { ItemGridSkeleton } from '@/components/members/ItemGridSkeleton';
+import { MemberGrid } from '@/components/members/MemberGrid';
 
 export async function generateMetadata({
   params: { locale },

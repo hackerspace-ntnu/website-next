@@ -1,13 +1,12 @@
-import { memberMockData as memberData } from '@/mock-data/member';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { ArrowLeftIcon } from 'lucide-react';
 import { MemberViewCard } from '@/components/members/MemberViewCard';
 import { SkillCard } from '@/components/members/SkillCard';
-import { Link } from '@/lib/locale/navigation';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/lib/locale/navigation';
+import { memberMockData as memberData } from '@/mock-data/member';
+import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -40,8 +39,10 @@ export default function memberPage({
 
   return (
     <>
-    <div className='relative'>
-      <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>{member.name}</h2>
+      <div className='relative'>
+        <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>
+          {member.name}
+        </h2>
         <Button asChild variant='ghost'>
           <Link
             className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
@@ -52,9 +53,9 @@ export default function memberPage({
             <span className='hidden sm:inline'>{t('backToMember')}</span>
           </Link>
         </Button>
-        </div>
+      </div>
 
-        <div className='my-10 flex flex-col items-center space-y-5'>
+      <div className='my-10 flex flex-col items-center space-y-5'>
         <MemberViewCard
           key={member.id}
           id={member.id}
@@ -69,19 +70,19 @@ export default function memberPage({
           github={member.github}
           linkedin={member.linkedin}
         />
-        <SkillCard 
-        key={member.id}
-        id={member.id}
-        internal={member.internal}
-        name={member.name}
-        group={member.group}
-        photoUrl={member.photoUrl}
-        bio={member.bio}
-        mail={member.mail}
-        instagram={member.instagram}
-        discord={member.discord}
-        github={member.github}
-        linkedin={member.linkedin}
+        <SkillCard
+          key={member.id}
+          id={member.id}
+          internal={member.internal}
+          name={member.name}
+          group={member.group}
+          photoUrl={member.photoUrl}
+          bio={member.bio}
+          mail={member.mail}
+          instagram={member.instagram}
+          discord={member.discord}
+          github={member.github}
+          linkedin={member.linkedin}
         />
       </div>
     </>
