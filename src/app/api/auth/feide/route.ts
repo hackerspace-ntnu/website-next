@@ -22,7 +22,6 @@ export async function GET(request: NextRequest) {
       },
     });
     const userInfo = await userInfoResponse.json();
-    console.log(userInfo);
   } catch (error) {
     // the specific error message depends on the provider
     if (error instanceof OAuth2RequestError) {
