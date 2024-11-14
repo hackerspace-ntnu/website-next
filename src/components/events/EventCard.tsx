@@ -56,13 +56,13 @@ async function EventCard({
           <CardTitle>{event.title}</CardTitle>
           <CardDescription>{event.subheader}</CardDescription>
           {event.internal && (
-            <Badge className='mx-auto w-fit rounded-full'>
+            <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
               {tUi('internal')}
             </Badge>
           )}
         </CardHeader>
-        <CardContent className='flex flex-col-reverse items-center gap-2 md:flex-row md:justify-between'>
-          <p>{event.description}</p>
+        <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
+          <p className='max-w-prose'>{event.description}</p>
           <Avatar className='h-48 w-48'>
             <AvatarImage
               src='/event.webp'
