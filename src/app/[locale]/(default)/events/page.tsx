@@ -26,13 +26,34 @@ export default async function EventsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('events');
+  const tUi = await getTranslations('ui');
+
+  const translations = {
+    internal: tUi('internal'),
+    startsAt: t('startsAt'),
+    startedAt: t('startedAt'),
+    endsAt: t('endsAt'),
+    endedAt: t('endedAt'),
+  };
 
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
       <h2 className='my-2'>{t('activeEvents')}</h2>
       {events.slice(0, 1).map((event) => (
-        <EventCard key={event.id} event={event} _active />
+        <EventCard
+          key={event.id}
+          wrapperClassName='block'
+          event={event}
+          t={{
+            detailsAboutEvent: t('detailsAboutEvent', {
+              eventName: event.title,
+            }),
+            photoOf: tUi('photoOf', { name: event.title }),
+            ...translations,
+          }}
+          _active
+        />
       ))}
       <h2 className='my-4'>{t('upcomingEvents')}</h2>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
@@ -42,6 +63,13 @@ export default async function EventsPage({
             event={event}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
+            t={{
+              detailsAboutEvent: t('detailsAboutEvent', {
+                eventName: event.title,
+              }),
+              photoOf: tUi('photoOf', { name: event.title }),
+              ...translations,
+            }}
           />
         ))}
       </div>
@@ -53,6 +81,13 @@ export default async function EventsPage({
             event={event}
             wrapperClassName='lg:last:odd:col-span-2'
             cardClassName='h-full'
+            t={{
+              detailsAboutEvent: t('detailsAboutEvent', {
+                eventName: event.title,
+              }),
+              photoOf: tUi('photoOf', { name: event.title }),
+              ...translations,
+            }}
           />
         ))}
       </div>

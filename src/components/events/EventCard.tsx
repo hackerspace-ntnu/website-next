@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Card,
   CardContent,
@@ -13,28 +15,34 @@ import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import type { events } from '@/mock-data/events';
 import { format } from 'date-fns';
-import { getTranslations } from 'next-intl/server';
 
 type EventCardProps = {
   event: (typeof events)[number];
   wrapperClassName?: string;
   cardClassName?: string;
   _active?: boolean;
+  t: {
+    detailsAboutEvent: string;
+    internal: string;
+    photoOf: string;
+    startsAt: string;
+    startedAt: string;
+    endsAt: string;
+    endedAt: string;
+  };
 };
 
 /**
  * A card for an event.
  * Only set the _active prop to true if you're testing active events.
  */
-async function EventCard({
+function EventCard({
   event,
   wrapperClassName,
   cardClassName,
+  t,
   _active,
 }: EventCardProps) {
-  const t = await getTranslations('events');
-  const tUi = await getTranslations('ui');
-
   const formattedStartDate = format(event.startTime, 'HH:mm, dd.MM.yyyy');
   const formattedEndDate = format(event.endTime, 'HH:mm, dd.MM.yyyy');
 
@@ -44,8 +52,11 @@ async function EventCard({
   return (
     <Link
       href={{ pathname: '/events/[id]', params: { id: event.id } }}
-      aria-label={t('detailsAboutEvent', { eventName: event.title })}
-      className={wrapperClassName}
+      aria-label={t.detailsAboutEvent}
+      className={cx(
+        'rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        wrapperClassName,
+      )}
     >
       <Card
         className={cx('flex flex-col text-center', cardClassName, {
@@ -57,7 +68,7 @@ async function EventCard({
           <CardDescription>{event.subheader}</CardDescription>
           {event.internal && (
             <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
-              {tUi('internal')}
+              {t.internal}
             </Badge>
           )}
         </CardHeader>
@@ -66,19 +77,18 @@ async function EventCard({
           <Avatar className='h-48 w-48'>
             <AvatarImage
               src='/event.webp'
-              alt={tUi('photoOf', { name: event.title })}
+              alt={t.photoOf}
               className='object-cover'
             />
           </Avatar>
         </CardContent>
         <CardFooter className='mt-auto flex-col'>
           <p>
-            {started ? <>{t('startedAt')}</> : <>{t('startsAt')}</>}{' '}
+            {started ? <>{t.startedAt}</> : <>{t.startsAt}</>}{' '}
             {formattedStartDate}
           </p>
           <p className='[&:not(:first-child)]:mt-2'>
-            {ended ? <>{t('endedAt')}</> : <>{t('endsAt')}</>}{' '}
-            {formattedEndDate}
+            {ended ? <>{t.endedAt}</> : <>{t.endsAt}</>} {formattedEndDate}
           </p>
         </CardFooter>
       </Card>
