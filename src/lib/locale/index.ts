@@ -1,9 +1,15 @@
 import { GB, NO } from 'country-flag-icons/react/1x1';
 import { defineRouting } from 'next-intl/routing';
+import {
+  enGB as enDayPicker,
+  nb as noDayPicker,
+} from 'react-day-picker/locale';
 
-export const localeIcons = { en: GB, no: NO };
+const localeIcons = { en: GB, no: NO };
 
-export const routing = defineRouting({
+const dayPickerLocales = { en: enDayPicker, no: noDayPicker };
+
+const routing = defineRouting({
   locales: ['en', 'no'],
   defaultLocale: 'no',
   localePrefix: 'as-needed',
@@ -45,5 +51,11 @@ export const routing = defineRouting({
       en: '/storage/shopping-cart',
       no: '/lager/handlekurv',
     },
+    '/shift-schedule': {
+      en: '/shift-schedule',
+      no: '/vaktliste',
+    },
   },
 });
+
+export { localeIcons, dayPickerLocales, routing };

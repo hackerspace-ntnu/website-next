@@ -1,10 +1,12 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'layout' });
 
   return {
@@ -12,11 +14,12 @@ export async function generateMetadata({
   };
 }
 
-export default function EventsPage({
-  params: { locale },
+export default async function EventsPage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   return <div>This should be events page</div>;
 }

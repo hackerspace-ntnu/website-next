@@ -3,13 +3,14 @@ import { cookies } from 'next/headers';
 import { cache } from 'react';
 
 const getUser = cache(async () => {
-  const sessionId = cookies().get(auth.sessionCookieName)?.value ?? null;
+  const sessionId =
+    (await cookies()).get(auth.sessionCookieName)?.value ?? null;
   if (!sessionId) return null;
   const { user, session } = await auth.validateSession(sessionId);
   try {
     if (session?.fresh) {
       const sessionCookie = auth.createSessionCookie(session.id);
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
@@ -17,7 +18,7 @@ const getUser = cache(async () => {
     }
     if (!session) {
       const sessionCookie = auth.createBlankSessionCookie();
-      cookies().set(
+      (await cookies()).set(
         sessionCookie.name,
         sessionCookie.value,
         sessionCookie.attributes,
