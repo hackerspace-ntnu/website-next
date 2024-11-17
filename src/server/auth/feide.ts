@@ -20,7 +20,16 @@ async function createFeideAuthorization() {
   const codeVerifier = generateCodeVerifier();
   const url = await feideOAuthClient.createAuthorizationURL({
     state,
-    scopes: ['openid', 'profile', 'email'],
+    scopes: [
+      'openid',
+      'profile',
+      'userinfo-name',
+      'userid-feide',
+      'email',
+      'userinfo-mobile',
+      'userinfo-photo',
+      'userinfo-birthdate',
+    ],
     codeVerifier,
   });
   return {

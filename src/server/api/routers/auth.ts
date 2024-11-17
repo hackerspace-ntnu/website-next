@@ -38,8 +38,6 @@ const authRouter = createRouter({
       secure: env.NODE_ENV === 'production',
     });
 
-    console.log(cookieStore.getAll());
-
     return url.href;
   }),
 });
