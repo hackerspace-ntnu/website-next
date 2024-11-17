@@ -39,6 +39,7 @@
     "storage": "Storage",
     "about": "About",
     "shiftSchedule": "Shift Schedule",
+    "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",

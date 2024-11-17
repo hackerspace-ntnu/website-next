@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import * as React from 'react';
 
 type DarkModeMenuProps = {
   t: {

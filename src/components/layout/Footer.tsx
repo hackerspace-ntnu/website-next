@@ -21,7 +21,12 @@ function Footer() {
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4'>
         <div>
           <div className='flex'>
-            <LogoLink className='justify-start' />
+            <LogoLink
+              className='justify-start'
+              t={{
+                hackerspaceHome: t('hackerspaceHome'),
+              }}
+            />
           </div>
           <p className='ml-2 leading-tight'>
             <strong>{t('openingHours')}:</strong>
