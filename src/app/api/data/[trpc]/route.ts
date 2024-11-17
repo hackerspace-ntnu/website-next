@@ -4,8 +4,8 @@ import { createContext } from '@/server/api/context';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import type { NextRequest } from 'next/server';
 
-const handleRequest = (req: NextRequest) =>
-  fetchRequestHandler({
+function handleRequest(req: NextRequest) {
+  return fetchRequestHandler({
     endpoint: '/api/data',
     req,
     router,
@@ -19,6 +19,7 @@ const handleRequest = (req: NextRequest) =>
           }
         : undefined,
   });
+}
 
 export {
   handleRequest as GET,

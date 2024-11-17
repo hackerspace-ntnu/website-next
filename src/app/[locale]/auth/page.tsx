@@ -1,11 +1,9 @@
-import { FeideLogo } from '@/components/assets/logos/FeideLogo';
+import { FeideButton } from '@/components/auth/FeideButton';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
-import { api } from '@/lib/api/server';
 import { Link } from '@/lib/locale/navigation';
 import { FingerprintIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import ExternalLink from 'next/link';
 
 export default async function SignInPage({
   params,
@@ -15,7 +13,6 @@ export default async function SignInPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('auth');
-  const feideUrlHref = await api.auth.getFeideUrlHref();
   return (
     <div className='relative flex h-full flex-col transition-opacity duration-500'>
       <div className='mb-4 space-y-2 text-center'>
@@ -25,14 +22,7 @@ export default async function SignInPage({
       <Separator />
       <div className='absolute bottom-0 left-0 w-full space-y-4'>
         <p className='text-center font-montserrat'>{t('signInWith')}</p>
-        <Button
-          className='w-full bg-[#3FACC2]/90 hover:bg-[#3FACC2] dark:bg-[#222832] hover:dark:bg-[#222832]/40'
-          asChild
-        >
-          <ExternalLink href={feideUrlHref}>
-            <FeideLogo title='Feide' />
-          </ExternalLink>
-        </Button>
+        <FeideButton />
         <Button
           className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
           asChild

@@ -4,7 +4,7 @@ import { env } from '@/env';
 import { api } from '@/lib/api/client';
 import { createQueryClient } from '@/lib/api/queryClient';
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import { httpBatchLink, loggerLink } from '@trpc/client';
 import { useState } from 'react';
 import SuperJSON from 'superjson';
 
@@ -32,14 +32,9 @@ function TRPCProvider(props: { children: React.ReactNode }) {
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
-        unstable_httpBatchStreamLink({
+        httpBatchLink({
           transformer: SuperJSON,
           url: `${env.NEXT_PUBLIC_SITE_URL}/api/data`,
-          headers: () => {
-            const headers = new Headers();
-            headers.set('x-trpc-source', 'nextjs-react');
-            return headers;
-          },
         }),
       ],
     }),

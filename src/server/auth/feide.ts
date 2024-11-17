@@ -15,21 +15,22 @@ const feideOAuthClient = new OAuth2Client(
   },
 );
 
-function getFeideAuthorizationUrl() {
+async function createFeideAuthorization() {
   const state = generateState();
-  const codeVerifier = generateCodeVerifier(); // Optional for PKCE flow
-
-  return feideOAuthClient.createAuthorizationURL({
+  const codeVerifier = generateCodeVerifier();
+  const url = await feideOAuthClient.createAuthorizationURL({
     state,
     scopes: ['openid', 'profile', 'email'],
     codeVerifier,
   });
+  return {
+    state,
+    codeVerifier,
+    url,
+  };
 }
 
-async function validateFeideAuthorizationCode(
-  code: string,
-  codeVerifier: string,
-) {
+async function validateFeideAuthorization(code: string, codeVerifier: string) {
   try {
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
@@ -43,9 +44,10 @@ async function validateFeideAuthorizationCode(
   } catch (error) {
     if (error instanceof OAuth2RequestError) {
       // probably invalid credentials etc
+      // will be handled by returning null
     }
     console.error(error);
   }
 }
 
-export { getFeideAuthorizationUrl, validateFeideAuthorizationCode };
+export { createFeideAuthorization, validateFeideAuthorization };

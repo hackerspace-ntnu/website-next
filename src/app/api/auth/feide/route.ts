@@ -1,38 +1,43 @@
 import { env } from '@/env';
-import { validateFeideAuthorizationCode } from '@/server/auth/feide';
+import { validateFeideAuthorization } from '@/server/auth/feide';
+import { cookies } from 'next/headers';
 import { type NextRequest, NextResponse } from 'next/server';
-import { OAuth2RequestError } from 'oslo/oauth2';
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
   const state = url.searchParams.get('state');
 
-  if (!code || !state) {
+  const cookieStore = await cookies();
+  const storedState = cookieStore.get('feide-state')?.value;
+  const codeVerifier = cookieStore.get('feide-code-verifier')?.value;
+  console.log('step 1');
+  console.log(code, state, storedState, codeVerifier);
+
+  if (!code || !state || !storedState || !codeVerifier) {
     return NextResponse.json(null, { status: 400 });
   }
-  try {
-    const tokens = await validateFeideAuthorizationCode(code, state);
-    if (!tokens) {
-      return NextResponse.json(null, { status: 500 });
-    }
-    const userInfoResponse = await fetch(env.FEIDE_USERINFO_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-    });
-    const userInfo = await userInfoResponse.json();
-    console.log(userInfo);
-  } catch (error) {
-    // the specific error message depends on the provider
-    if (error instanceof OAuth2RequestError) {
-      // invalid code
-      return new Response(null, {
-        status: 401,
-      });
-    }
-    return new Response(null, {
-      status: 500,
-    });
+
+  console.log('step 2');
+  if (state !== storedState) {
+    return NextResponse.json(null, { status: 403 });
   }
+
+  console.log('step 3');
+  const tokens = await validateFeideAuthorization(code, codeVerifier);
+  if (!tokens) {
+    return NextResponse.json(null, { status: 500 });
+  }
+  console.log('step 4');
+  const userInfoResponse = await fetch(env.FEIDE_USERINFO_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`,
+    },
+  });
+  console.log('step 5');
+  const userInfo = await userInfoResponse.json();
+  console.log(userInfo);
+  return new Response(null, {
+    status: 500,
+  });
 }
