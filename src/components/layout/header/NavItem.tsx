@@ -3,7 +3,8 @@ import { Link } from '@/lib/locale/navigation';
 
 type NavItemProps = {
   onClick?: () => void;
-  href: string;
+  // biome-ignore lint/suspicious/noExplicitAny: I can't figure out what type is supposed to be here, putting string gives error
+  href: any; // Type should only allow links to existing pages, ex: '/', '/about', '/news/1'
   t: string;
 };
 

@@ -64,7 +64,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           </SheetTitle>
         </SheetHeader>
         <Nav
-          className='flex flex-col space-y-3 py-6'
+          className='flex flex-col items-start space-y-3 py-6'
           onClick={() => setOpen(false)}
           t={{
             news: t.news,

@@ -119,7 +119,7 @@ function Footer() {
         <div>
           <h4>{t('links')}</h4>
           <Nav
-            className='mt-2 ml-2 space-y-1.5'
+            className='mt-2 ml-2 flex flex-col items-start gap-1.5'
             t={{
               news: t('news'),
               events: t('events'),
