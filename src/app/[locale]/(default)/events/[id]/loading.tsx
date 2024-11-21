@@ -17,8 +17,8 @@ export default function EventDetailsLoading() {
           <Skeleton className='h-6 w-32 rounded-lg' />
         </div>
         <Separator />
-        <div className='flex justify-between'>
-          <Skeleton className='h-36 w-3/5 rounded-lg' />
+        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
+          <Skeleton className='h-36 w-full max-w-prose rounded-lg md:flex-1' />
           <Skeleton className='h-48 w-48 rounded-full' />
         </div>
       </div>

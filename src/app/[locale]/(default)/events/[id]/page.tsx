@@ -59,7 +59,7 @@ export default async function EventDetailsPage({
           {event.location}
         </div>
         <Separator />
-        <div className='flex justify-between'>
+        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>
             <p>{event.description}</p>
           </div>
