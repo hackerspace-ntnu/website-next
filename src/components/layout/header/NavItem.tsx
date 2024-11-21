@@ -9,7 +9,7 @@ type NavItemProps = ComponentProps<typeof Link> & {
 
 function NavItem({ onClick, t, ...props }: NavItemProps) {
   return (
-    <Button variant='nav' size='none' asChild>
+    <Button className='justify-start' variant='nav' size='none' asChild>
       <Link onClick={onClick} {...props}>
         {t}
       </Link>

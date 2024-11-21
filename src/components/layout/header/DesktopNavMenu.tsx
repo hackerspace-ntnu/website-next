@@ -43,16 +43,14 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
           <EllipsisIcon aria-hidden />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='hidden min-w-[6rem] md:flex' align='end'>
-        <SecondaryNav
-          asDropDown
-          onClick={() => setOpen(false)}
-          t={{
-            storage: t.storage,
-            shiftSchedule: t.shiftSchedule,
-          }}
-        />
-      </DropdownMenuContent>
+      <SecondaryNav
+        asDropDown
+        onClick={() => setOpen(false)}
+        t={{
+          storage: t.storage,
+          shiftSchedule: t.shiftSchedule,
+        }}
+      />
     </DropdownMenu>
   );
 }

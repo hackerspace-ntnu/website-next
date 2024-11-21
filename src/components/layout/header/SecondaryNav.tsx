@@ -1,9 +1,11 @@
 import { NavItem } from '@/components/layout/header/NavItem';
-import { DropdownMenuItem } from '@/components/ui/DropdownMenu';
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/DropdownMenu';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;
-  className?: string;
   onClick?: () => void;
   t: {
     storage: string;
@@ -11,12 +13,7 @@ type SecondaryNavProps = {
   };
 };
 
-function SecondaryNav({
-  asDropDown = false,
-  className,
-  onClick,
-  t,
-}: SecondaryNavProps) {
+function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
   const items = [
     <NavItem key={0} onClick={onClick} href='/storage' t={t.storage} />,
     <NavItem
@@ -28,13 +25,29 @@ function SecondaryNav({
   ];
 
   return (
-    <nav className={className}>
-      {items.map((item) =>
-        asDropDown ? (
-          <DropdownMenuItem key={item.key}>{item}</DropdownMenuItem>
-        ) : (
-          <li key={item.key}>{item}</li>
-        ),
+    <nav>
+      {!asDropDown && (
+        <ul className='space-y-3'>
+          {items.map((item) => (
+            <li key={item.key}>{item}</li>
+          ))}
+        </ul>
+      )}
+      {asDropDown && (
+        <DropdownMenuContent
+          className='hidden min-w-[6rem] flex-col items-start md:flex'
+          align='end'
+        >
+          {items.map((item) => (
+            <DropdownMenuItem
+              className='w-full justify-start'
+              key={item.key}
+              asChild
+            >
+              {item}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
       )}
     </nav>
   );

@@ -74,17 +74,14 @@ function MobileSheet({ className, t }: MobileSheetProps) {
         />
         <Separator />
         <div className='mt-6 ml-2 flex flex-row gap-2'>
-          <Separator orientation='vertical' className='h-max' />
-          <ul>
-            <SecondaryNav
-              className='flex flex-col space-y-3'
-              onClick={() => setOpen(false)}
-              t={{
-                storage: t.storage,
-                shiftSchedule: t.shiftSchedule,
-              }}
-            />
-          </ul>
+          <Separator orientation='vertical' />
+          <SecondaryNav
+            onClick={() => setOpen(false)}
+            t={{
+              storage: t.storage,
+              shiftSchedule: t.shiftSchedule,
+            }}
+          />
         </div>
       </SheetContent>
     </Sheet>
