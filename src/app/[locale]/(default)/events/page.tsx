@@ -1,6 +1,7 @@
-import { EventCard } from '@/components/events/EventCard';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import Link from 'next/link'; // using this instead of next-intl's link because we're staying on the same page
 
+import { EventCard } from '@/components/events/EventCard';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
 
@@ -39,7 +40,11 @@ export default async function EventsPage({
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
-      <h2 className='my-2'>{t('activeEvents')}</h2>
+      <Link href='#active'>
+        <h2 className='my-2' id='active'>
+          {t('activeEvents')}
+        </h2>
+      </Link>
       {events.slice(0, 1).map((event) => (
         <EventCard
           key={event.id}
@@ -55,7 +60,11 @@ export default async function EventsPage({
           _active
         />
       ))}
-      <h2 className='my-4'>{t('upcomingEvents')}</h2>
+      <Link href='#upcoming'>
+        <h2 className='my-4' id='upcoming'>
+          {t('upcomingEvents')}
+        </h2>
+      </Link>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
           <EventCard
@@ -73,7 +82,11 @@ export default async function EventsPage({
           />
         ))}
       </div>
-      <h2 className='my-4'>{t('pastEvents')}</h2>
+      <Link href='#past'>
+        <h2 className='my-4' id='past'>
+          {t('pastEvents')}
+        </h2>
+      </Link>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
           <EventCard
