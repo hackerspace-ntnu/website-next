@@ -1,6 +1,5 @@
 import { SquarePenIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Link } from '@/lib/locale/navigation';
 
@@ -8,15 +7,17 @@ import { Button } from '@/components/ui/Button';
 
 type NewsHeaderLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function NewsHeaderLayout({
+export default async function NewsHeaderLayout({
+  params,
   children,
-  params: { locale },
 }: NewsHeaderLayoutProps) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('news');
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+  const t = await getTranslations('news');
   return (
     <>
       <div className='flex items-center justify-between'>

@@ -3,22 +3,23 @@ import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function StorageLayout({
+export default async function StorageLayout({
+  params,
   children,
-  params: { locale },
 }: StorageLayoutProps) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('storage');
-  const tUi = useTranslations('ui');
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+  const t = await getTranslations('storage');
+  const tUi = await getTranslations('ui');
 
   // This does not make much sense with a backend, most likely the categories in the backend will have a name in both languages and an ID
   const categories = [

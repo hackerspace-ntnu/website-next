@@ -2,9 +2,10 @@ import tailwindFluid, { extract, screens, fontSize } from 'fluid-tailwind';
 import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
+import tailwindRadix from 'tailwindcss-radix';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
-const config = {
+const config: Config = {
   content: {
     files: ['./src/**/*.tsx'],
     extract,
@@ -78,10 +79,13 @@ const config = {
     },
   },
   plugins: [
+    tailwindRadix({
+      variantPrefix: false,
+    }),
     tailwindFluid,
     tailwindAnimate,
     tailwindScrollbar({ nocompatible: true }),
   ],
-} satisfies Config;
+};
 
 export default config;
