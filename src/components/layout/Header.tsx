@@ -6,6 +6,7 @@ import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
 import { useTranslations } from 'next-intl';
+import { MatrixButton } from './header/MatrixButton';
 
 function Header() {
   const t = useTranslations('layout');
@@ -52,6 +53,7 @@ function Header() {
           />
         </div>
         <div className='flex'>
+          <MatrixButton />
           <LocaleMenu
             t={{
               changeLocale: t('changeLocale'),

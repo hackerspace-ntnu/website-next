@@ -1,17 +1,16 @@
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
+import type { ComponentProps } from 'react';
 
-type NavItemProps = {
+type NavItemProps = ComponentProps<typeof Link> & {
   onClick?: () => void;
-  // biome-ignore lint/suspicious/noExplicitAny: I can't figure out what type is supposed to be here, putting string gives error
-  href: any; // Type should only allow links to existing pages, ex: '/', '/about', '/news/1'
   t: string;
 };
 
-function NavItem({ onClick, href, t }: NavItemProps) {
+function NavItem({ onClick, t, ...props }: NavItemProps) {
   return (
     <Button variant='nav' size='none' asChild>
-      <Link href={href} onClick={onClick}>
+      <Link onClick={onClick} {...props}>
         {t}
       </Link>
     </Button>

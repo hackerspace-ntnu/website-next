@@ -19,9 +19,8 @@ function LocaleMenu({ t }: { t: { changeLocale: string } }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon'>
-          <Globe2Icon className='h-[1.2rem] w-[1.2rem]' />
-          <span className='sr-only'>{t.changeLocale}</span>
+        <Button variant='ghost' size='icon' title={t.changeLocale}>
+          <Globe2Icon className='h-[1.2rem] w-[1.2rem]' aria-hidden />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
