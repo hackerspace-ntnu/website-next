@@ -84,11 +84,12 @@ function EventCard({
         </CardContent>
         <CardFooter className='mt-auto flex-col'>
           <p>
-            {started ? <>{t.startedAt}</> : <>{t.startsAt}</>}{' '}
+            <strong>{started ? <>{t.startedAt}</> : <>{t.startsAt}</>}</strong>{' '}
             {formattedStartDate}
           </p>
           <p className='[&:not(:first-child)]:mt-2'>
-            {ended ? <>{t.endedAt}</> : <>{t.endsAt}</>} {formattedEndDate}
+            <strong>{ended ? <>{t.endedAt}</> : <>{t.endsAt}</>}</strong>{' '}
+            {formattedEndDate}
           </p>
         </CardFooter>
       </Card>
