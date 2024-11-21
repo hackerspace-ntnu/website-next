@@ -19,14 +19,9 @@ function RuleCardList({ rules }: RuleCardListProps) {
   const isMember = true;
 
   return (
-    <div className='flex shrink flex-wrap justify-center md:flex-nowrap md:space-x-5'>
-      <div
-        className={cx(
-          'xs:w-full sm:w-full',
-          isMember ? ' md:w-1/2' : 'md:full mt-5',
-        )}
-      >
-        <h2 className={cx(isMember ? 'border-b-0 p-4 text-center' : 'hidden')}>
+    <div className='flex shrink flex-wrap justify-center p-4 md:flex-nowrap md:space-x-5'>
+      <div className={isMember ? ' md:w-1/2' : 'md:full mt-5'}>
+        <h2 className={isMember ? 'border-b-0 p-4 text-center' : 'hidden'}>
           {t('forEveryone')}
         </h2>
         {notInternal.map((rule) => (
@@ -40,7 +35,7 @@ function RuleCardList({ rules }: RuleCardListProps) {
           />
         ))}
       </div>
-      <div className={cx(isMember ? 'w-full md:w-1/2' : 'hidden')}>
+      <div className={isMember ? 'w-full md:w-1/2' : 'hidden'}>
         <h2 className='border-b-0 p-4 text-center'>{t('internal')}</h2>
         {internal.map((rule) => (
           <RuleCard

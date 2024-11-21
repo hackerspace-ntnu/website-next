@@ -1,17 +1,17 @@
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 type RulesLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function RulesLayout({
+export default async function RulesLayout({
   children,
-  params: { locale },
+  params,
 }: RulesLayoutProps) {
-  unstable_setRequestLocale(locale);
-  const t = useTranslations('rules');
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('rules');
   return (
     <>
       <h1 className='text-center'>{t('title')}</h1>

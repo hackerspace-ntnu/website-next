@@ -1,13 +1,16 @@
 import { rulesMockdata } from '@/mock-data/rules';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-export default function RuleSubSetPage({
-  params: { subset },
-}: { params: { subset: string } }) {
-  unstable_setRequestLocale(subset);
+export default async function RuleSubSetPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const page = rulesMockdata.find(
-    (rule) => rule.id === Number.parseInt(subset),
+    (rule) => rule.id === Number.parseInt(locale),
   );
   if (!page) return notFound();
   return <h1 className='text-center'>{page.title}</h1>;

@@ -1,28 +1,29 @@
 import { RuleCardList } from '@/components/rules/RuleCardList';
 import { rulesMockdata } from '@/mock-data/rules';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { Suspense } from 'react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'layout' });
+
   return {
     title: t('rules'),
   };
 }
 
-export default function RulesPage({
-  params: { locale },
+export default async function RulesPage({
+  params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  unstable_setRequestLocale(locale);
-  return (
-    <>
-      <RuleCardList className='p4' rules={rulesMockdata} />
-    </>
-  );
+  const { locale } = await params;
+
+  setRequestLocale(locale);
+
+  return <RuleCardList rules={rulesMockdata} />;
 }
