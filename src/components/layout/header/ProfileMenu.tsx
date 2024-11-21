@@ -14,10 +14,15 @@ function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' title={t.profile}>
+        <Button
+          variant='ghost'
+          size='icon'
+          title={t.profile}
+          aria-label={t.profile}
+        >
           <UserIcon
             className='h-[1.2rem] w-[1.2rem] text-primary'
-            aria-hidden
+            aria-hidden='true'
           />
         </Button>
       </DropdownMenuTrigger>

@@ -14,9 +14,15 @@ function Nav({ className, onClick, t }: NavProps) {
   return (
     <nav className='flex items-center'>
       <ul className={className}>
-        <NavItem onClick={onClick} href='/news' t={t.news} />
-        <NavItem onClick={onClick} href='/events' t={t.events} />
-        <NavItem onClick={onClick} href='/about' t={t.about} />
+        <li>
+          <NavItem onClick={onClick} href='/news' t={t.news} />
+        </li>
+        <li>
+          <NavItem onClick={onClick} href='/events' t={t.events} />
+        </li>
+        <li>
+          <NavItem onClick={onClick} href='/about' t={t.about} />
+        </li>
       </ul>
     </nav>
   );

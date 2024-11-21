@@ -8,8 +8,11 @@ function MatrixButton() {
 
   return (
     <Button variant='ghost' size='icon' asChild>
-      <Link href='/' title={t('matrix')}>
-        <MessageSquareMoreIcon className='h-[1.2rem] w-[1.2rem]' aria-hidden />
+      <Link href='/' title={t('matrix')} aria-label={t('matrix')}>
+        <MessageSquareMoreIcon
+          className='h-[1.2rem] w-[1.2rem]'
+          aria-hidden='true'
+        />
       </Link>
     </Button>
   );

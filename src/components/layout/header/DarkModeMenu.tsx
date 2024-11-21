@@ -25,14 +25,19 @@ function DarkModeMenu({ t }: DarkModeMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' title={t.toggleTheme}>
+        <Button
+          variant='ghost'
+          size='icon'
+          title={t.toggleTheme}
+          aria-label={t.toggleTheme}
+        >
           <SunIcon
             className='dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0'
-            aria-hidden
+            aria-hidden='true'
           />
           <MoonIcon
             className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
-            aria-hidden
+            aria-hidden='true'
           />
         </Button>
       </DropdownMenuTrigger>

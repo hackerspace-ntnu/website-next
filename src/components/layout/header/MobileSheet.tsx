@@ -48,8 +48,9 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           variant='ghost'
           size='icon'
           title={t.navigationMenu}
+          aria-label={t.navigationMenu}
         >
-          <MenuIcon className='h-5 w-5' aria-hidden />
+          <MenuIcon className='h-5 w-5' aria-hidden='true' />
         </Button>
       </SheetTrigger>
       <SheetContent className='w-72' side='left' close={t.close}>
@@ -74,7 +75,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
         />
         <Separator />
         <div className='mt-6 ml-2 flex flex-row gap-2'>
-          <Separator orientation='vertical' />
+          <Separator orientation='vertical' className='h-auto' />
           <SecondaryNav
             onClick={() => setOpen(false)}
             t={{

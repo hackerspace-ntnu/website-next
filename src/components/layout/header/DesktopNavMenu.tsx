@@ -40,7 +40,7 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
           size='none'
           aria-label={open ? t.close : t.open}
         >
-          <EllipsisIcon aria-hidden />
+          <EllipsisIcon aria-hidden='true' />
         </Button>
       </DropdownMenuTrigger>
       <SecondaryNav
