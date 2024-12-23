@@ -12,6 +12,7 @@ import { Link } from '@/lib/locale/navigation';
 import { BugIcon, MailIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import ExternalLink from 'next/link';
+import { MatrixButton } from './header/MatrixButton';
 
 function Footer() {
   const t = useTranslations('layout');
@@ -52,6 +53,9 @@ function Footer() {
         <div>
           <h4>{t('socialMedia')}</h4>
           <ul className='grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
+            <li className='xs:hidden'>
+              <MatrixButton size='sm-icon' />
+            </li>
             <li>
               <Button asChild variant='ghost' size='sm-icon'>
                 <ExternalLink

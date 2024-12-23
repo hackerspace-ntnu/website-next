@@ -33,7 +33,7 @@ function Header() {
           }}
         />
       </div>
-      <div className='flex gap-10'>
+      <div className='flex gap-6'>
         <div className='hidden items-center gap-6 md:flex'>
           <Nav
             className='flex items-center gap-6 text-sm'
@@ -53,7 +53,7 @@ function Header() {
           />
         </div>
         <div className='flex'>
-          <MatrixButton />
+          <MatrixButton className='xs:flex hidden' size='icon' />
           <LocaleMenu
             t={{
               changeLocale: t('changeLocale'),
