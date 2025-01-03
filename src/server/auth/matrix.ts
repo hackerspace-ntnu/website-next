@@ -29,7 +29,7 @@ function generateMAC(
 ): string {
   const encoder = new TextEncoder();
   const nullByte = new Uint8Array([0]);
-  const key = encoder.encode(env.REGISTRATION_SHARED_SECRET_MATRIX);
+  const key = encoder.encode(env.MATRIX_SHARED_SECRET);
 
   const hmac = crypto.createHmac('sha1', key);
   hmac.update(encoder.encode(nonce));
