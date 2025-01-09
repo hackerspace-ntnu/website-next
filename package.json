@@ -80,6 +80,7 @@
     "client-only": "^0.0.1",
     "cross-env": "^7.0.3",
     "drizzle-kit": "^0.24.2",
+    "drizzle-seed": "^0.3.0",
     "fluid-tailwind": "^1.0.3",
     "lefthook": "^1.8.1",
     "postcss": "^8.4.47",
