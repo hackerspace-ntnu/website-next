@@ -54,7 +54,7 @@ function EventCard({
       href={{ pathname: '/events/[id]', params: { id: event.id } }}
       aria-label={t.detailsAboutEvent}
       className={cx(
-        'rounded-md border border-transparent ring-offset-background transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'block rounded-md border border-transparent ring-offset-background transition-colors hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         wrapperClassName,
       )}
     >
@@ -73,7 +73,7 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='max-w-prose'>{event.description}</p>
+          <p className='max-w-96'>{event.description}</p>
           <Avatar className='h-48 w-48'>
             <AvatarImage
               src='/event.webp'
