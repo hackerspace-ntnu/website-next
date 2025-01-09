@@ -15,7 +15,7 @@ const globalForDb = globalThis as unknown as {
 const connection =
   globalForDb.connection ??
   postgres(
-    `postgresql://${env.DATABASE_USER}:${env.DATABASE_PASSWORD}@${env.DATABASE_HOST}:${env.DATABASE_PORT}/${env.DATABASE_NAME}`,
+    `postgresql://${env.DB_USER}:${env.DB_PASSWORD}@${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME}`,
   );
 if (env.NODE_ENV !== 'production') globalForDb.connection = connection;
 

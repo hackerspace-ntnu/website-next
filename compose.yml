@@ -11,9 +11,9 @@ services:
     image: postgres:16
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - ./data/db:/var/lib/postgresql/data
     networks:
@@ -22,9 +22,9 @@ services:
     image: bitnami/minio:2024
     restart: unless-stopped
     environment:
-      MINIO_ROOT_USER: ${STORAGE_USER}
-      MINIO_ROOT_PASSWORD: ${STORAGE_PASSWORD}
-      MINIO_DEFAULT_BUCKETS: ${STORAGE_NAME}
+      MINIO_ROOT_USER: ${S3_USER}
+      MINIO_ROOT_PASSWORD: ${S3_PASSWORD}
+      MINIO_DEFAULT_BUCKETS: ${S3_NAME}
     volumes:
       - ./data/s3:/bitnami/minio/data
     networks:
