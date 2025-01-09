@@ -3,7 +3,8 @@ import { createRouter } from '@/server/api/trpc';
 
 const testRouter = createRouter({
   helloWorld: publicProcedure.query(async ({ ctx }) => {
-    return ctx.locale;
+    // Dette er bare et eksempel, vi vil selfølgelig bruke getTranslations istedet
+    return ctx.locale === 'no' ? 'Hei Verden!' : 'Hello World!';
   }),
 });
 
