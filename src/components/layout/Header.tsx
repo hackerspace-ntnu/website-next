@@ -12,7 +12,7 @@ function Header() {
   const t = useTranslations('layout');
 
   return (
-    <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='~px-1/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
@@ -24,6 +24,12 @@ function Header() {
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             hackerspaceHome: t('hackerspaceHome'),
+            matrix: t('matrix'),
+            changeLocale: t('changeLocale'),
+            toggleTheme: t('toggleTheme'),
+            light: t('light'),
+            dark: t('dark'),
+            system: t('system'),
             close: useTranslations('ui')('close'),
           }}
         />
@@ -53,11 +59,12 @@ function Header() {
           />
         </div>
         <div className='flex'>
-          <MatrixButton className='xs:flex hidden' size='icon' />
+          <MatrixButton t={{ title: t('matrix') }} className='xs:flex hidden' />
           <LocaleMenu
             t={{
               changeLocale: t('changeLocale'),
             }}
+            classname='hidden xs:flex'
           />
           <DarkModeMenu
             t={{
@@ -66,6 +73,7 @@ function Header() {
               dark: t('dark'),
               system: t('system'),
             }}
+            classname='hidden xs:flex'
           />
           <ProfileMenu
             t={{

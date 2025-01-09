@@ -12,7 +12,14 @@ import { usePathname, useRouter } from '@/lib/locale/navigation';
 import { Globe2Icon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 
-function LocaleMenu({ t }: { t: { changeLocale: string } }) {
+type LocaleMenuProps = {
+  t: {
+    changeLocale: string;
+  };
+  classname?: string;
+};
+
+function LocaleMenu({ t, classname }: LocaleMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -24,6 +31,7 @@ function LocaleMenu({ t }: { t: { changeLocale: string } }) {
           size='icon'
           title={t.changeLocale}
           aria-label={t.changeLocale}
+          className={classname}
         >
           <Globe2Icon className='h-[1.2rem] w-[1.2rem]' aria-hidden='true' />
         </Button>

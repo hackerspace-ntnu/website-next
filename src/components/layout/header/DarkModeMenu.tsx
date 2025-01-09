@@ -17,9 +17,10 @@ type DarkModeMenuProps = {
     dark: string;
     system: string;
   };
+  classname?: string;
 };
 
-function DarkModeMenu({ t }: DarkModeMenuProps) {
+function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
   const { setTheme } = useTheme();
 
   return (
@@ -30,6 +31,7 @@ function DarkModeMenu({ t }: DarkModeMenuProps) {
           size='icon'
           title={t.toggleTheme}
           aria-label={t.toggleTheme}
+          className={classname}
         >
           <SunIcon
             className='dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0'
