@@ -79,9 +79,6 @@ const config: Config = {
     },
   },
   plugins: [
-    tailwindRadix({
-      variantPrefix: false,
-    }),
     tailwindFluid,
     tailwindAnimate,
     tailwindScrollbar({ nocompatible: true }),
