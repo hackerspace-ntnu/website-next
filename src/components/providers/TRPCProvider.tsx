@@ -7,6 +7,7 @@ import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { httpBatchLink, loggerLink } from '@trpc/client';
 import { useLocale } from 'next-intl';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import SuperJSON from 'superjson';
 
@@ -26,6 +27,11 @@ const getQueryClient = () => {
 function TRPCProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
   const locale = useLocale();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: locale is needed to trigger revalidation on language change
+  useEffect(() => {
+    queryClient.invalidateQueries();
+  }, [locale, queryClient]);
 
   const [trpcClient] = useState(() =>
     api.createClient({
