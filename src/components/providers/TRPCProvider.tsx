@@ -4,7 +4,9 @@ import { env } from '@/env';
 import { api } from '@/lib/api/client';
 import { createQueryClient } from '@/lib/api/queryClient';
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { httpBatchLink, loggerLink } from '@trpc/client';
+import { useLocale } from 'next-intl';
 import { useState } from 'react';
 import SuperJSON from 'superjson';
 
@@ -23,6 +25,7 @@ const getQueryClient = () => {
 
 function TRPCProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
+  const locale = useLocale();
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -35,6 +38,11 @@ function TRPCProvider(props: { children: React.ReactNode }) {
         httpBatchLink({
           transformer: SuperJSON,
           url: `${env.NEXT_PUBLIC_SITE_URL}/api/data`,
+          headers() {
+            return {
+              'accept-language': locale,
+            };
+          },
         }),
       ],
     }),
@@ -42,9 +50,11 @@ function TRPCProvider(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider client={trpcClient} queryClient={queryClient}>
-        {props.children}
-      </api.Provider>
+      <ReactQueryStreamedHydration>
+        <api.Provider client={trpcClient} queryClient={queryClient}>
+          {props.children}
+        </api.Provider>
+      </ReactQueryStreamedHydration>
     </QueryClientProvider>
   );
 }

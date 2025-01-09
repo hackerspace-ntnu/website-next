@@ -9,7 +9,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const hello = await api.test.helloWorld();
+  const hello = api.test.helloWorld();
   return (
     <div className='min-h-screen'>
       <h2>{hello}</h2>

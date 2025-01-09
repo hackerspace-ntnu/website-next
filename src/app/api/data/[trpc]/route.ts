@@ -1,6 +1,7 @@
 import { env } from '@/env';
 import { router } from '@/server/api';
 import { createContext } from '@/server/api/context';
+import { getLocaleFromRequest } from '@/server/api/locale';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import type { NextRequest } from 'next/server';
 
@@ -9,7 +10,7 @@ function handleRequest(req: NextRequest) {
     endpoint: '/api/data',
     req,
     router,
-    createContext,
+    createContext: () => createContext(getLocaleFromRequest(req)),
     onError:
       env.NODE_ENV === 'development'
         ? ({ path, error }) => {

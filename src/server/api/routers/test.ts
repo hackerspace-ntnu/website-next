@@ -2,8 +2,8 @@ import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 
 const testRouter = createRouter({
-  helloWorld: publicProcedure.query(async () => {
-    return 'Hello, World!';
+  helloWorld: publicProcedure.query(async ({ ctx }) => {
+    return ctx.locale;
   }),
 });
 
