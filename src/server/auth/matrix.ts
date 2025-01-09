@@ -1,10 +1,11 @@
-import * as crypto from 'crypto';
 import { env } from '@/env';
+import { hmac } from '@oslojs/crypto/hmac';
+import { SHA1 } from '@oslojs/crypto/sha1';
 
 // Get unique nonce
 async function getNonce(): Promise<string | undefined> {
   const getRequest: RequestInfo = new Request(
-    'https://matrix.hackerspace-ntnu.no/_synapse/admin/v1/register',
+    `${env.MATRIX_ENDPOINT}/v1/register`,
     { method: 'GET' },
   );
 
@@ -20,7 +21,6 @@ async function getNonce(): Promise<string | undefined> {
   }
 }
 
-// Generate MAC
 function generateMAC(
   nonce: string | undefined,
   username: string,
@@ -28,27 +28,32 @@ function generateMAC(
   admin = false,
 ): string {
   const encoder = new TextEncoder();
+  const key = encoder.encode(env.MATRIX_SECRET);
+
   const nullByte = new Uint8Array([0]);
-  const key = encoder.encode(env.MATRIX_SHARED_SECRET);
+  const nonceBytes = encoder.encode(nonce);
+  const usernameBytes = encoder.encode(username);
+  const passwordBytes = encoder.encode(password);
+  const adminBytes = encoder.encode(admin ? 'admin' : 'notadmin');
 
-  const hmac = crypto.createHmac('sha1', key);
-  hmac.update(encoder.encode(nonce));
-  hmac.update(nullByte);
-  hmac.update(encoder.encode(username));
-  hmac.update(nullByte);
-  hmac.update(encoder.encode(password));
-  hmac.update(nullByte);
-  if (!admin) {
-    hmac.update(encoder.encode('notadmin'));
-  } else {
-    hmac.update(encoder.encode('admin'));
-  }
+  const message = new Uint8Array([
+    ...nonceBytes,
+    ...nullByte,
+    ...usernameBytes,
+    ...nullByte,
+    ...passwordBytes,
+    ...nullByte,
+    ...adminBytes,
+  ]);
 
-  return hmac.digest('hex');
+  const hash = hmac(SHA1, key, message);
+
+  return Array.from(hash)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
-// Register user on Matrix
-async function registerUser(
+async function registerMatrixUser(
   username: string,
   displayname: string,
   password: string,
@@ -66,14 +71,11 @@ async function registerUser(
     mac: hmac,
   };
 
-  const response = await fetch(
-    'https://matrix.hackerspace-ntnu.no/_synapse/admin/v1/register',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    },
-  );
+  const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
 
   if (response.ok) {
     const jsonResponse = await response.json();
@@ -92,3 +94,5 @@ async function registerUser(
   );
   return false;
 }
+
+export { registerMatrixUser };
