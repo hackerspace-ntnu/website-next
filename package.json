@@ -47,6 +47,7 @@
     "@tsparticles/react": "^3.0.0",
     "cmdk": "1.0.0",
     "country-flag-icons": "^1.5.13",
+    "crypto": "^1.0.1",
     "cva": "^1.0.0-beta.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.33.0",
