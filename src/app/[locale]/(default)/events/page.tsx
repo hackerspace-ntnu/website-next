@@ -40,10 +40,8 @@ export default async function EventsPage({
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
-      <Link href='#active'>
-        <h2 className='my-2' id='active'>
-          {t('activeEvents')}
-        </h2>
+      <Link className='my-2 block' href='#active'>
+        <h2 id='active'>{t('activeEvents')}</h2>
       </Link>
       {events.slice(0, 1).map((event) => (
         <EventCard
@@ -60,10 +58,8 @@ export default async function EventsPage({
           _active
         />
       ))}
-      <Link href='#upcoming'>
-        <h2 className='my-4' id='upcoming'>
-          {t('upcomingEvents')}
-        </h2>
+      <Link className='my-4 block' href='#upcoming'>
+        <h2 id='upcoming'>{t('upcomingEvents')}</h2>
       </Link>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
@@ -82,10 +78,8 @@ export default async function EventsPage({
           />
         ))}
       </div>
-      <Link href='#past'>
-        <h2 className='my-4' id='past'>
-          {t('pastEvents')}
-        </h2>
+      <Link className='my-4 block' href='#past'>
+        <h2 id='past'>{t('pastEvents')}</h2>
       </Link>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
