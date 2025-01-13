@@ -35,7 +35,7 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
         <Button
           variant='ghost'
           size='icon'
-          className={cx(hasUser && 'text-primary')}
+          className={cx(hasUser && 'text-primary hover:text-primary')}
         >
           <UserIcon className='h-[1.2rem] w-[1.2rem]' />
           <span className='sr-only'>{t.profile}</span>
