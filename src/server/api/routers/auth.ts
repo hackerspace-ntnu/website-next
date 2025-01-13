@@ -1,8 +1,16 @@
 import { env } from '@/env';
-import { publicProcedure } from '@/server/api/procedures';
+import {
+  authenticatedProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { createRouter } from '@/server/api/trpc';
 import { createFeideAuthorization } from '@/server/auth/feide';
+import {
+  deleteSessionTokenCookie,
+  invalidateSession,
+} from '@/server/auth/session';
+import { getTranslations } from 'next-intl/server';
 
 import { TRPCError } from '@trpc/server';
 import { cookies, headers } from 'next/headers';
@@ -12,14 +20,19 @@ import { sanitizeAuth } from '@/server/auth';
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 
 const authRouter = createRouter({
-  signInFeide: publicProcedure.mutation(async () => {
+  signInFeide: publicProcedure.mutation(async ({ ctx }) => {
+    const t = await getTranslations({
+      locale: ctx.locale,
+      namespace: 'api',
+    });
+
     const headerStore = await headers();
     const clientIP = headerStore.get('X-Forwarded-For');
 
     if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
       throw new TRPCError({
         code: 'TOO_MANY_REQUESTS',
-        message: 'Rate limit exceeded. Please try again later.',
+        message: t('tooManyRequests'),
       });
     }
 
@@ -45,6 +58,10 @@ const authRouter = createRouter({
   auth: publicProcedure.query(async ({ ctx }) => {
     const result = await ctx.auth();
     return sanitizeAuth(result);
+  }),
+  signOut: authenticatedProcedure.query(async ({ ctx }) => {
+    await invalidateSession(ctx.session.id);
+    await deleteSessionTokenCookie();
   }),
 });
 

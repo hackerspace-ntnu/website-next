@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { api } from '@/lib/api/client';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import { UserIcon } from 'lucide-react';
@@ -16,10 +17,13 @@ type ProfileMenuProps = {
   t: {
     profile: string;
     signIn: string;
+    settings: string;
+    signOut: string;
   };
 };
 
 function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
+  const signOutMutation = api.auth.signOut.useMutation();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,9 +37,20 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        <DropdownMenuItem asChild>
-          <Link href='/auth'>{t.signIn}</Link>
-        </DropdownMenuItem>
+        {hasUser ? (
+          <>
+            <DropdownMenuItem asChild>
+              <Link href='/settings'>{t.settings}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOutMutation.mutate({})}>
+              {t.signOut}
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <DropdownMenuItem asChild>
+            <Link href='/auth'>{t.signIn}</Link>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

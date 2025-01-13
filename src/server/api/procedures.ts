@@ -1,4 +1,6 @@
 import { trpc } from '@/server/api/trpc';
+import { TRPCError } from '@trpc/server';
+import { getTranslations } from 'next-intl/server';
 
 const timingMiddleware = trpc.middleware(async ({ next, path }) => {
   const start = Date.now();
@@ -18,4 +20,28 @@ const timingMiddleware = trpc.middleware(async ({ next, path }) => {
 
 const publicProcedure = trpc.procedure.use(timingMiddleware);
 
-export { publicProcedure };
+const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
+  const t = await getTranslations({
+    locale: ctx.locale,
+    namespace: 'api',
+  });
+  const { user, session } = await ctx.auth();
+
+  if (!session) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: t('notAuthenticated'),
+    });
+  }
+  return next({
+    ctx: {
+      ...ctx,
+      user,
+      session,
+    },
+  });
+});
+
+const authenticatedProcedure = publicProcedure.use(authMiddleware);
+
+export { publicProcedure, authenticatedProcedure };

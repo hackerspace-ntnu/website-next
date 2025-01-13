@@ -191,5 +191,9 @@
         }
       }
     }
+  },
+  "api": {
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated"
   }
 }
