@@ -57,7 +57,9 @@
     "visitSlack": "Besøk Slack",
     "visitFacebook": "Besøk Facebook",
     "visitGithub": "Besøk Github",
+    "visitLinkedin": "Besøk Linkedin",
     "visitInstagram": "Besøk Instagram",
+    "dicordTag": "Kopier Discord-taggen",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUKiD": "Arbeidslivsnettverket KID",
@@ -70,6 +72,21 @@
     "newArticle": "Ny artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger"
+  },
+  "members": {
+    "title": "Medlemmer",
+    "internalMember": "Dette er et internt medlem",
+    "backToMember": "Tilbake til medlemmer",
+    "searchPlaceholder": "Søk etter et medlem...",
+    "skills": {
+      "arduinoMicrocontrollers": "Arduino og mikrokontrollere",
+      "raspberryPi": "Raspberry Pi",
+      "linuxTerminal": "Linux/Terminal",
+      "workshop": "Verksted",
+      "3dPrinting": "3D printing",
+      "solderingSmallElectronics": "Lodding og småelektronikk",
+      "laserCutting": "Laserkutting"
+    }
   },
   "storage": {
     "title": "Lager",

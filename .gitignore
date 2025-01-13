@@ -5,6 +5,9 @@
 /.next/
 next-env.d.ts
 
+# vscode
+.vscode/
+
 # misc
 .DS_Store
 

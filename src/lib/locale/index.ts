@@ -35,6 +35,14 @@ const routing = defineRouting({
       en: '/about',
       no: '/om-oss',
     },
+    '/members': {
+      en: '/members',
+      no: '/medlemmer',
+    },
+    '/members/[member]': {
+      en: '/members/[member]',
+      no: '/medlemmer/[member]',
+    },
     '/storage': {
       en: '/storage',
       no: '/lager',
