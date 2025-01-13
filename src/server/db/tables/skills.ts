@@ -18,15 +18,15 @@ const usersSkills = pgTable(
   'users_skills',
   {
     userId: integer('user_id')
-      .references(() => users.id)
+      .references(() => users.id, { onDelete: 'cascade' })
       .notNull(),
     skillId: integer('skill_id')
-      .references(() => skills.id)
+      .references(() => skills.id, { onDelete: 'cascade' })
       .notNull(),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.userId, t.skillId] }),
-  }),
+  (table) => {
+    return [primaryKey({ columns: [table.userId, table.skillId] })];
+  },
 );
 
 const skillsRelations = relations(skills, ({ many }) => ({
