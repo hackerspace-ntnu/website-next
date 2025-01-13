@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/lib/locale/navigation';
 import { UserIcon } from 'lucide-react';
-import * as React from 'react';
 
 function ProfileMenu({ t }: { t: { profile: string; signIn: string } }) {
   return (

@@ -4,10 +4,12 @@ import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
+import { api } from '@/lib/api/server';
 import { useTranslations } from 'next-intl';
 
 function Header() {
   const t = useTranslations('layout');
+  const { user } = api.auth.auth();
   return (
     <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>

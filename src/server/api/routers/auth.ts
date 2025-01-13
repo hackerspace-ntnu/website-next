@@ -7,6 +7,8 @@ import { createFeideAuthorization } from '@/server/auth/feide';
 import { TRPCError } from '@trpc/server';
 import { cookies, headers } from 'next/headers';
 
+import { sanitizeAuth } from '@/server/auth';
+
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 
 const authRouter = createRouter({
@@ -39,6 +41,10 @@ const authRouter = createRouter({
     });
 
     return url.href;
+  }),
+  auth: publicProcedure.query(async ({ ctx }) => {
+    const result = await ctx.auth();
+    return sanitizeAuth(result);
   }),
 });
 

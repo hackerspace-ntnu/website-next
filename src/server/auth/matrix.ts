@@ -2,7 +2,6 @@ import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
 
-// Get unique nonce
 async function getNonce(): Promise<string | undefined> {
   const getRequest: RequestInfo = new Request(
     `${env.MATRIX_ENDPOINT}/v1/register`,

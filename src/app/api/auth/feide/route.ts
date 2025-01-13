@@ -60,6 +60,12 @@ export async function GET(request: NextRequest) {
     if (!user) {
       return NextResponse.json(null, { status: 500 });
     }
+
+    const sessionToken = generateSessionToken();
+    const session = await createSession(sessionToken, user.id);
+    await setSessionTokenCookie(sessionToken, session.expiresAt);
+
+    return NextResponse.redirect(new URL('/create-account', request.url));
   }
 
   const sessionToken = generateSessionToken();
