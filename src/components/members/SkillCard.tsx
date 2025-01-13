@@ -35,7 +35,7 @@ type SkillCardProps = {
   linkedin: string;
   workshop: boolean;
   printing: boolean;
-  lazercutter: boolean;
+  lasercutter: boolean;
   linuxTerminal: boolean;
 };
 
@@ -54,7 +54,7 @@ function SkillCard({
   linkedin,
   workshop,
   printing,
-  lazercutter,
+  lasercutter,
   linuxTerminal,
 }: SkillCardProps) {
   const t = useTranslations('members.skills');

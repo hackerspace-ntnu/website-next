@@ -1,7 +1,7 @@
 import { memberMockData as memberData } from '@/mock-data/member';
 import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/parsers';
+import { getTranslations,setRequestLocale } from 'next-intl/server';
+import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
@@ -13,10 +13,10 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations({ locale, namespace: 'layout' });
+  const t = await getTranslations({ locale, namespace: 'members' });
 
   return {
-    title: t('members'),
+    title: t('title'),
   };
 }
 
@@ -27,7 +27,7 @@ export default function MembersPage({
   params: { locale: string };
   searchParams: Record<string, string | string[] | undefined>;
 }) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
