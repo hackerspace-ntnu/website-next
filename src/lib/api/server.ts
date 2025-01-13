@@ -42,9 +42,4 @@ const api = new Proxy({} as ApiClient, {
   },
 });
 
-// async function api() {
-//   const { trpc } = await getApiClient();
-//   return trpc;
-// }
-
 export { api };
