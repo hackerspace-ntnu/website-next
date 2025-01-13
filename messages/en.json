@@ -81,6 +81,8 @@
     "system": "System",
     "profile": "Profile",
     "signIn": "Sign in",
+    "signOut": "Sign out",
+    "settings": "Settings",
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",

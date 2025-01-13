@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { api } from '@/lib/api/client';
-import { Link } from '@/lib/locale/navigation';
+import { Link, useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import { UserIcon } from 'lucide-react';
 
@@ -23,7 +23,12 @@ type ProfileMenuProps = {
 };
 
 function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
-  const signOutMutation = api.auth.signOut.useMutation();
+  const router = useRouter();
+  const signOutMutation = api.auth.signOut.useMutation({
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,7 +47,7 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
             <DropdownMenuItem asChild>
               <Link href='/settings'>{t.settings}</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => signOutMutation.mutate({})}>
+            <DropdownMenuItem onClick={() => signOutMutation.mutate()}>
               {t.signOut}
             </DropdownMenuItem>
           </>

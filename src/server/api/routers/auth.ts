@@ -20,6 +20,10 @@ import { sanitizeAuth } from '@/server/auth';
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 
 const authRouter = createRouter({
+  state: publicProcedure.query(async ({ ctx }) => {
+    const result = await ctx.auth();
+    return sanitizeAuth(result);
+  }),
   signInFeide: publicProcedure.mutation(async ({ ctx }) => {
     const t = await getTranslations({
       locale: ctx.locale,
@@ -55,11 +59,7 @@ const authRouter = createRouter({
 
     return url.href;
   }),
-  auth: publicProcedure.query(async ({ ctx }) => {
-    const result = await ctx.auth();
-    return sanitizeAuth(result);
-  }),
-  signOut: authenticatedProcedure.query(async ({ ctx }) => {
+  signOut: authenticatedProcedure.mutation(async ({ ctx }) => {
     await invalidateSession(ctx.session.id);
     await deleteSessionTokenCookie();
   }),

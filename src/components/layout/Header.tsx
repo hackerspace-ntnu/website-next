@@ -9,7 +9,7 @@ import { getTranslations } from 'next-intl/server';
 
 async function Header() {
   const t = await getTranslations('layout');
-  const { user } = await api.auth.auth();
+  const { user } = await api.auth.state();
   return (
     <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
@@ -52,6 +52,8 @@ async function Header() {
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
+              signOut: t('signOut'),
+              settings: t('settings'),
             }}
           />
         </div>
