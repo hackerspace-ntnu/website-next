@@ -14,6 +14,8 @@ const config = {
         'http://localhost:3000/en/storage',
         'http://localhost:3000/en/storage/shopping-cart',
         'http://localhost:3000/en/shift-schedule',
+        'http://localhost:3000/en/rules',
+        'http://localhost:3000/en/rules/1',
       ],
       startServerCommand: 'bun run start',
     },
