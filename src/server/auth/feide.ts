@@ -15,6 +15,19 @@ const feideOAuthClient = new OAuth2Client(
   },
 );
 
+type FeideUserInfo = {
+  aud: string;
+  sub: string;
+  'connect-userid_sec': string[];
+  'dataporten-userid_sec': string[];
+  'https://n.feide.no/claims/userid_sec': string[];
+  'https://n.feide.no/claims/eduPersonPrincipalName': string;
+  name: string;
+  email: string;
+  email_verified: boolean;
+  picture: string;
+};
+
 async function createFeideAuthorization() {
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
@@ -59,4 +72,8 @@ async function validateFeideAuthorization(code: string, codeVerifier: string) {
   }
 }
 
-export { createFeideAuthorization, validateFeideAuthorization };
+export {
+  createFeideAuthorization,
+  validateFeideAuthorization,
+  type FeideUserInfo,
+};

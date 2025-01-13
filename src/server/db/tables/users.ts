@@ -19,15 +19,14 @@ const users = pgTable('users', {
     .notNull()
     .defaultNow(),
   username: varchar('username', { length: 8 }).unique().notNull(),
-  firstName: varchar('first_name', { length: 30 }).notNull(),
-  lastName: varchar('last_name', { length: 30 }).notNull(),
+  name: varchar('name', { length: 60 }).notNull(),
+  email: varchar('email', { length: 254 }).unique().notNull(),
   birthDate: timestamp('birth_date', {
     withTimezone: true,
     mode: 'date',
-  }).notNull(),
-  phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
-  passwordHash: text('password_hash').notNull(),
-  email: varchar('email', { length: 254 }).unique().notNull(),
+  }),
+  phoneNumber: varchar('phone_number', { length: 20 }).unique(),
+  passwordHash: text('password_hash'),
 });
 
 const usersRelations = relations(users, ({ many }) => ({
