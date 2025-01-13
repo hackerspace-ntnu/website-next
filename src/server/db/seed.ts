@@ -26,8 +26,9 @@ async function main() {
 
   console.log('Inserting user...');
   const user: InsertUser = {
-    name: 'Frank Sinatra',
     username: 'fransin',
+    name: 'Frank Sinatra',
+    email: 'frank@sinatra.com',
     passwordHash: await hashPassword('Password1!'),
   };
 
