@@ -52,6 +52,7 @@ function AccountSignInForm() {
     },
     onSubmit: () => {
       router.push('/');
+      router.refresh();
     },
   });
 
