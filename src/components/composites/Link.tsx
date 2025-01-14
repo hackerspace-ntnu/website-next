@@ -1,18 +1,37 @@
 import { Button, type buttonVariants } from '@/components/ui/Button';
-import { Link as InternalLink } from '@/lib/locale/navigation';
-import type { VariantProps } from 'cva';
-import ExternalLink from 'next/link';
+import { Link as LinkPrimitive } from '@/lib/locale/navigation';
+import type { VariantProps } from '@/lib/utils';
+import ExternalLinkPrimitive from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
 
-type LinkProps = ComponentPropsWithoutRef<typeof InternalLink> &
+type LinkProps = ComponentPropsWithoutRef<typeof LinkPrimitive> &
   VariantProps<typeof buttonVariants>;
 
-function Link({ variant, size, children, ...props }: LinkProps) {
+// Only for links to internal pages, use ExternalLink for links to external pages
+function Link({ className, variant, size, ...props }: LinkProps) {
   return (
-    <Button variant={variant} size={size} asChild>
-      <InternalLink {...props}>{children}</InternalLink>
+    <Button className={className} variant={variant} size={size} asChild>
+      <LinkPrimitive {...props} />
     </Button>
   );
 }
 
-export { Link };
+type ExternalLinkProps = ComponentPropsWithoutRef<
+  typeof ExternalLinkPrimitive
+> &
+  VariantProps<typeof buttonVariants>;
+
+function ExternalLink({
+  className,
+  variant,
+  size,
+  ...props
+}: ExternalLinkProps) {
+  return (
+    <Button className={className} variant={variant} size={size} asChild>
+      <ExternalLinkPrimitive {...props} />
+    </Button>
+  );
+}
+
+export { Link, ExternalLink };
