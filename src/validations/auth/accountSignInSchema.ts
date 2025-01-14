@@ -1,24 +1,33 @@
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
-function accountSignInSchema(t: (key: string) => string, isStrict = true) {
-  let passwordSchema = z.string().min(1, t('form.password.required'));
-
-  if (isStrict) {
-    passwordSchema = passwordSchema
-      .min(8, t('form.password.minLength'))
-      .max(50, t('form.password.maxLength'))
-      .regex(/[A-Z]/, t('form.password.uppercase'))
-      .regex(/[^a-zA-Z0-9]/, t('form.password.specialChar'));
-  }
-
+function accountSignInSchema() {
+  const t = typeof window !== 'undefined' ? useTranslations() : undefined;
   return z.object({
     username: z
       .string()
-      .min(1, t('form.username.required'))
-      .min(5, t('form.username.minLength'))
-      .max(8, t('form.username.maxLength'))
-      .regex(/^[a-z]+$/, t('form.username.invalid')),
-    password: passwordSchema,
+      .min(
+        1,
+        t ? t('auth.form.username.required') : 'auth.form.username.required',
+      )
+      .min(
+        5,
+        t ? t('auth.form.username.minLength') : 'auth.form.username.minLength',
+      )
+      .max(
+        8,
+        t ? t('auth.form.username.maxLength') : 'auth.form.username.maxLength',
+      )
+      .regex(
+        /^[a-z]+$/,
+        t ? t('auth.form.username.invalid') : 'auth.form.username.invalid',
+      ),
+    password: z
+      .string()
+      .min(
+        1,
+        t ? t('auth.form.password.required') : 'auth.form.password.required',
+      ),
   });
 }
 

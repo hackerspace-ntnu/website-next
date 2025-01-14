@@ -4,13 +4,21 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
+import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
 import { createFeideAuthorization } from '@/server/auth/feide';
+import { verifyPasswordHash } from '@/server/auth/password';
 import {
   deleteSessionTokenCookie,
   invalidateSession,
 } from '@/server/auth/session';
-import { getTranslations } from 'next-intl/server';
+import {
+  createSession,
+  generateSessionToken,
+  setSessionTokenCookie,
+} from '@/server/auth/session';
+import { getUserFromUsername } from '@/server/auth/user';
+import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 
 import { TRPCError } from '@trpc/server';
 import { cookies, headers } from 'next/headers';
@@ -18,25 +26,21 @@ import { cookies, headers } from 'next/headers';
 import { sanitizeAuth } from '@/server/auth';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
+const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
 
 const authRouter = createRouter({
   state: publicProcedure.query(async ({ ctx }) => {
     const result = await ctx.auth();
     return sanitizeAuth(result);
   }),
-  signInFeide: publicProcedure.mutation(async ({ ctx }) => {
-    const t = await getTranslations({
-      locale: ctx.locale,
-      namespace: 'api',
-    });
-
+  signInFeide: publicProcedure.mutation(async () => {
     const headerStore = await headers();
     const clientIP = headerStore.get('X-Forwarded-For');
 
     if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
       throw new TRPCError({
         code: 'TOO_MANY_REQUESTS',
-        message: t('tooManyRequests'),
+        message: 'api.tooManyRequests',
       });
     }
 
@@ -59,6 +63,49 @@ const authRouter = createRouter({
 
     return url.href;
   }),
+  signIn: publicProcedure
+    .input(accountSignInSchema())
+    .mutation(async ({ input }) => {
+      const headerStore = await headers();
+      const clientIP = headerStore.get('X-Forwarded-For');
+
+      if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: 'api.tooManyRequests',
+          cause: { toast: 'warning' },
+        });
+      }
+      const user = await getUserFromUsername(input.username);
+      if (!user || !user.passwordHash) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'api.invalidCredentials',
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (!throttler.consume(user.id)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: 'api.tooManyRequests',
+          cause: { toast: 'warning' },
+        });
+      }
+
+      const validPassword = await verifyPasswordHash(
+        user.passwordHash,
+        input.password,
+      );
+      if (!validPassword) {
+        return;
+      }
+      throttler.reset(user.id);
+
+      const sessionToken = generateSessionToken();
+      const session = await createSession(sessionToken, user.id);
+      await setSessionTokenCookie(sessionToken, session.expiresAt);
+    }),
   signOut: authenticatedProcedure.mutation(async ({ ctx }) => {
     await invalidateSession(ctx.session.id);
     await deleteSessionTokenCookie();

@@ -10,7 +10,7 @@ function handleRequest(req: NextRequest) {
     endpoint: '/api/data',
     req,
     router,
-    createContext: () => createContext(getLocaleFromRequest(req)),
+    createContext: async () => await createContext(getLocaleFromRequest(req)),
     onError:
       env.NODE_ENV === 'development'
         ? ({ path, error }) => {

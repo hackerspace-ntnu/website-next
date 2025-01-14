@@ -3,9 +3,9 @@ import { eq } from 'drizzle-orm';
 
 import { users } from '@/server/db/tables';
 
-async function getUserFromEmail(email: string) {
+async function getUserFromUsername(username: string) {
   return await db.query.users.findFirst({
-    where: eq(users.email, email),
+    where: eq(users.username, username),
   });
 }
 
@@ -18,4 +18,4 @@ async function createUser(username: string, name: string, email: string) {
   return user;
 }
 
-export { getUserFromEmail, createUser };
+export { getUserFromUsername, createUser };

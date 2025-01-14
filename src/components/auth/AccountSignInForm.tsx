@@ -2,7 +2,6 @@
 
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 import { api } from '@/lib/api/client';
 import { Link } from '@/lib/locale/navigation';
@@ -24,19 +23,26 @@ import { Input } from '@/components/ui/Input';
 function AccountSignInForm() {
   const router = useRouter();
   const t = useTranslations('auth');
-  const [accountCreated, setAccountCreated] = useState(false);
-  const formSchema = accountSignInSchema(t as (key: string) => string, false);
+  const formSchema = accountSignInSchema();
   const { isPending, setPending } = usePending();
+  const signInMutation = api.auth.signIn.useMutation({
+    onMutate: () => setPending(true),
+    onSettled: () => setPending(false),
+  });
 
   const form = useForm(formSchema, {
+    validators: {
+      onChange: formSchema,
+      onSubmitAsync: async ({ value }) => {
+        await signInMutation.mutateAsync(value);
+        return 'hehehe';
+      },
+    },
     defaultValues: {
       username: '',
       password: '',
     },
     onSubmit: () => {
-      if (!accountCreated) {
-        router.push('/auth/create-account');
-      }
       router.push('/');
     },
   });
@@ -56,7 +62,7 @@ function AccountSignInForm() {
               <FormLabel>{t('form.username.label')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='m@example.com'
+                  placeholder='hackerman'
                   autoComplete='username'
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}

@@ -8,7 +8,7 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from '@/server/auth/session';
-import { createUser, getUserFromEmail } from '@/server/auth/user';
+import { createUser, getUserFromUsername } from '@/server/auth/user';
 import { cookies } from 'next/headers';
 import { type NextRequest, NextResponse } from 'next/server';
 
@@ -46,15 +46,14 @@ export async function GET(request: NextRequest) {
   }
 
   const userInfo: FeideUserInfo = await userInfoResponse.json();
-  let user = await getUserFromEmail(userInfo.email);
+  const username = userInfo.email.split('@')[0];
+  if (!userInfo || !username) {
+    return NextResponse.json(null, { status: 500 });
+  }
+
+  let user = await getUserFromUsername(username);
 
   if (!user) {
-    const username = userInfo.email.split('@')[0];
-
-    if (!userInfo || !username) {
-      return NextResponse.json(null, { status: 500 });
-    }
-
     user = await createUser(username, userInfo.name, userInfo.email);
 
     if (!user) {

@@ -13,7 +13,7 @@ const getQueryClient = cache(createQueryClient);
 const getApiClient = cache(async () => {
   const locale = await getLocale();
   const caller = createCaller(
-    createContext(locale as (typeof routing.locales)[number]),
+    await createContext(locale as (typeof routing.locales)[number]),
   );
 
   return createHydrationHelpers<typeof router>(caller, getQueryClient);
