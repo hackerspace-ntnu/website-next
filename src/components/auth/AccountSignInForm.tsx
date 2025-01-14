@@ -19,6 +19,7 @@ import {
   useForm,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import type { TRPCClientError } from '@/lib/api/types';
 
 function AccountSignInForm() {
   const router = useRouter();
@@ -34,8 +35,15 @@ function AccountSignInForm() {
     validators: {
       onChange: formSchema,
       onSubmitAsync: async ({ value }) => {
-        await signInMutation.mutateAsync(value);
-        return 'hehehe';
+        try {
+          await signInMutation.mutateAsync(value);
+        } catch (error: unknown) {
+          const TRPCError = error as TRPCClientError;
+          if (!TRPCError.data?.toast) {
+            return { fields: { password: TRPCError.message } };
+          }
+          return ' ';
+        }
       },
     },
     defaultValues: {

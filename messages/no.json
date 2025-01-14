@@ -45,6 +45,7 @@
     "useYourAccount": "Bruk din konto",
     "forgotPassword": "Glemt passord",
     "submit": "Send",
+    "invalidCredentials": "Ugyldige påloggingsdetaljer",
     "form": {
       "username": {
         "label": "Brukernavn",

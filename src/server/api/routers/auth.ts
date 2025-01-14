@@ -80,8 +80,7 @@ const authRouter = createRouter({
       if (!user || !user.passwordHash) {
         throw new TRPCError({
           code: 'UNAUTHORIZED',
-          message: 'api.invalidCredentials',
-          cause: { toast: 'error' },
+          message: 'auth.invalidCredentials',
         });
       }
 
@@ -98,7 +97,10 @@ const authRouter = createRouter({
         input.password,
       );
       if (!validPassword) {
-        return;
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'auth.invalidCredentials',
+        });
       }
       throttler.reset(user.id);
 

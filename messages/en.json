@@ -45,6 +45,7 @@
     "useYourAccount": "Use your account",
     "forgotPassword": "Forgot password",
     "submit": "Submit",
+    "invalidCredentials": "Invalid credentials",
     "form": {
       "username": {
         "label": "Username",
