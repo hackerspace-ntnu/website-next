@@ -37,53 +37,59 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(null, { status: 500 });
   }
 
-  const [userInfoResponse, extendedUserInfoResponse] = await Promise.all([
-    fetch(env.FEIDE_USERINFO_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-    }),
-    fetch(env.FEIDE_EXTENDED_USERINFO_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-    }),
-  ]);
+  const userInfoResponse = await fetch(env.FEIDE_USERINFO_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`,
+    },
+  });
 
-  if (!userInfoResponse.ok || !extendedUserInfoResponse.ok) {
+  if (!userInfoResponse.ok) {
     return NextResponse.json(null, { status: 500 });
   }
 
-  const [basicInfo, extendedInfo]: [FeideUserInfo, ExtendedFeideUserInfo] =
-    await Promise.all([
-      userInfoResponse.json(),
-      extendedUserInfoResponse.json(),
-    ]);
-
-  const userInfo = {
-    ...basicInfo,
-    ...extendedInfo,
-  };
-
+  const userInfo: FeideUserInfo = await userInfoResponse.json();
   if (!userInfo) {
     return NextResponse.json(null, { status: 500 });
   }
 
-  let user = await getUserFromUsername(userInfo.uid[0]);
+  const username =
+    userInfo['https://n.feide.no/claims/eduPersonPrincipalName'].split('@')[0];
+
+  if (!username) {
+    return NextResponse.json(null, { status: 500 });
+  }
+
+  let user = await getUserFromUsername(username);
 
   if (!user) {
+    const extendedUserInfoResponse = await fetch(
+      env.FEIDE_EXTENDED_USERINFO_ENDPOINT,
+      {
+        headers: {
+          Authorization: `Bearer ${tokens.accessToken}`,
+        },
+      },
+    );
+
+    if (!extendedUserInfoResponse.ok) {
+      return NextResponse.json(null, { status: 500 });
+    }
+
+    const extendedUserInfo: ExtendedFeideUserInfo =
+      await extendedUserInfoResponse.json();
+
     const date = new Date(
-      `${userInfo.norEduPersonBirthDate.slice(0, 4)}-${userInfo.norEduPersonBirthDate.slice(4, 6)}-${userInfo.norEduPersonBirthDate.slice(6, 8)}`,
+      `${extendedUserInfo.norEduPersonBirthDate.slice(0, 4)}-${extendedUserInfo.norEduPersonBirthDate.slice(4, 6)}-${extendedUserInfo.norEduPersonBirthDate.slice(6, 8)}`,
     );
     const emailVerifiedAt = userInfo.email_verified ? new Date() : null;
     user = await createUser(
-      userInfo.uid[0],
-      userInfo.givenName[0],
-      userInfo.sn[0],
+      username,
+      extendedUserInfo.givenName[0],
+      extendedUserInfo.sn[0],
       userInfo.email,
       emailVerifiedAt,
       date,
-      userInfo.mobile[0],
+      extendedUserInfo.mobile[0],
     );
 
     if (!user) {
@@ -94,7 +100,7 @@ export async function GET(request: NextRequest) {
     const session = await createSession(sessionToken, user.id);
     await setSessionTokenCookie(sessionToken, session.expiresAt);
 
-    return NextResponse.redirect(new URL('/create-account', request.url));
+    return NextResponse.redirect(new URL('/auth/create-account', request.url));
   }
 
   const sessionToken = generateSessionToken();
