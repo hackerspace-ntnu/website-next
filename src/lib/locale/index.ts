@@ -30,10 +30,6 @@ const routing = defineRouting({
       en: '/auth/create-account',
       no: '/autentisering/opprett-konto',
     },
-    '/auth/create-account/password': {
-      en: '/auth/create-account/password',
-      no: '/autentisering/opprett-konto/passord',
-    },
     '/auth/forgot-password': {
       en: '/auth/forgot-password',
       no: '/autentisering/glemt-passord',
