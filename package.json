@@ -6,6 +6,8 @@
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
     "dev": "next dev",
+    "dev:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && docker compose -f compose.local.yml exec -T db pg_isready && bun run db:push && bun run db:seed",
+    "dev:stop": "docker compose -f compose.local.yml down",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
     "build": "next build",
@@ -13,13 +15,17 @@
     "start": "drizzle-kit migrate && bun run .next/standalone/server.js",
     "db:start": "docker compose -f compose.local.yml up db -d",
     "db:stop": "docker compose -f compose.local.yml down db",
+    "db:delete": "bun -e \"require('fs').rmSync('data/db', { recursive: true, force: true })\"",
+    "db:logs": "docker compose -f compose.local.yml logs -f db",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed": "bun run src/server/db/seed.ts",
     "s3:start": "docker compose -f compose.local.yml up s3 -d",
-    "s3:stop": "docker compose -f compose.local.yml down s3"
+    "s3:stop": "docker compose -f compose.local.yml down s3",
+    "s3:delete": "bun -e \"require('fs').rmSync('data/s3', { recursive: true, force: true })\"",
+    "s3:logs": "docker compose -f compose.local.yml logs -f s3"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.679.0",
