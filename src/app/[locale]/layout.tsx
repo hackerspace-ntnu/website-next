@@ -1,4 +1,5 @@
 import { RootProviders } from '@/components/providers/RootProviders';
+import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
@@ -66,27 +67,31 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout(props: LocaleLayoutProps) {
-  const params = await props.params;
-
-  const { locale } = params;
-
-  const { children } = props;
-
+export default async function LocaleLayout({
+  params,
+  children,
+}: LocaleLayoutProps) {
+  const { locale } = await params;
   setRequestLocale(locale);
   return (
     <html
-      className={cx('h-full w-full', inter.variable, montserrat.variable)}
+      className={cx(
+        'h-full w-full scroll-smooth',
+        inter.variable,
+        montserrat.variable,
+      )}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning
     >
       <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
         <RootProviders locale={locale}>
-          <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex h-full w-full flex-col overflow-y-scroll scroll-smooth'>
-            {children}
-            <Toaster />
-          </div>
+          <ScrollArea className='h-full w-full' variant='primary'>
+            <div className='flex h-full w-full flex-col'>
+              {children}
+              <Toaster />
+            </div>
+          </ScrollArea>
         </RootProviders>
       </body>
     </html>

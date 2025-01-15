@@ -27,7 +27,7 @@ const DropdownMenuSubTrigger = forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cx(
-      'flex cursor-default select-none items-center rounded-sm rdx-state-open:bg-accent px-2 py-1.5 text-sm outline-none focus:bg-accent',
+      'flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
       inset && 'pl-8',
       className,
     )}
@@ -47,7 +47,7 @@ const DropdownMenuSubContent = forwardRef<
   <DropdownMenuPrimitive.SubContent
     ref={ref}
     className={cx(
-      'rdx-state-closed:fade-out-0 rdx-state-open:fade-in-0 rdx-state-closed:zoom-out-95 rdx-state-open:zoom-in-95 rdx-side-bottom:slide-in-from-top-2 rdx-side-left:slide-in-from-right-2 rdx-side-right:slide-in-from-left-2 rdx-side-top:slide-in-from-bottom-2 z-50 min-w-[8rem] rdx-state-closed:animate-out rdx-state-open:animate-in overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg',
+      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-out data-[state=open]:animate-in',
       className,
     )}
     {...props}
@@ -65,7 +65,8 @@ const DropdownMenuContent = forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cx(
-        'rdx-state-closed:fade-out-0 rdx-state-open:fade-in-0 rdx-state-closed:zoom-out-95 rdx-state-open:zoom-in-95 rdx-side-bottom:slide-in-from-top-2 rdx-side-left:slide-in-from-right-2 rdx-side-right:slide-in-from-left-2 rdx-side-top:slide-in-from-bottom-2 z-50 min-w-[8rem] rdx-state-closed:animate-out rdx-state-open:animate-in overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
+        'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md',
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=open]:animate-in',
         className,
       )}
       {...props}
@@ -83,7 +84,7 @@ const DropdownMenuItem = forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cx(
-      'rdx-disabled:pointer-events-none relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm rdx-disabled:opacity-50 outline-none transition-colors focus:bg-accent focus:text-accent-foreground',
+      'relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0',
       inset && 'pl-8',
       className,
     )}
@@ -99,7 +100,7 @@ const DropdownMenuCheckboxItem = forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cx(
-      'rdx-disabled:pointer-events-none relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm rdx-disabled:opacity-50 outline-none transition-colors focus:bg-accent focus:text-accent-foreground',
+      'relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     checked={checked}
@@ -123,7 +124,7 @@ const DropdownMenuRadioItem = forwardRef<
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cx(
-      'rdx-disabled:pointer-events-none relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm rdx-disabled:opacity-50 outline-none transition-colors focus:bg-accent focus:text-accent-foreground',
+      'relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className,
     )}
     {...props}

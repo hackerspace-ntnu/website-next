@@ -20,7 +20,7 @@ const SheetOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cx(
-      'rdx-state-closed:fade-out-0 rdx-state-open:fade-in-0 fixed inset-0 z-50 rdx-state-closed:animate-out rdx-state-open:animate-in bg-black/80',
+      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=open]:animate-in',
       className,
     )}
     {...props}
@@ -30,15 +30,15 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva({
-  base: 'fixed z-50 rdx-state-closed:animate-out rdx-state-open:animate-in gap-4 bg-background p-6 shadow-lg transition rdx-state-closed:duration-300 rdx-state-open:duration-500 ease-in-out',
+  base: 'fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:duration-300 data-[state=open]:duration-500',
   variants: {
     side: {
-      top: 'rdx-state-closed:slide-out-to-top rdx-state-open:slide-in-from-top inset-x-0 top-0 border-b',
+      top: 'data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 border-b',
       bottom:
-        'rdx-state-closed:slide-out-to-bottom rdx-state-open:slide-in-from-bottom inset-x-0 bottom-0 border-t',
-      left: 'rdx-state-closed:slide-out-to-left rdx-state-open:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm',
+        'data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 border-t',
+      left: 'data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm',
       right:
-        'rdx-state-closed:slide-out-to-right rdx-state-open:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
+        'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
     },
   },
   defaultVariants: {
@@ -61,7 +61,7 @@ const SheetContent = forwardRef<
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className='absolute top-4 right-4 rounded-sm rdx-state-open:bg-secondary opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none'>
+        <SheetPrimitive.Close className='absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'>
           <XIcon className='h-4 w-4' />
           <span className='sr-only'>{t('close')}</span>
         </SheetPrimitive.Close>
