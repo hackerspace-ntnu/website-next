@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, type HTMLMotionProps, m } from 'framer-motion';
+import { AnimatePresence, m } from 'motion/react';
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { usePathname } from 'next/navigation';
 import { useContext, useRef } from 'react';
@@ -27,10 +27,7 @@ function AnimatePresenceProvider({
 
   return (
     <AnimatePresence>
-      <m.div
-        key={key}
-        {...((className && { className }) as HTMLMotionProps<'div'>)}
-      >
+      <m.div key={key} className={className}>
         <FrozenRouter>{children}</FrozenRouter>
       </m.div>
     </AnimatePresence>

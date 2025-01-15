@@ -1,6 +1,6 @@
 'use client';
 
-import { type HTMLMotionProps, m } from 'framer-motion';
+import { m } from 'motion/react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 type PendingContextType = {
@@ -54,15 +54,13 @@ function PendingBar() {
       }`}
     >
       <m.div
+        className='h-2 w-1/3 rounded-sm bg-primary/80'
         animate={{ x: ['-100%', '300%'] }}
         transition={{
           duration: 1,
           ease: 'easeInOut',
           repeat: Number.POSITIVE_INFINITY,
         }}
-        {...({
-          className: 'h-2 w-1/3 rounded-sm bg-primary/80',
-        } as HTMLMotionProps<'div'>)}
       />
     </div>
   );
