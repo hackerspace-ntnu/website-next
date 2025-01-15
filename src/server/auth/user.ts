@@ -9,10 +9,26 @@ async function getUserFromUsername(username: string) {
   });
 }
 
-async function createUser(username: string, name: string, email: string) {
+async function createUser(
+  username: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  emailVerifiedAt: Date | null,
+  birthDate: Date,
+  phoneNumber: string,
+) {
   const [user] = await db
     .insert(users)
-    .values({ username, name, email })
+    .values({
+      username,
+      firstName,
+      lastName,
+      email,
+      emailVerifiedAt,
+      birthDate,
+      phoneNumber,
+    })
     .returning();
 
   return user;

@@ -1,5 +1,6 @@
 import { env } from '@/env';
 import {
+  type ExtendedFeideUserInfo,
   type FeideUserInfo,
   validateFeideAuthorization,
 } from '@/server/auth/feide';
@@ -35,26 +36,55 @@ export async function GET(request: NextRequest) {
   if (!tokens) {
     return NextResponse.json(null, { status: 500 });
   }
-  const userInfoResponse = await fetch(env.FEIDE_USERINFO_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${tokens.accessToken}`,
-    },
-  });
 
-  if (!userInfoResponse.ok) {
+  const [userInfoResponse, extendedUserInfoResponse] = await Promise.all([
+    fetch(env.FEIDE_USERINFO_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken}`,
+      },
+    }),
+    fetch(env.FEIDE_EXTENDED_USERINFO_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken}`,
+      },
+    }),
+  ]);
+
+  if (!userInfoResponse.ok || !extendedUserInfoResponse.ok) {
     return NextResponse.json(null, { status: 500 });
   }
 
-  const userInfo: FeideUserInfo = await userInfoResponse.json();
-  const username = userInfo.email.split('@')[0];
-  if (!userInfo || !username) {
+  const [basicInfo, extendedInfo]: [FeideUserInfo, ExtendedFeideUserInfo] =
+    await Promise.all([
+      userInfoResponse.json(),
+      extendedUserInfoResponse.json(),
+    ]);
+
+  const userInfo = {
+    ...basicInfo,
+    ...extendedInfo,
+  };
+
+  if (!userInfo) {
     return NextResponse.json(null, { status: 500 });
   }
 
-  let user = await getUserFromUsername(username);
+  let user = await getUserFromUsername(userInfo.uid[0]);
 
   if (!user) {
-    user = await createUser(username, userInfo.name, userInfo.email);
+    const date = new Date(
+      `${userInfo.norEduPersonBirthDate.slice(0, 4)}-${userInfo.norEduPersonBirthDate.slice(4, 6)}-${userInfo.norEduPersonBirthDate.slice(6, 8)}`,
+    );
+    const emailVerifiedAt = userInfo.email_verified ? new Date() : null;
+    user = await createUser(
+      userInfo.uid[0],
+      userInfo.givenName[0],
+      userInfo.sn[0],
+      userInfo.email,
+      emailVerifiedAt,
+      date,
+      userInfo.mobile[0],
+    );
 
     if (!user) {
       return NextResponse.json(null, { status: 500 });

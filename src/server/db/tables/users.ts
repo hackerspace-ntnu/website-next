@@ -19,13 +19,18 @@ const users = pgTable('users', {
     .notNull()
     .defaultNow(),
   username: varchar('username', { length: 8 }).unique().notNull(),
-  name: varchar('name', { length: 60 }).notNull(),
+  firstName: varchar('first_name', { length: 30 }).notNull(),
+  lastName: varchar('last_name', { length: 30 }).notNull(),
   email: varchar('email', { length: 254 }).unique().notNull(),
-  birthDate: timestamp('birth_date', {
+  emailVerifiedAt: timestamp('email_verified_at', {
     withTimezone: true,
     mode: 'date',
   }),
-  phoneNumber: varchar('phone_number', { length: 20 }).unique(),
+  birthDate: timestamp('birth_date', {
+    withTimezone: true,
+    mode: 'date',
+  }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
   passwordHash: text('password_hash'),
 });
 
