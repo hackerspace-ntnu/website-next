@@ -14,7 +14,7 @@ type TRPCContext = {
   db: typeof db;
   auth: typeof auth;
   s3: typeof s3;
-  t: Translations;
+  getTranslations: Translations;
 };
 
 async function createContext(
@@ -28,7 +28,7 @@ async function createContext(
     auth,
     db,
     s3,
-    t,
+    getTranslations: t,
   };
 }
 
