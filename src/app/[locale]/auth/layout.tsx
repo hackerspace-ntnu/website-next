@@ -32,6 +32,7 @@ export default async function AuthLayout({
 }: AuthLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('layout');
   const { auth, ui } = await getMessages();
 
   return (
@@ -40,7 +41,13 @@ export default async function AuthLayout({
         <PendingProvider>
           <PendingBar />
           <CardHeader className='flex items-center justify-between py-2'>
-            <LogoLink logoClassName='h-7 w-7' titleClassName='text-lg' />
+            <LogoLink
+              logoClassName='h-7 w-7'
+              titleClassName='text-lg'
+              t={{
+                hackerspaceHome: t('hackerspaceHome'),
+              }}
+            />
           </CardHeader>
           <div className='h-96'>
             <NextIntlClientProvider
