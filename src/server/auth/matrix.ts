@@ -2,7 +2,7 @@ import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
 
-async function getNonce(): Promise<string> {
+async function getNonce() {
   const getRequest: RequestInfo = new Request(
     `${env.MATRIX_ENDPOINT}/v1/register`,
     { method: 'GET' },
@@ -16,8 +16,8 @@ async function getNonce(): Promise<string> {
   return data.nonce;
 }
 
-function generateMAC(
-  nonce: string | undefined,
+function generateHMAC(
+  nonce: string,
   username: string,
   password: string,
   admin = false,
@@ -55,24 +55,25 @@ async function registerMatrixUser(
   admin = false,
 ) {
   const nonce = await getNonce();
-  const hmac = generateMAC(nonce, username, password);
+  const hmac = generateHMAC(nonce, username, password);
 
   const data = {
-    nonce: nonce,
-    username: username,
-    displayname: displayname,
-    password: password,
-    admin: admin,
+    nonce,
+    username,
+    displayname,
+    password,
+    admin,
     mac: hmac,
   };
 
   const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'content-type': 'application/json' },
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
+    console.log(await response.json());
     throw new Error(`Matrix registration failed: ${response.status}`);
   }
 }
