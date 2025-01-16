@@ -41,6 +41,7 @@ jobs:
       FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
       LHCI_TOKEN: ${{ secrets.LHCI_BUILD_TOKEN }}
+      MATRIX_SHARED_SECRET: " "
     steps:
       - name: Checkout
         uses: actions/checkout@v4
