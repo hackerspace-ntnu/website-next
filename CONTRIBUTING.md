@@ -281,3 +281,7 @@ Here is a list of documentations that will help you contribute to the project:
 - You can also try restarting the whole editor by pressing `cmd + shift + p` and then type `Developer: Reload Window`.
 
 On windows you can use `ctrl` instead of `cmd`.
+
+## GitHub
+
+- For branch names, use kebab-case (e.g. about-us-page)
