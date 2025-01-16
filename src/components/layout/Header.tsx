@@ -1,15 +1,18 @@
 import { LogoLink } from '@/components/layout/LogoLink';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
+import { DesktopNavMenu } from '@/components/layout/header/DesktopNavMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
 import { useTranslations } from 'next-intl';
+import { MatrixButton } from './header/MatrixButton';
 
 function Header() {
   const t = useTranslations('layout');
+
   return (
-    <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='~px-1/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
@@ -18,25 +21,50 @@ function Header() {
             news: t('news'),
             events: t('events'),
             about: t('about'),
+            storage: t('storage'),
+            shiftSchedule: t('shiftSchedule'),
+            hackerspaceHome: t('hackerspaceHome'),
+            matrix: t('matrix'),
+            changeLocale: t('changeLocale'),
+            toggleTheme: t('toggleTheme'),
+            light: t('light'),
+            dark: t('dark'),
+            system: t('system'),
             close: useTranslations('ui')('close'),
           }}
         />
-        <LogoLink />
-      </div>
-      <div className='flex gap-10'>
-        <Nav
-          className='hidden items-center gap-6 text-sm md:flex'
+        <LogoLink
           t={{
-            news: t('news'),
-            events: t('events'),
-            about: t('about'),
+            hackerspaceHome: t('hackerspaceHome'),
           }}
         />
+      </div>
+      <div className='flex gap-6'>
+        <div className='hidden items-center gap-6 md:flex'>
+          <Nav
+            className='flex items-center gap-6 text-sm'
+            t={{
+              news: t('news'),
+              events: t('events'),
+              about: t('about'),
+            }}
+          />
+          <DesktopNavMenu
+            t={{
+              open: t('desktopNavMenu', { open: true }),
+              close: t('desktopNavMenu', { open: false }),
+              storage: t('storage'),
+              shiftSchedule: t('shiftSchedule'),
+            }}
+          />
+        </div>
         <div className='flex'>
+          <MatrixButton t={{ title: t('matrix') }} className='xs:flex hidden' />
           <LocaleMenu
             t={{
               changeLocale: t('changeLocale'),
             }}
+            classname='hidden xs:flex'
           />
           <DarkModeMenu
             t={{
@@ -45,6 +73,7 @@ function Header() {
               dark: t('dark'),
               system: t('system'),
             }}
+            classname='hidden xs:flex'
           />
           <ProfileMenu
             t={{

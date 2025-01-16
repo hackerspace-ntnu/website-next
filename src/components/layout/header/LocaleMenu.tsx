@@ -11,18 +11,29 @@ import { localeIcons, routing } from '@/lib/locale';
 import { usePathname, useRouter } from '@/lib/locale/navigation';
 import { Globe2Icon } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import * as React from 'react';
 
-function LocaleMenu({ t }: { t: { changeLocale: string } }) {
+type LocaleMenuProps = {
+  t: {
+    changeLocale: string;
+  };
+  classname?: string;
+};
+
+function LocaleMenu({ t, classname }: LocaleMenuProps) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon'>
-          <Globe2Icon className='h-[1.2rem] w-[1.2rem]' />
-          <span className='sr-only'>{t.changeLocale}</span>
+        <Button
+          variant='ghost'
+          size='icon'
+          title={t.changeLocale}
+          aria-label={t.changeLocale}
+          className={classname}
+        >
+          <Globe2Icon className='h-[1.2rem] w-[1.2rem]' aria-hidden='true' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>

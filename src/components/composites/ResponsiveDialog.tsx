@@ -40,7 +40,7 @@ interface ResponsiveDialogProps extends BaseProps {
   asChild?: true;
 }
 
-const desktop = '(min-width: 768px)';
+const desktop = '(min-width: 48rem)';
 
 /**
  * This uses a drawer on mobile and a dialog on desktop so it is usually the preffered way to use dialogs in the app for a repsonsive experience.
