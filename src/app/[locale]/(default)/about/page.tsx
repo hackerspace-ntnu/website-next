@@ -31,7 +31,7 @@ const cardData = [
   { id: 7, title: t('ttrpg-group.title'), content: t('ttrpg-group.about'), link: ''},
 ];
 
-const faqs: FAQ[] = [
+/* const faqs: FAQ[] = [
   {
     id: 'item-1',
     icon: <Printer />,
@@ -56,7 +56,7 @@ const faqs: FAQ[] = [
       p2: (chunks) => <p className="p2">{chunks}</p>
     })
   }
-];
+]; */
 
   return <div>
     <div className='mt-7 mb-5 flex flex-col items-center justify-center'>
