@@ -1,4 +1,5 @@
 import { FeideButton } from '@/components/auth/FeideButton';
+import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
 import { Link } from '@/lib/locale/navigation';
@@ -7,12 +8,19 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SignInPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { locale } = await params;
+  let { error } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations('auth');
+
+  // @ts-expect-error: Unknown if error is a valid translation key
+  error = t.has(`error.${error}`) ? t(`error.${error}`) : undefined;
+
   return (
     <div className='relative flex h-full flex-col transition-opacity duration-500'>
       <div className='mb-4 space-y-2 text-center'>
@@ -33,6 +41,7 @@ export default async function SignInPage({
           </Link>
         </Button>
       </div>
+      <ErrorToast error={error} cleanPath='/auth' />
     </div>
   );
 }

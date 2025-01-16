@@ -65,6 +65,15 @@
         "mismatch": "Passordene stemmer ikke overens",
         "weak": "Passordet er for svakt"
       }
+    },
+    "error": {
+      "authenticationFailed": "Autentisering mislyktes",
+      "userInfoFailed": "Kunne ikke hente brukerinformasjon",
+      "userInfoMissing": "Brukerinformasjon mangler",
+      "phoneTaken": "Telefonnummeret er allerede i bruk",
+      "emailTaken": "E-postadressen er allerede i bruk",
+      "invalidUserData": "Ugyldig brukerdata",
+      "userCreationFailed": "Kunne ikke opprette bruker"
     }
   },
   "layout": {

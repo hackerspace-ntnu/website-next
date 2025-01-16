@@ -65,6 +65,15 @@
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
       }
+    },
+    "error": {
+      "authenticationFailed": "Authentication failed",
+      "userInfoFailed": "Failed to get user info",
+      "userInfoMissing": "User info is missing",
+      "phoneTaken": "Phone number is already taken",
+      "emailTaken": "Email is already taken",
+      "invalidUserData": "Invalid user data",
+      "userCreationFailed": "Failed to create user"
     }
   },
   "layout": {

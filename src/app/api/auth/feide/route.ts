@@ -28,16 +28,22 @@ export async function GET(request: NextRequest) {
   cookieStore.delete('feide-code-verifier');
 
   if (!code || !state || !storedState || !codeVerifier) {
-    return NextResponse.json(null, { status: 400 });
+    return NextResponse.redirect(
+      new URL('/auth?error=authenticationFailed', request.url),
+    );
   }
 
   if (state !== storedState) {
-    return NextResponse.json(null, { status: 403 });
+    return NextResponse.redirect(
+      new URL('/auth?error=authenticationFailed', request.url),
+    );
   }
 
   const tokens = await validateFeideAuthorization(code, codeVerifier);
   if (!tokens) {
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.redirect(
+      new URL('/auth?error=authenticationFailed', request.url),
+    );
   }
 
   const userInfoResponse = await fetch(env.FEIDE_USERINFO_ENDPOINT, {
@@ -47,19 +53,25 @@ export async function GET(request: NextRequest) {
   });
 
   if (!userInfoResponse.ok) {
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.redirect(
+      new URL('/auth?error=userInfoFailed', request.url),
+    );
   }
 
   const userInfo: FeideUserInfo = await userInfoResponse.json();
   if (!userInfo) {
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.redirect(
+      new URL('/auth?error=userInfoMissing', request.url),
+    );
   }
 
   const username =
     userInfo['https://n.feide.no/claims/eduPersonPrincipalName'].split('@')[0];
 
   if (!username) {
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.redirect(
+      new URL('/auth?error=userInfoMissing', request.url),
+    );
   }
 
   let user = await getUserFromUsername(username);
@@ -75,7 +87,9 @@ export async function GET(request: NextRequest) {
     );
 
     if (!extendedUserInfoResponse.ok) {
-      return NextResponse.json(null, { status: 500 });
+      return NextResponse.redirect(
+        new URL('/auth?error=userInfoFailed', request.url),
+      );
     }
 
     const extendedUserInfo: ExtendedFeideUserInfo =
@@ -86,12 +100,16 @@ export async function GET(request: NextRequest) {
     );
 
     if (!isPhoneNumberAvailable) {
-      return NextResponse.json(null, { status: 400 });
+      return NextResponse.redirect(
+        new URL('/auth?error=phoneTaken', request.url),
+      );
     }
 
     const isEmailAvailable = await checkEmailAvailability(userInfo.email);
     if (!isEmailAvailable) {
-      return NextResponse.json(null, { status: 400 });
+      return NextResponse.redirect(
+        new URL('/auth?error=emailTaken', request.url),
+      );
     }
 
     const birthDate = new Date(
@@ -112,12 +130,16 @@ export async function GET(request: NextRequest) {
     const insertUserSchemaResult = insertUserSchema.safeParse(userValues);
 
     if (!insertUserSchemaResult.success) {
-      return NextResponse.json(null, { status: 500 });
+      return NextResponse.redirect(
+        new URL('/auth?error=invalidUserData', request.url),
+      );
     }
     user = await createUser(userValues);
 
     if (!user) {
-      return NextResponse.json(null, { status: 500 });
+      return NextResponse.redirect(
+        new URL('/auth?error=userCreationFailed', request.url),
+      );
     }
 
     const sessionToken = generateSessionToken();
