@@ -50,15 +50,15 @@
       "username": {
         "label": "Brukernavn",
         "required": "Brukernavn er påkrevd",
-        "minLength": "Brukernavn må være minst 5 tegn",
-        "maxLength": "Brukernavn må være mindre enn 8 tegn",
+        "minLength": "Brukernavn må være minst {count} tegn",
+        "maxLength": "Brukernavn må være mindre enn {count} tegn",
         "invalid": "Brukernavn må kun inneholde bokstaver"
       },
       "password": {
         "label": "Passord",
         "required": "Passord er påkrevd",
-        "minLength": "Passord må være minst 8 tegn",
-        "maxLength": "Passord må være mindre enn 50 tegn",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
         "uppercase": "Passord må inneholde minst én stor bokstav",
         "specialChar": "Passord må inneholde minst ett spesialtegn",
         "confirmLabel": "Bekreft passord",

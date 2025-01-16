@@ -24,6 +24,7 @@ export const env = createEnv({
     FEIDE_TOKEN_ENDPOINT: z.string(),
     FEIDE_USERINFO_ENDPOINT: z.string(),
     FEIDE_EXTENDED_USERINFO_ENDPOINT: z.string(),
+    MATRIX_SERVER_NAME: z.string(),
     MATRIX_SECRET: z.string(),
     MATRIX_ENDPOINT: z.string(),
   },
@@ -60,6 +61,7 @@ export const env = createEnv({
     FEIDE_USERINFO_ENDPOINT: process.env.FEIDE_USERINFO_ENDPOINT,
     FEIDE_EXTENDED_USERINFO_ENDPOINT:
       process.env.FEIDE_EXTENDED_USERINFO_ENDPOINT,
+    MATRIX_SERVER_NAME: process.env.MATRIX_SERVER_NAME,
     MATRIX_SECRET: process.env.MATRIX_SECRET,
     MATRIX_ENDPOINT: process.env.MATRIX_ENDPOINT,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,

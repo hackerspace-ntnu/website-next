@@ -50,15 +50,15 @@
       "username": {
         "label": "Username",
         "required": "Username is required",
-        "minLength": "Username must be at least 5 characters",
-        "maxLength": "Username must be less than 8 characters",
+        "minLength": "Username must be at least {count} characters",
+        "maxLength": "Username must be less than {count} characters",
         "invalid": "Username must contain only letters"
       },
       "password": {
         "label": "Password",
         "required": "Password is required",
-        "minLength": "Password must be at least 8 characters",
-        "maxLength": "Password must be less than 50 characters",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
         "uppercase": "Password must contain at least one uppercase letter",
         "specialChar": "Password must contain at least one special character",
         "confirmLabel": "Confirm password",

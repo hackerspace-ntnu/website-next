@@ -40,7 +40,7 @@ const authRouter = createRouter({
     if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
       throw new TRPCError({
         code: 'TOO_MANY_REQUESTS',
-        message: 'api.tooManyRequests',
+        message: ctx.t('api.tooManyRequests'),
       });
     }
 
@@ -65,14 +65,14 @@ const authRouter = createRouter({
   }),
   signIn: publicProcedure
     .input(accountSignInSchema())
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
 
       if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
         throw new TRPCError({
           code: 'TOO_MANY_REQUESTS',
-          message: 'api.tooManyRequests',
+          message: ctx.t('api.tooManyRequests'),
           cause: { toast: 'warning' },
         });
       }
@@ -87,7 +87,7 @@ const authRouter = createRouter({
       if (!throttler.consume(user.id)) {
         throw new TRPCError({
           code: 'TOO_MANY_REQUESTS',
-          message: 'api.tooManyRequests',
+          message: ctx.t('api.tooManyRequests'),
           cause: { toast: 'warning' },
         });
       }
@@ -99,7 +99,7 @@ const authRouter = createRouter({
       if (!validPassword) {
         throw new TRPCError({
           code: 'UNAUTHORIZED',
-          message: 'auth.invalidCredentials',
+          message: ctx.t('auth.invalidCredentials'),
         });
       }
       throttler.reset(user.id);
