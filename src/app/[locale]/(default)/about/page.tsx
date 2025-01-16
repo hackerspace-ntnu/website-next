@@ -5,7 +5,7 @@ import { Printer, Gamepad2, SquareUserRound } from 'lucide-react';
 import { Meteors } from '@/components/ui/Meteor';
 import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
-import pizzaWolfs from '/public/about/pizzaWolfs-min.png';
+import pizzaWolfs from 'public/about/pizzaWolfs-min.png';
 
 export default async function AboutPage({
   params,
@@ -78,7 +78,8 @@ const faqs: FAQ[] = [
         })} 
       </div>
     </div>
-    <FAQAccordion faqs={(faqs)}/>
+    {/* SKAL LEGGES I BUNNEN AV LANDINGPAGE? <FAQAccordion faqs={(faqs)}/> */} 
+    
     <h2 className='m-5 content-center items-center text-center'> {t('activeGroup')} </h2>
     <div className='grid gap-4 lg:grid-cols-1'>
       {cardData.map(card => (
