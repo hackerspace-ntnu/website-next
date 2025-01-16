@@ -6,6 +6,7 @@ import { Meteors } from '@/components/ui/Meteor';
 import { FAQAccordion } from '@/components/about/FAQAccordion';
 import Image from 'next/image';
 import pizzaWolfs from 'public/about/pizzaWolfs-min.png';
+import { GroupCardGrid } from '@/components/about/GroupCardGrid';
 
 export default async function AboutPage({
   params,
@@ -81,7 +82,9 @@ const cardData = [
     {/* SKAL LEGGES I BUNNEN AV LANDINGPAGE? <FAQAccordion faqs={(faqs)}/> */} 
     
     <h2 className='m-5 content-center items-center text-center'> {t('activeGroup')} </h2>
-    <div className='grid gap-4 lg:grid-cols-1'>
+    <GroupCardGrid />
+
+    {/* <div className='grid gap-4 lg:grid-cols-1'>
       {cardData.map(card => (
         
         <div key={card.id} className='group relative p-4'>
@@ -94,6 +97,6 @@ const cardData = [
           </Card>            
         </div>
         ))}
-      </div>
+      </div> */}
   </div>;
 }

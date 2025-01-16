@@ -46,6 +46,8 @@
     "cva": "^1.0.0-beta.1",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.33.0",
+    "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
     "lucia": "^3.2.0",
     "lucide-react": "^0.396.0",
     "next": "^15.0.1",

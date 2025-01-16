@@ -1,4 +1,4 @@
-import { Card} from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
