@@ -1,11 +1,6 @@
 import type { TRPCContext } from '@/server/api/context';
 import type { TRPCError } from '@trpc/server';
-import type {
-  Formats,
-  MessageKeys,
-  NestedKeyOf,
-  TranslationValues,
-} from 'next-intl';
+import type { Formats, MessageKeys, TranslationValues } from 'next-intl';
 import { ZodError } from 'zod';
 
 type ToastType = 'info' | 'error' | 'warning' | 'success';
@@ -21,14 +16,6 @@ type ErrorShape = {
     [key: string]: unknown;
   };
 };
-
-function useStringifyTranslations() {
-  return (
-    key: NestedKeyOf<Messages>,
-    values?: TranslationValues,
-    formats?: Formats,
-  ) => JSON.stringify({ key, values, formats });
-}
 
 function errorFormatter({
   shape,
@@ -68,4 +55,4 @@ function errorFormatter({
   };
 }
 
-export { errorFormatter, useStringifyTranslations };
+export { errorFormatter };

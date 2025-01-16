@@ -1,12 +1,8 @@
-import { useStringifyTranslations } from '@/server/api/errorFormatter';
-import { useTranslations } from 'next-intl';
+import { useValidationTranslations } from '@/server/api/locale';
 import { z } from 'zod';
 
 function accountSignUpSchema() {
-  const t =
-    typeof window !== 'undefined'
-      ? useTranslations()
-      : useStringifyTranslations();
+  const t = useValidationTranslations();
   return z.object({
     password: z
       .string()
