@@ -1,3 +1,4 @@
+import { skillIdentifiers } from '@/lib/constants';
 import {
   type InsertSkill,
   type InsertUser,
@@ -40,29 +41,9 @@ async function main() {
   console.log('User inserted');
 
   console.log('Inserting skills...');
-  const skillsdata: InsertSkill[] = [
-    {
-      identifier: 'printing',
-    },
-    {
-      identifier: 'unix',
-    },
-    {
-      identifier: 'raspberry',
-    },
-    {
-      identifier: 'laser',
-    },
-    {
-      identifier: 'arduino',
-    },
-    {
-      identifier: 'souldering',
-    },
-    {
-      identifier: 'workshop',
-    },
-  ];
+  const skillsdata: InsertSkill[] = skillIdentifiers.map((identifier) => ({
+    identifier,
+  }));
   const insertedSkills = await db.insert(skills).values(skillsdata).returning();
   console.log('Skills inserted');
 

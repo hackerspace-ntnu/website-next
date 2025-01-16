@@ -148,6 +148,12 @@ If you want to run the generated migrations on your database you can run:
 bun run db:migrate
 ```
 
+We also have a command that seeds the database (fills it up with mock data). This command runs the `@/server/db/seed.ts` file, which needs to be updated when we need data to be available in the database. You can run it with:
+
+```bash
+bun run db:seed
+```
+
 Lastly we have a very useful command that starts an interactive web server where you can look at the database and run queries on it. This is very useful for debugging and testing. You can use it with:
 
 ```bash

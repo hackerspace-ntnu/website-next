@@ -1,4 +1,13 @@
 CREATE TYPE "public"."locale" AS ENUM('en', 'no');--> statement-breakpoint
+CREATE TYPE "public"."skill_identifiers" AS ENUM('printing', 'souldering', 'raspberry', 'unix', 'laser', 'workshop', 'microcontroller');--> statement-breakpoint
+CREATE TABLE "email_verification_requests" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" integer NOT NULL,
+	"code" text NOT NULL,
+	"email" varchar(254) NOT NULL,
+	"expires_at" timestamp with time zone NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "coffee" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
@@ -28,7 +37,7 @@ CREATE TABLE "users" (
 --> statement-breakpoint
 CREATE TABLE "skills" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"identifier" varchar(256) NOT NULL,
+	"identifier" "skill_identifiers" NOT NULL,
 	CONSTRAINT "skills_identifier_unique" UNIQUE("identifier")
 );
 --> statement-breakpoint
@@ -38,6 +47,14 @@ CREATE TABLE "users_skills" (
 	CONSTRAINT "users_skills_user_id_skill_id_pk" PRIMARY KEY("user_id","skill_id")
 );
 --> statement-breakpoint
+ALTER TABLE "email_verification_requests" ADD CONSTRAINT "email_verification_requests_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "session" ADD CONSTRAINT "session_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "users_skills" ADD CONSTRAINT "users_skills_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "users_skills" ADD CONSTRAINT "users_skills_skill_id_skills_id_fk" FOREIGN KEY ("skill_id") REFERENCES "public"."skills"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "users_skills" ADD CONSTRAINT "users_skills_skill_id_skills_id_fk" FOREIGN KEY ("skill_id") REFERENCES "public"."skills"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "email_verification_user_id_idx" ON "email_verification_requests" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "sessions_user_id_idx" ON "session" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "users_email_idx" ON "users" USING btree ("email");--> statement-breakpoint
+CREATE INDEX "users_username_idx" ON "users" USING btree ("username");--> statement-breakpoint
+CREATE INDEX "users_phone_number_idx" ON "users" USING btree ("phone_number");--> statement-breakpoint
+CREATE INDEX "users_skills_user_id_idx" ON "users_skills" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "users_skills_skill_id_idx" ON "users_skills" USING btree ("skill_id");

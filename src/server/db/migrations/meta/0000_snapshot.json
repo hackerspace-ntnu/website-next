@@ -1,9 +1,78 @@
 {
-  "id": "89877f9b-d38c-413f-a313-a6f6358abe9b",
+  "id": "608a60fa-7d26-48be-a385-e5b175a7acf8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.email_verification_requests": {
+      "name": "email_verification_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(254)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "email_verification_user_id_idx": {
+          "name": "email_verification_user_id_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "email_verification_requests_user_id_users_id_fk": {
+          "name": "email_verification_requests_user_id_users_id_fk",
+          "tableFrom": "email_verification_requests",
+          "tableTo": "users",
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.coffee": {
       "name": "coffee",
       "schema": "",
@@ -53,7 +122,23 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "sessions_user_id_idx": {
+          "name": "sessions_user_id_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "session_user_id_users_id_fk": {
           "name": "session_user_id_users_id_fk",
@@ -137,7 +222,53 @@
           "notNull": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "users_email_idx": {
+          "name": "users_email_idx",
+          "columns": [
+            {
+              "expression": "email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_username_idx": {
+          "name": "users_username_idx",
+          "columns": [
+            {
+              "expression": "username",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_phone_number_idx": {
+          "name": "users_phone_number_idx",
+          "columns": [
+            {
+              "expression": "phone_number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
@@ -173,7 +304,8 @@
         },
         "identifier": {
           "name": "identifier",
-          "type": "varchar(256)",
+          "type": "skill_identifiers",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         }
@@ -209,7 +341,38 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "users_skills_user_id_idx": {
+          "name": "users_skills_user_id_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "users_skills_skill_id_idx": {
+          "name": "users_skills_skill_id_idx",
+          "columns": [
+            {
+              "expression": "skill_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
         "users_skills_user_id_users_id_fk": {
           "name": "users_skills_user_id_users_id_fk",
@@ -247,6 +410,19 @@
       "name": "locale",
       "schema": "public",
       "values": ["en", "no"]
+    },
+    "public.skill_identifiers": {
+      "name": "skill_identifiers",
+      "schema": "public",
+      "values": [
+        "printing",
+        "souldering",
+        "raspberry",
+        "unix",
+        "laser",
+        "workshop",
+        "microcontroller"
+      ]
     }
   },
   "schemas": {},
