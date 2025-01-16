@@ -46,6 +46,9 @@
     "forgotPassword": "Glemt passord",
     "submit": "Send",
     "invalidCredentials": "Ugyldige påloggingsdetaljer",
+    "createPassword": "Lag passord",
+    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix Chat eller din Hackerspace-konto",
+    "createAccount": "Opprett konto",
     "form": {
       "username": {
         "label": "Brukernavn",

@@ -39,7 +39,16 @@ const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
 const authRouter = createRouter({
   state: publicProcedure.query(async ({ ctx }) => {
     const result = await ctx.auth();
-    return sanitizeAuth(result);
+    const sanitized = sanitizeAuth(result);
+    return {
+      user: sanitized.user
+        ? {
+            ...sanitized.user,
+            isAccountComplete: result.user?.passwordHash !== null,
+          }
+        : null,
+      session: sanitized.session,
+    };
   }),
   signInFeide: publicProcedure.mutation(async ({ ctx }) => {
     const headerStore = await headers();

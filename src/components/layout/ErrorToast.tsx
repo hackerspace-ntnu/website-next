@@ -12,6 +12,7 @@ function ErrorToast({
   const isMounted = useMounted();
   const router = useRouter();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: should only show error message once on first render
   useEffect(() => {
     if (isMounted) {
       if (error) {
@@ -22,7 +23,7 @@ function ErrorToast({
         router.replace(cleanPath);
       }
     }
-  }, [error, isMounted, cleanPath, router]);
+  }, [isMounted]);
 
   return null;
 }

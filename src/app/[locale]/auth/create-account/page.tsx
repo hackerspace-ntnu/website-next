@@ -1,3 +1,4 @@
+import { AccountSignUpForm } from '@/components/auth/AccountSignUpForm';
 import { setRequestLocale } from 'next-intl/server';
 
 export default async function CreateAccountPage({
@@ -7,9 +8,5 @@ export default async function CreateAccountPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return (
-    <div className='flex h-full flex-col transition-opacity duration-500'>
-      This page is for adding info to account after first login
-    </div>
-  );
+  return <AccountSignUpForm />;
 }

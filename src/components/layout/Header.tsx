@@ -5,11 +5,18 @@ import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
 import { api } from '@/lib/api/server';
-import { getTranslations } from 'next-intl/server';
+import { redirect } from '@/lib/locale/navigation';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 async function Header() {
+  const locale = await getLocale();
   const t = await getTranslations('layout');
   const { user } = await api.auth.state();
+
+  if (user && !user.isAccountComplete) {
+    redirect({ href: '/auth/create-account', locale });
+  }
+
   return (
     <header className='~px-4/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
