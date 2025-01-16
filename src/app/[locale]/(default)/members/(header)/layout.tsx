@@ -1,6 +1,6 @@
 import { SearchBar } from '@/components/composites/SearchBar';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import {setRequestLocale } from 'next-intl/server';
 
 type MemberHeaderLayoutProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export default function MemberHeaderLayout({
   children,
   params: { locale },
 }: MemberHeaderLayoutProps) {
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = useTranslations('members');
   return (
     <>

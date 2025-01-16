@@ -5,7 +5,7 @@ import { Link } from '@/lib/locale/navigation';
 import { memberMockData as memberData } from '@/mock-data/member';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -27,7 +27,7 @@ export default function memberPage({
 }: {
   params: { locale: string; member: string };
 }) {
-  unstable_setRequestLocale(params.locale);
+  setRequestLocale(params.locale);
   const t = useTranslations('members');
 
   const member = memberData.find(
