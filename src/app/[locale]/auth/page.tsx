@@ -2,7 +2,9 @@ import { FeideButton } from '@/components/auth/FeideButton';
 import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
+import { api } from '@/lib/api/server';
 import { Link } from '@/lib/locale/navigation';
+import { redirect } from '@/lib/locale/navigation';
 import { FingerprintIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -17,6 +19,15 @@ export default async function SignInPage({
   let { error } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations('auth');
+
+  const { user } = await api.auth.state();
+
+  if (user) {
+    if (!user.isAccountComplete) {
+      redirect({ href: '/auth/create-account', locale });
+    }
+    redirect({ href: '/', locale });
+  }
 
   // @ts-expect-error: Unknown if error is a valid translation key
   error = t.has(`error.${error}`) ? t(`error.${error}`) : undefined;

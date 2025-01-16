@@ -1,13 +1,12 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { setRequestLocale } from 'next-intl/server';
-import { getTranslations } from 'next-intl/server';
-
 import { PendingBar, PendingProvider } from '@/components/auth/PendingBar';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Main } from '@/components/layout/Main';
 import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
 import { Card, CardHeader } from '@/components/ui/Card';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -34,9 +33,10 @@ export default async function AuthLayout({
   const { locale } = await params;
   setRequestLocale(locale);
   const { auth, ui } = await getMessages();
+
   return (
     <Main className='flex h-full items-center justify-center'>
-      <Card className='~p-3/6 relative w-full max-w-md overflow-hidden'>
+      <Card className='~p-3/6 relative z-10 w-full max-w-md overflow-hidden'>
         <PendingProvider>
           <PendingBar />
           <CardHeader className='flex items-center justify-between py-2'>
