@@ -21,7 +21,13 @@ function Footer() {
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4'>
         <div>
           <div className='flex'>
-            <LogoLink className='justify-start' titleClassName='text-lg' />
+            <LogoLink
+              className='justify-start'
+              titleClassName='text-lg'
+              t={{
+                hackerspaceHome: t('hackerspaceHome'),
+              }}
+            />
           </div>
           <p className='ml-2 leading-tight'>
             <strong>{t('openingHours')}:</strong>
@@ -114,7 +120,7 @@ function Footer() {
         <div>
           <h4>{t('links')}</h4>
           <Nav
-            className='mt-2 ml-2 space-y-1.5'
+            className='mt-2 ml-2 flex flex-col items-start gap-1.5'
             t={{
               news: t('news'),
               events: t('events'),

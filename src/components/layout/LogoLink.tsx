@@ -2,20 +2,24 @@ import { HackerspaceLogo } from '@/components/assets/logos';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+
+type LogoLinkProps = {
+  className?: string;
+  logoClassName?: string;
+  titleClassName?: string;
+  onClick?: () => void;
+  t: {
+    hackerspaceHome: string;
+  };
+};
 
 function LogoLink({
   className,
   logoClassName,
   titleClassName,
   onClick,
-}: {
-  className?: string;
-  logoClassName?: string;
-  titleClassName?: string;
-  onClick?: () => void;
-}) {
-  const t = useTranslations('layout');
+  t,
+}: LogoLinkProps) {
   return (
     <Button
       className={cx('flex items-center space-x-2', className)}
@@ -23,7 +27,7 @@ function LogoLink({
       variant='none'
       size='none'
     >
-      <Link href='/' aria-label={t('hackerspaceHome')} onClick={onClick}>
+      <Link href='/' aria-label={t.hackerspaceHome} onClick={onClick}>
         <HackerspaceLogo className={cx('~w-7/11 ~h-7/11', logoClassName)} />
         <span
           className={cx(

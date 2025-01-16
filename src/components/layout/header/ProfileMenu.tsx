@@ -36,9 +36,10 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
           variant='ghost'
           size='icon'
           className={cx(hasUser && 'text-primary hover:text-primary')}
+          title={t.profile}
+          aria-label={t.profile}
         >
-          <UserIcon className='h-[1.2rem] w-[1.2rem]' />
-          <span className='sr-only'>{t.profile}</span>
+          <UserIcon className='h-[1.2rem] w-[1.2rem]' aria-hidden='true' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>

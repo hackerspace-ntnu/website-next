@@ -88,6 +88,8 @@
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
+    "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
+    "goToMatrix": "Dra til matrix",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
