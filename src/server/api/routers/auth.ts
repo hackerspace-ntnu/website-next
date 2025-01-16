@@ -32,6 +32,7 @@ import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
 
 import { sanitizeAuth } from '@/server/auth';
+import { registerMatrixUser } from '@/server/auth/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -129,6 +130,21 @@ const authRouter = createRouter({
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.form.password.weak'),
+        });
+      }
+
+      try {
+        const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
+        await registerMatrixUser(
+          ctx.user.username,
+          displayname,
+          input.password,
+        );
+      } catch (error) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.matrixRegistrationFailed'),
+          cause: { toast: 'error' },
         });
       }
 
