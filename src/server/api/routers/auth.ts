@@ -6,8 +6,15 @@ import {
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
-import { createFeideAuthorization } from '@/server/auth/feide';
-import { verifyPasswordHash } from '@/server/auth/password';
+import {
+  createFeideAuthorization,
+  setFeideAuthorizationCookies,
+} from '@/server/auth/feide';
+import {
+  hashPassword,
+  verifyPasswordHash,
+  verifyPasswordStrength,
+} from '@/server/auth/password';
 import {
   deleteSessionTokenCookie,
   invalidateSession,
@@ -17,11 +24,12 @@ import {
   generateSessionToken,
   setSessionTokenCookie,
 } from '@/server/auth/session';
-import { getUserFromUsername } from '@/server/auth/user';
+import { getUserFromUsername, updateUserPassword } from '@/server/auth/user';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
+import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 
 import { TRPCError } from '@trpc/server';
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 
 import { sanitizeAuth } from '@/server/auth';
 
@@ -33,7 +41,7 @@ const authRouter = createRouter({
     const result = await ctx.auth();
     return sanitizeAuth(result);
   }),
-  signInFeide: publicProcedure.mutation(async () => {
+  signInFeide: publicProcedure.mutation(async ({ ctx }) => {
     const headerStore = await headers();
     const clientIP = headerStore.get('X-Forwarded-For');
 
@@ -43,23 +51,8 @@ const authRouter = createRouter({
         message: ctx.t('api.tooManyRequests'),
       });
     }
-
-    const cookieStore = await cookies();
     const { state, codeVerifier, url } = await createFeideAuthorization();
-    cookieStore.set('feide-state', state, {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 60 * 10,
-      secure: env.NODE_ENV === 'production',
-    });
-    cookieStore.set('feide-code-verifier', codeVerifier, {
-      path: '/',
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 60 * 10,
-      secure: env.NODE_ENV === 'production',
-    });
+    await setFeideAuthorizationCookies(state, codeVerifier);
 
     return url.href;
   }),
@@ -80,7 +73,7 @@ const authRouter = createRouter({
       if (!user || !user.passwordHash) {
         throw new TRPCError({
           code: 'UNAUTHORIZED',
-          message: 'auth.invalidCredentials',
+          message: ctx.t('auth.invalidCredentials'),
         });
       }
 
@@ -107,6 +100,31 @@ const authRouter = createRouter({
       const sessionToken = generateSessionToken();
       const session = await createSession(sessionToken, user.id);
       await setSessionTokenCookie(sessionToken, session.expiresAt);
+    }),
+  signUp: authenticatedProcedure
+    .input(accountSignUpSchema())
+    .mutation(async ({ input, ctx }) => {
+      const headerStore = await headers();
+      const clientIP = headerStore.get('X-Forwarded-For');
+
+      if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      const strongPassword = await verifyPasswordStrength(input.password);
+      if (!strongPassword) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.form.password.weak'),
+        });
+      }
+
+      const hashedPassword = await hashPassword(input.password);
+      await updateUserPassword(ctx.user.id, hashedPassword);
     }),
   signOut: authenticatedProcedure.mutation(async ({ ctx }) => {
     await invalidateSession(ctx.session.id);

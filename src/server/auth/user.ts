@@ -1,7 +1,7 @@
 import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
 
-import { users } from '@/server/db/tables';
+import { type InsertUser, users } from '@/server/db/tables';
 
 async function getUserFromUsername(username: string) {
   return await db.query.users.findFirst({
@@ -9,29 +9,14 @@ async function getUserFromUsername(username: string) {
   });
 }
 
-async function createUser(
-  username: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  emailVerifiedAt: Date | null,
-  birthDate: Date,
-  phoneNumber: string,
-) {
-  const [user] = await db
-    .insert(users)
-    .values({
-      username,
-      firstName,
-      lastName,
-      email,
-      emailVerifiedAt,
-      birthDate,
-      phoneNumber,
-    })
-    .returning();
+async function createUser(userValues: InsertUser) {
+  const [user] = await db.insert(users).values(userValues).returning();
 
   return user;
 }
 
-export { getUserFromUsername, createUser };
+async function updateUserPassword(userId: number, passwordHash: string) {
+  await db.update(users).set({ passwordHash }).where(eq(users.id, userId));
+}
+
+export { getUserFromUsername, createUser, updateUserPassword };

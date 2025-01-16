@@ -1,4 +1,5 @@
 import { env } from '@/env';
+import { cookies } from 'next/headers';
 import {
   OAuth2Client,
   OAuth2RequestError,
@@ -85,9 +86,31 @@ async function validateFeideAuthorization(code: string, codeVerifier: string) {
   }
 }
 
+async function setFeideAuthorizationCookies(
+  state: string,
+  codeVerifier: string,
+) {
+  const cookieStore = await cookies();
+  cookieStore.set('feide-state', state, {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 60 * 10,
+    secure: env.NODE_ENV === 'production',
+  });
+  cookieStore.set('feide-code-verifier', codeVerifier, {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 60 * 10,
+    secure: env.NODE_ENV === 'production',
+  });
+}
+
 export {
   createFeideAuthorization,
   validateFeideAuthorization,
+  setFeideAuthorizationCookies,
   type FeideUserInfo,
   type ExtendedFeideUserInfo,
 };
