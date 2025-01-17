@@ -39,6 +39,8 @@
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
+    "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
+    "matrix": "Dra til matrix",
     "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
