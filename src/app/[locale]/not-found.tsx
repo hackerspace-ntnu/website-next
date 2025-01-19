@@ -14,9 +14,9 @@ export default function NotFoundPage() {
       <p className='mb-6 xs:mb-8 text-lg text-muted-foreground xs:text-xl'>
         {t('notFoundDescription')}
       </p>
-      <Button className='w-full xs:w-auto' asChild>
-        <Link href='/'>{t('goToHomepage')}</Link>
-      </Button>
+      <Link className='w-full xs:w-auto' href='/'>
+        {t('goToHomepage')}
+      </Link>
     </div>
   );
 }

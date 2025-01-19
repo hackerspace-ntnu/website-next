@@ -1,4 +1,4 @@
-import { NavItem } from '@/components/layout/header/NavItem';
+import { Link } from '@/components/composites/Link';
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -15,13 +15,18 @@ type SecondaryNavProps = {
 
 function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
   const items = [
-    <NavItem key={0} onClick={onClick} href='/storage' t={t.storage} />,
-    <NavItem
+    <Link key={0} onClick={onClick} variant='nav' size='none' href='/storage'>
+      {t.storage}
+    </Link>,
+    <Link
       key={1}
       onClick={onClick}
+      variant='nav'
+      size='none'
       href='/shift-schedule'
-      t={t.shiftSchedule}
-    />,
+    >
+      {t.shiftSchedule}
+    </Link>,
   ];
 
   return (
