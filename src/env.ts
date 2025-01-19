@@ -23,6 +23,7 @@ export const env = createEnv({
     FEIDE_AUTHORIZATION_ENDPOINT: z.string(),
     FEIDE_TOKEN_ENDPOINT: z.string(),
     FEIDE_USERINFO_ENDPOINT: z.string(),
+    MATRIX_SHARED_SECRET: z.string(),
   },
 
   /**
@@ -56,6 +57,7 @@ export const env = createEnv({
     FEIDE_TOKEN_ENDPOINT: process.env.FEIDE_TOKEN_ENDPOINT,
     FEIDE_USERINFO_ENDPOINT: process.env.FEIDE_USERINFO_ENDPOINT,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    MATRIX_SHARED_SECRET: process.env.MATRIX_SHARED_SECRET,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

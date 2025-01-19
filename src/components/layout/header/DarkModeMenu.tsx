@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import * as React from 'react';
 
 type DarkModeMenuProps = {
   t: {
@@ -18,18 +17,30 @@ type DarkModeMenuProps = {
     dark: string;
     system: string;
   };
+  classname?: string;
 };
 
-function DarkModeMenu({ t }: DarkModeMenuProps) {
+function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
   const { setTheme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon'>
-          <SunIcon className='dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0' />
-          <MoonIcon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-          <span className='sr-only'>{t.toggleTheme}</span>
+        <Button
+          variant='ghost'
+          size='icon'
+          title={t.toggleTheme}
+          aria-label={t.toggleTheme}
+          className={classname}
+        >
+          <SunIcon
+            className='dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0'
+            aria-hidden='true'
+          />
+          <MoonIcon
+            className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
+            aria-hidden='true'
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
