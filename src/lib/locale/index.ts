@@ -47,6 +47,10 @@ const routing = defineRouting({
       en: '/shift-schedule',
       no: '/vaktliste',
     },
+    '/reservations': {
+      en: '/reservations',
+      no: '/reservasjoner',
+    },
   },
 });
 
