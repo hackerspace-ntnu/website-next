@@ -64,7 +64,8 @@
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUKiD": "Arbeidslivsnettverket KID",
     "copyright": "Opphavsrett",
-    "allRightsReserved": "Alle rettigheter reservert"
+    "allRightsReserved": "Alle rettigheter reservert",
+    "reservations": "Reservasjoner"
   },
   "news": {
     "title": "Nyheter",
@@ -158,5 +159,8 @@
         }
       }
     }
+  },
+  "reservations": {
+    "title": "Reservasjoner"
   }
 }

@@ -64,7 +64,8 @@
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUKiD": "The working life network KID",
     "copyright": "Copyright",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "reservations": "Reservations"
   },
   "news": {
     "title": "News",
@@ -158,5 +159,8 @@
         }
       }
     }
+  },
+  "reservations": {
+    "title": "Reservations"
   }
 }
