@@ -1,4 +1,4 @@
-import { Link } from '@/components/composites/Link';
+import { Link } from '@/components/ui/Link';
 import { HardDriveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -15,8 +15,8 @@ export default function NotFoundPage() {
       </p>
       <Link
         className='w-full xs:w-auto'
-        variant='primary'
-        size='button'
+        variant='default'
+        size='default'
         href='/'
       >
         {t('goToHomepage')}

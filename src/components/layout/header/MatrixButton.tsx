@@ -1,4 +1,4 @@
-import { ExternalLink } from '@/components/composites/Link';
+import { ExternalLink } from '@/components/ui/Link';
 import { MessageSquareMoreIcon } from 'lucide-react';
 
 type MatrixButtonProps = {

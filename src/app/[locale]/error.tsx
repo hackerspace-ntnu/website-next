@@ -1,7 +1,7 @@
 'use client';
 
-import { Link } from '@/components/composites/Link';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/components/ui/Link';
 import { AlertTriangleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -37,8 +37,8 @@ export default function ErrorPage({
         </Button>
         <Link
           className='w-full xs:w-auto'
-          variant='primary'
-          size='button'
+          variant='default'
+          size='default'
           href='/'
         >
           {t('goToHomepage')}

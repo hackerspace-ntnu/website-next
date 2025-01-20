@@ -5,9 +5,9 @@ import {
   SlackIcon,
 } from '@/components/assets/icons';
 import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
-import { ExternalLink, Link } from '@/components/composites/Link';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/header/Nav';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { BugIcon, MailIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 

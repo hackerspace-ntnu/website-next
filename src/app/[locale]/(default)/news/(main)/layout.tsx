@@ -1,4 +1,4 @@
-import { Link } from '@/components/composites/Link';
+import { Link } from '@/components/ui/Link';
 import { SquarePenIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -19,7 +19,7 @@ export default async function NewsHeaderLayout({
     <>
       <div className='flex items-center justify-between'>
         <h1 className='my-4'>{t('title')}</h1>
-        <Link variant='primary' size='sm' href='/news/new'>
+        <Link variant='default' size='sm' href='/news/new'>
           <SquarePenIcon className='mr-2 h-4 w-4' />
           {t('newArticle')}
         </Link>

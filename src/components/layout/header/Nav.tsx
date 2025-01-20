@@ -1,4 +1,4 @@
-import { Link } from '@/components/composites/Link';
+import { Link } from '@/components/ui/Link';
 
 type NavProps = {
   className?: string;
@@ -15,17 +15,17 @@ function Nav({ className, onClick, t }: NavProps) {
     <nav className='flex items-center'>
       <ul className={className}>
         <li>
-          <Link onClick={onClick} href='/news'>
+          <Link variant='nav' onClick={onClick} href='/news'>
             {t.news}
           </Link>
         </li>
         <li>
-          <Link onClick={onClick} href='/events'>
+          <Link variant='nav' onClick={onClick} href='/events'>
             {t.events}
           </Link>
         </li>
         <li>
-          <Link onClick={onClick} href='/about'>
+          <Link variant='nav' onClick={onClick} href='/about'>
             {t.about}
           </Link>
         </li>

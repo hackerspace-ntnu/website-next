@@ -1,5 +1,5 @@
 import { Logo } from '@/components/assets/Logo';
-import { Link } from '@/components/composites/Link';
+import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 
 type LogoLinkProps = {
@@ -14,7 +14,6 @@ function LogoLink({ className, onClick, t }: LogoLinkProps) {
   return (
     <Link
       className={cx('flex items-center space-x-2', className)}
-      variant='none'
       href='/'
       aria-label={t.hackerspaceHome}
       onClick={onClick}

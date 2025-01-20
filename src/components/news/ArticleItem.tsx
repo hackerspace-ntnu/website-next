@@ -1,5 +1,5 @@
-import { Link } from '@/components/composites/Link';
 import { InternalBadge } from '@/components/news/InternalBadge';
+import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -23,7 +23,6 @@ function ArticleItem({
   return (
     <Link
       className={cx('group block whitespace-normal font-normal', className)}
-      variant='none'
       href={{
         pathname: '/news/[article]',
         params: { article: id },

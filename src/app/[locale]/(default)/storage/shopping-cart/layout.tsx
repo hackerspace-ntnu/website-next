@@ -1,4 +1,4 @@
-import { Link } from '@/components/composites/Link';
+import { Link } from '@/components/ui/Link';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -24,7 +24,7 @@ export default async function StorageLayout({
         <Link
           className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
           variant='ghost'
-          size='button'
+          size='default'
           href='/storage'
           aria-label={t('backToStorage')}
         >

@@ -1,4 +1,3 @@
-import { Link } from '@/components/composites/Link';
 import { InternalBadge } from '@/components/news/InternalBadge';
 import {
   Card,
@@ -6,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 import Image from 'next/image';
 
@@ -29,7 +29,6 @@ function ArticleCard({
   return (
     <Link
       className={cx('group whitespace-normal font-normal', className)}
-      variant='none'
       href={{
         pathname: '/news/[article]',
         params: { article: id },

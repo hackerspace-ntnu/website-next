@@ -1,7 +1,7 @@
 'use client';
-import { Link } from '@/components/composites/Link';
 import type { CartItem } from '@/components/storage/AddToCartButton';
 import { Badge } from '@/components/ui/Badge';
+import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
   TooltipContent,
@@ -26,7 +26,7 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
         <TooltipTrigger asChild>
           <div className='absolute right-0 xs:right-5 bottom-0'>
             <Link
-              variant='primary'
+              variant='default'
               size='icon'
               href='/storage/shopping-cart'
               aria-label={t.viewShoppingCart}

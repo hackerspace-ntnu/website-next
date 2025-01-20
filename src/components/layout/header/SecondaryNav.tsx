@@ -1,8 +1,8 @@
-import { Link } from '@/components/composites/Link';
 import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
+import { Link } from '@/components/ui/Link';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;
@@ -15,10 +15,10 @@ type SecondaryNavProps = {
 
 function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
   const items = [
-    <Link key={0} onClick={onClick} href='/storage'>
+    <Link key={0} variant='nav' onClick={onClick} href='/storage'>
       {t.storage}
     </Link>,
-    <Link key={1} onClick={onClick} href='/shift-schedule'>
+    <Link key={1} variant='nav' onClick={onClick} href='/shift-schedule'>
       {t.shiftSchedule}
     </Link>,
   ];
