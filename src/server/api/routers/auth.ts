@@ -1,4 +1,3 @@
-import { env } from '@/env';
 import {
   authenticatedProcedure,
   publicProcedure,
@@ -135,7 +134,11 @@ const authRouter = createRouter({
 
       try {
         const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-        await registerMatrixUser('yoyoyoyo', displayname, input.password);
+        await registerMatrixUser(
+          ctx.user.username,
+          displayname,
+          input.password,
+        );
       } catch (error) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',

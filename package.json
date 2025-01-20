@@ -12,7 +12,7 @@
     "prebuild": "next telemetry disable",
     "build": "next build",
     "postbuild": "mkdir -p .next/standalone/public .next/standalone/.next/static && cp -r public/* .next/standalone/public && cp -r .next/static/* .next/standalone/.next/static",
-    "start": "drizzle-kit migrate && bun run .next/standalone/server.js",
+    "start": "bun run .next/standalone/server.js",
     "db:start": "docker compose -f compose.local.yml up db -d",
     "db:stop": "docker compose -f compose.local.yml down db",
     "db:delete": "bun -e \"require('fs').rmSync('data/db', { recursive: true, force: true })\"",

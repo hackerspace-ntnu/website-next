@@ -28,21 +28,24 @@ export async function GET(request: NextRequest) {
   cookieStore.delete('feide-code-verifier');
 
   if (!code || !state || !storedState || !codeVerifier) {
+    console.error('Feide: Missing code, state, storedState or codeVerifier');
     return NextResponse.redirect(
-      new URL('/auth?error=authenticationFailed', request.url),
+      new URL('/auth?error=authenticationFailed', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
   if (state !== storedState) {
+    console.error('Feide: State mismatch');
     return NextResponse.redirect(
-      new URL('/auth?error=authenticationFailed', request.url),
+      new URL('/auth?error=authenticationFailed', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
   const tokens = await validateFeideAuthorization(code, codeVerifier);
   if (!tokens) {
+    console.error('Feide: Failed to validate authorization code');
     return NextResponse.redirect(
-      new URL('/auth?error=authenticationFailed', request.url),
+      new URL('/auth?error=authenticationFailed', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
@@ -53,15 +56,17 @@ export async function GET(request: NextRequest) {
   });
 
   if (!userInfoResponse.ok) {
+    console.error('Feide: Failed to fetch user info');
     return NextResponse.redirect(
-      new URL('/auth?error=userInfoFailed', request.url),
+      new URL('/auth?error=userInfoFailed', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
   const userInfo: FeideUserInfo = await userInfoResponse.json();
   if (!userInfo) {
+    console.error('Feide: User info missing');
     return NextResponse.redirect(
-      new URL('/auth?error=userInfoMissing', request.url),
+      new URL('/auth?error=userInfoMissing', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
@@ -69,8 +74,9 @@ export async function GET(request: NextRequest) {
     userInfo['https://n.feide.no/claims/eduPersonPrincipalName'].split('@')[0];
 
   if (!username) {
+    console.error('Feide: Username missing');
     return NextResponse.redirect(
-      new URL('/auth?error=userInfoMissing', request.url),
+      new URL('/auth?error=userInfoMissing', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
@@ -87,8 +93,9 @@ export async function GET(request: NextRequest) {
     );
 
     if (!extendedUserInfoResponse.ok) {
+      console.error('Feide: Failed to fetch extended user info');
       return NextResponse.redirect(
-        new URL('/auth?error=userInfoFailed', request.url),
+        new URL('/auth?error=userInfoFailed', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
@@ -100,15 +107,17 @@ export async function GET(request: NextRequest) {
     );
 
     if (!isPhoneNumberAvailable) {
+      console.error('Feide: Phone number taken');
       return NextResponse.redirect(
-        new URL('/auth?error=phoneTaken', request.url),
+        new URL('/auth?error=phoneTaken', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
     const isEmailAvailable = await checkEmailAvailability(userInfo.email);
     if (!isEmailAvailable) {
+      console.error('Feide: Email taken');
       return NextResponse.redirect(
-        new URL('/auth?error=emailTaken', request.url),
+        new URL('/auth?error=emailTaken', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
@@ -130,15 +139,17 @@ export async function GET(request: NextRequest) {
     const insertUserSchemaResult = insertUserSchema.safeParse(userValues);
 
     if (!insertUserSchemaResult.success) {
+      console.error('Feide: Invalid user data');
       return NextResponse.redirect(
-        new URL('/auth?error=invalidUserData', request.url),
+        new URL('/auth?error=invalidUserData', env.NEXT_PUBLIC_SITE_URL),
       );
     }
     user = await createUser(userValues);
 
     if (!user) {
+      console.error('Feide: Failed to create user');
       return NextResponse.redirect(
-        new URL('/auth?error=userCreationFailed', request.url),
+        new URL('/auth?error=userCreationFailed', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
@@ -146,12 +157,14 @@ export async function GET(request: NextRequest) {
     const session = await createSession(sessionToken, user.id);
     await setSessionTokenCookie(sessionToken, session.expiresAt);
 
-    return NextResponse.redirect(new URL('/auth/create-account', request.url));
+    return NextResponse.redirect(
+      new URL('/auth/create-account', env.NEXT_PUBLIC_SITE_URL),
+    );
   }
 
   const sessionToken = generateSessionToken();
   const session = await createSession(sessionToken, user.id);
   await setSessionTokenCookie(sessionToken, session.expiresAt);
 
-  return NextResponse.redirect(new URL('/', request.url));
+  return NextResponse.redirect(new URL('/', env.NEXT_PUBLIC_SITE_URL));
 }
