@@ -15,17 +15,17 @@ function Nav({ className, onClick, t }: NavProps) {
     <nav className='flex items-center'>
       <ul className={className}>
         <li>
-          <Link onClick={onClick} variant='nav' size='none' href='/news'>
+          <Link onClick={onClick} href='/news'>
             {t.news}
           </Link>
         </li>
         <li>
-          <Link onClick={onClick} variant='nav' size='none' href='/events'>
+          <Link onClick={onClick} href='/events'>
             {t.events}
           </Link>
         </li>
         <li>
-          <Link onClick={onClick} variant='nav' size='none' href='/about'>
+          <Link onClick={onClick} href='/about'>
             {t.about}
           </Link>
         </li>

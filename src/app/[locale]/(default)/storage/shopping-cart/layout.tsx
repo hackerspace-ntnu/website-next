@@ -24,6 +24,7 @@ export default async function StorageLayout({
         <Link
           className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
           variant='ghost'
+          size='button'
           href='/storage'
           aria-label={t('backToStorage')}
         >

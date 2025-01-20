@@ -26,6 +26,7 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
         <TooltipTrigger asChild>
           <div className='absolute right-0 xs:right-5 bottom-0'>
             <Link
+              variant='primary'
               size='icon'
               href='/storage/shopping-cart'
               aria-label={t.viewShoppingCart}

@@ -15,7 +15,6 @@ function LogoLink({ className, onClick, t }: LogoLinkProps) {
     <Link
       className={cx('flex items-center space-x-2', className)}
       variant='none'
-      size='none'
       href='/'
       aria-label={t.hackerspaceHome}
       onClick={onClick}

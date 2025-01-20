@@ -33,8 +33,6 @@ function Footer() {
             <br />
             <br />
             <ExternalLink
-              variant='link'
-              size='none'
               href='https://use.mazemap.com/#v=1&zlevel=2&center=10.404406,63.415418&zoom=18&sharepoitype=poi&sharepoi=1000391296&campusid=1'
               prefetch={false}
               target='_blank'
@@ -128,7 +126,7 @@ function Footer() {
         <div>
           <h4>{t('utilities')}</h4>
           <p className='ml-2 [&:not(:first-child)]:mt-0'>
-            <Link variant='link' size='none' href='/'>
+            <Link variant='link' href='/'>
               {t('signIn')}
             </Link>
             <br />
@@ -141,8 +139,6 @@ function Footer() {
               MailLink: () => (
                 <ExternalLink
                   className='inline'
-                  variant='link'
-                  size='none'
                   href='mailto:hackerspace-dev@idi.ntnu.no'
                   aria-label={t('sendAnEmail')}
                 >
@@ -152,8 +148,6 @@ function Footer() {
               SlackLink: (children) => (
                 <ExternalLink
                   className='inline'
-                  variant='link'
-                  size='none'
                   href='https://hackerspace-ntnu.slack.com/archives/CDK99FYTY'
                   prefetch={false}
                   aria-label={t('visitSlack')}
@@ -166,8 +160,6 @@ function Footer() {
               GithubLink: (children) => (
                 <ExternalLink
                   className='inline'
-                  variant='link'
-                  size='none'
                   href='https://github.com/hackerspace-ntnu/website-frontend/issues'
                   prefetch={false}
                   aria-label={t('visitGithub')}
@@ -185,7 +177,6 @@ function Footer() {
         <li>
           <ExternalLink
             variant='none'
-            size='none'
             href={t('NTNUIDIURL')}
             prefetch={false}
             target='_blank'
@@ -197,7 +188,6 @@ function Footer() {
         <li>
           <ExternalLink
             variant='none'
-            size='none'
             href='https://www.ntnu.no/ie/kid/'
             prefetch={false}
             target='_blank'

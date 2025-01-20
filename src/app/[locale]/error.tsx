@@ -35,7 +35,12 @@ export default function ErrorPage({
         <Button onClick={reset} variant='outline' className='w-full xs:w-auto'>
           {t('tryAgain')}
         </Button>
-        <Link className='w-full xs:w-auto' href='/'>
+        <Link
+          className='w-full xs:w-auto'
+          variant='primary'
+          size='button'
+          href='/'
+        >
           {t('goToHomepage')}
         </Link>
       </div>

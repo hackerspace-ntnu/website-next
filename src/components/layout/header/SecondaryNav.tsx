@@ -15,16 +15,10 @@ type SecondaryNavProps = {
 
 function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
   const items = [
-    <Link key={0} onClick={onClick} variant='nav' size='none' href='/storage'>
+    <Link key={0} onClick={onClick} href='/storage'>
       {t.storage}
     </Link>,
-    <Link
-      key={1}
-      onClick={onClick}
-      variant='nav'
-      size='none'
-      href='/shift-schedule'
-    >
+    <Link key={1} onClick={onClick} href='/shift-schedule'>
       {t.shiftSchedule}
     </Link>,
   ];

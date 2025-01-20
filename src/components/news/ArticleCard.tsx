@@ -30,7 +30,6 @@ function ArticleCard({
     <Link
       className={cx('group whitespace-normal font-normal', className)}
       variant='none'
-      size='none'
       href={{
         pathname: '/news/[article]',
         params: { article: id },
