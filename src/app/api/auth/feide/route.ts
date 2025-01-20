@@ -59,6 +59,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  console.log('Attempting to validate Feide authorization...');
   const tokens = await validateFeideAuthorization(code, codeVerifier);
   if (!tokens) {
     console.error('Feide: Failed to validate authorization code');
