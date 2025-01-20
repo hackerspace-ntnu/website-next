@@ -1,5 +1,5 @@
 CREATE TYPE "public"."locale" AS ENUM('en', 'no');--> statement-breakpoint
-CREATE TYPE "public"."skill_identifiers" AS ENUM('printing', 'souldering', 'raspberry', 'unix', 'laser', 'workshop', 'microcontroller');--> statement-breakpoint
+CREATE TYPE "public"."skill_identifiers" AS ENUM('printing', 'soldering', 'raspberry', 'unix', 'laser', 'workshop', 'microcontroller');--> statement-breakpoint
 CREATE TABLE "email_verification_requests" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,

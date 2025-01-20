@@ -1,5 +1,5 @@
 {
-  "id": "608a60fa-7d26-48be-a385-e5b175a7acf8",
+  "id": "3d626913-2220-4239-a9de-167e179fd8b5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -416,7 +416,7 @@
       "schema": "public",
       "values": [
         "printing",
-        "souldering",
+        "soldering",
         "raspberry",
         "unix",
         "laser",
