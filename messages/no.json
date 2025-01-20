@@ -51,6 +51,7 @@
     "createPassword": "Lag passord",
     "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix Chat eller din Hackerspace-konto",
     "createAccount": "Opprett konto",
+    "feideNotConfigured": "Feide er ikke konfigurert",
     "form": {
       "username": {
         "label": "Brukernavn",

@@ -61,6 +61,23 @@ const authRouter = createRouter({
         message: ctx.t('api.tooManyRequests'),
       });
     }
+
+    if (
+      !(
+        env.FEIDE_CLIENT_ID &&
+        env.FEIDE_CLIENT_SECRET &&
+        env.FEIDE_AUTHORIZATION_ENDPOINT &&
+        env.FEIDE_TOKEN_ENDPOINT &&
+        env.FEIDE_USERINFO_ENDPOINT &&
+        env.FEIDE_EXTENDED_USERINFO_ENDPOINT
+      )
+    ) {
+      throw new TRPCError({
+        code: 'SERVICE_UNAVAILABLE',
+        message: ctx.t('auth.feideNotConfigured'),
+      });
+    }
+
     const { state, codeVerifier, url } = await createFeideAuthorization();
     await setFeideAuthorizationCookies(state, codeVerifier);
 
@@ -134,7 +151,7 @@ const authRouter = createRouter({
         });
       }
 
-      if (env.NODE_ENV === 'production') {
+      if (env.MATRIX_SERVER_NAME && env.MATRIX_ENDPOINT && env.MATRIX_SECRET) {
         try {
           const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
           await registerMatrixUser(
@@ -149,6 +166,10 @@ const authRouter = createRouter({
             cause: { toast: 'error' },
           });
         }
+      } else {
+        console.log(
+          'Matrix account will not be created since the MATRIX environment variables are not set.',
+        );
       }
 
       const hashedPassword = await hashPassword(input.password);

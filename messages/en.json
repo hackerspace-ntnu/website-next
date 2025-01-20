@@ -51,6 +51,7 @@
     "createPassword": "Create password",
     "passwordDescription": "The password will be used for signing in to Matrix Chat or your Hackerspace Account",
     "createAccount": "Create Account",
+    "feideNotConfigured": "Feide is not configured",
     "form": {
       "username": {
         "label": "Username",
