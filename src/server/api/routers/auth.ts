@@ -1,3 +1,4 @@
+import { env } from '@/env';
 import {
   authenticatedProcedure,
   publicProcedure,
@@ -133,19 +134,21 @@ const authRouter = createRouter({
         });
       }
 
-      try {
-        const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-        await registerMatrixUser(
-          ctx.user.username,
-          displayname,
-          input.password,
-        );
-      } catch (error) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('auth.matrixRegistrationFailed'),
-          cause: { toast: 'error' },
-        });
+      if (env.NODE_ENV === 'production') {
+        try {
+          const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
+          await registerMatrixUser(
+            ctx.user.username,
+            displayname,
+            input.password,
+          );
+        } catch (error) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('auth.matrixRegistrationFailed'),
+            cause: { toast: 'error' },
+          });
+        }
       }
 
       const hashedPassword = await hashPassword(input.password);
