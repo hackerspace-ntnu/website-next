@@ -168,7 +168,7 @@ const authRouter = createRouter({
         }
       } else {
         console.log(
-          'Matrix account will not be created since the MATRIX environment variables are not set.',
+          'Matrix account will not be created since the Matrix environment variables are not set.',
         );
       }
 

@@ -27,6 +27,24 @@ export async function GET(request: NextRequest) {
   cookieStore.delete('feide-state');
   cookieStore.delete('feide-code-verifier');
 
+  if (
+    !(
+      env.FEIDE_CLIENT_ID &&
+      env.FEIDE_CLIENT_SECRET &&
+      env.FEIDE_AUTHORIZATION_ENDPOINT &&
+      env.FEIDE_TOKEN_ENDPOINT &&
+      env.FEIDE_USERINFO_ENDPOINT &&
+      env.FEIDE_EXTENDED_USERINFO_ENDPOINT
+    )
+  ) {
+    console.log(
+      'Feide does not work since the Feide environment variables are not set',
+    );
+    return NextResponse.redirect(
+      new URL('/auth?error=authenticationFailed', env.NEXT_PUBLIC_SITE_URL),
+    );
+  }
+
   if (!code || !state || !storedState || !codeVerifier) {
     console.error('Feide: Missing code, state, storedState or codeVerifier');
     return NextResponse.redirect(
