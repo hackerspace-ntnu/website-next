@@ -30,13 +30,12 @@ type MobileSheetProps = {
     storage: string;
     shiftSchedule: string;
     hackerspaceHome: string;
-    matrix: string;
+    goToMatrix: string;
     changeLocale: string;
     toggleTheme: string;
     light: string;
     dark: string;
     system: string;
-    close: string;
   };
 };
 
@@ -63,45 +62,39 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           <MenuIcon className='h-5 w-5' aria-hidden='true' />
         </Button>
       </SheetTrigger>
-      <SheetContent
-        className='flex w-72 flex-col justify-between'
-        side='left'
-        close={t.close}
-      >
-        <div>
-          <SheetHeader>
-            <SheetTitle className='flex'>
-              <LogoLink
-                onClick={() => setOpen(false)}
-                t={{
-                  hackerspaceHome: t.hackerspaceHome,
-                }}
-              />
-            </SheetTitle>
-          </SheetHeader>
-          <Nav
-            className='flex flex-col items-start space-y-3 py-6'
-            onClick={() => setOpen(false)}
-            t={{
-              news: t.news,
-              events: t.events,
-              about: t.about,
-            }}
-          />
-          <Separator />
-          <div className='mt-6 ml-2 flex flex-row gap-2'>
-            <Separator orientation='vertical' className='h-auto' />
-            <SecondaryNav
+      <SheetContent side='left'>
+        <SheetHeader>
+          <SheetTitle className='flex'>
+            <LogoLink
               onClick={() => setOpen(false)}
               t={{
-                storage: t.storage,
-                shiftSchedule: t.shiftSchedule,
+                hackerspaceHome: t.hackerspaceHome,
               }}
             />
-          </div>
+          </SheetTitle>
+        </SheetHeader>
+        <Nav
+          className='flex flex-col items-start space-y-3 py-6'
+          onClick={() => setOpen(false)}
+          t={{
+            news: t.news,
+            events: t.events,
+            about: t.about,
+          }}
+        />
+        <Separator />
+        <div className='mt-6 ml-2 flex flex-row gap-2'>
+          <Separator orientation='vertical' className='h-auto' />
+          <SecondaryNav
+            onClick={() => setOpen(false)}
+            t={{
+              storage: t.storage,
+              shiftSchedule: t.shiftSchedule,
+            }}
+          />
         </div>
-        <SheetFooter className='flex flex-row'>
-          <MatrixButton t={{ title: t.matrix }} className='xs:hidden' />
+        <SheetFooter className='absolute bottom-2 flex flex-row'>
+          <MatrixButton t={{ title: t.goToMatrix }} className='xs:hidden' />
           <LocaleMenu
             t={{
               changeLocale: t.changeLocale,

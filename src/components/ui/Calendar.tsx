@@ -15,9 +15,6 @@ import {
   type DropdownProps,
 } from 'react-day-picker';
 
-import { dayPickerLocales } from '@/lib/locale';
-import { cx } from '@/lib/utils';
-
 import { Button, buttonVariants } from '@/components/ui/Button';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import {
@@ -28,7 +25,10 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 
-export type CalendarProps = DayPickerProps;
+import { dayPickerLocales, type routing } from '@/lib/locale';
+import { cx } from '@/lib/utils';
+
+type CalendarProps = DayPickerProps;
 
 /**
  * This component is also customised a lot from its shadcn counterpart.
@@ -36,6 +36,7 @@ export type CalendarProps = DayPickerProps;
  * Our version supports a dropdown for the month and year if enabled via the captionLayout prop.
  * Also it uses the correct locale labels for everything based on the current locale.
  */
+
 function Dropdown({
   value,
   onChange,
@@ -83,7 +84,7 @@ function Calendar({
 }: CalendarProps) {
   const t = useTranslations('ui');
   const format = useFormatter();
-  const currentLocale = useLocale();
+  const locale = useLocale();
   return (
     <DayPicker
       className={cx('p-3', className)}
@@ -185,7 +186,7 @@ function Calendar({
       }}
       showOutsideDays={showOutsideDays}
       fixedWeeks
-      locale={dayPickerLocales[currentLocale as keyof typeof dayPickerLocales]}
+      locale={dayPickerLocales[locale as (typeof routing.locales)[number]]}
       labels={{
         labelDayButton: (date, { today, selected }) => {
           let label = format.dateTime(date, {
@@ -209,4 +210,4 @@ function Calendar({
 }
 Calendar.displayName = 'Calendar';
 
-export { Calendar };
+export { Calendar, type CalendarProps };
