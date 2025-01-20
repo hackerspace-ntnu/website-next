@@ -2,17 +2,17 @@
 
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import * as React from 'react';
 
 import { cx } from '@/lib/utils';
+import { forwardRef, useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Input, type InputProps } from '@/components/ui/Input';
 
-const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
+const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
     const t = useTranslations('ui');
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const disabled =
       props.value === '' || props.value === undefined || props.disabled;
 

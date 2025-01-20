@@ -36,7 +36,7 @@ const routing = defineRouting({
     },
     '/auth/success': {
       en: '/auth/success',
-      no: '/autentisering/success',
+      no: '/autentisering/suksess',
     },
     '/settings': {
       en: '/settings',

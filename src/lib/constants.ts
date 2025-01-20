@@ -1,6 +1,6 @@
 const skillIdentifiers = [
   'printing',
-  'souldering',
+  'soldering',
   'raspberry',
   'unix',
   'laser',
