@@ -73,7 +73,6 @@ async function registerMatrixUser(
   });
 
   if (!response.ok) {
-    console.log(await response.json());
     throw new Error(`Matrix registration failed: ${response.status}`);
   }
 }
