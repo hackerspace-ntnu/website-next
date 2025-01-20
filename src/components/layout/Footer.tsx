@@ -190,8 +190,10 @@ function Footer() {
                 prefetch={false}
                 target='_blank'
                 rel='noopener noreferrer'
+                aria-label={t('NTNUIDI')}
+                title={t('NTNUIDI')}
               >
-                <IDILogo className='p-6' title={t('NTNUIDI')} />
+                <IDILogo className='p-6' />
               </ExternalLink>
             </Button>
           </li>
@@ -202,8 +204,10 @@ function Footer() {
                 prefetch={false}
                 target='_blank'
                 rel='noopener noreferrer'
+                aria-label={t('NTNUNexus')}
+                title={t('NTNUNexus')}
               >
-                <NexusLogo className='p-6' title={t('NTNUNexus')} />
+                <NexusLogo className='p-6' />
               </ExternalLink>
             </Button>
           </li>

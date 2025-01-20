@@ -1,13 +1,6 @@
 import { cx } from '@/lib/utils';
 
-function IDILogo({
-  className,
-  title,
-  ...props
-}: {
-  className?: string;
-  title: string;
-}) {
+function IDILogo({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       className={cx('text-black dark:text-white', className)}
@@ -15,10 +8,9 @@ function IDILogo({
       height='100%'
       viewBox='0 0 438 129'
       xmlns='http://www.w3.org/2000/svg'
-      aria-describedby='idilogo'
+      aria-hidden='true'
       {...props}
     >
-      <title id='idilogo'>{title}</title>
       <path
         d='M27.923,27.928l-18.619,0l0,-18.622l18.619,0l0,18.622Zm0,-27.926l-18.618,0c-5.14,0 -9.305,4.166 -9.305,9.305l0,18.621c0,5.136 4.165,9.303 9.305,9.303l18.618,0c5.138,0 9.304,-4.167 9.304,-9.303l0,-18.621c0,-5.139 -4.166,-9.305 -9.304,-9.305'
         fill='#214ca1'

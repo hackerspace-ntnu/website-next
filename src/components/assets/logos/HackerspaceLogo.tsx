@@ -1,4 +1,7 @@
-function HackerspaceLogo({ className, ...props }: { className?: string }) {
+function HackerspaceLogo({
+  className,
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       className={className}

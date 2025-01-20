@@ -1,13 +1,6 @@
 import { cx } from '@/lib/utils';
 
-function FeideLogo({
-  className,
-  title,
-  ...props
-}: {
-  className?: string;
-  title: string;
-}) {
+function FeideLogo({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       className={cx('text-black dark:text-white', className)}
@@ -15,10 +8,9 @@ function FeideLogo({
       height='100%'
       viewBox='0 0 114 39'
       xmlns='http://www.w3.org/2000/svg'
-      aria-describedby='feidelogo'
+      aria-hidden='true'
       {...props}
     >
-      <title id='feidelogo'>{title}</title>
       <rect x='27.99' y='20.34' width='4.24' height='10.18' fill='#1f4698' />
       <path
         d='M18.23,23.31l-4.24,0l0,11.45l-9.75,0l0,-14.42l-4.24,0l0,15.27l0.02,0l0,3.39l32.21,0l-0,-4.24l-14,0l-0,-11.45Z'
