@@ -129,6 +129,7 @@ const authRouter = createRouter({
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.form.password.weak'),
+          cause: { toast: 'error' },
         });
       }
 

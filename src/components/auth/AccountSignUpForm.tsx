@@ -17,7 +17,6 @@ import {
   FormMessage,
   useForm,
 } from '@/components/ui/Form';
-import type { TRPCClientError } from '@/lib/api/types';
 
 function AccountSignUpForm() {
   const router = useRouter();
@@ -27,29 +26,16 @@ function AccountSignUpForm() {
   const signUpMutation = api.auth.signUp.useMutation({
     onMutate: () => setPending(true),
     onSettled: () => setPending(false),
+    onSuccess: () => router.push('/auth/success'),
   });
 
   const form = useForm(formSchema, {
-    validators: {
-      onChange: formSchema,
-      onSubmitAsync: async ({ value }) => {
-        try {
-          await signUpMutation.mutateAsync(value);
-        } catch (error: unknown) {
-          const TRPCError = error as TRPCClientError;
-          if (!TRPCError.data?.toast) {
-            return { fields: { password: TRPCError.message } };
-          }
-          return ' ';
-        }
-      },
-    },
     defaultValues: {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: () => {
-      router.push('/auth/success');
+    onSubmit: ({ value }) => {
+      signUpMutation.mutate(value);
     },
   });
 
