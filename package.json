@@ -6,6 +6,7 @@
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
     "dev": "next dev",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "dev:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && docker compose -f compose.local.yml exec -T db pg_isready && bun run db:push && bun run db:seed",
     "dev:stop": "docker compose -f compose.local.yml down",
     "lint": "biome check --write",
@@ -83,7 +84,7 @@
     "@biomejs/biome": "^1.9.4",
     "@faker-js/faker": "^9.2.0",
     "@fluid-tailwind/tailwind-merge": "^0.0.2",
-    "@types/bun": "^1.1.12",
+    "@types/bun": "^1.2.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.20",
@@ -98,5 +99,5 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.6.3"
   },
-  "packageManager": "bun@1.1.29"
+  "packageManager": "bun@1.2.0"
 }
