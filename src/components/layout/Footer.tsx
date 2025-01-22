@@ -4,7 +4,7 @@ import {
   InstagramIcon,
   SlackIcon,
 } from '@/components/assets/icons';
-import { IDILogo, NexusLogo } from '@/components/assets/sponsors';
+import { IDILogo, NexusLogo } from '@/components/assets/logos';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/header/Nav';
 import { ExternalLink, Link } from '@/components/ui/Link';
@@ -21,6 +21,7 @@ function Footer() {
           <div className='flex'>
             <LogoLink
               className='justify-start'
+              titleClassName='text-lg'
               t={{
                 hackerspaceHome: t('hackerspaceHome'),
               }}
@@ -173,30 +174,36 @@ function Footer() {
           </p>
         </div>
       </div>
-      <ul className='flex flex-col justify-center gap-6 py-20 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
-        <li>
-          <ExternalLink
-            variant='none'
-            href={t('NTNUIDIURL')}
-            prefetch={false}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <IDILogo className='p-6' title={t('NTNUIDI')} />
-          </ExternalLink>
-        </li>
-        <li>
-          <ExternalLink
-            variant='none'
-            href='https://www.ntnu.no/ie/kid/'
-            prefetch={false}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <NexusLogo className='p-6' title={t('NTNUKiD')} />
-          </ExternalLink>
-        </li>
-      </ul>
+      <nav className='py-20'>
+        <ul className='flex flex-col justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
+          <li>
+            <ExternalLink
+              variant='none'
+              href={t('NTNUIDIURL')}
+              prefetch={false}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label={t('NTNUIDI')}
+              title={t('NTNUIDI')}
+            >
+              <IDILogo className='p-6' />
+            </ExternalLink>
+          </li>
+          <li>
+            <ExternalLink
+              variant='none'
+              href='https://www.ntnu.no/ie/nexus/'
+              prefetch={false}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label={t('NTNUNexus')}
+              title={t('NTNUNexus')}
+            >
+              <NexusLogo className='p-6' />
+            </ExternalLink>
+          </li>
+        </ul>
+      </nav>
       <p className='text-center'>
         {t('copyright')} &copy; {year}, Hackerspace NTNU.{' '}
         {t('allRightsReserved')}.

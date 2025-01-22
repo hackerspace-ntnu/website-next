@@ -1,4 +1,4 @@
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon, type LucideProps } from 'lucide-react';
 
 import { type VariantProps, cva } from '@/lib/utils';
 
@@ -22,7 +22,7 @@ function Spinner({
   className,
   size,
   ...props
-}: React.SVGProps<SVGSVGElement> & VariantProps<typeof spinnerVariants>) {
+}: LucideProps & VariantProps<typeof spinnerVariants>) {
   return (
     <Loader2Icon className={spinnerVariants({ size, className })} {...props} />
   );
