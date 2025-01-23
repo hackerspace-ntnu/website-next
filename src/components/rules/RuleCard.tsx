@@ -26,7 +26,7 @@ function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
         }}
         aria-label={title}
       >
-        <Card className='ease flex size-full transform overflow-hidden rounded-xl brightness-95 transition delay-150 duration-300 ease-in-out hover:scale-105 hover:border-primary hover:border-solid hover:shadow-lg hover:brightness-100 dark:brightness-100 hover:dark:brightness-110'>
+        <Card className='flex size-full transform overflow-hidden rounded-xl brightness-95 transition delay-150 duration-300 ease-in-out hover:scale-105 hover:border-primary hover:border-solid hover:shadow-lg hover:brightness-100 dark:brightness-100 hover:dark:brightness-110'>
           {internal ? (
             <Badge className='flex w-1/3 items-center justify-center rounded-none text-lg hover:bg-primary '>
               {t('internal')}
@@ -40,7 +40,7 @@ function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
               height={150}
             />
           )}
-          <CardTitle className='flex w-2/3 items-center justify-center text-wrap text-center font-inter text-base md:text-2xl'>
+          <CardTitle className='~text-lg flex w-2/3 items-center justify-center text-wrap text-center font-inter text-base ~lg:text-2xl ~sm:text-xl'>
             {title}
           </CardTitle>
         </Card>
