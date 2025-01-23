@@ -4,7 +4,7 @@ FROM imbios/bun-node:22-slim AS base
 FROM base AS deps
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install  --frozen-lockfile
 
 # Rebuild the source code only when needed

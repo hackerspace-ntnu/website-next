@@ -68,6 +68,11 @@ async function createFeideAuthorization() {
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
   try {
+    console.log('Checking Feide config:', {
+      clientId: env.FEIDE_CLIENT_ID,
+      clientSecret: env.FEIDE_CLIENT_SECRET,
+      redirectUri: env.NEXT_PUBLIC_SITE_URL,
+    });
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
       credentials: env.FEIDE_CLIENT_SECRET,
@@ -79,10 +84,9 @@ async function validateFeideAuthorization(code: string, codeVerifier: string) {
     };
   } catch (error) {
     if (error instanceof OAuth2RequestError) {
-      // probably invalid credentials etc
-      // will be handled by returning null
+      console.error('OAuth2 Request Error:', error.message);
     }
-    console.error(error);
+    console.error('Validation error:', error);
   }
 }
 
