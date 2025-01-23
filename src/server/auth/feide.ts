@@ -67,6 +67,12 @@ async function createFeideAuthorization() {
 }
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
+  console.log('Attempting token exchange with:', {
+    tokenEndpoint: 'https://auth.dataporten.no/oauth/token',
+    codeVerifierLength: codeVerifier?.length,
+    hasCode: Boolean(code),
+    redirectUri: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/feide`,
+  });
   try {
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
