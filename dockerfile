@@ -1,10 +1,10 @@
-FROM imbios/bun-node:22-slim AS base
+FROM imbios/bun-node:22 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install  --frozen-lockfile
 
 # Rebuild the source code only when needed
@@ -35,6 +35,7 @@ RUN mkdir .next && chown nextjs:nodejs .next
 
 # Copy necessary files for build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # Copy necessary files for migrations
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
 COPY --from=builder --chown=nextjs:nodejs /app/src/server ./src/server

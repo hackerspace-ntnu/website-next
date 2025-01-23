@@ -4,7 +4,6 @@ import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { useTranslations } from 'next-intl';
 
 import { api } from '@/lib/api/client';
-import { Link } from '@/lib/locale/navigation';
 import { useRouter } from '@/lib/locale/navigation';
 
 import { usePending } from '@/components/auth/PendingBar';
@@ -20,6 +19,7 @@ import {
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import type { TRPCClientError } from '@/lib/api/types';
+import { Link } from '../ui/Link';
 
 function AccountSignInForm() {
   const router = useRouter();
@@ -87,15 +87,14 @@ function AccountSignInForm() {
             <FormItem errors={field.state.meta.errors}>
               <div className='flex items-center justify-between'>
                 <FormLabel>{t('form.password.label')}</FormLabel>
-                <Button
+                <Link
                   className='h-auto p-0 leading-none'
-                  asChild
                   variant='link'
+                  size='default'
+                  href='/auth/forgot-password'
                 >
-                  <Link href='/auth/forgot-password'>
-                    {`${t('forgotPassword')}?`}
-                  </Link>
-                </Button>
+                  {`${t('forgotPassword')}?`}
+                </Link>
               </div>
               <FormControl>
                 <PasswordInput
