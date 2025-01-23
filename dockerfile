@@ -33,9 +33,9 @@ RUN addgroup --system --gid 1002 nodejs && \
 # Set the correct permission for prerender cache
 RUN mkdir .next && chown nextjs:nodejs .next
 
-# Copy necessary files for build
+# Copy necessary files for migrations and S3 setup
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-# Copy necessary files for migrations
+COPY --from=builder --chown=nextjs:nodejs /app/src/server/db/migrations ./src/server/db/migrations
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
 COPY --from=builder --chown=nextjs:nodejs /app/src/server ./src/server
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./

@@ -43,4 +43,5 @@ jobs:
             sleep 5
             wait
             docker compose run --rm app bun run db:migrate
+            docker compose run --rm app bun run s3:buckets
             docker compose up -d app

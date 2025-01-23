@@ -26,9 +26,11 @@
     "s3:start": "docker compose -f compose.local.yml up s3 -d",
     "s3:stop": "docker compose -f compose.local.yml down s3",
     "s3:delete": "bun -e \"require('fs').rmSync('data/s3', { recursive: true, force: true })\"",
-    "s3:logs": "docker compose -f compose.local.yml logs -f s3"
+    "s3:logs": "docker compose -f compose.local.yml logs -f s3",
+    "s3:buckets": "bun run src/server/s3/buckets.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.679.0",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
     "@radix-ui/react-avatar": "^1.1.1",
