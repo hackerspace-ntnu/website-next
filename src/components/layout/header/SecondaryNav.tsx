@@ -1,8 +1,8 @@
-import { NavItem } from '@/components/layout/header/NavItem';
 import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
+import { Link } from '@/components/ui/Link';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;
@@ -15,13 +15,12 @@ type SecondaryNavProps = {
 
 function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
   const items = [
-    <NavItem key={0} onClick={onClick} href='/storage' t={t.storage} />,
-    <NavItem
-      key={1}
-      onClick={onClick}
-      href='/shift-schedule'
-      t={t.shiftSchedule}
-    />,
+    <Link key={0} variant='nav' onClick={onClick} href='/storage'>
+      {t.storage}
+    </Link>,
+    <Link key={1} variant='nav' onClick={onClick} href='/shift-schedule'>
+      {t.shiftSchedule}
+    </Link>,
   ];
 
   return (
@@ -40,7 +39,7 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
         >
           {items.map((item) => (
             <DropdownMenuItem
-              className='w-full justify-start'
+              className='w-full justify-start focus-visible:hover:ring-0'
               key={item.key}
               asChild
             >

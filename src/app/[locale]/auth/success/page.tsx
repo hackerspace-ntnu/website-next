@@ -1,8 +1,7 @@
 import { SuccessParticles } from '@/components/auth/SuccessParticles';
-import { Button } from '@/components/ui/Button';
+import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { Link } from '@/lib/locale/navigation';
 import { redirect } from '@/lib/locale/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -33,9 +32,9 @@ export default async function SuccessPage({
       </div>
       <Separator />
       <div className='absolute bottom-0 flex w-full justify-center space-y-4'>
-        <Button asChild className='min-w-28'>
-          <Link href='/'>{t('home')}</Link>
-        </Button>
+        <Link className='min-w-28' variant='default' size='default' href='/'>
+          {t('home')}
+        </Link>
       </div>
       <SuccessParticles />
     </div>

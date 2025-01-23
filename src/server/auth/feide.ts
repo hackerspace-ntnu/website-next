@@ -8,9 +8,9 @@ import {
 } from 'oslo/oauth2';
 
 const feideOAuthClient = new OAuth2Client(
-  env.FEIDE_CLIENT_ID ?? ' ',
-  env.FEIDE_AUTHORIZATION_ENDPOINT ?? ' ',
-  env.FEIDE_TOKEN_ENDPOINT ?? ' ',
+  env.FEIDE_CLIENT_ID ?? '',
+  env.FEIDE_AUTHORIZATION_ENDPOINT ?? '',
+  env.FEIDE_TOKEN_ENDPOINT ?? '',
   {
     redirectURI: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/feide`,
   },
