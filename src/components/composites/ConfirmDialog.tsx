@@ -1,16 +1,16 @@
 'use client';
 
-import { Button, type buttonVariants } from '@/components/ui/Button';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog';
+  ResponsiveDialog,
+  ResponsiveDialogClose,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogTrigger,
+} from '@/components/composites/ResponsiveDialog';
+import { Button, type buttonVariants } from '@/components/ui/Button';
 import type { VariantProps } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -30,21 +30,23 @@ function ConfirmDialog({ confirmAction, t, ...props }: ConfirmDialogProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <ResponsiveDialog open={open} onOpenChange={setOpen}>
+      <ResponsiveDialogTrigger asChild>
         <Button variant='destructive' {...props} />
-      </DialogTrigger>
-      <DialogContent className='sm:max-w-md'>
-        <DialogHeader>
-          <DialogTitle>{t.title}</DialogTitle>
-          <DialogDescription>{t.description}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter className='flex w-full gap-2 sm:justify-between'>
-          <DialogClose asChild>
+      </ResponsiveDialogTrigger>
+      <ResponsiveDialogContent className='sm:max-w-md'>
+        <ResponsiveDialogHeader>
+          <ResponsiveDialogTitle>{t.title}</ResponsiveDialogTitle>
+          <ResponsiveDialogDescription>
+            {t.description}
+          </ResponsiveDialogDescription>
+        </ResponsiveDialogHeader>
+        <ResponsiveDialogFooter className='flex w-full gap-2 sm:justify-between'>
+          <ResponsiveDialogClose asChild>
             <Button type='button' variant='secondary'>
               {t.cancel}
             </Button>
-          </DialogClose>
+          </ResponsiveDialogClose>
           <Button
             variant='destructive'
             onClick={() => {
@@ -54,9 +56,9 @@ function ConfirmDialog({ confirmAction, t, ...props }: ConfirmDialogProps) {
           >
             {t.confirm}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ResponsiveDialogFooter>
+      </ResponsiveDialogContent>
+    </ResponsiveDialog>
   );
 }
 

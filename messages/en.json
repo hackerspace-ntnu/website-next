@@ -12,7 +12,18 @@
     "page": "page",
     "category": "category",
     "sort": "sort",
-    "photoOf": "Photo of {name}"
+    "photoOf": "Photo of {name}",
+    "today": "Today",
+    "selected": "Selected",
+    "week": "Week",
+    "nextMonth": "Next month",
+    "previousMonth": "Previous month",
+    "selectMonth": "Select month",
+    "selectYear": "Select year",
+    "pickDate": "Pick a date",
+    "dateFormat": "dd/MM/yyyy",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -20,7 +31,56 @@
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
     "goToHomepage": "Return to homepage",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "invalidLocale": "Invalid locale: {locale}"
+  },
+  "auth": {
+    "welcome": "Welcome!",
+    "description": "Is it your first time here? Use Feide",
+    "signInWith": "Sign in with",
+    "hackerspaceAccount": "Hackerspace Account",
+    "success": "Success!",
+    "successDescription": "Congratulations, you are now a member of Hackerspace NTNU!",
+    "home": "Home",
+    "signIn": "Sign in",
+    "useYourAccount": "Use your account",
+    "forgotPassword": "Forgot password",
+    "submit": "Submit",
+    "invalidCredentials": "Invalid credentials",
+    "matrixRegistrationFailed": "Matrix user registration failed",
+    "createPassword": "Create password",
+    "passwordDescription": "The password will be used for signing in to Matrix Chat or your Hackerspace Account",
+    "createAccount": "Create Account",
+    "feideNotConfigured": "Feide is not configured",
+    "form": {
+      "username": {
+        "label": "Username",
+        "required": "Username is required",
+        "minLength": "Username must be at least {count} characters",
+        "maxLength": "Username must be less than {count} characters",
+        "invalid": "Username must contain only letters"
+      },
+      "password": {
+        "label": "Password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "confirmLabel": "Confirm password",
+        "mismatch": "Passwords do not match",
+        "weak": "Password is too weak"
+      }
+    },
+    "error": {
+      "authenticationFailed": "Authentication failed",
+      "userInfoFailed": "Failed to get user info",
+      "userInfoMissing": "User info is missing",
+      "phoneTaken": "Phone number is already taken",
+      "emailTaken": "Email is already taken",
+      "invalidUserData": "Invalid user data",
+      "userCreationFailed": "Failed to create user"
+    }
   },
   "layout": {
     "hackerspaceHome": "Hackerspace homepage",
@@ -29,6 +89,9 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
+    "shiftSchedule": "Shift Schedule",
+    "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
+    "goToMatrix": "Go to matrix",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -36,6 +99,8 @@
     "system": "System",
     "profile": "Profile",
     "signIn": "Sign in",
+    "signOut": "Sign out",
+    "settings": "Settings",
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
@@ -50,7 +115,7 @@
     "visitInstagram": "Visit our Instagram",
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
-    "NTNUKiD": "The working life network KID",
+    "NTNUNexus": "The working life network Nexus",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
@@ -123,5 +188,32 @@
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
     }
+  },
+  "shiftSchedule": {
+    "title": "Shift Schedule",
+    "administratorMenu": {
+      "label": "Administrator Menu",
+      "open": "Open Administrator Menu",
+      "close": "Close Administrator Menu",
+      "clearShiftSchedule": "Clear shift schedule"
+    },
+    "scheduleTable": {
+      "time": "Time",
+      "day": "{day, select, monday {Monday} tuesday {Tuesday} wednesday {Wednesday} thursday {Thursday} other {Friday}}",
+      "scheduleCell": {
+        "onShift": "{count, plural, =0 {Closed} =1 {1 person on shift} other {# people on shift}}",
+        "scheduleCellDialog": {
+          "empty": "No one on shift",
+          "registerSection": {
+            "recurring": "Recurring",
+            "register": "Register"
+          }
+        }
+      }
+    }
+  },
+  "api": {
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated"
   }
 }

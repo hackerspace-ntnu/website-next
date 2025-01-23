@@ -4,7 +4,10 @@ import { env } from '@/env';
 import { api } from '@/lib/api/client';
 import { createQueryClient } from '@/lib/api/queryClient';
 import { type QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
+import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
+import { httpBatchLink, loggerLink } from '@trpc/client';
+import { useLocale } from 'next-intl';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import SuperJSON from 'superjson';
 
@@ -23,6 +26,12 @@ const getQueryClient = () => {
 
 function TRPCProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
+  const locale = useLocale();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: locale is needed to trigger revalidation on language change
+  useEffect(() => {
+    queryClient.invalidateQueries();
+  }, [locale, queryClient]);
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -32,13 +41,13 @@ function TRPCProvider(props: { children: React.ReactNode }) {
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
-        unstable_httpBatchStreamLink({
+        httpBatchLink({
           transformer: SuperJSON,
           url: `${env.NEXT_PUBLIC_SITE_URL}/api/data`,
-          headers: () => {
-            const headers = new Headers();
-            headers.set('x-trpc-source', 'nextjs-react');
-            return headers;
+          headers() {
+            return {
+              'accept-language': locale,
+            };
           },
         }),
       ],
@@ -47,9 +56,11 @@ function TRPCProvider(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider client={trpcClient} queryClient={queryClient}>
-        {props.children}
-      </api.Provider>
+      <ReactQueryStreamedHydration>
+        <api.Provider client={trpcClient} queryClient={queryClient}>
+          {props.children}
+        </api.Provider>
+      </ReactQueryStreamedHydration>
     </QueryClientProvider>
   );
 }

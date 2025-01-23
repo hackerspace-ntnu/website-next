@@ -1,13 +1,14 @@
 import { RootProviders } from '@/components/providers/RootProviders';
+import { ScrollArea } from '@/components/ui/ScrollArea';
+import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
-import type { Viewport } from 'next';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 const inter = Inter({
@@ -26,13 +27,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const viewport: Viewport = {
-  themeColor: '#0c0a09',
-};
-
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: Omit<LocaleLayoutProps, 'children'>) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
   return {
@@ -69,23 +67,31 @@ export async function generateMetadata({
   };
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
+  params,
   children,
-  params: { locale },
 }: LocaleLayoutProps) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <html
-      className={cx('size-full', inter.variable, montserrat.variable)}
+      className={cx(
+        'h-full w-full scroll-smooth',
+        inter.variable,
+        montserrat.variable,
+      )}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='size-full bg-background font-inter text-foreground antialiased'>
+      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
         <RootProviders locale={locale}>
-          <div className='scrollbar-thin scrollbar-track-background scrollbar-thumb-primary/40 scrollbar-corner-background scrollbar-thumb-rounded-lg hover:scrollbar-thumb-primary/80 fixed top-0 bottom-0 flex size-full flex-col overflow-y-scroll scroll-smooth'>
-            {children}
-          </div>
+          <ScrollArea className='h-full w-full' variant='primary'>
+            <div className='flex h-full w-full flex-col'>
+              {children}
+              <Toaster />
+            </div>
+          </ScrollArea>
         </RootProviders>
       </body>
     </html>

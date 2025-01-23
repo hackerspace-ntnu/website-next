@@ -2,8 +2,7 @@ import {
   articleMockData as articleData,
   authorMockData as authorData,
 } from '@/mock-data/article';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import readingTime from 'reading-time';
@@ -20,33 +19,31 @@ import { Badge } from '@/components/ui/Badge';
 export async function generateMetadata({
   params,
 }: {
-  params: { article: string };
+  params: Promise<{ article: string }>;
 }) {
-  const article = articleData.find(
-    (article) => article.id === Number(params.article),
-  );
+  const { article } = await params;
+  const data = articleData.find((a) => a.id === Number(article));
 
   return {
-    title: article?.title,
+    title: data?.title,
   };
 }
 
-export default function ArticlePage({
+export default async function ArticlePage({
   params,
 }: {
-  params: { locale: string; article: string };
+  params: Promise<{ locale: string; article: string }>;
 }) {
-  unstable_setRequestLocale(params.locale);
-  const t = useTranslations('news');
+  const { locale, article } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('news');
 
-  const article = articleData.find(
-    (article) => article.id === Number(params.article),
-  );
-  if (!article) {
+  const data = articleData.find((a) => a.id === Number(article));
+  if (!data) {
     return notFound();
   }
 
-  const { minutes } = readingTime(article.content as string); // assert because its a mock data file
+  const { minutes } = readingTime(data.content as string); // assert because its a mock data file
   const author = authorData[0] as {
     name: string;
     photoUrl: string;
@@ -58,14 +55,14 @@ export default function ArticlePage({
         <div className='mb-10 flex justify-center'>
           <Image
             className='h-auto w-full max-w-4xl rounded-lg'
-            src={`/${article.photoUrl}`}
-            alt={article.title}
+            src={`/${data.photoUrl}`}
+            alt={data.title}
             width={1600}
             height={900}
             priority
           />
         </div>
-        <h2 className='my-4'>{article.title}</h2>
+        <h2 className='my-4'>{data.title}</h2>
       </header>
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
@@ -79,13 +76,13 @@ export default function ArticlePage({
             <small className='text-foreground/60'>
               {t('readTime', { count: Math.ceil(minutes) })}
               &nbsp;&nbsp;•&nbsp;&nbsp;
-              {article.date}
+              {data.date}
             </small>
           </div>
         </div>
-        <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
+        <Badge variant='secondary'>{`${data.views} ${t('views')}`}</Badge>
       </section>
-      <section>{article.content}</section>
+      <section>{data.content}</section>
     </article>
   );
 }

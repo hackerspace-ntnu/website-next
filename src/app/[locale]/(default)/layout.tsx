@@ -1,18 +1,21 @@
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 type DefaultLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
-export default function DefaultLayout({
+export const dynamic = 'force-dynamic';
+
+export default async function DefaultLayout({
   children,
-  params: { locale },
+  params,
 }: DefaultLayoutProps) {
-  unstable_setRequestLocale(locale);
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       <Header />

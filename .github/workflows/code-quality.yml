@@ -21,6 +21,7 @@ jobs:
     name: Performance Audit
     runs-on: ubuntu-latest
     env:
+      CI: true
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "production"
       DATABASE_HOST: "localhost"
@@ -38,8 +39,10 @@ jobs:
       FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
       FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
       FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
+      FEIDE_EXTENDED_USERINFO_ENDPOINT: "https://api.dataporten.no/userinfo/v1/userinfo"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
       LHCI_TOKEN: ${{ secrets.LHCI_BUILD_TOKEN }}
+      MATRIX_SHARED_SECRET: " "
     steps:
       - name: Checkout
         uses: actions/checkout@v4
