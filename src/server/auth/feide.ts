@@ -82,7 +82,7 @@ async function validateFeideAuthorization(code: string, codeVerifier: string) {
         grant_type: 'authorization_code',
         code: code,
         code_verifier: codeVerifier,
-        redirect_uri: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/callback/feide`,
+        redirect_uri: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/feide`,
       }).toString(),
     });
 
