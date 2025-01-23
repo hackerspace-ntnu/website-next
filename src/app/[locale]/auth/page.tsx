@@ -1,9 +1,8 @@
 import { FeideButton } from '@/components/auth/FeideButton';
 import { ErrorToast } from '@/components/layout/ErrorToast';
-import { Button } from '@/components/ui/Button';
+import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { Link } from '@/lib/locale/navigation';
 import { redirect } from '@/lib/locale/navigation';
 import { FingerprintIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -42,15 +41,15 @@ export default async function SignInPage({
       <div className='absolute bottom-0 left-0 w-full space-y-4'>
         <p className='text-center font-montserrat'>{t('signInWith')}</p>
         <FeideButton />
-        <Button
+        <Link
           className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
-          asChild
+          variant='default'
+          size='default'
+          href='/auth/account'
         >
-          <Link href='/auth/account'>
-            <FingerprintIcon className='text-accent dark:text-primary' />
-            {t('hackerspaceAccount')}
-          </Link>
-        </Button>
+          <FingerprintIcon className='text-accent dark:text-primary' />
+          {t('hackerspaceAccount')}
+        </Link>
       </div>
       <ErrorToast error={error} cleanPath='/auth' />
     </div>

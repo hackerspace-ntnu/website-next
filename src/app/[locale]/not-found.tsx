@@ -1,6 +1,5 @@
 import { Main } from '@/components/layout/Main';
-import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/locale/navigation';
+import { Link } from '@/components/ui/Link';
 import { HardDriveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -15,9 +14,14 @@ export default function NotFoundPage() {
       <p className='mb-6 xs:mb-8 text-lg text-muted-foreground xs:text-xl'>
         {t('notFoundDescription')}
       </p>
-      <Button className='w-full xs:w-auto' asChild>
-        <Link href='/'>{t('goToHomepage')}</Link>
-      </Button>
+      <Link
+        className='w-full xs:w-auto'
+        variant='default'
+        size='default'
+        href='/'
+      >
+        {t('goToHomepage')}
+      </Link>
     </Main>
   );
 }
