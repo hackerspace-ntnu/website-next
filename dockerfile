@@ -41,4 +41,4 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["bun", "run", "server.js"]
+CMD bun run server.js

@@ -10,4 +10,4 @@ COPY src/server/db ./src/server/db
 COPY src/env.ts ./src/env.ts
 COPY .env ./.env
 
-CMD ["bun", "run", "db:migrate"]
+CMD bun run db:migrate && exit 0
