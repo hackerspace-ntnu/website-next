@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    depends_on:
+    - db
+    - s3
+    restart: unless-stopped
+    networks:
+      - nginx_default
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - nginx_default
+  s3:
+    image: bitnami/minio:2024
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${S3_USER}
+      MINIO_ROOT_PASSWORD: ${S3_PASSWORD}
+      MINIO_DEFAULT_BUCKETS: ${S3_BUCKETS}
+    volumes:
+      - ./data/s3:/bitnami/minio/data
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true

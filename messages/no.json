@@ -21,7 +21,9 @@
     "selectMonth": "Velg måned",
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
-    "dateFormat": "dd.MM.yyyy"
+    "dateFormat": "dd.MM.yyyy",
+    "hidePassword": "Gjem passord",
+    "showPassword": "Vis passord"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -29,18 +31,67 @@
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
     "goToHomepage": "Gå tilbake til hjemmesiden",
-    "tryAgain": "Prøv igjen"
+    "tryAgain": "Prøv igjen",
+    "invalidLocale": "Ugyldig språk: {locale}"
+  },
+  "auth": {
+    "welcome": "Velkommen!",
+    "description": "Er du her for første gang? Bruk Feide",
+    "signInWith": "Logg inn med",
+    "hackerspaceAccount": "Hackerspace-konto",
+    "success": "Suksess!",
+    "successDescription": "Gratulerer, du er nå medlem av Hackerspace NTNU!",
+    "home": "Hjem",
+    "signIn": "Logg inn",
+    "useYourAccount": "Bruk din konto",
+    "forgotPassword": "Glemt passord",
+    "submit": "Send",
+    "invalidCredentials": "Ugyldige påloggingsdetaljer",
+    "matrixRegistrationFailed": "Matrix bruker registrering feilet",
+    "createPassword": "Lag passord",
+    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix Chat eller din Hackerspace-konto",
+    "createAccount": "Opprett konto",
+    "feideNotConfigured": "Feide er ikke konfigurert",
+    "form": {
+      "username": {
+        "label": "Brukernavn",
+        "required": "Brukernavn er påkrevd",
+        "minLength": "Brukernavn må være minst {count} tegn",
+        "maxLength": "Brukernavn må være mindre enn {count} tegn",
+        "invalid": "Brukernavn må kun inneholde bokstaver"
+      },
+      "password": {
+        "label": "Passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "confirmLabel": "Bekreft passord",
+        "mismatch": "Passordene stemmer ikke overens",
+        "weak": "Passordet er for svakt"
+      }
+    },
+    "error": {
+      "authenticationFailed": "Autentisering mislyktes",
+      "userInfoFailed": "Kunne ikke hente brukerinformasjon",
+      "userInfoMissing": "Brukerinformasjon mangler",
+      "phoneTaken": "Telefonnummeret er allerede i bruk",
+      "emailTaken": "E-postadressen er allerede i bruk",
+      "invalidUserData": "Ugyldig brukerdata",
+      "userCreationFailed": "Kunne ikke opprette bruker"
+    }
   },
   "layout": {
     "hackerspaceHome": "Hackerspace hjemmeside",
     "navigationMenu": "Navigasjonsmeny",
     "news": "Nyheter",
-    "events": "Hendelser",
+    "events": "Arrangementer",
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
-    "matrix": "Dra til matrix",
+    "goToMatrix": "Dra til matrix",
     "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
@@ -49,6 +100,8 @@
     "system": "System",
     "profile": "Profil",
     "signIn": "Logg inn",
+    "signOut": "Logg ut",
+    "settings": "Innstillinger",
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
@@ -63,7 +116,7 @@
     "visitInstagram": "Besøk Instagram",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
-    "NTNUKiD": "Arbeidslivsnettverket KID",
+    "NTNUNexus": "Arbeidslivsnettverket Nexus",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
@@ -159,6 +212,10 @@
         }
       }
     }
+  },
+  "api": {
+    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
+    "notAuthenticated": "Ikke autentisert"
   },
   "rules": {
     "title": "Regler",

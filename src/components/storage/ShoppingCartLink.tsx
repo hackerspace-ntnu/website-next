@@ -36,7 +36,7 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
             </Button>
             {!isLoading && cart && cart.length > 0 && (
               <Badge
-                className='-top-2 -right-3.5 absolute rounded-full'
+                className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
                 variant='destructive'
               >
                 {cart.length}

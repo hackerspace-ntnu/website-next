@@ -1,5 +1,6 @@
 'use client';
 
+import { Main } from '@/components/layout/Main';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
 import { AlertTriangleIcon } from 'lucide-react';
@@ -18,8 +19,8 @@ export default function ErrorPage({
     console.error(error);
   }, [error]);
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center px-4 text-center'>
-      <AlertTriangleIcon className='mb-6 xs:mb-8 size-16 xs:size-24 text-destructive' />
+    <Main className='flex min-h-svh flex-col items-center justify-center text-center'>
+      <AlertTriangleIcon className='mb-6 xs:mb-8 h-16 xs:h-24 w-16 xs:w-24 text-destructive' />
       <h1 className='mb-3 xs:mb-4 font-bold text-3xl xs:text-4xl'>
         {t('error')}
       </h1>
@@ -39,6 +40,6 @@ export default function ErrorPage({
           <Link href='/'>{t('goToHomepage')}</Link>
         </Button>
       </div>
-    </div>
+    </Main>
   );
 }

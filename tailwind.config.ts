@@ -1,8 +1,6 @@
 import tailwindFluid, { extract, screens, fontSize } from 'fluid-tailwind';
-import tailwindScrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
-import tailwindRadix from 'tailwindcss-radix';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
@@ -78,14 +76,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    tailwindRadix({
-      variantPrefix: false,
-    }),
-    tailwindFluid,
-    tailwindAnimate,
-    tailwindScrollbar({ nocompatible: true }),
-  ],
+  plugins: [tailwindFluid, tailwindAnimate],
 };
 
 export default config;
