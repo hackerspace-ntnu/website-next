@@ -22,7 +22,6 @@ const s3 =
 
 if (env.NODE_ENV !== 'production') globalForS3.s3 = s3;
 
-const buckets = env.S3_BUCKETS.split(',');
-const imageBucket = buckets[0];
+const bucket = env.S3_NAME;
 
-export { s3, endpoint, imageBucket };
+export { s3, endpoint, bucket };
