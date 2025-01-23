@@ -68,6 +68,11 @@ async function createFeideAuthorization() {
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
   try {
+    console.log('Checking Feide config:', {
+      clientId: env.FEIDE_CLIENT_ID,
+      clientSecret: env.FEIDE_CLIENT_SECRET,
+      redirectUri: env.NEXT_PUBLIC_SITE_URL,
+    });
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
       credentials: env.FEIDE_CLIENT_SECRET,
