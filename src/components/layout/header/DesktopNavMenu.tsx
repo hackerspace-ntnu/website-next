@@ -4,7 +4,6 @@ import { SecondaryNav } from '@/components/layout/header/SecondaryNav';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';

@@ -1,4 +1,4 @@
-import { NavItem } from '@/components/layout/header/NavItem';
+import { Link } from '@/components/ui/Link';
 
 type NavProps = {
   className?: string;
@@ -15,13 +15,19 @@ function Nav({ className, onClick, t }: NavProps) {
     <nav className='flex items-center'>
       <ul className={className}>
         <li>
-          <NavItem onClick={onClick} href='/news' t={t.news} />
+          <Link variant='nav' onClick={onClick} href='/news'>
+            {t.news}
+          </Link>
         </li>
         <li>
-          <NavItem onClick={onClick} href='/events' t={t.events} />
+          <Link variant='nav' onClick={onClick} href='/events'>
+            {t.events}
+          </Link>
         </li>
         <li>
-          <NavItem onClick={onClick} href='/about' t={t.about} />
+          <Link variant='nav' onClick={onClick} href='/about'>
+            {t.about}
+          </Link>
         </li>
       </ul>
     </nav>

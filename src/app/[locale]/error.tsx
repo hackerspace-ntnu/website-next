@@ -2,7 +2,7 @@
 
 import { Main } from '@/components/layout/Main';
 import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/locale/navigation';
+import { Link } from '@/components/ui/Link';
 import { AlertTriangleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -36,9 +36,14 @@ export default function ErrorPage({
         <Button onClick={reset} variant='outline' className='w-full xs:w-auto'>
           {t('tryAgain')}
         </Button>
-        <Button asChild className='w-full xs:w-auto'>
-          <Link href='/'>{t('goToHomepage')}</Link>
-        </Button>
+        <Link
+          className='w-full xs:w-auto'
+          variant='default'
+          size='default'
+          href='/'
+        >
+          {t('goToHomepage')}
+        </Link>
       </div>
     </Main>
   );
