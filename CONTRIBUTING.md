@@ -92,13 +92,7 @@ bun run dev:stop
 > [!TIP]
 > In the future we may add a way to SSH tunnel and use the database and storage server for the staging solution locally. This is only beneficial if you are only working on the frontend and do not need to modify the database.
 
-For running with the inspect flag to allow debugging you can run:
-
-```bash
-bun run dev:debug
-```
-
-Now for a more indept guide on all the scripts for the database and storage server. First the basics that they both have in common. Now remember that you in theory only need the fancy command above if you are not doing any debugging. It just runs these other scripts for you under the hood.
+Now for a more in depth guide on all the scripts for the database and storage server. First the basics that they both have in common. Now remember that you in theory only need the fancy command above if you are not doing any debugging. It just runs these other scripts for you under the hood.
 
 To start the database and storage server you can run:
 

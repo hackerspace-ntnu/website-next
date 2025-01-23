@@ -36,10 +36,6 @@ RUN mkdir .next && chown nextjs:nodejs .next
 # Copy necessary files for build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Copy necessary files for migrations
-COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
-COPY --from=builder --chown=nextjs:nodejs /app/src/server ./src/server
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
 
 USER nextjs
 
