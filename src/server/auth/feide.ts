@@ -67,48 +67,21 @@ async function createFeideAuthorization() {
 }
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
-  console.log('Attempting direct token exchange');
-
   try {
-    const response = await fetch('https://auth.dataporten.no/oauth/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${Buffer.from(
-          `${env.FEIDE_CLIENT_ID}:${env.FEIDE_CLIENT_SECRET}`,
-        ).toString('base64')}`,
-      },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        code: code,
-        code_verifier: codeVerifier,
-        redirect_uri: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/feide`,
-      }).toString(),
+    const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
+      codeVerifier,
+      credentials: env.FEIDE_CLIENT_SECRET,
+      authenticateWith: 'request_body',
     });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Token exchange failed:', {
-        status: response.status,
-        statusText: response.statusText,
-        error,
-      });
-      throw new Error(`Token exchange failed: ${response.status}`);
-    }
-
-    const data = await response.json();
     return {
-      accessToken: data.access_token,
-      refreshToken: data.refresh_token,
+      accessToken: tokens.access_token,
+      refreshToken: tokens.refresh_token,
     };
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Direct token exchange error:', {
-        message: error.message,
-        cause: error.cause,
-      });
-      throw error;
+    if (error instanceof OAuth2RequestError) {
+      console.error('OAuth2 Request Error:', error.message);
     }
+    console.error('Validation error:', error);
   }
 }
 
