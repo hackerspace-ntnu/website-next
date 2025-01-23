@@ -45,4 +45,4 @@ USER nextjs
 
 EXPOSE 3000
 
-CMD ["bedn", "run", "server.js"]
+CMD ["bun", "run", "server.js"]
