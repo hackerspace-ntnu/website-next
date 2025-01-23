@@ -8,9 +8,9 @@ import {
 } from 'oslo/oauth2';
 
 const feideOAuthClient = new OAuth2Client(
-  env.FEIDE_CLIENT_ID ?? ' ',
-  env.FEIDE_AUTHORIZATION_ENDPOINT ?? ' ',
-  env.FEIDE_TOKEN_ENDPOINT ?? ' ',
+  env.FEIDE_CLIENT_ID ?? '',
+  env.FEIDE_AUTHORIZATION_ENDPOINT ?? '',
+  env.FEIDE_TOKEN_ENDPOINT ?? '',
   {
     redirectURI: `${env.NEXT_PUBLIC_SITE_URL}/api/auth/feide`,
   },
@@ -68,11 +68,6 @@ async function createFeideAuthorization() {
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
   try {
-    console.log('Checking Feide config:', {
-      clientId: env.FEIDE_CLIENT_ID,
-      clientSecret: env.FEIDE_CLIENT_SECRET,
-      redirectUri: env.NEXT_PUBLIC_SITE_URL,
-    });
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
       credentials: env.FEIDE_CLIENT_SECRET,

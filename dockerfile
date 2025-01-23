@@ -1,4 +1,4 @@
-FROM imbios/bun-node:22-slim AS base
+FROM imbios/bun-node:22 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
