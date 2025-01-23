@@ -39,7 +39,7 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
         >
           {items.map((item) => (
             <DropdownMenuItem
-              className='w-full justify-start'
+              className='w-full justify-start focus-visible:hover:ring-0'
               key={item.key}
               asChild
             >
