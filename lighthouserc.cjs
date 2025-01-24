@@ -7,6 +7,7 @@ const config = {
     collect: {
       url: [
         'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
+        'http://localhost:3000/en/auth',
         'http://localhost:3000/en/about',
         'http://localhost:3000/en/events',
         'http://localhost:3000/en/events/1',

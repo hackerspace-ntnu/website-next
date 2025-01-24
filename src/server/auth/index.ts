@@ -1,45 +1,67 @@
-import { env } from '@/env';
+import { sha256 } from '@oslojs/crypto/sha2';
+import { encodeHexLowerCase } from '@oslojs/encoding';
+import { eq } from 'drizzle-orm';
+import { cookies } from 'next/headers';
+import { cache } from 'react';
+
 import { db } from '@/server/db';
-import { sessions, users } from '@/server/db/schema';
-import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
-import { Lucia } from 'lucia';
+import {
+  type SelectSession,
+  type SelectUser,
+  sessions,
+  users,
+} from '@/server/db/tables';
 
-const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
-
-const auth = new Lucia(adapter, {
-  sessionCookie: {
-    // this sets cookies with super long expiration
-    // since Next.js doesn't allow Lucia to extend cookie expiration when rendering pages
-    expires: false,
-    attributes: {
-      // set to `true` when using HTTPS
-      secure: env.NODE_ENV === 'production',
-    },
-  },
-  getUserAttributes: (attributes) => {
-    return {
-      // attributes has the type of DatabaseUserAttributes
-      username: attributes.username,
-      name: attributes.name,
-    };
-  },
-});
-
-export * from './user';
-
-// IMPORTANT!
-declare module 'lucia' {
-  // Has to be an interface
-  interface Register {
-    Lucia: typeof auth;
-    UserId: number;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+async function validateSessionToken(token: string) {
+  const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
+  const result = await db
+    .select({ user: users, session: sessions })
+    .from(sessions)
+    .innerJoin(users, eq(sessions.userId, users.id))
+    .where(eq(sessions.id, sessionId));
+  if (result.length < 1) {
+    return { session: null, user: null };
   }
+  const firstResult = result[0];
+  if (!firstResult) {
+    return { session: null, user: null };
+  }
+  const { user, session } = firstResult;
+  if (Date.now() >= session.expiresAt.getTime()) {
+    await db.delete(sessions).where(eq(sessions.id, session.id));
+    return { session: null, user: null };
+  }
+  if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
+    session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+    await db
+      .update(sessions)
+      .set({
+        expiresAt: session.expiresAt,
+      })
+      .where(eq(sessions.id, session.id));
+  }
+  return { session, user };
 }
 
-type DatabaseUserAttributes = {
-  username: string;
-  name: string;
-};
+const auth = cache(async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('session')?.value ?? null;
+  if (token === null) {
+    return { session: null, user: null };
+  }
+  const result = await validateSessionToken(token);
+  return result;
+});
 
-export { auth };
+function sanitizeAuth(auth: {
+  user: SelectUser | null;
+  session: SelectSession | null;
+}) {
+  const { user, session } = auth;
+
+  const sanitizedUser = user ? { ...user, passwordHash: undefined } : null;
+
+  return { user: sanitizedUser, session };
+}
+
+export { auth, validateSessionToken, sanitizeAuth };

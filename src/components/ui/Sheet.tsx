@@ -3,6 +3,7 @@
 import { type VariantProps, cva, cx } from '@/lib/utils';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { forwardRef } from 'react';
 
 const Sheet = SheetPrimitive.Root;
@@ -45,31 +46,30 @@ const sheetVariants = cva({
   },
 });
 
-interface SheetContentProps
-  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {
-  close: string;
-}
-
 const SheetContent = forwardRef<
   React.ComponentRef<typeof SheetPrimitive.Content>,
-  SheetContentProps
->(({ side = 'right', className, children, close, ...props }, ref) => (
-  <SheetPortal>
-    <SheetOverlay />
-    <SheetPrimitive.Content
-      ref={ref}
-      className={cx(sheetVariants({ side }), className)}
-      {...props}
-    >
-      {children}
-      <SheetPrimitive.Close className='absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'>
-        <XIcon className='h-4 w-4' />
-        <span className='sr-only'>{close}</span>
-      </SheetPrimitive.Close>
-    </SheetPrimitive.Content>
-  </SheetPortal>
-));
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> &
+    VariantProps<typeof sheetVariants>
+>(({ side = 'right', className, children, ...props }, ref) => {
+  const t = useTranslations('ui');
+  return (
+    <SheetPortal>
+      <SheetOverlay />
+      <SheetPrimitive.Content
+        ref={ref}
+        className={cx(sheetVariants({ side }), className)}
+        {...props}
+      >
+        {children}
+        <SheetPrimitive.Close className='absolute top-4 right-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'>
+          <XIcon className='h-4 w-4' />
+          <span className='sr-only'>{t('close')}</span>
+        </SheetPrimitive.Close>
+      </SheetPrimitive.Content>
+    </SheetPortal>
+  );
+});
+
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetHeader = ({
