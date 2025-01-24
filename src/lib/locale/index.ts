@@ -13,8 +13,35 @@ const routing = defineRouting({
   locales: ['en', 'no'],
   defaultLocale: 'no',
   localePrefix: 'as-needed',
+  localeCookie: {
+    name: 'locale',
+  },
   pathnames: {
     '/': '/',
+    '/auth': {
+      en: '/auth',
+      no: '/autentisering',
+    },
+    '/auth/account': {
+      en: '/auth/account',
+      no: '/autentisering/konto',
+    },
+    '/auth/create-account': {
+      en: '/auth/create-account',
+      no: '/autentisering/opprett-konto',
+    },
+    '/auth/forgot-password': {
+      en: '/auth/forgot-password',
+      no: '/autentisering/glemt-passord',
+    },
+    '/auth/success': {
+      en: '/auth/success',
+      no: '/autentisering/suksess',
+    },
+    '/settings': {
+      en: '/settings',
+      no: '/instillinger',
+    },
     '/events': {
       en: '/events',
       no: '/arrangementer',

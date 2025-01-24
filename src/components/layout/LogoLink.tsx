@@ -1,31 +1,39 @@
-import { Logo } from '@/components/assets/Logo';
-import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/locale/navigation';
+import { HackerspaceLogo } from '@/components/assets/logos';
+import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 
 type LogoLinkProps = {
   className?: string;
+  logoClassName?: string;
+  titleClassName?: string;
   onClick?: () => void;
   t: {
     hackerspaceHome: string;
   };
 };
 
-function LogoLink({ className, onClick, t }: LogoLinkProps) {
+function LogoLink({
+  className,
+  logoClassName,
+  titleClassName,
+  onClick,
+  t,
+}: LogoLinkProps) {
   return (
-    <Button
+    <Link
       className={cx('flex items-center space-x-2', className)}
-      asChild
-      variant='none'
-      size='none'
+      href='/'
+      aria-label={t.hackerspaceHome}
+      title={t.hackerspaceHome}
+      onClick={onClick}
     >
-      <Link href='/' aria-label={t.hackerspaceHome} onClick={onClick}>
-        <Logo className='size-6 md:size-8 lg:size-10' />
-        <span className='font-bold font-montserrat text-md md:text-lg lg:text-2xl'>
-          HACKERSPACE
-        </span>
-      </Link>
-    </Button>
+      <HackerspaceLogo className={cx('~w-7/11 ~h-7/11', logoClassName)} />
+      <span
+        className={cx('~text-lg/2xl font-bold font-montserrat', titleClassName)}
+      >
+        HACKERSPACE
+      </span>
+    </Link>
   );
 }
 

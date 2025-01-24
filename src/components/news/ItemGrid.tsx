@@ -5,7 +5,7 @@ type ItemGridProps = {
   page: number;
 };
 
-function ItemGrid({ page }: ItemGridProps) {
+async function ItemGrid({ page }: ItemGridProps) {
   const itemsDisplayedAsCards = 4;
   const itemsPerPage = 6;
 

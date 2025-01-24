@@ -2,14 +2,22 @@ import { LogoLink } from '@/components/layout/LogoLink';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { DesktopNavMenu } from '@/components/layout/header/DesktopNavMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
+import { MatrixButton } from '@/components/layout/header/MatrixButton';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
-import { useTranslations } from 'next-intl';
-import { MatrixButton } from './header/MatrixButton';
+import { api } from '@/lib/api/server';
+import { redirect } from '@/lib/locale/navigation';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-function Header() {
-  const t = useTranslations('layout');
+async function Header() {
+  const locale = await getLocale();
+  const t = await getTranslations('layout');
+  const { user } = await api.auth.state();
+
+  if (user && !user.isAccountComplete) {
+    redirect({ href: '/auth/create-account', locale });
+  }
 
   return (
     <header className='~px-1/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
@@ -24,16 +32,16 @@ function Header() {
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             hackerspaceHome: t('hackerspaceHome'),
-            matrix: t('matrix'),
+            goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
             toggleTheme: t('toggleTheme'),
             light: t('light'),
             dark: t('dark'),
             system: t('system'),
-            close: useTranslations('ui')('close'),
           }}
         />
         <LogoLink
+          className='md:~md:~ml-12/0 ml-0'
           t={{
             hackerspaceHome: t('hackerspaceHome'),
           }}
@@ -59,7 +67,10 @@ function Header() {
           />
         </div>
         <div className='flex'>
-          <MatrixButton t={{ title: t('matrix') }} className='xs:flex hidden' />
+          <MatrixButton
+            t={{ title: t('goToMatrix') }}
+            className='xs:flex hidden'
+          />
           <LocaleMenu
             t={{
               changeLocale: t('changeLocale'),
@@ -76,9 +87,12 @@ function Header() {
             classname='hidden xs:flex'
           />
           <ProfileMenu
+            hasUser={Boolean(user)}
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
+              signOut: t('signOut'),
+              settings: t('settings'),
             }}
           />
         </div>
