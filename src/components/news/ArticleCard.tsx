@@ -34,7 +34,7 @@ function ArticleCard({
         params: { article: id },
       }}
     >
-      <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>
+      <Card className='relative flex min-h-32 w-full overflow-hidden'>
         <InternalBadge internal={internal} />
         <Image
           className='rounded-lg object-cover object-center transition-transform duration-300 group-hover:scale-105'
