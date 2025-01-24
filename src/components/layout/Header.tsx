@@ -2,7 +2,7 @@ import { LogoLink } from '@/components/layout/LogoLink';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { DesktopNavMenu } from '@/components/layout/header/DesktopNavMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
-import { MatrixButton } from '@/components/layout/header/MatrixButton';
+import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
@@ -67,7 +67,7 @@ async function Header() {
           />
         </div>
         <div className='flex'>
-          <MatrixButton
+          <MatrixLink
             t={{ title: t('goToMatrix') }}
             className='xs:flex hidden'
           />
