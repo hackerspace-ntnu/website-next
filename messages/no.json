@@ -49,7 +49,7 @@
     "invalidCredentials": "Ugyldige påloggingsdetaljer",
     "matrixRegistrationFailed": "Matrix bruker registrering feilet",
     "createPassword": "Lag passord",
-    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix eller din Hackerspace-konto",
+    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
     "form": {
