@@ -49,7 +49,7 @@
     "invalidCredentials": "Invalid credentials",
     "matrixRegistrationFailed": "Matrix user registration failed",
     "createPassword": "Create password",
-    "passwordDescription": "The password will be used for signing in to Matrix Chat or your Hackerspace Account",
+    "passwordDescription": "The password will be used for signing into Matrix or your Hackerspace Account",
     "createAccount": "Create Account",
     "feideNotConfigured": "Feide is not configured",
     "form": {
