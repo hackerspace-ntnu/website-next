@@ -9,7 +9,7 @@ export default async function EventDetailsLayout({
   const t = await getTranslations('events');
   return (
     <>
-      <Button variant='secondary' aria-label='Back to Events' asChild>
+      <Button variant='secondary' aria-label={t('backToEvents')} asChild>
         <Link href='/events' className='flex gap-2'>
           <ArrowLeftIcon aria-hidden='true' />
           {t('backToEvents')}
