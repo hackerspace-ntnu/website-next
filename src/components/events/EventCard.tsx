@@ -74,7 +74,7 @@ function EventCard({
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
           <p className='max-w-96'>{event.description}</p>
-          <Avatar className='h-48 w-48'>
+          <Avatar className='h-48 w-48 flex-shrink-0'>
             <AvatarImage
               src='/event.webp'
               alt={t.photoOf}
