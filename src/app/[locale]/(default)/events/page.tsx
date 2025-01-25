@@ -40,7 +40,7 @@ export default async function EventsPage({
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
-      <Link className='my-2 block' href='#active'>
+      <Link className='my-4 block' href='#active'>
         <h2 id='active'>{t('activeEvents')}</h2>
       </Link>
       {events.slice(0, 1).map((event) => (
