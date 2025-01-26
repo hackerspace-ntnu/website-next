@@ -1,5 +1,6 @@
 import { MatrixLogo } from '@/components/assets/logos';
 import { ExternalLink } from '@/components/ui/Link';
+import { env } from '@/env';
 
 type MatrixLinkProps = {
   className?: string;
@@ -14,7 +15,7 @@ function MatrixLink({ className, t }: MatrixLinkProps) {
       className={className}
       variant='ghost'
       size='icon'
-      href='https://element.hackerspace-ntnu.no/#/login'
+      href={env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#'}
       title={t.title}
       aria-label={t.title}
     >
