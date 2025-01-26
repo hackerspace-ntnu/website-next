@@ -23,8 +23,7 @@
     "pickDate": "Velg en dato",
     "dateFormat": "dd.MM.yyyy",
     "hidePassword": "Gjem passord",
-    "showPassword": "Vis passord",
-    "internal": "Intern"
+    "showPassword": "Vis passord"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -117,6 +116,7 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
+    "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },

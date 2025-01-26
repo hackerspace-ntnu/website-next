@@ -23,8 +23,7 @@
     "pickDate": "Pick a date",
     "dateFormat": "dd/MM/yyyy",
     "hidePassword": "Hide password",
-    "showPassword": "Show password",
-    "internal": "Internal"
+    "showPassword": "Show password"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -117,6 +116,7 @@
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUNexus": "The working life network Nexus",
+    "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
