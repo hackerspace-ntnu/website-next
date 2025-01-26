@@ -1,20 +1,32 @@
-import { Button } from '@/components/ui/Button';
-import { Link } from '@/lib/locale/navigation';
+import { Link } from '@/components/ui/Link';
 import { ArrowLeftIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+type DefaultLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+};
 
 export default async function EventDetailsLayout({
   children,
-}: { children: React.ReactNode }) {
+  params,
+}: DefaultLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('events');
   return (
     <>
-      <Button variant='secondary' aria-label={t('backToEvents')} asChild>
-        <Link href='/events' className='flex gap-2'>
-          <ArrowLeftIcon aria-hidden='true' />
-          {t('backToEvents')}
-        </Link>
-      </Button>
+      <Link
+        href='/events'
+        className='flex w-fit gap-2'
+        variant='secondary'
+        size='default'
+        aria-label={t('backToEvents')}
+      >
+        <ArrowLeftIcon aria-hidden='true' />
+        {t('backToEvents')}
+      </Link>
       {children}
     </>
   );

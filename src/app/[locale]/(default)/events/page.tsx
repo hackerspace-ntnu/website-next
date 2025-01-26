@@ -1,9 +1,8 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Link from 'next/link'; // using this instead of next-intl's link because we're staying on the same page
-
 import { EventCard } from '@/components/events/EventCard';
+import { ExternalLink } from '@/components/ui/Link';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
   params,
@@ -40,9 +39,9 @@ export default async function EventsPage({
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>
-      <Link className='my-4 block' href='#active'>
+      <ExternalLink className='my-4 block' href='#active' variant='none'>
         <h2 id='active'>{t('activeEvents')}</h2>
-      </Link>
+      </ExternalLink>
       {events.slice(0, 1).map((event) => (
         <EventCard
           key={event.id}
@@ -58,9 +57,9 @@ export default async function EventsPage({
           _active
         />
       ))}
-      <Link className='my-4 block' href='#upcoming'>
+      <ExternalLink className='my-4 block' href='#upcoming' variant='none'>
         <h2 id='upcoming'>{t('upcomingEvents')}</h2>
-      </Link>
+      </ExternalLink>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(1, 5).map((event) => (
           <EventCard
@@ -78,9 +77,9 @@ export default async function EventsPage({
           />
         ))}
       </div>
-      <Link className='my-4 block' href='#past'>
+      <ExternalLink className='my-4 block' href='#past' variant='none'>
         <h2 id='past'>{t('pastEvents')}</h2>
-      </Link>
+      </ExternalLink>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {events.slice(5).map((event) => (
           <EventCard
