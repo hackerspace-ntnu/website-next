@@ -18,6 +18,8 @@ const buttonVariants = cva({
         'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium text-sm hover:bg-accent hover:text-accent-foreground',
       link: 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium text-primary text-sm underline-offset-4 hover:underline',
       nav: 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium font-normal text-foreground/60 text-sm transition-colors hover:text-foreground/80',
+      'ring-only':
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md',
       none: '',
     },
     size: {

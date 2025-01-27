@@ -178,7 +178,7 @@ function Footer() {
         <ul className='flex flex-col justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
           <li>
             <ExternalLink
-              variant='none'
+              variant='ring-only'
               href={t('NTNUIDIURL')}
               prefetch={false}
               target='_blank'
@@ -191,7 +191,7 @@ function Footer() {
           </li>
           <li>
             <ExternalLink
-              variant='none'
+              variant='ring-only'
               href='https://www.ntnu.no/ie/nexus/'
               prefetch={false}
               target='_blank'
