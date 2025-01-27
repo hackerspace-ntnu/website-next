@@ -24,7 +24,7 @@ import type { TRPCClientError } from '@/lib/api/types';
 function AccountSignInForm() {
   const router = useRouter();
   const t = useTranslations('auth');
-  const formSchema = accountSignInSchema();
+  const formSchema = accountSignInSchema(useTranslations());
   const { isPending, setPending } = usePending();
   const signInMutation = api.auth.signIn.useMutation({
     onMutate: () => setPending(true),
