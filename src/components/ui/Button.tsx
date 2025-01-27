@@ -3,18 +3,21 @@ import { Slot } from '@radix-ui/react-slot';
 import { forwardRef } from 'react';
 
 const buttonVariants = cva({
-  base: 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  base: 'ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   variants: {
     variant: {
-      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+      default:
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md bg-primary font-medium text-primary-foreground text-sm hover:bg-primary/90',
       destructive:
-        'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md bg-destructive font-medium text-destructive-foreground text-sm hover:bg-destructive/90',
       outline:
-        'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-      ghost: 'hover:bg-accent hover:text-accent-foreground',
-      link: 'text-primary underline-offset-4 hover:underline',
-      nav: 'font-normal text-foreground/60 transition-colors hover:text-foreground/80',
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md border border-input bg-background font-medium text-sm hover:bg-accent hover:text-accent-foreground',
+      secondary:
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md bg-secondary font-medium text-secondary-foreground text-sm hover:bg-secondary/80',
+      ghost:
+        'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium text-sm hover:bg-accent hover:text-accent-foreground',
+      link: 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium text-primary text-sm underline-offset-4 hover:underline',
+      nav: 'inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium font-normal text-foreground/60 text-sm transition-colors hover:text-foreground/80',
       none: '',
     },
     size: {

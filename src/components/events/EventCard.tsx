@@ -11,7 +11,7 @@ import {
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
-import { Link } from '@/lib/locale/navigation';
+import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 import type { events } from '@/mock-data/events';
 import { format } from 'date-fns';
