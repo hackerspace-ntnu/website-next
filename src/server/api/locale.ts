@@ -1,6 +1,5 @@
 import { routing } from '@/lib/locale';
 import { getContext } from '@/server/api/context';
-import { useTranslations } from 'next-intl';
 
 function getLocaleFromRequest(request: Request) {
   const acceptLanguage = request.headers.get('accept-language');
@@ -23,10 +22,4 @@ function useTranslationsFromContext() {
   return ctx.t;
 }
 
-function useValidationTranslations() {
-  return typeof window !== 'undefined'
-    ? useTranslations()
-    : useTranslationsFromContext();
-}
-
-export { getLocaleFromRequest, useValidationTranslations };
+export { getLocaleFromRequest, useTranslationsFromContext };

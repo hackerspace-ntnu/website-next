@@ -1,24 +1,11 @@
 import type { TRPCContext } from '@/server/api/context';
+import { errorFormatter } from '@/server/api/errorFormatter';
 import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
-import { ZodError } from 'zod';
 
 const trpc = initTRPC.context<TRPCContext>().create({
   transformer: superjson,
-  errorFormatter: ({ shape, error }) => ({
-    ...shape,
-    data: {
-      ...shape.data,
-      toast:
-        error instanceof ZodError
-          ? 'error'
-          : (
-              error.cause as {
-                toast?: 'info' | 'error' | 'warning' | 'success';
-              }
-            )?.toast,
-    },
-  }),
+  errorFormatter,
 });
 
 const createCallerFactory = trpc.createCallerFactory;

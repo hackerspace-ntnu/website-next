@@ -33,6 +33,7 @@ import { headers } from 'next/headers';
 
 import { sanitizeAuth } from '@/server/auth';
 import { registerMatrixUser } from '@/server/auth/matrix';
+import { useTranslationsFromContext } from '../locale';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -84,7 +85,9 @@ const authRouter = createRouter({
     return url.href;
   }),
   signIn: publicProcedure
-    .input((input) => accountSignInSchema().parse(input))
+    .input((input) =>
+      accountSignInSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -129,7 +132,9 @@ const authRouter = createRouter({
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
   signUp: authenticatedProcedure
-    .input((input) => accountSignUpSchema().parse(input))
+    .input((input) =>
+      accountSignUpSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');

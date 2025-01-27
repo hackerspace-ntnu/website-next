@@ -46,4 +46,10 @@ function getContext() {
   return ctx;
 }
 
-export { createContext, contextStorage, getContext, type TRPCContext };
+export {
+  createContext,
+  contextStorage,
+  getContext,
+  type TRPCContext,
+  type Translations,
+};
