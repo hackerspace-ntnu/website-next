@@ -1,10 +1,6 @@
 import { routing } from '@/lib/locale';
-import {
-  type Formats,
-  type NestedKeyOf,
-  type TranslationValues,
-  useTranslations,
-} from 'next-intl';
+import { getContext } from '@/server/api/context';
+import { useTranslations } from 'next-intl';
 
 function getLocaleFromRequest(request: Request) {
   const acceptLanguage = request.headers.get('accept-language');
@@ -22,18 +18,15 @@ function getLocaleFromRequest(request: Request) {
     : routing.defaultLocale;
 }
 
-function useStringifyTranslations() {
-  return (
-    key: NestedKeyOf<Messages>,
-    values?: TranslationValues,
-    formats?: Formats,
-  ) => JSON.stringify({ key, values, formats });
+function useTranslationsFromContext() {
+  const ctx = getContext();
+  return ctx.t;
 }
 
 function useValidationTranslations() {
   return typeof window !== 'undefined'
     ? useTranslations()
-    : useStringifyTranslations();
+    : useTranslationsFromContext();
 }
 
 export { getLocaleFromRequest, useValidationTranslations };

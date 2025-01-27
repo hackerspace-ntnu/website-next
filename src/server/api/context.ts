@@ -1,13 +1,17 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { routing } from '@/lib/locale';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
 import { s3 } from '@/server/s3';
-import type { NestedKeyOf } from 'next-intl';
+import type { Formats, NestedKeyOf, TranslationValues } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 // HACK: This is a workaround for the type of `getTranslations` not being exported
-type Translations = Awaited<ReturnType<typeof getTranslations>> &
-  ((keys: NestedKeyOf<Messages>) => string);
+type Translations = (
+  key: NestedKeyOf<Messages>,
+  values?: TranslationValues,
+  formats?: Formats,
+) => string;
 
 type TRPCContext = {
   locale: (typeof routing.locales)[number];
@@ -32,4 +36,14 @@ async function createContext(
   };
 }
 
-export { createContext, type TRPCContext };
+const contextStorage = new AsyncLocalStorage<TRPCContext>();
+
+function getContext() {
+  const ctx = contextStorage.getStore();
+  if (!ctx) {
+    throw new Error('No context found');
+  }
+  return ctx;
+}
+
+export { createContext, contextStorage, getContext, type TRPCContext };

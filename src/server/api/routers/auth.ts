@@ -84,7 +84,7 @@ const authRouter = createRouter({
     return url.href;
   }),
   signIn: publicProcedure
-    .input(accountSignInSchema())
+    .input((input) => accountSignInSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -129,7 +129,7 @@ const authRouter = createRouter({
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
   signUp: authenticatedProcedure
-    .input(accountSignUpSchema())
+    .input((input) => accountSignUpSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -151,7 +151,12 @@ const authRouter = createRouter({
         });
       }
 
-      if (env.MATRIX_SERVER_NAME && env.MATRIX_ENDPOINT && env.MATRIX_SECRET) {
+      if (
+        env.MATRIX_SERVER_NAME &&
+        env.MATRIX_ENDPOINT &&
+        env.MATRIX_SECRET &&
+        env.NEXT_PUBLIC_MATRIX_CLIENT_URL
+      ) {
         try {
           const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
           await registerMatrixUser(
