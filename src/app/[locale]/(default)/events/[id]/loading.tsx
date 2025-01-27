@@ -5,7 +5,7 @@ import { CalendarIcon, MapPinIcon } from 'lucide-react';
 export default function EventDetailsLoading() {
   return (
     <>
-      <Skeleton className='my-4 h-12 w-3/4 rounded-lg' />
+      <Skeleton className='my-4 h-10 w-3/4 rounded-lg lg:h-12' />
       <Skeleton className='h-8 w-1/2 rounded-lg' />
       <div className='mt-4 space-y-4'>
         <div className='flex items-center gap-2'>
