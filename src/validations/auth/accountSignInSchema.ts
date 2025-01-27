@@ -1,6 +1,7 @@
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function accountSignInSchema(t) {
+function accountSignInSchema(t: Translations) {
   return z.object({
     username: z
       .string()
