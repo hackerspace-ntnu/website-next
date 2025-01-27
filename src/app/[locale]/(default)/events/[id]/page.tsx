@@ -30,7 +30,7 @@ export default async function EventDetailsPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations('ui');
+  const tLayout = await getTranslations('layout');
   const event = events.find((event) => event.id.toString() === id);
 
   if (!event) return notFound();
@@ -48,7 +48,7 @@ export default async function EventDetailsPage({
       <h2 className='border-b-0 text-2xl'>{event.subheader}</h2>
       <div className='mt-4 space-y-4'>
         {event.internal && (
-          <Badge className='rounded-full'>{t('internal')}</Badge>
+          <Badge className='rounded-full'>{tLayout('internal')}</Badge>
         )}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />

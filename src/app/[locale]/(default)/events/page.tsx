@@ -26,10 +26,11 @@ export default async function EventsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('events');
+  const tLayout = await getTranslations('layout');
   const tUi = await getTranslations('ui');
 
   const translations = {
-    internal: tUi('internal'),
+    internal: tLayout('internal'),
     startsAt: t('startsAt'),
     startedAt: t('startedAt'),
     endsAt: t('endsAt'),
