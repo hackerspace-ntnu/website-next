@@ -31,9 +31,9 @@ import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
 
+import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
 import { registerMatrixUser } from '@/server/auth/matrix';
-import { useTranslationsFromContext } from '../locale';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
