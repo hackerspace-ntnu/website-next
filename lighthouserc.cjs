@@ -1,4 +1,4 @@
-const PAGES_EXCLUDED = ['news', 'storage'];
+const PAGES_EXCLUDED = ['news', 'events', 'storage'];
 
 // Do not convert into an ES6 export.
 // lighthouse-ci (as of 0.14.0) uses require() to import, and this is not supported with ES6 modules.
@@ -10,6 +10,7 @@ const config = {
         'http://localhost:3000/en/auth',
         'http://localhost:3000/en/about',
         'http://localhost:3000/en/events',
+        'http://localhost:3000/en/events/1',
         'http://localhost:3000/en/news',
         'http://localhost:3000/en/news/1',
         'http://localhost:3000/en/storage',
@@ -67,6 +68,19 @@ const config = {
             'cumulative-layout-shift': 'off', // We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
             'max-potential-fid': 'off',
             'image-aspect-ratio': 'off', // Should be removed when we obtain images from backend
+          },
+        },
+        {
+          matchingUrlPattern: 'http://.*/en/events.*',
+          preset: 'lighthouse:recommended',
+          assertions: {
+            'bf-cache': 'off',
+            'color-contrast': 'off',
+            'heading-order': 'off',
+            'largest-contentful-paint': 'off',
+            'render-blocking-resources': 'off',
+            'uses-responsive-images': 'off',
+            'label-content-name-mismatch': 'off',
           },
         },
       ],

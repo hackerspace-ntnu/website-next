@@ -116,6 +116,7 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
+    "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
@@ -211,6 +212,18 @@
         }
       }
     }
+  },
+  "events": {
+    "title": "Arrangementer",
+    "activeEvents": "Pågående arrangementer",
+    "upcomingEvents": "Kommende arrangementer",
+    "pastEvents": "Tidligere arrangementer",
+    "detailsAboutEvent": "Les mer om {eventName}",
+    "startsAt": "Starter kl.",
+    "startedAt": "Startet kl.",
+    "endsAt": "Slutter kl.",
+    "endedAt": "Sluttet kl.",
+    "backToEvents": "Tilbake til arrangementer"
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",

@@ -19,6 +19,18 @@ const Avatar = forwardRef<
 ));
 Avatar.displayName = AvatarPrimitive.Root.displayName;
 
+const AvatarImage = forwardRef<
+  React.ComponentRef<typeof AvatarPrimitive.Image>,
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
+  <AvatarPrimitive.Image
+    ref={ref}
+    className={cx('aspect-square h-full w-full', className)}
+    {...props}
+  />
+));
+AvatarImage.displayName = AvatarPrimitive.Image.displayName;
+
 const AvatarFallback = forwardRef<
   React.ComponentRef<typeof AvatarPrimitive.Fallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
@@ -34,4 +46,4 @@ const AvatarFallback = forwardRef<
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
-export { Avatar, AvatarFallback };
+export { Avatar, AvatarImage, AvatarFallback };
