@@ -21,7 +21,7 @@ import {
 function AccountSignUpForm() {
   const router = useRouter();
   const t = useTranslations('auth');
-  const formSchema = accountSignUpSchema();
+  const formSchema = accountSignUpSchema(useTranslations());
   const { isPending, setPending } = usePending();
   const signUpMutation = api.auth.signUp.useMutation({
     onMutate: () => setPending(true),
