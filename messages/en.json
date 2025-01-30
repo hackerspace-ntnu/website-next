@@ -120,6 +120,13 @@
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
+  "home": {
+    "whoAreWe": "Who are we?",
+    "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Dapibus nullam sit tortor lacus augue sit libero enim. Curae auctor dis turpis dapibus aliquam aliquam nulla integer. Varius mi dapibus non netus pharetra consequat. Ornare urna suspendisse ligula penatibus suspendisse.",
+    "stopBy": "Stop by!",
+    "stopByDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Primis tristique urna porta lectus lacinia venenatis cras justo. Faucibus quisque lacus ullamcorper fusce nec nunc venenatis. In cursus conubia feugiat euismod et interdum venenatis at. Primis congue nisi tempor dictum semper mollis? Suspendisse finibus libero felis molestie sed metus porta cras suspendisse.",
+    "onShift": "Currently on shift:"
+  },
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",
