@@ -36,6 +36,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_SITE_URL: z.string(),
+    NEXT_PUBLIC_MATRIX_CLIENT_URL: z.string().optional(),
   },
 
   /**
@@ -64,6 +65,7 @@ export const env = createEnv({
     MATRIX_SERVER_NAME: process.env.MATRIX_SERVER_NAME,
     MATRIX_SECRET: process.env.MATRIX_SECRET,
     MATRIX_ENDPOINT: process.env.MATRIX_ENDPOINT,
+    NEXT_PUBLIC_MATRIX_CLIENT_URL: process.env.NEXT_PUBLIC_MATRIX_CLIENT_URL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
   /**

@@ -1,4 +1,4 @@
-FROM imbios/bun-node:22 AS base
+FROM imbios/bun-node:22-slim AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -36,13 +36,9 @@ RUN mkdir .next && chown nextjs:nodejs .next
 # Copy necessary files for build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Copy necessary files for migrations
-COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
-COPY --from=builder --chown=nextjs:nodejs /app/src/server ./src/server
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
 
 USER nextjs
 
 EXPOSE 3000
 
-CMD ["bun", "run", "server.js"]
+CMD bun run server.js

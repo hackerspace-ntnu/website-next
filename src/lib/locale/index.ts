@@ -1,9 +1,15 @@
 import { GB, NO } from 'country-flag-icons/react/1x1';
+import type { useTranslations } from 'next-intl';
 import { defineRouting } from 'next-intl/routing';
+import type { getTranslations } from 'next-intl/server';
 import {
   enGB as enDayPicker,
   nb as noDayPicker,
 } from 'react-day-picker/locale';
+
+type Translations =
+  | ReturnType<typeof useTranslations<never>>
+  | Awaited<ReturnType<typeof getTranslations<never>>>;
 
 const localeIcons = { en: GB, no: NO };
 
@@ -46,6 +52,10 @@ const routing = defineRouting({
       en: '/events',
       no: '/arrangementer',
     },
+    '/events/[id]': {
+      en: '/events/[id]',
+      no: '/arrangementer/[id]',
+    },
     '/news': {
       en: '/news',
       no: '/nyheter',
@@ -85,4 +95,4 @@ const routing = defineRouting({
   },
 });
 
-export { localeIcons, dayPickerLocales, routing };
+export { localeIcons, dayPickerLocales, routing, type Translations };

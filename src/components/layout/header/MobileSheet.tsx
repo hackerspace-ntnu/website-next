@@ -3,7 +3,7 @@
 import { LogoLink } from '@/components/layout/LogoLink';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
-import { MatrixButton } from '@/components/layout/header/MatrixButton';
+import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { Nav } from '@/components/layout/header/Nav';
 import { SecondaryNav } from '@/components/layout/header/SecondaryNav';
 import { Button } from '@/components/ui/Button';
@@ -94,7 +94,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           />
         </div>
         <SheetFooter className='absolute bottom-2 flex flex-row'>
-          <MatrixButton t={{ title: t.goToMatrix }} className='xs:hidden' />
+          <MatrixLink t={{ title: t.goToMatrix }} className='xs:hidden' />
           <LocaleMenu
             t={{
               changeLocale: t.changeLocale,

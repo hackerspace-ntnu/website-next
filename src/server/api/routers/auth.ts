@@ -31,6 +31,7 @@ import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
 
+import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
 import { registerMatrixUser } from '@/server/auth/matrix';
 
@@ -84,7 +85,9 @@ const authRouter = createRouter({
     return url.href;
   }),
   signIn: publicProcedure
-    .input(accountSignInSchema())
+    .input((input) =>
+      accountSignInSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -129,7 +132,9 @@ const authRouter = createRouter({
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
   signUp: authenticatedProcedure
-    .input(accountSignUpSchema())
+    .input((input) =>
+      accountSignUpSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -151,7 +156,12 @@ const authRouter = createRouter({
         });
       }
 
-      if (env.MATRIX_SERVER_NAME && env.MATRIX_ENDPOINT && env.MATRIX_SECRET) {
+      if (
+        env.MATRIX_SERVER_NAME &&
+        env.MATRIX_ENDPOINT &&
+        env.MATRIX_SECRET &&
+        env.NEXT_PUBLIC_MATRIX_CLIENT_URL
+      ) {
         try {
           const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
           await registerMatrixUser(

@@ -38,9 +38,6 @@ jobs:
             cd ${{ inputs.path }}
             git checkout ${{ inputs.branch }}
             git pull
-            docker compose build app &
-            docker compose up db s3 -d
-            sleep 5
-            wait
-            docker compose run --rm app bun run db:migrate
-            docker compose up -d app
+            docker compose build
+            docker compose down
+            docker compose up -d
