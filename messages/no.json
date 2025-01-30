@@ -123,7 +123,31 @@
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
     "profile": {
-      "title": "Profil"
+      "title": "Profil",
+      "updateProfile": "Oppdater profil",
+      "updateFailed": "Kunne ikke oppdatere profil",
+      "updateSuccess": "Profil oppdatert",
+      "firstName": {
+        "label": "Fornavn",
+        "required": "Fornavn er påkrevd",
+        "minLength": "Fornavn må være minst {count} tegn",
+        "maxLength": "Fornavn må være mindre enn {count} tegn",
+        "general": "Er fornavnet ditt riktig?"
+      },
+      "lastName": {
+        "label": "Etternavn",
+        "required": "Etternavn er påkrevd",
+        "minLength": "Etternavn må være minst {count} tegn",
+        "maxLength": "Etternavn må være mindre enn {count} tegn",
+        "general": "Er etternavnet ditt riktig?"
+      },
+      "birthDate": {
+        "label": "Fødselsdato",
+        "required": "Fødselsdato er påkrevd",
+        "invalid": "Ugyldig fødselsdato",
+        "minAge": "Du må være minst {age} år",
+        "maxAge": "Du må være under {age} år"
+      }
     },
     "account": {
       "title": "Konto"

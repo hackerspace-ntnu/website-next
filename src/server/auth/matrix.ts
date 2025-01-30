@@ -3,12 +3,16 @@ import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
 
 async function getNonce() {
-  const getRequest: RequestInfo = new Request(
-    `${env.MATRIX_ENDPOINT}/v1/register`,
-    { method: 'GET' },
-  );
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const response = await fetch(getRequest);
+  const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
+    method: 'GET',
+    signal: controller.signal,
+  });
+
+  clearTimeout(timeout);
+
   if (!response.ok) {
     throw new Error(`HTTP Error! Status: ${response.status}`);
   }
@@ -55,7 +59,7 @@ async function registerMatrixUser(
   admin = false,
 ) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
+  const timeout = setTimeout(() => controller.abort(), 5000);
   const nonce = await getNonce();
   const hmac = generateHMAC(nonce, username, password);
 

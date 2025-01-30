@@ -123,7 +123,31 @@
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
     "profile": {
-      "title": "Profile"
+      "title": "Profile",
+      "updateProfile": "Update profile",
+      "updateFailed": "Failed to update profile",
+      "updateSuccess": "Profile updated successfully",
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "minLength": "First name must be at least {count} characters",
+        "maxLength": "First name must be less than {count} characters",
+        "general": "Is your first name correct?"
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "minLength": "Last name must be at least {count} characters",
+        "maxLength": "Last name must be less than {count} characters",
+        "general": "Is your last name correct?"
+      },
+      "birthDate": {
+        "label": "Birth date",
+        "required": "Birth date is required",
+        "invalid": "Birth date is invalid",
+        "minAge": "You must be at least {age} years old",
+        "maxAge": "You must be less than {age} years old"
+      }
     },
     "account": {
       "title": "Account"

@@ -1,5 +1,7 @@
+import { ProfileForm } from '@/components/settings/ProfileForm';
 import { api } from '@/lib/api/server';
 import { setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export default async function ProfilePage({
   params,
@@ -10,10 +12,16 @@ export default async function ProfilePage({
   setRequestLocale(locale);
 
   const { user } = await api.auth.state();
+
+  if (!user) {
+    notFound();
+  }
+
   return (
-    <div>
-      <h1>Settings</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </div>
+    <ProfileForm
+      firstName={user.firstName}
+      lastName={user.lastName}
+      birthDate={user.birthDate}
+    />
   );
 }

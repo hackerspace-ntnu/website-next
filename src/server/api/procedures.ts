@@ -2,13 +2,13 @@ import { contextStorage } from '@/server/api/context';
 import { trpc } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 
-const contextMiddleware = trpc.middleware((opts) => {
+const procedureWithContext = trpc.procedure.use((opts) => {
   return contextStorage.run(opts.ctx, async () => {
     return await opts.next();
   });
 });
 
-const timingMiddleware = trpc.middleware(async ({ next, path }) => {
+const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   const start = Date.now();
 
   if (trpc._config.isDev) {
@@ -24,7 +24,7 @@ const timingMiddleware = trpc.middleware(async ({ next, path }) => {
   return result;
 });
 
-const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
+const authenticatedProcedure = publicProcedure.use(async ({ next, ctx }) => {
   const { user, session } = await ctx.auth();
 
   if (!session) {
@@ -42,10 +42,21 @@ const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
   });
 });
 
-const procedureWithContext = trpc.procedure.use(contextMiddleware);
+const authenticatedProcedureWithPassword = authenticatedProcedure.use(
+  async ({ next, ctx }) => {
+    if (!ctx.user.passwordHash) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+        message: ctx.t('auth.invalidCredentials'),
+      });
+    }
 
-const publicProcedure = procedureWithContext.use(timingMiddleware);
+    return next();
+  },
+);
 
-const authenticatedProcedure = publicProcedure.use(authMiddleware);
-
-export { publicProcedure, authenticatedProcedure };
+export {
+  publicProcedure,
+  authenticatedProcedure,
+  authenticatedProcedureWithPassword,
+};
