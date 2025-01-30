@@ -1,9 +1,7 @@
 import { api } from '@/lib/api/server';
 import { setRequestLocale } from 'next-intl/server';
 
-export const dynamic = 'force-dynamic';
-
-export default async function SettingsPage({
+export default async function AccountPage({
   params,
 }: {
   params: Promise<{ locale: string }>;

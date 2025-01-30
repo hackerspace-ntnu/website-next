@@ -120,6 +120,18 @@
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
+  "settings": {
+    "manageAccountSettings": "Manage your account settings and set preferences.",
+    "profile": {
+      "title": "Profile"
+    },
+    "account": {
+      "title": "Account"
+    },
+    "notifications": {
+      "title": "Notifications"
+    }
+  },
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",

@@ -120,6 +120,18 @@
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
+  "settings": {
+    "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "profile": {
+      "title": "Profil"
+    },
+    "account": {
+      "title": "Konto"
+    },
+    "notifications": {
+      "title": "Varsler"
+    }
+  },
   "news": {
     "title": "Nyheter",
     "internalArticle": "Dette er en intern artikkel",

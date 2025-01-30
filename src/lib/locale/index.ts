@@ -48,6 +48,14 @@ const routing = defineRouting({
       en: '/settings',
       no: '/instillinger',
     },
+    '/settings/account': {
+      en: '/settings/account',
+      no: '/instillinger/konto',
+    },
+    '/settings/notifications': {
+      en: '/settings/notifications',
+      no: '/instillinger/notifikasjoner',
+    },
     '/events': {
       en: '/events',
       no: '/arrangementer',
