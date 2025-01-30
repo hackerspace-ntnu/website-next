@@ -130,6 +130,9 @@
     },
     "notifications": {
       "title": "Notifications"
+    },
+    "administrator": {
+      "title": "Administrator"
     }
   },
   "news": {

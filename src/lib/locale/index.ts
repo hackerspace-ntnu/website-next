@@ -56,6 +56,10 @@ const routing = defineRouting({
       en: '/settings/notifications',
       no: '/instillinger/notifikasjoner',
     },
+    '/settings/administrator': {
+      en: '/settings/administrator',
+      no: '/instillinger/administrator',
+    },
     '/events': {
       en: '/events',
       no: '/arrangementer',

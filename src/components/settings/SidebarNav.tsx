@@ -54,6 +54,18 @@ function SidebarNav({ className }: { className?: string }) {
       >
         {t('notifications.title')}
       </Link>
+      <Link
+        href='/settings/notifications'
+        className={cx(
+          buttonVariants({ variant: 'ghost' }),
+          pathname === '/settings/administrator'
+            ? 'bg-muted hover:bg-muted'
+            : 'hover:bg-transparent hover:underline',
+          'justify-start',
+        )}
+      >
+        {t('administrator.title')}
+      </Link>
     </nav>
   );
 }
