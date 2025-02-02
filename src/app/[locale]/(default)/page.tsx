@@ -19,12 +19,12 @@ export default async function HomePage({
   const hello = await api.test.helloWorld();
   return (
     <div className='space-y-8'>
-      <TextBlock src='/bg.jpg' alt='...' side='right'>
+      <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
         <p>{t('whoAreWeDescription')}</p>
       </TextBlock>
       <Separator />
-      <TextBlock src='/bg.jpg' alt='...' side='left'>
+      <TextBlock imgSrc='/unknown.png' imgAlt='...' imgSide='left'>
         <h2>{t('stopBy')}</h2>
         <p>{t('stopByDescription')}</p>
         <div className='flex gap-3'>
@@ -35,7 +35,7 @@ export default async function HomePage({
         </div>
       </TextBlock>
       <Separator />
-      <TextBlock src='/bg.jpg' alt='...' side='right'>
+      <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>text</h2>
         <p>mhm yes text text text</p>
       </TextBlock>
