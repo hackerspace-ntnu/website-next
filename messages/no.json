@@ -130,6 +130,7 @@
       "updateFailed": "Kunne ikke oppdatere profil",
       "updateSuccess": "Profil oppdatert",
       "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
       "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
       "profilePicture": {
         "label": "Profilbilde",

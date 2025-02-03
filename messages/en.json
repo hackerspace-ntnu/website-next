@@ -130,6 +130,7 @@
       "updateFailed": "Failed to update profile",
       "updateSuccess": "Profile updated successfully",
       "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
       "profilePicture": {
         "label": "Profile picture",

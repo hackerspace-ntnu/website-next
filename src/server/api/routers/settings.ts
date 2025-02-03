@@ -35,27 +35,40 @@ const settingsRouter = createRouter({
       profilePictureSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const existingFile = await ctx.db.query.files.findFirst({
-        where: and(
-          eq(files.directory, PROFILE_PICTURE_DIRECTORY),
-          eq(files.uploadedBy, ctx.user.id),
-        ),
-      });
+      try {
+        const existingFile = await ctx.db.query.files.findFirst({
+          where: and(
+            eq(files.directory, PROFILE_PICTURE_DIRECTORY),
+            eq(files.uploadedBy, ctx.user.id),
+          ),
+        });
 
-      if (existingFile) {
-        await deleteFile(existingFile.id);
+        if (existingFile) {
+          await deleteFile(existingFile.id);
+        }
+
+        const file = await insertFile(
+          input.profilePicture,
+          PROFILE_PICTURE_DIRECTORY,
+          ctx.user.id,
+        );
+
+        await ctx.db
+          .update(users)
+          .set({ profilePictureId: file.id })
+          .where(eq(users.id, ctx.user.id));
+
+        return await ctx.s3.getSignedUrl(
+          PROFILE_PICTURE_DIRECTORY,
+          String(file.id),
+        );
+      } catch (error) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.profile.updateProfilePictureFailed'),
+          cause: { toast: 'error' },
+        });
       }
-
-      const file = await insertFile(
-        input.profilePicture,
-        PROFILE_PICTURE_DIRECTORY,
-        ctx.user.id,
-      );
-
-      return await ctx.s3.getSignedUrl(
-        PROFILE_PICTURE_DIRECTORY,
-        String(file.id),
-      );
     }),
 });
 
