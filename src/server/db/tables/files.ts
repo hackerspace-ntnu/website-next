@@ -1,6 +1,7 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { relations } from 'drizzle-orm';
 import {
+  type AnyPgColumn,
   integer,
   pgEnum,
   pgTable,
@@ -21,7 +22,7 @@ const files = pgTable('files', {
   byteSize: integer('byte_size').notNull(),
   uploadedBy: integer('uploaded_by')
     .notNull()
-    .references(() => users.id),
+    .references((): AnyPgColumn => users.id),
   createdAt: timestamp('created_at', {
     withTimezone: true,
     mode: 'date',
