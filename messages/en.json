@@ -30,6 +30,8 @@
     "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
+    "tooManyRequests": "Too Many Requests",
+    "tooManyRequestsDescription": "Please wait a moment before trying again.",
     "goToHomepage": "Return to homepage",
     "tryAgain": "Try again",
     "invalidLocale": "Invalid locale: {locale}"

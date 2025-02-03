@@ -30,6 +30,8 @@
     "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "tooManyRequests": "For mange forespørsler",
+    "tooManyRequestsDescription": "Vennligst vent litt og prøv igjen.",
     "goToHomepage": "Gå tilbake til hjemmesiden",
     "tryAgain": "Prøv igjen",
     "invalidLocale": "Ugyldig språk: {locale}"

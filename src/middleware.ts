@@ -20,7 +20,9 @@ function handleI18nResponse(request: NextRequest): NextResponse {
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   if (request.method === 'GET') {
     if (!(await globalGETRateLimit())) {
-      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+      return NextResponse.redirect(
+        new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
+      );
     }
     const response = handleI18nResponse(request);
     const token = request.cookies.get('session')?.value ?? null;
@@ -36,7 +38,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     return response;
   }
   if (!(await globalPOSTRateLimit())) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.redirect(
+      new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
+    );
   }
   const originHeader = request.headers.get('Origin');
   const hostHeader = request.headers.get('Host');

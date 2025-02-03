@@ -24,6 +24,10 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
+    '/too-many-requests': {
+      en: '/too-many-requests',
+      no: '/for-mange-forespørsler',
+    },
     '/auth': {
       en: '/auth',
       no: '/autentisering',
