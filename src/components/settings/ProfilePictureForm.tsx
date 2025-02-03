@@ -51,15 +51,23 @@ function ProfilePictureForm({
             <FormLabel>{t('profilePicture.label')}</FormLabel>
             <FormControl>
               <Input
+                className='w-full'
                 type='file'
                 name='profilePicture'
-                accept='image/*'
-                onChange={(event) => {
-                  if (event.target.files?.[0]) {
-                    field.handleChange(event.target.files[0]);
+                accept='image/jpeg,image/png'
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                      if (e.target?.result) {
+                        const base64String = e.target.result as string;
+                        field.handleChange(base64String);
+                      }
+                    };
+                    reader.readAsDataURL(file);
                   }
                 }}
-                className='w-full'
               />
             </FormControl>
             <FormMessage />
