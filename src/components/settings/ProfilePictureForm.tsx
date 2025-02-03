@@ -15,6 +15,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
+import { CameraIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -56,7 +57,7 @@ function ProfilePictureForm({
             <div className='relative h-24 w-24'>
               <FormControl>
                 <Input
-                  className='h-24 w-24 rounded-full'
+                  className='h-24 w-24 cursor-pointer rounded-full'
                   type='file'
                   accept='image/jpeg,image/png'
                   onChange={(e) => {
@@ -83,6 +84,9 @@ function ProfilePictureForm({
                 />
                 <AvatarFallback>{userInitials}</AvatarFallback>
               </Avatar>
+              <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-sm'>
+                <CameraIcon className='h-4 w-4' aria-hidden='true' />
+              </div>
             </div>
             <FormMessage />
           </FormItem>
