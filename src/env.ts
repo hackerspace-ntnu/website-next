@@ -27,6 +27,7 @@ export const env = createEnv({
     MATRIX_SERVER_NAME: z.string().optional(),
     MATRIX_SECRET: z.string().optional(),
     MATRIX_ENDPOINT: z.string().optional(),
+    MATRIX_ACCESS_TOKEN: z.string().optional(),
   },
 
   /**
@@ -65,6 +66,7 @@ export const env = createEnv({
     MATRIX_SECRET: process.env.MATRIX_SECRET,
     MATRIX_ENDPOINT: process.env.MATRIX_ENDPOINT,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    MATRIX_ACCESS_TOKEN: process.env.MATRIX_ACCESS_TOKEN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

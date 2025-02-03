@@ -1,11 +1,11 @@
+import * as fs from 'node:fs';
 import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
-import { testRouter } from '../api/routers';
 
 async function getNonce() {
   const getRequest: RequestInfo = new Request(
-    `${env.MATRIX_ENDPOINT}/v1/register`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/register`,
     { method: 'GET' },
   );
 
@@ -67,11 +67,14 @@ async function registerMatrixUser(
     mac: hmac,
   };
 
-  const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(data),
-  });
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/register`,
+    {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(data),
+    },
+  );
 
   if (!response.ok) {
     throw new Error(`Matrix registration failed: ${response.status}`);
@@ -87,7 +90,7 @@ async function matrixChangePassword(username: string, newPassword: string) {
   const body = { new_password: `${newPassword}`, logout_devices: true };
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/v1/reset_password/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/@${username}:hackerspace-ntnu.no`,
     {
       method: 'POST',
       headers: headers,
@@ -110,7 +113,7 @@ async function matrixChangeDisplayname(
   const body = { displayname: `${newDisplayname}` };
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/v2/users/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:hackerspace-ntnu.no`,
     {
       method: 'PUT',
       headers: headers,
@@ -121,6 +124,97 @@ async function matrixChangeDisplayname(
   return response;
 }
 
+async function matrixUploadMedia(pathToMediaFile: string, filetype: string) {
+  const fileBuffer = fs.readFileSync(pathToMediaFile);
+
+  const headers = {
+    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
+    'Content-Type': `image/${filetype}`,
+  };
+
+  const data = fileBuffer;
+
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/_matrix/media/v3/upload`,
+    {
+      method: 'POST',
+      headers: headers,
+      body: data,
+    },
+  );
+
+  return response.json();
+}
+
+async function matrixChangeAvatar(
+  username: string,
+  imagePath: string,
+  filetype: string,
+) {
+  const uploadResponse = await matrixUploadMedia(imagePath, filetype);
+
+  const imageUri = uploadResponse.content_uri;
+  console.log(imageUri);
+
+  const headers = {
+    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
+    'Content-Type': 'application/json',
+  };
+
+  const data = JSON.stringify({ avatar_url: imageUri });
+  console.log(data);
+
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/v2/users/@${username}:hackerspace-ntnu.no`,
+    {
+      method: 'PUT',
+      headers: headers,
+      body: data,
+    },
+  );
+
+  return response;
+}
+
+async function matrixChangeEmailPhonenumber(
+  username: string,
+  email: string,
+  phonenumber: string,
+) {
+  const headers = {
+    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
+    'Content-Type': 'application/json',
+  };
+
+  const data = {
+    threepids: [
+      { medium: 'email', address: `${email}` },
+      { medium: 'msisdn', address: `${phonenumber}` },
+    ],
+  };
+
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/synapse_/admin/v2/users/@${username}:hackerspace-ntnu.no`,
+    {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify(data),
+    },
+  );
+
+  return response;
+}
+
+const a = await matrixChangeEmailPhonenumber(
+  'haakwil',
+  'haakwil@stud.ntnu.no',
+  '4741609777',
+);
+console.log(a);
+
+export { matrixChangeEmailPhonenumber };
+export { matrixChangeAvatar };
+export { matrixUploadMedia };
 export { matrixChangeDisplayname };
 export { matrixChangePassword };
 export { registerMatrixUser };
