@@ -34,7 +34,9 @@ function ProfilePictureForm({
 
   const updateProfilePictureMutation =
     api.settings.updateProfilePicture.useMutation({
-      onSuccess: () => {
+      onSuccess: (data) => {
+        setPreviewImage(data);
+        console.log(data);
         toast.success(t('updateProfilePictureSuccess'));
       },
     });

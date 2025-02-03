@@ -13,11 +13,11 @@ function profilePictureSchema(t: Translations) {
       )
       .transform((data) => {
         const parts = data.split(';');
-        const mimeType = parts[0]?.split(':')[1] ?? '';
-        return { data, mimeType };
+        const contentType = parts[0]?.split(':')[1] ?? '';
+        return { data, contentType };
       })
       .refine(
-        ({ mimeType }) => ['image/jpeg', 'image/png'].includes(mimeType),
+        ({ contentType }) => ['image/jpeg', 'image/png'].includes(contentType),
         t('settings.profile.profilePicture.mustbePngOrJpg'),
       )
       .refine(

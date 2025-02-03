@@ -1,11 +1,14 @@
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedureWithPassword } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { users } from '@/server/db/tables';
+import { files, users } from '@/server/db/tables';
+import { deleteFile, insertFile } from '@/server/services/files';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
 import { TRPCError } from '@trpc/server';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
+
+const PROFILE_PICTURE_DIRECTORY = 'profile-pictures';
 
 const settingsRouter = createRouter({
   updateProfile: authenticatedProcedureWithPassword
@@ -32,7 +35,27 @@ const settingsRouter = createRouter({
       profilePictureSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      console.log(input);
+      const existingFile = await ctx.db.query.files.findFirst({
+        where: and(
+          eq(files.directory, PROFILE_PICTURE_DIRECTORY),
+          eq(files.uploadedBy, ctx.user.id),
+        ),
+      });
+
+      if (existingFile) {
+        await deleteFile(existingFile.id);
+      }
+
+      const file = await insertFile(
+        input.profilePicture,
+        PROFILE_PICTURE_DIRECTORY,
+        ctx.user.id,
+      );
+
+      return await ctx.s3.getSignedUrl(
+        PROFILE_PICTURE_DIRECTORY,
+        String(file.id),
+      );
     }),
 });
 

@@ -7,8 +7,6 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-type AllowedDirectories = 'profile-picture' | 'news';
-
 class S3Service {
   private readonly client: S3Client;
   private readonly bucket: string;
@@ -37,7 +35,7 @@ class S3Service {
   }
 
   async uploadFile(
-    directory: AllowedDirectories,
+    directory: (typeof directories)[number],
     key: string,
     file: Buffer,
     contentType: string,
@@ -62,7 +60,7 @@ class S3Service {
     }
   }
 
-  async deleteFile(directory: AllowedDirectories, key: string) {
+  async deleteFile(directory: (typeof directories)[number], key: string) {
     if (!directory || !key) {
       throw new Error('Directory and key are required');
     }
@@ -81,7 +79,7 @@ class S3Service {
     }
   }
 
-  async fileExists(directory: AllowedDirectories, key: string) {
+  async fileExists(directory: (typeof directories)[number], key: string) {
     if (!directory || !key) {
       throw new Error('Directory and key are required');
     }
@@ -102,7 +100,7 @@ class S3Service {
   }
 
   async getSignedUrl(
-    directory: AllowedDirectories,
+    directory: (typeof directories)[number],
     key: string,
     expiresIn = 3600,
   ) {
@@ -135,6 +133,8 @@ class S3Service {
   }
 }
 
+const directories = ['profile-pictures', 'news'] as const;
+
 const s3 = new S3Service();
 
-export { s3, type AllowedDirectories as AllowedDirectory };
+export { s3, directories };
