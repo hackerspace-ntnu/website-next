@@ -108,7 +108,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
             disabled={!canSubmit || isPristine}
           >
             {updateProfileSettingsMutation.isPending ? (
-              <Spinner />
+              <Spinner className='text-primary-foreground' />
             ) : (
               t('updateProfile')
             )}

@@ -8,12 +8,21 @@ import {
   globalPOSTRateLimit,
 } from '@/server/api/rate-limit';
 
+const BYPASS_PATHS = ['/s3/', '/api/'] as const;
+
 const handleI18nRouting = createMiddleware(routing);
 
+function shouldBypassI18n(pathname: string): boolean {
+  return BYPASS_PATHS.some((path) => pathname.startsWith(path));
+}
+
 function handleI18nResponse(request: NextRequest): NextResponse {
-  if (request.nextUrl.pathname.startsWith('/api')) {
+  const { pathname } = request.nextUrl;
+
+  if (shouldBypassI18n(pathname)) {
     return NextResponse.next();
   }
+
   return handleI18nRouting(request);
 }
 

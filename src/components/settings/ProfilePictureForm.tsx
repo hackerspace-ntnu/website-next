@@ -102,7 +102,7 @@ function ProfilePictureForm({
             disabled={!canSubmit || isPristine}
           >
             {updateProfilePictureMutation.isPending ? (
-              <Spinner />
+              <Spinner className='text-primary-foreground' />
             ) : (
               t('updateProfilePicture')
             )}
