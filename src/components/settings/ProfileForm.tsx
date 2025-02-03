@@ -41,12 +41,8 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
       lastName,
       birthDate,
     },
-    onSubmit: async ({ value }) => {
-      await updateProfileSettingsMutation.mutateAsync({
-        firstName: value.firstName,
-        lastName: value.lastName,
-        birthDate: value.birthDate,
-      });
+    onSubmit: ({ value }) => {
+      updateProfileSettingsMutation.mutate(value);
     },
   });
 
@@ -60,7 +56,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
               <Input
                 autoComplete='given-name'
                 placeholder={firstName}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(event) => field.handleChange(event.target.value)}
                 value={field.state.value}
                 onBlur={field.handleBlur}
               />
@@ -77,7 +73,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
               <Input
                 autoComplete='given-name'
                 placeholder={firstName}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(event) => field.handleChange(event.target.value)}
                 value={field.state.value}
                 onBlur={field.handleBlur}
               />

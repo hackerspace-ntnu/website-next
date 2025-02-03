@@ -127,6 +127,14 @@
       "updateProfile": "Oppdater profil",
       "updateFailed": "Kunne ikke oppdatere profil",
       "updateSuccess": "Profil oppdatert",
+      "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
+      "profilePicture": {
+        "label": "Profilbilde",
+        "mustBeImage": "Profilbilde må være et bilde",
+        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "sizeLimit": "Profilbilde må være mindre enn {size} MB"
+      },
       "firstName": {
         "label": "Fornavn",
         "required": "Fornavn er påkrevd",

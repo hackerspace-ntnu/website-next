@@ -2,6 +2,7 @@ import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedureWithPassword } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { users } from '@/server/db/tables';
+import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
 import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
@@ -25,6 +26,13 @@ const settingsRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+    }),
+  updateProfilePicture: authenticatedProcedureWithPassword
+    .input((input) =>
+      profilePictureSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      console.log(input);
     }),
 });
 

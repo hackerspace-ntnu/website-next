@@ -1,0 +1,36 @@
+import type { Translations } from '@/lib/locale';
+import { z } from 'zod';
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+function profilePictureSchema(t: Translations) {
+  return z.object({
+    profilePicture: z
+      .string()
+      .startsWith(
+        'data:image/',
+        t('settings.profile.profilePicture.mustBeImage'),
+      )
+      .transform((data) => {
+        const parts = data.split(';');
+        const mimeType = parts[0]?.split(':')[1] ?? '';
+        return { data, mimeType };
+      })
+      .refine(
+        ({ mimeType }) => ['image/jpeg', 'image/png'].includes(mimeType),
+        t('settings.profile.profilePicture.mustbePngOrJpg'),
+      )
+      .refine(
+        ({ data }) => {
+          const sizeInBytes = (data.length * 3) / 4;
+          return sizeInBytes <= MAX_FILE_SIZE;
+        },
+        t('settings.profile.profilePicture.sizeLimit', {
+          size: MAX_FILE_SIZE / 1024 / 1024,
+        }),
+      )
+      .transform(({ data }) => data),
+  });
+}
+
+export { profilePictureSchema };

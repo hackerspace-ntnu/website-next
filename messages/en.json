@@ -127,6 +127,14 @@
       "updateProfile": "Update profile",
       "updateFailed": "Failed to update profile",
       "updateSuccess": "Profile updated successfully",
+      "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "profilePicture": {
+        "label": "Profile picture",
+        "mustBeImage": "Profile picture must be an image",
+        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "sizeLimit": "Profile picture must be less than {size} MB"
+      },
       "firstName": {
         "label": "First name",
         "required": "First name is required",
