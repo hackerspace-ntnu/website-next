@@ -100,9 +100,13 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
           </FormItem>
         )}
       </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit]}>
-        {([canSubmit]) => (
-          <Button className='min-w-40' type='submit' disabled={!canSubmit}>
+      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
+        {([canSubmit, isPristine]) => (
+          <Button
+            className='min-w-40'
+            type='submit'
+            disabled={!canSubmit || isPristine}
+          >
             {updateProfileSettingsMutation.isPending ? (
               <Spinner />
             ) : (

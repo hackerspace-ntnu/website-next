@@ -1,5 +1,6 @@
 'use client';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
 import {
   Form,
@@ -15,9 +16,10 @@ import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 type ProfilePictureFormProps = {
-  currentImageUrl: string;
+  currentImageUrl?: string;
   userInitials: string;
 };
 
@@ -26,6 +28,7 @@ function ProfilePictureForm({
   userInitials,
 }: ProfilePictureFormProps) {
   const t = useTranslations('settings.profile');
+  const [previewImage, setPreviewImage] = useState(currentImageUrl);
   const formSchema = profilePictureSchema(useTranslations());
 
   const updateProfilePictureMutation =
@@ -43,40 +46,55 @@ function ProfilePictureForm({
       updateProfilePictureMutation.mutate(value);
     },
   });
+
   return (
     <Form onSubmit={form.handleSubmit} className='space-y-8'>
       <form.Field name='profilePicture'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('profilePicture.label')}</FormLabel>
-            <FormControl>
-              <Input
-                className='w-full'
-                type='file'
-                name='profilePicture'
-                accept='image/jpeg,image/png'
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                      if (e.target?.result) {
-                        const base64String = e.target.result as string;
-                        field.handleChange(base64String);
-                      }
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-              />
-            </FormControl>
+            <div className='relative h-24 w-24'>
+              <FormControl>
+                <Input
+                  className='h-24 w-24 rounded-full'
+                  type='file'
+                  accept='image/jpeg,image/png'
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (e) => {
+                        if (e.target?.result) {
+                          const base64String = e.target.result as string;
+                          setPreviewImage(base64String);
+                          field.handleChange(base64String);
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </FormControl>
+              <Avatar className='pointer-events-none absolute inset-0 h-24 w-24'>
+                <AvatarImage
+                  className='object-cover'
+                  src={previewImage ?? currentImageUrl}
+                  alt={t('profilePicture.label')}
+                />
+                <AvatarFallback>{userInitials}</AvatarFallback>
+              </Avatar>
+            </div>
             <FormMessage />
           </FormItem>
         )}
       </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit]}>
-        {([canSubmit]) => (
-          <Button className='min-w-40' type='submit' disabled={!canSubmit}>
+      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
+        {([canSubmit, isPristine]) => (
+          <Button
+            className='min-w-40'
+            type='submit'
+            disabled={!canSubmit || isPristine}
+          >
             {updateProfilePictureMutation.isPending ? (
               <Spinner />
             ) : (
