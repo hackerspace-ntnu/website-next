@@ -1,5 +1,6 @@
 import { ProfileForm } from '@/components/settings/ProfileForm';
 import { ProfilePictureForm } from '@/components/settings/ProfilePictureForm';
+import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { setRequestLocale } from 'next-intl/server';
@@ -23,6 +24,13 @@ export default async function ProfilePage({
 
   return (
     <>
+      <div className='flex items-center gap-2'>
+        <h2 className='font-semibold text-2xl tracking-tight'>
+          {user.username}
+        </h2>
+        <Badge variant='secondary'>username</Badge>
+      </div>
+      <Separator className='mt-2 mb-4' />
       <ProfilePictureForm currentImageUrl={''} userInitials={userInitials} />
       <Separator className='my-4' />
       <ProfileForm

@@ -64,9 +64,7 @@ export default async function SettingsLayout({
             <aside className='-mx-4 lg:w-1/5'>
               <SidebarNav />
             </aside>
-            <main className='h-full w-full flex-1 lg:max-w-2xl'>
-              {children}
-            </main>
+            <div className='h-full w-full flex-1 lg:max-w-2xl'>{children}</div>
           </NextIntlClientProvider>
         </div>
       </div>

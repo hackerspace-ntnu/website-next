@@ -1,4 +1,5 @@
 import tailwindFluid, { extract, screens, fontSize } from 'fluid-tailwind';
+import tailwindScrollbarHide from 'tailwind-scrollbar-hide';
 import type { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
@@ -76,7 +77,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindFluid, tailwindAnimate],
+  plugins: [tailwindFluid, tailwindAnimate, tailwindScrollbarHide],
 };
 
 export default config;

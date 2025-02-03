@@ -14,7 +14,7 @@ function SidebarNav({ className }: { className?: string }) {
   return (
     <nav
       className={cx(
-        'flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1',
+        'scrollbar-hide flex space-x-2 overflow-x-auto lg:flex-col lg:space-x-0 lg:space-y-1',
         className,
       )}
     >
@@ -25,7 +25,7 @@ function SidebarNav({ className }: { className?: string }) {
           pathname === '/settings'
             ? 'bg-muted hover:bg-muted'
             : 'hover:bg-transparent hover:underline',
-          'justify-start',
+          'min-w-fit justify-start',
         )}
       >
         {t('profile.title')}
@@ -37,7 +37,7 @@ function SidebarNav({ className }: { className?: string }) {
           pathname === '/settings/account'
             ? 'bg-muted hover:bg-muted'
             : 'hover:bg-transparent hover:underline',
-          'justify-start',
+          'min-w-fit justify-start',
         )}
       >
         {t('account.title')}
@@ -49,7 +49,7 @@ function SidebarNav({ className }: { className?: string }) {
           pathname === '/settings/notifications'
             ? 'bg-muted hover:bg-muted'
             : 'hover:bg-transparent hover:underline',
-          'justify-start',
+          'min-w-fit justify-start',
         )}
       >
         {t('notifications.title')}
@@ -61,7 +61,7 @@ function SidebarNav({ className }: { className?: string }) {
           pathname === '/settings/administrator'
             ? 'bg-muted hover:bg-muted'
             : 'hover:bg-transparent hover:underline',
-          'justify-start',
+          'min-w-fit justify-start',
         )}
       >
         {t('administrator.title')}
