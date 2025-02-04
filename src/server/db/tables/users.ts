@@ -1,6 +1,7 @@
 import {
   emailVerificationRequests,
   files,
+  sessions,
   usersSkills,
 } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
@@ -57,46 +58,13 @@ const users = pgTable(
 );
 
 const usersRelations = relations(users, ({ many }) => ({
-  usersSkills: many(usersSkills),
   sessions: many(sessions),
+  usersSkills: many(usersSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
 }));
 
-const sessions = pgTable(
-  'session',
-  {
-    id: text('id').primaryKey(),
-    userId: integer('user_id')
-      .references(() => users.id)
-      .notNull(),
-    expiresAt: timestamp('expires_at', {
-      withTimezone: true,
-      mode: 'date',
-    }).notNull(),
-  },
-  (table) => [index('sessions_user_id_idx').on(table.userId)],
-);
-
-const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, {
-    fields: [sessions.userId],
-    references: [users.id],
-  }),
-}));
-
 type SelectUser = InferSelectModel<typeof users>;
 type InsertUser = InferInsertModel<typeof users>;
-type SelectSession = InferSelectModel<typeof sessions>;
-type InsertSession = InferInsertModel<typeof sessions>;
 
-export {
-  users,
-  usersRelations,
-  sessions,
-  sessionsRelations,
-  type SelectUser,
-  type InsertUser,
-  type SelectSession,
-  type InsertSession,
-};
+export { users, usersRelations, type SelectUser, type InsertUser };
