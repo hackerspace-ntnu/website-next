@@ -20,6 +20,10 @@ export default async function ProfilePage({
     notFound();
   }
 
+  const profilePictureUrl = user.profilePictureId
+    ? await api.utils.getFileUrl({ fileId: user.profilePictureId })
+    : undefined;
+
   const userInitials = `${user.firstName[0]}${user.lastName[0]}`.toUpperCase();
 
   return (
@@ -31,7 +35,10 @@ export default async function ProfilePage({
         <Badge variant='secondary'>username</Badge>
       </div>
       <Separator className='mt-2 mb-4' />
-      <ProfilePictureForm currentImageUrl={''} userInitials={userInitials} />
+      <ProfilePictureForm
+        profilePictureUrl={profilePictureUrl}
+        userInitials={userInitials}
+      />
       <Separator className='my-4' />
       <ProfileForm
         firstName={user.firstName}

@@ -20,23 +20,22 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 type ProfilePictureFormProps = {
-  currentImageUrl?: string;
+  profilePictureUrl?: string;
   userInitials: string;
 };
 
 function ProfilePictureForm({
-  currentImageUrl,
+  profilePictureUrl,
   userInitials,
 }: ProfilePictureFormProps) {
   const t = useTranslations('settings.profile');
-  const [previewImage, setPreviewImage] = useState(currentImageUrl);
+  const [previewImage, setPreviewImage] = useState(profilePictureUrl);
   const formSchema = profilePictureSchema(useTranslations());
 
   const updateProfilePictureMutation =
     api.settings.updateProfilePicture.useMutation({
       onSuccess: (data) => {
         setPreviewImage(data);
-        console.log(data);
         toast.success(t('updateProfilePictureSuccess'));
       },
     });
@@ -78,10 +77,11 @@ function ProfilePictureForm({
                   }}
                 />
               </FormControl>
+              <div className='pointer-events-none absolute inset-0 h-24 w-24 rounded-full bg-background' />
               <Avatar className='pointer-events-none absolute inset-0 h-24 w-24'>
                 <AvatarImage
                   className='object-cover'
-                  src={previewImage ?? currentImageUrl}
+                  src={previewImage ?? profilePictureUrl}
                   alt={t('profilePicture.label')}
                 />
                 <AvatarFallback>{userInitials}</AvatarFallback>
