@@ -2,10 +2,10 @@ import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
-  const t = await getTranslations('layout');
+  const t = await getTranslations('settings.account');
 
   return {
-    title: t('account'),
+    title: t('title'),
   };
 }
 

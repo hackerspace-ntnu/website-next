@@ -8,10 +8,10 @@ import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
-  const t = await getTranslations('layout');
+  const t = await getTranslations('settings.profile');
 
   return {
-    title: t('profile'),
+    title: t('title'),
   };
 }
 

@@ -1,11 +1,11 @@
 import { api } from '@/lib/api/server';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
-  const t = await getTranslations('layout');
+  const t = await getTranslations('settings.administrator');
 
   return {
-    title: t('administrator'),
+    title: t('title'),
   };
 }
 
@@ -20,8 +20,12 @@ export default async function AdminPage({
   const { user } = await api.auth.state();
   return (
     <div>
-      <h1>Settings</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <h1>admin?</h1>
+      <p>
+        We should have multiple admin utilities here. Including a way to display
+        and add/remove people from different groups. Maybe also giving skills
+        but that should probably be handled by events instead.
+      </p>
     </div>
   );
 }
