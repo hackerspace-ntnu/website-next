@@ -20,6 +20,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { api } from '@/lib/api/client';
+import { fileToBase64String } from '@/lib/utils/files';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { CameraIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -70,18 +71,11 @@ function ProfilePictureForm({
                         className='peer h-24 w-24 cursor-pointer rounded-full'
                         type='file'
                         accept='image/jpeg,image/png'
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            const reader = new FileReader();
-                            reader.onload = (e) => {
-                              if (e.target?.result) {
-                                const base64String = e.target.result as string;
-                                setPreviewImage(base64String);
-                                field.handleChange(base64String);
-                              }
-                            };
-                            reader.readAsDataURL(file);
+                            const base64String = await fileToBase64String(file);
+                            setPreviewImage(base64String);
                           }
                         }}
                       />
