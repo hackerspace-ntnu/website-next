@@ -279,6 +279,7 @@
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
     "noFileFound": "No file found"
   }
 }

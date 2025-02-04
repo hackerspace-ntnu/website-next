@@ -1,12 +1,13 @@
 const groupIdentifiers = [
   'devops',
   'labops',
-  'leaders',
+  'leadership',
+  'management',
   'representative',
-  'devops-leaders',
-  'labops-leaders',
   'ttrpg',
   'breadboard',
+  'pang',
+  'admin',
 ] as const;
 
 const skillIdentifiers = [

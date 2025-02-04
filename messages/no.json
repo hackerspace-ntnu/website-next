@@ -279,6 +279,7 @@
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet"
   }
 }

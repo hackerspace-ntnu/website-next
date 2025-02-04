@@ -281,6 +281,10 @@ Here is a list of documentations that will help you contribute to the project:
 
 ## Development Environment
 
+### Neovim
+
+You know what you are doing, if not [LazyVim](https://www.lazyvim.org/) is a great starting point.
+
 ### VS Code
 
 #### Recommended Extensions
