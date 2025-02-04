@@ -4,6 +4,8 @@ import { db } from '@/server/db';
 import { files } from '@/server/db/tables';
 import { type directories, s3 } from '@/server/s3';
 
+const SIGNED_URL_EXPIRATION = 3600;
+
 async function insertFile(
   base64String: string,
   directory: (typeof directories)[number],
@@ -63,4 +65,20 @@ async function deleteFile(fileId: number) {
   return deletedFile;
 }
 
-export { insertFile, deleteFile };
+async function getFileUrl(fileId: number) {
+  const file = await db.query.files.findFirst({
+    where: eq(files.id, fileId),
+  });
+
+  if (!file) {
+    throw new Error('File not found');
+  }
+
+  return s3.getSignedUrl(
+    file.directory,
+    String(file.id),
+    SIGNED_URL_EXPIRATION,
+  );
+}
+
+export { insertFile, deleteFile, getFileUrl };
