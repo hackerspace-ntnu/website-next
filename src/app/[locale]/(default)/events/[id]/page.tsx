@@ -12,7 +12,7 @@ import { events } from '@/mock-data/events';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const event = events.find((event) => event.id.toString() === id);

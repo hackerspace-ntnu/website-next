@@ -3,8 +3,17 @@ import { ProfilePictureForm } from '@/components/settings/ProfilePictureForm';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
+import { getTranslations } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
+
+  return {
+    title: t('profile'),
+  };
+}
 
 export default async function ProfilePage({
   params,

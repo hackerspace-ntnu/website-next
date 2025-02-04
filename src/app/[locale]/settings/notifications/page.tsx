@@ -1,5 +1,13 @@
 import { api } from '@/lib/api/server';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
+
+  return {
+    title: t('notifications'),
+  };
+}
 
 export default async function NotificationsPage({
   params,

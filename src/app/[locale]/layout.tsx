@@ -27,11 +27,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Omit<LocaleLayoutProps, 'children'>) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
+export async function generateMetadata() {
+  const t = await getTranslations('meta');
 
   return {
     title: {
