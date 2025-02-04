@@ -1,5 +1,5 @@
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { authenticatedProcedureWithPassword } from '@/server/api/procedures';
+import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
@@ -11,7 +11,7 @@ import { and, eq } from 'drizzle-orm';
 const PROFILE_PICTURE_DIRECTORY = 'profile-pictures';
 
 const settingsRouter = createRouter({
-  updateProfile: authenticatedProcedureWithPassword
+  updateProfile: authenticatedProcedure
     .input((input) => profileSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -30,7 +30,7 @@ const settingsRouter = createRouter({
           });
         });
     }),
-  updateProfilePicture: authenticatedProcedureWithPassword
+  updateProfilePicture: authenticatedProcedure
     .input((input) =>
       profilePictureSchema(useTranslationsFromContext()).parse(input),
     )

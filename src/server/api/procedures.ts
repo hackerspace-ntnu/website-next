@@ -24,7 +24,7 @@ const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   return result;
 });
 
-const authenticatedProcedure = publicProcedure.use(async ({ next, ctx }) => {
+const registrationProcedure = publicProcedure.use(async ({ next, ctx }) => {
   const { user, session } = await ctx.auth();
 
   if (!session) {
@@ -42,7 +42,7 @@ const authenticatedProcedure = publicProcedure.use(async ({ next, ctx }) => {
   });
 });
 
-const authenticatedProcedureWithPassword = authenticatedProcedure.use(
+const authenticatedProcedure = registrationProcedure.use(
   async ({ next, ctx }) => {
     if (!ctx.user.passwordHash) {
       throw new TRPCError({
@@ -55,8 +55,4 @@ const authenticatedProcedureWithPassword = authenticatedProcedure.use(
   },
 );
 
-export {
-  publicProcedure,
-  authenticatedProcedure,
-  authenticatedProcedureWithPassword,
-};
+export { publicProcedure, registrationProcedure, authenticatedProcedure };

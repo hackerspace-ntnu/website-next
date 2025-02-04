@@ -2,6 +2,7 @@ import { env } from '@/env';
 import {
   authenticatedProcedure,
   publicProcedure,
+  registrationProcedure,
 } from '@/server/api/procedures';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
@@ -131,7 +132,7 @@ const authRouter = createRouter({
       const session = await createSession(sessionToken, user.id);
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
-  signUp: authenticatedProcedure
+  signUp: registrationProcedure
     .input((input) =>
       accountSignUpSchema(useTranslationsFromContext()).parse(input),
     )
