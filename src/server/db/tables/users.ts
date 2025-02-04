@@ -2,6 +2,7 @@ import {
   emailVerificationRequests,
   files,
   sessions,
+  usersGroups,
   usersSkills,
 } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
@@ -59,6 +60,7 @@ const users = pgTable(
 
 const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
+  usersGroups: many(usersGroups),
   usersSkills: many(usersSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),

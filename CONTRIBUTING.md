@@ -142,6 +142,9 @@ bun run db:generate
 
 This will generate new migrations into the `@/server/db/migrations` directory.
 
+> [!WARNING]
+> Only generate new migrations when you are sure the changes you have made to the database are correct and are final. When you are making changes rapidly use the `db:push` command instead.
+
 If you want to run the generated migrations on your database you can run:
 
 ```bash
