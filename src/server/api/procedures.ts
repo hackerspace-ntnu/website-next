@@ -9,7 +9,7 @@ const procedureWithContext = trpc.procedure.use((opts) => {
   });
 });
 
-// Use this procedure for any public endpoint
+// Use this procedure for any public endpoint. The timing here will add a varying delay so we will see the loading state when accessing the API in development.
 const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   const start = Date.now();
 
