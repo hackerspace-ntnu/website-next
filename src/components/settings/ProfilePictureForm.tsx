@@ -13,6 +13,12 @@ import {
 import { Input } from '@/components/ui/Input';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
 import { api } from '@/lib/api/client';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { CameraIcon } from 'lucide-react';
@@ -56,39 +62,48 @@ function ProfilePictureForm({
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('profilePicture.label')}</FormLabel>
             <div className='relative h-24 w-24'>
-              <FormControl>
-                <Input
-                  className='h-24 w-24 cursor-pointer rounded-full'
-                  type='file'
-                  accept='image/jpeg,image/png'
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onload = (e) => {
-                        if (e.target?.result) {
-                          const base64String = e.target.result as string;
-                          setPreviewImage(base64String);
-                          field.handleChange(base64String);
-                        }
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                />
-              </FormControl>
-              <div className='pointer-events-none absolute inset-0 h-24 w-24 rounded-full bg-background' />
-              <Avatar className='pointer-events-none absolute inset-0 h-24 w-24'>
-                <AvatarImage
-                  className='object-cover'
-                  src={previewImage ?? profilePictureUrl}
-                  alt={t('profilePicture.label')}
-                />
-                <AvatarFallback>{userInitials}</AvatarFallback>
-              </Avatar>
-              <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-sm'>
-                <CameraIcon className='h-4 w-4' aria-hidden='true' />
-              </div>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormControl>
+                      <Input
+                        className='peer h-24 w-24 cursor-pointer rounded-full'
+                        type='file'
+                        accept='image/jpeg,image/png'
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                              if (e.target?.result) {
+                                const base64String = e.target.result as string;
+                                setPreviewImage(base64String);
+                                field.handleChange(base64String);
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                      />
+                    </FormControl>
+                  </TooltipTrigger>
+                  <div className='pointer-events-none absolute inset-0 h-24 w-24 rounded-full bg-background' />
+                  <Avatar className='pointer-events-none absolute inset-0 h-24 w-24 transition-opacity peer-hover:opacity-80'>
+                    <AvatarImage
+                      className='object-cover'
+                      src={previewImage ?? profilePictureUrl}
+                      alt={t('profilePicture.label')}
+                    />
+                    <AvatarFallback>{userInitials}</AvatarFallback>
+                  </Avatar>
+                  <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-sm'>
+                    <CameraIcon className='h-4 w-4' aria-hidden='true' />
+                  </div>
+                  <TooltipContent side='right'>
+                    <p>{t('updateProfilePictureTooltip')}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             <FormMessage />
           </FormItem>

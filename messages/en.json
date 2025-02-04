@@ -132,6 +132,7 @@
       "updateProfilePicture": "Update profile picture",
       "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "updateProfilePictureTooltip": "Click to change profile picture",
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",
