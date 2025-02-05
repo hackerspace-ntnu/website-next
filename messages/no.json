@@ -122,10 +122,14 @@
   },
   "home": {
     "whoAreWe": "Hvem er vi?",
-    "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Dapibus nullam sit tortor lacus augue sit libero enim. Curae auctor dis turpis dapibus aliquam aliquam nulla integer. Varius mi dapibus non netus pharetra consequat. Ornare urna suspendisse ligula penatibus suspendisse.",
+    "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Viverra id convallis taciti ex; egestas duis varius mus praesent. Augue orci scelerisque habitant aenean elit varius sociosqu et libero. Tempus magnis penatibus elementum integer pretium parturient fringilla massa. Felis tristique molestie facilisis sagittis eros hendrerit. Gravida himenaeos est sodales metus rhoncus hendrerit massa. Nostra vehicula quis molestie integer fringilla interdum. Congue tempor ligula proin ornare fermentum bibendum nisi dis.",
     "stopBy": "Kom innom!",
-    "stopByDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Primis tristique urna porta lectus lacinia venenatis cras justo. Faucibus quisque lacus ullamcorper fusce nec nunc venenatis. In cursus conubia feugiat euismod et interdum venenatis at. Primis congue nisi tempor dictum semper mollis? Suspendisse finibus libero felis molestie sed metus porta cras suspendisse.",
-    "onShift": "På vakt nå:"
+    "stopByDescription": "Porttitor porttitor cubilia facilisi semper mauris pulvinar augue. Convallis ultrices elit; facilisi in potenti maximus consequat integer. Fames quam magnis ac erat ad; per enim cras. Dui maecenas feugiat metus ridiculus turpis. Varius per leo mus netus vivamus porttitor rhoncus nisl. Nisi cubilia ultricies iaculis semper curae; ultrices justo torquent. Commodo proin bibendum; class convallis consectetur natoque. Consequat penatibus blandit fusce justo, feugiat sed molestie. Ex eros mollis ultrices nec purus commodo ligula amet.",
+    "onShift": "På vakt nå:",
+    "events": "Hva skjer?",
+    "eventsDescription": "text mhm yes very text text text",
+    "news": "\"Ny\"heter",
+    "newsDescription": "Massa luctus eu ultrices fermentum luctus velit vel. Orci mauris felis, nibh inceptos blandit hac. Curae maecenas eros quis sollicitudin leo ex. Libero hendrerit libero libero, mattis a urna metus orci diam. Nisi quisque ullamcorper faucibus ornare tristique mus. Lectus varius vulputate; est scelerisque feugiat bibendum lectus varius posuere. Egestas semper eget egestas conubia iaculis mauris dapibus fames. Duis nam litora arcu convallis sem sem justo. Praesent hac consequat sagittis in orci massa."
   },
   "news": {
     "title": "Nyheter",

@@ -5,14 +5,14 @@ type TextBlockProps = {
   imgSrc: string;
   imgAlt: string;
   imgSide: 'left' | 'right';
-  children: React.ReactElement[];
+  children: React.ReactNode;
 };
 
 function TextBlock({ imgSrc, imgAlt, imgSide, children }: TextBlockProps) {
   const image = (
     <div className='relative min-h-64 md:w-5/12'>
       <Image
-        className='min-h-fit rounded-lg object-cover md:object-contain xl:object-cover'
+        className='min-h-fit rounded-xl object-cover md:object-contain xl:object-cover'
         src={imgSrc}
         alt={imgAlt}
         fill
