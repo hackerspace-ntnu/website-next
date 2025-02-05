@@ -20,11 +20,10 @@ jobs:
   performance-audit:
     name: Lighthouse Performance Audit
     runs-on: ubuntu-latest
-    environment: development
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
-      NODE_ENV: "development"
+      NODE_ENV: "production"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
       DB_HOST: "website-next-db-1"
       DB_PORT: "5432"
