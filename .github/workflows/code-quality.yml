@@ -3,6 +3,12 @@ name: Code Quality
 on:
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    secrets:
+      db_user:
+        required: true
+      db_password:
+        required: true
 
 jobs:
   lint-format:
@@ -18,29 +24,33 @@ jobs:
       - name: Run Biome
         run: biome ci .
   performance-audit:
-    name: Performance Audit
+    name: Lighthouse Performance Audit
     runs-on: ubuntu-latest
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
-      NODE_ENV: "production"
-      DATABASE_HOST: "localhost"
-      DATABASE_PORT: "5432"
-      DATABASE_USER: "user"
-      DATABASE_PASSWORD: "password"
-      DATABASE_NAME: "database"
-      STORAGE_HOST: "localhost"
-      STORAGE_PORT: "9000"
-      STORAGE_USER: "user"
-      STORAGE_PASSWORD: "password"
-      STORAGE_NAME: "images"
-      FEIDE_CLIENT_ID: " "
-      FEIDE_CLIENT_SECRET: " "
+      NODE_ENV: "development"
+      NODE_OPTIONS: "--max_old_space_size=16384"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      DB_HOST: "website-next-db-1"
+      DB_PORT: "5432"
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD}}
+      DB_NAME: "hackerspace-dev-db"
+      S3_HOST: "localhost"
+      S3_PORT: "9000"
+      S3_USER: "user"
+      S3_PASSWORD: "password"
+      S3_NAME: "storage"
+      FEIDE_CLIENT_ID: ""
+      FEIDE_CLIENT_SECRET: ""
       FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
       FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
       FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
       FEIDE_EXTENDED_USERINFO_ENDPOINT: "https://api.dataporten.no/userinfo/v1/userinfo"
-      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      MATRIX_SERVER_NAME: ""
+      MATRIX_ENDPOINT: "https://matrix.hackerspace-ntnu.no/_synapse/admin"
+      MATRIX_SECRET: ""
       LHCI_TOKEN: ${{ secrets.LHCI_BUILD_TOKEN }}
       MATRIX_SHARED_SECRET: " "
     steps:
