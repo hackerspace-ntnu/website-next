@@ -3,12 +3,6 @@ name: Code Quality
 on:
   pull_request:
   workflow_dispatch:
-  workflow_call:
-    secrets:
-      db_user:
-        required: true
-      db_password:
-        required: true
 
 jobs:
   lint-format:
@@ -26,16 +20,16 @@ jobs:
   performance-audit:
     name: Lighthouse Performance Audit
     runs-on: ubuntu-latest
+    environment: development
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
       NODE_ENV: "development"
-      NODE_OPTIONS: "--max_old_space_size=16384"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
       DB_HOST: "website-next-db-1"
       DB_PORT: "5432"
       DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD}}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: "hackerspace-dev-db"
       S3_HOST: "localhost"
       S3_PORT: "9000"
