@@ -51,7 +51,9 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      - uses: browser-actions/setup-chrome@v1
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
         with:
           install-chromedriver: true
       - name: Add Chrome to environment variables
