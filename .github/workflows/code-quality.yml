@@ -57,7 +57,7 @@ jobs:
         with:
           install-chromedriver: true
       - name: Add Chrome to environment variables
-        run: export CHROMEWEBDRIVER=${{ steps.setup-chrome.outputs.chrome-path }}
+        run: export CHROME_PATH=${{ steps.setup-chrome.outputs.chrome-path }}
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Build
