@@ -78,7 +78,7 @@ Then we need to install Docker Compose.
 When you have installed Docker and Docker Compose you can start the database and storage server by running:
 
 ```bash
-bun run dev:setup
+bun run services:setup
 ```
 
 Now this command is a fancy all in one command that restarts and resets both the database and storage server pushes any new migrations and seeds the database. If you prefer to use the individual commands they will be outlined below.
@@ -86,7 +86,7 @@ Now this command is a fancy all in one command that restarts and resets both the
 You can stop both with:
 
 ```bash
-bun run dev:stop
+bun run services:stop
 ```
 
 > [!TIP]
