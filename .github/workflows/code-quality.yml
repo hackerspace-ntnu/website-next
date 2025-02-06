@@ -19,7 +19,7 @@ jobs:
         run: biome ci .
   performance-audit:
     name: Lighthouse Performance Audit
-    runs-on: ubuntu-latest
+    runs-on: noodlebar
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
@@ -30,22 +30,12 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_NAME: "hackerspace-dev-db"
-      S3_HOST: "localhost"
+      S3_HOST: "website-next-s3-1"
       S3_PORT: "9000"
-      S3_USER: "user"
-      S3_PASSWORD: "password"
-      S3_NAME: "storage"
-      FEIDE_CLIENT_ID: ""
-      FEIDE_CLIENT_SECRET: ""
-      FEIDE_AUTHORIZATION_ENDPOINT: "https://auth.dataporten.no/oauth/authorization"
-      FEIDE_TOKEN_ENDPOINT: "https://auth.dataporten.no/oauth/token"
-      FEIDE_USERINFO_ENDPOINT: "https://auth.dataporten.no/openid/userinfo"
-      FEIDE_EXTENDED_USERINFO_ENDPOINT: "https://api.dataporten.no/userinfo/v1/userinfo"
-      MATRIX_SERVER_NAME: ""
-      MATRIX_ENDPOINT: "https://matrix.hackerspace-ntnu.no/_synapse/admin"
-      MATRIX_SECRET: ""
+      S3_USER: ${{ secrets.S3_USER }}
+      S3_PASSWORD: ${{ secrets.S3_PASSWORD }}
+      S3_NAME: "hackerspace-dev-s3"
       LHCI_TOKEN: ${{ secrets.LHCI_BUILD_TOKEN }}
-      MATRIX_SHARED_SECRET: " "
     steps:
       - name: Checkout
         uses: actions/checkout@v4
