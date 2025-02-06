@@ -19,7 +19,7 @@ jobs:
         run: biome ci .
   performance-audit:
     name: Lighthouse Performance Audit
-    runs-on: noodlebar
+    runs-on: [self-hosted, noodlebar]
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
