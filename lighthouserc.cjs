@@ -5,6 +5,9 @@ const PAGES_EXCLUDED = ['news', 'events', 'storage'];
 const config = {
   ci: {
     collect: {
+      settings: {
+        hostname: '127.0.0.1'
+      },
       url: [
         'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
         'http://localhost:3000/en/auth',
