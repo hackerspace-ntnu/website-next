@@ -7,7 +7,10 @@ import { buttonVariants } from '@/components/ui/Button';
 import { Link, usePathname } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
-function SidebarNav({ className }: { className?: string }) {
+function SidebarNav({
+  className,
+  showAdministratorMenu,
+}: { className?: string; showAdministratorMenu: boolean }) {
   const t = useTranslations('settings');
   const pathname = usePathname();
 
@@ -54,18 +57,20 @@ function SidebarNav({ className }: { className?: string }) {
       >
         {t('notifications.title')}
       </Link>
-      <Link
-        href='/settings/notifications'
-        className={cx(
-          buttonVariants({ variant: 'ghost' }),
-          pathname === '/settings/administrator'
-            ? 'bg-muted hover:bg-muted'
-            : 'hover:bg-transparent hover:underline',
-          'min-w-fit justify-start',
-        )}
-      >
-        {t('administrator.title')}
-      </Link>
+      {showAdministratorMenu && (
+        <Link
+          href='/settings/administrator'
+          className={cx(
+            buttonVariants({ variant: 'ghost' }),
+            pathname === '/settings/administrator'
+              ? 'bg-muted hover:bg-muted'
+              : 'hover:bg-transparent hover:underline',
+            'min-w-fit justify-start',
+          )}
+        >
+          {t('administrator.title')}
+        </Link>
+      )}
     </nav>
   );
 }

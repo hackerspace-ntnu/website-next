@@ -16,7 +16,7 @@ function shouldBypassI18n(pathname: string): boolean {
   return BYPASS_PATHS.some((path) => pathname.startsWith(path));
 }
 
-function handleI18nResponse(request: NextRequest): NextResponse {
+function handleI18nResponse(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (shouldBypassI18n(pathname)) {
@@ -26,7 +26,7 @@ function handleI18nResponse(request: NextRequest): NextResponse {
   return handleI18nRouting(request);
 }
 
-export async function middleware(request: NextRequest): Promise<NextResponse> {
+export async function middleware(request: NextRequest) {
   if (request.method === 'GET') {
     if (!(await globalGETRateLimit())) {
       return NextResponse.redirect(

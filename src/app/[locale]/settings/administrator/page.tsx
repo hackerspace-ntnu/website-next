@@ -1,5 +1,6 @@
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
   const t = await getTranslations('settings.administrator');
@@ -18,6 +19,15 @@ export default async function AdminPage({
   setRequestLocale(locale);
 
   const { user } = await api.auth.state();
+
+  const showAdministratorMenu = user?.groups.some(
+    (group) => group === 'leadership' || group === 'admin',
+  );
+
+  if (!showAdministratorMenu) {
+    notFound();
+  }
+
   return (
     <div>
       <h1>admin?</h1>

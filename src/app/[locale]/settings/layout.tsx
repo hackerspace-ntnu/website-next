@@ -30,11 +30,15 @@ export default async function SettingsLayout({
   const t = await getTranslations('settings');
   const t_layout = await getTranslations('layout');
 
-  const { session } = await api.auth.state();
+  const { session, user } = await api.auth.state();
 
   if (!session) {
     notFound();
   }
+
+  const showAdministratorMenu = user?.groups.some(
+    (group) => group === 'leadership' || group === 'admin',
+  );
 
   return (
     <Main className='h-full'>
@@ -62,7 +66,7 @@ export default async function SettingsLayout({
             messages={{ settings, ui } as Pick<Messages, 'settings' | 'ui'>}
           >
             <aside className='-mx-4 lg:w-1/5'>
-              <SidebarNav />
+              <SidebarNav showAdministratorMenu={showAdministratorMenu} />
             </aside>
             <div className='h-full w-full flex-1 lg:max-w-2xl'>{children}</div>
           </NextIntlClientProvider>
