@@ -1,5 +1,5 @@
 import { db } from '@/server/db';
-import { groups, sessions, users, usersGroups } from '@/server/db/tables';
+import { groups, sessions, userGroups, users } from '@/server/db/tables';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeHexLowerCase } from '@oslojs/encoding';
 import { eq } from 'drizzle-orm';
@@ -16,8 +16,8 @@ async function validateSessionToken(token: string) {
     })
     .from(sessions)
     .innerJoin(users, eq(sessions.userId, users.id))
-    .leftJoin(usersGroups, eq(users.id, usersGroups.userId))
-    .leftJoin(groups, eq(usersGroups.groupId, groups.id))
+    .leftJoin(userGroups, eq(users.id, userGroups.userId))
+    .leftJoin(groups, eq(userGroups.groupId, groups.id))
     .where(eq(sessions.id, sessionId));
 
   if (result.length < 1) {

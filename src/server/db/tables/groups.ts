@@ -18,8 +18,8 @@ const groups = pgTable('groups', {
   identifier: groupIdentifiersEnum('identifier').unique().notNull(),
 });
 
-const usersGroups = pgTable(
-  'users_groups',
+const userGroups = pgTable(
+  'user_groups',
   {
     userId: integer('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
@@ -31,38 +31,38 @@ const usersGroups = pgTable(
   (table) => {
     return [
       primaryKey({ columns: [table.userId, table.groupId] }),
-      index('users_groups_user_id_idx').on(table.userId),
-      index('users_groups_skill_id_idx').on(table.groupId),
+      index('user_groups_user_id_idx').on(table.userId),
+      index('user_groups_skill_id_idx').on(table.groupId),
     ];
   },
 );
 
 const groupsRelations = relations(groups, ({ many }) => ({
-  usersGroups: many(usersGroups),
+  usersGroups: many(userGroups),
 }));
 
-const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
+const userGroupsRelations = relations(userGroups, ({ one }) => ({
   skill: one(groups, {
-    fields: [usersGroups.groupId],
+    fields: [userGroups.groupId],
     references: [groups.id],
   }),
   user: one(users, {
-    fields: [usersGroups.userId],
+    fields: [userGroups.userId],
     references: [users.id],
   }),
 }));
 
 type SelectGroup = InferSelectModel<typeof groups>;
 type InsertGroup = InferInsertModel<typeof groups>;
-type SelectUserGroup = InferSelectModel<typeof usersGroups>;
-type InsertUserGroup = InferInsertModel<typeof usersGroups>;
+type SelectUserGroup = InferSelectModel<typeof userGroups>;
+type InsertUserGroup = InferInsertModel<typeof userGroups>;
 
 export {
   groupIdentifiersEnum,
   groups,
-  usersGroups,
+  userGroups,
   groupsRelations,
-  usersGroupsRelations,
+  userGroupsRelations,
   type SelectGroup,
   type InsertGroup,
   type SelectUserGroup,
