@@ -45,7 +45,7 @@ async function insertFile(
     throw new Error('Failed to insert file record');
   }
 
-  s3.uploadFile(directory, String(file.id), buffer, contentType);
+  s3.uploadFile(directory, String(file.id), buffer, file.contentType);
 
   return file;
 }

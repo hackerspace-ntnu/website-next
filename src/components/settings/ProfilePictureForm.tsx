@@ -76,6 +76,7 @@ function ProfilePictureForm({
                           if (file) {
                             const base64String = await fileToBase64String(file);
                             setPreviewImage(base64String);
+                            field.handleChange(base64String);
                           }
                         }}
                       />

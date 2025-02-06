@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
+// Maybe create a reusable function for file upload schema
 function profilePictureSchema(t: Translations) {
   return z.object({
     profilePicture: z
