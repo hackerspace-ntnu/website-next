@@ -27,7 +27,7 @@ export default async function RulesPage({
   const internal = rules.filter((rule) => rule.internal);
   const notInternal = rules.filter((rule) => !rule.internal);
   const t = await getTranslations('rules');
-  const isMember = false;
+  const isMember = true;
 
   return (
     <div className='flex shrink flex-wrap justify-center p-4 md:flex-nowrap md:space-x-5'>
