@@ -92,6 +92,7 @@
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til matrix",
+    "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -228,5 +229,10 @@
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert"
+  },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
   }
 }
