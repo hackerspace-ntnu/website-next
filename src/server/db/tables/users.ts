@@ -2,8 +2,8 @@ import {
   emailVerificationRequests,
   files,
   sessions,
-  usersGroups,
-  usersSkills,
+  userGroups,
+  userSkills,
 } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
@@ -60,8 +60,8 @@ const users = pgTable(
 
 const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
-  usersGroups: many(usersGroups),
-  usersSkills: many(usersSkills),
+  usersGroups: many(userGroups),
+  usersSkills: many(userSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
 }));
