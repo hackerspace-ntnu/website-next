@@ -43,6 +43,10 @@ jobs:
           fetch-depth: 20
       - name: Fetch base_ref HEAD
         run: git fetch --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: Setup bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -51,8 +55,6 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build
         run: bun run build
-      - name: Set fnm enviroment variables
-        run: fnm env
       - name: Run Lighthouse
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
