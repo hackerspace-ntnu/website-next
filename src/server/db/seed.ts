@@ -19,6 +19,8 @@ import { reset } from 'drizzle-seed';
 import { hashPassword } from '@/server/auth/password';
 import { db } from '@/server/db';
 
+// To generate fake data use these helpers
+const locales = routing.locales;
 const faker = {
   en: fakerEN,
   no: fakerNB_NO,
