@@ -53,9 +53,10 @@ jobs:
           bun-version: latest
       - name: Setup Chrome
         id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: abhi1693/setup-browser@v0.3.4
         with:
-          install-chromedriver: true
+          browser: chrome
+          version: latest
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Setup Cache
@@ -72,7 +73,7 @@ jobs:
       - name: Run Lighthouse
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.path }}
         run: |
           bun add -g @lhci/cli@0.14.x
           lhci autorun
