@@ -51,6 +51,8 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Build
