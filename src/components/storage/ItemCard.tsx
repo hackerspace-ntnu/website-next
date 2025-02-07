@@ -7,13 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import { api } from '@/lib/api/server';
+import type { SelectStorageItem } from '@/server/db/tables';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 function ItemCard({
   item,
 }: {
-  item: StorageItem;
+  item: SelectStorageItem;
 }) {
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import type { SelectStorageItem } from '@/server/db/tables';
 import { cx } from 'cva';
 
 // TODO: Type must be replaced by the type provided from database ORM.
@@ -22,7 +23,7 @@ export type CartItem = {
 
 type AddToCartButtonProps = {
   className?: string;
-  item: StorageItem;
+  item: SelectStorageItem;
   t: {
     addToCart: string;
     removeFromCart: string;

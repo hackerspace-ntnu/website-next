@@ -1,9 +1,11 @@
 import { skillIdentifiers } from '@/lib/constants';
 import {
   type InsertSkill,
+  type InsertStorageItem,
   type InsertUser,
   type InsertUserSkill,
   skills,
+  storageItems,
   users,
   usersSkills,
 } from '@/server/db/tables';
@@ -73,6 +75,112 @@ async function main() {
   ];
   await db.insert(usersSkills).values(usersSkillsData);
   console.log('Userskills inserted');
+
+  console.log('Inserting storage items...');
+  const storageItemsData: InsertStorageItem[] = [
+    {
+      name: 'Laptop',
+      quantity: 15,
+      location: 'Storage Room A',
+    },
+    {
+      name: 'Desktop PC',
+      quantity: 10,
+      location: 'Workstation Area 1',
+    },
+    {
+      name: 'Monitor',
+      quantity: 20,
+      location: 'Storage Room B',
+    },
+    {
+      name: 'Keyboard',
+      quantity: 50,
+      location: 'Storage Room A',
+    },
+    {
+      name: 'Mouse',
+      quantity: 50,
+      location: 'Storage Room A',
+    },
+    {
+      name: 'Router',
+      quantity: 5,
+      location: 'Networking Room',
+    },
+    {
+      name: 'Ethernet Cable',
+      quantity: 100,
+      location: 'Networking Room',
+    },
+    {
+      name: 'External Hard Drive',
+      quantity: 25,
+      location: 'Storage Room B',
+    },
+    {
+      name: 'USB Flash Drive',
+      quantity: 75,
+      location: 'Storage Room B',
+    },
+    {
+      name: 'Power Supply Unit (PSU)',
+      quantity: 30,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'Graphics Card',
+      quantity: 12,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'RAM Module',
+      quantity: 40,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'Motherboard',
+      quantity: 10,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'CPU',
+      quantity: 10,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'SSD',
+      quantity: 20,
+      location: 'Storage Room C',
+    },
+    {
+      name: 'Network Switch',
+      quantity: 5,
+      location: 'Networking Room',
+    },
+    {
+      name: 'Soldering Iron',
+      quantity: 8,
+      location: 'Repair Station',
+    },
+    {
+      name: 'Multimeter',
+      quantity: 10,
+      location: 'Repair Station',
+    },
+    {
+      name: 'Screwdriver Set',
+      quantity: 20,
+      location: 'Toolbox 1',
+    },
+    {
+      name: 'Anti-static Wrist Strap',
+      quantity: 15,
+      location: 'Toolbox 2',
+    },
+  ];
+  await db.insert(storageItems).values(storageItemsData);
+  console.log('Storage items inserted');
 }
 
 await main();
