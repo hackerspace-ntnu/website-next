@@ -1,12 +1,13 @@
+import { EventTable } from '@/components/home/EventTable';
 import { HelloWorld } from '@/components/home/HelloWorld';
-import { RecentTable } from '@/components/home/RecentTable';
+import { NewsTable } from '@/components/home/NewsTable';
 import { TextBlock } from '@/components/home/TextBlock';
 import { Separator } from '@/components/ui/Separator';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
+import { articleMockData } from '@/mock-data/article';
+import { events } from '@/mock-data/events';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
 
 export default async function HomePage({
   params,
@@ -41,7 +42,7 @@ export default async function HomePage({
         <h2>{t('events')}</h2>
         <div className='flex gap-3'>
           <p>{t('eventsDescription')}</p>
-          <RecentTable />
+          <EventTable events={events.slice(0, 3)} />
         </div>
       </TextBlock>
       <Separator />
@@ -49,7 +50,7 @@ export default async function HomePage({
         <h2>{t('news')}</h2>
         <div className='flex gap-3 '>
           <p>{t('newsDescription')}</p>
-          <RecentTable />
+          <NewsTable articles={articleMockData.slice(0, 3)} />
         </div>
       </TextBlock>
       <div>
