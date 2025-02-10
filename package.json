@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
     "dev": "next dev",
-    "dev:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && docker compose -f compose.local.yml exec -T db pg_isready && bun run db:push && bun run db:seed",
+    "dev:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && bun run db:push && bun run db:seed",
     "dev:stop": "docker compose -f compose.local.yml down",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",

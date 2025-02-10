@@ -49,7 +49,7 @@
     "invalidCredentials": "Ugyldige påloggingsdetaljer",
     "matrixRegistrationFailed": "Matrix bruker registrering feilet",
     "createPassword": "Lag passord",
-    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix Chat eller din Hackerspace-konto",
+    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
     "form": {
@@ -92,6 +92,7 @@
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til matrix",
+    "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -116,6 +117,7 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
+    "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
     "reservations": "Reservasjoner"
@@ -213,8 +215,25 @@
       }
     }
   },
+  "events": {
+    "title": "Arrangementer",
+    "activeEvents": "Pågående arrangementer",
+    "upcomingEvents": "Kommende arrangementer",
+    "pastEvents": "Tidligere arrangementer",
+    "detailsAboutEvent": "Les mer om {eventName}",
+    "startsAt": "Starter kl.",
+    "startedAt": "Startet kl.",
+    "endsAt": "Slutter kl.",
+    "endedAt": "Sluttet kl.",
+    "backToEvents": "Tilbake til arrangementer"
+  },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert"
+  },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
   }
 }

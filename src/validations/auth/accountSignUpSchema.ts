@@ -1,8 +1,7 @@
-import { useValidationTranslations } from '@/server/api/locale';
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function accountSignUpSchema() {
-  const t = useValidationTranslations();
+function accountSignUpSchema(t: Translations) {
   return z.object({
     password: z
       .string()

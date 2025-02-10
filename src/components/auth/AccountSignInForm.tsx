@@ -18,13 +18,13 @@ import {
   useForm,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { Link } from '@/components/ui/Link';
 import type { TRPCClientError } from '@/lib/api/types';
-import { Link } from '../ui/Link';
 
 function AccountSignInForm() {
   const router = useRouter();
   const t = useTranslations('auth');
-  const formSchema = accountSignInSchema();
+  const formSchema = accountSignInSchema(useTranslations());
   const { isPending, setPending } = usePending();
   const signInMutation = api.auth.signIn.useMutation({
     onMutate: () => setPending(true),
@@ -71,7 +71,7 @@ function AccountSignInForm() {
               <FormLabel>{t('form.username.label')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='hackerman'
+                  placeholder='jimmy'
                   autoComplete='username'
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}

@@ -1,5 +1,12 @@
+import { contextStorage } from '@/server/api/context';
 import { trpc } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
+
+const contextMiddleware = trpc.middleware((opts) => {
+  return contextStorage.run(opts.ctx, async () => {
+    return await opts.next();
+  });
+});
 
 const timingMiddleware = trpc.middleware(async ({ next, path }) => {
   const start = Date.now();
@@ -16,8 +23,6 @@ const timingMiddleware = trpc.middleware(async ({ next, path }) => {
 
   return result;
 });
-
-const publicProcedure = trpc.procedure.use(timingMiddleware);
 
 const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
   const { user, session } = await ctx.auth();
@@ -36,6 +41,10 @@ const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
     },
   });
 });
+
+const procedureWithContext = trpc.procedure.use(contextMiddleware);
+
+const publicProcedure = procedureWithContext.use(timingMiddleware);
 
 const authenticatedProcedure = publicProcedure.use(authMiddleware);
 
