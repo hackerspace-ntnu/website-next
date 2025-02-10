@@ -1,9 +1,11 @@
 import { skillIdentifiers } from '@/lib/constants';
 import {
+  type InsertItemCategory,
   type InsertSkill,
   type InsertStorageItem,
   type InsertUser,
   type InsertUserSkill,
+  itemCategories,
   skills,
   storageItems,
   users,
@@ -54,7 +56,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('Inserting userskills...');
+  console.log('Inserting user skills...');
   const usersSkillsData: InsertUserSkill[] = [
     {
       userId: insertedUser[0]?.id ?? 0,
@@ -74,7 +76,22 @@ async function main() {
     },
   ];
   await db.insert(usersSkills).values(usersSkillsData);
-  console.log('Userskills inserted');
+  console.log('User skills inserted');
+
+  console.log('Inserting storage item categories...');
+  const storageItemCategories: InsertItemCategory[] = [
+    {
+      name: 'Cables',
+    },
+    { name: 'Sensors' },
+    {
+      name: 'PC peripherals',
+    },
+    { name: 'Mini PC' },
+  ];
+
+  await db.insert(itemCategories).values(storageItemCategories);
+  console.log('Storage item categories inserted');
 
   console.log('Inserting storage items...');
   const storageItemsData: InsertStorageItem[] = [
@@ -82,101 +99,121 @@ async function main() {
       name: 'Laptop',
       quantity: 15,
       location: 'Storage Room A',
+      categoryId: 4,
     },
     {
       name: 'Desktop PC',
       quantity: 10,
       location: 'Workstation Area 1',
+      categoryId: 4,
     },
     {
       name: 'Monitor',
       quantity: 20,
       location: 'Storage Room B',
+      categoryId: 3,
     },
     {
       name: 'Keyboard',
       quantity: 50,
       location: 'Storage Room A',
+      categoryId: 3,
     },
     {
       name: 'Mouse',
       quantity: 50,
       location: 'Storage Room A',
+      categoryId: 3,
     },
     {
       name: 'Router',
       quantity: 5,
       location: 'Networking Room',
+      categoryId: 3,
     },
     {
       name: 'Ethernet Cable',
       quantity: 100,
       location: 'Networking Room',
+      categoryId: 1,
     },
     {
       name: 'External Hard Drive',
       quantity: 25,
       location: 'Storage Room B',
+      categoryId: 3,
     },
     {
       name: 'USB Flash Drive',
       quantity: 75,
       location: 'Storage Room B',
+      categoryId: 3,
     },
     {
       name: 'Power Supply Unit (PSU)',
       quantity: 30,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'Graphics Card',
       quantity: 12,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'RAM Module',
       quantity: 40,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'Motherboard',
       quantity: 10,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'CPU',
       quantity: 10,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'SSD',
       quantity: 20,
       location: 'Storage Room C',
+      categoryId: 3,
     },
     {
       name: 'Network Switch',
       quantity: 5,
       location: 'Networking Room',
+      categoryId: 3,
     },
     {
       name: 'Soldering Iron',
       quantity: 8,
       location: 'Repair Station',
+      categoryId: 1,
     },
     {
       name: 'Multimeter',
       quantity: 10,
       location: 'Repair Station',
+      categoryId: 3,
     },
     {
       name: 'Screwdriver Set',
       quantity: 20,
       location: 'Toolbox 1',
+      categoryId: 3,
     },
     {
       name: 'Anti-static Wrist Strap',
       quantity: 15,
       location: 'Toolbox 2',
+      categoryId: 3,
     },
   ];
   await db.insert(storageItems).values(storageItemsData);

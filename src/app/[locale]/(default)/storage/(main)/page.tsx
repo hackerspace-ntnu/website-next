@@ -56,7 +56,7 @@ export default async function StoragePage({
       </div>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(items.length / itemsPerPage)}
+        totalPages={Math.ceil((await api.storage.itemsTotal()) / itemsPerPage)}
       />
     </>
   );
