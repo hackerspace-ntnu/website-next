@@ -1,5 +1,6 @@
 import { EventTable } from '@/components/home/EventTable';
 import { HelloWorld } from '@/components/home/HelloWorld';
+import { IntroBanner } from '@/components/home/IntroBanner';
 import { NewsTable } from '@/components/home/NewsTable';
 import { TextBlock } from '@/components/home/TextBlock';
 import { Separator } from '@/components/ui/Separator';
@@ -22,6 +23,7 @@ export default async function HomePage({
   const hello = await api.test.helloWorld();
   return (
     <div className='space-y-8'>
+      <IntroBanner />
       <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
         <p>{t('whoAreWeDescription')}</p>
