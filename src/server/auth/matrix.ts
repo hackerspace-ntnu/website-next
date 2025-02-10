@@ -1,4 +1,3 @@
-import * as fs from 'node:fs';
 import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
@@ -90,7 +89,7 @@ async function matrixChangePassword(username: string, newPassword: string) {
   const body = { new_password: `${newPassword}`, logout_devices: true };
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/@${username}:${env.MATRIX_SERVER_NAME}`,
     {
       method: 'POST',
       headers: headers,
@@ -103,17 +102,20 @@ async function matrixChangePassword(username: string, newPassword: string) {
 
 async function matrixChangeDisplayname(
   username: string,
-  newDisplayname: string,
+  firstName: string,
+  lastName: string,
 ) {
+  const displayName = `${firstName} + ${lastName}`;
+
   const headers = {
     Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
     'content-type': 'application/json',
   };
 
-  const body = { displayname: `${newDisplayname}` };
+  const body = { displayname: `${displayName}` };
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
     {
       method: 'PUT',
       headers: headers,
@@ -124,48 +126,35 @@ async function matrixChangeDisplayname(
   return response;
 }
 
-async function matrixUploadMedia(pathToMediaFile: string, filetype: string) {
-  const fileBuffer = fs.readFileSync(pathToMediaFile);
-
+async function matrixUploadMedia(buffer: Buffer, filetype: string) {
   const headers = {
     Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'Content-Type': `image/${filetype}`,
+    'Content-Type': 'contentType',
   };
-
-  const data = fileBuffer;
 
   const response = await fetch(
     `${env.MATRIX_ENDPOINT}/_matrix/media/v3/upload`,
     {
       method: 'POST',
       headers: headers,
-      body: data,
+      body: buffer,
     },
   );
 
   return response.json();
 }
 
-async function matrixChangeAvatar(
-  username: string,
-  imagePath: string,
-  filetype: string,
-) {
-  const uploadResponse = await matrixUploadMedia(imagePath, filetype);
-
-  const imageUri = uploadResponse.content_uri;
-  console.log(imageUri);
-
+async function matrixChangeAvatar(username: string, mxcURL: string) {
   const headers = {
     Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
   };
 
-  const data = JSON.stringify({ avatar_url: imageUri });
+  const data = JSON.stringify({ avatar_url: mxcURL });
   console.log(data);
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/v2/users/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
     {
       method: 'PUT',
       headers: headers,
@@ -194,9 +183,27 @@ async function matrixChangeEmailPhonenumber(
   };
 
   const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/synapse_/admin/v2/users/@${username}:hackerspace-ntnu.no`,
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
     {
       method: 'PUT',
+      headers: headers,
+      body: JSON.stringify(data),
+    },
+  );
+  return response;
+}
+
+async function matrixEraseUser(username: string) {
+  const headers = {
+    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
+  };
+
+  const data = { erase: true };
+
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/deactivate/@${username}:${env.MATRIX_SERVER_NAME}`,
+    {
+      method: 'POST',
       headers: headers,
       body: JSON.stringify(data),
     },
@@ -205,13 +212,7 @@ async function matrixChangeEmailPhonenumber(
   return response;
 }
 
-const a = await matrixChangeEmailPhonenumber(
-  'haakwil',
-  'haakwil@stud.ntnu.no',
-  '4741609777',
-);
-console.log(a);
-
+export { matrixEraseUser };
 export { matrixChangeEmailPhonenumber };
 export { matrixChangeAvatar };
 export { matrixUploadMedia };
