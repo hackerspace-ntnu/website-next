@@ -184,10 +184,18 @@ If you want to access the storage server locally in a web browser you can always
 Then you can run the development server and see the website:
 
 ```bash
-bun dev --turbo
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To work on emails run:
+
+```bash
+bun run email:dev
+```
+
+For static assets to work, you need to run the development server as well.
 
 ### Build
 
