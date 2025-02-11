@@ -2,6 +2,7 @@ import type { routing } from '@/lib/locale';
 import {
   Body,
   Container,
+  Font,
   Head,
   Html,
   Preview,
@@ -11,17 +12,40 @@ import {
 function Wrapper({
   children,
   previewText,
+  publicSiteUrl,
   locale,
   theme,
 }: {
   children: React.ReactNode;
   previewText: string;
+  publicSiteUrl: string;
   locale: (typeof routing.locales)[number];
   theme: 'dark' | 'light';
 }) {
   return (
     <Html lang={locale} dir='ltr'>
-      <Head />
+      <Head>
+        <Font
+          fontFamily='Inter'
+          fallbackFontFamily='Arial'
+          webFont={{
+            url: `${publicSiteUrl}/static/fonts/inter-regular.woff2`,
+            format: 'woff2',
+          }}
+          fontWeight={400}
+          fontStyle='normal'
+        />
+        <Font
+          fontFamily='Montserrat'
+          fallbackFontFamily={['Helvetica', 'Arial', 'sans-serif']}
+          webFont={{
+            url: `${publicSiteUrl}/static/fonts/montserrat-semibold.woff2`,
+            format: 'woff2',
+          }}
+          fontWeight={600}
+          fontStyle='normal'
+        />
+      </Head>
       <Preview>{previewText}</Preview>
       <Tailwind
         config={{
@@ -81,7 +105,20 @@ function Wrapper({
             extend: {
               fontFamily: {
                 inter: [
-                  "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+                  'Inter',
+                  'Arial',
+                  'Helvetica',
+                  '-apple-system',
+                  'BlinkMacSystemFont',
+                  'sans-serif',
+                ],
+                montserrat: [
+                  'Montserrat',
+                  'Trebuchet MS',
+                  'Lucida Grande',
+                  'Helvetica Neue',
+                  'Arial',
+                  'sans-serif',
                 ],
               },
               colors: {

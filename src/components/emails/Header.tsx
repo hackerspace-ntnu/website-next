@@ -10,14 +10,16 @@ function Header({
         <Row>
           <Column>
             <Img
-              src={`${publicSiteUrl}/static/logo.svg`}
+              src={`${publicSiteUrl}/static/images/logo.svg`}
               width='64'
               height='64'
               alt='Hackerspace NTNU'
             />
           </Column>
           <Column>
-            <p className='font-bold text-lg'>Hackerspace NTNU</p>
+            <span className='font-montserrat font-semibold text-xl'>
+              HACKERSPACE NTNU
+            </span>
           </Column>
         </Row>
       </Section>
