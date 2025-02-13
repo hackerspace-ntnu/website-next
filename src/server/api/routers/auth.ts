@@ -34,7 +34,7 @@ import { headers } from 'next/headers';
 
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
-import { registerMatrixUser } from '@/server/auth/matrix';
+import { matrixRegisterUser } from '@/server/auth/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -161,11 +161,12 @@ const authRouter = createRouter({
         env.MATRIX_SERVER_NAME &&
         env.MATRIX_ENDPOINT &&
         env.MATRIX_SECRET &&
+        env.MATRIX_ACCESS_TOKEN &&
         env.NEXT_PUBLIC_MATRIX_CLIENT_URL
       ) {
         try {
           const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-          await registerMatrixUser(
+          await matrixRegisterUser(
             ctx.user.username,
             displayname,
             input.password,

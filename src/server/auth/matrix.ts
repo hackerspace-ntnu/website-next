@@ -2,22 +2,40 @@ import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
 
+const headers = {
+  'content-type': 'application/json',
+};
+
+const authorizedHeaders = {
+  authorization: `bearer ${env.MATRIX_ACCESS_TOKEN}`,
+  ...headers,
+};
+
+function getMatrixUsername(username: string) {
+  return `@${username}:${env.MATRIX_SERVER_NAME}`;
+}
+
 async function getNonce() {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
-    method: 'GET',
-    signal: controller.signal,
-  });
+  try {
+    const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
+      method: 'GET',
+      headers,
+      signal: controller.signal,
+    });
 
-  clearTimeout(timeout);
-
-  if (!response.ok) {
-    throw new Error(`HTTP Error! Status: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(
+        `Matrix nonce request failed: ${response.status} ${response.statusText}`,
+      );
+    }
+    const data = await response.json();
+    return data.nonce;
+  } finally {
+    clearTimeout(timeout);
   }
-  const data = await response.json();
-  return data.nonce;
 }
 
 function generateHMAC(
@@ -52,7 +70,7 @@ function generateHMAC(
     .join('');
 }
 
-async function registerMatrixUser(
+async function matrixRegisterUser(
   username: string,
   displayname: string,
   password: string,
@@ -60,53 +78,65 @@ async function registerMatrixUser(
 ) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
-  const nonce = await getNonce();
-  const hmac = generateHMAC(nonce, username, password);
 
-  const data = {
-    nonce,
-    username,
-    displayname,
-    password,
-    admin,
-    mac: hmac,
-  };
+  try {
+    const nonce = await getNonce();
+    const hmac = generateHMAC(nonce, username, password);
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/register`,
-    {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    },
-  );
+    const data = {
+      nonce,
+      username,
+      displayname,
+      password,
+      admin,
+      mac: hmac,
+    };
 
-  clearTimeout(timeout);
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/register`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(data),
+        signal: controller.signal,
+      },
+    );
 
-  if (!response.ok) {
-    throw new Error(`Matrix registration failed: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(
+        `Matrix registration failed: ${response.status} ${response.statusText}`,
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
 async function matrixChangePassword(username: string, newPassword: string) {
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'content-type': 'application/json',
-  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const body = { new_password: `${newPassword}`, logout_devices: true };
+  try {
+    const data = { new_password: `${newPassword}`, logout_devices: true };
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/@${username}:${env.MATRIX_SERVER_NAME}`,
-    {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(body),
-    },
-  );
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/${getMatrixUsername(username)}`,
+      {
+        method: 'POST',
+        headers: authorizedHeaders,
+        body: JSON.stringify(data),
+        signal: controller.signal,
+      },
+    );
 
-  return response;
+    if (!response.ok) {
+      throw new Error(
+        `Matrix password change failed for ${username}: ${response.status} ${response.statusText}`,
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function matrixChangeDisplayname(
@@ -114,117 +144,160 @@ async function matrixChangeDisplayname(
   firstName: string,
   lastName: string,
 ) {
-  const displayName = `${firstName} + ${lastName}`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'content-type': 'application/json',
-  };
+  try {
+    const body = { displayname: `${firstName} + ${lastName}` };
 
-  const body = { displayname: `${displayName}` };
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
+      {
+        method: 'PUT',
+        headers: authorizedHeaders,
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      },
+    );
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
-    {
-      method: 'PUT',
-      headers: headers,
-      body: JSON.stringify(body),
-    },
-  );
-
-  return response;
+    if (!response.ok) {
+      throw new Error(
+        `Matrix displayname change failed for ${username}: ${response.status} ${response.statusText}`,
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
-async function matrixUploadMedia(buffer: Buffer, filetype: string) {
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'Content-Type': 'contentType',
-  };
+async function matrixUploadMedia(buffer: Buffer, contentType: string) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_matrix/media/v3/upload`,
-    {
-      method: 'POST',
-      headers: headers,
-      body: buffer,
-    },
-  );
+  try {
+    const headers = {
+      authorization: `bearer ${env.MATRIX_ACCESS_TOKEN}`,
+      'content-type': contentType,
+    };
 
-  return response.json();
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_matrix/media/v3/upload`,
+      {
+        method: 'POST',
+        headers,
+        body: buffer,
+        signal: controller.signal,
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Matrix media upload failed: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    const data: {
+      content_uri: string;
+    } = await response.json();
+
+    return data.content_uri;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
-async function matrixChangeAvatar(username: string, mxcURL: string) {
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'Content-Type': 'application/json',
-  };
+async function matrixChangeAvatar(username: string, MxcUrl: string) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const data = JSON.stringify({ avatar_url: mxcURL });
-  console.log(data);
+  try {
+    const body = { avatar_url: MxcUrl };
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
-    {
-      method: 'PUT',
-      headers: headers,
-      body: data,
-    },
-  );
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
+      {
+        method: 'PUT',
+        headers: authorizedHeaders,
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      },
+    );
 
-  return response;
+    if (!response.ok) {
+      throw new Error(
+        `Matrix avatar change failed for ${username}: ${response.status} ${response.statusText}`,
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
-async function matrixChangeEmailPhonenumber(
+async function matrixChangeEmailAndPhonenumber(
   username: string,
   email: string,
   phonenumber: string,
 ) {
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-    'Content-Type': 'application/json',
-  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const data = {
-    threepids: [
-      { medium: 'email', address: `${email}` },
-      { medium: 'msisdn', address: `${phonenumber}` },
-    ],
-  };
+  try {
+    const data = {
+      threepids: [
+        { medium: 'email', address: `${email}` },
+        { medium: 'msisdn', address: `${phonenumber}` },
+      ],
+    };
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
-    {
-      method: 'PUT',
-      headers: headers,
-      body: JSON.stringify(data),
-    },
-  );
-  return response;
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
+      {
+        method: 'PUT',
+        headers: authorizedHeaders,
+        body: JSON.stringify(data),
+        signal: controller.signal,
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Matrix email and phonenumber change failed for ${username}: ${response.status} ${response.statusText}`,
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function matrixEraseUser(username: string) {
-  const headers = {
-    Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
 
-  const data = { erase: true };
+  try {
+    const body = { erase: true };
 
-  const response = await fetch(
-    `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/deactivate/@${username}:${env.MATRIX_SERVER_NAME}`,
-    {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(data),
-    },
-  );
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/deactivate/${getMatrixUsername(username)}`,
+      {
+        method: 'POST',
+        headers: authorizedHeaders,
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      },
+    );
 
-  return response;
+    return response;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
-export { matrixEraseUser };
-export { matrixChangeEmailPhonenumber };
-export { matrixChangeAvatar };
-export { matrixUploadMedia };
-export { matrixChangeDisplayname };
-export { matrixChangePassword };
-export { registerMatrixUser };
+export {
+  matrixRegisterUser,
+  matrixChangePassword,
+  matrixChangeDisplayname,
+  matrixUploadMedia,
+  matrixChangeAvatar,
+  matrixChangeEmailAndPhonenumber,
+  matrixEraseUser,
+};
