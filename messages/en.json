@@ -94,6 +94,7 @@
     "shiftSchedule": "Shift Schedule",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to matrix",
+    "rules": "Rules",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",

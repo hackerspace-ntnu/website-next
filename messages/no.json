@@ -94,6 +94,7 @@
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til matrix",
+    "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
