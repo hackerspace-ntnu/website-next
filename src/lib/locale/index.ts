@@ -24,6 +24,10 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
+    '/too-many-requests': {
+      en: '/too-many-requests',
+      no: '/for-mange-forespørsler',
+    },
     '/auth': {
       en: '/auth',
       no: '/autentisering',
@@ -47,6 +51,18 @@ const routing = defineRouting({
     '/settings': {
       en: '/settings',
       no: '/instillinger',
+    },
+    '/settings/account': {
+      en: '/settings/account',
+      no: '/instillinger/konto',
+    },
+    '/settings/notifications': {
+      en: '/settings/notifications',
+      no: '/instillinger/notifikasjoner',
+    },
+    '/settings/administrator': {
+      en: '/settings/administrator',
+      no: '/instillinger/administrator',
     },
     '/events': {
       en: '/events',

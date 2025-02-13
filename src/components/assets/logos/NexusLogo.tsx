@@ -156,8 +156,8 @@ function NexusLogo({ className, ...props }: React.SVGProps<SVGSVGElement>) {
           gradientUnits='userSpaceOnUse'
           gradientTransform='matrix(-346.768,-200.566,200.566,-346.768,355.893,303.461)'
         >
-          <stop offset='0' style={{ stopColor: '#3cbebc' }} />
-          <stop offset='1' style={{ stopColor: '#03589e' }} />
+          <stop offset='0' stopColor='#3cbebc' />
+          <stop offset='1' stopColor='#03589e' />
         </linearGradient>
       </defs>
     </svg>

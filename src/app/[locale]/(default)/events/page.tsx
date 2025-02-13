@@ -4,14 +4,8 @@ import { ExternalLink } from '@/components/ui/Link';
 import { events } from '@/mock-data/events';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('events'),

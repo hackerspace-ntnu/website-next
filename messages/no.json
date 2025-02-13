@@ -30,6 +30,8 @@
     "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "tooManyRequests": "For mange forespørsler",
+    "tooManyRequestsDescription": "Vennligst vent litt og prøv igjen.",
     "goToHomepage": "Gå tilbake til hjemmesiden",
     "tryAgain": "Prøv igjen",
     "invalidLocale": "Ugyldig språk: {locale}"
@@ -120,6 +122,55 @@
     "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "settings": {
+    "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "profile": {
+      "title": "Profil",
+      "updateProfile": "Oppdater profil",
+      "updateFailed": "Kunne ikke oppdatere profil",
+      "updateSuccess": "Profil oppdatert",
+      "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
+      "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
+      "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "profilePicture": {
+        "label": "Profilbilde",
+        "mustBeImage": "Profilbilde må være et bilde",
+        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "sizeLimit": "Profilbilde må være mindre enn {size} MB"
+      },
+      "firstName": {
+        "label": "Fornavn",
+        "required": "Fornavn er påkrevd",
+        "minLength": "Fornavn må være minst {count} tegn",
+        "maxLength": "Fornavn må være mindre enn {count} tegn",
+        "general": "Er fornavnet ditt riktig?"
+      },
+      "lastName": {
+        "label": "Etternavn",
+        "required": "Etternavn er påkrevd",
+        "minLength": "Etternavn må være minst {count} tegn",
+        "maxLength": "Etternavn må være mindre enn {count} tegn",
+        "general": "Er etternavnet ditt riktig?"
+      },
+      "birthDate": {
+        "label": "Fødselsdato",
+        "required": "Fødselsdato er påkrevd",
+        "invalid": "Ugyldig fødselsdato",
+        "minAge": "Du må være minst {age} år",
+        "maxAge": "Du må være under {age} år"
+      }
+    },
+    "account": {
+      "title": "Konto"
+    },
+    "notifications": {
+      "title": "Varsler"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
   },
   "news": {
     "title": "Nyheter",
@@ -228,7 +279,9 @@
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
-    "notAuthenticated": "Ikke autentisert"
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet"
   },
   "rules": {
     "title": "Regler",

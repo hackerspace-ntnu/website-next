@@ -30,6 +30,8 @@
     "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
+    "tooManyRequests": "Too Many Requests",
+    "tooManyRequestsDescription": "Please wait a moment before trying again.",
     "goToHomepage": "Return to homepage",
     "tryAgain": "Try again",
     "invalidLocale": "Invalid locale: {locale}"
@@ -107,7 +109,7 @@
     "haveYouFoundA": "Have you found a",
     "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
-    "allWeekdays": "Mon-Fri",
+    "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
     "sendAnEmail": "Send an email",
     "visitSlack": "Visit Slack",
@@ -120,6 +122,55 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "settings": {
+    "manageAccountSettings": "Manage your account settings and set preferences.",
+    "profile": {
+      "title": "Profile",
+      "updateProfile": "Update profile",
+      "updateFailed": "Failed to update profile",
+      "updateSuccess": "Profile updated successfully",
+      "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureFailed": "Failed to update profile picture",
+      "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "updateProfilePictureTooltip": "Click to change profile picture",
+      "profilePicture": {
+        "label": "Profile picture",
+        "mustBeImage": "Profile picture must be an image",
+        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "sizeLimit": "Profile picture must be less than {size} MB"
+      },
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "minLength": "First name must be at least {count} characters",
+        "maxLength": "First name must be less than {count} characters",
+        "general": "Is your first name correct?"
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "minLength": "Last name must be at least {count} characters",
+        "maxLength": "Last name must be less than {count} characters",
+        "general": "Is your last name correct?"
+      },
+      "birthDate": {
+        "label": "Birth date",
+        "required": "Birth date is required",
+        "invalid": "Birth date is invalid",
+        "minAge": "You must be at least {age} years old",
+        "maxAge": "You must be less than {age} years old"
+      }
+    },
+    "account": {
+      "title": "Account"
+    },
+    "notifications": {
+      "title": "Notifications"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
   },
   "news": {
     "title": "News",
@@ -228,7 +279,9 @@
   },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
-    "notAuthenticated": "Not authenticated"
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found"
   },
   "rules": {
     "title": "Rules",

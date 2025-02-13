@@ -1,3 +1,15 @@
+const groupIdentifiers = [
+  'devops',
+  'labops',
+  'leadership',
+  'management',
+  'representative',
+  'ttrpg',
+  'breadboard',
+  'pang',
+  'admin',
+] as const;
+
 const skillIdentifiers = [
   'printing',
   'soldering',
@@ -8,4 +20,4 @@ const skillIdentifiers = [
   'microcontroller',
 ] as const;
 
-export { skillIdentifiers };
+export { groupIdentifiers, skillIdentifiers };

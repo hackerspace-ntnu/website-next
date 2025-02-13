@@ -1,13 +1,14 @@
-import { env } from '@/env';
 import {
   authenticatedProcedure,
   publicProcedure,
+  registrationProcedure,
 } from '@/server/api/procedures';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
 import {
   createFeideAuthorization,
+  isFeideServiceConfigured,
   setFeideAuthorizationCookies,
 } from '@/server/auth/feide';
 import {
@@ -33,7 +34,7 @@ import { headers } from 'next/headers';
 
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
-import { registerMatrixUser } from '@/server/auth/matrix';
+import { isMatrixConfigured, matrixRegisterUser } from '@/server/auth/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -63,16 +64,7 @@ const authRouter = createRouter({
       });
     }
 
-    if (
-      !(
-        env.FEIDE_CLIENT_ID &&
-        env.FEIDE_CLIENT_SECRET &&
-        env.FEIDE_AUTHORIZATION_ENDPOINT &&
-        env.FEIDE_TOKEN_ENDPOINT &&
-        env.FEIDE_USERINFO_ENDPOINT &&
-        env.FEIDE_EXTENDED_USERINFO_ENDPOINT
-      )
-    ) {
+    if (!isFeideServiceConfigured()) {
       throw new TRPCError({
         code: 'SERVICE_UNAVAILABLE',
         message: ctx.t('auth.feideNotConfigured'),
@@ -131,7 +123,7 @@ const authRouter = createRouter({
       const session = await createSession(sessionToken, user.id);
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
-  signUp: authenticatedProcedure
+  signUp: registrationProcedure
     .input((input) =>
       accountSignUpSchema(useTranslationsFromContext()).parse(input),
     )
@@ -156,15 +148,10 @@ const authRouter = createRouter({
         });
       }
 
-      if (
-        env.MATRIX_SERVER_NAME &&
-        env.MATRIX_ENDPOINT &&
-        env.MATRIX_SECRET &&
-        env.NEXT_PUBLIC_MATRIX_CLIENT_URL
-      ) {
+      if (isMatrixConfigured()) {
         try {
           const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-          await registerMatrixUser(
+          await matrixRegisterUser(
             ctx.user.username,
             displayname,
             input.password,
