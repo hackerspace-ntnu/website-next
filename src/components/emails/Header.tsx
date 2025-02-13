@@ -1,4 +1,11 @@
-import { Column, Heading, Img, Row, Section } from '@react-email/components';
+import {
+  Column,
+  Heading,
+  Img,
+  Link,
+  Row,
+  Section,
+} from '@react-email/components';
 
 function Header({
   title,
@@ -9,12 +16,14 @@ function Header({
       <Section>
         <Row>
           <Column>
-            <Img
-              src={`${publicSiteUrl}/static/images/logo.svg`}
-              width='64'
-              height='64'
-              alt='Hackerspace NTNU'
-            />
+            <Link href='https://beta.hackerspace-ntnu.no'>
+              <Img
+                src={`${publicSiteUrl}/static/images/logo.svg`}
+                width='64'
+                height='64'
+                alt='Hackerspace NTNU'
+              />
+            </Link>
           </Column>
           <Column>
             <span className='font-montserrat font-semibold text-xl'>

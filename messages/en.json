@@ -108,7 +108,7 @@
     "haveYouFoundA": "Have you found a",
     "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
-    "allWeekdays": "Mon-Fri",
+    "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
     "sendAnEmail": "Send an email",
     "visitSlack": "Visit Slack",

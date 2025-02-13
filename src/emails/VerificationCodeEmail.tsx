@@ -1,7 +1,8 @@
+import { Footer } from '@/components/emails/Footer';
 import { Header } from '@/components/emails/Header';
 import { Wrapper } from '@/components/emails/Wrapper';
 import type { routing } from '@/lib/locale';
-import { Button, Section, Text } from '@react-email/components';
+import { Section, Text } from '@react-email/components';
 
 export default function VerificationCodeEmail({
   locale = 'en',
@@ -50,7 +51,7 @@ export default function VerificationCodeEmail({
         })()}
       </Text>
       <Section className='mb-8 rounded-lg bg-muted px-2.5 py-10'>
-        <Text className='text-center align-middle font-mono text-3xl'>
+        <Text className='text-center align-middle font-montserrat text-3xl'>
           {validationCode}
         </Text>
       </Section>
@@ -64,9 +65,7 @@ export default function VerificationCodeEmail({
           }
         })()}
       </Text>
-      <Button className='rounded-lg bg-primary px-4 py-2 text-primary-foreground'>
-        Click me
-      </Button>
+      <Footer publicSiteUrl={publicSiteUrl} locale={locale} theme={theme} />
     </Wrapper>
   );
 }
