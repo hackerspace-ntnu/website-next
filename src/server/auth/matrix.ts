@@ -11,6 +11,16 @@ const authorizedHeaders = {
   ...headers,
 };
 
+function isMatrixConfigured() {
+  return (
+    env.MATRIX_SERVER_NAME &&
+    env.MATRIX_ENDPOINT &&
+    env.MATRIX_SECRET &&
+    env.MATRIX_ACCESS_TOKEN &&
+    env.NEXT_PUBLIC_MATRIX_CLIENT_URL
+  );
+}
+
 function getMatrixUsername(username: string) {
   return `@${username}:${env.MATRIX_SERVER_NAME}`;
 }
@@ -300,4 +310,5 @@ export {
   matrixChangeAvatar,
   matrixChangeEmailAndPhonenumber,
   matrixEraseUser,
+  isMatrixConfigured,
 };

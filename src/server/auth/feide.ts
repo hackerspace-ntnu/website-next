@@ -42,6 +42,17 @@ type ExtendedFeideUserInfo = {
   uid: [string];
 };
 
+function isFeideServiceConfigured() {
+  return (
+    env.FEIDE_CLIENT_ID &&
+    env.FEIDE_CLIENT_SECRET &&
+    env.FEIDE_AUTHORIZATION_ENDPOINT &&
+    env.FEIDE_TOKEN_ENDPOINT &&
+    env.FEIDE_USERINFO_ENDPOINT &&
+    env.FEIDE_EXTENDED_USERINFO_ENDPOINT
+  );
+}
+
 async function createFeideAuthorization() {
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
@@ -107,6 +118,7 @@ async function setFeideAuthorizationCookies(
 }
 
 export {
+  isFeideServiceConfigured,
   createFeideAuthorization,
   validateFeideAuthorization,
   setFeideAuthorizationCookies,
