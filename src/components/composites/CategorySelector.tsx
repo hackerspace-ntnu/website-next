@@ -1,8 +1,8 @@
 'use client';
 
+import { Combobox } from '@/components/ui/Combobox';
 import { useQueryState } from 'nuqs';
 import { parseAsString } from 'nuqs/server';
-import { Combobox } from '../ui/Combobox';
 
 type CategorySelectorProps = {
   categories: {

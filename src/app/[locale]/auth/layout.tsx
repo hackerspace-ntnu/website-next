@@ -51,12 +51,12 @@ export default async function AuthLayout({
               }}
             />
           </CardHeader>
-          <div className='h-96'>
+          <div className='~min-[24rem]/xs:~h-112/96'>
             <NextIntlClientProvider
               messages={{ auth, ui } as Pick<Messages, 'auth' | 'ui'>}
             >
               <AnimatePresenceProvider className='absolute left-0 flex w-full justify-center'>
-                <div className='~px-3/6 h-96 w-full max-w-md overflow-hidden'>
+                <div className='~px-3/6 ~min-[24rem]/xs:~h-112/96 w-full max-w-md overflow-hidden'>
                   {children}
                 </div>
               </AnimatePresenceProvider>

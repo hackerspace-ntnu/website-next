@@ -54,6 +54,8 @@ async function registerMatrixUser(
   password: string,
   admin = false,
 ) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
   const nonce = await getNonce();
   const hmac = generateHMAC(nonce, username, password);
 
@@ -72,8 +74,11 @@ async function registerMatrixUser(
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data),
+      signal: controller.signal,
     },
   );
+
+  clearTimeout(timeout);
 
   if (!response.ok) {
     throw new Error(`Matrix registration failed: ${response.status}`);
