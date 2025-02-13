@@ -282,5 +282,10 @@
     "notAuthenticated": "Not authenticated",
     "notAuthorized": "Not authorized",
     "noFileFound": "No file found"
+  },
+  "rules": {
+    "title": "Rules",
+    "forEveryone": "For everyone",
+    "internal": "Internal rules"
   }
 }

@@ -282,5 +282,10 @@
     "notAuthenticated": "Ikke autentisert",
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet"
+  },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
   }
 }
