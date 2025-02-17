@@ -1,10 +1,5 @@
 import { env } from '@/env';
 import { checkEmailAvailability } from '@/server/auth/email';
-import {
-  type ExtendedFeideUserInfo,
-  type FeideUserInfo,
-  validateFeideAuthorization,
-} from '@/server/auth/feide';
 import { checkPhoneAvailability } from '@/server/auth/phone';
 import {
   createSession,
@@ -12,6 +7,11 @@ import {
   setSessionTokenCookie,
 } from '@/server/auth/session';
 import { createUser, getUserFromUsername } from '@/server/auth/user';
+import {
+  type ExtendedFeideUserInfo,
+  type FeideUserInfo,
+  validateFeideAuthorization,
+} from '@/server/services/feide';
 import { insertUserSchema } from '@/validations/db';
 import { cookies } from 'next/headers';
 import { type NextRequest, NextResponse } from 'next/server';

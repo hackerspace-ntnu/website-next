@@ -7,11 +7,6 @@ import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBuck
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
 import {
-  createFeideAuthorization,
-  isFeideServiceConfigured,
-  setFeideAuthorizationCookies,
-} from '@/server/auth/feide';
-import {
   hashPassword,
   verifyPasswordHash,
   verifyPasswordStrength,
@@ -26,6 +21,10 @@ import {
   setSessionTokenCookie,
 } from '@/server/auth/session';
 import { getUserFromUsername, updateUserPassword } from '@/server/auth/user';
+import {
+  createFeideAuthorization,
+  setFeideAuthorizationCookies,
+} from '@/server/services/feide';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 
@@ -34,7 +33,7 @@ import { headers } from 'next/headers';
 
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
-import { isMatrixConfigured, matrixRegisterUser } from '@/server/auth/matrix';
+import { matrixRegisterUser } from '@/server/services/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -153,13 +152,13 @@ const authRouter = createRouter({
       }
 
       try {
-        const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
         await matrixRegisterUser(
           ctx.user.username,
-          displayname,
+          ctx.user.firstName,
+          ctx.user.lastName,
           input.password,
         );
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('auth.matrixRegistrationFailed'),

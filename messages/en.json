@@ -289,7 +289,8 @@
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",
     "notAuthorized": "Not authorized",
-    "noFileFound": "No file found"
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
   },
   "rules": {
     "title": "Rules",

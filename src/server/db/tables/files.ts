@@ -29,6 +29,7 @@ const files = pgTable('files', {
   })
     .notNull()
     .defaultNow(),
+  matrixMediaId: varchar('matrix_media_id', { length: 255 }),
 });
 
 const filesRelations = relations(files, ({ one }) => ({

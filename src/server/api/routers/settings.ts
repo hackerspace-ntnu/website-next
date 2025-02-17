@@ -3,6 +3,10 @@ import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
+import {
+  matrixChangeAvatar,
+  matrixChangeDisplayname,
+} from '@/server/services/matrix';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
 import { TRPCError } from '@trpc/server';
@@ -29,6 +33,19 @@ const settingsRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+      try {
+        await matrixChangeDisplayname(
+          ctx.user.username,
+          input.firstName,
+          input.lastName,
+        );
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.unableToUpdateMatrix'),
+          cause: { toast: 'error' },
+        });
+      }
     }),
   updateProfilePicture: authenticatedProcedure
     .input((input) =>
@@ -51,12 +68,17 @@ const settingsRouter = createRouter({
           input.profilePicture,
           PROFILE_PICTURE_DIRECTORY,
           ctx.user.id,
+          true,
         );
 
         await ctx.db
           .update(users)
           .set({ profilePictureId: file.id })
           .where(eq(users.id, ctx.user.id));
+
+        if (file.matrixMediaId) {
+          await matrixChangeAvatar(ctx.user.username, file.matrixMediaId);
+        }
 
         return await ctx.s3.getSignedUrl(
           PROFILE_PICTURE_DIRECTORY,

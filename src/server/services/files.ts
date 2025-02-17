@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { files } from '@/server/db/tables';
 import { type directories, s3 } from '@/server/s3';
+import { matrixUploadMedia } from '@/server/services/matrix';
 
 const SIGNED_URL_EXPIRATION = 3600;
 
@@ -10,6 +11,7 @@ async function insertFile(
   base64String: string,
   directory: (typeof directories)[number],
   userId: number,
+  uploadToMatrix = false,
 ) {
   const parts = base64String.split(',');
   if (parts.length !== 2) {
@@ -31,6 +33,11 @@ async function insertFile(
 
   const buffer = Buffer.from(data, 'base64');
 
+  let matrixMediaId = null;
+  if (uploadToMatrix) {
+    matrixMediaId = await matrixUploadMedia(buffer, contentType);
+  }
+
   const [file] = await db
     .insert(files)
     .values({
@@ -38,6 +45,7 @@ async function insertFile(
       contentType,
       byteSize: buffer.length,
       uploadedBy: userId,
+      matrixMediaId,
     })
     .returning();
 

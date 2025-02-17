@@ -25,6 +25,14 @@ function getMatrixUsername(username: string) {
   return `@${username}:${env.MATRIX_SERVER_NAME}`;
 }
 
+function getMxcUrl(matrixMediaId: string) {
+  return `mxc://${env.MATRIX_SERVER_NAME}/${matrixMediaId}`;
+}
+
+function getMatrixMediaId(mxcUrl: string) {
+  return mxcUrl.match(/^mxc:\/\/.*?\/(.+)$/)?.[1] ?? null;
+}
+
 async function getNonce() {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
@@ -82,7 +90,8 @@ function generateHMAC(
 
 async function matrixRegisterUser(
   username: string,
-  displayname: string,
+  firstName: string,
+  lastName: string,
   password: string,
   admin = false,
 ) {
@@ -103,7 +112,7 @@ async function matrixRegisterUser(
     const data = {
       nonce,
       username,
-      displayname,
+      displayname: `${firstName} + ${lastName}`,
       password,
       admin,
       mac: hmac,
@@ -235,13 +244,13 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
       content_uri: string;
     } = await response.json();
 
-    return data.content_uri;
+    return getMatrixMediaId(data.content_uri);
   } finally {
     clearTimeout(timeout);
   }
 }
 
-async function matrixChangeAvatar(username: string, MxcUrl: string) {
+async function matrixChangeAvatar(username: string, matrixMediaId: string) {
   if (!isMatrixConfigured()) {
     console.log(
       'Matrix avatar will not be changed since the Matrix environment variables are not set.',
@@ -252,7 +261,7 @@ async function matrixChangeAvatar(username: string, MxcUrl: string) {
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const body = { avatar_url: MxcUrl };
+    const body = { avatar_url: getMxcUrl(matrixMediaId) };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
