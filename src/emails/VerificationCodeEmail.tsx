@@ -6,7 +6,7 @@ import { Section, Text } from '@react-email/components';
 
 export default function VerificationCodeEmail({
   locale = 'en',
-  theme = 'dark',
+  theme = 'light',
   publicSiteUrl = 'http://localhost:3000',
   validationCode = 'ABCD-EFGH',
 }: {
@@ -38,6 +38,7 @@ export default function VerificationCodeEmail({
               return 'Confirm your email address';
           }
         })()}
+        theme={theme}
         publicSiteUrl={publicSiteUrl}
       />
       <Text className='mb-8 text-lg'>

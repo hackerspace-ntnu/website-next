@@ -10,7 +10,12 @@ import {
 function Header({
   title,
   publicSiteUrl,
-}: { title: string; publicSiteUrl: string }) {
+  theme,
+}: {
+  title: string;
+  publicSiteUrl: string;
+  theme: 'dark' | 'light';
+}) {
   return (
     <>
       <Section>
@@ -18,7 +23,7 @@ function Header({
           <Column>
             <Link href='https://beta.hackerspace-ntnu.no'>
               <Img
-                src={`${publicSiteUrl}/static/images/logo.svg`}
+                src={`${publicSiteUrl}/static/images/${theme === 'dark' ? 'logo-dark.svg' : 'logo-light.svg'}`}
                 width='64'
                 height='64'
                 alt='Hackerspace NTNU'
