@@ -54,6 +54,12 @@ function isFeideServiceConfigured() {
 }
 
 async function createFeideAuthorization() {
+  if (!isFeideServiceConfigured()) {
+    console.log(
+      'Feide service is not configured so authorization cannot be created',
+    );
+    return;
+  }
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
   const url = await feideOAuthClient.createAuthorizationURL({
@@ -78,6 +84,12 @@ async function createFeideAuthorization() {
 }
 
 async function validateFeideAuthorization(code: string, codeVerifier: string) {
+  if (!isFeideServiceConfigured()) {
+    console.log(
+      'Feide service is not configured so authorization cannot be validated',
+    );
+    return;
+  }
   try {
     const tokens = await feideOAuthClient.validateAuthorizationCode(code, {
       codeVerifier,
@@ -100,6 +112,12 @@ async function setFeideAuthorizationCookies(
   state: string,
   codeVerifier: string,
 ) {
+  if (!isFeideServiceConfigured()) {
+    console.log(
+      'Feide service is not configured so authorization cookies cannot be set',
+    );
+    return;
+  }
   const cookieStore = await cookies();
   cookieStore.set('feide-state', state, {
     path: '/',
@@ -118,7 +136,6 @@ async function setFeideAuthorizationCookies(
 }
 
 export {
-  isFeideServiceConfigured,
   createFeideAuthorization,
   validateFeideAuthorization,
   setFeideAuthorizationCookies,

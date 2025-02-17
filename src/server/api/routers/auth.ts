@@ -64,17 +64,21 @@ const authRouter = createRouter({
       });
     }
 
-    if (!isFeideServiceConfigured()) {
+    const feideAuthorization = await createFeideAuthorization();
+
+    if (!feideAuthorization) {
       throw new TRPCError({
         code: 'SERVICE_UNAVAILABLE',
         message: ctx.t('auth.feideNotConfigured'),
       });
     }
 
-    const { state, codeVerifier, url } = await createFeideAuthorization();
-    await setFeideAuthorizationCookies(state, codeVerifier);
+    await setFeideAuthorizationCookies(
+      feideAuthorization.state,
+      feideAuthorization.codeVerifier,
+    );
 
-    return url.href;
+    return feideAuthorization.url.href;
   }),
   signIn: publicProcedure
     .input((input) =>
@@ -148,25 +152,19 @@ const authRouter = createRouter({
         });
       }
 
-      if (isMatrixConfigured()) {
-        try {
-          const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-          await matrixRegisterUser(
-            ctx.user.username,
-            displayname,
-            input.password,
-          );
-        } catch (error) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('auth.matrixRegistrationFailed'),
-            cause: { toast: 'error' },
-          });
-        }
-      } else {
-        console.log(
-          'Matrix account will not be created since the Matrix environment variables are not set.',
+      try {
+        const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
+        await matrixRegisterUser(
+          ctx.user.username,
+          displayname,
+          input.password,
         );
+      } catch (error) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.matrixRegistrationFailed'),
+          cause: { toast: 'error' },
+        });
       }
 
       const hashedPassword = await hashPassword(input.password);

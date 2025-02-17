@@ -86,6 +86,13 @@ async function matrixRegisterUser(
   password: string,
   admin = false,
 ) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix account will not be created since the Matrix environment variables are not set.',
+    );
+    return;
+  }
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -123,6 +130,12 @@ async function matrixRegisterUser(
 }
 
 async function matrixChangePassword(username: string, newPassword: string) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix password will not be changed since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -154,6 +167,12 @@ async function matrixChangeDisplayname(
   firstName: string,
   lastName: string,
 ) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix displayname will not be changed since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -181,6 +200,12 @@ async function matrixChangeDisplayname(
 }
 
 async function matrixUploadMedia(buffer: Buffer, contentType: string) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Media will not be uploaded to Matrix since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -217,6 +242,12 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
 }
 
 async function matrixChangeAvatar(username: string, MxcUrl: string) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix avatar will not be changed since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -248,6 +279,12 @@ async function matrixChangeEmailAndPhonenumber(
   email: string,
   phonenumber: string,
 ) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix email and phonenumber will not be changed since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -280,6 +317,12 @@ async function matrixChangeEmailAndPhonenumber(
 }
 
 async function matrixEraseUser(username: string) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Matrix user will not be erased since the Matrix environment variables are not set.',
+    );
+    return;
+  }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
@@ -310,5 +353,4 @@ export {
   matrixChangeAvatar,
   matrixChangeEmailAndPhonenumber,
   matrixEraseUser,
-  isMatrixConfigured,
 };
