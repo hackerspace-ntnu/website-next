@@ -21,7 +21,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
   ] as const;
   const t = useTranslations('reservations');
   return (
-    <Card className='relative flex h-112 w-80 cursor-pointer flex-col overflow-hidden rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-800'>
+    <Card className='relative flex h-112 w-80 flex-col overflow-hidden rounded-xl hover:brightness-110'>
       <motion.div
         layoutId={tool.id.toString()}
         className='flex h-full flex-col'
@@ -52,7 +52,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             tool.available ? (
               <Button
                 onClick={(e) => e.stopPropagation()}
-                className='absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none'
+                className='absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none hover:brightness-125'
               >
                 {t('available')}
               </Button>

@@ -10,14 +10,13 @@ export default async function ReservationsLayout({
   children,
 }: ReservationsLayoutProps) {
   const { locale } = await params;
-
   setRequestLocale(locale);
   const t = await getTranslations('reservations');
 
   return (
-    <>
+    <div className='relative'>
       <h1>{t('title')}</h1>
       {children}
-    </>
+    </div>
   );
 }

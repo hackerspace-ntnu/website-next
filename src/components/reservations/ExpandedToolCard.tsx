@@ -51,15 +51,17 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 className='h-60 w-full object-fill'
               />
             </div>
-
-            <div className='relative inline-flex h-80 flex-col gap-1 p-6 pt-4 pr-1'>
+            <div className='relative flex h-80 flex-col gap-1 p-6 pt-4 pr-1'>
               <div className='inline-flex flex-row gap-3'>
                 <div className='w-2/3'>
                   <h3>{active.title}</h3>
                   <p>{active.description}</p>
                 </div>
                 {active.available && (
-                  <Button className='~text-xs/md w-1/3 max-w-64 rounded-xl '>
+                  <Button
+                    variant='default'
+                    className='~text-base/lg inline-flex w-1/3 max-w-64 overflow-hidden rounded-xl font-semibold'
+                  >
                     Reserver
                   </Button>
                 )}
