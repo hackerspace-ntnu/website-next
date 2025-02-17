@@ -163,7 +163,15 @@
       }
     },
     "account": {
-      "title": "Konto"
+      "title": "Konto",
+      "email": {
+        "label": "E-post",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresseformat",
+        "confirmLabel": "Bekreft e-post",
+        "mismatch": "E-postadressene er ikke like",
+        "taken": "E-postadressen er allerede i bruk"
+      }
     },
     "notifications": {
       "title": "Varsler"

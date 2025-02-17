@@ -60,10 +60,6 @@ async function createEmailVerificationRequest(userId: number, email: string) {
   return result;
 }
 
-function sendVerificationEmail(email: string, code: string) {
-  console.log(`To ${email}: Your verification code is ${code}`);
-}
-
 async function setEmailVerificationRequestCookie(
   request: SelectEmailVerificationRequest,
 ) {
@@ -93,7 +89,6 @@ export {
   checkEmailAvailability,
   createEmailVerificationRequest,
   deleteUserEmailVerificationRequest,
-  sendVerificationEmail,
   setEmailVerificationRequestCookie,
   deleteEmailVerificationRequestCookie,
 };

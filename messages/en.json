@@ -163,7 +163,15 @@
       }
     },
     "account": {
-      "title": "Account"
+      "title": "Account",
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Invalid email address format",
+        "confirmLabel": "Confirm email",
+        "mismatch": "Emails do not match",
+        "taken": "Email is already taken"
+      }
     },
     "notifications": {
       "title": "Notifications"
