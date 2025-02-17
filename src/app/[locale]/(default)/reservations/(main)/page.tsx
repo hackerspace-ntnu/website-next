@@ -22,16 +22,22 @@ export default async function ReservationsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations('reservations');
   setRequestLocale(locale);
-
+  const translation = {
+    title: t('title'),
+    available: t('available'),
+    unavailable: t('unavailable'),
+    supervision: t('supervision'),
+    tooltip: t('tooltip'),
+    myReservations: t('myReservations'),
+  };
   return (
     <>
-      <div className='flex size-full flex-col items-center justify-center'>
-        <div className='p-5'>
-          <MyReservationsTable />
-        </div>
-        <ToolCardGrid tools={tools} />
+      <div className='size-full'>
+        <MyReservationsTable />
       </div>
+      <ToolCardGrid tools={tools} t={translation} />
     </>
   );
 }

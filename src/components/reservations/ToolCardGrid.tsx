@@ -4,6 +4,15 @@ import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
 import React, { useId, useState } from 'react';
 
+export type t = {
+  title: string;
+  available: string;
+  unavailable: string;
+  supervision: string;
+  tooltip: string;
+  myReservations: string;
+};
+
 export type Tool = {
   typeId: number;
   id: number;
@@ -24,16 +33,21 @@ type ToolCardGridProps = {
     printer: Tool[];
     otherTools: Tool[];
   };
+  t: t;
 };
 
-export function ToolCardGrid({ tools }: ToolCardGridProps) {
+export function ToolCardGrid({ tools, t }: ToolCardGridProps) {
   const [active, setActive] = useState<Tool | null>(null);
   const id = useId();
 
   return (
     <div className='size-full'>
       {active && (
-        <ExpandedToolCard active={active} onClose={() => setActive(null)} />
+        <ExpandedToolCard
+          active={active}
+          onClose={() => setActive(null)}
+          t={t}
+        />
       )}
       <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
         {tools.printer.map((tool) => (
@@ -41,6 +55,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
             key={`printer-${tool.title}-${id}`}
             tool={tool}
             onClick={() => setActive(tool)}
+            t={t}
           />
         ))}
         {tools.otherTools.map((tool) => (
@@ -48,6 +63,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
             key={`other-${tool.id}`}
             tool={tool}
             onClick={() => setActive(tool)}
+            t={t}
           />
         ))}
       </ul>

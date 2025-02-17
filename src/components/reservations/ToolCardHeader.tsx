@@ -1,7 +1,7 @@
 'use client';
+import type { t } from '@/components/reservations/ToolCardGrid';
 import { Maximize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useId, useState } from 'react';
 
@@ -9,15 +9,16 @@ type ToolCardHeaderProps = {
   onClick: () => void;
   photoUrl: string;
   photoTitle: string;
+  t: t;
 };
 
 export function ToolCardHeader({
   onClick,
   photoUrl,
   photoTitle,
+  t,
 }: ToolCardHeaderProps) {
   const [hovered, setHovered] = useState(false);
-  const t = useTranslations();
   const id = useId();
 
   return (
@@ -52,7 +53,7 @@ export function ToolCardHeader({
               transition={{ type: 'tween', delay: 0.2 }}
               className='absolute top-3 right-11 z-0 whitespace-nowrap rounded-xl rounded-r-none bg-black bg-opacity-40 px-3 py-2 pr-4 text-sm text-white shadow-lg'
             >
-              Read more about this tool
+              {t.tooltip}
             </motion.div>
           )}
         </div>

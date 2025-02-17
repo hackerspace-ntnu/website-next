@@ -1,17 +1,18 @@
 'use client';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
+import type { t } from '@/components/reservations/ToolCardGrid';
 import { ToolCardHeader } from '@/components/reservations/ToolCardHeader';
 import { Card } from '@/components/ui/Card';
 import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
 import { Button } from '../ui/Button';
 
 type ToolCardProps = {
   tool: Tool;
   onClick: () => void;
+  t: t;
 };
 
-export function ToolCard({ tool, onClick }: ToolCardProps) {
+export function ToolCard({ tool, onClick, t }: ToolCardProps) {
   const fieldsToShow = [
     'krever',
     'difficulty',
@@ -19,7 +20,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
     'filamentType',
     'slicer',
   ] as const;
-  const t = useTranslations('reservations');
+
   return (
     <Card className='relative flex h-112 w-80 flex-col overflow-hidden rounded-xl hover:brightness-110'>
       <motion.div
@@ -30,6 +31,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
           onClick={onClick}
           photoTitle={tool.title}
           photoUrl={tool.photoUrl}
+          t={t}
         />
         <div className='mt-2 flex h-full flex-col gap-2'>
           <h1 className='text-wrap px-1 text-center text-xl'>{tool.title}</h1>
@@ -54,7 +56,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
                 onClick={(e) => e.stopPropagation()}
                 className='absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none hover:brightness-125'
               >
-                {t('available')}
+                {t.available}
               </Button>
             ) : (
               <Button
@@ -62,12 +64,12 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
                 onClick={(e) => e.stopPropagation()}
                 className='absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none'
               >
-                {t('unavailable')}
+                {t.unavailable}
               </Button>
             )
           ) : (
             <div className='absolute bottom-0 left-0 flex h-14 w-full items-center justify-center rounded-xl rounded-t-none bg-gray-600 bg-opacity-50 text-center'>
-              {t('supervision')}
+              {t.supervision}
             </div>
           )}
         </div>

@@ -1,5 +1,6 @@
 'use client';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
+import type { t } from '@/components/reservations/ToolCardGrid';
 import { useOutsideClick } from '@/lib/hooks/useOutside-click';
 import { Minimize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -10,10 +11,22 @@ import { Button } from '../ui/Button';
 type ExpandedToolCardProps = {
   active: Tool;
   onClose: () => void;
+  t: t;
 };
 
-export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
+export function ExpandedToolCard({
+  active,
+  onClose,
+  t,
+}: ExpandedToolCardProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const fieldsToShow = [
+    'krever',
+    'difficulty',
+    'filamentSize',
+    'filamentType',
+    'slicer',
+  ] as const;
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -34,7 +47,7 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
           <motion.div
             layoutId={active.id.toString()}
             ref={ref}
-            className='~mx-4/2 fixed inset-0 z-20 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 '
+            className='~mx-4/2 fixed inset-0 z-20 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl dark:bg-neutral-900'
           >
             <div>
               <Button
@@ -60,14 +73,28 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 {active.available && (
                   <Button
                     variant='default'
-                    className='~text-base/lg inline-flex w-1/3 max-w-64 overflow-hidden rounded-xl font-semibold'
+                    className='~text-base/lg mr-4 inline-flex w-1/3 max-w-64 overflow-hidden rounded-xl font-semibold'
                   >
                     Reserver
                   </Button>
                 )}
               </div>
-              <div className='max-h-36 overflow-auto pt-4 text-neutral-600 text-sm md:max-h-72 dark:text-neutral-400'>
+              <div className='~text-xs/sm flex h-full max-h-60 flex-col gap-2 overflow-auto pt-4 text-neutral-600 dark:text-neutral-400'>
                 {active.textContent}
+                <div>
+                  {active.typeId === 1 &&
+                    fieldsToShow.map((field) => {
+                      const text = active[field];
+                      if (text === '' || text === 'null' || text === null)
+                        return null;
+                      return (
+                        <p key={field}>
+                          {field}: {text}
+                          <br />
+                        </p>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </motion.div>
