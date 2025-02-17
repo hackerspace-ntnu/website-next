@@ -1,4 +1,5 @@
 'use client';
+import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { ToolCardHeader } from '@/components/reservations/ToolCardHeader';
 import { Card } from '@/components/ui/Card';
 import { motion } from 'motion/react';
@@ -6,20 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from '../ui/Button';
 
 type ToolCardProps = {
-  tool: {
-    typeId: number;
-    id: number;
-    title: string;
-    description?: string;
-    krever?: string;
-    photoUrl: string;
-    difficulty?: number;
-    filamentSize?: string;
-    filamentType?: string;
-    slicer?: string;
-    available?: boolean;
-    textContent?: string;
-  };
+  tool: Tool;
   onClick: () => void;
 };
 
