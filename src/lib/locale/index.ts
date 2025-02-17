@@ -96,6 +96,10 @@ const routing = defineRouting({
       en: '/reservations',
       no: '/reservasjoner',
     },
+    '/reservations/[queues]': {
+      en: 'reservations/[queues]',
+      no: 'reservasjoner/[queues]',
+    },
   },
 });
 

@@ -93,6 +93,7 @@
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til matrix",
     "rules": "Rules",
+    "reservations": "Reservasjoner",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -119,8 +120,7 @@
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
     "internal": "Internal",
     "copyright": "Opphavsrett",
-    "allRightsReserved": "Alle rettigheter reservert",
-    "reservations": "Reservasjoner"
+    "allRightsReserved": "Alle rettigheter reservert"
   },
   "news": {
     "title": "Nyheter",
@@ -235,5 +235,13 @@
     "title": "Regler",
     "forEveryone": "For alle",
     "internal": "Interne regler"
+  },
+  "reservations": {
+    "title": "Reservasjoner",
+    "available": "Reserver",
+    "unavailable": "Utilgjengelig",
+    "supervision": "Krever veiledning",
+    "tooltip": "Les mer om dette utstyret",
+    "myReservations": "Mine reservasjoner"
   }
 }

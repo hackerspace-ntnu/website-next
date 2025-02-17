@@ -93,6 +93,7 @@
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to matrix",
     "rules": "Rules",
+    "reservations": "Reservations",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -119,8 +120,7 @@
     "NTNUNexus": "The working life network Nexus",
     "internal": "Internal",
     "copyright": "Copyright",
-    "allRightsReserved": "All rights reserved",
-    "reservations": "Reservations"
+    "allRightsReserved": "All rights reserved"
   },
   "news": {
     "title": "News",
@@ -235,5 +235,13 @@
     "title": "Rules",
     "forEveryone": "For everyone",
     "internal": "Internal rules"
+  },
+  "reservations": {
+    "title": "Reservations",
+    "available": "Book item",
+    "unavailable": "Unavailable",
+    "supervision": "Requires supervision",
+    "tooltip": "Read more about this tool",
+    "myReservations": "My reservations"
   }
 }
