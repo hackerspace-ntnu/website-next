@@ -34,12 +34,17 @@ async function sendEmail(
 
   const emailHtml = await render(Email);
 
+  const emailPlainText = await render(Email, {
+    plainText: true,
+  });
+
   const options = {
     from: env.EMAIL_FROM_ADDRESS,
     to: recipientEmailAddress,
     replyTo: env.EMAIL_REPLY_TO,
     subject,
     html: emailHtml,
+    text: emailPlainText,
   };
 
   return await transporter.sendMail(options);
