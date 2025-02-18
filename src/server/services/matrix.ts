@@ -2,21 +2,13 @@ import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
 
-const headers = {
-  'content-type': 'application/json',
-};
-
-const authorizedHeaders = {
-  Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
-  ...headers,
-};
-
 function isMatrixConfigured() {
   return (
     env.MATRIX_SERVER_NAME &&
     env.MATRIX_ENDPOINT &&
     env.MATRIX_SECRET &&
-    env.MATRIX_ACCESS_TOKEN &&
+    env.MATRIX_ADMIN_USERNAME &&
+    env.MATRIX_ADMIN_PASSWORD &&
     env.NEXT_PUBLIC_MATRIX_CLIENT_URL
   );
 }
@@ -33,9 +25,71 @@ function getMatrixMediaId(mxcUrl: string) {
   return mxcUrl.match(/^mxc:\/\/.*?\/(.+)$/)?.[1] ?? null;
 }
 
+let cachedToken: string | null = null;
+let tokenExpiry: number | null = null;
+
+async function getMatrixAccessToken() {
+  if (!isMatrixConfigured()) {
+    throw new Error('Matrix environment variables are not configured');
+  }
+
+  if (cachedToken && tokenExpiry && Date.now() < tokenExpiry) {
+    return cachedToken;
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const headers = {
+      'content-type': 'application/json',
+    };
+
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_matrix/client/v3/login`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          type: 'm.login.password',
+          identifier: {
+            type: 'm.id.user',
+            user: env.MATRIX_ADMIN_USERNAME,
+          },
+          password: env.MATRIX_ADMIN_PASSWORD,
+        }),
+        signal: controller.signal,
+      },
+    );
+
+    if (response.status === 429) {
+      const rateLimitData = await response.json();
+      const retryAfterMs = rateLimitData.retry_after_ms || 5000;
+      throw new Error(`Rate limited. Retry after ${retryAfterMs}ms`);
+    }
+
+    if (!response.ok) {
+      const error = `Matrix login failed: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
+    }
+
+    const data = await response.json();
+    cachedToken = data.access_token;
+    tokenExpiry = Date.now() + 60 * 60 * 1000;
+    return cachedToken;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 async function getNonce() {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
+
+  const headers = {
+    'content-type': 'application/json',
+  };
 
   try {
     const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
@@ -109,7 +163,11 @@ async function matrixRegisterUser(
     const nonce = await getNonce();
     const hmac = generateHMAC(nonce, username, password);
 
-    const data = {
+    const headers = {
+      'content-type': 'application/json',
+    };
+
+    const body = {
       nonce,
       username,
       displayname: `${firstName} ${lastName}`,
@@ -123,7 +181,7 @@ async function matrixRegisterUser(
       {
         method: 'POST',
         headers,
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
         signal: controller.signal,
       },
     );
@@ -145,18 +203,24 @@ async function matrixChangePassword(username: string, newPassword: string) {
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const data = { new_password: `${newPassword}`, logout_devices: true };
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
+    const body = { new_password: `${newPassword}`, logout_devices: true };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/reset_password/${getMatrixUsername(username)}`,
       {
         method: 'POST',
-        headers: authorizedHeaders,
-        body: JSON.stringify(data),
+        headers,
+        body: JSON.stringify(body),
         signal: controller.signal,
       },
     );
@@ -182,17 +246,23 @@ async function matrixChangeDisplayname(
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
     const body = { displayname: `${firstName} ${lastName}` };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
       {
         method: 'PUT',
-        headers: authorizedHeaders,
+        headers,
         body: JSON.stringify(body),
         signal: controller.signal,
       },
@@ -215,12 +285,13 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
     const headers = {
-      ...authorizedHeaders,
+      authorization: `Bearer ${accessToken}`,
       'content-type': contentType,
     };
 
@@ -257,17 +328,23 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
     const body = { avatar_url: getMxcUrl(matrixMediaId) };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
       {
         method: 'PUT',
-        headers: authorizedHeaders,
+        headers,
         body: JSON.stringify(body),
         signal: controller.signal,
       },
@@ -294,11 +371,17 @@ async function matrixChangeEmailAndPhonenumber(
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const data = {
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
+    const body = {
       threepids: [
         { medium: 'email', address: `${email}` },
         { medium: 'msisdn', address: `${phoneNumber}` },
@@ -309,8 +392,8 @@ async function matrixChangeEmailAndPhonenumber(
       `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
       {
         method: 'PUT',
-        headers: authorizedHeaders,
-        body: JSON.stringify(data),
+        headers,
+        body: JSON.stringify(body),
         signal: controller.signal,
       },
     );
@@ -332,17 +415,23 @@ async function matrixEraseUser(username: string) {
     );
     return;
   }
+  const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
     const body = { erase: true };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/deactivate/${getMatrixUsername(username)}`,
       {
         method: 'POST',
-        headers: authorizedHeaders,
+        headers,
         body: JSON.stringify(body),
         signal: controller.signal,
       },
