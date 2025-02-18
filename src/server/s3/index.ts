@@ -40,63 +40,38 @@ class S3Service {
     file: Buffer,
     contentType: string,
   ) {
-    if (!directory || !key) {
-      throw new Error('Directory and key are required');
-    }
+    const fileKey = `${directory}/${key}`;
 
-    try {
-      const fileKey = `${directory}/${key}`;
+    const command = new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+      Body: file,
+      ContentType: contentType,
+    });
 
-      const command = new PutObjectCommand({
-        Bucket: this.bucket,
-        Key: fileKey,
-        Body: file,
-        ContentType: contentType,
-      });
-
-      return await this.client.send(command);
-    } catch (error) {
-      throw new Error(`Failed to upload file: ${(error as Error).message}`);
-    }
+    return await this.client.send(command);
   }
 
   async deleteFile(directory: (typeof directories)[number], key: string) {
-    if (!directory || !key) {
-      throw new Error('Directory and key are required');
-    }
+    const fileKey = `${directory}/${key}`;
 
-    try {
-      const fileKey = `${directory}/${key}`;
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+    });
 
-      const command = new DeleteObjectCommand({
-        Bucket: this.bucket,
-        Key: fileKey,
-      });
-
-      return await this.client.send(command);
-    } catch (error) {
-      throw new Error(`Failed to delete file: ${(error as Error).message}`);
-    }
+    return await this.client.send(command);
   }
 
   async fileExists(directory: (typeof directories)[number], key: string) {
-    if (!directory || !key) {
-      throw new Error('Directory and key are required');
-    }
-
-    try {
-      const fileKey = `${directory}/${key}`;
-      await this.client.send(
-        new GetObjectCommand({
-          Bucket: this.bucket,
-          Key: fileKey,
-        }),
-      );
-      return true;
-    } catch (error) {
-      if ((error as Error).name === 'NoSuchKey') return false;
-      throw error;
-    }
+    const fileKey = `${directory}/${key}`;
+    await this.client.send(
+      new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: fileKey,
+      }),
+    );
+    return true;
   }
 
   async getSignedUrl(
@@ -104,32 +79,22 @@ class S3Service {
     key: string,
     expiresIn = 3600,
   ) {
-    if (!directory || !key) {
-      throw new Error('Directory and key are required');
+    const fileKey = `${directory}/${key}`;
+
+    const command = new GetObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+    });
+
+    const url = await getSignedUrl(this.client, command, { expiresIn });
+    const internalEndpoint = `http://${env.S3_HOST}:${env.S3_PORT}`;
+    const publicEndpoint = `${env.NEXT_PUBLIC_SITE_URL}/s3`;
+
+    if (!url.includes(internalEndpoint)) {
+      throw new Error('Unexpected URL format');
     }
 
-    try {
-      const fileKey = `${directory}/${key}`;
-
-      const command = new GetObjectCommand({
-        Bucket: this.bucket,
-        Key: fileKey,
-      });
-
-      const url = await getSignedUrl(this.client, command, { expiresIn });
-      const internalEndpoint = `http://${env.S3_HOST}:${env.S3_PORT}`;
-      const publicEndpoint = `${env.NEXT_PUBLIC_SITE_URL}/s3`;
-
-      if (!url.includes(internalEndpoint)) {
-        throw new Error('Unexpected URL format');
-      }
-
-      return url.replace(internalEndpoint, publicEndpoint);
-    } catch (error) {
-      throw new Error(
-        `Failed to generate signed URL: ${(error as Error).message}`,
-      );
-    }
+    return url.replace(internalEndpoint, publicEndpoint);
   }
 }
 

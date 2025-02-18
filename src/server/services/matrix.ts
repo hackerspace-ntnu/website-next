@@ -7,7 +7,7 @@ const headers = {
 };
 
 const authorizedHeaders = {
-  authorization: `bearer ${env.MATRIX_ACCESS_TOKEN}`,
+  Authorization: `Bearer ${env.MATRIX_ACCESS_TOKEN}`,
   ...headers,
 };
 
@@ -45,9 +45,9 @@ async function getNonce() {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix nonce request failed: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix nonce request failed: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
     const data = await response.json();
     return data.nonce;
@@ -112,7 +112,7 @@ async function matrixRegisterUser(
     const data = {
       nonce,
       username,
-      displayname: `${firstName} + ${lastName}`,
+      displayname: `${firstName} ${lastName}`,
       password,
       admin,
       mac: hmac,
@@ -129,9 +129,9 @@ async function matrixRegisterUser(
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix registration failed: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix registration failed: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
   } finally {
     clearTimeout(timeout);
@@ -162,9 +162,9 @@ async function matrixChangePassword(username: string, newPassword: string) {
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix password change failed for ${username}: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix password change failed for ${username}: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
   } finally {
     clearTimeout(timeout);
@@ -186,7 +186,7 @@ async function matrixChangeDisplayname(
   const timeout = setTimeout(() => controller.abort(), 5000);
 
   try {
-    const body = { displayname: `${firstName} + ${lastName}` };
+    const body = { displayname: `${firstName} ${lastName}` };
 
     const response = await fetch(
       `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
@@ -199,9 +199,9 @@ async function matrixChangeDisplayname(
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix displayname change failed for ${username}: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix displayname change failed for ${username}: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
   } finally {
     clearTimeout(timeout);
@@ -220,7 +220,7 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
 
   try {
     const headers = {
-      authorization: `bearer ${env.MATRIX_ACCESS_TOKEN}`,
+      ...authorizedHeaders,
       'content-type': contentType,
     };
 
@@ -235,9 +235,9 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix media upload failed: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix media upload failed: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
 
     const data: {
@@ -274,9 +274,9 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix avatar change failed for ${username}: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix avatar change failed for ${username}: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
   } finally {
     clearTimeout(timeout);
@@ -286,11 +286,11 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
 async function matrixChangeEmailAndPhonenumber(
   username: string,
   email: string,
-  phonenumber: string,
+  phoneNumber: string,
 ) {
   if (!isMatrixConfigured()) {
     console.log(
-      'Matrix email and phonenumber will not be changed since the Matrix environment variables are not set.',
+      'Matrix email and phone number will not be changed since the Matrix environment variables are not set.',
     );
     return;
   }
@@ -301,7 +301,7 @@ async function matrixChangeEmailAndPhonenumber(
     const data = {
       threepids: [
         { medium: 'email', address: `${email}` },
-        { medium: 'msisdn', address: `${phonenumber}` },
+        { medium: 'msisdn', address: `${phoneNumber}` },
       ],
     };
 
@@ -316,9 +316,9 @@ async function matrixChangeEmailAndPhonenumber(
     );
 
     if (!response.ok) {
-      throw new Error(
-        `Matrix email and phonenumber change failed for ${username}: ${response.status} ${response.statusText}`,
-      );
+      const error = `Matrix email and phone number change failed for ${username}: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
     }
   } finally {
     clearTimeout(timeout);

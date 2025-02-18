@@ -15,7 +15,9 @@ async function insertFile(
 ) {
   const parts = base64String.split(',');
   if (parts.length !== 2) {
-    throw new Error('Invalid base64 string format');
+    const error = 'Invalid base64 string format';
+    console.error(error);
+    throw new Error(error);
   }
 
   const header = parts[0];
@@ -23,12 +25,16 @@ async function insertFile(
 
   const contentMatch = header?.match(/^data:(.*?);base64$/);
   if (!contentMatch?.[1]) {
-    throw new Error('Invalid content type format');
+    const error = 'Invalid content type format';
+    console.error(error);
+    throw new Error(error);
   }
 
   const contentType = contentMatch[1];
   if (!data) {
-    throw new Error('No data found in base64 string');
+    const error = 'No data found in base64 string';
+    console.error(error);
+    throw new Error(error);
   }
 
   const buffer = Buffer.from(data, 'base64');
@@ -50,7 +56,9 @@ async function insertFile(
     .returning();
 
   if (!file) {
-    throw new Error('Failed to insert file record');
+    const error = 'Failed to insert file record';
+    console.error(error);
+    throw new Error(error);
   }
 
   s3.uploadFile(directory, String(file.id), buffer, file.contentType);
@@ -65,7 +73,9 @@ async function deleteFile(fileId: number) {
     .returning();
 
   if (!deletedFile) {
-    throw new Error('File not found');
+    const error = 'File not found';
+    console.error(error);
+    throw new Error(error);
   }
 
   s3.deleteFile(deletedFile.directory, String(deletedFile.id));
@@ -79,7 +89,9 @@ async function getFileUrl(fileId: number) {
   });
 
   if (!file) {
-    throw new Error('File not found');
+    const error = 'File not found';
+    console.error(error);
+    throw new Error(error);
   }
 
   return s3.getSignedUrl(
