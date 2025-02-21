@@ -1,7 +1,7 @@
 'use client';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import type { t } from '@/components/reservations/ToolCardGrid';
-import { useOutsideClick } from '@/lib/hooks/useOutside-click';
+import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Minimize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
@@ -19,7 +19,8 @@ export function ExpandedToolCard({
   onClose,
   t,
 }: ExpandedToolCardProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const refr = useRef<HTMLDivElement>(null);
+  const ref = [refr];
   const fieldsToShow = [
     'krever',
     'difficulty',
@@ -46,7 +47,7 @@ export function ExpandedToolCard({
         <div className='absolute z-10 size-full'>
           <motion.div
             layoutId={active.id.toString()}
-            ref={ref}
+            ref={refr}
             className='~mx-4/2 fixed inset-0 z-20 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl dark:bg-neutral-900'
           >
             <div>
