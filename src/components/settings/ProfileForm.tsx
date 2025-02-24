@@ -88,7 +88,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
             <FormLabel>{t('birthDate.label')}</FormLabel>
             <FormControl>
               <DatePicker
-                side='bottom'
+                side='top'
                 captionLayout='dropdown'
                 avoidCollisions={false}
                 defaultMonth={birthDate}

@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/server/db';
 import { files } from '@/server/db/tables';
 import { type directories, s3 } from '@/server/s3';
-import { matrixUploadMedia } from '@/server/services/matrix';
+import { matrixDeleteMedia, matrixUploadMedia } from '@/server/services/matrix';
 
 const SIGNED_URL_EXPIRATION = 3600;
 
@@ -76,6 +76,10 @@ async function deleteFile(fileId: number) {
     const error = 'File not found';
     console.error(error);
     throw new Error(error);
+  }
+
+  if (deletedFile.matrixMediaId) {
+    await matrixDeleteMedia(deletedFile.matrixMediaId);
   }
 
   s3.deleteFile(deletedFile.directory, String(deletedFile.id));

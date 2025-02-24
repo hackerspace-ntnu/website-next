@@ -342,11 +342,54 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
       content_uri: string;
     } = await response.json();
 
-    console.log('Matrix media uploaded:', data.content_uri);
     return getMatrixMediaId(data.content_uri);
   } catch (error) {
     if (error instanceof DOMException && error.name === 'AbortError') {
       console.error('Matrix upload media request timed out');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function matrixDeleteMedia(matrixMediaId: string) {
+  if (!isMatrixConfigured()) {
+    console.log(
+      'Media will not be deleted from Matrix since the Matrix environment variables are not set.',
+    );
+    return;
+  }
+  const accessToken = await getMatrixAccessToken();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const headers = {
+      authorization: `Bearer ${accessToken}`,
+      'content-type': 'application/json',
+    };
+
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/media/${env.MATRIX_SERVER_NAME}/${matrixMediaId}`,
+      {
+        method: 'DELETE',
+        headers,
+        signal: controller.signal,
+      },
+    );
+
+    if (!response.ok) {
+      const error = `Matrix media deletion failed: ${response.status} ${response.statusText}`;
+      console.error(error);
+      throw new Error(error);
+    }
+
+    const data = await response.json();
+    return data.deleted_media;
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix delete media request timed out');
     }
     throw error;
   } finally {
@@ -495,6 +538,7 @@ export {
   matrixChangePassword,
   matrixChangeDisplayname,
   matrixUploadMedia,
+  matrixDeleteMedia,
   matrixChangeAvatar,
   matrixChangeEmailAndPhonenumber,
   matrixEraseUser,
