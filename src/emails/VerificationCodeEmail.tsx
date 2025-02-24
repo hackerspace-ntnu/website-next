@@ -6,7 +6,7 @@ import { Section, Text } from '@react-email/components';
 
 export default function VerificationCodeEmail({
   locale = 'en',
-  theme = 'light',
+  theme = 'dark',
   publicSiteUrl = 'http://localhost:3000',
   validationCode = 'ABCD-EFGH',
 }: {

@@ -63,9 +63,11 @@ async function getMatrixAccessToken() {
     );
 
     if (response.status === 429) {
-      const rateLimitData = await response.json();
-      const retryAfterMs = rateLimitData.retry_after_ms || 5000;
-      throw new Error(`Rate limited. Retry after ${retryAfterMs}ms`);
+      const rateLimitData: { retry_after_ms: string } = await response.json();
+      const retryAfterMs = rateLimitData.retry_after_ms;
+      const error = `Rate limited on Matrix Login. Retry after ${retryAfterMs}ms`;
+      console.error(error);
+      throw new Error(error);
     }
 
     if (!response.ok) {
@@ -78,6 +80,11 @@ async function getMatrixAccessToken() {
     cachedToken = data.access_token;
     tokenExpiry = Date.now() + 60 * 60 * 1000;
     return cachedToken;
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix access token request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -105,6 +112,11 @@ async function getNonce() {
     }
     const data = await response.json();
     return data.nonce;
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix nonce request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -157,7 +169,7 @@ async function matrixRegisterUser(
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const nonce = await getNonce();
@@ -191,6 +203,11 @@ async function matrixRegisterUser(
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix registration request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -205,7 +222,7 @@ async function matrixChangePassword(username: string, newPassword: string) {
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -230,6 +247,11 @@ async function matrixChangePassword(username: string, newPassword: string) {
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix change password request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -248,7 +270,7 @@ async function matrixChangeDisplayname(
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -273,6 +295,11 @@ async function matrixChangeDisplayname(
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix displayname change request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -287,7 +314,7 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -315,7 +342,13 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
       content_uri: string;
     } = await response.json();
 
+    console.log('Matrix media uploaded:', data.content_uri);
     return getMatrixMediaId(data.content_uri);
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix upload media request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -330,7 +363,7 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -341,7 +374,7 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
     const body = { avatar_url: getMxcUrl(matrixMediaId) };
 
     const response = await fetch(
-      `${env.MATRIX_ENDPOINT}/v2/users/@${username}:${env.MATRIX_SERVER_NAME}`,
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
       {
         method: 'PUT',
         headers,
@@ -349,12 +382,16 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
         signal: controller.signal,
       },
     );
-
     if (!response.ok) {
       const error = `Matrix avatar change failed for ${username}: ${response.status} ${response.statusText}`;
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix change avatar request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -373,7 +410,7 @@ async function matrixChangeEmailAndPhonenumber(
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -403,6 +440,11 @@ async function matrixChangeEmailAndPhonenumber(
       console.error(error);
       throw new Error(error);
     }
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix change email and phone number request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -417,7 +459,7 @@ async function matrixEraseUser(username: string) {
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const headers = {
@@ -438,6 +480,11 @@ async function matrixEraseUser(username: string) {
     );
 
     return response;
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      console.error('Matrix erase user request timed out');
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }

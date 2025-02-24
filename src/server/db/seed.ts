@@ -94,6 +94,16 @@ async function main() {
       phoneNumber: '+11234567894',
       passwordHash: await hashPassword('pass1'),
     },
+    {
+      username: 'michbrus',
+      firstName: 'Michae',
+      lastName: 'Brusegard',
+      email: 'michbrus69@gard.com',
+      emailVerifiedAt: new Date(),
+      birthDate: new Date('2002-05-06'),
+      phoneNumber: '+11234567822',
+      passwordHash: await hashPassword('pass1'),
+    },
   ];
 
   const insertedUsers = await db.insert(users).values(usersData).returning();
