@@ -30,13 +30,13 @@ export default async function SettingsLayout({
   const t = await getTranslations('settings');
   const t_layout = await getTranslations('layout');
 
-  const { session, user } = await api.auth.state();
+  const { user } = await api.auth.state();
 
-  if (!session) {
+  if (!user) {
     notFound();
   }
 
-  const showAdministratorMenu = user?.groups.some(
+  const showAdministratorMenu = user.groups.some(
     (group) => group === 'leadership' || group === 'admin',
   );
 

@@ -171,6 +171,22 @@
         "confirmLabel": "Confirm email",
         "mismatch": "Emails do not match",
         "taken": "Email is already taken"
+      },
+      "password": {
+        "currentLabel": "Current password",
+        "newLabel": "New password",
+        "confirmLabel": "Confirm password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "weak": "Password is too weak",
+        "mismatch": "Passwords do not match",
+        "update": "Update password",
+        "updateSuccess": "Password updated successfully",
+        "updateFailed": "Failed to update password",
+        "incorrectPassword": "Incorrect password"
       }
     },
     "notifications": {

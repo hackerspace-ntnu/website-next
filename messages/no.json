@@ -171,6 +171,22 @@
         "confirmLabel": "Bekreft e-post",
         "mismatch": "E-postadressene er ikke like",
         "taken": "E-postadressen er allerede i bruk"
+      },
+      "password": {
+        "currentLabel": "Nåværende passord",
+        "newLabel": "Nytt passord",
+        "confirmLabel": "Bekreft passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "weak": "Passordet er for svakt",
+        "mismatch": "Passordene er ikke like",
+        "update": "Oppdater passord",
+        "updateSuccess": "Passordet ble oppdatert",
+        "updateFailed": "Kunne ikke oppdatere passord",
+        "incorrectPassword": "Feil passord"
       }
     },
     "notifications": {

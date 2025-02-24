@@ -1,3 +1,5 @@
+import { AccountPasswordForm } from '@/components/settings/AccountPasswordForm';
+import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -19,9 +21,9 @@ export default async function AccountPage({
 
   const { user } = await api.auth.state();
   return (
-    <div>
-      <h1>Settings</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </div>
+    <>
+      <AccountPasswordForm />
+      <Separator className='my-4' />
+    </>
   );
 }

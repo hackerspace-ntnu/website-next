@@ -1,7 +1,7 @@
 import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function emailSchema(t: Translations) {
+function emailAndPhoneNumberSchema(t: Translations) {
   return z.object({
     email: z
       .string()
@@ -11,4 +11,4 @@ function emailSchema(t: Translations) {
   });
 }
 
-export { emailSchema };
+export { emailAndPhoneNumberSchema };
