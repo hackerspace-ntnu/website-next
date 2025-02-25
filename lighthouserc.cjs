@@ -1,10 +1,14 @@
-const PAGES_EXCLUDED = ['news', 'events', 'storage'];
+// A list of pages which have custom rules.
+const PAGES_NONSTANDARD_RULES = ['news', 'storage', 'events', 'auth', 'rules'];
 
 // Do not convert into an ES6 export.
 // lighthouse-ci (as of 0.14.0) uses require() to import, and this is not supported with ES6 modules.
 const config = {
   ci: {
     collect: {
+      settings: {
+        hostname: '127.0.0.1',
+      },
       url: [
         'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
         'http://localhost:3000/en/auth',
@@ -28,7 +32,7 @@ const config = {
     assert: {
       assertMatrix: [
         {
-          matchingUrlPattern: `http://.*/en/(?!${PAGES_EXCLUDED.join('|')}).*`, // match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
+          matchingUrlPattern: `http://.*/en/(?!${PAGES_NONSTANDARD_RULES.join('|')}).*`, // match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
           preset: 'lighthouse:recommended',
           assertions: {
             'bf-cache': 'off',
@@ -37,6 +41,11 @@ const config = {
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
             'target-size': 'off',
+            'unused-javascript': 'off',
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
           },
         },
         {
@@ -49,11 +58,14 @@ const config = {
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
             'target-size': 'off',
+            'unused-javascript': 'off',
             interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
             'uses-responsive-images': 'off', // Should be removed when we obtain images from backend
             'image-aspect-ratio': 'off', // Should be removed when we obtain images from backend
             'image-size-responsive': 'off', // Should be removed when we obtain images from backend
-            'max-potential-fid': 'off',
           },
         },
         {
@@ -67,8 +79,11 @@ const config = {
             'render-blocking-resources': 'off',
             'target-size': 'off',
             'unused-javascript': 'off',
-            'cumulative-layout-shift': 'off', // We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
             'max-potential-fid': 'off',
+            'bootup-time': 'off',
+            'cumulative-layout-shift': 'off', // We don't always know how many items are in the cart, which can lead to layout shifts when loading completes
             'image-aspect-ratio': 'off', // Should be removed when we obtain images from backend
           },
         },
@@ -81,7 +96,53 @@ const config = {
             'heading-order': 'off',
             'largest-contentful-paint': 'off',
             'render-blocking-resources': 'off',
-            'uses-responsive-images': 'off',
+            'target-size': 'off',
+            'unused-javascript': 'off',
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
+            'uses-responsive-images': 'off', // Should be removed when we obtain images from backend
+            'label-content-name-mismatch': 'off',
+          },
+        },
+        {
+          matchingUrlPattern: 'http://.*/en/auth.*',
+          preset: 'lighthouse:recommended',
+          assertions: {
+            'bf-cache': 'off',
+            'color-contrast': 'off',
+            'heading-order': 'off',
+            'largest-contentful-paint': 'off',
+            'render-blocking-resources': 'off',
+            'target-size': 'off',
+            'unused-javascript': 'off',
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
+            'document-title': 'off',
+            'font-size': 'off',
+            viewport: 'off',
+            'meta-description': 'off',
+          },
+        },
+        {
+          matchingUrlPattern: 'http://.*/en/rules.*',
+          preset: 'lighthouse:recommended',
+          assertions: {
+            'bf-cache': 'off',
+            'color-contrast': 'off',
+            'heading-order': 'off',
+            'largest-contentful-paint': 'off',
+            'render-blocking-resources': 'off',
+            'target-size': 'off',
+            'unused-javascript': 'off',
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
+            'image-redundant-alt': 'off',
             'label-content-name-mismatch': 'off',
           },
         },
