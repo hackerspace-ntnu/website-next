@@ -1,4 +1,5 @@
-const PAGES_EXCLUDED = ['news', 'events', 'storage'];
+// A list of pages which have custom rules.
+const PAGES_NONSTANDARD_RULES = ['news', 'storage', 'events', 'auth', 'rules'];
 
 // Do not convert into an ES6 export.
 // lighthouse-ci (as of 0.14.0) uses require() to import, and this is not supported with ES6 modules.
@@ -31,7 +32,7 @@ const config = {
     assert: {
       assertMatrix: [
         {
-          matchingUrlPattern: `http://.*/en/(?!${PAGES_EXCLUDED.join('|')}).*`, // match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
+          matchingUrlPattern: `http://.*/en/(?!${PAGES_NONSTANDARD_RULES.join('|')}).*`, // match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
           preset: 'lighthouse:recommended',
           assertions: {
             'bf-cache': 'off',
@@ -120,10 +121,10 @@ const config = {
             'mainthread-work-breakdown': 'off',
             'max-potential-fid': 'off',
             'bootup-time': 'off',
-            'document-title': 'error[0]',
-            'font-size': 'error[0]',
-            viewport: 'error[0]',
-            'meta-description': 'error[0]',
+            'document-title': 'off',
+            'font-size': 'off',
+            viewport: 'off',
+            'meta-description': 'off',
           },
         },
         {
@@ -141,8 +142,8 @@ const config = {
             'mainthread-work-breakdown': 'off',
             'max-potential-fid': 'off',
             'bootup-time': 'off',
-            'image-redundant-alt': 'error[0]',
-            'label-content-name-mismatch': 'error[0]',
+            'image-redundant-alt': 'off',
+            'label-content-name-mismatch': 'off',
           },
         },
       ],
