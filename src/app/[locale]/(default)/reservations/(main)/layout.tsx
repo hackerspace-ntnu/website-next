@@ -14,7 +14,7 @@ export default async function ReservationsLayout({
   const t = await getTranslations('reservations');
 
   return (
-    <div className='relative flex size-full flex-col items-center justify-center gap-5'>
+    <div className='flex size-full flex-col gap-5'>
       <h1>{t('title')}</h1>
       {children}
     </div>

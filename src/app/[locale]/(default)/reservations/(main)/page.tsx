@@ -1,5 +1,6 @@
-import { MyReservations } from '@/components/reservations/MyReservations';
+import { MyReservationsTable } from '@/components/reservations/MyReservationsTable';
 import { ToolCardGrid } from '@/components/reservations/ToolCardGrid';
+import { reservations } from '@/mock-data/reservations';
 import { tools } from '@/mock-data/reservations';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -34,7 +35,7 @@ export default async function ReservationsPage({
   };
   return (
     <>
-      <MyReservations />
+      <MyReservationsTable myReservations={reservations} />
       <ToolCardGrid tools={tools} t={translation} />
     </>
   );
