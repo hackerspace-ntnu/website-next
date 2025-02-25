@@ -36,7 +36,7 @@ export function HorizontalToolCard({
     }, 2000);
 
     return () => clearTimeout(timeoutID);
-  }, []);
+  });
 
   return (
     <Card
