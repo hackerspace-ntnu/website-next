@@ -6,7 +6,8 @@ const config = {
   ci: {
     collect: {
       settings: {
-        hostname: '127.0.0.1'
+        hostname: '127.0.0.1',
+        chromeFlags: ['--no-sandbox', '--headless=new'],
       },
       url: [
         'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
