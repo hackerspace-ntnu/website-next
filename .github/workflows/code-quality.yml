@@ -52,8 +52,9 @@ jobs:
         with:
           bun-version: latest
       - name: Setup Chrome
-        uses: ueokande/setup-chrome-sandbox@v1
+        uses: browser-actions/setup-chrome@v1
         with:
+          install-dependencies: true
           install-chromedriver: true
       - name: Install Dependencies
         run: bun install --frozen-lockfile
