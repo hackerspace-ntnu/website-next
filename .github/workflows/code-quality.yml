@@ -56,6 +56,7 @@ jobs:
         with:
           install-dependencies: true
           install-chromedriver: true
+          no-sudo: true
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Setup Cache
