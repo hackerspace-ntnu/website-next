@@ -52,8 +52,7 @@ jobs:
         with:
           bun-version: latest
       - name: Setup Chrome
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: ueokande/setup-chrome-sandbox@v1
         with:
           install-chromedriver: true
       - name: Install Dependencies
@@ -64,9 +63,9 @@ jobs:
           path: |
             ~/.npm
             ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lock') }}-
       - name: Build
         run: bun run build
       - name: Run Lighthouse
