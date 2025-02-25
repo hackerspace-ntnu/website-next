@@ -57,6 +57,11 @@ jobs:
         with:
           install-dependencies: true
           install-chromedriver: true
+          chrome-flags: |
+            --no-sandbox
+            --disable-dev-shm-usage
+            --disable-gpu
+            --headless=new
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Setup Cache
@@ -76,4 +81,4 @@ jobs:
           CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
           bun add -g @lhci/cli@0.14.x
-          lhci autorun
+          lhci autorun --collect.chromePath="$CHROME_PATH" --collect.settings.chromeFlags="--no-sandbox --disable-gpu --disable-dev-shm-usage --headless=new"
