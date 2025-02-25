@@ -52,11 +52,11 @@ jobs:
         with:
           bun-version: latest
       - name: Setup Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@v1
         with:
           install-dependencies: true
           install-chromedriver: true
-          no-sudo: true
       - name: Install Dependencies
         run: bun install --frozen-lockfile
       - name: Setup Cache
