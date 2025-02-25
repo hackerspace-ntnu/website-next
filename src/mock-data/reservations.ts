@@ -62,7 +62,7 @@ const tools = {
       id: 4,
       title: 'Creality Printmill Belt Printer',
       description: 'Gerd Gunda Brunsnes',
-      photoUrl: '/bg.jpg',
+      photoUrl: '/authorMock.jpg',
       difficulty: 5,
       filamentSize: 'Any',
       filamentType: 'PLA',
@@ -86,7 +86,7 @@ const tools = {
       id: 5,
       title: 'Loddestasjon',
       description: 'null',
-      photoUrl: '/bg.jpg',
+      photoUrl: '/mock.jpg',
       textContent: `
       Vi har et stort sortiment med utstyr som hjelper deg å lodde.
       Med både varmepistol, loddebolt og loddetinn kan du prototype på et nytt nivå!
@@ -97,10 +97,48 @@ const tools = {
       id: 6,
       title: 'Fiberlaser',
       description: 'null',
-      photoUrl: '/bg.jpg',
+      photoUrl: '/unknown.png',
       textContent: 'null',
     },
   ],
 };
 
-export { tools };
+const reservations = [
+  {
+    id: 1,
+    toolName: 'Prusa MK4',
+    toolDescription: '3D Printer',
+    fromDate: '29.10.95 23:10',
+    toDate: '24.12.26 23:40',
+  },
+  {
+    id: 2,
+    toolName: 'Bambu X1C',
+    toolDescription: '3D Printer',
+    fromDate: '01.01.24 08:00',
+    toDate: '05.01.24 18:00',
+  },
+  {
+    id: 3,
+    toolName: 'Bambu X1C',
+    toolDescription: '3D Printer',
+    fromDate: '01.01.24 08:00',
+    toDate: '05.01.24 18:00',
+  },
+  {
+    id: 4,
+    toolName: 'Bambu X1C',
+    toolDescription: '3D Printer',
+    fromDate: '01.01.24 08:00',
+    toDate: '05.01.24 18:00',
+  },
+  {
+    id: 5,
+    toolName: 'Bambu X1C',
+    toolDescription: '3D Printer',
+    fromDate: '01.01.24 08:00',
+    toDate: '05.01.24 18:00',
+  },
+];
+
+export { tools, reservations };

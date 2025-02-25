@@ -44,11 +44,18 @@ export function ExpandedToolCard({
   return (
     <AnimatePresence>
       {active && (
-        <div className='absolute z-10 size-full'>
+        <div className='absolute z-20 size-full opacity-95'>
           <motion.div
             layoutId={active.id.toString()}
             ref={refr}
-            className='~mx-4/2 fixed inset-0 z-20 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl dark:bg-neutral-900'
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{
+              opacity: { duration: 0.2, delay: 0.05 },
+              scale: { duration: 0.2, delay: 0.05 },
+            }}
+            className='~mx-4/2 fixed inset-0 z-30 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl dark:bg-neutral-900'
           >
             <div>
               <Button

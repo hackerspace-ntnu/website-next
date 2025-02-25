@@ -1,8 +1,9 @@
 'use client';
 
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
+import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 export type t = {
   title: string;
@@ -37,6 +38,17 @@ type ToolCardGridProps = {
 };
 
 export function ToolCardGrid({ tools, t }: ToolCardGridProps) {
+  const [smallScreen, setSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const smallTable = () => setSmallScreen(window.innerWidth < 730);
+    smallTable();
+    window.addEventListener('resize', smallTable);
+    return () => {
+      window.removeEventListener('resize', smallTable);
+    };
+  }, []);
+
   const [active, setActive] = useState<Tool | null>(null);
   const id = useId();
 
@@ -49,24 +61,45 @@ export function ToolCardGrid({ tools, t }: ToolCardGridProps) {
           t={t}
         />
       )}
-      <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-        {tools.printer.map((tool) => (
-          <ToolCard
-            key={`printer-${tool.title}-${id}`}
-            tool={tool}
-            onClick={() => setActive(tool)}
-            t={t}
-          />
-        ))}
-        {tools.otherTools.map((tool) => (
-          <ToolCard
-            key={`other-${tool.id}`}
-            tool={tool}
-            onClick={() => setActive(tool)}
-            t={t}
-          />
-        ))}
-      </ul>
+      {smallScreen ? (
+        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
+          {tools.printer.map((tool) => (
+            <HorizontalToolCard
+              key={`printer-${tool.title}-${id}`}
+              tool={tool}
+              onClick={() => setActive(tool)}
+              t={t}
+            />
+          ))}
+          {tools.otherTools.map((tool) => (
+            <HorizontalToolCard
+              key={`other-${tool.id}`}
+              tool={tool}
+              onClick={() => setActive(tool)}
+              t={t}
+            />
+          ))}
+        </ul>
+      ) : (
+        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
+          {tools.printer.map((tool) => (
+            <ToolCard
+              key={`printer-${tool.title}-${id}`}
+              tool={tool}
+              onClick={() => setActive(tool)}
+              t={t}
+            />
+          ))}
+          {tools.otherTools.map((tool) => (
+            <ToolCard
+              key={`other-${tool.id}`}
+              tool={tool}
+              onClick={() => setActive(tool)}
+              t={t}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
