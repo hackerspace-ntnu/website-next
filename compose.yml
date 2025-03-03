@@ -1,0 +1,59 @@
+services:
+  app:
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+      s3:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - nginx_default
+  migrator:
+    build:
+      context: .
+      dockerfile: migrations.dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      s3:
+        condition: service_healthy
+    restart: no
+    networks:
+      - nginx_default
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nginx_default
+  s3:
+    image: bitnami/minio:2024
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${S3_USER}
+      MINIO_ROOT_PASSWORD: ${S3_PASSWORD}
+      MINIO_DEFAULT_BUCKETS: ${S3_NAME}
+    volumes:
+      - ./data/s3:/bitnami/minio/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nginx_default
+networks:
+  nginx_default:
+    external: true
