@@ -6,6 +6,8 @@ import {
   enGB as enDayPicker,
   nb as noDayPicker,
 } from 'react-day-picker/locale';
+import enPhoneNumberInput from 'react-phone-number-input/locale/en';
+import noPhoneNumberInput from 'react-phone-number-input/locale/nb';
 
 type Translations =
   | ReturnType<typeof useTranslations<never>>
@@ -14,6 +16,11 @@ type Translations =
 const localeIcons = { en: GB, no: NO };
 
 const dayPickerLocales = { en: enDayPicker, no: noDayPicker };
+
+const phoneNumberInputLocales = {
+  en: enPhoneNumberInput,
+  no: noPhoneNumberInput,
+};
 
 const routing = defineRouting({
   locales: ['en', 'no'],
@@ -111,4 +118,10 @@ const routing = defineRouting({
   },
 });
 
-export { localeIcons, dayPickerLocales, routing, type Translations };
+export {
+  localeIcons,
+  dayPickerLocales,
+  phoneNumberInputLocales,
+  routing,
+  type Translations,
+};

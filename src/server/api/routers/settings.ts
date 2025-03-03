@@ -6,15 +6,18 @@ import {
   verifyPasswordHash,
   verifyPasswordStrength,
 } from '@/server/auth/password';
+import { checkPhoneAvailability } from '@/server/auth/phone';
 import { updateUserPassword } from '@/server/auth/user';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
 import {
   matrixChangeAvatar,
   matrixChangeDisplayname,
+  matrixChangePassword,
 } from '@/server/services/matrix';
 import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
+import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
 import { TRPCError } from '@trpc/server';
@@ -128,6 +131,7 @@ const settingsRouter = createRouter({
       try {
         const hashedPassword = await hashPassword(input.newPassword);
         await updateUserPassword(ctx.user.id, hashedPassword);
+        await matrixChangePassword(ctx.user.username, input.newPassword);
       } catch (error) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
@@ -135,6 +139,13 @@ const settingsRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
+    }),
+  isPhoneNumberAvailable: authenticatedProcedure
+    .input((input) =>
+      phoneNumberSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ input }) => {
+      return await checkPhoneAvailability(input.phoneNumber);
     }),
   updateEmailAndPhoneNumber: authenticatedProcedure
     .input((input) =>

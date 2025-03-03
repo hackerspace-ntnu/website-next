@@ -22,6 +22,8 @@
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
     "dateFormat": "dd.MM.yyyy",
+    "searchCountry": "Søk etter land...",
+    "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
     "showPassword": "Vis passord"
   },
@@ -164,6 +166,8 @@
     },
     "account": {
       "title": "Konto",
+      "updateEmailAndPhoneNumberSuccess": "E-post og telefonnummer ble oppdatert",
+      "updateEmailAndPhoneNumber": "Oppdater e-post og telefonnummer",
       "email": {
         "label": "E-post",
         "required": "E-post er påkrevd",
@@ -171,6 +175,14 @@
         "confirmLabel": "Bekreft e-post",
         "mismatch": "E-postadressene er ikke like",
         "taken": "E-postadressen er allerede i bruk"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "description": "Telefonnummeret ditt vil være synlig når du reserverer 3D-printere eller låner utstyr, slik at vi kan kontakte deg hvis det oppstår problemer.",
+        "required": "Telefonnummer er påkrevd",
+        "invalid": "Ugyldig telefonnummer",
+        "format": "Telefonnummeret er feil formatert",
+        "taken": "Telefonnummeret er allerede i bruk"
       },
       "password": {
         "currentLabel": "Nåværende passord",

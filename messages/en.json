@@ -22,6 +22,8 @@
     "selectYear": "Select year",
     "pickDate": "Pick a date",
     "dateFormat": "dd/MM/yyyy",
+    "searchCountry": "Search country...",
+    "noCountryFound": "No country found",
     "hidePassword": "Hide password",
     "showPassword": "Show password"
   },
@@ -164,6 +166,8 @@
     },
     "account": {
       "title": "Account",
+      "updateEmailAndPhoneNumberSuccess": "Email and phone number updated successfully",
+      "updateEmailAndPhoneNumber": "Update email and phone number",
       "email": {
         "label": "Email",
         "required": "Email is required",
@@ -171,6 +175,14 @@
         "confirmLabel": "Confirm email",
         "mismatch": "Emails do not match",
         "taken": "Email is already taken"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "description": "Your phone number will be visible when reserving 3D printers or borrowing items, allowing us to contact you if any issues arise.",
+        "required": "Phone number is required",
+        "invalid": "Invalid phone number",
+        "format": "Phone number is formatted incorrectly",
+        "taken": "Phone number is already taken"
       },
       "password": {
         "currentLabel": "Current password",
