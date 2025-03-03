@@ -81,82 +81,22 @@ async function main() {
     {
       day: 'monday',
       timeslot: '1',
-    },
-    {
-      day: 'monday',
-      timeslot: '2',
-    },
-    {
-      day: 'monday',
-      timeslot: '3',
-    },
-    {
-      day: 'monday',
-      timeslot: '4',
-    },
-    {
-      day: 'tuesday',
-      timeslot: '1',
-    },
-    {
-      day: 'tuesday',
-      timeslot: '2',
-    },
-    {
-      day: 'tuesday',
-      timeslot: '3',
-    },
-    {
-      day: 'tuesday',
-      timeslot: '4',
-    },
-    {
-      day: 'wednesday',
-      timeslot: '1',
+      userId: insertedUser[0]?.id ?? 0,
     },
     {
       day: 'wednesday',
       timeslot: '2',
+      userId: insertedUser[0]?.id ?? 0,
     },
     {
       day: 'wednesday',
       timeslot: '3',
-    },
-    {
-      day: 'wednesday',
-      timeslot: '4',
-    },
-    {
-      day: 'thursday',
-      timeslot: '1',
-    },
-    {
-      day: 'thursday',
-      timeslot: '2',
-    },
-    {
-      day: 'thursday',
-      timeslot: '3',
+      userId: insertedUser[0]?.id ?? 0,
     },
     {
       day: 'thursday',
       timeslot: '4',
-    },
-    {
-      day: 'friday',
-      timeslot: '1',
-    },
-    {
-      day: 'friday',
-      timeslot: '2',
-    },
-    {
-      day: 'friday',
-      timeslot: '3',
-    },
-    {
-      day: 'friday',
-      timeslot: '4',
+      userId: insertedUser[0]?.id ?? 0,
     },
   ];
   await db.insert(shifts).values(shiftsData);

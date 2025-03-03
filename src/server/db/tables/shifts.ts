@@ -1,6 +1,7 @@
 import { days, timeslots } from '@/lib/constants';
+import { users } from '@/server/db/tables';
 import type { InferInsertModel } from 'drizzle-orm';
-import { pgEnum, pgTable, primaryKey } from 'drizzle-orm/pg-core';
+import { integer, pgEnum, pgTable, primaryKey } from 'drizzle-orm/pg-core';
 
 const daysEnum = pgEnum('days', days);
 const timeslotsEnum = pgEnum('timeslots', timeslots);
@@ -10,9 +11,12 @@ const shifts = pgTable(
   {
     day: daysEnum('day').notNull(),
     timeslot: timeslotsEnum('timeslot').notNull(),
+    userId: integer('user_id')
+      .notNull()
+      .references(() => users.id),
   },
   (table) => {
-    return [primaryKey({ columns: [table.day, table.timeslot] })];
+    return [primaryKey({ columns: [table.day, table.timeslot, table.userId] })];
   },
 );
 
