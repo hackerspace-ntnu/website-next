@@ -166,10 +166,11 @@
     },
     "account": {
       "title": "Account",
-      "updateEmailAndPhoneNumberSuccess": "Email and phone number updated successfully",
-      "updateEmailAndPhoneNumber": "Update email and phone number",
+      "updateAccountSuccess": "Account updated successfully",
+      "updateAccount": "Update account",
       "email": {
         "label": "Email",
+        "description": "If you change your email, you will be locked out of your account until you have confirmed it.",
         "required": "Email is required",
         "invalid": "Invalid email address format",
         "confirmLabel": "Confirm email",

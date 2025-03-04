@@ -18,7 +18,7 @@ import { useTranslations } from 'next-intl';
 import { api } from '@/lib/api/client';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 
-function AccountPasswordForm() {
+function PasswordForm() {
   const t = useTranslations('settings.account');
   const formSchema = passwordSchema(useTranslations());
 
@@ -134,4 +134,4 @@ function AccountPasswordForm() {
   );
 }
 
-export { AccountPasswordForm };
+export { PasswordForm };

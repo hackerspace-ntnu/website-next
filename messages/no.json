@@ -166,10 +166,11 @@
     },
     "account": {
       "title": "Konto",
-      "updateEmailAndPhoneNumberSuccess": "E-post og telefonnummer ble oppdatert",
-      "updateEmailAndPhoneNumber": "Oppdater e-post og telefonnummer",
+      "updateAccountSuccess": "Account updated",
+      "updateAccount": "Oppdater konto",
       "email": {
         "label": "E-post",
+        "description": "Hvis du endrer e-postadressen din, vil du bli utestengt fra kontoen din til du har bekreftet den.",
         "required": "E-post er påkrevd",
         "invalid": "Ugyldig e-postadresseformat",
         "confirmLabel": "Bekreft e-post",

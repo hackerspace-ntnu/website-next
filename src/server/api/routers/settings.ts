@@ -147,7 +147,7 @@ const settingsRouter = createRouter({
     .query(async ({ input }) => {
       return await checkPhoneAvailability(input.phoneNumber);
     }),
-  updateEmailAndPhoneNumber: authenticatedProcedure
+  updateAccount: authenticatedProcedure
     .input((input) =>
       emailAndPhoneNumberSchema(useTranslationsFromContext()).parse(input),
     )

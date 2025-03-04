@@ -20,27 +20,34 @@ import { useTranslations } from 'next-intl';
 import { api } from '@/lib/api/client';
 import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
 
-function AccountEmailAndPhoneNumberForm({
-  phoneNumber,
-  email,
-}: { phoneNumber: string; email: string }) {
+type AccountFormProps = {
+  phoneNumber: string;
+  email: string;
+};
+
+function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const t = useTranslations('settings.account');
   const formSchema = emailAndPhoneNumberSchema(useTranslations());
 
   const updateEmailAndPhoneNumberMutation =
-    api.settings.updateEmailAndPhoneNumber.useMutation({
+    api.settings.updateAccount.useMutation({
       onSuccess: () => {
-        toast.success(t('updateEmailAndPhoneNumberSuccess'));
+        toast.success(t('updateAccountSuccess'));
       },
     });
 
   const form = useForm(formSchema, {
     defaultValues: {
-      phoneNumber: phoneNumber,
-      email: email,
+      phoneNumber,
+      email,
       confirmEmail: email,
     },
-    onSubmit: () => {},
+    onSubmit: ({ value }) => {
+      updateEmailAndPhoneNumberMutation.mutate({
+        phoneNumber: value.phoneNumber,
+        email: value.email,
+      });
+    },
   });
 
   return (
@@ -82,6 +89,7 @@ function AccountEmailAndPhoneNumberForm({
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('email.label')}</FormLabel>
+            <FormDescription>{t('email.description')}</FormDescription>
             <FormControl>
               <Input
                 placeholder='ligma@balls.com'
@@ -132,7 +140,7 @@ function AccountEmailAndPhoneNumberForm({
             {updateEmailAndPhoneNumberMutation.isPending ? (
               <Spinner className='text-primary-foreground' />
             ) : (
-              t('updateEmailAndPhoneNumber')
+              t('updateAccount')
             )}
           </Button>
         )}
@@ -141,4 +149,4 @@ function AccountEmailAndPhoneNumberForm({
   );
 }
 
-export { AccountEmailAndPhoneNumberForm };
+export { AccountForm };

@@ -13,7 +13,7 @@ import {
   users,
 } from '@/server/db/tables';
 import * as schema from '@/server/db/tables';
-import { fakerEN, fakerNB_NO, fakerSV } from '@faker-js/faker';
+import { fakerEN, fakerNB_NO } from '@faker-js/faker';
 import { reset } from 'drizzle-seed';
 
 import { hashPassword } from '@/server/auth/password';
@@ -24,7 +24,6 @@ const locales = routing.locales;
 const faker = {
   en: fakerEN,
   no: fakerNB_NO,
-  sv: fakerSV,
 };
 
 async function main() {
@@ -101,7 +100,7 @@ async function main() {
       email: 'michbrus69@gard.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('2002-05-06'),
-      phoneNumber: '+11234567822',
+      phoneNumber: '+11234567869',
       passwordHash: await hashPassword('pass1'),
     },
   ];

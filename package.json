@@ -11,7 +11,7 @@
     "build": "bun run next build",
     "postbuild": "mkdir -p .next/standalone/public .next/standalone/.next/static && cp -r public/* .next/standalone/public && cp -r .next/static/* .next/standalone/.next/static",
     "start": "bun run .next/standalone/server.js",
-    "services:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && mkdir -p data/db data/s3 && chmod 777 data/db data/s3 && bun run db:start && bun run s3:start && sleep 5 && bun run db:push && bun run db:seed",
+    "services:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && bun run db:push && bun run db:seed",
     "services:stop": "docker compose -f compose.local.yml down",
     "db:start": "docker compose -f compose.local.yml up db -d",
     "db:stop": "docker compose -f compose.local.yml down db",

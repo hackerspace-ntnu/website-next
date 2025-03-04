@@ -59,7 +59,7 @@ Next we are gonna setup the database and storage server to run locally. To achie
     # MacOS only
     brew install colima docker
     # Start colima
-    colima start
+    colima start --vm-type=vz
     ```
 
 Then we need to install Docker Compose.
