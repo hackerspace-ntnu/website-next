@@ -10,9 +10,7 @@ type ScheduleCellProps = {
     day: string;
     time: string;
   };
-  members: {
-    name: string;
-  }[];
+  members: number;
 };
 
 function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
@@ -26,29 +24,29 @@ function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
             type='button'
             className={cx(
               'flex size-full gap-2 rounded-md p-3 text-left',
-              members.length === 0
+              members === 0
                 ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
                 : 'bg-foreground/20 hover:bg-foreground/25',
             )}
           >
             {/* Icon displaying amount of people on shift */}
-            {members.length === 1 ? (
+            {members === 1 ? (
               <UserIcon className='size-7' />
             ) : (
-              members.length > 1 && <UsersIcon className='size-7' />
+              members > 1 && <UsersIcon className='size-7' />
             )}
             <div className='flex flex-col'>
               {/* Amount of people on shift */}
-              <span>{t('onShift', { count: members.length })}</span>
+              <span>{t('onShift', { count: members })}</span>
               {/* Skill icons */}
-              {members.length !== 0 && (
+              {members !== 0 && (
                 <span className='leading-7'>[skill icons total]</span>
               )}
             </div>
           </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <ScheduleCellDialog tDialog={tDialog} members={members} />
+          <ScheduleCellDialog tDialog={tDialog} />
         </DialogContent>
       </Dialog>
     </TableCell>

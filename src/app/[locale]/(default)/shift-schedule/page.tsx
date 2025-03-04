@@ -1,6 +1,5 @@
 import { AdministratorMenu } from '@/components/shift-schedule/AdministratorMenu';
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
-import { shiftScheduleMockData } from '@/mock-data/shiftSchedule';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
@@ -36,7 +35,7 @@ export default async function ShiftSchedulePage({
           clearShiftSchedule: t('administratorMenu.clearShiftSchedule'),
         }}
       />
-      <ScheduleTable week={shiftScheduleMockData} />
+      <ScheduleTable />
     </>
   );
 }

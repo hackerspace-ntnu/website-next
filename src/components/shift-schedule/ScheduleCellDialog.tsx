@@ -7,15 +7,20 @@ type ScheduleCellDialogProps = {
     day: string;
     time: string;
   };
-  members: {
-    name: string;
-  }[];
 };
 
-function ScheduleCellDialog({ tDialog, members }: ScheduleCellDialogProps) {
+function ScheduleCellDialog({ tDialog }: ScheduleCellDialogProps) {
   const t = useTranslations(
     'shiftSchedule.scheduleTable.scheduleCell.scheduleCellDialog',
   );
+  const tempMembers = [
+    {
+      name: 'Person 1',
+    },
+    {
+      name: 'Person 2',
+    },
+  ];
 
   return (
     <>
@@ -26,11 +31,11 @@ function ScheduleCellDialog({ tDialog, members }: ScheduleCellDialogProps) {
         </DialogTitle>
       </DialogHeader>
       <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-        {members.length === 0 ? (
+        {tempMembers.length === 0 ? (
           <p className='leading-tight'>{t('empty')}</p>
         ) : (
           <div>
-            {members.map((member) => (
+            {tempMembers.map((member) => (
               <section key={member.name} className='mb-3 last:mb-0'>
                 <p className='leading-tight'>{member.name}</p>
                 <section className='mt-0.5 ml-5'>[skill icons]</section>

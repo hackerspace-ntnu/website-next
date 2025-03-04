@@ -8,43 +8,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { api } from '@/lib/api/server';
+import { days, timeslots } from '@/lib/constants';
 import { useFormatter, useTranslations } from 'next-intl';
 
-type ScheduleEntryProps = {
-  members: {
-    name: string;
-  }[];
-};
-
-type ScheduleDayProps = {
-  first: ScheduleEntryProps;
-  second: ScheduleEntryProps;
-  third: ScheduleEntryProps;
-  fourth: ScheduleEntryProps;
-};
-
-type ScheduleTableProps = {
-  week: {
-    monday: ScheduleDayProps;
-    tuesday: ScheduleDayProps;
-    wednesday: ScheduleDayProps;
-    thursday: ScheduleDayProps;
-    friday: ScheduleDayProps;
-  };
-};
-
-function ScheduleTable({ week }: ScheduleTableProps) {
+async function ScheduleTable() {
   const t = useTranslations('shiftSchedule.scheduleTable');
   const format = useFormatter();
-
-  const days = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-  ] as const;
-  const timeslots = ['first', 'second', 'third', 'fourth'] as const;
+  const shifts = await api.shiftSchedule.fetchShifts();
 
   function getDateTimeRange(timeslot: string) {
     let firstDate: Date;
@@ -108,7 +79,12 @@ function ScheduleTable({ week }: ScheduleTableProps) {
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
                     }}
-                    members={week[day][timeslot].members}
+                    members={
+                      shifts.find(
+                        (shift) =>
+                          shift.day === day && shift.timeslot === timeslot,
+                      )?.onShift ?? 0
+                    }
                   />
                 </TableRow>
               ))}
@@ -145,7 +121,12 @@ function ScheduleTable({ week }: ScheduleTableProps) {
                     day: t('day', { day: day }),
                     time: getDateTimeRange(timeslot),
                   }}
-                  members={week[day][timeslot].members}
+                  members={
+                    shifts.find(
+                      (shift) =>
+                        shift.day === day && shift.timeslot === timeslot,
+                    )?.onShift ?? 0
+                  }
                 />
               ))}
             </TableRow>
