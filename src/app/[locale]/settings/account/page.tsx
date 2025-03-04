@@ -2,8 +2,8 @@ import { AccountForm } from '@/components/settings/AccountForm';
 import { PasswordForm } from '@/components/settings/PasswordForm';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
+import { redirect } from '@/lib/locale/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata() {
   const t = await getTranslations('settings.account');
@@ -24,7 +24,7 @@ export default async function AccountPage({
   const { user } = await api.auth.state();
 
   if (!user) {
-    notFound();
+    return redirect({ href: '/auth', locale });
   }
 
   return (

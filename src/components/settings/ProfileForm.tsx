@@ -31,7 +31,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
 
   const updateProfileSettingsMutation = api.settings.updateProfile.useMutation({
     onSuccess: () => {
-      toast.success(t('updateSuccess'));
+      toast.success(t('updateProfileSuccess'));
     },
   });
 

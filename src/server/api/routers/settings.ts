@@ -13,6 +13,7 @@ import { deleteFile, insertFile } from '@/server/services/files';
 import {
   matrixChangeAvatar,
   matrixChangeDisplayname,
+  matrixChangeEmailAndPhonenumber,
   matrixChangePassword,
 } from '@/server/services/matrix';
 import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
@@ -40,7 +41,7 @@ const settingsRouter = createRouter({
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('settings.profile.updateFailed'),
+            message: ctx.t('settings.profile.updateProfileFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -131,11 +132,19 @@ const settingsRouter = createRouter({
       try {
         const hashedPassword = await hashPassword(input.newPassword);
         await updateUserPassword(ctx.user.id, hashedPassword);
-        await matrixChangePassword(ctx.user.username, input.newPassword);
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.account.password.updateFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+      try {
+        await matrixChangePassword(ctx.user.username, input.newPassword);
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.unableToUpdateMatrix'),
           cause: { toast: 'error' },
         });
       }
@@ -151,7 +160,44 @@ const settingsRouter = createRouter({
     .input((input) =>
       emailAndPhoneNumberSchema(useTranslationsFromContext()).parse(input),
     )
-    .mutation(async ({ input, ctx }) => {}),
+    .mutation(async ({ input, ctx }) => {
+      try {
+        if (input.email === ctx.user.email) {
+          await ctx.db
+            .update(users)
+            .set({
+              email: input.email,
+              phoneNumber: input.phoneNumber,
+            })
+            .where(eq(users.id, ctx.user.id));
+        } else {
+          await ctx.db.update(users).set({
+            email: input.email,
+            phoneNumber: input.phoneNumber,
+            emailVerifiedAt: null,
+          });
+        }
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.account.updateAccountFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+      try {
+        await matrixChangeEmailAndPhonenumber(
+          ctx.user.username,
+          input.email,
+          input.phoneNumber,
+        );
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.unableToUpdateMatrix'),
+          cause: { toast: 'error' },
+        });
+      }
+    }),
 });
 
 export { settingsRouter };

@@ -3,9 +3,8 @@ import { ProfilePictureForm } from '@/components/settings/ProfilePictureForm';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { getTranslations } from 'next-intl/server';
-import { setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { redirect } from '@/lib/locale/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('settings.profile');
@@ -26,7 +25,7 @@ export default async function ProfilePage({
   const { user } = await api.auth.state();
 
   if (!user) {
-    notFound();
+    return redirect({ href: '/auth', locale });
   }
 
   const profilePictureUrl = user.profilePictureId

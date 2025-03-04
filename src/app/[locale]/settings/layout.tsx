@@ -4,7 +4,6 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Main } from '@/components/layout/Main';
@@ -12,6 +11,7 @@ import { SidebarNav } from '@/components/settings/SidebarNav';
 import { Separator } from '@/components/ui/Separator';
 
 import { api } from '@/lib/api/server';
+import { redirect } from '@/lib/locale/navigation';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
@@ -33,7 +33,11 @@ export default async function SettingsLayout({
   const { user } = await api.auth.state();
 
   if (!user) {
-    notFound();
+    return redirect({ href: '/auth', locale });
+  }
+
+  if (!user.emailVerifiedAt) {
+    return redirect({ href: '/auth/verify-email', locale });
   }
 
   const showAdministratorMenu = user.groups.some(

@@ -25,7 +25,7 @@ export default async function AdminPage({
   );
 
   if (!showAdministratorMenu) {
-    notFound();
+    return notFound();
   }
 
   return (

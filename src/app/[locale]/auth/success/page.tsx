@@ -16,12 +16,16 @@ export default async function SuccessPage({
 
   const { user } = await api.auth.state();
 
-  if (user) {
-    if (!user.isAccountComplete) {
-      redirect({ href: '/auth/create-account', locale });
-    }
-  } else {
-    redirect({ href: '/auth', locale });
+  if (!user) {
+    return redirect({ href: '/auth', locale });
+  }
+
+  if (!user.isAccountComplete) {
+    return redirect({ href: '/auth/create-account', locale });
+  }
+
+  if (!user.emailVerifiedAt) {
+    return redirect({ href: '/auth/verify-email', locale });
   }
 
   return (

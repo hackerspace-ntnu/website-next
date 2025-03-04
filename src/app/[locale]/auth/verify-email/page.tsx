@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 
-export default async function ForgotPasswordPage({
+export default async function VerifyEmailPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -9,7 +9,7 @@ export default async function ForgotPasswordPage({
   setRequestLocale(locale);
   return (
     <div className='flex h-full flex-col transition-opacity duration-500'>
-      forgot password page
+      verify email page
     </div>
   );
 }

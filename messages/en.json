@@ -130,8 +130,8 @@
     "profile": {
       "title": "Profile",
       "updateProfile": "Update profile",
-      "updateFailed": "Failed to update profile",
-      "updateSuccess": "Profile updated successfully",
+      "updateProfileFailed": "Failed to update profile",
+      "updateProfileSuccess": "Profile updated successfully",
       "updateProfilePicture": "Update profile picture",
       "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
@@ -166,8 +166,9 @@
     },
     "account": {
       "title": "Account",
-      "updateAccountSuccess": "Account updated successfully",
       "updateAccount": "Update account",
+      "updateAccountFailed": "Failed to update account",
+      "updateAccountSuccess": "Account updated successfully",
       "email": {
         "label": "Email",
         "description": "If you change your email, you will be locked out of your account until you have confirmed it.",

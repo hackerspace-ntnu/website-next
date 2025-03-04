@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/Input';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
+import { useRouter } from '@/lib/locale/navigation';
 import { useTranslations } from 'next-intl';
 
 import { api } from '@/lib/api/client';
@@ -27,6 +28,7 @@ type AccountFormProps = {
 
 function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const t = useTranslations('settings.account');
+  const router = useRouter();
   const formSchema = emailAndPhoneNumberSchema(useTranslations());
 
   const updateEmailAndPhoneNumberMutation =
@@ -47,6 +49,9 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
         phoneNumber: value.phoneNumber,
         email: value.email,
       });
+      if (value.email !== email) {
+        router.replace('/auth/verify-email');
+      }
     },
   });
 

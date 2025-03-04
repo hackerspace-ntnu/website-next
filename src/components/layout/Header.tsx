@@ -15,8 +15,13 @@ async function Header() {
   const t = await getTranslations('layout');
   const { user } = await api.auth.state();
 
-  if (user && !user.isAccountComplete) {
-    redirect({ href: '/auth/create-account', locale });
+  if (user) {
+    if (!user.isAccountComplete) {
+      return redirect({ href: '/auth/create-account', locale });
+    }
+    if (!user.emailVerifiedAt) {
+      return redirect({ href: '/auth/verify-email', locale });
+    }
   }
 
   return (

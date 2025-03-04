@@ -51,6 +51,10 @@ const routing = defineRouting({
       en: '/auth/forgot-password',
       no: '/autentisering/glemt-passord',
     },
+    '/auth/verify-email': {
+      en: '/auth/verify-email',
+      no: '/autentisering/bekreft-epost',
+    },
     '/auth/success': {
       en: '/auth/success',
       no: '/autentisering/suksess',
