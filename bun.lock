@@ -36,6 +36,7 @@
         "date-fns": "^4.1.0",
         "drizzle-orm": "^0.38.3",
         "drizzle-zod": "^0.6.1",
+        "input-otp": "^1.4.2",
         "libphonenumber-js": "^1.12.4",
         "lucide-react": "^0.396.0",
         "motion": "^11.18.0",
@@ -1050,6 +1051,8 @@
     "inherits": ["inherits@2.0.4", "", {}, "sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ=="],
 
     "input-format": ["input-format@0.3.14", "", { "dependencies": { "prop-types": "^15.8.1" }, "peerDependencies": { "react": ">=18.1.0", "react-dom": ">=18.1.0" }, "optionalPeers": ["react", "react-dom"] }, "sha512-gHMrgrbCgmT4uK5Um5eVDUohuV9lcs95ZUUN9Px2Y0VIfjTzT2wF8Q3Z4fwLFm7c5Z2OXCm53FHoovj6SlOKdg=="],
+
+    "input-otp": ["input-otp@1.4.2", "", { "peerDependencies": { "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc", "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc" } }, "sha512-l3jWwYNvrEa6NTCt7BECfCm48GvwuZzkoeG3gBL2w4CHeOXW3eKFmf9UNYkNfYc3mxMrthMnxjIE07MT0zLBQA=="],
 
     "intl-messageformat": ["intl-messageformat@10.5.14", "", { "dependencies": { "@formatjs/ecma402-abstract": "2.0.0", "@formatjs/fast-memoize": "2.2.0", "@formatjs/icu-messageformat-parser": "2.7.8", "tslib": "^2.4.0" } }, "sha512-IjC6sI0X7YRjjyVH9aUgdftcmZK7WXdHeil4KwbjDnRWjnVitKpAx3rr6t6di1joFp5188VqKcobOPA6mCLG/w=="],
 

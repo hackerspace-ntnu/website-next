@@ -64,6 +64,7 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.38.3",
     "drizzle-zod": "^0.6.1",
+    "input-otp": "^1.4.2",
     "libphonenumber-js": "^1.12.4",
     "lucide-react": "^0.396.0",
     "motion": "^11.18.0",

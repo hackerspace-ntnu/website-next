@@ -440,7 +440,7 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
   }
 }
 
-async function matrixChangeEmailAndPhonenumber(
+async function matrixChangeEmailAndPhoneNumber(
   username: string,
   email: string,
   phoneNumber: string,
@@ -540,6 +540,6 @@ export {
   matrixUploadMedia,
   matrixDeleteMedia,
   matrixChangeAvatar,
-  matrixChangeEmailAndPhonenumber,
+  matrixChangeEmailAndPhoneNumber,
   matrixEraseUser,
 };

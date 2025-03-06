@@ -42,7 +42,7 @@ async function main() {
       email: 'frank@sinatra.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('1915-12-12'),
-      phoneNumber: '+11234567890',
+      phoneNumber: '+13212342342',
       passwordHash: await hashPassword('pass1'),
     },
     // Groups: DevOps
@@ -54,7 +54,7 @@ async function main() {
       email: 'freddie@queen.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('1946-09-05'),
-      phoneNumber: '+11234567891',
+      phoneNumber: '+13212342341',
       passwordHash: await hashPassword('pass1'),
     },
     // Groups: LabOps + Management
@@ -66,7 +66,7 @@ async function main() {
       email: 'john@beatles.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('1940-10-09'),
-      phoneNumber: '+11234567892',
+      phoneNumber: '+13212342348',
       passwordHash: await hashPassword('pass1'),
     },
     // Groups: TTRPG
@@ -78,7 +78,7 @@ async function main() {
       email: 'elvis@presley.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('1935-01-08'),
-      phoneNumber: '+11234567893',
+      phoneNumber: '+13212342347',
       passwordHash: await hashPassword('pass1'),
     },
     // Groups: Representative
@@ -90,7 +90,7 @@ async function main() {
       email: 'taylor@swift.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('1989-12-13'),
-      phoneNumber: '+11234567894',
+      phoneNumber: '+13212342346',
       passwordHash: await hashPassword('pass1'),
     },
     {
@@ -100,7 +100,7 @@ async function main() {
       email: 'michbrus69@gard.com',
       emailVerifiedAt: new Date(),
       birthDate: new Date('2002-05-06'),
-      phoneNumber: '+11234567869',
+      phoneNumber: '+13212342345',
       passwordHash: await hashPassword('pass1'),
     },
   ];

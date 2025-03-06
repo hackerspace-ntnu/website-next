@@ -31,6 +31,11 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const router = useRouter();
   const formSchema = emailAndPhoneNumberSchema(useTranslations());
 
+  const checkPhoneAvailability =
+    api.settings.checkPhoneAvailability.useMutation();
+  const checkEmailAvailability =
+    api.settings.checkEmailAvailability.useMutation();
+
   const updateEmailAndPhoneNumberMutation =
     api.settings.updateAccount.useMutation({
       onSuccess: () => {
@@ -61,14 +66,14 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
         name='phoneNumber'
         validators={{
           onSubmitAsync: async ({ value }) => {
-            const phoneAvailableQuery =
-              api.settings.isPhoneNumberAvailable.useQuery({
+            if (value !== phoneNumber) {
+              const result = await checkPhoneAvailability.mutateAsync({
                 phoneNumber: value,
               });
-
-            return phoneAvailableQuery.data
-              ? undefined
-              : t('phoneNumber.taken');
+              if (!result) {
+                return t('phoneNumber.taken');
+              }
+            }
           },
         }}
       >
@@ -90,7 +95,21 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
           </FormItem>
         )}
       </form.Field>
-      <form.Field name='email'>
+      <form.Field
+        name='email'
+        validators={{
+          onSubmitAsync: async ({ value }) => {
+            if (value !== email) {
+              const result = await checkEmailAvailability.mutateAsync({
+                email: value,
+              });
+              if (!result) {
+                return t('email.taken');
+              }
+            }
+          },
+        }}
+      >
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('email.label')}</FormLabel>

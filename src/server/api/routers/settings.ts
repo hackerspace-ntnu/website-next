@@ -1,6 +1,7 @@
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
+import { checkEmailAvailability } from '@/server/auth/email';
 import {
   hashPassword,
   verifyPasswordHash,
@@ -13,10 +14,11 @@ import { deleteFile, insertFile } from '@/server/services/files';
 import {
   matrixChangeAvatar,
   matrixChangeDisplayname,
-  matrixChangeEmailAndPhonenumber,
+  matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
 } from '@/server/services/matrix';
 import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
+import { emailSchema } from '@/validations/settings/emailSchema';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
@@ -149,12 +151,17 @@ const settingsRouter = createRouter({
         });
       }
     }),
-  isPhoneNumberAvailable: authenticatedProcedure
+  checkPhoneAvailability: authenticatedProcedure
     .input((input) =>
       phoneNumberSchema(useTranslationsFromContext()).parse(input),
     )
-    .query(async ({ input }) => {
+    .mutation(async ({ input }) => {
       return await checkPhoneAvailability(input.phoneNumber);
+    }),
+  checkEmailAvailability: authenticatedProcedure
+    .input((input) => emailSchema(useTranslationsFromContext()).parse(input))
+    .mutation(async ({ input }) => {
+      return await checkEmailAvailability(input.email);
     }),
   updateAccount: authenticatedProcedure
     .input((input) =>
@@ -171,11 +178,14 @@ const settingsRouter = createRouter({
             })
             .where(eq(users.id, ctx.user.id));
         } else {
-          await ctx.db.update(users).set({
-            email: input.email,
-            phoneNumber: input.phoneNumber,
-            emailVerifiedAt: null,
-          });
+          await ctx.db
+            .update(users)
+            .set({
+              email: input.email,
+              phoneNumber: input.phoneNumber,
+              emailVerifiedAt: null,
+            })
+            .where(eq(users.id, ctx.user.id));
         }
       } catch {
         throw new TRPCError({
@@ -185,7 +195,7 @@ const settingsRouter = createRouter({
         });
       }
       try {
-        await matrixChangeEmailAndPhonenumber(
+        await matrixChangeEmailAndPhoneNumber(
           ctx.user.username,
           input.email,
           input.phoneNumber,
