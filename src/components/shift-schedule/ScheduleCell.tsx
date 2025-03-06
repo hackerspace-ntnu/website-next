@@ -1,6 +1,7 @@
 import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
 import { TableCell } from '@/components/ui/Table';
+import type { skillIdentifiers } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -11,9 +12,10 @@ type ScheduleCellProps = {
     time: string;
   };
   members: number;
+  skills: (typeof skillIdentifiers)[number][];
 };
 
-function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
+function ScheduleCell({ tDialog, members, skills }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCell');
 
   return (
@@ -38,9 +40,11 @@ function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
             <div className='flex flex-col'>
               {/* Amount of people on shift */}
               <span>{t('onShift', { count: members })}</span>
-              {/* Skill icons */}
+              {/* Skill icons  --- Not showing icons yet, only cut off list of skill identifiers */}
               {members !== 0 && (
-                <span className='leading-7'>[skill icons total]</span>
+                <span className='leading-7'>
+                  {skills.toString().substring(0, 20)}
+                </span>
               )}
             </div>
           </button>

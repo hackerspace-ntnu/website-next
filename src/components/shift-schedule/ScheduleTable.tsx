@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
-import { days, timeslots } from '@/lib/constants';
+import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { useFormatter, useTranslations } from 'next-intl';
 
 async function ScheduleTable() {
@@ -69,30 +69,31 @@ async function ScheduleTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {timeslots.map((timeslot) => (
-                <TableRow key={timeslot}>
-                  <TableCell className='border-y'>
-                    {getDateTimeRange(timeslot)}
-                  </TableCell>
-                  <ScheduleCell
-                    tDialog={{
-                      day: t('day', { day: day }),
-                      time: getDateTimeRange(timeslot),
-                    }}
-                    members={
-                      shifts.find(
-                        (shift) =>
-                          shift.day === day && shift.timeslot === timeslot,
-                      )?.onShift ?? 0
-                    }
-                  />
-                </TableRow>
-              ))}
+              {timeslots.map((timeslot) => {
+                const shift = shifts.find(
+                  (shift) => shift.day === day && shift.timeslot === timeslot,
+                );
+                return (
+                  <TableRow key={timeslot}>
+                    <TableCell className='border-y'>
+                      {getDateTimeRange(timeslot)}
+                    </TableCell>
+                    <ScheduleCell
+                      tDialog={{
+                        day: t('day', { day: day }),
+                        time: getDateTimeRange(timeslot),
+                      }}
+                      members={shift?.onShift ?? 0}
+                      skills={shift?.skills ?? []}
+                    />
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         ))}
         <Table>
-          <TableCaption>[skill icons legend]</TableCaption>
+          <TableCaption>{skillIdentifiers.toString()}</TableCaption>
         </Table>
       </div>
 
@@ -114,25 +115,28 @@ async function ScheduleTable() {
               <TableCell className='min-w-32 border-y'>
                 {getDateTimeRange(timeslot)}
               </TableCell>
-              {days.map((day) => (
-                <ScheduleCell
-                  key={day}
-                  tDialog={{
-                    day: t('day', { day: day }),
-                    time: getDateTimeRange(timeslot),
-                  }}
-                  members={
-                    shifts.find(
-                      (shift) =>
-                        shift.day === day && shift.timeslot === timeslot,
-                    )?.onShift ?? 0
-                  }
-                />
-              ))}
+              {days.map((day) => {
+                const shift = shifts.find(
+                  (shift) => shift.day === day && shift.timeslot === timeslot,
+                );
+                return (
+                  <ScheduleCell
+                    key={day}
+                    tDialog={{
+                      day: t('day', { day: day }),
+                      time: getDateTimeRange(timeslot),
+                    }}
+                    members={shift?.onShift ?? 0}
+                    skills={shift?.skills ?? []}
+                  />
+                );
+              })}
             </TableRow>
           ))}
         </TableBody>
-        <TableCaption className='h-12'>[skill icons legend]</TableCaption>
+        <TableCaption className='h-12'>
+          {skillIdentifiers.toString()}
+        </TableCaption>
       </Table>
     </>
   );
