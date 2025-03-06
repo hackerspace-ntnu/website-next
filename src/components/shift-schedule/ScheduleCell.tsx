@@ -1,7 +1,7 @@
 import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
 import { TableCell } from '@/components/ui/Table';
-import type { skillIdentifiers } from '@/lib/constants';
+import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -11,11 +11,19 @@ type ScheduleCellProps = {
     day: string;
     time: string;
   };
+  day: (typeof days)[number];
+  timeslot: (typeof timeslots)[number];
   members: number;
   skills: (typeof skillIdentifiers)[number][];
 };
 
-function ScheduleCell({ tDialog, members, skills }: ScheduleCellProps) {
+async function ScheduleCell({
+  tDialog,
+  day,
+  timeslot,
+  members,
+  skills,
+}: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCell');
 
   return (
@@ -40,17 +48,17 @@ function ScheduleCell({ tDialog, members, skills }: ScheduleCellProps) {
             <div className='flex flex-col'>
               {/* Amount of people on shift */}
               <span>{t('onShift', { count: members })}</span>
-              {/* Skill icons  --- Not showing icons yet, only cut off list of skill identifiers */}
+              {/* Skill icons */}
               {members !== 0 && (
                 <span className='leading-7'>
-                  {skills.toString().substring(0, 20)}
+                  {skills.toString().substring(0, 6)}
                 </span>
               )}
             </div>
           </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <ScheduleCellDialog tDialog={tDialog} />
+          <ScheduleCellDialog tDialog={tDialog} day={day} timeslot={timeslot} />
         </DialogContent>
       </Dialog>
     </TableCell>

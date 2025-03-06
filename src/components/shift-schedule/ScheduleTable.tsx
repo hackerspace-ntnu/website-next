@@ -83,6 +83,8 @@ async function ScheduleTable() {
                         day: t('day', { day: day }),
                         time: getDateTimeRange(timeslot),
                       }}
+                      day={day}
+                      timeslot={timeslot}
                       members={shift?.onShift ?? 0}
                       skills={shift?.skills ?? []}
                     />
@@ -126,6 +128,8 @@ async function ScheduleTable() {
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
                     }}
+                    day={day}
+                    timeslot={timeslot}
                     members={shift?.onShift ?? 0}
                     skills={shift?.skills ?? []}
                   />
