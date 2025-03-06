@@ -56,6 +56,14 @@
     "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
+    "verifyEmail": "Bekreft e-postadressen din",
+    "verifyEmailDescription": "Skriv inn bekreftelseskoden vi sendte til {email}. Hvis du ikke ser den, sjekk spam-mappen din.",
+    "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
+    "newCodeSent": "En ny kode ble sendt til din innboks",
+    "confirmEmail": "Bekreft e-post",
+    "unableToCreateVerificationRequest": "Kunne ikke opprette verifikasjonsforespørsel",
+    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet, en ny forespørsel er opprettet",
+    "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
     "form": {
       "username": {
         "label": "Brukernavn",
@@ -74,6 +82,13 @@
         "confirmLabel": "Bekreft passord",
         "mismatch": "Passordene stemmer ikke overens",
         "weak": "Passordet er for svakt"
+      },
+      "otp": {
+        "label": "Engangspassord",
+        "required": "Engangspassord er påkrevd",
+        "length": "Engangspassord må være {count} tegn langt",
+        "invalid": "Engangspassord må kun inneholde sifre og bokstaver",
+        "incorrect": "Feil engangspassord"
       }
     },
     "error": {

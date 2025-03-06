@@ -1,4 +1,6 @@
+import VerificationCodeEmail from '@/emails/VerificationCodeEmail';
 import { env } from '@/env';
+import type { routing } from '@/lib/locale';
 import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { generateRandomOTP } from '@/server/auth/code';
 import { db } from '@/server/db';
@@ -11,6 +13,7 @@ import {
   emailVerificationRequests,
   users,
 } from '@/server/db/tables';
+import { sendEmail } from '@/server/services/emails';
 
 const sendVerificationEmailBucket = new ExpiringTokenBucket(3, 600);
 
@@ -60,6 +63,19 @@ async function createEmailVerificationRequest(userId: number, email: string) {
   return result;
 }
 
+async function getUserEmailVerificationRequestFromRequest(userId: number) {
+  const cookieStore = await cookies();
+  const id = cookieStore.get('email_verification')?.value ?? null;
+  if (id === null) {
+    return null;
+  }
+  const request = await getUserEmailVerificationRequest(userId, id);
+  if (request === null) {
+    await deleteEmailVerificationRequestCookie();
+  }
+  return request;
+}
+
 async function setEmailVerificationRequestCookie(
   request: SelectEmailVerificationRequest,
 ) {
@@ -84,11 +100,45 @@ async function deleteEmailVerificationRequestCookie() {
   });
 }
 
+async function updateUserEmailAndSetEmailAsVerified(
+  userId: number,
+  email: string,
+) {
+  await db
+    .update(users)
+    .set({ email, emailVerifiedAt: new Date() })
+    .where(eq(users.id, userId));
+}
+
+async function sendVerificationEmail(
+  email: string,
+  code: string,
+  locale: (typeof routing.locales)[number],
+  theme: 'dark' | 'light',
+) {
+  await sendEmail(
+    VerificationCodeEmail,
+    {
+      locale,
+      theme,
+      publicSiteUrl: env.NEXT_PUBLIC_SITE_URL,
+      validationCode: code,
+    },
+    locale === 'no'
+      ? `Din Hackerspace NTNU bekreftelseskode er ${code}`
+      : `Your Hackerspace NTNU confirmation code is ${code}`,
+    email,
+  );
+}
+
 export {
   sendVerificationEmailBucket,
   checkEmailAvailability,
   createEmailVerificationRequest,
+  getUserEmailVerificationRequestFromRequest,
   deleteUserEmailVerificationRequest,
   setEmailVerificationRequestCookie,
   deleteEmailVerificationRequestCookie,
+  updateUserEmailAndSetEmailAsVerified,
+  sendVerificationEmail,
 };

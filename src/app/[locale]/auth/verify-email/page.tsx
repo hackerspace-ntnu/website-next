@@ -1,3 +1,6 @@
+import { VerifyEmailForm } from '@/components/auth/VerifyEmailForm';
+import { api } from '@/lib/api/server';
+import { redirect } from '@/lib/locale/navigation';
 import { setRequestLocale } from 'next-intl/server';
 
 export default async function VerifyEmailPage({
@@ -7,9 +10,16 @@ export default async function VerifyEmailPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return (
-    <div className='flex h-full flex-col transition-opacity duration-500'>
-      verify email page
-    </div>
-  );
+
+  const { user } = await api.auth.state();
+
+  if (!user) {
+    return redirect({ href: '/auth', locale });
+  }
+  //
+  // if (user && !user.emailVerifiedAt) {
+  //   return redirect({ href: '/', locale });
+  // }
+
+  return <VerifyEmailForm email={user.email} />;
 }

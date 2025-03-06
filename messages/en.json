@@ -56,6 +56,14 @@
     "passwordDescription": "The password will be used for signing into Matrix and your Hackerspace Account",
     "createAccount": "Create Account",
     "feideNotConfigured": "Feide is not configured",
+    "verifyEmail": "Verify your email address",
+    "verifyEmailDescription": "Enter the confirmation code we sent to {email}. If you don't see it, check your spam folder.",
+    "getNewCode": "Get new code {seconds, plural, =0 {} =1 {(# second)} other {(# seconds)}}",
+    "newCodeSent": "A new code was sent to your inbox",
+    "confirmEmail": "Confirm email",
+    "unableToCreateVerificationRequest": "Unable to create verification request",
+    "noVerificationRequest": "No verification request found, a new one was created",
+    "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "form": {
       "username": {
         "label": "Username",
@@ -74,6 +82,13 @@
         "confirmLabel": "Confirm password",
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
+      },
+      "otp": {
+        "label": "One-time password",
+        "required": "One-time password is required",
+        "length": "One-time password must be {count} characters long",
+        "invalid": "One-time password must only contain digits and characters",
+        "incorrect": "Incorrect one-time password"
       }
     },
     "error": {

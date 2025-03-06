@@ -8,8 +8,9 @@ function isEmailServiceConfigured() {
   );
 }
 
-async function sendEmail(
-  Email: React.ReactElement,
+async function sendEmail<T extends Record<string, unknown>>(
+  EmailComponent: React.ComponentType<T>,
+  props: T,
   subject: string,
   recipientEmailAddress: string,
 ) {
@@ -31,6 +32,8 @@ async function sendEmail(
   });
 
   await transporter.verify();
+
+  const Email = <EmailComponent {...props} />;
 
   const emailHtml = await render(Email);
 

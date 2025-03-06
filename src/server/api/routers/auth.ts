@@ -3,6 +3,7 @@ import {
   publicProcedure,
   registrationProcedure,
 } from '@/server/api/procedures';
+import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
@@ -27,6 +28,7 @@ import {
 } from '@/server/services/feide';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
+import { otpSchema } from '@/validations/auth/otpSchema';
 
 import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
@@ -35,8 +37,19 @@ import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
 import { matrixRegisterUser } from '@/server/services/matrix';
 
+import {
+  createEmailVerificationRequest,
+  deleteEmailVerificationRequestCookie,
+  deleteUserEmailVerificationRequest,
+  getUserEmailVerificationRequestFromRequest,
+  sendVerificationEmail,
+  setEmailVerificationRequestCookie,
+  updateUserEmailAndSetEmailAsVerified,
+} from '@/server/auth/email';
+
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
+const emailVerificationBucket = new ExpiringTokenBucket<number>(5, 180);
 
 const authRouter = createRouter({
   state: publicProcedure.query(async ({ ctx }) => {
@@ -173,6 +186,76 @@ const authRouter = createRouter({
     await invalidateSession(ctx.session.id);
     await deleteSessionTokenCookie();
   }),
+  verifyEmail: authenticatedProcedure
+    .input((input) => otpSchema(useTranslationsFromContext()).parse(input))
+    .mutation(async ({ ctx, input }) => {
+      if (!emailVerificationBucket.check(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      let verificationRequest =
+        await getUserEmailVerificationRequestFromRequest(ctx.user.id);
+
+      if (!verificationRequest) {
+        verificationRequest = await createEmailVerificationRequest(
+          ctx.user.id,
+          ctx.user.email,
+        );
+        if (!verificationRequest) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('auth.unableToCreateVerificationRequest'),
+            cause: { toast: 'error' },
+          });
+        }
+        await sendVerificationEmail(ctx.user.email);
+        await setEmailVerificationRequestCookie(verificationRequest);
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.noVerificationRequest'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      if (!emailVerificationBucket.consume(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      if (Date.now() >= verificationRequest.expiresAt.getTime()) {
+        verificationRequest = await createEmailVerificationRequest(
+          verificationRequest.userId,
+          verificationRequest.email,
+        );
+        await sendVerificationEmail(ctx.user.email);
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.verficationCodeExpired'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      if (input.otp !== verificationRequest.code) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.form.otp.incorrect'),
+        });
+      }
+
+      await deleteUserEmailVerificationRequest(ctx.user.id);
+      await updateUserEmailAndSetEmailAsVerified(
+        ctx.user.id,
+        verificationRequest.email,
+      );
+      await deleteEmailVerificationRequestCookie();
+    }),
 });
 
 export { authRouter };
