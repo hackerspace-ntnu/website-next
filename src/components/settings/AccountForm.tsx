@@ -56,9 +56,10 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
         },
         {
           onSuccess: () => {
-            toast.success(t('updateAccountSuccess'));
             if (value.email !== email) {
               router.push('/auth/verify-email');
+            } else {
+              toast.success(t('updateAccountSuccess'));
             }
           },
         },
@@ -165,7 +166,9 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
           <Button
             className='min-w-40'
             type='submit'
-            disabled={!canSubmit || isPristine}
+            disabled={
+              !canSubmit || isPristine || updateAccountMutation.isPending
+            }
           >
             {updateAccountMutation.isPending ? (
               <Spinner className='text-primary-foreground' />

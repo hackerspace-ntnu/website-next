@@ -109,7 +109,9 @@ function ProfilePictureForm({
           <Button
             className='min-w-40'
             type='submit'
-            disabled={!canSubmit || isPristine}
+            disabled={
+              !canSubmit || isPristine || updateProfilePictureMutation.isPending
+            }
           >
             {updateProfilePictureMutation.isPending ? (
               <Spinner className='text-primary-foreground' />

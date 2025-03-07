@@ -105,7 +105,11 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
           <Button
             className='min-w-40'
             type='submit'
-            disabled={!canSubmit || isPristine}
+            disabled={
+              !canSubmit ||
+              isPristine ||
+              updateProfileSettingsMutation.isPending
+            }
           >
             {updateProfileSettingsMutation.isPending ? (
               <Spinner className='text-primary-foreground' />

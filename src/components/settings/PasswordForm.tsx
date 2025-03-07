@@ -120,7 +120,9 @@ function PasswordForm() {
           <Button
             className='min-w-40'
             type='submit'
-            disabled={!canSubmit || isPristine}
+            disabled={
+              !canSubmit || isPristine || updatePasswordMutation.isPending
+            }
           >
             {updatePasswordMutation.isPending ? (
               <Spinner className='text-primary-foreground' />

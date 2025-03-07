@@ -52,6 +52,7 @@ function VerifyEmailForm() {
 
   const form = useForm(formSchema, {
     validators: {
+      // TODO: this gets triggered twice, but will be fixed when we rewrtie the from API for Tanstack Form V1. (That is why you may get an error message on the frontend)
       onSubmitAsync: async ({ value }) => {
         try {
           await verifyEmailMutation.mutateAsync({
@@ -69,6 +70,7 @@ function VerifyEmailForm() {
     },
     defaultValues: {
       otp: '',
+      theme: resolvedTheme as 'light' | 'dark',
     },
   });
 
@@ -91,8 +93,9 @@ function VerifyEmailForm() {
                   containerClassName={'justify-center'}
                   pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
                   value={field.state.value}
-                  onChange={field.handleChange}
+                  onChange={(value) => field.handleChange(value.toUpperCase())}
                   onBlur={field.handleBlur}
+                  pasteTransformer={(pasted) => pasted.replaceAll('-', '')}
                 >
                   <InputOtpGroup>
                     <InputOtpSlot index={0} />
