@@ -18,6 +18,7 @@ const skillIdentifiers = [
   'laser',
   'workshop',
   'microcontroller',
+  'webdevelopment',
 ] as const;
 
 export { groupIdentifiers, skillIdentifiers };

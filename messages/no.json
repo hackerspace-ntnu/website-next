@@ -338,16 +338,26 @@
     "endedAt": "Sluttet kl.",
     "backToEvents": "Tilbake til arrangementer"
   },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
+  },
+  "skills": {
+    "printing": "3D-printing",
+    "soldering": "Lodding",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laserkutting",
+    "workshop": "Verkstedsverktøy",
+    "microcontroller": "Mikrokontroller-programmering",
+    "webdevelopment": "Webutvikling"
+  },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert",
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet",
     "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
-  },
-  "rules": {
-    "title": "Regler",
-    "forEveryone": "For alle",
-    "internal": "Interne regler"
   }
 }

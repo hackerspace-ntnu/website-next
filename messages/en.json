@@ -338,16 +338,26 @@
     "endedAt": "Ended at",
     "backToEvents": "Back to Events"
   },
+  "rules": {
+    "title": "Rules",
+    "forEveryone": "For everyone",
+    "internal": "Internal rules"
+  },
+  "skills": {
+    "printing": "3D Printing",
+    "soldering": "Soldering",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Lniux",
+    "laser": "Laser Cutting",
+    "workshop": "Workshop Tools",
+    "microcontroller": "Microcontroller Programming",
+    "webdevelopment": "Web Development"
+  },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",
     "notAuthorized": "Not authorized",
     "noFileFound": "No file found",
     "unableToUpdateMatrix": "Unable to update on Matrix"
-  },
-  "rules": {
-    "title": "Rules",
-    "forEveryone": "For everyone",
-    "internal": "Internal rules"
   }
 }
