@@ -36,7 +36,7 @@ const users = pgTable(
     emailVerifiedAt: timestamp('email_verified_at', {
       withTimezone: true,
       mode: 'date',
-    }),
+    }).notNull(),
     birthDate: timestamp('birth_date', {
       withTimezone: true,
       mode: 'date',
