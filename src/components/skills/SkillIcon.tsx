@@ -40,7 +40,7 @@ function SkillIconTooltipTemplate({
 function SkillIcon({
   identifier,
 }: { identifier: (typeof skillIdentifiers)[number] }) {
-  const t = useTranslations();
+  const t = useTranslations('skills');
 
   switch (identifier) {
     case 'printing':
