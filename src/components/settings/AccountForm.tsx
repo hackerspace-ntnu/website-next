@@ -45,6 +45,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
       phoneNumber,
       email,
       confirmEmail: email,
+      theme: resolvedTheme as 'light' | 'dark',
     },
     onSubmit: ({ value }) => {
       updateAccountMutation.mutate(

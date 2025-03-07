@@ -95,7 +95,7 @@ async function main() {
     },
     {
       username: 'michbrus',
-      firstName: 'Michae',
+      firstName: 'Michael',
       lastName: 'Brusegard',
       email: 'michbrus69@gard.com',
       emailVerifiedAt: new Date(),

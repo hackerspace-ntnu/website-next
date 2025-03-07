@@ -172,12 +172,14 @@ const settingsRouter = createRouter({
     .input((input) => accountSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
       try {
-        await ctx.db
-          .update(users)
-          .set({
-            phoneNumber: input.phoneNumber,
-          })
-          .where(eq(users.id, ctx.user.id));
+        if (input.phoneNumber !== ctx.user.phoneNumber) {
+          await ctx.db
+            .update(users)
+            .set({
+              phoneNumber: input.phoneNumber,
+            })
+            .where(eq(users.id, ctx.user.id));
+        }
 
         if (input.email !== ctx.user.email) {
           const emailVerificationRequest = await createEmailVerificationRequest(
@@ -208,18 +210,20 @@ const settingsRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
-      try {
-        await matrixChangeEmailAndPhoneNumber(
-          ctx.user.username,
-          ctx.user.email,
-          input.phoneNumber,
-        );
-      } catch {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('api.unableToUpdateMatrix'),
-          cause: { toast: 'error' },
-        });
+      if (input.phoneNumber !== ctx.user.phoneNumber) {
+        try {
+          await matrixChangeEmailAndPhoneNumber(
+            ctx.user.username,
+            ctx.user.email,
+            input.phoneNumber,
+          );
+        } catch {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('api.unableToUpdateMatrix'),
+            cause: { toast: 'error' },
+          });
+        }
       }
     }),
 });
