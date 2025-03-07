@@ -61,7 +61,7 @@
     "getNewCode": "Get new code {seconds, plural, =0 {} =1 {(# second)} other {(# seconds)}}",
     "newCodeSent": "A new code was sent to your inbox",
     "confirmEmail": "Confirm email",
-    "unableToCreateVerificationRequest": "Unable to create verification request",
+    "unableToCreateVerificationRequest": "Unable to create email verification request",
     "noVerificationRequest": "No verification request found, a new one was created",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "form": {
@@ -186,7 +186,7 @@
       "updateAccountSuccess": "Account updated successfully",
       "email": {
         "label": "Email",
-        "description": "If you change your email, you will be locked out of your account until you have confirmed it.",
+        "description": "If you change your email, you will recieve a verification email to confirm your new address.",
         "required": "Email is required",
         "invalid": "Invalid email address format",
         "confirmLabel": "Confirm email",

@@ -61,7 +61,7 @@
     "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
     "newCodeSent": "En ny kode ble sendt til din innboks",
     "confirmEmail": "Bekreft e-post",
-    "unableToCreateVerificationRequest": "Kunne ikke opprette verifikasjonsforespørsel",
+    "unableToCreateVerificationRequest": "Kunne ikke opprette e-post verifikasjonsforespørsel",
     "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet, en ny forespørsel er opprettet",
     "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
     "form": {
@@ -186,7 +186,7 @@
       "updateAccountSuccess": "Konto oppdatert",
       "email": {
         "label": "E-post",
-        "description": "Hvis du endrer e-postadressen din, vil du bli utestengt fra kontoen din til du har bekreftet den.",
+        "description": "Hvis du endrer e-postadressen din, så vil du motta en bekreftelses-e-post for å bekrefte den nye e-postadressen.",
         "required": "E-post er påkrevd",
         "invalid": "Ugyldig e-postadresseformat",
         "confirmLabel": "Bekreft e-post",

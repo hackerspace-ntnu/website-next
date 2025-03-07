@@ -17,9 +17,10 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { useRouter } from '@/lib/locale/navigation';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 
 import { api } from '@/lib/api/client';
-import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
+import { accountSchema } from '@/validations/settings/accountSchema';
 
 type AccountFormProps = {
   phoneNumber: string;
@@ -29,7 +30,8 @@ type AccountFormProps = {
 function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const t = useTranslations('settings.account');
   const router = useRouter();
-  const formSchema = emailAndPhoneNumberSchema(useTranslations());
+  const formSchema = accountSchema(useTranslations());
+  const { resolvedTheme } = useTheme();
 
   const checkPhoneAvailability =
     api.settings.checkPhoneAvailability.useMutation();
@@ -53,6 +55,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
       updateEmailAndPhoneNumberMutation.mutate({
         phoneNumber: value.phoneNumber,
         email: value.email,
+        theme: resolvedTheme as 'light' | 'dark',
       });
       if (value.email !== email) {
         router.replace('/auth/verify-email');

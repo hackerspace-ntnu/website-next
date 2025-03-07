@@ -43,9 +43,9 @@ import {
   deleteUserEmailVerificationRequest,
   getUserEmailVerificationRequestFromRequest,
   sendVerificationEmail,
-  setEmailVerificationRequestCookie,
   updateUserEmailAndSetEmailAsVerified,
 } from '@/server/auth/email';
+import { matrixChangeEmailAndPhoneNumber } from '@/server/services/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
@@ -199,28 +199,10 @@ const authRouter = createRouter({
         });
       }
 
-      let verificationRequest =
+      let emailVerificationRequest =
         await getUserEmailVerificationRequestFromRequest(ctx.user.id);
 
-      if (!verificationRequest) {
-        verificationRequest = await createEmailVerificationRequest(
-          ctx.user.id,
-          ctx.user.email,
-        );
-        if (!verificationRequest) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('auth.unableToCreateVerificationRequest'),
-            cause: { toast: 'error' },
-          });
-        }
-        await sendVerificationEmail(
-          ctx.user.email,
-          verificationRequest.code,
-          ctx.locale,
-          input.theme,
-        );
-        await setEmailVerificationRequestCookie(verificationRequest);
+      if (!emailVerificationRequest) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.noVerificationRequest'),
@@ -236,12 +218,12 @@ const authRouter = createRouter({
         });
       }
 
-      if (Date.now() >= verificationRequest.expiresAt.getTime()) {
-        verificationRequest = await createEmailVerificationRequest(
-          verificationRequest.userId,
-          verificationRequest.email,
+      if (Date.now() >= emailVerificationRequest.expiresAt.getTime()) {
+        emailVerificationRequest = await createEmailVerificationRequest(
+          emailVerificationRequest.userId,
+          emailVerificationRequest.email,
         );
-        if (!verificationRequest) {
+        if (!emailVerificationRequest) {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('auth.unableToCreateVerificationRequest'),
@@ -250,18 +232,18 @@ const authRouter = createRouter({
         }
         await sendVerificationEmail(
           ctx.user.email,
-          verificationRequest.code,
+          emailVerificationRequest.code,
           ctx.locale,
           input.theme,
         );
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: ctx.t('auth.verficationCodeExpired'),
+          message: ctx.t('auth.verificationCodeExpired'),
           cause: { toast: 'warning' },
         });
       }
 
-      if (input.otp !== verificationRequest.code) {
+      if (input.otp !== emailVerificationRequest.code) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.form.otp.incorrect'),
@@ -271,9 +253,23 @@ const authRouter = createRouter({
       await deleteUserEmailVerificationRequest(ctx.user.id);
       await updateUserEmailAndSetEmailAsVerified(
         ctx.user.id,
-        verificationRequest.email,
+        emailVerificationRequest.email,
       );
       await deleteEmailVerificationRequestCookie();
+
+      try {
+        await matrixChangeEmailAndPhoneNumber(
+          ctx.user.username,
+          emailVerificationRequest.email,
+          ctx.user.phoneNumber,
+        );
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.unableToUpdateMatrix'),
+          cause: { toast: 'error' },
+        });
+      }
     }),
 });
 

@@ -3,8 +3,13 @@ import { emailSchema } from '@/validations/settings/emailSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { z } from 'zod';
 
-function emailAndPhoneNumberSchema(t: Translations) {
-  return z.object({}).merge(emailSchema(t)).merge(phoneNumberSchema(t));
+function accountSchema(t: Translations) {
+  return z
+    .object({
+      theme: z.enum(['dark', 'light']),
+    })
+    .merge(emailSchema(t))
+    .merge(phoneNumberSchema(t));
 }
 
-export { emailAndPhoneNumberSchema };
+export { accountSchema };

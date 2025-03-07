@@ -3,6 +3,11 @@ import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { checkEmailAvailability } from '@/server/auth/email';
 import {
+  createEmailVerificationRequest,
+  sendVerificationEmail,
+  setEmailVerificationRequestCookie,
+} from '@/server/auth/email';
+import {
   hashPassword,
   verifyPasswordHash,
   verifyPasswordStrength,
@@ -17,7 +22,7 @@ import {
   matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
 } from '@/server/services/matrix';
-import { emailAndPhoneNumberSchema } from '@/validations/settings/emailAndPhoneNumberSchema';
+import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
@@ -164,16 +169,13 @@ const settingsRouter = createRouter({
       return await checkEmailAvailability(input.email);
     }),
   updateAccount: authenticatedProcedure
-    .input((input) =>
-      emailAndPhoneNumberSchema(useTranslationsFromContext()).parse(input),
-    )
+    .input((input) => accountSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
       try {
         if (input.email === ctx.user.email) {
           await ctx.db
             .update(users)
             .set({
-              email: input.email,
               phoneNumber: input.phoneNumber,
             })
             .where(eq(users.id, ctx.user.id));
@@ -181,11 +183,31 @@ const settingsRouter = createRouter({
           await ctx.db
             .update(users)
             .set({
-              email: input.email,
               phoneNumber: input.phoneNumber,
               emailVerifiedAt: null,
             })
             .where(eq(users.id, ctx.user.id));
+
+          const emailVerificationRequest = await createEmailVerificationRequest(
+            ctx.user.id,
+            input.email,
+          );
+
+          if (!emailVerificationRequest) {
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('auth.unableToCreateVerificationRequest'),
+              cause: { toast: 'error' },
+            });
+          }
+
+          await sendVerificationEmail(
+            input.email,
+            emailVerificationRequest.code,
+            ctx.locale,
+            input.theme,
+          );
+          await setEmailVerificationRequestCookie(emailVerificationRequest);
         }
       } catch {
         throw new TRPCError({
@@ -197,7 +219,7 @@ const settingsRouter = createRouter({
       try {
         await matrixChangeEmailAndPhoneNumber(
           ctx.user.username,
-          input.email,
+          ctx.user.email,
           input.phoneNumber,
         );
       } catch {
