@@ -36,10 +36,6 @@ export default async function SettingsLayout({
     return redirect({ href: '/auth', locale });
   }
 
-  if (!user.emailVerifiedAt) {
-    return redirect({ href: '/auth/verify-email', locale });
-  }
-
   const showAdministratorMenu = user.groups.some(
     (group) => group === 'leadership' || group === 'admin',
   );

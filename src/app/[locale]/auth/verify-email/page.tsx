@@ -16,10 +16,6 @@ export default async function VerifyEmailPage({
   if (!user) {
     return redirect({ href: '/auth', locale });
   }
-  //
-  // if (user && !user.emailVerifiedAt) {
-  //   return redirect({ href: '/', locale });
-  // }
 
   return <VerifyEmailForm email={user.email} />;
 }

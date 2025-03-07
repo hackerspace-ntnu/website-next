@@ -19,9 +19,6 @@ async function Header() {
     if (!user.isAccountComplete) {
       return redirect({ href: '/auth/create-account', locale });
     }
-    if (!user.emailVerifiedAt) {
-      return redirect({ href: '/auth/verify-email', locale });
-    }
   }
 
   return (

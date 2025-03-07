@@ -29,22 +29,23 @@ import {
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
+import { z } from 'zod';
 
 import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
 
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
-import { matrixRegisterUser } from '@/server/services/matrix';
-
 import {
   createEmailVerificationRequest,
   deleteEmailVerificationRequestCookie,
   deleteUserEmailVerificationRequest,
   getUserEmailVerificationRequestFromRequest,
   sendVerificationEmail,
+  setEmailVerificationRequestCookie,
   updateUserEmailAndSetEmailAsVerified,
 } from '@/server/auth/email';
+import { matrixRegisterUser } from '@/server/services/matrix';
 import { matrixChangeEmailAndPhoneNumber } from '@/server/services/matrix';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
@@ -206,7 +207,7 @@ const authRouter = createRouter({
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.noVerificationRequest'),
-          cause: { toast: 'warning' },
+          cause: { toast: 'error' },
         });
       }
 
@@ -270,6 +271,58 @@ const authRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
+    }),
+  resendVerificationEmail: authenticatedProcedure
+    .input(
+      z.object({
+        theme: z.enum(['dark', 'light']),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!emailVerificationBucket.check(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      let emailVerificationRequest =
+        await getUserEmailVerificationRequestFromRequest(ctx.user.id);
+
+      if (!emailVerificationRequest) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.noVerificationRequest'),
+          cause: { toast: 'error' },
+        });
+      }
+      if (!emailVerificationBucket.consume(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+      emailVerificationRequest = await createEmailVerificationRequest(
+        ctx.user.id,
+        emailVerificationRequest.email,
+      );
+
+      if (!emailVerificationRequest) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.unableToCreateVerificationRequest'),
+          cause: { toast: 'error' },
+        });
+      }
+      await sendVerificationEmail(
+        emailVerificationRequest.email,
+        emailVerificationRequest.code,
+        ctx.locale,
+        input.theme,
+      );
+      await setEmailVerificationRequestCookie(emailVerificationRequest);
     }),
 });
 

@@ -57,13 +57,14 @@
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
     "verifyEmail": "Bekreft e-postadressen din",
-    "verifyEmailDescription": "Skriv inn bekreftelseskoden vi sendte til {email}. Hvis du ikke ser den, sjekk spam-mappen din.",
+    "verifyEmailDescription": "Skriv inn bekreftelseskoden sendt til din nye e-postadresse. Hvis du ikke ser den, sjekk spam-mappen din.",
     "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
     "newCodeSent": "En ny kode ble sendt til din innboks",
     "confirmEmail": "Bekreft e-post",
     "unableToCreateVerificationRequest": "Kunne ikke opprette e-post verifikasjonsforespørsel",
-    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet, en ny forespørsel er opprettet",
+    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet",
     "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
+    "emailUpdateSuccess": "E-postadressen ble oppdatert",
     "form": {
       "username": {
         "label": "Brukernavn",

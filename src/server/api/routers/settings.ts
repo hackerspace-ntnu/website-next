@@ -172,22 +172,14 @@ const settingsRouter = createRouter({
     .input((input) => accountSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
       try {
-        if (input.email === ctx.user.email) {
-          await ctx.db
-            .update(users)
-            .set({
-              phoneNumber: input.phoneNumber,
-            })
-            .where(eq(users.id, ctx.user.id));
-        } else {
-          await ctx.db
-            .update(users)
-            .set({
-              phoneNumber: input.phoneNumber,
-              emailVerifiedAt: null,
-            })
-            .where(eq(users.id, ctx.user.id));
+        await ctx.db
+          .update(users)
+          .set({
+            phoneNumber: input.phoneNumber,
+          })
+          .where(eq(users.id, ctx.user.id));
 
+        if (input.email !== ctx.user.email) {
           const emailVerificationRequest = await createEmailVerificationRequest(
             ctx.user.id,
             input.email,

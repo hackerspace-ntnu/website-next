@@ -38,12 +38,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const checkEmailAvailability =
     api.settings.checkEmailAvailability.useMutation();
 
-  const updateEmailAndPhoneNumberMutation =
-    api.settings.updateAccount.useMutation({
-      onSuccess: () => {
-        toast.success(t('updateAccountSuccess'));
-      },
-    });
+  const updateAccountMutation = api.settings.updateAccount.useMutation();
 
   const form = useForm(formSchema, {
     defaultValues: {
@@ -52,14 +47,21 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
       confirmEmail: email,
     },
     onSubmit: ({ value }) => {
-      updateEmailAndPhoneNumberMutation.mutate({
-        phoneNumber: value.phoneNumber,
-        email: value.email,
-        theme: resolvedTheme as 'light' | 'dark',
-      });
-      if (value.email !== email) {
-        router.replace('/auth/verify-email');
-      }
+      updateAccountMutation.mutate(
+        {
+          phoneNumber: value.phoneNumber,
+          email: value.email,
+          theme: resolvedTheme as 'light' | 'dark',
+        },
+        {
+          onSuccess: () => {
+            toast.success(t('updateAccountSuccess'));
+            if (value.email !== email) {
+              router.push('/auth/verify-email');
+            }
+          },
+        },
+      );
     },
   });
 
@@ -164,7 +166,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
             type='submit'
             disabled={!canSubmit || isPristine}
           >
-            {updateEmailAndPhoneNumberMutation.isPending ? (
+            {updateAccountMutation.isPending ? (
               <Spinner className='text-primary-foreground' />
             ) : (
               t('updateAccount')

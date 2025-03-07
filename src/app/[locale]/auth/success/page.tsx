@@ -24,10 +24,6 @@ export default async function SuccessPage({
     return redirect({ href: '/auth/create-account', locale });
   }
 
-  if (!user.emailVerifiedAt) {
-    return redirect({ href: '/auth/verify-email', locale });
-  }
-
   return (
     <div className='relative flex h-full flex-col transition-opacity duration-500'>
       <div className='mb-4 space-y-2 text-center'>

@@ -16,9 +16,6 @@ export default async function CreateAccountPage({
   if (!user) {
     return redirect({ href: '/auth', locale });
   }
-  if (!user.emailVerifiedAt) {
-    return redirect({ href: '/auth/verify-email', locale });
-  }
   if (user.isAccountComplete) {
     return redirect({ href: '/', locale });
   }

@@ -26,8 +26,9 @@ import {
   InputOtpSeparator,
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
+import { toast } from '@/components/ui/Toaster';
 
-function VerifyEmailForm({ email }: { email: string }) {
+function VerifyEmailForm() {
   const router = useRouter();
   const t = useTranslations('auth');
   const formSchema = verifyEmailSchema(useTranslations());
@@ -37,9 +38,17 @@ function VerifyEmailForm({ email }: { email: string }) {
     onMutate: () => setPending(true),
     onSettled: () => setPending(false),
     onSuccess: () => {
+      toast.success(t('emailUpdateSuccess'));
       router.replace('/settings/account');
     },
   });
+
+  const resendVerificationEmailMutation =
+    api.auth.resendVerificationEmail.useMutation({
+      onSuccess: () => {
+        toast.success(t('newCodeSent'));
+      },
+    });
 
   const form = useForm(formSchema, {
     validators: {
@@ -69,7 +78,7 @@ function VerifyEmailForm({ email }: { email: string }) {
     >
       <div className='mb-4 space-y-2 text-center'>
         <h1 className='text-4xl'>{t('verifyEmail')}</h1>
-        <p className='text-sm'>{t('verifyEmailDescription', { email })}</p>
+        <p className='text-sm'>{t('verifyEmailDescription')}</p>
       </div>
       <Form onSubmit={form.handleSubmit} className='flex-grow'>
         <form.Field name='otp'>
@@ -108,14 +117,9 @@ function VerifyEmailForm({ email }: { email: string }) {
           <CountdownButton
             initialCountdown={60}
             onClick={() => {
-              // resendEmailVerificationCodeMutation.mutate(
-              //   {},
-              //   {
-              //     onSuccess: () => {
-              //       toast.success(t('newCodeSent'));
-              //     },
-              //   },
-              // );
+              resendVerificationEmailMutation.mutate({
+                theme: resolvedTheme as 'light' | 'dark',
+              });
             }}
             label={(seconds) => t('getNewCode', { seconds })}
           />
