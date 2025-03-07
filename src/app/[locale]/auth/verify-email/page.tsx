@@ -17,5 +17,5 @@ export default async function VerifyEmailPage({
     return redirect({ href: '/auth', locale });
   }
 
-  return <VerifyEmailForm email={user.email} />;
+  return <VerifyEmailForm />;
 }
