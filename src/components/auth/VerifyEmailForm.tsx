@@ -1,8 +1,10 @@
 'use client';
 
-import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
+import type { TRPCClientError } from '@/lib/api/types';
+import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
@@ -28,14 +30,37 @@ import {
 function VerifyEmailForm({ email }: { email: string }) {
   const router = useRouter();
   const t = useTranslations('auth');
-  const formSchema = accountSignUpSchema(useTranslations());
+  const formSchema = verifyEmailSchema(useTranslations());
+  const { resolvedTheme } = useTheme();
   const { isPending, setPending } = usePending();
+  const verifyEmailMutation = api.auth.verifyEmail.useMutation({
+    onMutate: () => setPending(true),
+    onSettled: () => setPending(false),
+    onSuccess: () => {
+      router.replace('/settings/account');
+    },
+  });
 
   const form = useForm(formSchema, {
+    validators: {
+      onSubmitAsync: async ({ value }) => {
+        try {
+          await verifyEmailMutation.mutateAsync({
+            otp: value.otp,
+            theme: resolvedTheme as 'light' | 'dark',
+          });
+        } catch (error: unknown) {
+          const TRPCError = error as TRPCClientError;
+          if (!TRPCError.data?.toast) {
+            return { fields: { otp: TRPCError.message } };
+          }
+          return ' ';
+        }
+      },
+    },
     defaultValues: {
       otp: '',
     },
-    onSubmit: ({ value }) => {},
   });
 
   return (
@@ -47,23 +72,7 @@ function VerifyEmailForm({ email }: { email: string }) {
         <p className='text-sm'>{t('verifyEmailDescription', { email })}</p>
       </div>
       <Form onSubmit={form.handleSubmit} className='flex-grow'>
-        <form.Field
-          name='otp'
-          // validators={{
-          //   onSubmitAsync: async ({ value }) => {
-          //     try {
-          //       const { verifyEmail } = await verifyEmailMutation.mutateAsync({
-          //         input: {
-          //           otp: value,
-          //         },
-          //       });
-          //       return verifyEmail ? undefined : t('form.otp.incorrect');
-          //     } catch {
-          //       return ' ';
-          //     }
-          //   },
-          // }}
-        >
+        <form.Field name='otp'>
           {(field) => (
             <FormItem errors={field.state.meta.errors}>
               <FormLabel>{t('form.otp.label')}</FormLabel>

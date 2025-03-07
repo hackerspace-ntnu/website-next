@@ -28,7 +28,7 @@ import {
 } from '@/server/services/feide';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
-import { otpSchema } from '@/validations/auth/otpSchema';
+import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 
 import { TRPCError } from '@trpc/server';
 import { headers } from 'next/headers';
@@ -187,7 +187,9 @@ const authRouter = createRouter({
     await deleteSessionTokenCookie();
   }),
   verifyEmail: authenticatedProcedure
-    .input((input) => otpSchema(useTranslationsFromContext()).parse(input))
+    .input((input) =>
+      verifyEmailSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ ctx, input }) => {
       if (!emailVerificationBucket.check(ctx.user.id, 1)) {
         throw new TRPCError({
@@ -212,7 +214,12 @@ const authRouter = createRouter({
             cause: { toast: 'error' },
           });
         }
-        await sendVerificationEmail(ctx.user.email);
+        await sendVerificationEmail(
+          ctx.user.email,
+          verificationRequest.code,
+          ctx.locale,
+          input.theme,
+        );
         await setEmailVerificationRequestCookie(verificationRequest);
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -234,7 +241,19 @@ const authRouter = createRouter({
           verificationRequest.userId,
           verificationRequest.email,
         );
-        await sendVerificationEmail(ctx.user.email);
+        if (!verificationRequest) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('auth.unableToCreateVerificationRequest'),
+            cause: { toast: 'error' },
+          });
+        }
+        await sendVerificationEmail(
+          ctx.user.email,
+          verificationRequest.code,
+          ctx.locale,
+          input.theme,
+        );
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('auth.verficationCodeExpired'),

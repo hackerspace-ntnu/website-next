@@ -1,7 +1,7 @@
 import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function otpSchema(t: Translations) {
+function verifyEmailSchema(t: Translations) {
   return z.object({
     otp: z
       .string()
@@ -9,7 +9,8 @@ function otpSchema(t: Translations) {
       .min(8, t('auth.form.otp.length', { count: 8 }))
       .max(8, t('auth.form.otp.length', { count: 8 }))
       .regex(/^[a-zA-Z0-9]+$/, t('auth.form.otp.invalid')),
+    theme: z.enum(['dark', 'light']),
   });
 }
 
-export { otpSchema };
+export { verifyEmailSchema };
