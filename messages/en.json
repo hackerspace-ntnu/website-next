@@ -220,7 +220,14 @@
       }
     },
     "notifications": {
-      "title": "Notifications"
+      "title": "Notifications",
+      "updateNotifications": "Update notifications",
+      "updateNotificationsFailed": "Failed to update notifications",
+      "updateNotificationsSuccess": "Notifications updated successfully",
+      "notifyMeAbout": "Notify me about via email",
+      "all": "Finished prints, borrowed item deadlines, coffee cups filled and account updates",
+      "useful": "Finished prints, borrowed item deadlines and account updates",
+      "essential": "Account updates"
     },
     "administrator": {
       "title": "Administrator"

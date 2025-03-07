@@ -1,4 +1,6 @@
+import { NotificationsForm } from '@/components/settings/NotificationsForm';
 import { api } from '@/lib/api/server';
+import { redirect } from '@/lib/locale/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -18,10 +20,10 @@ export default async function NotificationsPage({
   setRequestLocale(locale);
 
   const { user } = await api.auth.state();
-  return (
-    <div>
-      <h1>Settings</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-    </div>
-  );
+
+  if (!user) {
+    return redirect({ href: '/auth', locale });
+  }
+
+  return <NotificationsForm notifications='useful' />;
 }

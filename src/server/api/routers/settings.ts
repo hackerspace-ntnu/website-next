@@ -24,6 +24,7 @@ import {
 } from '@/server/services/matrix';
 import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
+import { notificationsSchema } from '@/validations/settings/notificationsSchema';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
@@ -226,6 +227,11 @@ const settingsRouter = createRouter({
         }
       }
     }),
+  updateNotifications: authenticatedProcedure
+    .input((input) =>
+      notificationsSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {}),
 });
 
 export { settingsRouter };
