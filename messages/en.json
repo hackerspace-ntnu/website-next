@@ -188,6 +188,31 @@
       "returnBy": "Return by",
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
+    },
+    "new": {
+      "title": "New Item",
+      "name": {
+        "label": "Item name",
+        "placeholder": "Raspberry Pi 5"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
+      },
+      "location": {
+        "label": "Location",
+        "placeholder": "Box 2A"
+      },
+      "quantity": {
+        "label": "Quantity",
+        "placeholder": "4"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "duplicateItemError": "Cannot create storage items with the same name. Edit the already existing item instead."
     }
   },
   "shiftSchedule": {

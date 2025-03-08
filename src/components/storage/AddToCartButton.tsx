@@ -3,18 +3,8 @@
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import type { SelectStorageItem } from '@/server/db/tables';
+import type { RouterOutput } from '@/server/api';
 import { cx } from 'cva';
-
-// TODO: Type must be replaced by the type provided from database ORM.
-export type StorageItem = {
-  id: number;
-  name: string;
-  photo_url: string;
-  status: string;
-  quantity: number;
-  location: string;
-};
 
 export type CartItem = {
   id: number;
@@ -23,7 +13,7 @@ export type CartItem = {
 
 type AddToCartButtonProps = {
   className?: string;
-  item: SelectStorageItem;
+  item: RouterOutput['storage']['fetchMany'][number];
   t: {
     addToCart: string;
     removeFromCart: string;

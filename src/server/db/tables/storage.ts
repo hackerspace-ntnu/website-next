@@ -11,9 +11,7 @@ const storageItems = pgTable('storage_items', {
   name: varchar({ length: 128 }).notNull(),
   description: varchar({ length: 512 }),
   location: varchar({ length: 256 }).notNull(),
-  categoryId: integer()
-    .notNull()
-    .references(() => itemCategories.id),
+  categoryId: integer().references(() => itemCategories.id),
   quantity: integer().notNull(),
 });
 

@@ -1,4 +1,3 @@
-import type { StorageItem } from '@/components/storage/AddToCartButton';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import {
   Card,
@@ -7,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
-import { api } from '@/lib/api/server';
 import type { SelectStorageItem } from '@/server/db/tables';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';

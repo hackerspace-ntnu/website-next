@@ -188,6 +188,31 @@
       "returnBy": "Lån fram til",
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send"
+    },
+    "new": {
+      "title": "Ny gjenstand",
+      "name": {
+        "label": "Navn",
+        "placeholder": "Raspberry Pi 5"
+      },
+      "description": {
+        "label": "Beskrivelse",
+        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
+      },
+      "location": {
+        "label": "Plassering",
+        "placeholder": "Boks 2A"
+      },
+      "quantity": {
+        "label": "Antall",
+        "placeholder": "4"
+      },
+      "category": {
+        "label": "Kategori",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "duplicateItemError": "Cannot create storage items with the same name. Edit the already existing item instead."
     }
   },
   "shiftSchedule": {
