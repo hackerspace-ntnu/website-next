@@ -194,7 +194,8 @@
       "title": "New Item",
       "name": {
         "label": "Item name",
-        "placeholder": "Raspberry Pi 5"
+        "placeholder": "Raspberry Pi 5",
+        "required": "Item name is required."
       },
       "description": {
         "label": "Description",
@@ -202,11 +203,13 @@
       },
       "location": {
         "label": "Location",
-        "placeholder": "Box 2A"
+        "placeholder": "Box 2A",
+        "invalid": "Please provide a short and concise location."
       },
       "quantity": {
         "label": "Quantity",
-        "placeholder": "4"
+        "placeholder": "4",
+        "negative": "Quantity cannot be negative."
       },
       "category": {
         "label": "Category",

@@ -37,19 +37,22 @@ type NewItemFormProps = {
 function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
   const t = useTranslations('storage.new');
   const router = useRouter();
-  const form = useForm(newItemSchema(itemCategories), {
+  const schema = newItemSchema(useTranslations(), itemCategories);
+  const newItemMutation = api.storage.newItem.useMutation();
+
+  const form = useForm(schema, {
     validators: {
-      onChange: newItemSchema(itemCategories),
+      onChange: schema,
     },
     defaultValues: {
       name: '',
       description: '',
       location: '',
-      category: null,
+      category: itemCategories[0] ?? '',
       quantity: 1,
     },
     onSubmit: ({ value }) => {
-      api.storage.newItem.useMutation();
+      newItemMutation.mutate(value);
       router.push('/storage');
       router.refresh();
     },
@@ -110,7 +113,10 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('category.label')}</FormLabel>
             <FormControl>
-              <Select>
+              <Select
+                onValueChange={field.handleChange}
+                defaultValue={field.state.value}
+              >
                 <SelectTrigger className='w-[180px]'>
                   <SelectValue placeholder={itemCategories[0]} />
                 </SelectTrigger>
@@ -144,7 +150,13 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
           </FormItem>
         )}
       </form.Field>
-      <Button type='submit'>{t('submit')}</Button>
+      <form.Subscribe selector={(state) => [state.canSubmit]}>
+        {([canSubmit]) => (
+          <Button type='submit' disabled={!canSubmit}>
+            {t('submit')}
+          </Button>
+        )}
+      </form.Subscribe>
     </Form>
   );
 }

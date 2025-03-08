@@ -1,4 +1,8 @@
-import { publicProcedure } from '@/server/api/procedures';
+import { useTranslationsFromContext } from '@/server/api/locale';
+import {
+  authenticatedProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
 import { itemCategories, storageItems } from '@/server/db/tables';
@@ -26,8 +30,10 @@ const storageRouter = createRouter({
 
     return counts[0].count;
   }),
-  newItem: publicProcedure
-    .input(async (input) => newItemSchema(categories).parse(input))
+  newItem: authenticatedProcedure
+    .input(async (input) =>
+      newItemSchema(useTranslationsFromContext(), categories).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       if (input.category === '') {
         return ctx.db.insert(storageItems).values(input);
@@ -36,14 +42,17 @@ const storageRouter = createRouter({
       const duplicateItem = await ctx.db
         .select()
         .from(storageItems)
-        .where(eq(storageItems.name, input.category));
+        .where(eq(storageItems.name, input.name));
 
-      if (duplicateItem) {
+      if (duplicateItem.length > 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('storage.new.duplicateItemError'),
+          cause: { toast: 'error' },
         });
       }
+
+      await ctx.db.insert(storageItems).values(input);
     }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db

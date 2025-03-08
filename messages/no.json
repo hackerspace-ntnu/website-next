@@ -194,7 +194,8 @@
       "title": "Ny gjenstand",
       "name": {
         "label": "Navn",
-        "placeholder": "Raspberry Pi 5"
+        "placeholder": "Raspberry Pi 5",
+        "required": "Navn er påkrevd."
       },
       "description": {
         "label": "Beskrivelse",
@@ -202,11 +203,13 @@
       },
       "location": {
         "label": "Plassering",
-        "placeholder": "Boks 2A"
+        "placeholder": "Boks 2A",
+        "invalid": "Vennligst oppgi en kort og konsis plassering."
       },
       "quantity": {
         "label": "Antall",
-        "placeholder": "4"
+        "placeholder": "4",
+        "negative": "Antallet kan ikke være negativt."
       },
       "category": {
         "label": "Kategori",
