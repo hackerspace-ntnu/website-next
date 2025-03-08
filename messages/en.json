@@ -216,7 +216,12 @@
         "placeholder": "Hardware"
       },
       "submit": "Submit",
-      "duplicateItemError": "Cannot create storage items with the same name. Edit the already existing item instead."
+      "success": "New storage item added successfully! Redirecting to storage..."
+    },
+    "api": {
+      "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
+      "notFound": "The selected storage item was not found.",
+      "categoryNotFound": "The selected category was not found."
     }
   },
   "shiftSchedule": {

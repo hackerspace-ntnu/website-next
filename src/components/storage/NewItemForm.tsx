@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 import { Textarea } from '@/components/ui/Textarea';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { newItemSchema } from '@/validations/storage/newItemSchema';
@@ -38,7 +39,9 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
   const t = useTranslations('storage.new');
   const router = useRouter();
   const schema = newItemSchema(useTranslations(), itemCategories);
-  const newItemMutation = api.storage.newItem.useMutation();
+  const newItemMutation = api.storage.newItem.useMutation({
+    onSuccess: () => toast.success(t('success')),
+  });
 
   const form = useForm(schema, {
     validators: {
@@ -48,7 +51,7 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
       name: '',
       description: '',
       location: '',
-      category: itemCategories[0] ?? '',
+      categoryName: itemCategories[0] ?? '',
       quantity: 1,
     },
     onSubmit: ({ value }) => {
@@ -108,7 +111,7 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
           </FormItem>
         )}
       </form.Field>
-      <form.Field name='category'>
+      <form.Field name='categoryName'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('category.label')}</FormLabel>

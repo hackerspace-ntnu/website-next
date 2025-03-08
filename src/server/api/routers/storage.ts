@@ -35,7 +35,7 @@ const storageRouter = createRouter({
       newItemSchema(useTranslationsFromContext(), categories).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      if (input.category === '') {
+      if (input.categoryName === '') {
         return ctx.db.insert(storageItems).values(input);
       }
 
@@ -47,12 +47,29 @@ const storageRouter = createRouter({
       if (duplicateItem.length > 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: ctx.t('storage.new.duplicateItemError'),
+          message: ctx.t('storage.api.duplicateItem'),
           cause: { toast: 'error' },
         });
       }
 
-      await ctx.db.insert(storageItems).values(input);
+      const category = await ctx.db
+        .select()
+        .from(itemCategories)
+        .where(eq(itemCategories.name, input.categoryName));
+
+      const categoryId = category[0]?.id;
+
+      if (!categoryId) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('storage.api.categoryNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const { categoryName: _, ...dbValues } = input;
+
+      await ctx.db.insert(storageItems).values({ ...dbValues, categoryId });
     }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db

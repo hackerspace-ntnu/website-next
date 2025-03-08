@@ -216,7 +216,12 @@
         "placeholder": "Hardware"
       },
       "submit": "Submit",
-      "duplicateItemError": "Cannot create storage items with the same name. Edit the already existing item instead."
+      "success": "Ny gjenstand på lager lagt til! Videresender deg til lageret..."
+    },
+    "api": {
+      "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
+      "notFound": "Den valgte gjenstanden ble ikke funnet.",
+      "categoryNotFound": "The selected category was not found."
     }
   },
   "shiftSchedule": {

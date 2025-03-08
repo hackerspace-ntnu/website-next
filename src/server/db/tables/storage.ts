@@ -8,7 +8,7 @@ import { date, integer, pgTable, serial, varchar } from 'drizzle-orm/pg-core';
 
 const storageItems = pgTable('storage_items', {
   id: serial('id').primaryKey(),
-  name: varchar({ length: 128 }).notNull(),
+  name: varchar({ length: 128 }).notNull().unique(),
   description: varchar({ length: 512 }),
   location: varchar({ length: 256 }).notNull(),
   categoryId: integer().references(() => itemCategories.id),
@@ -51,7 +51,7 @@ const itemLoansRelations = relations(itemLoans, ({ one }) => ({
 
 const itemCategories = pgTable('item_categories', {
   id: serial('id').primaryKey(),
-  name: varchar({ length: 128 }).notNull(),
+  name: varchar({ length: 128 }).notNull().unique(),
 });
 
 const itemCategoriesRelations = relations(itemCategories, ({ many }) => ({
