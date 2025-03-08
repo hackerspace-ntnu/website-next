@@ -7,6 +7,7 @@ import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
 import { itemCategories, storageItems } from '@/server/db/tables';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
+import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { newItemSchema } from '@/validations/storage/newItemSchema';
 import { TRPCError } from '@trpc/server';
 import { count, eq } from 'drizzle-orm';
@@ -14,6 +15,27 @@ import { count, eq } from 'drizzle-orm';
 const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
 const storageRouter = createRouter({
+  fetchOne: publicProcedure
+    .input((input) => fetchOneSchema(useTranslationsFromContext()).parse(input))
+    .query(async ({ ctx, input }) => {
+      const item = await ctx.db.query.storageItems.findFirst({
+        where: eq(storageItems.id, input),
+        with: {
+          category: true,
+          itemLoans: true,
+        },
+      });
+
+      if (!item) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      return item;
+    }),
   fetchMany: publicProcedure
     .input((input) => fetchManySchema().parse(input))
     .query(async ({ ctx, input }) => {

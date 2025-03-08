@@ -165,6 +165,12 @@
     "tooltips": {
       "viewShoppingCart": "View shopping cart"
     },
+    "item": {
+      "noDescription": "No description has been provided for this item.",
+      "noLocation": "No location specified",
+      "noCategory": "No category specified",
+      "invalidId": "The provided storage item ID was invalid."
+    },
     "shoppingCart": {
       "title": "Shopping Cart",
       "productId": "Product ID",

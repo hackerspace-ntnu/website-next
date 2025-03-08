@@ -80,6 +80,14 @@ const routing = defineRouting({
       en: '/storage/shopping-cart',
       no: '/lager/handlekurv',
     },
+    '/storage/new': {
+      en: '/storage/new',
+      no: '/lager/ny',
+    },
+    '/storage/item/[id]': {
+      en: '/storage/item/[id]',
+      no: '/lager/gjenstand/[id]',
+    },
     '/rules': {
       en: '/rules',
       no: '/regler',
