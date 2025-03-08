@@ -1,17 +1,16 @@
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function newItemSchema(categories: string[]) {
+function newItemSchema(t: Translations, categories: string[]) {
   return z.object({
-    name: z.string().min(2, {
-      message: 'Name must be at least 2 characters.',
-    }),
+    name: z.string().min(1, t('storage.new.name.required')),
     description: z.string(),
-    location: z.string().max(50),
+    location: z.string().max(50, t('storage.new.location.invalid')),
     category:
       categories.length > 1
         ? z.enum(categories as [string, ...string[]])
         : z.literal(''),
-    quantity: z.coerce.number().min(0),
+    quantity: z.coerce.number().min(0, t('storage.new.quantity.negative')),
   });
 }
 
