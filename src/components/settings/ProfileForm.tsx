@@ -71,7 +71,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
             <FormLabel>{t('lastName.label')}</FormLabel>
             <FormControl>
               <Input
-                autoComplete='given-name'
+                autoComplete='family-name'
                 placeholder={firstName}
                 onChange={(event) => field.handleChange(event.target.value)}
                 value={field.state.value}

@@ -1,10 +1,8 @@
 'use client';
 
+import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
 import { useTranslations } from 'next-intl';
 
-import { buttonVariants } from '@/components/ui/Button';
-
-import { Link, usePathname } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 function SidebarNav({
@@ -12,7 +10,6 @@ function SidebarNav({
   showAdministratorMenu,
 }: { className?: string; showAdministratorMenu: boolean }) {
   const t = useTranslations('settings');
-  const pathname = usePathname();
 
   return (
     <nav
@@ -21,55 +18,17 @@ function SidebarNav({
         className,
       )}
     >
-      <Link
-        href='/settings'
-        className={cx(
-          buttonVariants({ variant: 'ghost' }),
-          pathname === '/settings'
-            ? 'bg-muted hover:bg-muted'
-            : 'hover:bg-transparent hover:underline',
-          'min-w-fit justify-start',
-        )}
-      >
-        {t('profile.title')}
-      </Link>
-      <Link
-        href='/settings/account'
-        className={cx(
-          buttonVariants({ variant: 'ghost' }),
-          pathname === '/settings/account'
-            ? 'bg-muted hover:bg-muted'
-            : 'hover:bg-transparent hover:underline',
-          'min-w-fit justify-start',
-        )}
-      >
+      <SidebarNavLink href='/settings'>{t('profile.title')}</SidebarNavLink>
+      <SidebarNavLink href='/settings/account'>
         {t('account.title')}
-      </Link>
-      <Link
-        href='/settings/notifications'
-        className={cx(
-          buttonVariants({ variant: 'ghost' }),
-          pathname === '/settings/notifications'
-            ? 'bg-muted hover:bg-muted'
-            : 'hover:bg-transparent hover:underline',
-          'min-w-fit justify-start',
-        )}
-      >
+      </SidebarNavLink>
+      <SidebarNavLink href='/settings/notifications'>
         {t('notifications.title')}
-      </Link>
+      </SidebarNavLink>
       {showAdministratorMenu && (
-        <Link
-          href='/settings/administrator'
-          className={cx(
-            buttonVariants({ variant: 'ghost' }),
-            pathname === '/settings/administrator'
-              ? 'bg-muted hover:bg-muted'
-              : 'hover:bg-transparent hover:underline',
-            'min-w-fit justify-start',
-          )}
-        >
+        <SidebarNavLink href='/settings/administrator'>
           {t('administrator.title')}
-        </Link>
+        </SidebarNavLink>
       )}
     </nav>
   );

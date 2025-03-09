@@ -93,6 +93,7 @@ async function main() {
       phoneNumber: '+13212342346',
       passwordHash: await hashPassword('pass1'),
     },
+    // Under here you can change or define any other user you need for your testing. Feel free to change whatever you want.
     {
       username: 'michbrus',
       firstName: 'Michael',

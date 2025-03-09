@@ -2,14 +2,19 @@ import { contextStorage } from '@/server/api/context';
 import { trpc } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 
-// Makes the context available in input validation
+/**
+ * Makes the context available in input validation
+ */
 const procedureWithContext = trpc.procedure.use((opts) => {
   return contextStorage.run(opts.ctx, async () => {
     return await opts.next();
   });
 });
 
-// Use this procedure for any public endpoint. The timing here will add a varying delay so we will see the loading state when accessing the API in development.
+/**
+ * Use this procedure for any public endpoint.
+ * The timing here adds a varying delay to see loading states in development.
+ */
 const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   const start = Date.now();
 
@@ -26,7 +31,10 @@ const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   return result;
 });
 
-// This procedure is only for when registrering a new account and we need to check that the account is authenticated even though it's not complete
+/**
+ * Procedure for registering a new account.
+ * Checks that the account is authenticated even if not complete.
+ */
 const registrationProcedure = publicProcedure.use(async ({ next, ctx }) => {
   const { user, session } = await ctx.auth();
 
@@ -45,7 +53,10 @@ const registrationProcedure = publicProcedure.use(async ({ next, ctx }) => {
   });
 });
 
-// Authenticated procedure is for when the user is authenticated and the account is complete
+/**
+ * Authenticated procedure for users with complete accounts.
+ * Requires user to be authenticated and have a password hash.
+ */
 const authenticatedProcedure = registrationProcedure.use(
   async ({ next, ctx }) => {
     if (!ctx.user.passwordHash) {
@@ -59,8 +70,11 @@ const authenticatedProcedure = registrationProcedure.use(
   },
 );
 
-// Check if the user is part of a group (is a member)
-// Should be used for things like news and shift schedule. Every member should be able to create news articles
+/**
+ * Checks if the user is part of a group (is a member).
+ * Should be used for features like news and shift schedule.
+ * Every member should be able to create news articles.
+ */
 const protectedProcedure = authenticatedProcedure.use(async ({ next, ctx }) => {
   if (ctx.user.groups.length === 0) {
     throw new TRPCError({
@@ -72,8 +86,11 @@ const protectedProcedure = authenticatedProcedure.use(async ({ next, ctx }) => {
   return next();
 });
 
-// Check if the user is part of management (Mangagement includes the leadership team and the leaders of the other groups)
-// Should be used for events
+/**
+ * Checks if the user is part of management.
+ * Management includes the leadership team and leaders of other groups.
+ * Should be used for event management features.
+ */
 const managementProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
     !ctx.user.groups.some(
@@ -90,8 +107,10 @@ const managementProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   return next();
 });
 
-// Check if the user is part of the leadership
-// This should be used for the administrator menu
+/**
+ * Checks if the user is part of the leadership.
+ * Should be used for administrator menu access.
+ */
 const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
     !ctx.user.groups.some(
@@ -107,7 +126,10 @@ const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   return next();
 });
 
-// Check if the user should be allowed to edit the storage
+/**
+ * Checks if the user should be allowed to edit the storage.
+ * Limited to labops, leadership, and admin groups.
+ */
 const storageProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
     !ctx.user.groups.some(

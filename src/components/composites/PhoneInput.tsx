@@ -88,12 +88,12 @@ type CountrySelectProps = {
   options: CountrySelectOption[];
 };
 
-const CountrySelect = ({
+function CountrySelect({
   disabled,
   value,
   onChange,
   options,
-}: CountrySelectProps) => {
+}: CountrySelectProps) {
   const t = useTranslations('ui');
 
   const handleSelect = useCallback(
@@ -161,9 +161,9 @@ const CountrySelect = ({
       </PopoverContent>
     </Popover>
   );
-};
+}
 
-const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
+function FlagComponent({ country, countryName }: RPNInput.FlagProps) {
   const Flag = flags[country];
 
   return (
@@ -171,7 +171,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
       {Flag && <Flag title={countryName} />}
     </span>
   );
-};
+}
 FlagComponent.displayName = 'FlagComponent';
 
 export { PhoneInput };

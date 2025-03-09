@@ -28,7 +28,7 @@ export default async function SettingsLayout({
   setRequestLocale(locale);
   const { settings, ui } = await getMessages();
   const t = await getTranslations('settings');
-  const t_layout = await getTranslations('layout');
+  const tLayout = await getTranslations('layout');
 
   const { user } = await api.auth.state();
 
@@ -46,7 +46,7 @@ export default async function SettingsLayout({
         <div className='flex justify-between space-y-0.5'>
           <div>
             <h1 className='font-bold text-2xl tracking-tight'>
-              {t_layout('settings')}
+              {tLayout('settings')}
             </h1>
             <p className='text-muted-foreground'>
               {t('manageAccountSettings')}
@@ -56,7 +56,7 @@ export default async function SettingsLayout({
             logoClassName='~h-14/20 ~w-14/20'
             logoOnly
             t={{
-              hackerspaceHome: t_layout('hackerspaceHome'),
+              hackerspaceHome: tLayout('hackerspaceHome'),
             }}
           />
         </div>

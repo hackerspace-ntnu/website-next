@@ -64,7 +64,6 @@ function VerifyEmailForm() {
           if (!TRPCError.data?.toast) {
             return { fields: { otp: TRPCError.message } };
           }
-          return ' ';
         }
       },
     },

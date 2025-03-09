@@ -48,12 +48,8 @@ function NotificationsForm({
             <FormControl>
               <RadioGroup
                 onValueChange={(value) => {
-                  if (
-                    value === 'all' ||
-                    value === 'useful' ||
-                    value === 'essential'
-                  ) {
-                    field.handleChange(value);
+                  if (['all', 'useful', 'essential'].includes(value)) {
+                    field.handleChange(value as 'all' | 'useful' | 'essential');
                   }
                 }}
                 defaultValue={field.state.value}

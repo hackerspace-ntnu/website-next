@@ -17,6 +17,7 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
+import type { NestedKeyOf } from 'next-intl';
 import { useTranslations } from 'next-intl';
 
 function SkillIconTooltipTemplate({
@@ -37,63 +38,59 @@ function SkillIconTooltipTemplate({
   );
 }
 
+const skillIconsConfig = {
+  printing: {
+    icon: BoxIcon,
+    className: 'bg-green-100 text-green-600',
+  },
+  soldering: {
+    icon: WrenchIcon,
+    className: 'bg-yellow-100 text-yellow-600',
+  },
+  raspberry: {
+    icon: CircuitBoardIcon,
+    className: 'bg-pink-100 text-pink-600',
+  },
+  unix: {
+    icon: TerminalIcon,
+    className: 'bg-slate-100 text-slate-600',
+  },
+  laser: {
+    icon: ZapIcon,
+    className: 'bg-red-100 text-red-600',
+  },
+  workshop: {
+    icon: CoffeeIcon,
+    className: 'bg-amber-100 text-amber-600',
+  },
+  microcontroller: {
+    icon: CpuIcon,
+    className: 'bg-blue-100 text-blue-600',
+  },
+  webdevelopment: {
+    icon: CodeIcon,
+    className: 'bg-violet-100 text-violet-600',
+  },
+};
+
 function SkillIcon({
   identifier,
 }: { identifier: (typeof skillIdentifiers)[number] }) {
   const t = useTranslations('skills');
 
-  switch (identifier) {
-    case 'printing':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('printing')}>
-          <BoxIcon className='h-4 w-4 bg-green-100 text-green-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'soldering':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('soldering')}>
-          <WrenchIcon className='h-4 w-4 bg-yellow-100 text-yellow-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'raspberry':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('raspberry')}>
-          <CircuitBoardIcon className='h-4 w-4 text-pink-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'unix':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('unix')}>
-          <TerminalIcon className='h-4 w-4 text-slate-100 text-slate-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'laser':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('laser')}>
-          <ZapIcon className='h-4 w-4 text-red-100 text-red-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'workshop':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('workshop')}>
-          <CoffeeIcon className='h-4 w-4 text-amber-100 text-amber-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'microcontroller':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('microcontroller')}>
-          <CpuIcon className='h-4 w-4 text-blue-100 text-blue-600' />
-        </SkillIconTooltipTemplate>
-      );
-    case 'webdevelopment':
-      return (
-        <SkillIconTooltipTemplate tooltip={t('webdevelopment')}>
-          <CodeIcon className='h-4 w-4 text-violet-100 text-violet-600' />
-        </SkillIconTooltipTemplate>
-      );
-    default:
-      return null;
-  }
+  const config = skillIconsConfig[identifier];
+
+  if (!config) return null;
+
+  const { icon: Icon, className } = config;
+
+  return (
+    <SkillIconTooltipTemplate
+      tooltip={t(identifier as NestedKeyOf<Messages['skills']>)}
+    >
+      <Icon className={`h-4 w-4 ${className}`} />
+    </SkillIconTooltipTemplate>
+  );
 }
 
 export { SkillIcon };
