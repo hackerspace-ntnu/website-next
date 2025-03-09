@@ -96,8 +96,8 @@
       "authenticationFailed": "Authentication failed",
       "userInfoFailed": "Failed to get user info",
       "userInfoMissing": "User info is missing",
-      "phoneTaken": "Phone number is already taken",
-      "emailTaken": "Email is already taken",
+      "phoneInUse": "Phone number is already in use",
+      "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
       "userCreationFailed": "Failed to create user"
     }
@@ -192,7 +192,7 @@
         "invalid": "Invalid email address format",
         "confirmLabel": "Confirm email",
         "mismatch": "Emails do not match",
-        "taken": "Email is already taken"
+        "inUse": "Email is already in use"
       },
       "phoneNumber": {
         "label": "Phone number",
@@ -200,7 +200,7 @@
         "required": "Phone number is required",
         "invalid": "Invalid phone number",
         "format": "Phone number is formatted incorrectly",
-        "taken": "Phone number is already taken"
+        "inUse": "Phone number is already in use"
       },
       "password": {
         "currentLabel": "Current password",

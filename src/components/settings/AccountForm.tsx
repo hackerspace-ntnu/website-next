@@ -78,7 +78,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
                 phoneNumber: value,
               });
               if (!result) {
-                return t('phoneNumber.taken');
+                return t('phoneNumber.inUse');
               }
             }
           },
@@ -111,7 +111,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
                 email: value,
               });
               if (!result) {
-                return t('email.taken');
+                return t('email.inUse');
               }
             }
           },

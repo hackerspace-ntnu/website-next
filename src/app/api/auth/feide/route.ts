@@ -125,17 +125,17 @@ export async function GET(request: NextRequest) {
     );
 
     if (!isPhoneNumberAvailable) {
-      console.error('Feide: Phone number taken');
+      console.error('Feide: Phone number in use');
       return NextResponse.redirect(
-        new URL('/auth?error=phoneTaken', env.NEXT_PUBLIC_SITE_URL),
+        new URL('/auth?error=phoneInUse', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
     const isEmailAvailable = await checkEmailAvailability(userInfo.email);
     if (!isEmailAvailable) {
-      console.error('Feide: Email taken');
+      console.error('Feide: Email in use');
       return NextResponse.redirect(
-        new URL('/auth?error=emailTaken', env.NEXT_PUBLIC_SITE_URL),
+        new URL('/auth?error=emailInUse', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 

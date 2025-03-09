@@ -162,10 +162,9 @@ async function matrixRegisterUser(
   admin = false,
 ) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix account will not be created since the Matrix environment variables are not set.',
     );
-    return;
   }
 
   const controller = new AbortController();
@@ -215,10 +214,9 @@ async function matrixRegisterUser(
 
 async function matrixChangePassword(username: string, newPassword: string) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix password will not be changed since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -263,10 +261,9 @@ async function matrixChangeDisplayname(
   lastName: string,
 ) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix displayname will not be changed since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -307,10 +304,9 @@ async function matrixChangeDisplayname(
 
 async function matrixUploadMedia(buffer: Buffer, contentType: string) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Media will not be uploaded to Matrix since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -355,10 +351,9 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
 
 async function matrixDeleteMedia(matrixMediaId: string) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Media will not be deleted from Matrix since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -399,10 +394,9 @@ async function matrixDeleteMedia(matrixMediaId: string) {
 
 async function matrixChangeAvatar(username: string, matrixMediaId: string) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix avatar will not be changed since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -446,10 +440,9 @@ async function matrixChangeEmailAndPhoneNumber(
   phoneNumber: string,
 ) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix email and phone number will not be changed since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
@@ -495,10 +488,9 @@ async function matrixChangeEmailAndPhoneNumber(
 
 async function matrixEraseUser(username: string) {
   if (!isMatrixConfigured()) {
-    console.log(
+    return console.log(
       'Matrix user will not be erased since the Matrix environment variables are not set.',
     );
-    return;
   }
   const accessToken = await getMatrixAccessToken();
   const controller = new AbortController();
