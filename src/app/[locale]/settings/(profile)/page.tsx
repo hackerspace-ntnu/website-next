@@ -21,6 +21,7 @@ export default async function ProfilePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('settings.profile');
 
   const { user } = await api.auth.state();
 
@@ -40,7 +41,7 @@ export default async function ProfilePage({
         <h2 className='font-semibold text-2xl tracking-tight'>
           {user.username}
         </h2>
-        <Badge variant='secondary'>username</Badge>
+        <Badge variant='secondary'>{t('username')}</Badge>
       </div>
       <Separator className='mt-2 mb-4' />
       <ProfilePictureForm

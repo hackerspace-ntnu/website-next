@@ -1,5 +1,3 @@
-'use client';
-
 import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
 import { useTranslations } from 'next-intl';
 

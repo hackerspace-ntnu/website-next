@@ -145,6 +145,7 @@
     "manageAccountSettings": "Manage your account settings and set preferences.",
     "profile": {
       "title": "Profile",
+      "username": "Username",
       "updateProfile": "Update profile",
       "updateProfileFailed": "Failed to update profile",
       "updateProfileSuccess": "Profile updated successfully",
@@ -209,6 +210,7 @@
         "required": "Password is required",
         "minLength": "Password must be at least {count} characters",
         "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
         "uppercase": "Password must contain at least one uppercase letter",
         "specialChar": "Password must contain at least one special character",
         "weak": "Password is too weak",

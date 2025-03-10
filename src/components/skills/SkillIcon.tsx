@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Tooltip,
   TooltipContent,
@@ -17,7 +15,6 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
-import type { NestedKeyOf } from 'next-intl';
 import { useTranslations } from 'next-intl';
 
 function SkillIconTooltipTemplate({
@@ -85,9 +82,7 @@ function SkillIcon({
   const { icon: Icon, className } = config;
 
   return (
-    <SkillIconTooltipTemplate
-      tooltip={t(identifier as NestedKeyOf<Messages['skills']>)}
-    >
+    <SkillIconTooltipTemplate tooltip={t(identifier)}>
       <Icon className={`h-4 w-4 ${className}`} />
     </SkillIconTooltipTemplate>
   );

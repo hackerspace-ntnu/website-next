@@ -60,7 +60,7 @@ function NotificationsForm({
                   className='flex items-center space-x-3 space-y-0'
                   errors={field.state.meta.errors}
                 >
-                  <FormControl>
+                  <FormControl className='min-w-fit'>
                     <RadioGroupItem value='all' />
                   </FormControl>
                   <FormLabel className='font-normal'>{t('all')}</FormLabel>
@@ -69,7 +69,7 @@ function NotificationsForm({
                   className='flex items-center space-x-3 space-y-0'
                   errors={field.state.meta.errors}
                 >
-                  <FormControl>
+                  <FormControl className='min-w-fit'>
                     <RadioGroupItem value='useful' />
                   </FormControl>
                   <FormLabel className='font-normal'>{t('useful')}</FormLabel>
@@ -78,7 +78,7 @@ function NotificationsForm({
                   className='flex items-center space-x-3 space-y-0'
                   errors={field.state.meta.errors}
                 >
-                  <FormControl>
+                  <FormControl className='min-w-fit'>
                     <RadioGroupItem value='essential' />
                   </FormControl>
                   <FormLabel className='font-normal'>

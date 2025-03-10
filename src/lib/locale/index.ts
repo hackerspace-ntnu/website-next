@@ -65,15 +65,15 @@ const routing = defineRouting({
     },
     '/settings/account': {
       en: '/settings/account',
-      no: '/instillinger/konto',
+      no: '/innstillinger/konto',
     },
     '/settings/notifications': {
       en: '/settings/notifications',
-      no: '/instillinger/notifikasjoner',
+      no: '/innstillinger/notifikasjoner',
     },
     '/settings/administrator': {
       en: '/settings/administrator',
-      no: '/instillinger/administrator',
+      no: '/innstillinger/administrator',
     },
     '/events': {
       en: '/events',

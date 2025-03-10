@@ -1,6 +1,7 @@
-import { buttonVariants } from '@/components/ui/Button';
+'use client';
 
-import { Link, usePathname } from '@/lib/locale/navigation';
+import { Link } from '@/components/ui/Link';
+import { usePathname } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 type SidebarNavLinkProps = {
@@ -14,8 +15,8 @@ function SidebarNavLink({ href, children }: SidebarNavLinkProps) {
   return (
     <Link
       href={href}
+      variant='ghost'
       className={cx(
-        buttonVariants({ variant: 'ghost' }),
         pathname === href
           ? 'bg-muted hover:bg-muted'
           : 'hover:bg-transparent hover:underline',
