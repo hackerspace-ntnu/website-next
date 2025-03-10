@@ -18,7 +18,9 @@ type StorageItemParams = Promise<{
   id: string;
 }>;
 
-export async function generateMetadata({ params }: { params: StorageItemParams }) {
+export async function generateMetadata({
+  params,
+}: { params: StorageItemParams }) {
   const t = await getTranslations('storage');
   const { id } = await params;
   const item = await api.storage.fetchOne(Number.parseInt(id));
@@ -28,7 +30,9 @@ export async function generateMetadata({ params }: { params: StorageItemParams }
   };
 }
 
-export default async function StoragePage({ params }: { params: StorageItemParams }) {
+export default async function StoragePage({
+  params,
+}: { params: StorageItemParams }) {
   const { locale, id } = await params;
   setRequestLocale(locale);
 
@@ -50,10 +54,15 @@ export default async function StoragePage({ params }: { params: StorageItemParam
         <Separator />
         <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>
-
             <p>{item.description ? item.description : t('noDescription')}</p>
           </div>
-          <Image src="/unknown.png" width={192} height={192} alt={item.name} className='h-48 w-48 object-cover' />
+          <Image
+            src='/unknown.png'
+            width={192}
+            height={192}
+            alt={item.name}
+            className='h-48 w-48 object-cover'
+          />
         </div>
       </div>
     </>

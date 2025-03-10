@@ -1,7 +1,7 @@
 'use client';
 
-import type { CartItem } from '@/components/storage/AddToCartButton';
 import { LoanForm } from '@/components/storage/LoanForm';
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import {
   Dialog,

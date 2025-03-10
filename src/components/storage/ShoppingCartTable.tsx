@@ -1,6 +1,7 @@
 'use client';
 
-import type { CartItem } from '@/components/storage/AddToCartButton';
+import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {
@@ -11,12 +12,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { XIcon } from 'lucide-react';
-
-// TODO: Must be replaced by requesting the data from a database.
-import { items } from '@/mock-data/items';
-import { ShoppingCartTableSkeleton } from './ShoppingCartTableSkeleton';
 
 type ShoppingCartTableProps = {
   t: {
@@ -36,6 +34,11 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
     [],
   );
 
+  const itemsInCart = api.storage.fetchMany.useQuery(
+    cart?.map((i) => i.id) ?? [],
+    { enabled: !!cart },
+  ).data;
+
   if (isLoading) {
     return <ShoppingCartTableSkeleton t={t} />;
   }
@@ -43,10 +46,6 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
   if (!cart || cart.length === 0) {
     return <p className='py-20 text-center font-medium'>{t.cartEmpty}</p>;
   }
-
-  const itemsInCart = items.filter((item) =>
-    cart.some((cartItem) => cartItem.id === item.id),
-  );
 
   function updateAmountInCart(id: number, newValue: number) {
     if (!cart) return;
@@ -77,7 +76,7 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {itemsInCart.map((item) => (
+        {itemsInCart?.map((item) => (
           <TableRow key={item.name}>
             <TableCell>
               <Input

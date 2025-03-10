@@ -10,7 +10,7 @@ import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { newItemSchema } from '@/validations/storage/newItemSchema';
 import { TRPCError } from '@trpc/server';
-import { count, eq } from 'drizzle-orm';
+import { count, eq, inArray } from 'drizzle-orm';
 
 const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
@@ -39,6 +39,13 @@ const storageRouter = createRouter({
   fetchMany: publicProcedure
     .input((input) => fetchManySchema().parse(input))
     .query(async ({ ctx, input }) => {
+      if (Array.isArray(input)) {
+        return ctx.db
+          .select()
+          .from(storageItems)
+          .where(inArray(storageItems.id, input));
+      }
+
       return await ctx.db.query.storageItems.findMany({
         limit: input.limit,
         offset: input.offset,

@@ -1,7 +1,7 @@
 'use client';
 
 import { ConfirmDialog } from '@/components/composites/ConfirmDialog';
-import type { CartItem } from '@/components/storage/AddToCartButton';
+import type { CartItem } from '@/components/storage/types';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
 import { XIcon } from 'lucide-react';
