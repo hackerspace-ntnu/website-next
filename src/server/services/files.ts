@@ -51,7 +51,7 @@ async function insertFile(
       contentType,
       byteSize: buffer.length,
       uploadedBy: userId,
-      matrixMediaId,
+      matrixMediaId: matrixMediaId ?? null,
     })
     .returning();
 
