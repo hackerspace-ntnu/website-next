@@ -20,7 +20,7 @@ function SidebarNav({
         className,
       )}
     >
-      <div className='flex h-full w-max p-2 lg:block'>
+      <div className='flex h-full w-max p-2 lg:block lg:w-auto'>
         <nav className='mb-auto flex lg:flex-col'>
           <SidebarNavLink href='/settings'>{t('profile.title')}</SidebarNavLink>
           <SidebarNavLink href='/settings/account'>
@@ -35,7 +35,7 @@ function SidebarNav({
             </SidebarNavLink>
           )}
         </nav>
-        <div className='flex min-w-fit flex-shrink-0 px-2 py-0 lg:px-0 lg:py-2'>
+        <div className='flex min-w-fit flex-shrink-0 px-2 lg:px-0 lg:py-2'>
           <MatrixLink t={{ title: tLayout('goToMatrix') }} />
           <LocaleMenu
             t={{
