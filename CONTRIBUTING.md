@@ -198,6 +198,12 @@ To check linting and formatting you run the respective command:
 bun lint
 ```
 
+### Debugging (VS Code)
+
+To start debugging your code, you can run the `Next.js: Debug server-side` configuration followed by either the `Next.js: Debug client-side` if you're using Chrome, or `Next.js: Debug server-side (Firefox)` if you're using Firefox. If you'd like to use Firefox, the [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) extension is required.
+
+Now, when you've got both the server and client running, you should be able to place breakpoints, inspect variables and more. If you haven't done much debugging like this before, check out the [VS Code docs about debugging](https://code.visualstudio.com/Docs/editor/debugging).
+
 ## Commit messages
 
 We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for our commit messages. This is to ensure that we have a consistent way of writing commit messages to make it easier to understand what has been changed and why. Try to follow the guidelines as closely as possible. You can also use [the recommended vscode extension](.vscode/extensions.json) to help you write the commit messages.
@@ -270,10 +276,14 @@ Here is a list of documentations that will help you contribute to the project:
 
 #### Recommended Extensions
 
+All of these have been added as recommended extensions for this project, and you should therefore be asked by VS Code whether you would like to install these.
+
 - [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
 - [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
-- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Bun for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=oven.bun-vscode)
+- [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
 - [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 #### Issues
 
