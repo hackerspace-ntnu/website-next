@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "formulahendry.auto-rename-tag",
+        "biomejs.biome",
+        "oven.bun-vscode",
+        "firefox-devtools.vscode-firefox-debug",
+        "yoavbls.pretty-ts-errors",
+        "bradlc.vscode-tailwindcss"
+    ]
+}
