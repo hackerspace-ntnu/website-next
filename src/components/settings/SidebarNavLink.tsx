@@ -15,10 +15,11 @@ function SidebarNavLink({ href, children }: SidebarNavLinkProps) {
   return (
     <Link
       href={href}
+      size='default'
       variant='ghost'
       className={cx(
         pathname === href
-          ? 'bg-muted hover:bg-muted'
+          ? 'bg-accent'
           : 'hover:bg-transparent hover:underline',
         'min-w-fit justify-start',
       )}
