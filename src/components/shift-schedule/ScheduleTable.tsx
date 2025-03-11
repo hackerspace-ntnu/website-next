@@ -10,11 +10,11 @@ import {
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
-import { useFormatter, useTranslations } from 'next-intl';
+import { getFormatter, getTranslations } from 'next-intl/server';
 
 async function ScheduleTable() {
-  const t = useTranslations('shiftSchedule.scheduleTable');
-  const format = useFormatter();
+  const t = await getTranslations('shiftSchedule.scheduleTable');
+  const format = await getFormatter();
   const shifts = await api.shiftSchedule.fetchShifts();
 
   function getDateTimeRange(timeslot: string) {
@@ -82,11 +82,19 @@ async function ScheduleTable() {
                       tDialog={{
                         day: t('day', { day: day }),
                         time: getDateTimeRange(timeslot),
+                        empty: t('scheduleCell.scheduleCellDialog.empty'),
+                        recurring: t(
+                          'scheduleCell.scheduleCellDialog.registerSection.recurring',
+                        ),
+                        register: t(
+                          'scheduleCell.scheduleCellDialog.registerSection.register',
+                        ),
                       }}
                       day={day}
                       timeslot={timeslot}
                       members={shift?.onShift ?? 0}
                       skills={shift?.skills ?? []}
+                      userOnShift={shift?.userOnShift ?? false}
                     />
                   </TableRow>
                 );
@@ -127,11 +135,19 @@ async function ScheduleTable() {
                     tDialog={{
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
+                      empty: t('scheduleCell.scheduleCellDialog.empty'),
+                      recurring: t(
+                        'scheduleCell.scheduleCellDialog.registerSection.recurring',
+                      ),
+                      register: t(
+                        'scheduleCell.scheduleCellDialog.registerSection.register',
+                      ),
                     }}
                     day={day}
                     timeslot={timeslot}
                     members={shift?.onShift ?? 0}
                     skills={shift?.skills ?? []}
+                    userOnShift={shift?.userOnShift ?? false}
                   />
                 );
               })}

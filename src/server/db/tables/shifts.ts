@@ -1,6 +1,6 @@
 import { days, timeslots } from '@/lib/constants';
 import { users } from '@/server/db/tables';
-import type { InferInsertModel } from 'drizzle-orm';
+import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { integer, pgEnum, pgTable, primaryKey } from 'drizzle-orm/pg-core';
 
 const daysEnum = pgEnum('days', days);
@@ -20,6 +20,7 @@ const shifts = pgTable(
   },
 );
 
+type SelectShift = InferSelectModel<typeof shifts>;
 type InsertShift = InferInsertModel<typeof shifts>;
 
-export { daysEnum, timeslotsEnum, shifts, type InsertShift };
+export { daysEnum, timeslotsEnum, shifts, type SelectShift, type InsertShift };

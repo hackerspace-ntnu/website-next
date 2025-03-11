@@ -7,6 +7,7 @@ import { and, countDistinct, eq, sql } from 'drizzle-orm';
 
 const shiftScheduleRouter = createRouter({
   fetchShifts: publicProcedure.query(async ({ ctx }) => {
+    const { user } = await ctx.auth();
     return await ctx.db
       .select({
         day: shifts.day,
@@ -15,6 +16,7 @@ const shiftScheduleRouter = createRouter({
         skills: sql<
           (typeof skillIdentifiers)[number][]
         >`COALESCE(ARRAY_AGG(DISTINCT ${skills.identifier}::TEXT) FILTER (WHERE ${skills.identifier} IS NOT NULL), ARRAY[]::TEXT[])`,
+        userOnShift: sql<boolean>`${user?.id ?? 0} = ANY(ARRAY_AGG(DISTINCT ${shifts.userId}))`,
       })
       .from(shifts)
       .leftJoin(usersSkills, eq(shifts.userId, usersSkills.userId))

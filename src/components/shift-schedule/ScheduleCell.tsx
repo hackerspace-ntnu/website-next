@@ -10,19 +10,24 @@ type ScheduleCellProps = {
   tDialog: {
     day: string;
     time: string;
+    empty: string;
+    recurring: string;
+    register: string;
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
   members: number;
   skills: (typeof skillIdentifiers)[number][];
+  userOnShift: boolean;
 };
 
-async function ScheduleCell({
+function ScheduleCell({
   tDialog,
   day,
   timeslot,
   members,
   skills,
+  userOnShift,
 }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.scheduleTable.scheduleCell');
 
@@ -34,9 +39,11 @@ async function ScheduleCell({
             type='button'
             className={cx(
               'flex size-full gap-2 rounded-md p-3 text-left',
-              members === 0
-                ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
-                : 'bg-foreground/20 hover:bg-foreground/25',
+              userOnShift
+                ? 'bg-primary/20 hover:bg-primary/25'
+                : members === 0
+                  ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
+                  : 'bg-foreground/20 hover:bg-foreground/25',
             )}
           >
             {/* Icon displaying amount of people on shift */}
@@ -50,15 +57,15 @@ async function ScheduleCell({
               <span>{t('onShift', { count: members })}</span>
               {/* Skill icons */}
               {members !== 0 && (
-                <span className='leading-7'>
-                  {skills.toString().substring(0, 6)}
+                <span className='max-w-32 truncate leading-7'>
+                  {skills.toString()}
                 </span>
               )}
             </div>
           </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <ScheduleCellDialog tDialog={tDialog} day={day} timeslot={timeslot} />
+          <ScheduleCellDialog t={tDialog} day={day} timeslot={timeslot} />
         </DialogContent>
       </Dialog>
     </TableCell>
