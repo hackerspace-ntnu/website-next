@@ -6,7 +6,9 @@
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
     "dev": "next dev",
-    "dev:setup": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 5 && bun run db:push && bun run db:seed",
+    "dev:setup": "run-script-os",
+    "dev:setup:default": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 10 && bun run db:push && bun run db:seed",
+    "dev:setup:windows": "bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && timeout 10 && bun run db:push && bun run db:seed",
     "dev:stop": "docker compose -f compose.local.yml down",
     "lint": "biome check --write",
     "prebuild": "next telemetry disable",
@@ -72,6 +74,7 @@
     "react-day-picker": "^9.2.1",
     "react-dom": "^19.0.0",
     "reading-time": "^1.5.0",
+    "run-script-os": "^1.1.6",
     "sonner": "^1.7.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.5.4",
