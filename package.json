@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
-    "dev": "bun run next dev",
+    "dev": "next dev",
+    "dev:setup": "run-script-os",
+    "dev:setup:default": "set -e && bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && sleep 10 && bun run db:push && bun run db:seed",
+    "dev:setup:windows": "bun run db:stop && bun run s3:stop && bun run db:delete && bun run s3:delete && bun run db:start && bun run s3:start && timeout 10 && bun run db:push && bun run db:seed",
+    "dev:stop": "docker compose -f compose.local.yml down",
     "lint": "biome check --write",
     "prebuild": "bun run next telemetry disable",
     "build": "run-script-os",
