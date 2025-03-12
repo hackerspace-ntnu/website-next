@@ -3,6 +3,7 @@
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import React, { useEffect, useId, useState } from 'react';
 
 export type t = {
@@ -38,19 +39,18 @@ type ToolCardGridProps = {
 };
 
 export function ToolCardGrid({ tools, t }: ToolCardGridProps) {
+  const isDesktop = useMediaQuery('(min-width: 45.4rem)');
   const [smallScreen, setSmallScreen] = useState(false);
-
-  useEffect(() => {
-    const smallTable = () => setSmallScreen(window.innerWidth < 730);
-    smallTable();
-    window.addEventListener('resize', smallTable);
-    return () => {
-      window.removeEventListener('resize', smallTable);
-    };
-  }, []);
-
   const [active, setActive] = useState<Tool | null>(null);
   const id = useId();
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setSmallScreen(true);
+    } else {
+      setSmallScreen(false);
+    }
+  }, [isDesktop]);
 
   return (
     <div className='size-full'>

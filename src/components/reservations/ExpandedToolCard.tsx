@@ -55,7 +55,7 @@ export function ExpandedToolCard({
               opacity: { duration: 0.2, delay: 0.05 },
               scale: { duration: 0.2, delay: 0.05 },
             }}
-            className='~mx-4/2 fixed inset-0 z-30 max-w-lg flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl dark:bg-neutral-900'
+            className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl md:max-w-lg dark:bg-neutral-900'
           >
             <div>
               <Button

@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
@@ -33,13 +34,13 @@ type Reservation = {
 
 export function MyReservationsTable({ myReservations }: MyReservationsTable) {
   const [reservation, setReservation] = useState<Reservation[]>(myReservations);
+  const isDesktop = useMediaQuery('(min-width: 42rem)');
   const [checked, setChecked] = useState<number[]>([]);
   const [editPressed, setEditPressed] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
   const refr = [ref, ref2];
   const loggedIn = true;
-
   const [smallScreen, setSmallScreen] = useState(false);
 
   function handleSelectAll(isChecked: boolean) {
@@ -77,13 +78,12 @@ export function MyReservationsTable({ myReservations }: MyReservationsTable) {
   useOutsideClick(refr, () => setEditPressed(false));
 
   useEffect(() => {
-    const smallTable = () => setSmallScreen(window.innerWidth < 640);
-    smallTable();
-    window.addEventListener('resize', smallTable);
-    return () => {
-      window.removeEventListener('resize', smallTable);
-    };
-  }, []);
+    if (!isDesktop) {
+      setSmallScreen(true);
+    } else {
+      setSmallScreen(false);
+    }
+  }, [isDesktop]);
 
   function selectAllCheckBox() {
     return (
