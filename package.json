@@ -6,6 +6,7 @@
   "scripts": {
     "prepare": "bun -e \"process.env.NODE_ENV !== 'production' && require('child_process').spawnSync('lefthook', ['install'], {stdio: 'inherit', shell: true})\"",
     "dev": "next dev",
+    "dev:scan": "next dev & bunx react-scan localhost:3000",
     "lint": "biome check --write",
     "prebuild": "bun run next telemetry disable",
     "build": "run-script-os",
@@ -109,6 +110,7 @@
     "lefthook": "^1.8.1",
     "postcss": "^8.4.47",
     "react-email": "3.0.6",
+    "react-scan": "^0.2.14",
     "server-only": "^0.0.1",
     "tailwind-scrollbar-hide": "^2.0.0",
     "tailwindcss": "^3.4.14",
