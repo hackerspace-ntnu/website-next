@@ -34,7 +34,7 @@ const contextStorage = new AsyncLocalStorage<TRPCContext>();
 function getContext() {
   const ctx = contextStorage.getStore();
   if (!ctx) {
-    throw new Error('No context found');
+    throw new Error('No TRPC context found');
   }
   return ctx;
 }

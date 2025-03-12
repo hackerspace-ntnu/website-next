@@ -59,7 +59,7 @@ Next we are gonna setup the database and storage server to run locally. To achie
     # MacOS only
     brew install colima docker
     # Start colima
-    colima start
+    colima start --vm-type=vz
     ```
 
 Then we need to install Docker Compose.
@@ -78,7 +78,7 @@ Then we need to install Docker Compose.
 When you have installed Docker and Docker Compose you can start the database and storage server by running:
 
 ```bash
-bun run dev:setup
+bun run services:setup
 ```
 
 Now this command is a fancy all in one command that restarts and resets both the database and storage server pushes any new migrations and seeds the database. If you prefer to use the individual commands they will be outlined below.
@@ -86,7 +86,7 @@ Now this command is a fancy all in one command that restarts and resets both the
 You can stop both with:
 
 ```bash
-bun run dev:stop
+bun run services:stop
 ```
 
 > [!TIP]
@@ -142,6 +142,21 @@ bun run db:generate
 
 This will generate new migrations into the `@/server/db/migrations` directory.
 
+> [!WARNING]
+> Only generate new migrations when you are sure the changes you have made to the database are correct and are final. When you are making changes rapidly use the `db:push` command instead.
+
+To delete all the migrations and generate new ones (basically squashing all the migrations) you can run:
+
+```bash
+bun run db:squash
+```
+
+If you want to specify a single migration to drop from the schema you can run:
+
+```bash
+bun run db:drop
+```
+
 If you want to run the generated migrations on your database you can run:
 
 ```bash
@@ -169,10 +184,18 @@ If you want to access the storage server locally in a web browser you can always
 Then you can run the development server and see the website:
 
 ```bash
-bun dev --turbo
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To work on emails run:
+
+```bash
+bun run email:dev
+```
+
+For static assets to work, you need to run the development server as well.
 
 ### Build
 
@@ -271,6 +294,10 @@ Here is a list of documentations that will help you contribute to the project:
 - [Can I use](https://caniuse.com/) - Check browser support for different web technologies (especially useful for CSS)
 
 ## Development Environment
+
+### Neovim
+
+You know what you are doing, if not [LazyVim](https://www.lazyvim.org/) is a great starting point.
 
 ### VS Code
 
