@@ -356,6 +356,8 @@
     "webdevelopment": "Web Development"
   },
   "quotes": {
+    "failedToGetQuotes": "The server failed to get quotes",
+    "noUserWithUsername": "No user with provided username found",
     "form": {
       "content": {
         "label": "Quote",
@@ -372,6 +374,7 @@
     }
   },
   "api": {
+    "internalServerError": "Internal server error",
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",
     "notAuthorized": "Not authorized",

@@ -355,7 +355,26 @@
     "microcontroller": "Mikrokontroller-programmering",
     "webdevelopment": "Webutvikling"
   },
+  "quotes": {
+    "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
+    "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
+    "form": {
+      "content": {
+        "label": "Sitat",
+        "required": "Sitat er påkrevd",
+        "minLength": "Sitat må være minst {count} tegn",
+        "maxLength": "Sitat må være mindre enn {count} tegn"
+      },
+      "username": {
+        "label": "Brukernavn",
+        "required": "Brukernavn er påkrevd",
+        "minLength": "Brukernavn må være minst {count} tegn",
+        "maxLength": "Brukernavn må være mindre enn {count} tegn"
+      }
+    }
+  },
   "api": {
+    "internalServerError": "Intern serverfeil",
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert",
     "notAuthorized": "Ikke autorisert",
