@@ -1,11 +1,16 @@
-import { authRouter, storageRouter, testRouter } from '@/server/api/routers';
+import {
+  authRouter,
+  settingsRouter,
+  storageRouter,
+  testRouter,
+  utilsRouter,
+} from '@/server/api/routers';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 const router = createRouter({
   test: testRouter,
   auth: authRouter,
-  storage: storageRouter,
 });
 
 const createCaller = createCallerFactory(router);

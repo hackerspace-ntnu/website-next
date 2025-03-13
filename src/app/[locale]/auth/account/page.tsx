@@ -15,9 +15,9 @@ export default async function AccountPage({
 
   if (user) {
     if (!user.isAccountComplete) {
-      redirect({ href: '/auth/create-account', locale });
+      return redirect({ href: '/auth/create-account', locale });
     }
-    redirect({ href: '/', locale });
+    return redirect({ href: '/', locale });
   }
 
   return <AccountSignInForm />;

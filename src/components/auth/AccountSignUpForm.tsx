@@ -72,7 +72,6 @@ function AccountSignUpForm() {
               if (value !== fieldApi.form.getFieldValue('password')) {
                 return t('form.password.mismatch');
               }
-              return;
             },
           }}
         >

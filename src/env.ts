@@ -24,10 +24,14 @@ export const env = createEnv({
     FEIDE_TOKEN_ENDPOINT: z.string().optional(),
     FEIDE_USERINFO_ENDPOINT: z.string().optional(),
     FEIDE_EXTENDED_USERINFO_ENDPOINT: z.string().optional(),
+    EMAIL_FROM_ADDRESS: z.string().email().optional(),
+    EMAIL_FROM_PASSWORD: z.string().optional(),
+    EMAIL_REPLY_TO: z.string().email().optional(),
     MATRIX_SERVER_NAME: z.string().optional(),
     MATRIX_SECRET: z.string().optional(),
     MATRIX_ENDPOINT: z.string().optional(),
-    MATRIX_ACCESS_TOKEN: z.string().optional(),
+    MATRIX_ADMIN_USERNAME: z.string().optional(),
+    MATRIX_ADMIN_PASSWORD: z.string().optional(),
   },
 
   /**
@@ -63,12 +67,16 @@ export const env = createEnv({
     FEIDE_USERINFO_ENDPOINT: process.env.FEIDE_USERINFO_ENDPOINT,
     FEIDE_EXTENDED_USERINFO_ENDPOINT:
       process.env.FEIDE_EXTENDED_USERINFO_ENDPOINT,
+    EMAIL_FROM_ADDRESS: process.env.EMAIL_FROM_ADDRESS,
+    EMAIL_FROM_PASSWORD: process.env.EMAIL_FROM_PASSWORD,
+    EMAIL_REPLY_TO: process.env.EMAIL_REPLY_TO,
     MATRIX_SERVER_NAME: process.env.MATRIX_SERVER_NAME,
     MATRIX_SECRET: process.env.MATRIX_SECRET,
     MATRIX_ENDPOINT: process.env.MATRIX_ENDPOINT,
+    MATRIX_ADMIN_USERNAME: process.env.MATRIX_ADMIN_USERNAME,
+    MATRIX_ADMIN_PASSWORD: process.env.MATRIX_ADMIN_PASSWORD,
     NEXT_PUBLIC_MATRIX_CLIENT_URL: process.env.NEXT_PUBLIC_MATRIX_CLIENT_URL,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-    MATRIX_ACCESS_TOKEN: process.env.MATRIX_ACCESS_TOKEN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
