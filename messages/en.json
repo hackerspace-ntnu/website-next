@@ -358,9 +358,12 @@
   "quotes": {
     "failedToGetQuotes": "The server failed to get quotes",
     "noUserWithUsername": "No user with provided username found",
+    "createQuoteSuccess": "Quote created",
+    "createQuote": "Create quote",
     "form": {
       "content": {
         "label": "Quote",
+        "placeholder": "My heart cries because I do not own a 3D printer",
         "required": "Quote is required",
         "minLength": "Quote must be at least {count} characters",
         "maxLength": "Quote must be less than {count} characters"

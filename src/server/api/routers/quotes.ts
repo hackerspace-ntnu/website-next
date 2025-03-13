@@ -10,9 +10,11 @@ const quotesRouter = createRouter({
   getQuotes: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db
       .select({
+        id: quotes.id,
         createdAt: quotes.createdAt,
         content: quotes.content,
         author: sql`${users.firstName} || ' ' || ${users.lastName}`,
+        profilePictureId: users.profilePictureId,
       })
       .from(quotes)
       .innerJoin(users, eq(users.id, quotes.author))

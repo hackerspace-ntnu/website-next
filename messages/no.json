@@ -358,9 +358,12 @@
   "quotes": {
     "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
     "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
+    "createQuoteSuccess": "Sitat opprettet",
+    "createQuote": "Lag sitat",
     "form": {
       "content": {
         "label": "Sitat",
+        "placeholder": "Mitt hjerte gråter fordi jeg ikke har en 3D-printer",
         "required": "Sitat er påkrevd",
         "minLength": "Sitat må være minst {count} tegn",
         "maxLength": "Sitat må være mindre enn {count} tegn"
