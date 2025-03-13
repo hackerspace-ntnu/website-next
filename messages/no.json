@@ -245,6 +245,7 @@
   "storage": {
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
+    "addNewItem": "Legg til ny gjenstand",
     "card": {
       "quantityInfo": "{quantity} stk.",
       "addToCart": "Legg i handlekurven",

@@ -1,6 +1,7 @@
 import { CategorySelector } from '@/components/composites/CategorySelector';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
+import { AddItemButton } from '@/components/storage/AddItemButton';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -52,9 +53,12 @@ export default async function StorageLayout({
     <>
       <div className='relative'>
         <h1 className='text-center'>{t('title')}</h1>
-        <ShoppingCartLink
-          t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
-        />
+        <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
+          <AddItemButton />
+          <ShoppingCartLink
+            t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
+          />
+        </div>
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <SearchBar

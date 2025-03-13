@@ -245,6 +245,7 @@
   "storage": {
     "title": "Storage",
     "searchPlaceholder": "Search for product...",
+    "addNewItem": "Add new item",
     "card": {
       "quantityInfo": "{quantity} units",
       "addToCart": "Add to cart",
