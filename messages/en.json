@@ -355,6 +355,22 @@
     "microcontroller": "Microcontroller Programming",
     "webdevelopment": "Web Development"
   },
+  "quotes": {
+    "form": {
+      "content": {
+        "label": "Quote",
+        "required": "Quote is required",
+        "minLength": "Quote must be at least {count} characters",
+        "maxLength": "Quote must be less than {count} characters"
+      },
+      "username": {
+        "label": "Username",
+        "required": "Username is required",
+        "minLength": "Username must be at least {count} characters",
+        "maxLength": "Username must be less than {count} characters"
+      }
+    }
+  },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",
