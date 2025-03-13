@@ -13,7 +13,7 @@ import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
 async function ScheduleTable() {
-  const t = await getTranslations('shiftSchedule.scheduleTable');
+  const t = await getTranslations('shiftSchedule.table');
   const format = await getFormatter();
   const shifts = await api.shiftSchedule.fetchShifts();
 

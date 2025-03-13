@@ -8,20 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { days, timeslots } from '@/lib/constants';
 import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
-  const t = useTranslations('shiftSchedule.scheduleTable');
+  const t = useTranslations('shiftSchedule.table');
   const format = useFormatter();
-
-  const days = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-  ] as const;
-  const timeslots = ['first', 'second', 'third', 'fourth'] as const;
 
   function getDateTimeRange(timeslot: string) {
     let firstDate: Date;

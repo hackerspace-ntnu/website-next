@@ -35,7 +35,7 @@ function ScheduleCell({
   skills,
   userOnShift,
 }: ScheduleCellProps) {
-  const t = useTranslations('shiftSchedule.scheduleTable.scheduleCell');
+  const t = useTranslations('shiftSchedule.table.cell');
 
   return (
     <TableCell className='h-20 min-w-52 border p-1.5'>
@@ -83,12 +83,12 @@ function ScheduleCell({
           </DialogHeader>
           <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
             {members === 0 ? (
-              <p className='leaeding-tight'>{t('scheduleCellDialog.empty')}</p>
+              <p className='leaeding-tight'>{t('dialog.empty')}</p>
             ) : (
               <Suspense fallback={<Spinner className='m-auto' />}>
                 <MemberList
                   t={{
-                    empty: t('scheduleCellDialog.empty'),
+                    empty: t('dialog.empty'),
                   }}
                   day={day}
                   timeslot={timeslot}
@@ -97,8 +97,8 @@ function ScheduleCell({
             )}
             <RegisterShift
               t={{
-                recurring: t('scheduleCellDialog.registerSection.recurring'),
-                register: t('scheduleCellDialog.registerSection.register'),
+                recurring: t('dialog.recurring'),
+                register: t('dialog.register'),
               }}
               className='mt-auto min-w-fit'
             />
