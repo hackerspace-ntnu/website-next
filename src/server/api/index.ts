@@ -11,6 +11,9 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 const router = createRouter({
   test: testRouter,
   auth: authRouter,
+  storage: storageRouter,
+  settings: settingsRouter,
+  utils: utilsRouter,
 });
 
 const createCaller = createCallerFactory(router);
