@@ -6,10 +6,10 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { PlusIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-function AddItemButton() {
-  const t = useTranslations('storage');
+async function AddItemButton() {
+  const t = await getTranslations('storage');
 
   return (
     <TooltipProvider>

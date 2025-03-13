@@ -4,6 +4,7 @@ import { SortSelector } from '@/components/composites/SortSelector';
 import { AddItemButton } from '@/components/storage/AddItemButton';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
+import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
@@ -17,6 +18,7 @@ export default async function StorageLayout({
   children,
 }: StorageLayoutProps) {
   const { locale } = await params;
+  const { user } = await api.auth.state();
 
   setRequestLocale(locale);
   const t = await getTranslations('storage');
@@ -54,7 +56,7 @@ export default async function StorageLayout({
       <div className='relative'>
         <h1 className='text-center'>{t('title')}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
-          <AddItemButton />
+          {user && user.groups.length > 0 && <AddItemButton />}
           <ShoppingCartLink
             t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
           />
