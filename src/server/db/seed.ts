@@ -2,11 +2,13 @@ import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
 import { routing } from '@/lib/locale';
 import {
   type InsertGroup,
+  type InsertQuotes,
   type InsertSkill,
   type InsertUser,
   type InsertUserGroup,
   type InsertUserSkill,
   groups,
+  quotes,
   skills,
   userGroups,
   userSkills,
@@ -213,6 +215,32 @@ async function main() {
   ];
   await db.insert(userSkills).values(userSkillsData);
   console.log('Userskills inserted');
+
+  console.log('Inserting quotes...');
+  const quotesData: InsertQuotes[] = [
+    {
+      author: insertedUsers[0]?.id ?? 0,
+      createdBy: insertedUsers[1]?.id ?? 0,
+      content: 'How can mirrors be real?',
+    },
+    {
+      author: insertedUsers[4]?.id ?? 0,
+      createdBy: insertedUsers[1]?.id ?? 0,
+      content: 'I have a dream',
+    },
+  ];
+
+  for (let i = 0; i < 100; i++) {
+    const locale = Math.random() > 0.5 ? locales[0] : locales[1];
+    quotesData.push({
+      createdBy: insertedUsers[i % 5]?.id ?? 0,
+      author: insertedUsers[i % 5]?.id ?? 0,
+      content: faker[locale].lorem.sentence(),
+    });
+  }
+
+  await db.insert(quotes).values(quotesData);
+  console.log('Quotes inserted');
 }
 
 await main();

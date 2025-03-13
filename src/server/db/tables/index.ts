@@ -6,3 +6,4 @@ export * from './groups';
 export * from './skills';
 export * from './emails';
 export * from './files';
+export * from './quotes';

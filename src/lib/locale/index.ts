@@ -119,6 +119,14 @@ const routing = defineRouting({
       en: '/shift-schedule',
       no: '/vaktliste',
     },
+    '/quotes': {
+      en: '/quotes',
+      no: '/sitater',
+    },
+    '/quotes/new': {
+      en: '/quotes/new',
+      no: '/sitater/ny',
+    },
   },
 });
 

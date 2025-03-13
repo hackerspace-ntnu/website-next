@@ -1,6 +1,7 @@
 import {
   emailVerificationRequests,
   files,
+  quotes,
   sessions,
   userGroups,
   userSkills,
@@ -64,6 +65,8 @@ const usersRelations = relations(users, ({ many }) => ({
   usersSkills: many(userSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
+  createdQuotes: many(quotes, { relationName: 'createdBy' }),
+  authoredQuotes: many(quotes, { relationName: 'author' }),
 }));
 
 type SelectUser = InferSelectModel<typeof users>;
