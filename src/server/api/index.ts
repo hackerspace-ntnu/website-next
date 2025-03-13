@@ -1,5 +1,6 @@
 import {
   authRouter,
+  quotesRouter,
   settingsRouter,
   testRouter,
   utilsRouter,
@@ -11,6 +12,7 @@ const router = createRouter({
   auth: authRouter,
   settings: settingsRouter,
   utils: utilsRouter,
+  quotes: quotesRouter,
 });
 
 const createCaller = createCallerFactory(router);

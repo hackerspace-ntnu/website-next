@@ -1,3 +1,4 @@
+import { api } from '@/lib/api/server';
 import { setRequestLocale } from 'next-intl/server';
 
 export default async function QuotesPage({
@@ -7,5 +8,6 @@ export default async function QuotesPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <div>quotes page</div>;
+  const quotes = await api.quotes.getQuotes();
+  return <pre>{JSON.stringify(quotes, null, 2)}</pre>;
 }
