@@ -1,18 +1,24 @@
-import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
+import { MemberList } from '@/components/shift-schedule/MemberList';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from '@/components/ui/Dialog';
+import { Spinner } from '@/components/ui/Spinner';
 import { TableCell } from '@/components/ui/Table';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import { DialogTitle } from '@radix-ui/react-dialog';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Suspense } from 'react';
+import { RegisterShift } from './RegisterShift';
 
 type ScheduleCellProps = {
-  tDialog: {
+  formattedShift: {
     day: string;
     time: string;
-    empty: string;
-    recurring: string;
-    register: string;
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
@@ -22,7 +28,7 @@ type ScheduleCellProps = {
 };
 
 function ScheduleCell({
-  tDialog,
+  formattedShift,
   day,
   timeslot,
   members,
@@ -46,14 +52,14 @@ function ScheduleCell({
                   : 'bg-foreground/20 hover:bg-foreground/25',
             )}
           >
-            {/* Icon displaying amount of people on shift */}
+            {/* Icon displaying amount of members on shift */}
             {members === 1 ? (
               <UserIcon className='size-7' />
             ) : (
               members > 1 && <UsersIcon className='size-7' />
             )}
             <div className='flex flex-col'>
-              {/* Amount of people on shift */}
+              {/* Amount of members on shift */}
               <span>{t('onShift', { count: members })}</span>
               {/* Skill icons */}
               {members !== 0 && (
@@ -65,7 +71,38 @@ function ScheduleCell({
           </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <ScheduleCellDialog t={tDialog} day={day} timeslot={timeslot} />
+          <DialogHeader>
+            <DialogTitle className='flex flex-col text-left lg:block lg:space-x-5'>
+              <span className='font-semibold text-3xl'>
+                {formattedShift.day}
+              </span>
+              <span className='mt-auto font-semibold text-lg'>
+                {formattedShift.time}
+              </span>
+            </DialogTitle>
+          </DialogHeader>
+          <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
+            {members === 0 ? (
+              <p className='leaeding-tight'>{t('scheduleCellDialog.empty')}</p>
+            ) : (
+              <Suspense fallback={<Spinner className='m-auto' />}>
+                <MemberList
+                  t={{
+                    empty: t('scheduleCellDialog.empty'),
+                  }}
+                  day={day}
+                  timeslot={timeslot}
+                />
+              </Suspense>
+            )}
+            <RegisterShift
+              t={{
+                recurring: t('scheduleCellDialog.registerSection.recurring'),
+                register: t('scheduleCellDialog.registerSection.register'),
+              }}
+              className='mt-auto min-w-fit'
+            />
+          </div>
         </DialogContent>
       </Dialog>
     </TableCell>

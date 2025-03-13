@@ -79,16 +79,9 @@ async function ScheduleTable() {
                       {getDateTimeRange(timeslot)}
                     </TableCell>
                     <ScheduleCell
-                      tDialog={{
+                      formattedShift={{
                         day: t('day', { day: day }),
                         time: getDateTimeRange(timeslot),
-                        empty: t('scheduleCell.scheduleCellDialog.empty'),
-                        recurring: t(
-                          'scheduleCell.scheduleCellDialog.registerSection.recurring',
-                        ),
-                        register: t(
-                          'scheduleCell.scheduleCellDialog.registerSection.register',
-                        ),
                       }}
                       day={day}
                       timeslot={timeslot}
@@ -132,16 +125,9 @@ async function ScheduleTable() {
                 return (
                   <ScheduleCell
                     key={day}
-                    tDialog={{
+                    formattedShift={{
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
-                      empty: t('scheduleCell.scheduleCellDialog.empty'),
-                      recurring: t(
-                        'scheduleCell.scheduleCellDialog.registerSection.recurring',
-                      ),
-                      register: t(
-                        'scheduleCell.scheduleCellDialog.registerSection.register',
-                      ),
                     }}
                     day={day}
                     timeslot={timeslot}
