@@ -37,7 +37,9 @@ const storageRouter = createRouter({
       return item;
     }),
   fetchMany: publicProcedure
-    .input((input) => fetchManySchema().parse(input))
+    .input((input) =>
+      fetchManySchema(useTranslationsFromContext()).parse(input),
+    )
     .query(async ({ ctx, input }) => {
       if (Array.isArray(input)) {
         return ctx.db
@@ -46,10 +48,22 @@ const storageRouter = createRouter({
           .where(inArray(storageItems.id, input));
       }
 
+      if (input.sorting === ctx.t('storage.searchParams.name')) {
+        return await ctx.db.query.storageItems.findMany({
+          limit: input.limit,
+          offset: input.offset,
+          orderBy: (storageItems, { asc }) => [asc(storageItems.name)],
+        });
+      }
+
       return await ctx.db.query.storageItems.findMany({
         limit: input.limit,
         offset: input.offset,
-        orderBy: (storageItems, { asc }) => [asc(storageItems.id)],
+        orderBy: (storageItems, { asc, desc }) => [
+          input.sorting === ctx.t('storage.searchParams.ascending')
+            ? asc(storageItems.quantity)
+            : desc(storageItems.quantity),
+        ],
       });
     }),
   itemsTotal: publicProcedure.query(async ({ ctx }) => {

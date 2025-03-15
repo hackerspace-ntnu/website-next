@@ -1,10 +1,18 @@
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function fetchManySchema() {
+function fetchManySchema(t: Translations) {
   return z
     .object({
       limit: z.number().min(1).max(50),
       offset: z.number(),
+      sorting: z
+        .enum([
+          t('storage.searchParams.name'),
+          t('storage.searchParams.ascending'),
+          t('storage.searchParams.descending'),
+        ])
+        .optional(),
     })
     .or(z.array(z.number()));
 }

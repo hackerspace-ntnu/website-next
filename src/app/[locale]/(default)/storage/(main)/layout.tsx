@@ -24,31 +24,14 @@ export default async function StorageLayout({
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');
 
-  // This does not make much sense with a backend, most likely the categories in the backend will have a name in both languages and an ID
-  const categories = [
-    {
-      label: t('combobox.cables'),
-      value: t('searchParams.cables'),
-    },
-    {
-      label: t('combobox.sensors'),
-      value: t('searchParams.sensors'),
-    },
-    {
-      label: t('combobox.peripherals'),
-      value: t('searchParams.peripherals'),
-    },
-    {
-      label: t('combobox.miniPC'),
-      value: t('searchParams.miniPC'),
-    },
-  ];
+  const categories = await api.storage.fetchItemCategoryNames();
+
+  const categoriesWithLabel = categories.map((c) => ({ label: c, value: c }));
 
   const filters = [
-    { name: t('select.popularity'), urlName: t('searchParams.popularity') },
+    { name: t('select.name'), urlName: t('searchParams.name') },
     { name: t('select.sortDescending'), urlName: t('searchParams.descending') },
     { name: t('select.sortAscending'), urlName: t('searchParams.ascending') },
-    { name: t('select.name'), urlName: t('searchParams.name') },
   ];
 
   return (
@@ -73,12 +56,12 @@ export default async function StorageLayout({
             t={{
               ariaLabel: t('select.ariaLabel'),
               sort: tUi('sort'),
-              defaultValue: t('select.popularity'),
-              defaultSorting: t('searchParams.popularity'),
+              defaultValue: t('select.name'),
+              defaultSorting: t('searchParams.name'),
             }}
           />
           <CategorySelector
-            categories={categories}
+            categories={categoriesWithLabel}
             t={{
               category: tUi('category'),
               sort: tUi('sort'),

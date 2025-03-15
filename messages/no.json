@@ -254,10 +254,9 @@
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
       "filters": "Filtre",
-      "popularity": "Popularitet",
+      "name": "Navn (alfabetisk)",
       "sortDescending": "Lagerbeholdning (synkende)",
-      "sortAscending": "Lagerbeholdning (stigende)",
-      "name": "Navn (alfabetisk)"
+      "sortAscending": "Lagerbeholdning (stigende)"
     },
     "combobox": {
       "defaultDescription": "Velg kategori...",
@@ -268,10 +267,9 @@
       "miniPC": "Mini-PC"
     },
     "searchParams": {
-      "popularity": "popularitet",
+      "name": "navn",
       "descending": "synkende",
       "ascending": "stigende",
-      "name": "navn",
       "cables": "kabler",
       "sensors": "sensorer",
       "peripherals": "tilbehoer",

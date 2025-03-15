@@ -254,10 +254,9 @@
     "select": {
       "ariaLabel": "Select how to filter the storage items",
       "filters": "Filters",
-      "popularity": "Popularity",
+      "name": "Name (in alphabetical order)",
       "sortDescending": "Inventory (descending)",
-      "sortAscending": "Inventory (ascending)",
-      "name": "Name (in alphabetical order)"
+      "sortAscending": "Inventory (ascending)"
     },
     "combobox": {
       "defaultDescription": "Choose category...",
@@ -268,10 +267,9 @@
       "miniPC": "Mini PC"
     },
     "searchParams": {
-      "popularity": "popularity",
+      "name": "name",
       "descending": "descending",
       "ascending": "ascending",
-      "name": "name",
       "cables": "cables",
       "sensors": "sensors",
       "peripherals": "peripherals",
