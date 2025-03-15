@@ -2,7 +2,7 @@
 
 import { Combobox } from '@/components/ui/Combobox';
 import { useQueryState } from 'nuqs';
-import { parseAsString } from 'nuqs/server';
+import { parseAsInteger } from 'nuqs/server';
 
 type CategorySelectorProps = {
   categories: {
@@ -20,13 +20,14 @@ type CategorySelectorProps = {
 function CategorySelector({ categories, t }: CategorySelectorProps) {
   const [category, setCategory] = useQueryState(
     t.category,
-    parseAsString
-      .withDefault('')
+    parseAsInteger
+      .withDefault(-1)
       .withOptions({ shallow: false, clearOnDefault: true }),
   );
 
   function valueCallback(category: string | null) {
-    setCategory(category);
+    const categoryToSet = categories.findIndex((c) => c.label === category);
+    setCategory(categoryToSet + 1);
   }
 
   return (
@@ -37,7 +38,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
       buttonClassName='w-full lg:w-[250px]'
       contentClassName='w-full lg:w-[200px]'
       valueCallback={valueCallback}
-      initialValue={category}
+      initialValue={categories[category]?.value}
       ariaLabel={t.defaultDescription}
     />
   );

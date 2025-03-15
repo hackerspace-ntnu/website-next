@@ -48,11 +48,17 @@ const storageRouter = createRouter({
           .where(inArray(storageItems.id, input));
       }
 
+      const whereCategory =
+        input.category && input.category > 0
+          ? eq(storageItems.categoryId, input.category)
+          : undefined;
+
       if (input.sorting === ctx.t('storage.searchParams.name')) {
         return await ctx.db.query.storageItems.findMany({
           limit: input.limit,
           offset: input.offset,
           orderBy: (storageItems, { asc }) => [asc(storageItems.name)],
+          where: whereCategory,
         });
       }
 
@@ -64,6 +70,7 @@ const storageRouter = createRouter({
             ? asc(storageItems.quantity)
             : desc(storageItems.quantity),
         ],
+        where: whereCategory,
       });
     }),
   itemsTotal: publicProcedure.query(async ({ ctx }) => {

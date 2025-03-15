@@ -1,8 +1,13 @@
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
-import { StorageItems } from '@/components/storage/StorageItems';
+import { ItemCard } from '@/components/storage/ItemCard';
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import type { SearchParams } from 'nuqs';
+import {
+  type SearchParams,
+  createSearchParamsCache,
+  parseAsInteger,
+  parseAsString,
+} from 'nuqs/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -26,12 +31,40 @@ export default async function StoragePage({
 
   const itemsPerPage = 12;
 
+  const t = await getTranslations('ui');
+  const tStorage = await getTranslations('storage');
+  const searchParamsCache = createSearchParamsCache({
+    [t('page')]: parseAsInteger.withDefault(1),
+    [t('sort')]: parseAsString.withDefault(tStorage('searchParams.name')),
+    [t('category')]: parseAsInteger.withDefault(-1),
+  });
+
+  const {
+    [t('page')]: page,
+    [t('sort')]: sorting,
+    [t('category')]: category,
+  } = searchParamsCache.parse(awaitedSearchParams);
+
+  const items = await api.storage.fetchMany({
+    limit: itemsPerPage,
+    offset: ((page as number) - 1) * itemsPerPage,
+    sorting: sorting as string | undefined,
+    category: category as number,
+  });
+
+  const itemsNum =
+    (category as number) < 1 ? await api.storage.itemsTotal() : items.length;
+
   return (
     <>
-      <StorageItems searchParams={awaitedSearchParams} itemsPerPage={12} />
+      <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
+        {items.map((item) => (
+          <ItemCard key={item.id} item={item} />
+        ))}
+      </div>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil((await api.storage.itemsTotal()) / itemsPerPage)}
+        totalPages={Math.ceil(itemsNum / itemsPerPage)}
       />
     </>
   );

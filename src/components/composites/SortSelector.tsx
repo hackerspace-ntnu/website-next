@@ -30,14 +30,16 @@ function SortSelector({ filters, t }: SortSelectorProps) {
       .withOptions({ shallow: false, clearOnDefault: true }),
   );
 
+  function handleChange(value: string) {
+    const filterUrlName = filters.find((f) => f.name === value)?.urlName;
+    if (filterUrlName) {
+      setFilter(filterUrlName);
+    }
+  }
+
   return (
     <Select
-      onValueChange={(value) => {
-        const filterUrlName = filters.find((f) => f.name === value)?.urlName;
-        if (filterUrlName) {
-          setFilter(filterUrlName);
-        }
-      }}
+      onValueChange={handleChange}
       defaultValue={
         filters.find((f) => f.urlName === filter)?.name ?? t.defaultValue
       }

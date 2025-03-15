@@ -13,6 +13,7 @@ function fetchManySchema(t: Translations) {
           t('storage.searchParams.descending'),
         ])
         .optional(),
+      category: z.number().optional(),
     })
     .or(z.array(z.number()));
 }
