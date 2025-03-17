@@ -14,12 +14,12 @@ export default async function StorageLayout({
   const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = await getTranslations('storage.shoppingCart');
+  const t = await getTranslations('storage');
   return (
     <>
       <div className='relative'>
         <h1 className='mx-auto my-4 text-center text-3xl sm:text-4xl'>
-          {t('title')}
+          {t('shoppingCart.title')}
         </h1>
         <Link
           className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'

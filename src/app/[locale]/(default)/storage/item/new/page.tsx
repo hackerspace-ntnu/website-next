@@ -1,7 +1,4 @@
-import {
-  NewItemForm,
-  type NewItemFormProps,
-} from '@/components/storage/NewItemForm';
+import { NewItemForm } from '@/components/storage/NewItemForm';
 import { api } from '@/lib/api/server';
 import { NextIntlClientProvider } from 'next-intl';
 import {

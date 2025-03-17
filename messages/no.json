@@ -246,6 +246,7 @@
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
     "addNewItem": "Legg til ny gjenstand",
+    "backToStorage": "Tilbake til lageret",
     "card": {
       "quantityInfo": "{quantity} stk.",
       "addToCart": "Legg i handlekurven",
@@ -285,7 +286,6 @@
       "location": "Plass",
       "unitsAvailable": "Stk tilgjengelig",
       "tableDescription": "En liste over handlekurven din.",
-      "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
       "cancel": "Avbryt",
