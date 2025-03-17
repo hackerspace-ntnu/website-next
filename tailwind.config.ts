@@ -1,6 +1,4 @@
-import tailwindScrollbarHide from 'tailwind-scrollbar-hide';
 import type { Config } from 'tailwindcss';
-import tailwindAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   theme: {
@@ -11,7 +9,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindAnimate, tailwindScrollbarHide],
 };
 
 export default config;

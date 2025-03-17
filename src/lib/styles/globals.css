@@ -83,6 +83,9 @@
   --breakpoint-2xl: 90rem;
 }
 
+@plugin 'tailwind-scrollbar-hide';
+@plugin 'tailwindcss-animate';
+
 * {
   @apply min-w-0 border-border;
 }
