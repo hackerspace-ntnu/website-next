@@ -14,6 +14,7 @@ function fetchManySchema(t: Translations) {
         ])
         .optional(),
       category: z.number().optional(),
+      name: z.string().optional(),
     })
     .or(z.array(z.number()));
 }

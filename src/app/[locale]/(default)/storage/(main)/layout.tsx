@@ -4,6 +4,7 @@ import { SortSelector } from '@/components/composites/SortSelector';
 import { AddItemButton } from '@/components/storage/AddItemButton';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
+import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
@@ -19,13 +20,12 @@ export default async function StorageLayout({
 }: StorageLayoutProps) {
   const { locale } = await params;
   const { user } = await api.auth.state();
-
   setRequestLocale(locale);
+
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');
 
   const categories = await api.storage.fetchItemCategoryNames();
-
   const categoriesWithLabel = categories.map((c) => ({ label: c, value: c }));
 
   const filters = [
@@ -46,9 +46,9 @@ export default async function StorageLayout({
         </div>
       </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
-        <SearchBar
-          className='lg:max-w-2xl'
+        <StorageSearchBar
           placeholder={t('searchPlaceholder')}
+          t={{ name: t('searchParams.name') }}
         />
         <Suspense fallback={<SelectorsSkeleton />}>
           <SortSelector

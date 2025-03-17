@@ -37,12 +37,14 @@ export default async function StoragePage({
     [t('page')]: parseAsInteger.withDefault(1),
     [t('sort')]: parseAsString.withDefault(tStorage('searchParams.name')),
     [t('category')]: parseAsInteger.withDefault(-1),
+    [t('name')]: parseAsString.withDefault(''),
   });
 
   const {
     [t('page')]: page,
     [t('sort')]: sorting,
     [t('category')]: category,
+    [t('name')]: name,
   } = searchParamsCache.parse(awaitedSearchParams);
 
   const items = await api.storage.fetchMany({
@@ -50,6 +52,7 @@ export default async function StoragePage({
     offset: ((page as number) - 1) * itemsPerPage,
     sorting: sorting as string | undefined,
     category: category as number,
+    name: name as string | undefined,
   });
 
   const itemsNum =
