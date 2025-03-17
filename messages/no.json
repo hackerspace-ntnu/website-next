@@ -323,6 +323,7 @@
       "location": {
         "label": "Plassering",
         "placeholder": "Boks 2A",
+        "required": "Plassering er påkrevd.",
         "invalid": "Vennligst oppgi en kort og konsis plassering."
       },
       "quantity": {

@@ -323,6 +323,7 @@
       "location": {
         "label": "Location",
         "placeholder": "Box 2A",
+        "required": "Item location is required.",
         "invalid": "Please provide a short and concise location."
       },
       "quantity": {

@@ -31,7 +31,7 @@ export default async function StoragePage({
   const itemCategories = await api.storage.fetchItemCategoryNames();
 
   return (
-    <div className='mx-auto w-fit space-y-8'>
+    <div className='mx-auto max-w-prose space-y-8'>
       <h1 className='text-center'>
         {tStorage('title')}: {t('title')}
       </h1>

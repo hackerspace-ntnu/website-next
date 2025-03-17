@@ -5,7 +5,10 @@ function newItemSchema(t: Translations, categories: string[]) {
   return z.object({
     name: z.string().min(1, t('storage.new.name.required')),
     description: z.string(),
-    location: z.string().max(50, t('storage.new.location.invalid')),
+    location: z
+      .string()
+      .min(1, t('storage.new.location.required'))
+      .max(50, t('storage.new.location.invalid')),
     categoryName:
       categories.length > 1
         ? z.enum(categories as [string, ...string[]])
