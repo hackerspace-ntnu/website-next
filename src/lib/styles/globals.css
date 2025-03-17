@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@plugin 'tailwind-scrollbar-hide';
+@plugin 'tailwindcss-animate';
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: hsl(0 0% 100%); /* #ffffff */
@@ -45,9 +48,8 @@
   --ring: hsl(142.4 71.8% 29.2%); /* #15803d */
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -67,22 +69,22 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Radius */
   --radius-sm: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: calc(var(--radius) - 4px);
-  --font-inter: var(--font-inter), system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-montserrat: var(--font-montserrat), system-ui, sans-serif,
+
+  /* Fonts */
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
+  --font-montserrat: var(--font-montserrat), ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 
-@theme {
+  /* Breakpoints */
   --breakpoint-xs: 30rem;
-  --breakpoint-2xl: 90rem;
 }
-
-@plugin 'tailwind-scrollbar-hide';
-@plugin 'tailwindcss-animate';
 
 * {
   @apply min-w-0 border-border;
