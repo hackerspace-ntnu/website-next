@@ -27,7 +27,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
 
   function valueCallback(category: string | null) {
     const categoryToSet = categories.findIndex((c) => c.label === category);
-    setCategory(categoryToSet + 1);
+    setCategory(categoryToSet !== -1 ? categoryToSet + 1 : -1);
   }
 
   return (
