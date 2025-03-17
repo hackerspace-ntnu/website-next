@@ -35,7 +35,7 @@ function SidebarNav({
             </SidebarNavLink>
           )}
         </nav>
-        <div className='flex min-w-fit flex-shrink-0 px-2 lg:px-0 lg:py-2'>
+        <div className='flex min-w-fit shrink-0 px-2 lg:px-0 lg:py-2'>
           <MatrixLink t={{ title: tLayout('goToMatrix') }} />
           <LocaleMenu
             t={{

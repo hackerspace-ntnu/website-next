@@ -7,7 +7,7 @@ function Main({
   return (
     <main
       className={cx(
-        '~px-4/24 mx-auto w-full max-w-screen-2xl flex-grow py-6',
+        '~px-4/24 mx-auto w-full max-w-screen-2xl grow py-6',
         className,
       )}
       {...props}
