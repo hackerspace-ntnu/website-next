@@ -1,4 +1,5 @@
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
+import { Button } from '@/components/ui/Button';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
@@ -65,11 +66,19 @@ export default async function StoragePage({
             <p>
               {item.description ? item.description : t('item.noDescription')}
             </p>
-            <AddToCartButton
-              item={item}
-              t={addToCartTranslations}
-              className='mt-4'
-            />
+            <div className='mt-2 flex gap-2'>
+              <AddToCartButton item={item} t={addToCartTranslations} />
+              <Link
+                href={{
+                  pathname: '/storage/item/[id]/edit',
+                  params: { id: id },
+                }}
+                variant='secondary'
+                size='default'
+              >
+                Edit item
+              </Link>
+            </div>
           </div>
           <Image
             src='/unknown.png'
