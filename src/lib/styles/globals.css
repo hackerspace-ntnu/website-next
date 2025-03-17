@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin 'tailwind-scrollbar-hide';
 @plugin 'tailwindcss-animate';
-@config "./tailwind.config.ts";
+@plugin "./clampPlugin.ts";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
