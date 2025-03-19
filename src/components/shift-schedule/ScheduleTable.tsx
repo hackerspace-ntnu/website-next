@@ -12,7 +12,7 @@ import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
-async function ScheduleTable() {
+async function ScheduleTable({ uid }: { uid?: number }) {
   const t = await getTranslations('shiftSchedule.table');
   const format = await getFormatter();
   const shifts = await api.shiftSchedule.fetchShifts();
@@ -23,22 +23,22 @@ async function ScheduleTable() {
 
     switch (timeslot) {
       case timeslots[0]:
-        firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
-        secondDate = new Date(0, 0, 0, 12, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 10, 0, 0, 0);
+        secondDate = new Date(0, 0, 0, 12, 0, 0, 0);
         break;
 
       case timeslots[1]:
-        firstDate = new Date(0, 0, 0, 12, 7, 0, 0);
-        secondDate = new Date(0, 0, 0, 14, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 12, 0, 0, 0);
+        secondDate = new Date(0, 0, 0, 14, 0, 0, 0);
         break;
 
       case timeslots[2]:
-        firstDate = new Date(0, 0, 0, 14, 7, 0, 0);
-        secondDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 14, 0, 0, 0);
+        secondDate = new Date(0, 0, 0, 16, 0, 0, 0);
         break;
 
       case timeslots[3]:
-        firstDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 16, 0, 0, 0);
         secondDate = new Date(0, 0, 0, 18, 0, 0, 0);
         break;
 
@@ -83,11 +83,11 @@ async function ScheduleTable() {
                         day: t('day', { day: day }),
                         time: getDateTimeRange(timeslot),
                       }}
-                      day={day}
-                      timeslot={timeslot}
-                      members={shift?.onShift ?? 0}
+                      members={shift?.members ?? []}
                       skills={shift?.skills ?? []}
-                      userOnShift={shift?.userOnShift ?? false}
+                      userOnShift={
+                        !!shift?.members.find((member) => member.id === uid)
+                      }
                     />
                   </TableRow>
                 );
@@ -129,11 +129,11 @@ async function ScheduleTable() {
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
                     }}
-                    day={day}
-                    timeslot={timeslot}
-                    members={shift?.onShift ?? 0}
+                    members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
-                    userOnShift={shift?.userOnShift ?? false}
+                    userOnShift={
+                      !!shift?.members.find((member) => member.id === uid)
+                    }
                   />
                 );
               })}

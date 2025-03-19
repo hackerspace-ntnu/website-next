@@ -5,14 +5,13 @@ import {
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/Dialog';
-import { Spinner } from '@/components/ui/Spinner';
 import { TableCell } from '@/components/ui/Table';
-import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import type { skillIdentifiers } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import type { Member } from '@/server/api/routers';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Suspense } from 'react';
 import { RegisterShift } from './RegisterShift';
 
 type ScheduleCellProps = {
@@ -20,17 +19,13 @@ type ScheduleCellProps = {
     day: string;
     time: string;
   };
-  day: (typeof days)[number];
-  timeslot: (typeof timeslots)[number];
-  members: number;
+  members: Member[];
   skills: (typeof skillIdentifiers)[number][];
   userOnShift: boolean;
 };
 
 function ScheduleCell({
   formattedShift,
-  day,
-  timeslot,
   members,
   skills,
   userOnShift,
@@ -47,22 +42,22 @@ function ScheduleCell({
               'flex size-full gap-2 rounded-md p-3 text-left',
               userOnShift
                 ? 'bg-primary/20 hover:bg-primary/25'
-                : members === 0
+                : members.length === 0
                   ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
                   : 'bg-foreground/20 hover:bg-foreground/25',
             )}
           >
             {/* Icon displaying amount of members on shift */}
-            {members === 1 ? (
+            {members.length === 1 ? (
               <UserIcon className='size-7' />
             ) : (
-              members > 1 && <UsersIcon className='size-7' />
+              members.length > 1 && <UsersIcon className='size-7' />
             )}
             <div className='flex flex-col'>
               {/* Amount of members on shift */}
-              <span>{t('onShift', { count: members })}</span>
+              <span>{t('onShift', { count: members.length })}</span>
               {/* Skill icons */}
-              {members !== 0 && (
+              {members.length !== 0 && (
                 <span className='max-w-32 truncate leading-7'>
                   {skills.toString()}
                 </span>
@@ -82,19 +77,12 @@ function ScheduleCell({
             </DialogTitle>
           </DialogHeader>
           <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-            {members === 0 ? (
-              <p className='leaeding-tight'>{t('dialog.empty')}</p>
-            ) : (
-              <Suspense fallback={<Spinner className='m-auto' />}>
-                <MemberList
-                  t={{
-                    empty: t('dialog.empty'),
-                  }}
-                  day={day}
-                  timeslot={timeslot}
-                />
-              </Suspense>
-            )}
+            <MemberList
+              t={{
+                empty: t('dialog.empty'),
+              }}
+              members={members}
+            />
             <RegisterShift
               t={{
                 recurring: t('dialog.recurring'),

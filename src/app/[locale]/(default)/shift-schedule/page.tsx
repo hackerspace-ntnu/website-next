@@ -37,7 +37,7 @@ export default async function ShiftSchedulePage({
           clearShiftSchedule: t('administratorMenu.clearShiftSchedule'),
         }}
       />
-      <ScheduleTable />
+      <ScheduleTable uid={user?.id} />
     </>
   );
 }
