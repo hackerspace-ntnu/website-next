@@ -1,5 +1,4 @@
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
-import { Button } from '@/components/ui/Button';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
@@ -24,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function StoragePage({
+export default async function StorageItemPage({
   params,
 }: { params: StorageItemParams }) {
   const { locale, id } = await params;

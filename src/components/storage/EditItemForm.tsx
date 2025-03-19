@@ -22,24 +22,23 @@ import { Textarea } from '@/components/ui/Textarea';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
-import { newItemSchema } from '@/validations/storage/newItemSchema';
+import type { RouterOutput } from '@/server/api';
+import { itemSchema } from '@/validations/storage/itemSchema';
 import { useTranslations } from 'next-intl';
 
-type NewItemFormProps = {
-  t: {
-    nameLabel: string;
-    descriptionLabel: string;
-    locationLabel: string;
-    categoryLabel: string;
-    quantityLabel: string;
-  };
+type EditItemFormProps = {
+  itemCategories: string[];
+  prefilledItem?: RouterOutput['storage']['fetchOne'];
 };
 
-function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
-  const t = useTranslations('storage.new');
+function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
+  const t = useTranslations('storage.edit');
   const router = useRouter();
-  const schema = newItemSchema(useTranslations(), itemCategories);
+  const schema = itemSchema(useTranslations(), itemCategories);
   const newItemMutation = api.storage.newItem.useMutation({
+    onSuccess: () => toast.success(t('success')),
+  });
+  const editItemMutation = api.storage.editItem.useMutation({
     onSuccess: () => toast.success(t('success')),
   });
 
@@ -48,15 +47,23 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
       onChange: schema,
     },
     defaultValues: {
-      name: '',
-      description: '',
-      location: '',
-      categoryName: itemCategories[0] ?? '',
-      quantity: 1,
+      name: prefilledItem?.name ?? '',
+      description: prefilledItem?.description ?? '',
+      location: prefilledItem?.location ?? '',
+      categoryName: prefilledItem?.category?.name ?? itemCategories[0] ?? '',
+      quantity: prefilledItem?.quantity ?? 1,
     },
     onSubmit: ({ value }) => {
-      newItemMutation.mutate(value);
-      router.push('/storage');
+      if (prefilledItem) {
+        editItemMutation.mutate({ id: prefilledItem.id, ...value });
+        router.push({
+          pathname: '/storage/item/[id]',
+          params: { id: prefilledItem.id },
+        });
+      } else {
+        newItemMutation.mutate(value);
+        router.push('/storage');
+      }
       router.refresh();
     },
   });
@@ -164,4 +171,4 @@ function NewItemForm({ itemCategories }: { itemCategories: string[] }) {
   );
 }
 
-export { NewItemForm, type NewItemFormProps };
+export { EditItemForm };

@@ -310,8 +310,9 @@
       "noCategory": "Ingen kategori spesifisert",
       "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig."
     },
-    "new": {
-      "title": "Ny gjenstand",
+    "edit": {
+      "titleNew": "Ny gjenstand",
+      "titleEdit": "Rediger gjenstand",
       "name": {
         "label": "Navn",
         "placeholder": "Raspberry Pi 5",

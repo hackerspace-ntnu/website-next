@@ -6,9 +6,10 @@ import {
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
 import { itemCategories, storageItems } from '@/server/db/tables';
+import { editItemSchema } from '@/validations/storage/editItemSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
-import { newItemSchema } from '@/validations/storage/newItemSchema';
+import { itemSchema } from '@/validations/storage/itemSchema';
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, ilike, inArray } from 'drizzle-orm';
 
@@ -87,7 +88,7 @@ const storageRouter = createRouter({
   }),
   newItem: authenticatedProcedure
     .input(async (input) =>
-      newItemSchema(useTranslationsFromContext(), categories).parse(input),
+      itemSchema(useTranslationsFromContext(), categories).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       if (input.categoryName === '') {
@@ -125,6 +126,28 @@ const storageRouter = createRouter({
       const { categoryName: _, ...dbValues } = input;
 
       await ctx.db.insert(storageItems).values({ ...dbValues, categoryId });
+    }),
+  editItem: authenticatedProcedure
+    .input((input) =>
+      editItemSchema(useTranslationsFromContext(), categories).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const category = await ctx.db.query.itemCategories.findFirst({
+        where: eq(itemCategories.name, input.categoryName),
+      });
+
+      if (!category) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('storage.api.categoryNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(storageItems)
+        .set({ ...input, categoryId: category.id })
+        .where(eq(storageItems.id, input.id));
     }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db

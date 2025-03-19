@@ -310,8 +310,9 @@
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit"
     },
-    "new": {
-      "title": "New Item",
+    "edit": {
+      "titleNew": "New Item",
+      "titleEdit": "Edit Item",
       "name": {
         "label": "Item name",
         "placeholder": "Raspberry Pi 5",
