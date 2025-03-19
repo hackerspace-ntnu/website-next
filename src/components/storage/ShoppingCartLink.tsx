@@ -10,15 +10,17 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { cx } from '@/lib/utils';
 import { ShoppingCartIcon } from 'lucide-react';
 
 type ShoppingCartLinkProps = {
   t: {
     viewShoppingCart: string;
   };
+  className?: string;
 };
 
-function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
+function ShoppingCartLink({ t, className }: ShoppingCartLinkProps) {
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   return (
@@ -31,17 +33,18 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
               size='icon'
               href='/storage/shopping-cart'
               aria-label={t.viewShoppingCart}
+              className={cx('relative', className)}
             >
               <ShoppingCartIcon />
+              {!isLoading && cart && cart.length > 0 && (
+                <Badge
+                  className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
+                  variant='destructive'
+                >
+                  {cart.length}
+                </Badge>
+              )}
             </Link>
-            {!isLoading && cart && cart.length > 0 && (
-              <Badge
-                className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
-                variant='destructive'
-              >
-                {cart.length}
-              </Badge>
-            )}
           </div>
         </TooltipTrigger>
         <TooltipContent>
