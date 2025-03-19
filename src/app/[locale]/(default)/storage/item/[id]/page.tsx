@@ -1,4 +1,5 @@
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
+import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
@@ -39,16 +40,22 @@ export default async function StorageItemPage({
 
   return (
     <>
-      <Link
-        className='inline-flex gap-2'
-        variant='ghost'
-        size='default'
-        href='/storage'
-        aria-label={t('backToStorage')}
-      >
-        <ArrowLeftIcon aria-hidden='true' />
-        <span className='hidden sm:inline'>{t('backToStorage')}</span>
-      </Link>
+      <div className='flex items-center justify-between'>
+        <Link
+          className='inline-flex gap-2'
+          variant='ghost'
+          size='default'
+          href='/storage'
+          aria-label={t('backToStorage')}
+        >
+          <ArrowLeftIcon aria-hidden='true' />
+          <span className='hidden sm:inline'>{t('backToStorage')}</span>
+        </Link>
+        <ShoppingCartLink
+          t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
+          className='mx-4'
+        />
+      </div>
       <h1 className='my-4'>{item.name}</h1>
       <div className='mt-4 space-y-4'>
         <div className='flex items-center gap-2'>
