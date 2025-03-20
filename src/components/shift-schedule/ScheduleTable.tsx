@@ -92,11 +92,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                       timeslot={timeslot}
                       members={shift?.members ?? []}
                       skills={shift?.skills ?? []}
-                      userOnShift={
-                        !!shift?.members.find(
-                          (member) => member.id === user?.id,
-                        )
-                      }
+                      userId={user?.id ?? 0}
                     />
                   </TableRow>
                 );
@@ -142,9 +138,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                     timeslot={timeslot}
                     members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
-                    userOnShift={
-                      !!shift?.members.find((member) => member.id === user?.id)
-                    }
+                    userId={user?.id ?? 0}
                   />
                 );
               })}

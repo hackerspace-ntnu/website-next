@@ -12,6 +12,7 @@ import type { Member } from '@/server/api/routers';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { SkillIcon } from '../skills/SkillIcon';
 import { RegisterShift } from './RegisterShift';
 
 type ScheduleCellProps = {
@@ -23,7 +24,7 @@ type ScheduleCellProps = {
   timeslot: (typeof timeslots)[number];
   members: Member[];
   skills: (typeof skillIdentifiers)[number][];
-  userOnShift: boolean;
+  userId: number;
 };
 
 function ScheduleCell({
@@ -32,9 +33,10 @@ function ScheduleCell({
   timeslot,
   members,
   skills,
-  userOnShift,
+  userId,
 }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.table.cell');
+  const userOnShift = !!members.find((member) => member.id === userId);
 
   return (
     <TableCell className='h-20 min-w-52 border p-1.5'>
@@ -91,9 +93,17 @@ function ScheduleCell({
               t={{
                 recurring: t('dialog.recurring'),
                 register: t('dialog.register'),
+                unregister: t('dialog.unregister'),
               }}
               day={day}
               timeslot={timeslot}
+              user={{
+                authenticated: userId !== 0,
+                onShift: userOnShift,
+                recurring: !!members.find(
+                  (member) => member.id === userId && member.recurring,
+                ),
+              }}
               className='mt-auto min-w-fit'
             />
           </div>

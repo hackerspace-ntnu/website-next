@@ -13,6 +13,7 @@ type Member = {
   id: number;
   name: string;
   skills: (typeof skillIdentifiers)[number][];
+  recurring: boolean;
 };
 
 type Shift = {
@@ -33,12 +34,13 @@ const shiftScheduleRouter = createRouter({
         skills: sql<
           (typeof skillIdentifiers)[number][]
         >`COALESCE(ARRAY_AGG(DISTINCT ${skills.identifier}::TEXT) FILTER (WHERE ${skills.identifier} IS NOT NULL), ARRAY[]::TEXT[])`,
+        endDate: shifts.endDate,
       })
       .from(shifts)
       .innerJoin(users, eq(shifts.userId, users.id))
       .leftJoin(userSkills, eq(users.id, userSkills.userId))
       .leftJoin(skills, eq(userSkills.skillId, skills.id))
-      .groupBy(shifts.day, shifts.timeslot, users.id);
+      .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id);
 
     const returnShifts: Shift[] = [];
     for (const day of days) {
@@ -61,6 +63,7 @@ const shiftScheduleRouter = createRouter({
             id: tempShift.id,
             name: tempShift.name,
             skills: tempShift.skills,
+            recurring: tempShift.endDate === null,
           });
           tempShift.skills.forEach(skills.add, skills);
         }

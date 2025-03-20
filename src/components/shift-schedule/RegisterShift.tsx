@@ -7,7 +7,6 @@ import { api } from '@/lib/api/client';
 import type { days, timeslots } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { router } from '@/server/api';
 import { useState } from 'react';
 import { DialogClose } from '../ui/Dialog';
 
@@ -15,16 +14,28 @@ type RegisterShiftProps = {
   t: {
     recurring: string;
     register: string;
+    unregister: string;
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
+  user: {
+    authenticated: boolean;
+    onShift: boolean;
+    recurring: boolean;
+  };
   className?: string;
 };
 
-function RegisterShift({ t, day, timeslot, className }: RegisterShiftProps) {
+function RegisterShift({
+  t,
+  day,
+  timeslot,
+  user,
+  className,
+}: RegisterShiftProps) {
   const router = useRouter();
   const utils = api.useUtils();
-  const [recurring, setRecurring] = useState(false);
+  const [recurring, setRecurring] = useState(user.recurring);
   const registerShift = api.shiftSchedule.registerShift.useMutation();
 
   return (
@@ -32,7 +43,8 @@ function RegisterShift({ t, day, timeslot, className }: RegisterShiftProps) {
       <section className='flex gap-2'>
         <Label htmlFor='recurring'>{t.recurring}: </Label>
         <Checkbox
-          id='recurring'
+          id='recurribooleanng'
+          disabled={!user.authenticated}
           checked={recurring}
           onCheckedChange={() => setRecurring(!recurring)}
         />
@@ -40,6 +52,7 @@ function RegisterShift({ t, day, timeslot, className }: RegisterShiftProps) {
       <DialogClose asChild>
         <Button
           className='float-right'
+          disabled={!user.authenticated}
           onClick={() => {
             registerShift.mutate({ day, timeslot, recurring });
             utils.shiftSchedule.fetchShifts.invalidate();
