@@ -42,6 +42,7 @@ export default async function StorageShoppingCartPage({
     returnByDescription: tLoanForm('returnByDescription'),
     submit: tLoanForm('submit'),
     mustbeLoggedIn: t('mustBeLoggedIn'),
+    success: tLoanForm('success'),
   };
 
   const { user } = await api.auth.state();

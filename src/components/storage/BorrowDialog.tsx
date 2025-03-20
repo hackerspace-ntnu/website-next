@@ -24,6 +24,7 @@ type BorrowDialogProps = {
     returnByDescription: string;
     submit: string;
     mustbeLoggedIn: string;
+    success: string;
   };
   className?: string;
   isLoggedIn: boolean;

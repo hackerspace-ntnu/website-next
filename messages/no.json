@@ -305,7 +305,8 @@
       "returnBy": "Lån fram til",
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send",
-      "dateInFuture": "Datoen for levering må være i framtiden"
+      "dateInFuture": "Datoen for levering må være i framtiden",
+      "success": "Låneforespørsel sendt! Videresender deg til lageret..."
     },
     "item": {
       "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
@@ -350,7 +351,9 @@
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
       "notFound": "Den valgte gjenstanden ble ikke funnet.",
-      "categoryNotFound": "The selected category was not found."
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
+      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig."
     }
   },
   "shiftSchedule": {

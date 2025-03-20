@@ -4,15 +4,23 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import { date, integer, pgTable, serial, varchar } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
 const storageItems = pgTable('storage_items', {
   id: serial('id').primaryKey(),
-  name: varchar({ length: 128 }).notNull().unique(),
-  description: varchar({ length: 512 }),
-  location: varchar({ length: 256 }).notNull(),
-  categoryId: integer().references(() => itemCategories.id),
-  quantity: integer().notNull(),
+  name: varchar('name', { length: 128 }).notNull().unique(),
+  description: varchar('description', { length: 512 }),
+  location: varchar('location', { length: 256 }).notNull(),
+  categoryId: integer('category_id').references(() => itemCategories.id),
+  quantity: integer('quantity').notNull(),
+  availableUnits: integer('available_units').notNull(),
 });
 
 const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
@@ -24,34 +32,35 @@ const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
 }));
 
 const itemLoans = pgTable('item_loans', {
-  item_id: integer()
+  itemId: integer('item_id')
     .notNull()
     .references(() => storageItems.id),
-  lender_id: integer()
+  lenderId: integer('lender_id')
     .notNull()
     .references(() => users.id),
-  units_loaned: integer().notNull(),
-  date_loaned: date().notNull(),
-  return_by: date().notNull(),
-  returned_at: date(),
-  notes: varchar({ length: 512 }),
-  created_at: date().notNull().defaultNow(),
+  unitsBorrowed: integer('units_borrowed').notNull(),
+  borrowedAt: timestamp('borrowed_at').notNull().defaultNow(),
+  returnBy: timestamp('return_by').notNull(),
+  returnedAt: timestamp('returned_at'),
+  accepted: boolean('accepted').default(false),
+  notes: varchar('notes', { length: 512 }),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
 });
 
 const itemLoansRelations = relations(itemLoans, ({ one }) => ({
   item: one(storageItems, {
-    fields: [itemLoans.item_id],
+    fields: [itemLoans.itemId],
     references: [storageItems.id],
   }),
   lender: one(users, {
-    fields: [itemLoans.lender_id],
+    fields: [itemLoans.lenderId],
     references: [users.id],
   }),
 }));
 
 const itemCategories = pgTable('item_categories', {
   id: serial('id').primaryKey(),
-  name: varchar({ length: 128 }).notNull().unique(),
+  name: varchar('name', { length: 128 }).notNull().unique(),
 });
 
 const itemCategoriesRelations = relations(itemCategories, ({ many }) => ({

@@ -311,7 +311,8 @@
       "returnBy": "Return by",
       "returnByDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit",
-      "dateInFuture": "The return by date must be in the future"
+      "dateInFuture": "The return by date must be in the future",
+      "success": "Borrow request sent! Redirecting to storage..."
     },
     "edit": {
       "titleNew": "New Item",
@@ -350,7 +351,9 @@
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
       "notFound": "The selected storage item was not found.",
-      "categoryNotFound": "The selected category was not found."
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
+      "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units."
     }
   },
   "shiftSchedule": {

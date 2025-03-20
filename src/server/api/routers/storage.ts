@@ -5,14 +5,15 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
-import { itemCategories, storageItems } from '@/server/db/tables';
+import { itemCategories, itemLoans, storageItems } from '@/server/db/tables';
+import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { TRPCError } from '@trpc/server';
-import { and, count, eq, ilike, inArray } from 'drizzle-orm';
+import { and, count, eq, ilike, inArray, sql } from 'drizzle-orm';
 
 const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
@@ -93,7 +94,9 @@ const storageRouter = createRouter({
     )
     .mutation(async ({ input, ctx }) => {
       if (input.categoryName === '') {
-        return ctx.db.insert(storageItems).values(input);
+        return ctx.db
+          .insert(storageItems)
+          .values({ ...input, availableUnits: input.quantity });
       }
 
       const duplicateItem = await ctx.db
@@ -126,7 +129,9 @@ const storageRouter = createRouter({
 
       const { categoryName: _, ...dbValues } = input;
 
-      await ctx.db.insert(storageItems).values({ ...dbValues, categoryId });
+      await ctx.db
+        .insert(storageItems)
+        .values({ ...dbValues, categoryId, availableUnits: dbValues.quantity });
     }),
   editItem: authenticatedProcedure
     .input((input) =>
@@ -170,6 +175,53 @@ const storageRouter = createRouter({
       .from(itemCategories);
     return categories.map((c) => c.name);
   }),
+  borrowItems: authenticatedProcedure
+    .input((input) => borrowItemsSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      const itemIds = input.map((i) => i.id);
+      const itemsToBorrow = await ctx.db
+        .select()
+        .from(storageItems)
+        .where(inArray(storageItems.id, itemIds));
+
+      if (itemIds.length !== itemsToBorrow.length) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('storage.api.wantedItemNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      // Map the items so that the ids are keys and values are storage items
+      const items = Object.fromEntries(
+        itemIds.map((id) => [id, itemsToBorrow.find((i) => i.id === id)]),
+      );
+
+      if (input.some((i) => i.amount > (items[i.id]?.quantity as number))) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.borrowingMoreThanQuantity'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      // Update each items' availableUnits and add new item loans
+      for (const item of itemsToBorrow) {
+        const borrowing = input.find((i) => i.id === item.id);
+        await ctx.db
+          .update(storageItems)
+          .set({
+            availableUnits: sql`${storageItems.availableUnits} - ${borrowing?.amount}`,
+          })
+          .where(eq(storageItems.id, item.id));
+        await ctx.db.insert(itemLoans).values({
+          itemId: item.id,
+          lenderId: ctx.user.id,
+          returnBy: borrowing?.returnBy as Date,
+          unitsBorrowed: borrowing?.amount as number,
+        });
+      }
+    }),
 });
 
 export { storageRouter };

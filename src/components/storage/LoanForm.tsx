@@ -1,5 +1,6 @@
 'use client';
 
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import {
@@ -11,6 +12,10 @@ import {
   FormMessage,
   useForm,
 } from '@/components/ui/Form';
+import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { useRouter } from '@/lib/locale/navigation';
 import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 import { addDays, addWeeks, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
@@ -25,16 +30,33 @@ type LoanFormProps = {
     returnBy: string;
     returnByDescription: string;
     submit: string;
+    success: string;
   };
 };
 
 function LoanForm({ t }: LoanFormProps) {
+  const [cart, setCart, isLoading] =
+    useLocalStorage<CartItem[]>('shopping-cart');
+  const borrowItemsMutation = api.storage.borrowItems.useMutation({
+    onSuccess: () => toast.success(t.success),
+  });
+  const router = useRouter();
+
   const form = useForm(loanFormSchema(useTranslations()), {
     defaultValues: {
       returnBy: new Date(),
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      if (!cart || isLoading) return;
+      borrowItemsMutation.mutate(
+        cart.map((i) => ({
+          id: i.id,
+          amount: i.amount,
+          returnBy: value.returnBy,
+        })),
+      );
+      setCart(null);
+      router.push('/storage');
     },
   });
 
