@@ -8,38 +8,29 @@ type PluginContext = {
   theme: (path: string) => unknown;
 };
 
-const propertyMap: Record<string, string> = {
-  p: 'padding',
-  pt: 'paddingTop',
-  pr: 'paddingRight',
-  pb: 'paddingBottom',
-  pl: 'paddingLeft',
-  m: 'margin',
-  mt: 'marginTop',
-  mr: 'marginRight',
-  mb: 'marginBottom',
-  ml: 'marginLeft',
-  w: 'width',
-  h: 'height',
-  text: 'fontSize',
-  gap: 'gap',
-};
-
-const themePropertyMap: Record<string, string> = {
-  p: 'spacing',
-  pt: 'spacing',
-  pr: 'spacing',
-  pb: 'spacing',
-  pl: 'spacing',
-  m: 'spacing',
-  mt: 'spacing',
-  mr: 'spacing',
-  mb: 'spacing',
-  ml: 'spacing',
-  w: 'spacing',
-  h: 'spacing',
-  text: 'fontSize',
-  gap: 'spacing',
+const propertyMap: Record<string, string[]> = {
+  text: ['fontSize', 'lineHeight'],
+  w: ['width'],
+  h: ['height'],
+  'max-w': ['maxWidth'],
+  'max-h': ['maxHeight'],
+  'min-w': ['minWidth'],
+  'min-h': ['minHeight'],
+  p: ['padding'],
+  px: ['paddingLeft', 'paddingRight'],
+  py: ['paddingTop', 'paddingBottom'],
+  pt: ['paddingTop'],
+  pb: ['paddingBottom'],
+  pl: ['paddingLeft'],
+  pr: ['paddingRight'],
+  m: ['margin'],
+  mx: ['marginLeft', 'marginRight'],
+  my: ['marginTop', 'marginBottom'],
+  mt: ['marginTop'],
+  mb: ['marginBottom'],
+  ml: ['marginLeft'],
+  mr: ['marginRight'],
+  gap: ['gap'],
 };
 
 function parseClampValue(value: string) {
@@ -85,7 +76,9 @@ function generateClamp(
     (maxSizeRemValue - minSizeRemValue) /
     (maxBreakpointRemValue - minBreakpointRemValue);
 
-  const preferredValue = `${minSizeRemValue}rem + ${slope.toFixed(5)} * (100vw - ${minBreakpointRemValue}rem)`;
+  const preferredValue = `${minSizeRemValue}rem + ${slope.toFixed(
+    5,
+  )} * (100vw - ${minBreakpointRemValue}rem)`;
 
   const minValue = Math.min(minSizeRemValue, maxSizeRemValue);
   const maxValue = Math.max(minSizeRemValue, maxSizeRemValue);
@@ -94,11 +87,28 @@ function generateClamp(
 }
 
 function clampPlugin({ matchUtilities, theme }: PluginContext) {
+  const spacing = theme('spacing') as Record<string, string>;
+  const fontSizeTheme = theme('fontSize') as Record<
+    string,
+    [string, { lineHeight: string }]
+  >;
+  const breakpoints = theme('screens') as Record<string, string>;
+
+  const cleanThemeObject = <T extends Record<string, unknown>>(
+    obj: T,
+  ): Omit<T, '__CSS_VALUES__'> => {
+    const { __CSS_VALUES__, ...rest } = obj;
+    return rest;
+  };
+
+  const cleanSpacing = cleanThemeObject(spacing);
+  const cleanFontSizeTheme = cleanThemeObject(fontSizeTheme);
+  const cleanBreakpoints = cleanThemeObject(breakpoints);
+
   matchUtilities(
     {
-      clamp(value: string) {
+      clamp(value: string): Record<string, string> {
         const parsedValue = parseClampValue(value);
-
         if (!parsedValue) return {};
 
         const {
@@ -118,40 +128,59 @@ function clampPlugin({ matchUtilities, theme }: PluginContext) {
         )
           return {};
 
-        const property = propertyMap[propertyKey];
-        if (!property) return {};
+        const cssProperties = propertyMap[propertyKey] || [];
 
-        const themeProperty = themePropertyMap[propertyKey];
-        if (!themeProperty) return {};
+        if (propertyKey === 'text') {
+          const fontSizeMin = cleanFontSizeTheme[minValue]?.[0];
+          const fontSizeMax = cleanFontSizeTheme[maxValue]?.[0];
+          const lineHeightMin = cleanFontSizeTheme[minValue]?.[1]?.lineHeight;
+          const lineHeightMax = cleanFontSizeTheme[maxValue]?.[1]?.lineHeight;
+          const minBreakpointRem = cleanBreakpoints[minBreakpoint];
+          const maxBreakpointRem = cleanBreakpoints[maxBreakpoint];
 
-        const values = theme(themeProperty) as Record<
-          string,
-          string | undefined
-        >;
-        const minValueRem =
-          typeof values[minValue] === 'string'
-            ? values[minValue]
-            : values[minValue]?.[0];
+          if (
+            !fontSizeMin ||
+            !fontSizeMax ||
+            !lineHeightMin ||
+            !lineHeightMax ||
+            !minBreakpointRem ||
+            !maxBreakpointRem
+          ) {
+            return {};
+          }
 
-        const maxValueRem =
-          typeof values[maxValue] === 'string'
-            ? values[maxValue]
-            : values[maxValue]?.[0];
+          const fontSizeClamp = generateClamp(
+            fontSizeMin,
+            fontSizeMax,
+            minBreakpointRem,
+            maxBreakpointRem,
+          );
 
-        const breakpoints = theme('screens') as Record<
-          string,
-          string | undefined
-        >;
-        const minBreakpointRem = breakpoints[minBreakpoint];
-        const maxBreakpointRem = breakpoints[maxBreakpoint];
+          const lineHeightClamp = generateClamp(
+            lineHeightMin,
+            lineHeightMax,
+            minBreakpointRem,
+            maxBreakpointRem,
+          );
+
+          return {
+            fontSize: fontSizeClamp,
+            lineHeight: lineHeightClamp,
+          };
+        }
+        const minValueRem = cleanSpacing[minValue];
+        const maxValueRem = cleanSpacing[maxValue];
+        const minBreakpointRem = cleanBreakpoints[minBreakpoint];
+        const maxBreakpointRem = cleanBreakpoints[maxBreakpoint];
 
         if (
           !minValueRem ||
           !maxValueRem ||
           !minBreakpointRem ||
           !maxBreakpointRem
-        )
+        ) {
           return {};
+        }
 
         const clampValue = generateClamp(
           minValueRem,
@@ -160,9 +189,11 @@ function clampPlugin({ matchUtilities, theme }: PluginContext) {
           maxBreakpointRem,
         );
 
-        return {
-          [property]: clampValue,
-        };
+        const result: Record<string, string> = {};
+        for (const cssProperty of cssProperties) {
+          result[cssProperty] = clampValue;
+        }
+        return result;
       },
     },
     { values: {} },
