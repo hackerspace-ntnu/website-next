@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "tailwind-clamp-plugin";
+@import "tw-clamp-css";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -83,17 +83,16 @@
     "Noto Color Emoji";
 
   /* Breakpoints */
-  --breakpoint-xs: 30rem;
   --breakpoint-2xs: 24rem;
+  --breakpoint-xs: 32rem;
 
   /* Spacing */
-  --spacing-104: "26rem";
-  --spacing-112: "28rem";
-  --spacing-120: "30rem";
-  --spacing-128: "32rem";
-  --spacing-144: "36rem";
-  --spacing-160: "40rem";
-  --spacing-192: "48rem";
+  --spacing-112: 28rem;
+  --spacing-128: 32rem;
+  --spacing-144: 36rem;
+  --spacing-160: 40rem;
+  --spacing-176: 44rem;
+  --spacing-192: 48rem;
 }
 
 * {
@@ -106,7 +105,7 @@
 
 /* Typography */
 h1 {
-  @apply scroll-m-20 font-montserrat text-4xl font-extrabold tracking-tight lg:text-5xl;
+  @apply scroll-m-20 font-montserrat text-4xl-5xl-clamp font-extrabold tracking-tight;
 }
 
 h2 {

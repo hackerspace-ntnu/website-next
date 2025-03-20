@@ -30,12 +30,12 @@ function LogoLink({
       onClick={onClick}
     >
       <HackerspaceLogo
-        className={cx('clamp-[w-7/11] clamp-[h-7/11]', logoClassName)}
+        className={cx('h-7-11-clamp w-7-11-clamp', logoClassName)}
       />
       {!logoOnly && (
         <span
           className={cx(
-            'clamp-[text-lg/2xl] font-bold font-montserrat',
+            'font-bold font-montserrat text-lg-2xl-clamp',
             titleClassName,
           )}
         >
