@@ -66,7 +66,7 @@ export default async function SettingsLayout({
             messages={{ settings, ui } as Pick<Messages, 'settings' | 'ui'>}
           >
             <aside className='-my-2 w-full lg:my-0 lg:w-1/5'>
-              <SidebarNav showAdministratorMenu={true} />
+              <SidebarNav showAdministratorMenu={showAdministratorMenu} />
             </aside>
             <div className='h-full w-full flex-1 lg:max-w-2xl'>{children}</div>
           </NextIntlClientProvider>
