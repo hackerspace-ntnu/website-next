@@ -23,6 +23,8 @@
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
     "dateFormat": "dd.MM.yyyy",
+    "searchCountry": "Søk etter land...",
+    "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
     "showPassword": "Vis passord"
   },
@@ -31,6 +33,8 @@
     "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "tooManyRequests": "For mange forespørsler",
+    "tooManyRequestsDescription": "Vennligst vent litt og prøv igjen.",
     "goToHomepage": "Gå tilbake til hjemmesiden",
     "tryAgain": "Prøv igjen",
     "invalidLocale": "Ugyldig språk: {locale}"
@@ -53,6 +57,15 @@
     "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
+    "verifyEmail": "Bekreft e-postadressen din",
+    "verifyEmailDescription": "Skriv inn bekreftelseskoden sendt til din nye e-postadresse. Hvis du ikke ser den, sjekk spam-mappen din.",
+    "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
+    "newCodeSent": "En ny kode ble sendt til innboksen din",
+    "confirmEmail": "Bekreft e-post",
+    "unableToCreateVerificationRequest": "Kunne ikke opprette e-post verifikasjonsforespørsel",
+    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet",
+    "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
+    "emailUpdateSuccess": "E-postadressen ble oppdatert",
     "form": {
       "username": {
         "label": "Brukernavn",
@@ -71,14 +84,21 @@
         "confirmLabel": "Bekreft passord",
         "mismatch": "Passordene stemmer ikke overens",
         "weak": "Passordet er for svakt"
+      },
+      "otp": {
+        "label": "Engangspassord",
+        "required": "Engangspassord er påkrevd",
+        "length": "Engangspassordet må være {count} tegn langt",
+        "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
+        "incorrect": "Feil engangspassord"
       }
     },
     "error": {
       "authenticationFailed": "Autentisering mislyktes",
       "userInfoFailed": "Kunne ikke hente brukerinformasjon",
       "userInfoMissing": "Brukerinformasjon mangler",
-      "phoneTaken": "Telefonnummeret er allerede i bruk",
-      "emailTaken": "E-postadressen er allerede i bruk",
+      "phoneInUse": "Telefonnummeret er allerede i bruk",
+      "emailInUse": "E-postadressen er allerede i bruk",
       "invalidUserData": "Ugyldig brukerdata",
       "userCreationFailed": "Kunne ikke opprette bruker"
     }
@@ -92,7 +112,7 @@
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
-    "goToMatrix": "Dra til matrix",
+    "goToMatrix": "Dra til Matrix",
     "rules": "Rules",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
@@ -121,6 +141,100 @@
     "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "settings": {
+    "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "profile": {
+      "title": "Profil",
+      "username": "Brukernavn",
+      "updateProfile": "Oppdater profil",
+      "updateProfileFailed": "Kunne ikke oppdatere profil",
+      "updateProfileSuccess": "Profil oppdatert",
+      "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
+      "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
+      "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "profilePicture": {
+        "label": "Profilbilde",
+        "mustBeImage": "Profilbilde må være et bilde",
+        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "sizeLimit": "Profilbilde må være mindre enn {size} MB"
+      },
+      "firstName": {
+        "label": "Fornavn",
+        "required": "Fornavn er påkrevd",
+        "minLength": "Fornavn må være minst {count} tegn",
+        "maxLength": "Fornavn må være mindre enn {count} tegn",
+        "general": "Er fornavnet ditt riktig?"
+      },
+      "lastName": {
+        "label": "Etternavn",
+        "required": "Etternavn er påkrevd",
+        "minLength": "Etternavn må være minst {count} tegn",
+        "maxLength": "Etternavn må være mindre enn {count} tegn",
+        "general": "Er etternavnet ditt riktig?"
+      },
+      "birthDate": {
+        "label": "Fødselsdato",
+        "required": "Fødselsdato er påkrevd",
+        "invalid": "Ugyldig fødselsdato",
+        "minAge": "Du må være minst {age} år",
+        "maxAge": "Du må være under {age} år"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "updateAccount": "Oppdater konto",
+      "updateAccountFailed": "Failed to update account",
+      "updateAccountSuccess": "Konto oppdatert",
+      "email": {
+        "label": "E-post",
+        "description": "Hvis du endrer e-postadressen din, så vil du motta en forespørsel på e-post som du kan bekrefte.",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresseformat",
+        "confirmLabel": "Bekreft e-post",
+        "mismatch": "E-postadressene er ikke like",
+        "inUse": "E-postadressen er allerede i bruk"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "description": "Telefonnummeret ditt vil være synlig når du reserverer 3D-printere eller låner utstyr, slik at vi kan kontakte deg hvis det oppstår problemer.",
+        "required": "Telefonnummer er påkrevd",
+        "invalid": "Ugyldig telefonnummer",
+        "format": "Telefonnummeret er feil formatert",
+        "inUse": "Telefonnummeret er allerede i bruk"
+      },
+      "password": {
+        "currentLabel": "Nåværende passord",
+        "newLabel": "Nytt passord",
+        "confirmLabel": "Bekreft passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "lowercase": "Passord må inneholde minst én liten bokstav",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "weak": "Passordet er for svakt",
+        "mismatch": "Passordene er ikke like",
+        "update": "Oppdater passord",
+        "updateSuccess": "Passordet ble oppdatert",
+        "updateFailed": "Kunne ikke oppdatere passord",
+        "incorrectPassword": "Feil passord"
+      }
+    },
+    "notifications": {
+      "title": "Varslinger",
+      "updateNotifications": "Oppdater varslinger",
+      "updateNotificationsFailed": "Kunne ikke oppdatere varslinger",
+      "updateNotificationsSuccess": "Varslinger oppdatert",
+      "notifyMeAbout": "Varsle meg via e-post",
+      "all": "Ferdige utskrifter, frister for lånte gjenstander, fylte kaffekopper og kontooppdateringer",
+      "useful": "Ferdige utskrifter, frister for lånte gjenstander og kontooppdateringer",
+      "essential": "Kontooppdateringer"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
   },
   "news": {
     "title": "Nyheter",
@@ -227,13 +341,26 @@
     "endedAt": "Sluttet kl.",
     "backToEvents": "Tilbake til arrangementer"
   },
-  "api": {
-    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
-    "notAuthenticated": "Ikke autentisert"
-  },
   "rules": {
     "title": "Regler",
     "forEveryone": "For alle",
     "internal": "Interne regler"
+  },
+  "skills": {
+    "printing": "3D-printing",
+    "soldering": "Lodding",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laserkutting",
+    "workshop": "Verkstedsverktøy",
+    "microcontroller": "Mikrokontroller-programmering",
+    "webdevelopment": "Webutvikling"
+  },
+  "api": {
+    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet",
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
   }
 }

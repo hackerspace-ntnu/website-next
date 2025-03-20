@@ -59,7 +59,7 @@ Next we are gonna setup the database and storage server to run locally. To achie
     # MacOS only
     brew install colima docker
     # Start colima
-    colima start
+    colima start --vm-type=vz
     ```
 
 Then we need to install Docker Compose.
@@ -78,7 +78,7 @@ Then we need to install Docker Compose.
 When you have installed Docker and Docker Compose you can start the database and storage server by running:
 
 ```bash
-bun run dev:setup
+bun run services:setup
 ```
 
 Now this command is a fancy all in one command that restarts and resets both the database and storage server pushes any new migrations and seeds the database. If you prefer to use the individual commands they will be outlined below.
@@ -86,7 +86,7 @@ Now this command is a fancy all in one command that restarts and resets both the
 You can stop both with:
 
 ```bash
-bun run dev:stop
+bun run services:stop
 ```
 
 > [!TIP]
@@ -142,6 +142,21 @@ bun run db:generate
 
 This will generate new migrations into the `@/server/db/migrations` directory.
 
+> [!WARNING]
+> Only generate new migrations when you are sure the changes you have made to the database are correct and are final. When you are making changes rapidly use the `db:push` command instead.
+
+To delete all the migrations and generate new ones (basically squashing all the migrations) you can run:
+
+```bash
+bun run db:squash
+```
+
+If you want to specify a single migration to drop from the schema you can run:
+
+```bash
+bun run db:drop
+```
+
 If you want to run the generated migrations on your database you can run:
 
 ```bash
@@ -169,10 +184,18 @@ If you want to access the storage server locally in a web browser you can always
 Then you can run the development server and see the website:
 
 ```bash
-bun dev --turbo
+bun run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To work on emails run:
+
+```bash
+bun run email:dev
+```
+
+For static assets to work, you need to run the development server as well.
 
 ### Build
 
@@ -197,6 +220,12 @@ To check linting and formatting you run the respective command:
 ```bash
 bun lint
 ```
+
+### Debugging (VS Code)
+
+To start debugging your code, you can run the `Next.js: Debug server-side` configuration followed by either the `Next.js: Debug client-side` if you're using Chrome, or `Next.js: Debug server-side (Firefox)` if you're using Firefox. If you'd like to use Firefox, the [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) extension is required.
+
+Now, when you've got both the server and client running, you should be able to place breakpoints, inspect variables and more. If you haven't done much debugging like this before, check out the [VS Code docs about debugging](https://code.visualstudio.com/Docs/editor/debugging).
 
 ## Commit messages
 
@@ -266,14 +295,22 @@ Here is a list of documentations that will help you contribute to the project:
 
 ## Development Environment
 
+### Neovim
+
+You know what you are doing, if not [LazyVim](https://www.lazyvim.org/) is a great starting point.
+
 ### VS Code
 
 #### Recommended Extensions
 
+All of these have been added as recommended extensions for this project, and you should therefore be asked by VS Code whether you would like to install these.
+
 - [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
 - [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
-- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Bun for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=oven.bun-vscode)
+- [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug)
 - [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 #### Issues
 

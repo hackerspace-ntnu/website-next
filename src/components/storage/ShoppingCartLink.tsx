@@ -1,4 +1,5 @@
 'use client';
+
 import type { CartItem } from '@/components/storage/AddToCartButton';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';

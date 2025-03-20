@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 
-export default async function CreateAccountPage({
+export default async function ForgotPasswordPage({
   params,
 }: {
   params: Promise<{ locale: string }>;

@@ -34,10 +34,11 @@ function useFormWithZod<
 ) {
   const form = useForm({
     validatorAdapter: zodValidator(),
+    ...options,
     validators: {
+      ...options?.validators,
       onChange: schema,
     },
-    ...options,
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -62,6 +63,7 @@ const Form = ({
 type FormItemContextValue = {
   id: string;
   errors: ValidationError[];
+  isSubmitted: boolean;
 };
 
 const FormItemContext = createContext<FormItemContextValue>(
@@ -71,12 +73,16 @@ const FormItemContext = createContext<FormItemContextValue>(
 const FormItem = ({
   className,
   errors,
+  isSubmitted = true,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { errors: ValidationError[] }) => {
+}: React.HTMLAttributes<HTMLDivElement> & {
+  errors: ValidationError[];
+  isSubmitted?: boolean;
+}) => {
   const id = useId();
 
   return (
-    <FormItemContext.Provider value={{ id, errors }}>
+    <FormItemContext.Provider value={{ id, errors, isSubmitted }}>
       <div className={cx('relative space-y-2', className)} {...props} />
     </FormItemContext.Provider>
   );
@@ -86,14 +92,15 @@ const useFormItem = () => {
   const itemContext = useContext(FormItemContext);
 
   if (!itemContext) {
-    throw new Error('useFormField should be used within <FormItem>');
+    throw new Error('useFormField should be used within a FormItem');
   }
 
-  const { id, errors } = itemContext;
+  const { id, errors, isSubmitted } = itemContext;
 
   return {
     id,
     errors,
+    isSubmitted,
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
@@ -104,11 +111,14 @@ const FormLabel = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>) => {
-  const { formItemId, errors } = useFormItem();
+  const { formItemId, errors, isSubmitted } = useFormItem();
 
   return (
     <Label
-      className={cx(errors.length > 0 && 'text-destructive', className)}
+      className={cx(
+        isSubmitted && errors.length > 0 && 'text-destructive',
+        className,
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -118,7 +128,7 @@ const FormLabel = ({
 const FormControl = ({
   ...props
 }: React.ComponentPropsWithoutRef<typeof Slot>) => {
-  const { formItemId, formDescriptionId, formMessageId, errors } =
+  const { formItemId, formDescriptionId, formMessageId, errors, isSubmitted } =
     useFormItem();
 
   return (
@@ -129,7 +139,7 @@ const FormControl = ({
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
-      aria-invalid={!!(errors.length > 0)}
+      aria-invalid={!!(isSubmitted && errors.length > 0)}
       {...props}
     />
   );
@@ -155,8 +165,11 @@ const FormMessage = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) => {
-  const { formMessageId, errors } = useFormItem();
-  const body = errors.length > 0 ? String(errors[0]).split(', ')[0] : children;
+  const { formMessageId, errors, isSubmitted } = useFormItem();
+  const body =
+    isSubmitted && errors.length > 0
+      ? String(errors[0]).split(', ')[0]
+      : children;
 
   if (!body) {
     return null;
