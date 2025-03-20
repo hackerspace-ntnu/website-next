@@ -64,6 +64,7 @@
     "@trpc/react-query": "^11.0.0-rc.599",
     "@trpc/server": "^11.0.0-rc.599",
     "@tsparticles/react": "^3.0.0",
+    "@types/postcss-load-config": "^3.0.1",
     "cmdk": "1.0.0",
     "country-flag-icons": "^1.5.13",
     "cva": "^1.0.0-beta.1",
