@@ -16,7 +16,8 @@ function SidebarNav({
 
   return (
     <ScrollArea
-      className={cx('flex h-full w-full flex-col', className)}
+      className={cx('flex h-full w-[80vw] flex-col lg:w-full', className)}
+      scrollBarClassName='h-2 b-0'
       orientation='horizontal'
     >
       <div className='flex h-full w-max p-2 lg:block lg:w-auto'>
