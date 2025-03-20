@@ -5,8 +5,11 @@ import { Checkbox } from '@/components/ui/Checkbox';
 import { Label } from '@/components/ui/Label';
 import { api } from '@/lib/api/client';
 import type { days, timeslots } from '@/lib/constants';
+import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
+import { router } from '@/server/api';
 import { useState } from 'react';
+import { DialogClose } from '../ui/Dialog';
 
 type RegisterShiftProps = {
   t: {
@@ -19,6 +22,8 @@ type RegisterShiftProps = {
 };
 
 function RegisterShift({ t, day, timeslot, className }: RegisterShiftProps) {
+  const router = useRouter();
+  const utils = api.useUtils();
   const [recurring, setRecurring] = useState(false);
   const registerShift = api.shiftSchedule.registerShift.useMutation();
 
@@ -32,12 +37,18 @@ function RegisterShift({ t, day, timeslot, className }: RegisterShiftProps) {
           onCheckedChange={() => setRecurring(!recurring)}
         />
       </section>
-      <Button
-        className='float-right'
-        onClick={() => registerShift.mutateAsync({ day, timeslot, recurring })}
-      >
-        {t.register}
-      </Button>
+      <DialogClose asChild>
+        <Button
+          className='float-right'
+          onClick={() => {
+            registerShift.mutate({ day, timeslot, recurring });
+            utils.shiftSchedule.fetchShifts.invalidate();
+            router.refresh();
+          }}
+        >
+          {t.register}
+        </Button>
+      </DialogClose>
     </div>
   );
 }
