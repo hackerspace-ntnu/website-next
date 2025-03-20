@@ -1,39 +1,113 @@
 import plugin from 'tailwindcss/plugin';
 
+type PluginContext = {
+  matchUtilities: (
+    utilities: Record<string, (value: string) => Record<string, string>>,
+    options?: { values?: Record<string, string> },
+  ) => void;
+  theme: (path: string) => unknown;
+};
+
 const propertyMap: Record<string, string> = {
   p: 'padding',
+  pt: 'paddingTop',
+  pr: 'paddingRight',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
   m: 'margin',
+  mt: 'marginTop',
+  mr: 'marginRight',
+  mb: 'marginBottom',
+  ml: 'marginLeft',
   w: 'width',
   h: 'height',
   text: 'fontSize',
   gap: 'gap',
 };
 
-interface PluginContext {
-  matchUtilities: (
-    utilities: Record<string, (value: string) => Record<string, string>>,
-    options?: { values?: Record<string, string> },
-  ) => void;
-  theme: (path: string) => unknown;
+const themePropertyMap: Record<string, string> = {
+  p: 'spacing',
+  pt: 'spacing',
+  pr: 'spacing',
+  pb: 'spacing',
+  pl: 'spacing',
+  m: 'spacing',
+  mt: 'spacing',
+  mr: 'spacing',
+  mb: 'spacing',
+  ml: 'spacing',
+  w: 'spacing',
+  h: 'spacing',
+  text: 'fontSize',
+  gap: 'spacing',
+};
+
+function parseClampValue(value: string) {
+  const match = value.match(
+    /^([^-]+)-([^/]+)\/([^-]+)(?:-([^/]*)(?:\/([^-]*))?)?$/,
+  );
+
+  if (!match) return null;
+
+  const [
+    ,
+    propertyKey,
+    minValue,
+    maxValue,
+    minBreakpointRaw = 'sm',
+    maxBreakpointRaw = 'xl',
+  ] = match;
+
+  const minBreakpoint = minBreakpointRaw === '' ? 'sm' : minBreakpointRaw;
+  const maxBreakpoint = maxBreakpointRaw === '' ? 'xl' : maxBreakpointRaw;
+
+  return {
+    propertyKey,
+    minValue,
+    maxValue,
+    minBreakpoint,
+    maxBreakpoint,
+  };
+}
+
+function generateClamp(
+  minValueRem: string,
+  maxValueRem: string,
+  minBreakpointRem: string,
+  maxBreakpointRem: string,
+) {
+  const minSizeRemValue = Number.parseFloat(minValueRem);
+  const maxSizeRemValue = Number.parseFloat(maxValueRem);
+  const minBreakpointRemValue = Number.parseFloat(minBreakpointRem);
+  const maxBreakpointRemValue = Number.parseFloat(maxBreakpointRem);
+
+  const slope =
+    (maxSizeRemValue - minSizeRemValue) /
+    (maxBreakpointRemValue - minBreakpointRemValue);
+
+  const preferredValue = `${minSizeRemValue}rem + ${slope.toFixed(5)} * (100vw - ${minBreakpointRemValue}rem)`;
+
+  const minValue = Math.min(minSizeRemValue, maxSizeRemValue);
+  const maxValue = Math.max(minSizeRemValue, maxSizeRemValue);
+
+  return `clamp(${minValue}rem, calc(${preferredValue}), ${maxValue}rem)`;
 }
 
 function clampPlugin({ matchUtilities, theme }: PluginContext) {
   matchUtilities(
     {
       clamp(value: string) {
-        const split = value.split('-');
-        if (split.length !== 5) return {};
+        const parsedValue = parseClampValue(value);
 
-        const [minBreakpoint, maxBreakpoint, propertyKey, minValue, maxValue] =
-          split;
+        if (!parsedValue) return {};
 
-        console.log('parsed values', {
-          minBreakpoint,
-          maxBreakpoint,
+        const {
           propertyKey,
           minValue,
           maxValue,
-        });
+          minBreakpoint,
+          maxBreakpoint,
+        } = parsedValue;
 
         if (
           !minBreakpoint ||
@@ -47,82 +121,44 @@ function clampPlugin({ matchUtilities, theme }: PluginContext) {
         const property = propertyMap[propertyKey];
         if (!property) return {};
 
+        const themeProperty = themePropertyMap[propertyKey];
+        if (!themeProperty) return {};
+
+        const values = theme(themeProperty) as Record<
+          string,
+          string | undefined
+        >;
+        const minValueRem =
+          typeof values[minValue] === 'string'
+            ? values[minValue]
+            : values[minValue]?.[0];
+
+        const maxValueRem =
+          typeof values[maxValue] === 'string'
+            ? values[maxValue]
+            : values[maxValue]?.[0];
+
         const breakpoints = theme('screens') as Record<
           string,
           string | undefined
         >;
-        const startRange = breakpoints[minBreakpoint];
-        const endRange = breakpoints[maxBreakpoint];
+        const minBreakpointRem = breakpoints[minBreakpoint];
+        const maxBreakpointRem = breakpoints[maxBreakpoint];
 
-        console.log('breakpoints', { startRange, endRange });
+        if (
+          !minValueRem ||
+          !maxValueRem ||
+          !minBreakpointRem ||
+          !maxBreakpointRem
+        )
+          return {};
 
-        if (!startRange || !endRange) return {};
-
-        // Handle fontSize differently as it might be an object
-        let startValue: string;
-        let endValue: string;
-
-        if (property === 'fontSize') {
-          const fontSizes = theme('fontSize') as Record<
-            string,
-            string | [string, object]
-          >;
-
-          const startFont = fontSizes[minValue];
-          const endFont = fontSizes[maxValue];
-
-          console.log('fontSize values', { startFont, endFont });
-
-          if (!startFont || !endFont) return {};
-
-          // Handle both string and array formats for fontSize
-          startValue = typeof startFont === 'string' ? startFont : startFont[0];
-          endValue = typeof endFont === 'string' ? endFont : endFont[0];
-        } else {
-          const values = theme(property) as Record<string, string | undefined>;
-          startValue = values[minValue] || '';
-          endValue = values[maxValue] || '';
-          if (!startValue || !endValue) return {};
-        }
-
-        console.log('property values', { startValue, endValue });
-
-        if (!startValue || !endValue) return {};
-
-        // Extract clean values (only numbers and units)
-        const extractValue = (val: string) => {
-          return val.replace(/\/\*.*?\*\//g, '').trim();
-        };
-
-        const cleanStartValue = extractValue(startValue);
-        const cleanEndValue = extractValue(endValue);
-        const cleanStartRange = extractValue(startRange);
-        const cleanEndRange = extractValue(endRange);
-
-        // Extract the numeric values for calculation
-        const getNumericValue = (val: string) => {
-          const numMatch = val.match(/^(\d*\.?\d+)/);
-          return numMatch ? Number.parseFloat(numMatch[0]) : 0;
-        };
-
-        // Extract units
-        const getUnit = (val: string) => {
-          const unitMatch = val.match(/([a-z]+|%)/i);
-          return unitMatch ? unitMatch[0] : '';
-        };
-
-        // Calculate the unitless difference for viewport range
-        const startRangeNum = getNumericValue(cleanStartRange);
-        const endRangeNum = getNumericValue(cleanEndRange);
-        const viewportDiff = endRangeNum - startRangeNum;
-
-        // Construct the properly formatted clamp function with unitless division
-        const clampValue = `clamp(${cleanStartValue}, calc(${cleanStartValue} + ((${cleanEndValue} - ${cleanStartValue}) * (100vw - ${cleanStartRange}) / ${viewportDiff})), ${cleanEndValue})`;
-
-        console.log('final value', {
-          property,
-          value: clampValue,
-        });
+        const clampValue = generateClamp(
+          minValueRem,
+          maxValueRem,
+          minBreakpointRem,
+          maxBreakpointRem,
+        );
 
         return {
           [property]: clampValue,

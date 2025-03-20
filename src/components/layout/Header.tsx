@@ -41,7 +41,7 @@ async function Header() {
           }}
         />
         <LogoLink
-          className='md:~md:~ml-12/0 ml-0'
+          className='md:clamp-[ml-12/0-md]'
           t={{
             hackerspaceHome: t('hackerspaceHome'),
           }}

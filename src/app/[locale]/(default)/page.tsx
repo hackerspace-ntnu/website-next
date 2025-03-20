@@ -12,7 +12,7 @@ export default async function HomePage({
   const hello = await api.test.helloWorld();
   return (
     <div className='min-h-screen'>
-      <p className='clamp-[sm-2xl-text-sm-4xl]'>{hello}</p>
+      <p className='clamp-[text-lg/5xl]'>{hello}</p>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
         cupiditate debitis! Fuga minus quod ea eligendi exercitationem. Sequi
