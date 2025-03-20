@@ -299,7 +299,8 @@
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "borrowNow": "Borrow now",
-      "amountOfItemARIA": "Select number of this item"
+      "amountOfItemARIA": "Select number of this item",
+      "mustBeLoggedIn": "You must be logged in to borrow items"
     },
     "loanForm": {
       "name": "Name",
@@ -308,7 +309,8 @@
       "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
       "returnBy": "Return by",
       "returnByDescription": "Select how long you would like to borrow the item for.",
-      "submit": "Submit"
+      "submit": "Submit",
+      "dateInFuture": "The return by date must be in the future"
     },
     "edit": {
       "titleNew": "New Item",

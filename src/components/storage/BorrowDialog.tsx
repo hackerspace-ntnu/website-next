@@ -23,11 +23,13 @@ type BorrowDialogProps = {
     returnBy: string;
     returnByDescription: string;
     submit: string;
+    mustbeLoggedIn: string;
   };
   className?: string;
+  isLoggedIn: boolean;
 };
 
-function BorrowDialog({ t, className }: BorrowDialogProps) {
+function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   return (
@@ -37,9 +39,9 @@ function BorrowDialog({ t, className }: BorrowDialogProps) {
           <Button
             className={cx(!isLoading && !cart ? 'hidden' : 'block', className)}
             variant='default'
-            disabled={isLoading}
+            disabled={isLoading || !isLoggedIn}
           >
-            {t.borrowNow}
+            {isLoggedIn ? t.borrowNow : t.mustbeLoggedIn}
           </Button>
         </DialogTrigger>
         <DialogContent className='max-w-sm'>

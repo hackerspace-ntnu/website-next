@@ -11,14 +11,9 @@ import {
   FormMessage,
   useForm,
 } from '@/components/ui/Form';
-import { Input } from '@/components/ui/Input';
+import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 import { addDays, addWeeks, endOfWeek } from 'date-fns';
-import { z } from 'zod';
-
-const formSchema = z.object({
-  phone: z.string().min(1),
-  returnBy: z.date().min(new Date()),
-});
+import { useTranslations } from 'next-intl';
 
 type LoanFormProps = {
   t: {
@@ -34,34 +29,17 @@ type LoanFormProps = {
 };
 
 function LoanForm({ t }: LoanFormProps) {
-  const form = useForm(formSchema, {
+  const form = useForm(loanFormSchema(useTranslations()), {
     defaultValues: {
-      phone: '',
       returnBy: new Date(),
     },
     onSubmit: ({ value }) => {
       console.log(value);
     },
   });
+
   return (
     <Form className='xs:space-y-3' onSubmit={form.handleSubmit}>
-      <form.Field name='phone'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t.phoneNumber}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder='420 69 420'
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormDescription>{t.phoneNumberDescription}</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
       <form.Field name='returnBy'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>

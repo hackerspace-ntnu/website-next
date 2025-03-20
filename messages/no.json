@@ -293,7 +293,8 @@
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "borrowNow": "Lån nå",
-      "amountOfItemARIA": "Velg antallet av denne gjenstanden"
+      "amountOfItemARIA": "Velg antallet av denne gjenstanden",
+      "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {
       "name": "Navn",
@@ -302,7 +303,8 @@
       "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
       "returnBy": "Lån fram til",
       "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
-      "submit": "Send"
+      "submit": "Send",
+      "dateInFuture": "Datoen for levering må være i framtiden"
     },
     "item": {
       "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",

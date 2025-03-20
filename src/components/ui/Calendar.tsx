@@ -115,7 +115,7 @@ function Calendar({
         weekday: 'text-muted-foreground w-9 font-normal text-xs',
         weeks: '',
         week: 'flex mt-2',
-        day: 'p-0',
+        day: 'p-0 min-w-9 bg-transparent',
         outside: 'bg-accent/40',
         range_middle: 'bg-accent last:rounded-e-md first:rounded-s-md',
         range_start: 'bg-accent rounded-s-md',
