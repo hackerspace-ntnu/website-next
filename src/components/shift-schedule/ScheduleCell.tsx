@@ -67,7 +67,7 @@ function ScheduleCell({
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
           <DialogHeader>
-            <DialogTitle className='flex flex-col text-left lg:block lg:space-x-5'>
+            <DialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
               <span className='font-semibold text-3xl'>
                 {formattedShift.day}
               </span>

@@ -25,19 +25,23 @@ export default async function ShiftSchedulePage({
   const { user } = await api.auth.state();
 
   setRequestLocale(locale);
-  const t = await getTranslations('shiftSchedule');
+  const t = await getTranslations('shiftSchedule.administratorMenu');
 
   return (
     <>
-      <AdministratorMenu
-        t={{
-          label: t('administratorMenu.label'),
-          open: t('administratorMenu.open'),
-          close: t('administratorMenu.close'),
-          clearShiftSchedule: t('administratorMenu.clearShiftSchedule'),
-        }}
-      />
-      <ScheduleTable uid={user?.id} />
+      {user && (
+        <AdministratorMenu
+          t={{
+            label: t('label'),
+            clearShiftSchedule: t('clearShiftSchedule'),
+            warning: t('warning'),
+            confirmationPrompt: t('confirmationPrompt'),
+            confirm: t('confirm'),
+            cancel: t('cancel'),
+          }}
+        />
+      )}
+      <ScheduleTable user={user} />
     </>
   );
 }

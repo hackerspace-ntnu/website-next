@@ -12,7 +12,12 @@ import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
-async function ScheduleTable({ uid }: { uid?: number }) {
+type ScheduleTableProps = Pick<
+  Awaited<ReturnType<typeof api.auth.state>>,
+  'user'
+>;
+
+async function ScheduleTable({ user }: ScheduleTableProps) {
   const t = await getTranslations('shiftSchedule.table');
   const format = await getFormatter();
   const shifts = await api.shiftSchedule.fetchShifts();
@@ -86,7 +91,9 @@ async function ScheduleTable({ uid }: { uid?: number }) {
                       members={shift?.members ?? []}
                       skills={shift?.skills ?? []}
                       userOnShift={
-                        !!shift?.members.find((member) => member.id === uid)
+                        !!shift?.members.find(
+                          (member) => member.id === user?.id,
+                        )
                       }
                     />
                   </TableRow>
@@ -132,7 +139,7 @@ async function ScheduleTable({ uid }: { uid?: number }) {
                     members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
                     userOnShift={
-                      !!shift?.members.find((member) => member.id === uid)
+                      !!shift?.members.find((member) => member.id === user?.id)
                     }
                   />
                 );

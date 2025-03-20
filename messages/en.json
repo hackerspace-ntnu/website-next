@@ -3,6 +3,7 @@
     "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
   },
   "ui": {
+    "open": "Open",
     "close": "Close",
     "previous": "Previous",
     "goToPreviousPage": "Go to previous page",
@@ -195,9 +196,11 @@
     "title": "Shift Schedule",
     "administratorMenu": {
       "label": "Administrator Menu",
-      "open": "Open Administrator Menu",
-      "close": "Close Administrator Menu",
-      "clearShiftSchedule": "Clear shift schedule"
+      "clearShiftSchedule": "Clear shift schedule",
+      "warning": "Warning",
+      "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
+      "confirm": "Clear",
+      "cancel": "Cancel"
     },
     "table": {
       "time": "Time",

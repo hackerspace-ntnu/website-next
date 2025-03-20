@@ -39,11 +39,8 @@ const shiftScheduleRouter = createRouter({
       .groupBy(shifts.day, shifts.timeslot, users.id);
 
     const returnShifts: Shift[] = [];
-    for (let i = 0; i < days.length; i++) {
-      const day = days[i];
-      for (let j = 0; j < timeslots.length; j++) {
-        const timeslot = timeslots[j];
-
+    for (const day of days) {
+      for (const timeslot of timeslots) {
         const tempShifts = userShifts.filter(
           (shift) => shift.day === day && shift.timeslot === timeslot,
         );
@@ -57,15 +54,13 @@ const shiftScheduleRouter = createRouter({
         } as Shift;
         const skills = new Set();
 
-        for (let i = 0; i < tempShifts.length; i++) {
-          const tempShift = tempShifts[i];
-          tempShift &&
-            shift.members.push({
-              id: tempShift.id,
-              name: tempShift.name,
-              skills: tempShift.skills,
-            });
-          tempShift?.skills.forEach(skills.add, skills);
+        for (const tempShift of tempShifts) {
+          shift.members.push({
+            id: tempShift.id,
+            name: tempShift.name,
+            skills: tempShift.skills,
+          });
+          tempShift.skills.forEach(skills.add, skills);
         }
 
         shift.skills = [...skills] as (typeof skillIdentifiers)[number][];
@@ -76,6 +71,9 @@ const shiftScheduleRouter = createRouter({
     return returnShifts;
   }),
   registerShift: authenticatedProcedure.mutation(async ({ ctx }) => {}),
+  clearShifts: authenticatedProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.delete(shifts);
+  }),
 });
 
 export { type Member, shiftScheduleRouter };
