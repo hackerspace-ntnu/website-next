@@ -1,10 +1,11 @@
 import { days, type skillIdentifiers, timeslots } from '@/lib/constants';
 import {
-  authenticatedProcedure,
+  adminProcedure,
+  protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { shifts, skills, users, usersSkills } from '@/server/db/tables';
+import { shifts, skills, userSkills, users } from '@/server/db/tables';
 import { registerShiftSchema } from '@/validations/shiftSchedule/registerShiftSchema';
 import { eq, sql } from 'drizzle-orm';
 
@@ -35,8 +36,8 @@ const shiftScheduleRouter = createRouter({
       })
       .from(shifts)
       .innerJoin(users, eq(shifts.userId, users.id))
-      .leftJoin(usersSkills, eq(users.id, usersSkills.userId))
-      .leftJoin(skills, eq(usersSkills.skillId, skills.id))
+      .leftJoin(userSkills, eq(users.id, userSkills.userId))
+      .leftJoin(skills, eq(userSkills.skillId, skills.id))
       .groupBy(shifts.day, shifts.timeslot, users.id);
 
     const returnShifts: Shift[] = [];
@@ -71,7 +72,7 @@ const shiftScheduleRouter = createRouter({
 
     return returnShifts;
   }),
-  registerShift: authenticatedProcedure
+  registerShift: protectedProcedure
     .input((input) => registerShiftSchema().parse(input))
     .mutation(async ({ ctx, input }) => {
       await ctx.db.insert(shifts).values({
@@ -80,7 +81,7 @@ const shiftScheduleRouter = createRouter({
         userId: ctx.user.id,
       });
     }),
-  clearShifts: authenticatedProcedure.mutation(async ({ ctx }) => {
+  clearShifts: adminProcedure.mutation(async ({ ctx }) => {
     await ctx.db.delete(shifts);
   }),
 });

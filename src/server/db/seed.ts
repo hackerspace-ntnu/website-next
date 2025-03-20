@@ -224,6 +224,16 @@ async function main() {
       userId: insertedUsers[0]?.id ?? 0,
     },
     {
+      day: 'tuesday',
+      timeslot: '2',
+      userId: insertedUsers[3]?.id ?? 0,
+    },
+    {
+      day: 'wednesday',
+      timeslot: '2',
+      userId: insertedUsers[3]?.id ?? 0,
+    },
+    {
       day: 'wednesday',
       timeslot: '2',
       userId: insertedUsers[0]?.id ?? 0,
@@ -231,12 +241,22 @@ async function main() {
     {
       day: 'wednesday',
       timeslot: '3',
-      userId: insertedUsers[0]?.id ?? 0,
+      userId: insertedUsers[1]?.id ?? 0,
     },
     {
       day: 'thursday',
       timeslot: '4',
-      userId: insertedUsers[0]?.id ?? 0,
+      userId: insertedUsers[1]?.id ?? 0,
+    },
+    {
+      day: 'friday',
+      timeslot: '1',
+      userId: insertedUsers[1]?.id ?? 0,
+    },
+    {
+      day: 'friday',
+      timeslot: '1',
+      userId: insertedUsers[4]?.id ?? 0,
     },
   ];
   await db.insert(shifts).values(shiftsData);
