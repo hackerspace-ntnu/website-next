@@ -42,10 +42,10 @@ export default async function SettingsLayout({
 
   return (
     <Main className='h-full'>
-      <div className='h-full w-full space-y-6 p-10 pb-16'>
+      <div className='h-full w-full gap-6 p-10 pb-16'>
         <div className='flex gap-3 space-y-0.5'>
           <LogoLink
-            logoClassName='~h-12/16 ~w-12/16 min-w-fit'
+            logoClassName='clamp-[h-12/16] clamp-[w-12/16] min-w-fit'
             logoOnly
             t={{
               hackerspaceHome: tLayout('hackerspaceHome'),
@@ -61,11 +61,11 @@ export default async function SettingsLayout({
           </div>
         </div>
         <Separator className='my-6' />
-        <div className='flex h-full w-full flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0'>
+        <div className='flex h-full w-full flex-col gap-8 lg:flex-row'>
           <NextIntlClientProvider
             messages={{ settings, ui } as Pick<Messages, 'settings' | 'ui'>}
           >
-            <aside className='-mx-4 -my-2 lg:my-0 lg:w-1/5'>
+            <aside className='-mx-4 -my-2 w-full lg:my-0 lg:w-1/5'>
               <SidebarNav showAdministratorMenu={showAdministratorMenu} />
             </aside>
             <div className='h-full w-full flex-1 lg:max-w-2xl'>{children}</div>

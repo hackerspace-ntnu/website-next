@@ -89,7 +89,7 @@
     "run-script-os": "^1.1.6",
     "sonner": "^1.7.0",
     "superjson": "^2.2.1",
-    "tailwind-clamp-plugin": "^1.0.0",
+    "tailwind-clamp-plugin": "^1.0.1",
     "tailwind-merge": "^3.0.2",
     "tsparticles": "^3.5.0",
     "vaul": "^1.1.0",

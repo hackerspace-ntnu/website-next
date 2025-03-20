@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "tailwind-scrollbar-hide";
 @plugin "tailwindcss-animate";
 @plugin "tailwind-clamp-plugin";
 @custom-variant dark (&:where(.dark, .dark *));
@@ -85,6 +84,16 @@
 
   /* Breakpoints */
   --breakpoint-xs: 30rem;
+  --breakpoint-2xs: 24rem;
+
+  /* Spacing */
+  --spacing-104: "26rem";
+  --spacing-112: "28rem";
+  --spacing-120: "30rem";
+  --spacing-128: "32rem";
+  --spacing-144: "36rem";
+  --spacing-160: "40rem";
+  --spacing-192: "48rem";
 }
 
 * {

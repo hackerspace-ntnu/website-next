@@ -35,8 +35,8 @@ export default async function AuthLayout({
   const { auth, ui } = await getMessages();
 
   return (
-    <Main className='flex h-full items-center justify-center'>
-      <Card className='~p-3/6 relative z-10 w-full max-w-md overflow-hidden'>
+    <Main className='flex h-full min-h-screen items-center justify-center'>
+      <Card className='clamp-[p-3/6] relative z-10 w-full max-w-md overflow-hidden'>
         <PendingProvider>
           <PendingBar />
           <CardHeader className='flex items-center justify-between py-2'>
@@ -48,12 +48,12 @@ export default async function AuthLayout({
               }}
             />
           </CardHeader>
-          <div className='~min-[24rem]/xs:~h-112/96'>
+          <div className='clamp-[h-112/96-sm/md]'>
             <NextIntlClientProvider
               messages={{ auth, ui } as Pick<Messages, 'auth' | 'ui'>}
             >
               <AnimatePresenceProvider className='absolute left-0 flex w-full justify-center'>
-                <div className='~px-3/6 ~min-[24rem]/xs:~h-112/96 w-full max-w-md overflow-hidden'>
+                <div className='clamp-[px-3/6] clamp-[h-112/96-2xs/xs] w-full max-w-md overflow-hidden'>
                   {children}
                 </div>
               </AnimatePresenceProvider>

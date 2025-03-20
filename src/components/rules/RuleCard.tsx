@@ -27,7 +27,7 @@ function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
     >
       <Card className='flex size-full transform overflow-hidden rounded-xl brightness-95 transition delay-150 duration-300 ease-in-out hover:scale-105 hover:border-primary hover:border-solid hover:shadow-lg hover:brightness-100 hover:dark:brightness-110'>
         {internal ? (
-          <Badge className='~text-lg/xl flex w-1/3 items-center justify-center rounded-none hover:bg-primary '>
+          <Badge className='clamp-[text-lg/xl] flex w-1/3 items-center justify-center rounded-none hover:bg-primary '>
             {t('internal')}
           </Badge>
         ) : (
@@ -39,7 +39,7 @@ function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
             height={150}
           />
         )}
-        <CardTitle className='~text-xl/2xl flex w-2/3 items-center justify-center text-wrap text-center'>
+        <CardTitle className='clamp-[text-xl/2xl] flex w-2/3 items-center justify-center text-wrap text-center'>
           {title}
         </CardTitle>
       </Card>

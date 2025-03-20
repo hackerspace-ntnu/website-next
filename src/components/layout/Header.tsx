@@ -20,7 +20,7 @@ async function Header() {
   }
 
   return (
-    <header className='~px-1/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
+    <header className='clamp-[px-1/24] sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'

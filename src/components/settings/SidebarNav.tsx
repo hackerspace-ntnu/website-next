@@ -2,6 +2,7 @@ import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
+import { ScrollArea } from '@/components/ui/ScrollArea';
 import { useTranslations } from 'next-intl';
 
 import { cx } from '@/lib/utils';
@@ -14,11 +15,9 @@ function SidebarNav({
   const tLayout = useTranslations('layout');
 
   return (
-    <div
-      className={cx(
-        'scrollbar-hide flex h-full flex-col overflow-x-auto',
-        className,
-      )}
+    <ScrollArea
+      className={cx('flex h-full w-full flex-col', className)}
+      orientation='horizontal'
     >
       <div className='flex h-full w-max p-2 lg:block lg:w-auto'>
         <nav className='mb-auto flex lg:flex-col'>
@@ -52,7 +51,7 @@ function SidebarNav({
           />
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }
 
