@@ -11,6 +11,7 @@ import {
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
+import { SkillIcon } from '../skills/SkillIcon';
 
 type ScheduleTableProps = Pick<
   Awaited<ReturnType<typeof api.auth.state>>,
@@ -19,6 +20,7 @@ type ScheduleTableProps = Pick<
 
 async function ScheduleTable({ user }: ScheduleTableProps) {
   const t = await getTranslations('shiftSchedule.table');
+  const tSkills = await getTranslations('skills');
   const format = await getFormatter();
   const shifts = await api.shiftSchedule.fetchShifts();
 
@@ -101,7 +103,19 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
           </Table>
         ))}
         <Table>
-          <TableCaption>{skillIdentifiers.toString()}</TableCaption>
+          <TableCaption>
+            <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
+              {skillIdentifiers.map((identifier) => (
+                <div
+                  key={identifier}
+                  className='flex items-center gap-3 text-left'
+                >
+                  <SkillIcon identifier={identifier} />
+                  <span className='text-xs'>{tSkills(identifier)}</span>
+                </div>
+              ))}
+            </div>
+          </TableCaption>
         </Table>
       </div>
 
@@ -146,7 +160,14 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
           ))}
         </TableBody>
         <TableCaption className='h-12'>
-          {skillIdentifiers.toString()}
+          <div className='flex w-full justify-center gap-8'>
+            {skillIdentifiers.map((identifier) => (
+              <div key={identifier} className='flex items-center gap-3'>
+                <SkillIcon identifier={identifier} />
+                <span className='text-xs'>{tSkills(identifier)}</span>
+              </div>
+            ))}
+          </div>
         </TableCaption>
       </Table>
     </>

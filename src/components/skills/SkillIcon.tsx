@@ -5,6 +5,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import type { skillIdentifiers } from '@/lib/constants';
+import { cx } from '@/lib/utils';
 import {
   BoxIcon,
   CircuitBoardIcon,
@@ -83,7 +84,9 @@ function SkillIcon({
 
   return (
     <SkillIconTooltipTemplate tooltip={t(identifier)}>
-      <Icon className={`h-4 w-4 ${className}`} />
+      <span className={cx('min-w-fit rounded-full p-0.5', className)}>
+        <Icon className='h-3 w-3' />
+      </span>
     </SkillIconTooltipTemplate>
   );
 }

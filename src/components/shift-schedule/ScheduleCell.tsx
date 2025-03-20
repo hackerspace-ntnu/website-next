@@ -49,8 +49,8 @@ function ScheduleCell({
               userOnShift
                 ? 'bg-primary/20 hover:bg-primary/25'
                 : members.length === 0
-                  ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
-                  : 'bg-foreground/20 hover:bg-foreground/25',
+                  ? 'bg-foreground/15 text-accent-foreground hover:bg-foreground/10 dark:bg-accent/40 dark:hover:bg-accent/60'
+                  : 'bg-muted text-accent-foreground hover:bg-muted/60 dark:bg-foreground/20 dark:hover:bg-foreground/25',
             )}
           >
             {/* Icon displaying amount of members on shift */}
@@ -63,11 +63,11 @@ function ScheduleCell({
               {/* Amount of members on shift */}
               <span>{t('onShift', { count: members.length })}</span>
               {/* Skill icons */}
-              {members.length !== 0 && (
-                <span className='max-w-32 truncate leading-7'>
-                  {skills.toString()}
-                </span>
-              )}
+              <div className='flex gap-1'>
+                {skills.map((identifier) => (
+                  <SkillIcon key={identifier} identifier={identifier} />
+                ))}
+              </div>
             </div>
           </button>
         </DialogTrigger>

@@ -1,3 +1,4 @@
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
@@ -8,11 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { days, timeslots } from '@/lib/constants';
+import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
   const t = useTranslations('shiftSchedule.table');
+  const tSkills = useTranslations('skills');
   const format = useFormatter();
 
   function getDateTimeRange(timeslot: string) {
@@ -81,7 +83,19 @@ export default function ShiftScheduleLayout() {
           </Table>
         ))}
         <Table>
-          <TableCaption>[skill icons legend]</TableCaption>
+          <TableCaption>
+            <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
+              {skillIdentifiers.map((identifier) => (
+                <div
+                  key={identifier}
+                  className='flex items-center gap-3 text-left'
+                >
+                  <SkillIcon identifier={identifier} />
+                  <span className='text-xs'>{tSkills(identifier)}</span>
+                </div>
+              ))}
+            </div>
+          </TableCaption>
         </Table>
       </div>
 
@@ -111,7 +125,16 @@ export default function ShiftScheduleLayout() {
             </TableRow>
           ))}
         </TableBody>
-        <TableCaption className='h-12'>[skill icons legend]</TableCaption>
+        <TableCaption className='h-12'>
+          <div className='flex w-full justify-center gap-8'>
+            {skillIdentifiers.map((identifier) => (
+              <div key={identifier} className='flex items-center gap-3'>
+                <SkillIcon identifier={identifier} />
+                <span className='text-xs'>{tSkills(identifier)}</span>
+              </div>
+            ))}
+          </div>
+        </TableCaption>
       </Table>
     </>
   );
