@@ -56,6 +56,7 @@
         "run-script-os": "^1.1.6",
         "sonner": "^1.7.0",
         "superjson": "^2.2.1",
+        "tailwind-clamp-plugin": "^1.0.0",
         "tailwind-merge": "^3.0.2",
         "tsparticles": "^3.5.0",
         "vaul": "^1.1.0",
@@ -1392,6 +1393,8 @@
     "superjson": ["superjson@2.2.2", "", { "dependencies": { "copy-anything": "^3.0.2" } }, "sha512-5JRxVqC8I8NuOUjzBbvVJAKNM8qoVuH0O77h4WInc/qC2q5IreqKxYwgkga3PfA22OayK2ikceb/B26dztPl+Q=="],
 
     "supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
+
+    "tailwind-clamp-plugin": ["tailwind-clamp-plugin@1.0.0", "", {}, "sha512-bDvV3U02hF7LnvzvPVRxW0agZ3w6AfheYqy2PROgZTFhKYmAHi/A1dTXcNJkSMY/oPjJlr5Cvy6IfD1KlFHviQ=="],
 
     "tailwind-merge": ["tailwind-merge@3.0.2", "", {}, "sha512-l7z+OYZ7mu3DTqrL88RiKrKIqO3NcpEO8V/Od04bNpvk0kiIFndGEoqfuzvj4yuhRkHKjRkII2z+KS2HfPcSxw=="],
 
