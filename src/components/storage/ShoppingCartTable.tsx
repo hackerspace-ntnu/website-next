@@ -36,10 +36,10 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
 
   const itemsInCart = api.storage.fetchMany.useQuery(
     cart?.map((i) => i.id) ?? [],
-    { enabled: !!cart },
+    { enabled: !isLoading },
   ).data;
 
-  if (isLoading) {
+  if (isLoading || !itemsInCart) {
     return <ShoppingCartTableSkeleton t={t} />;
   }
 
