@@ -88,6 +88,8 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                         day: t('day', { day: day }),
                         time: getDateTimeRange(timeslot),
                       }}
+                      day={day}
+                      timeslot={timeslot}
                       members={shift?.members ?? []}
                       skills={shift?.skills ?? []}
                       userOnShift={
@@ -136,6 +138,8 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                       day: t('day', { day: day }),
                       time: getDateTimeRange(timeslot),
                     }}
+                    day={day}
+                    timeslot={timeslot}
                     members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
                     userOnShift={

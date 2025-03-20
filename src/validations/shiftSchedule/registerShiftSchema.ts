@@ -1,11 +1,12 @@
 import { days, timeslots } from '@/lib/constants';
 import { z } from 'zod';
 
-function selectShiftSchema() {
+function registerShiftSchema() {
   return z.object({
     day: z.enum(days),
     timeslot: z.enum(timeslots),
+    recurring: z.boolean(),
   });
 }
 
-export { selectShiftSchema };
+export { registerShiftSchema };

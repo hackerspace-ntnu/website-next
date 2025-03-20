@@ -6,7 +6,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/Dialog';
 import { TableCell } from '@/components/ui/Table';
-import type { skillIdentifiers } from '@/lib/constants';
+import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import type { Member } from '@/server/api/routers';
 import { DialogTitle } from '@radix-ui/react-dialog';
@@ -19,6 +19,8 @@ type ScheduleCellProps = {
     day: string;
     time: string;
   };
+  day: (typeof days)[number];
+  timeslot: (typeof timeslots)[number];
   members: Member[];
   skills: (typeof skillIdentifiers)[number][];
   userOnShift: boolean;
@@ -26,6 +28,8 @@ type ScheduleCellProps = {
 
 function ScheduleCell({
   formattedShift,
+  day,
+  timeslot,
   members,
   skills,
   userOnShift,
@@ -88,6 +92,8 @@ function ScheduleCell({
                 recurring: t('dialog.recurring'),
                 register: t('dialog.register'),
               }}
+              day={day}
+              timeslot={timeslot}
               className='mt-auto min-w-fit'
             />
           </div>
