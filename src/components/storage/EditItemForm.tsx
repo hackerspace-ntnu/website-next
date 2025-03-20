@@ -1,5 +1,6 @@
 'use client';
 
+import { ConfirmDialog } from '@/components/composites/ConfirmDialog';
 import { Button } from '@/components/ui/Button';
 import { useForm } from '@/components/ui/Form';
 import {
@@ -33,13 +34,17 @@ type EditItemFormProps = {
 
 function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
   const t = useTranslations('storage.edit');
+  const tUi = useTranslations('ui');
   const router = useRouter();
   const schema = itemSchema(useTranslations(), itemCategories);
   const newItemMutation = api.storage.newItem.useMutation({
-    onSuccess: () => toast.success(t('success')),
+    onSuccess: () => toast.success(t('successNew')),
   });
   const editItemMutation = api.storage.editItem.useMutation({
-    onSuccess: () => toast.success(t('success')),
+    onSuccess: () => toast.success(t('successEdit')),
+  });
+  const deleteItemMutation = api.storage.deleteItem.useMutation({
+    onSuccess: () => toast.success(t('successDelete')),
   });
 
   const form = useForm(schema, {
@@ -67,6 +72,13 @@ function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
       router.refresh();
     },
   });
+
+  function handleDelete() {
+    if (!prefilledItem) return;
+    deleteItemMutation.mutate({ id: prefilledItem.id });
+    router.push('/storage');
+    router.refresh();
+  }
 
   return (
     <Form onSubmit={form.handleSubmit} className='max-w-prose space-y-8'>
@@ -160,13 +172,28 @@ function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
           </FormItem>
         )}
       </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit]}>
-        {([canSubmit]) => (
-          <Button type='submit' disabled={!canSubmit}>
-            {t('submit')}
-          </Button>
+      <div className='flex w-full justify-between'>
+        <form.Subscribe selector={(state) => [state.canSubmit]}>
+          {([canSubmit]) => (
+            <Button type='submit' disabled={!canSubmit}>
+              {t('submit')}
+            </Button>
+          )}
+        </form.Subscribe>
+        {prefilledItem && (
+          <ConfirmDialog
+            t={{
+              title: t('deleteItem'),
+              description: t('deleteItemDescription'),
+              confirm: tUi('confirm'),
+              cancel: tUi('cancel'),
+            }}
+            confirmAction={handleDelete}
+          >
+            {t('deleteItem')}
+          </ConfirmDialog>
         )}
-      </form.Subscribe>
+      </div>
     </Form>
   );
 }

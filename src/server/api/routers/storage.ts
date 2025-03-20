@@ -6,6 +6,7 @@ import {
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
 import { itemCategories, storageItems } from '@/server/db/tables';
+import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
@@ -148,6 +149,20 @@ const storageRouter = createRouter({
         .update(storageItems)
         .set({ ...input, categoryId: category.id })
         .where(eq(storageItems.id, input.id));
+    }),
+  deleteItem: authenticatedProcedure
+    .input((input) => deleteItemSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .delete(storageItems)
+        .where(eq(storageItems.id, input.id))
+        .catch(() => {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('storage.api.notFound'),
+            cause: { toast: 'error' },
+          });
+        });
     }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db

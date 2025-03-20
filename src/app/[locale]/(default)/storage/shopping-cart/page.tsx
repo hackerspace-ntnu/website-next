@@ -18,6 +18,7 @@ export default async function StorageShoppingCartPage({
 
   setRequestLocale(locale);
   const t = await getTranslations('storage.shoppingCart');
+  const tUi = await getTranslations('ui');
   const tLoanForm = await getTranslations('storage.loanForm');
   const { storage, ui } = await getMessages();
 
@@ -61,7 +62,7 @@ export default async function StorageShoppingCartPage({
         <ShoppingCartClearDialog
           t={{
             clearCart: t('clearCart'),
-            cancel: t('cancel'),
+            cancel: tUi('cancel'),
             clearCartDescription: t('clearCartDescription'),
             clear: t('clear'),
           }}

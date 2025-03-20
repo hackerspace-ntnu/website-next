@@ -26,7 +26,9 @@
     "searchCountry": "Søk etter land...",
     "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
-    "showPassword": "Vis passord"
+    "showPassword": "Vis passord",
+    "confirm": "Bekreft",
+    "cancel": "Avbryt"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -289,7 +291,6 @@
       "tableDescription": "En liste over handlekurven din.",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
-      "cancel": "Avbryt",
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "borrowNow": "Lån nå",
@@ -340,7 +341,11 @@
         "placeholder": "Hardware"
       },
       "submit": "Submit",
-      "success": "Ny gjenstand på lager lagt til! Videresender deg til lageret..."
+      "deleteItem": "Slett gjenstand",
+      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Denne handlingen kan ikke angres!",
+      "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
+      "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
+      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret..."
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

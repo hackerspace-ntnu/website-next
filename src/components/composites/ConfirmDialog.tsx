@@ -18,8 +18,8 @@ type ConfirmDialogProps = {
   t: {
     title: string;
     description: string;
-    cancel: string;
     confirm: string;
+    cancel: string;
   };
   confirmAction: () => void;
   disabled?: boolean;
