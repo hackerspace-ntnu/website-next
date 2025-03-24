@@ -354,7 +354,8 @@
       "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Denne handlingen kan ikke angres!",
       "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
       "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
-      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret..."
+      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
+      "unauthorized": "Du har ikke rettigheter til å redigere gjenstandene på lager"
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

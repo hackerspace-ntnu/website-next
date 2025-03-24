@@ -354,7 +354,8 @@
       "deleteItemDescription": "Are you sure you want to delete this item? This action cannot be undone!",
       "successNew": "New storage item added successfully! Redirecting to storage...",
       "successEdit": "Storage item edited successfully! Redirecting to storage...",
-      "successDelete": "Storage item deleted successfully! Redirecting to storage..."
+      "successDelete": "Storage item deleted successfully! Redirecting to storage...",
+      "unauthorized": "Unauthorized to edit storage items"
     },
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
