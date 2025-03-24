@@ -6,6 +6,7 @@ type props = {
   fileNotImageError: string;
   wrongFileTypeError: string;
   sizeLimitError: string;
+  optional?: boolean;
 };
 
 /**
@@ -15,6 +16,7 @@ type props = {
  * @param fileNotImageError Error message when the file is not an image
  * @param wrongFileTypeError Error message when the file type is wrong
  * @param sizeLimitError Error message when the file is too big
+ * @param optional Whether the image upload is optional. Defaults to `false`
  * @returns ZodString which accepts images following the rules set.
  */
 function imageUploadZodString({
@@ -23,9 +25,10 @@ function imageUploadZodString({
   fileNotImageError,
   wrongFileTypeError,
   sizeLimitError,
+  optional = false,
 }: props) {
   const MAX_FILE_SIZE = maxFileSize * 1024 * 1024; // in bytes
-  return z
+  const zodString = z
     .string()
     .startsWith('data:image/', fileNotImageError)
     .transform((data) => {
@@ -43,6 +46,8 @@ function imageUploadZodString({
       return sizeInBytes <= MAX_FILE_SIZE;
     }, sizeLimitError)
     .transform(({ data }) => data);
+
+  return optional ? zodString.optional() : zodString;
 }
 
 export { imageUploadZodString };
