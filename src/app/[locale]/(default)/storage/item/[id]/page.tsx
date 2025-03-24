@@ -41,6 +41,9 @@ export default async function StorageItemPage({
     removeFromCart: t('card.removeFromCart'),
   };
 
+  const auth = await api.auth.state();
+  const canManageItems = auth.user?.groups.some((g) => ["labops", "leadership", "admin"].includes(g));
+
   return (
     <>
       <div className='flex items-center justify-between'>
@@ -77,16 +80,18 @@ export default async function StorageItemPage({
             </p>
             <div className='mt-2 flex gap-2'>
               <AddToCartButton item={item} t={addToCartTranslations} />
-              <Link
-                href={{
-                  pathname: '/storage/item/[id]/edit',
-                  params: { id: id },
-                }}
-                variant='secondary'
-                size='default'
-              >
-                Edit item
-              </Link>
+              {canManageItems && (
+                <Link
+                  href={{
+                    pathname: '/storage/item/[id]/edit',
+                    params: { id: id },
+                  }}
+                  variant='secondary'
+                  size='default'
+                >
+                  {t('item.edit')}
+                </Link>
+              )}
             </div>
           </div>
           <Image

@@ -286,7 +286,8 @@
       "noDescription": "No description has been provided for this item.",
       "noLocation": "No location specified",
       "noCategory": "No category specified",
-      "invalidId": "The provided storage item ID was invalid."
+      "invalidId": "The provided storage item ID was invalid.",
+      "edit": "Edit item"
     },
     "shoppingCart": {
       "title": "Shopping Cart",

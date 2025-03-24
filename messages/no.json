@@ -312,7 +312,8 @@
       "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
       "noLocation": "Ingen plassering spesifisert",
       "noCategory": "Ingen kategori spesifisert",
-      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig."
+      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
+      "edit": "Rediger gjenstand"
     },
     "edit": {
       "titleNew": "Ny gjenstand",
