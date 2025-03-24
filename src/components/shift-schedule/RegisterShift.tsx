@@ -68,13 +68,15 @@ function RegisterShift({
             router.refresh();
           }}
         >
-          {register
-            ? t.register
-            : update
-              ? t.update
-              : unregister
-                ? t.unregister
-                : t.register}
+          {
+            register
+              ? t.register
+              : update
+                ? t.update
+                : unregister
+                  ? t.unregister
+                  : t.register /* Show disabled register for users that aren't logged in */
+          }
         </Button>
       </DialogClose>
     </div>

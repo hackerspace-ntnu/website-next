@@ -39,13 +39,14 @@ function ScheduleCell({
   const userOnShift = !!members.find((member) => member.id === memberId);
 
   return (
-    <TableCell className='h-20 min-w-52 border p-1.5'>
+    // 206px width is the largest that doesn't give scroll on iPhone 5/SE (smallest phone we have support for)
+    <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
       <Dialog>
         <DialogTrigger asChild>
           <button
             type='button'
             className={cx(
-              'flex size-full gap-2 rounded-md p-3 text-left',
+              'flex size-full gap-2 rounded-md p-2 text-left',
               userOnShift
                 ? 'bg-primary/20 hover:bg-primary/25'
                 : members.length === 0
@@ -57,18 +58,24 @@ function ScheduleCell({
             {members.length === 1 ? (
               <UserIcon className='size-7' />
             ) : (
-              members.length > 1 && <UsersIcon className='size-7' />
+              members.length > 1 && (
+                <div className='flex flex-col items-center justify-between gap-1'>
+                  <UsersIcon className='size-7' />
+                  <span>{members.length}</span>
+                </div>
+              )
             )}
-            <div className='flex flex-col'>
-              {/* Amount of members on shift */}
-              <span>{t('onShift', { count: members.length })}</span>
-              {/* Skill icons */}
-              <div className='flex gap-1'>
+
+            {/* Closed / Skill icons */}
+            {members.length === 0 ? (
+              <span className='m-1'>{t('closed')}</span>
+            ) : (
+              <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5'>
                 {skills.map((identifier) => (
                   <SkillIcon key={identifier} identifier={identifier} />
                 ))}
               </div>
-            </div>
+            )}
           </button>
         </DialogTrigger>
         <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>

@@ -110,7 +110,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                   key={identifier}
                   className='flex items-center gap-3 text-left'
                 >
-                  <SkillIcon identifier={identifier} />
+                  <SkillIcon identifier={identifier} size='large' />
                   <span className='text-xs'>{tSkills(identifier)}</span>
                 </div>
               ))}
@@ -163,7 +163,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
           <div className='flex w-full justify-center gap-8'>
             {skillIdentifiers.map((identifier) => (
               <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} />
+                <SkillIcon identifier={identifier} size='large' />
                 <span className='text-xs'>{tSkills(identifier)}</span>
               </div>
             ))}
