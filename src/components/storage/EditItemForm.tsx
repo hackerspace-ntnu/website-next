@@ -64,7 +64,7 @@ function EditItemForm({
       onChange: schema,
     },
     defaultValues: {
-      image: '',
+      image: undefined as string | undefined,
       name: prefilledItem?.name ?? '',
       description: prefilledItem?.description ?? '',
       location: prefilledItem?.location ?? '',

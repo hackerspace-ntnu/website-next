@@ -42,6 +42,7 @@ function imageUploadZodString({
       wrongFileTypeError,
     )
     .refine(({ data }) => {
+      if (!data) return false;
       const sizeInBytes = (data.length * 3) / 4;
       return sizeInBytes <= MAX_FILE_SIZE;
     }, sizeLimitError)
