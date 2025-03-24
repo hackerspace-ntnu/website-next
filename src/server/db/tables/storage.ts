@@ -1,4 +1,4 @@
-import { users } from '@/server/db/tables';
+import { files, users } from '@/server/db/tables';
 import {
   type InferInsertModel,
   type InferSelectModel,
@@ -21,6 +21,7 @@ const storageItems = pgTable('storage_items', {
   categoryId: integer('category_id').references(() => itemCategories.id),
   quantity: integer('quantity').notNull(),
   availableUnits: integer('available_units').notNull(),
+  imageId: integer(),
 });
 
 const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
@@ -28,6 +29,10 @@ const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
   category: one(itemCategories, {
     fields: [storageItems.categoryId],
     references: [itemCategories.id],
+  }),
+  imageId: one(files, {
+    fields: [storageItems.imageId],
+    references: [files.id],
   }),
 }));
 
