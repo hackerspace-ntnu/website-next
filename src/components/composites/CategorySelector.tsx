@@ -38,7 +38,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
       buttonClassName='w-full lg:w-[250px]'
       contentClassName='w-full lg:w-[200px]'
       valueCallback={valueCallback}
-      initialValue={categories[category]?.value}
+      initialValue={categories[category - 1]?.value}
       ariaLabel={t.defaultDescription}
     />
   );
