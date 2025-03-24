@@ -32,6 +32,9 @@ export default async function StorageItemPage({
 
   const t = await getTranslations('storage');
   const item = await api.storage.fetchOne(Number.parseInt(id));
+  const imageUrl = item.imageId
+    ? await api.utils.getFileUrl({ fileId: item.imageId })
+    : null;
 
   const addToCartTranslations = {
     addToCart: t('card.addToCart'),
@@ -87,7 +90,7 @@ export default async function StorageItemPage({
             </div>
           </div>
           <Image
-            src='/unknown.png'
+            src={imageUrl ?? '/unknown.png'}
             width={192}
             height={192}
             alt={item.name}

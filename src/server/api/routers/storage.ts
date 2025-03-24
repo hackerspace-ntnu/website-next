@@ -5,7 +5,13 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
-import { itemCategories, itemLoans, storageItems } from '@/server/db/tables';
+import {
+  type InsertStorageItem,
+  itemCategories,
+  itemLoans,
+  storageItems,
+} from '@/server/db/tables';
+import { insertFile } from '@/server/services/files';
 import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
@@ -127,11 +133,23 @@ const storageRouter = createRouter({
         });
       }
 
-      const { categoryName: _, ...dbValues } = input;
+      const dbValues: InsertStorageItem = {
+        availableUnits: input.quantity,
+        categoryId,
+        ...input,
+      };
 
-      await ctx.db
-        .insert(storageItems)
-        .values({ ...dbValues, categoryId, availableUnits: dbValues.quantity });
+      if (input.image) {
+        const file = await insertFile(
+          input.image,
+          'storage-items',
+          ctx.user.id,
+        );
+
+        dbValues.imageId = file.id;
+      }
+
+      await ctx.db.insert(storageItems).values(dbValues);
     }),
   editItem: authenticatedProcedure
     .input((input) =>
@@ -150,9 +168,25 @@ const storageRouter = createRouter({
         });
       }
 
+      const dbValues: InsertStorageItem = {
+        availableUnits: input.quantity,
+        categoryId: category.id,
+        ...input,
+      };
+
+      if (input.image) {
+        const file = await insertFile(
+          input.image,
+          'storage-items',
+          ctx.user.id,
+        );
+
+        dbValues.imageId = file.id;
+      }
+
       await ctx.db
         .update(storageItems)
-        .set({ ...input, categoryId: category.id })
+        .set(dbValues)
         .where(eq(storageItems.id, input.id));
     }),
   deleteItem: authenticatedProcedure

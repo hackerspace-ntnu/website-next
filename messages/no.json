@@ -317,6 +317,13 @@
     "edit": {
       "titleNew": "Ny gjenstand",
       "titleEdit": "Rediger gjenstand",
+      "image": {
+        "label": "Bilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Bildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
       "name": {
         "label": "Navn",
         "placeholder": "Raspberry Pi 5",

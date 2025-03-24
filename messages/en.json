@@ -317,6 +317,13 @@
     "edit": {
       "titleNew": "New Item",
       "titleEdit": "Edit Item",
+      "image": {
+        "label": "Item image",
+        "upload": "Upload an image...",
+        "sizeLimitError": "Item image must be less than {size} MB",
+        "wrongFileTypeError": "Item image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
       "name": {
         "label": "Item name",
         "placeholder": "Raspberry Pi 5",

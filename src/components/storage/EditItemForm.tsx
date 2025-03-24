@@ -1,12 +1,12 @@
 'use client';
 
 import { ConfirmDialog } from '@/components/composites/ConfirmDialog';
+import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useForm } from '@/components/ui/Form';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
@@ -23,9 +23,13 @@ import { Textarea } from '@/components/ui/Textarea';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { itemSchema } from '@/validations/storage/itemSchema';
+import { UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState } from 'react';
 
 type EditItemFormProps = {
   itemCategories: string[];
@@ -36,6 +40,12 @@ function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
   const t = useTranslations('storage.edit');
   const tUi = useTranslations('ui');
   const router = useRouter();
+
+  const defaultPreviewImage = prefilledItem?.imageId
+    ? api.utils.getFileUrl.useQuery({ fileId: prefilledItem?.imageId }).data
+    : null;
+  const [previewImage, setPreviewImage] = useState(defaultPreviewImage);
+
   const schema = itemSchema(useTranslations(), itemCategories);
   const newItemMutation = api.storage.newItem.useMutation({
     onSuccess: () => toast.success(t('successNew')),
@@ -52,6 +62,7 @@ function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
       onChange: schema,
     },
     defaultValues: {
+      image: '',
       name: prefilledItem?.name ?? '',
       description: prefilledItem?.description ?? '',
       location: prefilledItem?.location ?? '',
@@ -82,6 +93,47 @@ function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
 
   return (
     <Form onSubmit={form.handleSubmit} className='max-w-prose space-y-8'>
+      <form.Field name='image'>
+        {(field) => (
+          <FormItem errors={field.state.meta.errors}>
+            <FormLabel>{t('image.label')}</FormLabel>
+            <div className='group relative h-64 w-64 rounded-lg'>
+              <FormControl>
+                <Input
+                  className='h-full w-full cursor-pointer'
+                  type='file'
+                  accept='image/jpeg,image/png'
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const base64String = await fileToBase64String(file);
+                      setPreviewImage(base64String);
+                      field.handleChange(base64String);
+                    }
+                  }}
+                  onBlur={field.handleBlur}
+                />
+              </FormControl>
+              <div className='pointer-events-none absolute top-0 left-0 overflow-hidden'>
+                <Image
+                  className='h-64 w-64 rounded-lg object-cover'
+                  alt={t('image.label')}
+                  width='256'
+                  height='256'
+                  src={previewImage ?? '/unknown.png'}
+                />
+              </div>
+              <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full items-center justify-center bg-background/70 opacity-0 transition group-hover:opacity-100'>
+                {t('image.upload')}
+              </div>
+              <Badge className='-bottom-2 -right-2 pointer-events-none absolute rounded-full p-0.5'>
+                <UploadIcon className='h-6 w-6' />
+              </Badge>
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      </form.Field>
       <form.Field name='name'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
