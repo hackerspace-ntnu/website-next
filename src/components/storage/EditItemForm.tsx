@@ -34,17 +34,19 @@ import { useState } from 'react';
 type EditItemFormProps = {
   itemCategories: string[];
   prefilledItem?: RouterOutput['storage']['fetchOne'];
+  imageUrl?: string;
 };
 
-function EditItemForm({ itemCategories, prefilledItem }: EditItemFormProps) {
+function EditItemForm({
+  itemCategories,
+  prefilledItem,
+  imageUrl,
+}: EditItemFormProps) {
   const t = useTranslations('storage.edit');
   const tUi = useTranslations('ui');
   const router = useRouter();
 
-  const defaultPreviewImage = prefilledItem?.imageId
-    ? api.utils.getFileUrl.useQuery({ fileId: prefilledItem?.imageId }).data
-    : null;
-  const [previewImage, setPreviewImage] = useState(defaultPreviewImage);
+  const [previewImage, setPreviewImage] = useState(imageUrl);
 
   const schema = itemSchema(useTranslations(), itemCategories);
   const newItemMutation = api.storage.newItem.useMutation({
