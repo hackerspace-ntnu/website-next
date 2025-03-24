@@ -7,21 +7,19 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
-import { api } from '@/lib/api/server';
 import type { SelectStorageItem } from '@/server/db/tables';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-async function ItemCard({
+function ItemCard({
   item,
+  imageUrl,
 }: {
   item: SelectStorageItem;
+  imageUrl: string | null;
 }) {
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');
-  const imageUrl = item.imageId
-    ? await api.utils.getFileUrl({ fileId: item.imageId })
-    : null;
 
   return (
     <Card
@@ -48,7 +46,10 @@ async function ItemCard({
       </Link>
       <CardFooter className='justify-center gap-2'>
         <p className='text-sm'>
-          {t('card.quantityInfo', { quantity: item.quantity })}
+          {t('card.availableUnits', {
+            units: item.availableUnits,
+            total: item.quantity,
+          })}
         </p>
         <AddToCartButton
           item={item}

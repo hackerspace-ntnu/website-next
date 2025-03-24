@@ -251,7 +251,7 @@
     "addNewItem": "Add new item",
     "backToStorage": "Back to storage",
     "card": {
-      "quantityInfo": "{quantity} units",
+      "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
       "removeFromCart": "Remove from cart"
     },

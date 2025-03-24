@@ -35,9 +35,15 @@ export default async function EditStorageItemPage({
 
   const auth = await api.auth.state();
 
-  const imageUrl = item.imageId ? await api.utils.getFileUrl({ fileId: item.imageId }) : undefined;
+  const imageUrl = item.imageId
+    ? await api.utils.getFileUrl({ fileId: item.imageId })
+    : undefined;
 
-  if (!auth.user?.groups.some((g) => ["labops", "leadership", "admin"].includes(g))) {
+  if (
+    !auth.user?.groups.some((g) =>
+      ['labops', 'leadership', 'admin'].includes(g),
+    )
+  ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }
@@ -50,7 +56,11 @@ export default async function EditStorageItemPage({
       <NextIntlClientProvider
         messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
       >
-        <EditItemForm itemCategories={itemCategories} prefilledItem={item} imageUrl={imageUrl} />
+        <EditItemForm
+          itemCategories={itemCategories}
+          prefilledItem={item}
+          imageUrl={imageUrl}
+        />
       </NextIntlClientProvider>
     </div>
   );

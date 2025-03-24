@@ -251,7 +251,7 @@
     "addNewItem": "Legg til ny gjenstand",
     "backToStorage": "Tilbake til lageret",
     "card": {
-      "quantityInfo": "{quantity} stk.",
+      "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",
       "removeFromCart": "Fjern fra handlekurven"
     },

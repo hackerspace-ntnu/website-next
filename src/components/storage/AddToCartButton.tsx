@@ -50,6 +50,7 @@ function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
       className={cx('whitespace-break-spaces', className)}
       variant={isInCart ? 'destructive' : 'default'}
       onClick={updateCart}
+      disabled={item.availableUnits <= 0}
     >
       {isInCart ? t.removeFromCart : t.addToCart}
     </Button>

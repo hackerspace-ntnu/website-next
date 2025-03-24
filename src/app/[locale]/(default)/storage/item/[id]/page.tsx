@@ -42,7 +42,9 @@ export default async function StorageItemPage({
   };
 
   const auth = await api.auth.state();
-  const canManageItems = auth.user?.groups.some((g) => ["labops", "leadership", "admin"].includes(g));
+  const canManageItems = auth.user?.groups.some((g) =>
+    ['labops', 'leadership', 'admin'].includes(g),
+  );
 
   return (
     <>

@@ -55,19 +55,27 @@ export default async function StoragePage({
     name: name as string | undefined,
   });
 
-  const itemsNum =
-    (category as number) < 1 ? await api.storage.itemsTotal() : items.length;
+  const itemsTotal =
+    (category as number) < 1 ? await api.storage.itemsTotal() : items.length; // FIX
 
   return (
     <>
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
-        {items.map((item) => (
-          <ItemCard key={item.id} item={item} />
+        {items.map(async (item) => (
+          <ItemCard
+            key={item.id}
+            item={item}
+            imageUrl={
+              item.imageId
+                ? await api.utils.getFileUrl({ fileId: item.imageId })
+                : null
+            }
+          />
         ))}
       </div>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(itemsNum / itemsPerPage)}
+        totalPages={Math.ceil(itemsTotal / itemsPerPage)}
       />
     </>
   );
