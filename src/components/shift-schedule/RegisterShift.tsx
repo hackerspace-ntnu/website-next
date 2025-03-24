@@ -14,12 +14,13 @@ type RegisterShiftProps = {
   t: {
     recurring: string;
     register: string;
+    update: string;
     unregister: string;
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
   user: {
-    authenticated: boolean;
+    isMember: boolean;
     onShift: boolean;
     recurring: boolean;
   };
@@ -37,6 +38,11 @@ function RegisterShift({
   const utils = api.useUtils();
   const [recurring, setRecurring] = useState(user.recurring);
   const registerShift = api.shiftSchedule.registerShift.useMutation();
+  const unregisterShift = api.shiftSchedule.unregisterShift.useMutation();
+
+  const register = user.isMember && !user.onShift;
+  const update = user.onShift && user.recurring !== recurring;
+  const unregister = !register && !update && user.isMember;
 
   return (
     <div className={cx(className, 'space-y-3')}>
@@ -44,7 +50,7 @@ function RegisterShift({
         <Label htmlFor='recurring'>{t.recurring}: </Label>
         <Checkbox
           id='recurribooleanng'
-          disabled={!user.authenticated}
+          disabled={!user.isMember}
           checked={recurring}
           onCheckedChange={() => setRecurring(!recurring)}
         />
@@ -52,14 +58,23 @@ function RegisterShift({
       <DialogClose asChild>
         <Button
           className='float-right'
-          disabled={!user.authenticated}
+          variant={unregister ? 'destructive' : 'default'}
+          disabled={!user.isMember}
           onClick={() => {
-            registerShift.mutate({ day, timeslot, recurring });
+            if (register || update)
+              registerShift.mutate({ day, timeslot, recurring });
+            else if (unregister) unregisterShift.mutate({ day, timeslot });
             utils.shiftSchedule.fetchShifts.invalidate();
             router.refresh();
           }}
         >
-          {t.register}
+          {register
+            ? t.register
+            : update
+              ? t.update
+              : unregister
+                ? t.unregister
+                : t.register}
         </Button>
       </DialogClose>
     </div>

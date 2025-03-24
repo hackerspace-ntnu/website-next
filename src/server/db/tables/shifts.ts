@@ -2,11 +2,11 @@ import { days, timeslots } from '@/lib/constants';
 import { users } from '@/server/db/tables';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
-  date,
   integer,
   pgEnum,
   pgTable,
   primaryKey,
+  timestamp,
 } from 'drizzle-orm/pg-core';
 
 const daysEnum = pgEnum('days', days);
@@ -20,7 +20,7 @@ const shifts = pgTable(
     userId: integer('user_id')
       .notNull()
       .references(() => users.id),
-    endDate: date('end_date'),
+    endDate: timestamp('end_date'),
   },
   (table) => {
     return [primaryKey({ columns: [table.day, table.timeslot, table.userId] })];

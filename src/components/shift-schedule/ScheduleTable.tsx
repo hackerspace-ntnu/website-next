@@ -94,7 +94,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                       timeslot={timeslot}
                       members={shift?.members ?? []}
                       skills={shift?.skills ?? []}
-                      userId={user?.id ?? 0}
+                      memberId={user?.groups.length ? user.id : 0}
                     />
                   </TableRow>
                 );
@@ -152,7 +152,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                     timeslot={timeslot}
                     members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
-                    userId={user?.id ?? 0}
+                    memberId={user?.groups.length ? user.id : 0}
                   />
                 );
               })}

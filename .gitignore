@@ -23,3 +23,13 @@ public/robots.txt
 
 # Ignore husky files, see PR #54
 /.husky/*
+
+# Devenv
+*devenv*
+.envrc
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

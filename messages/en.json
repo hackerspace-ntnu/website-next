@@ -325,6 +325,7 @@
           "empty": "No one on shift",
           "recurring": "Recurring",
           "register": "Register",
+          "update": "Update",
           "unregister": "Unregister"
         }
       }
@@ -351,7 +352,7 @@
     "printing": "3D Printing",
     "soldering": "Soldering",
     "raspberry": "Raspberry Pi",
-    "unix": "Unix/Lniux",
+    "unix": "Unix/Linux",
     "laser": "Laser Cutting",
     "workshop": "Workshop Tools",
     "microcontroller": "Microcontroller Programming",

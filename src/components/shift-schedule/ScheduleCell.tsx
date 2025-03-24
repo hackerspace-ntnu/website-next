@@ -24,7 +24,7 @@ type ScheduleCellProps = {
   timeslot: (typeof timeslots)[number];
   members: Member[];
   skills: (typeof skillIdentifiers)[number][];
-  userId: number;
+  memberId: number;
 };
 
 function ScheduleCell({
@@ -33,10 +33,10 @@ function ScheduleCell({
   timeslot,
   members,
   skills,
-  userId,
+  memberId,
 }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.table.cell');
-  const userOnShift = !!members.find((member) => member.id === userId);
+  const userOnShift = !!members.find((member) => member.id === memberId);
 
   return (
     <TableCell className='h-20 min-w-52 border p-1.5'>
@@ -93,15 +93,16 @@ function ScheduleCell({
               t={{
                 recurring: t('dialog.recurring'),
                 register: t('dialog.register'),
+                update: t('dialog.update'),
                 unregister: t('dialog.unregister'),
               }}
               day={day}
               timeslot={timeslot}
               user={{
-                authenticated: userId !== 0,
+                isMember: memberId !== 0,
                 onShift: userOnShift,
                 recurring: !!members.find(
-                  (member) => member.id === userId && member.recurring,
+                  (member) => member.id === memberId && member.recurring,
                 ),
               }}
               className='mt-auto min-w-fit'

@@ -6,8 +6,11 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { shifts, skills, userSkills, users } from '@/server/db/tables';
-import { registerShiftSchema } from '@/validations/shiftSchedule/registerShiftSchema';
-import { eq, sql } from 'drizzle-orm';
+import {
+  registerShiftSchema,
+  unregisterShiftSchema,
+} from '@/validations/shiftSchedule/registerShiftSchema';
+import { and, eq, gte, isNull, or, sql } from 'drizzle-orm';
 
 type Member = {
   id: number;
@@ -22,6 +25,13 @@ type Shift = {
   members: Member[];
   skills: (typeof skillIdentifiers)[number][];
 };
+
+function getWeekEndDate() {
+  const currentDate = new Date();
+  return new Date(
+    currentDate.setDate(currentDate.getDate() + 7 - currentDate.getDay()),
+  );
+}
 
 const shiftScheduleRouter = createRouter({
   fetchShifts: publicProcedure.query(async ({ ctx }) => {
@@ -40,6 +50,7 @@ const shiftScheduleRouter = createRouter({
       .innerJoin(users, eq(shifts.userId, users.id))
       .leftJoin(userSkills, eq(users.id, userSkills.userId))
       .leftJoin(skills, eq(userSkills.skillId, skills.id))
+      .where(or(isNull(shifts.endDate), gte(shifts.endDate, new Date())))
       .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id);
 
     const returnShifts: Shift[] = [];
@@ -75,18 +86,39 @@ const shiftScheduleRouter = createRouter({
 
     return returnShifts;
   }),
+  clearShifts: adminProcedure.mutation(async ({ ctx }) => {
+    await ctx.db.delete(shifts);
+  }),
   registerShift: protectedProcedure
     .input((input) => registerShiftSchema().parse(input))
     .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .delete(shifts)
+        .where(
+          and(
+            and(eq(shifts.day, input.day), eq(shifts.timeslot, input.timeslot)),
+            eq(shifts.userId, ctx.user.id),
+          ),
+        );
       await ctx.db.insert(shifts).values({
         day: input.day,
         timeslot: input.timeslot,
         userId: ctx.user.id,
+        endDate: input.recurring ? null : getWeekEndDate(),
       });
     }),
-  clearShifts: adminProcedure.mutation(async ({ ctx }) => {
-    await ctx.db.delete(shifts);
-  }),
+  unregisterShift: protectedProcedure
+    .input((input) => unregisterShiftSchema().parse(input))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .delete(shifts)
+        .where(
+          and(
+            and(eq(shifts.day, input.day), eq(shifts.timeslot, input.timeslot)),
+            eq(shifts.userId, ctx.user.id),
+          ),
+        );
+    }),
 });
 
 export { type Member, shiftScheduleRouter };
