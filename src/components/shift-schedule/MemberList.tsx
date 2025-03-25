@@ -19,7 +19,7 @@ function MemberList({ t, members }: MemberListProps) {
             <div key={member.name} className='mb-3 last:mb-0'>
               <p className='leading-tight'>{member.name}</p>
               {/* Skill icons for small screens */}
-              <div className='mt-0.5 ml-5 flex min-w-full gap-1.5 lg:hidden'>
+              <div className='my-1 mt-0.5 ml-3 flex min-w-full gap-1.5 lg:hidden'>
                 {member.skills.map((identifier) => (
                   <SkillIcon
                     key={identifier}
@@ -29,7 +29,7 @@ function MemberList({ t, members }: MemberListProps) {
                 ))}
               </div>
               {/* Skill icons for all other screens */}
-              <div className='mt-0.5 ml-5 hidden min-w-full gap-1 lg:flex'>
+              <div className='my-1 mt-0.5 ml-5 hidden min-w-full gap-1 lg:flex'>
                 {member.skills.map((identifier) => (
                   <SkillIcon key={identifier} identifier={identifier} />
                 ))}

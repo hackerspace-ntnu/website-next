@@ -64,44 +64,46 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
   return (
     <>
       {/* Table shown on small screens */}
-      <div className='sm:hidden [&>div]:mt-8'>
-        {days.map((day) => (
-          <Table key={day}>
-            <TableHeader>
-              <TableRow>
-                <TableHead className='w-2/5'>{t('time')}</TableHead>
-                <TableHead className='w-3/5 border-x'>
-                  {t('day', { day: day })}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {timeslots.map((timeslot) => {
-                const shift = shifts.find(
-                  (shift) => shift.day === day && shift.timeslot === timeslot,
-                );
-                return (
-                  <TableRow key={timeslot}>
-                    <TableCell className='border-y'>
-                      {getDateTimeRange(timeslot)}
-                    </TableCell>
-                    <ScheduleCell
-                      formattedShift={{
-                        day: t('day', { day: day }),
-                        time: getDateTimeRange(timeslot),
-                      }}
-                      day={day}
-                      timeslot={timeslot}
-                      members={shift?.members ?? []}
-                      skills={shift?.skills ?? []}
-                      memberId={user?.groups.length ? user.id : 0}
-                    />
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        ))}
+      <div className='mt-8 flex flex-col gap-2 sm:hidden'>
+        <div className='flex flex-col gap-8'>
+          {days.map((day) => (
+            <Table key={day}>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className='w-2/5'>{t('time')}</TableHead>
+                  <TableHead className='w-3/5 border-x'>
+                    {t('day', { day: day })}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {timeslots.map((timeslot) => {
+                  const shift = shifts.find(
+                    (shift) => shift.day === day && shift.timeslot === timeslot,
+                  );
+                  return (
+                    <TableRow key={timeslot}>
+                      <TableCell className='border-y'>
+                        {getDateTimeRange(timeslot)}
+                      </TableCell>
+                      <ScheduleCell
+                        formattedShift={{
+                          day: t('day', { day: day }),
+                          time: getDateTimeRange(timeslot),
+                        }}
+                        day={day}
+                        timeslot={timeslot}
+                        members={shift?.members ?? []}
+                        skills={shift?.skills ?? []}
+                        memberId={user?.groups.length ? user.id : 0}
+                      />
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          ))}
+        </div>
         <Table>
           <TableCaption>
             <div className='grid grid-cols-2 gap-x-3 gap-y-3'>

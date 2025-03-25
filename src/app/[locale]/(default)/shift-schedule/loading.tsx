@@ -57,31 +57,36 @@ export default function ShiftScheduleLayout() {
   return (
     <>
       {/* Table shown on small screens */}
-      <div className='sm:hidden [&>div]:mt-8'>
-        {days.map((day) => (
-          <Table key={day}>
-            <TableHeader>
-              <TableRow>
-                <TableHead className='w-2/5'>{t('time')}</TableHead>
-                <TableHead className='w-3/5 border-x'>
-                  {t('day', { day: day })}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {timeslots.map((timeslot) => (
-                <TableRow key={timeslot}>
-                  <TableCell className='border-y'>
-                    {getDateTimeRange(timeslot)}
-                  </TableCell>
-                  <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
-                    <Skeleton className='size-full' />
-                  </TableCell>
+      <div className='mt-8 flex flex-col gap-2 sm:hidden'>
+        <div className='flex flex-col gap-8'>
+          {days.map((day) => (
+            <Table key={day}>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className='w-2/5'>{t('time')}</TableHead>
+                  <TableHead className='w-3/5 border-x'>
+                    {t('day', { day: day })}
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ))}
+              </TableHeader>
+              <TableBody>
+                {timeslots.map((timeslot) => (
+                  <TableRow key={timeslot}>
+                    <TableCell className='border-y'>
+                      {getDateTimeRange(timeslot)}
+                    </TableCell>
+                    <TableCell
+                      key={day}
+                      className='h-20 w-[206px] border p-1.5'
+                    >
+                      <Skeleton className='size-full' />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ))}
+        </div>
         <Table>
           <TableCaption>
             <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
@@ -90,7 +95,7 @@ export default function ShiftScheduleLayout() {
                   key={identifier}
                   className='flex items-center gap-3 text-left'
                 >
-                  <SkillIcon identifier={identifier} />
+                  <SkillIcon identifier={identifier} size='large' />
                   <span className='text-xs'>{tSkills(identifier)}</span>
                 </div>
               ))}
@@ -118,7 +123,10 @@ export default function ShiftScheduleLayout() {
                 {getDateTimeRange(timeslot)}
               </TableCell>
               {days.map((day) => (
-                <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
+                <TableCell
+                  key={day}
+                  className='h-20 min-w-[206px] border p-1.5'
+                >
                   <Skeleton className='size-full' />
                 </TableCell>
               ))}
@@ -129,7 +137,7 @@ export default function ShiftScheduleLayout() {
           <div className='flex w-full justify-center gap-8'>
             {skillIdentifiers.map((identifier) => (
               <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} />
+                <SkillIcon identifier={identifier} size='large' />
                 <span className='text-xs'>{tSkills(identifier)}</span>
               </div>
             ))}
