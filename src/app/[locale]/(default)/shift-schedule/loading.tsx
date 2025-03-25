@@ -77,7 +77,7 @@ export default function ShiftScheduleLayout() {
                     </TableCell>
                     <TableCell
                       key={day}
-                      className='h-20 w-[206px] border p-1.5'
+                      className='h-[74px] w-[206px] border p-1.5'
                     >
                       <Skeleton className='size-full' />
                     </TableCell>
@@ -125,7 +125,7 @@ export default function ShiftScheduleLayout() {
               {days.map((day) => (
                 <TableCell
                   key={day}
-                  className='h-20 min-w-[206px] border p-1.5'
+                  className='h-[74px] min-w-[206px] border p-1.5'
                 >
                   <Skeleton className='size-full' />
                 </TableCell>

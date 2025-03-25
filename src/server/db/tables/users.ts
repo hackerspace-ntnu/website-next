@@ -2,6 +2,7 @@ import {
   emailVerificationRequests,
   files,
   sessions,
+  shifts,
   userGroups,
   userSkills,
 } from '@/server/db/tables';
@@ -64,6 +65,7 @@ const usersRelations = relations(users, ({ many }) => ({
   usersSkills: many(userSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
+  shifts: many(shifts),
 }));
 
 type SelectUser = InferSelectModel<typeof users>;

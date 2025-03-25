@@ -258,6 +258,13 @@ async function main() {
       timeslot: '1',
       userId: insertedUsers[4]?.id ?? 0,
     },
+    {
+      // Past end date, shouldn't be displayed
+      day: 'friday',
+      timeslot: '4',
+      userId: insertedUsers[0]?.id ?? 0,
+      endDate: new Date(0),
+    },
   ];
   await db.insert(shifts).values(shiftsData);
   console.log('Shifts inserted');

@@ -40,7 +40,8 @@ function ScheduleCell({
 
   return (
     // 206px width is the largest that doesn't give scroll on iPhone 5/SE (smallest phone we have support for)
-    <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
+    // 74px height gives the same padding above and below skill icons when they take two rows
+    <TableCell className='h-[74px] min-w-[206px] max-w-[206px] border p-1.5'>
       <Dialog>
         <DialogTrigger asChild>
           <button
