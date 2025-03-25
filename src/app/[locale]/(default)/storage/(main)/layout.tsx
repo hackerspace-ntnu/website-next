@@ -2,6 +2,7 @@ import { CategorySelector } from '@/components/composites/CategorySelector';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
 import { AddItemButton } from '@/components/storage/AddItemButton';
+import { ItemLoansButton } from '@/components/storage/ItemLoansButton';
 import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
@@ -39,7 +40,12 @@ export default async function StorageLayout({
       <div className='relative'>
         <h1 className='text-center'>{t('title')}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
-          {user && user.groups.length > 0 && <AddItemButton />}
+          {user && user.groups.length > 0 && (
+            <>
+              <ItemLoansButton />
+              <AddItemButton />
+            </>
+          )}
           <ShoppingCartLink
             t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
           />

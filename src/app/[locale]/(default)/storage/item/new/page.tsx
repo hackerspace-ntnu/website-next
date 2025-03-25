@@ -15,7 +15,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function StoragePage({
+export default async function NewStorageItemPage({
   params,
 }: {
   params: Promise<{ locale: string }>;

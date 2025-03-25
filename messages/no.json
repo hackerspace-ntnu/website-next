@@ -357,6 +357,12 @@
       "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
       "unauthorized": "Du har ikke rettigheter til å redigere gjenstandene på lager"
     },
+    "loans": {
+      "view": "Se lån",
+      "title": "Lån",
+      "titlePending": "Utestående lån",
+      "titleAccepted": "Godkjente lån"
+    },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
       "notFound": "Den valgte gjenstanden ble ikke funnet.",
