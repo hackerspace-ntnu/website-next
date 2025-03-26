@@ -12,9 +12,11 @@ import {
   storageItems,
 } from '@/server/db/tables';
 import { insertFile } from '@/server/services/files';
+import { acceptLoanSchema } from '@/validations/storage/acceptLoanSchema';
 import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
+import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
@@ -255,6 +257,36 @@ const storageRouter = createRouter({
           unitsBorrowed: borrowing?.amount as number,
         });
       }
+    }),
+  fetchLoans: authenticatedProcedure
+    .input((input) => fetchLoansSchema().parse(input))
+    .query(async ({ input, ctx }) => {
+      return ctx.db.query.itemLoans.findMany({
+        limit: input.limit,
+        offset: input.offset,
+        where: input.pending
+          ? eq(itemLoans.accepted, !input.pending)
+          : undefined,
+        with: {
+          item: true,
+          lender: true,
+        },
+      });
+    }),
+  acceptLoan: authenticatedProcedure
+    .input((input) => acceptLoanSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .update(itemLoans)
+        .set({
+          accepted: true,
+        })
+        .where(
+          and(
+            eq(itemLoans.itemId, input.itemId),
+            eq(itemLoans.lenderId, input.lenderId),
+          ),
+        );
     }),
 });
 

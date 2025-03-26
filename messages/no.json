@@ -361,7 +361,14 @@
       "view": "Se lån",
       "title": "Lån",
       "titlePending": "Utestående lån",
-      "titleAccepted": "Godkjente lån"
+      "titleAccepted": "Godkjente lån",
+      "pendingLoan": "Utestående lån",
+      "loanSubheader": "Dette lånet venter på godkjenning",
+      "loanDescription": "{name} ønsker å låne {units} stk. av {item}.",
+      "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
+      "accept": "Godkjenn",
+      "loan": "Lån",
+      "loanAccepted": "Dette lånet har blitt godkjent"
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

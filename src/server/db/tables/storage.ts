@@ -37,6 +37,7 @@ const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
 }));
 
 const itemLoans = pgTable('item_loans', {
+  id: serial('id').primaryKey(),
   itemId: integer('item_id')
     .notNull()
     .references(() => storageItems.id),

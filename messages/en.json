@@ -361,7 +361,14 @@
       "view": "View loans",
       "title": "Loans",
       "titlePending": "Pending loans",
-      "titleAccepted": "Accepted loans"
+      "titleAccepted": "Accepted loans",
+      "pendingLoan": "Pending loan",
+      "loanSubheader": "This loan is waiting for approval",
+      "loanDescription": "{name} would like to borrow {units, plural, =1 {1 unit} other {# units}} of {item}.",
+      "askForApproval": "Do you wish to accept this loan request?",
+      "accept": "Accept",
+      "loan": "Loan",
+      "loanAccepted": "This loan has been accepted"
     },
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
