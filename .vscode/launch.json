@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Next.js: Debug server-side",
-      "type": "pwa-node",
+      "type": "node",
       "request": "attach",
       "port": 9231,
       "restart": true,
