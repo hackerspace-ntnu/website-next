@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
@@ -105,45 +106,47 @@ export default function ShiftScheduleLayout() {
       </div>
 
       {/* Table shown on all other screens */}
-      <Table className='mt-8 hidden sm:table'>
-        <TableHeader>
-          <TableRow className='hover:bg-inherit'>
-            <TableHead className='w-1/6'>{t('time')}</TableHead>
-            {days.map((day) => (
-              <TableHead key={day} className='w-1/6 border-x'>
-                {t('day', { day: day })}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {timeslots.map((timeslot) => (
-            <TableRow key={timeslot} className='hover:bg-inherit'>
-              <TableCell className='min-w-32 border-y'>
-                {getDateTimeRange(timeslot)}
-              </TableCell>
+      <ScrollArea className='max-w-[90vw]'>
+        <Table className='mt-8 hidden sm:table'>
+          <TableHeader>
+            <TableRow className='hover:bg-inherit'>
+              <TableHead className='w-1/6'>{t('time')}</TableHead>
               {days.map((day) => (
-                <TableCell
-                  key={day}
-                  className='h-20 min-w-[206px] border p-1.5'
-                >
-                  <Skeleton className='size-full' />
-                </TableCell>
+                <TableHead key={day} className='w-1/6 border-x'>
+                  {t('day', { day: day })}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-        <TableCaption className='h-12'>
-          <div className='flex w-full justify-center gap-8'>
-            {skillIdentifiers.map((identifier) => (
-              <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} size='large' />
-                <span className='text-xs'>{tSkills(identifier)}</span>
-              </div>
+          </TableHeader>
+          <TableBody>
+            {timeslots.map((timeslot) => (
+              <TableRow key={timeslot} className='hover:bg-inherit'>
+                <TableCell className='min-w-32 border-y'>
+                  {getDateTimeRange(timeslot)}
+                </TableCell>
+                {days.map((day) => (
+                  <TableCell
+                    key={day}
+                    className='h-20 min-w-[206px] border p-1.5'
+                  >
+                    <Skeleton className='size-full' />
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
-          </div>
-        </TableCaption>
-      </Table>
+          </TableBody>
+          <TableCaption className='h-12'>
+            <div className='flex w-full justify-center gap-8'>
+              {skillIdentifiers.map((identifier) => (
+                <div key={identifier} className='flex items-center gap-3'>
+                  <SkillIcon identifier={identifier} size='large' />
+                  <span className='text-xs'>{tSkills(identifier)}</span>
+                </div>
+              ))}
+            </div>
+          </TableCaption>
+        </Table>
+      </ScrollArea>
     </>
   );
 }

@@ -94,12 +94,9 @@ function ScheduleCell({
                 {formattedShift.time}
               </span>
             </DialogTitle>
+            {/* Not having description causes error, can't use aria-description */}
             <DialogDescription className='hidden'>
-              {
-                t(
-                  'description',
-                ) /* Not having description causes error, can't use aria-description */
-              }
+              {t('description')}
             </DialogDescription>
           </DialogHeader>
           <div className='flex justify-between gap-8 px-1.5 pb-1.5'>

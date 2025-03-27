@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
 type ScheduleTableProps = Pick<
@@ -122,56 +123,58 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
       </div>
 
       {/* Table shown on all other screens */}
-      <Table className='mt-8 hidden sm:table'>
-        <TableHeader>
-          <TableRow className='hover:bg-inherit'>
-            <TableHead className='w-1/6'>{t('time')}</TableHead>
-            {days.map((day) => (
-              <TableHead key={day} className='w-1/6 border-x'>
-                {t('day', { day: day })}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {timeslots.map((timeslot) => (
-            <TableRow key={timeslot} className='hover:bg-inherit'>
-              <TableCell className='min-w-32 border-y'>
-                {getDateTimeRange(timeslot)}
-              </TableCell>
-              {days.map((day) => {
-                const shift = shifts.find(
-                  (shift) => shift.day === day && shift.timeslot === timeslot,
-                );
-                return (
-                  <ScheduleCell
-                    key={day}
-                    formattedShift={{
-                      day: t('day', { day: day }),
-                      time: getDateTimeRange(timeslot),
-                    }}
-                    day={day}
-                    timeslot={timeslot}
-                    members={shift?.members ?? []}
-                    skills={shift?.skills ?? []}
-                    memberId={user?.groups.length ? user.id : 0}
-                  />
-                );
-              })}
+      <ScrollArea className='max-w-[90vw]'>
+        <Table className='mt-8 hidden sm:table'>
+          <TableHeader>
+            <TableRow className='hover:bg-inherit'>
+              <TableHead className='w-1/6'>{t('time')}</TableHead>
+              {days.map((day) => (
+                <TableHead key={day} className='w-1/6 border-x'>
+                  {t('day', { day: day })}
+                </TableHead>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-        <TableCaption className='h-12'>
-          <div className='flex w-full justify-center gap-8'>
-            {skillIdentifiers.map((identifier) => (
-              <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} size='large' />
-                <span className='text-xs'>{tSkills(identifier)}</span>
-              </div>
+          </TableHeader>
+          <TableBody>
+            {timeslots.map((timeslot) => (
+              <TableRow key={timeslot} className='hover:bg-inherit'>
+                <TableCell className='min-w-32 border-y'>
+                  {getDateTimeRange(timeslot)}
+                </TableCell>
+                {days.map((day) => {
+                  const shift = shifts.find(
+                    (shift) => shift.day === day && shift.timeslot === timeslot,
+                  );
+                  return (
+                    <ScheduleCell
+                      key={day}
+                      formattedShift={{
+                        day: t('day', { day: day }),
+                        time: getDateTimeRange(timeslot),
+                      }}
+                      day={day}
+                      timeslot={timeslot}
+                      members={shift?.members ?? []}
+                      skills={shift?.skills ?? []}
+                      memberId={user?.groups.length ? user.id : 0}
+                    />
+                  );
+                })}
+              </TableRow>
             ))}
-          </div>
-        </TableCaption>
-      </Table>
+          </TableBody>
+          <TableCaption className='h-12'>
+            <div className='flex w-full justify-center gap-8'>
+              {skillIdentifiers.map((identifier) => (
+                <div key={identifier} className='flex items-center gap-3'>
+                  <SkillIcon identifier={identifier} size='large' />
+                  <span className='text-xs'>{tSkills(identifier)}</span>
+                </div>
+              ))}
+            </div>
+          </TableCaption>
+        </Table>
+      </ScrollArea>
     </>
   );
 }
