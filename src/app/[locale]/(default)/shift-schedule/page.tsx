@@ -24,7 +24,9 @@ export default async function ShiftSchedulePage({
 
   return (
     <>
-      {user?.groups.includes('admin') && (
+      {user?.groups.some((group) =>
+        ['admin', 'leadership'].includes(group),
+      ) && (
         <AdministratorMenu
           t={{
             label: t('label'),

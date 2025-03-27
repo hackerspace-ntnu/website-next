@@ -1,6 +1,7 @@
 import { days, type skillIdentifiers, timeslots } from '@/lib/constants';
+import { useTranslationsFromContext } from '@/server/api/locale';
 import {
-  adminProcedure,
+  leadershipProcedure,
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
@@ -80,11 +81,13 @@ const shiftScheduleRouter = createRouter({
 
     return returnShifts;
   }),
-  clearShifts: adminProcedure.mutation(async ({ ctx }) => {
+  clearShifts: leadershipProcedure.mutation(async ({ ctx }) => {
     await ctx.db.delete(shifts);
   }),
   registerShift: protectedProcedure
-    .input((input) => registerShiftSchema().parse(input))
+    .input((input) =>
+      registerShiftSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(shifts)
@@ -104,7 +107,9 @@ const shiftScheduleRouter = createRouter({
       });
     }),
   unregisterShift: protectedProcedure
-    .input((input) => unregisterShiftSchema().parse(input))
+    .input((input) =>
+      unregisterShiftSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .delete(shifts)

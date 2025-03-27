@@ -31,7 +31,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
 
     switch (timeslot) {
       case timeslots[0]:
-        firstDate = new Date(0, 0, 0, 10, 0, 0, 0);
+        firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
         secondDate = new Date(0, 0, 0, 12, 0, 0, 0);
         break;
 

@@ -146,17 +146,6 @@ const storageProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   return next();
 });
 
-const adminProcedure = protectedProcedure.use(async ({ next, ctx }) => {
-  if (!ctx.user.groups.some((group) => group === 'admin')) {
-    throw new TRPCError({
-      code: 'FORBIDDEN',
-      message: ctx.t('api.notAuthorized'),
-    });
-  }
-
-  return next();
-});
-
 export {
   publicProcedure,
   registrationProcedure,
@@ -165,5 +154,4 @@ export {
   managementProcedure,
   leadershipProcedure,
   storageProcedure,
-  adminProcedure,
 };

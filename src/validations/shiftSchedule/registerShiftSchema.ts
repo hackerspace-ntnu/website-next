@@ -1,7 +1,8 @@
 import { days, timeslots } from '@/lib/constants';
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function registerShiftSchema() {
+function registerShiftSchema(t: Translations) {
   return z.object({
     day: z.enum(days),
     timeslot: z.enum(timeslots),
@@ -9,7 +10,7 @@ function registerShiftSchema() {
   });
 }
 
-function unregisterShiftSchema() {
+function unregisterShiftSchema(t: Translations) {
   return z.object({
     day: z.enum(days),
     timeslot: z.enum(timeslots),
