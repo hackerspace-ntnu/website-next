@@ -3,12 +3,24 @@
   "configurations": [
     {
       "name": "Next.js: Debug server-side",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "bun dev"
+      "type": "pwa-node",
+      "request": "attach",
+      "port": 9231,
+      "restart": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**"
+      ],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/.next/server/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "console": "integratedTerminal"
     },
     {
-      "name": "Next.js: Debug client-side",
+      "name": "Next.js: Debug client-side (Chrome)",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000"
