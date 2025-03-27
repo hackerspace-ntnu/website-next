@@ -10,6 +10,7 @@ import {
   registerShiftSchema,
   unregisterShiftSchema,
 } from '@/validations/shiftSchedule/registerShiftSchema';
+import { endOfWeek } from 'date-fns';
 import { and, eq, gte, isNull, or, sql } from 'drizzle-orm';
 
 type Member = {
@@ -25,13 +26,6 @@ type Shift = {
   members: Member[];
   skills: (typeof skillIdentifiers)[number][];
 };
-
-function getWeekEndDate() {
-  const currentDate = new Date();
-  return new Date(
-    currentDate.setDate(currentDate.getDate() + 7 - currentDate.getDay()),
-  );
-}
 
 const shiftScheduleRouter = createRouter({
   fetchShifts: publicProcedure.query(async ({ ctx }) => {
@@ -104,7 +98,9 @@ const shiftScheduleRouter = createRouter({
         day: input.day,
         timeslot: input.timeslot,
         userId: ctx.user.id,
-        endDate: input.recurring ? null : getWeekEndDate(),
+        endDate: input.recurring
+          ? null
+          : endOfWeek(new Date(), { weekStartsOn: 1 }),
       });
     }),
   unregisterShift: protectedProcedure

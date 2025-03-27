@@ -40,9 +40,16 @@ function RegisterShift({
   const registerShift = api.shiftSchedule.registerShift.useMutation();
   const unregisterShift = api.shiftSchedule.unregisterShift.useMutation();
 
-  const register = user.isMember && !user.onShift;
-  const update = user.onShift && user.recurring !== recurring;
-  const unregister = !register && !update && user.isMember;
+  const canRegister = user.isMember && !user.onShift;
+  const canUpdate = user.onShift && user.recurring !== recurring;
+  const canUnregister = !canRegister && !canUpdate && user.isMember;
+
+  function getButtonText() {
+    if (canRegister) return t.register;
+    if (canUpdate) return t.update;
+    if (canUnregister) return t.unregister;
+    return t.register; // Show disabled register for users that aren't logged in
+  }
 
   return (
     <div className={cx(className, 'space-y-3')}>
@@ -58,25 +65,20 @@ function RegisterShift({
       <DialogClose asChild>
         <Button
           className='float-right'
-          variant={unregister ? 'destructive' : 'default'}
+          variant={canUnregister ? 'destructive' : 'default'}
           disabled={!user.isMember}
           onClick={() => {
-            if (register || update)
+            if (canRegister || canUpdate) {
               registerShift.mutate({ day, timeslot, recurring });
-            else if (unregister) unregisterShift.mutate({ day, timeslot });
+            } else if (canUnregister) {
+              unregisterShift.mutate({ day, timeslot });
+            }
+
             utils.shiftSchedule.fetchShifts.invalidate();
             router.refresh();
           }}
         >
-          {
-            register
-              ? t.register
-              : update
-                ? t.update
-                : unregister
-                  ? t.unregister
-                  : t.register /* Show disabled register for users that aren't logged in */
-          }
+          {getButtonText()}
         </Button>
       </DialogClose>
     </div>

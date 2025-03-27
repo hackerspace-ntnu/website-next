@@ -62,7 +62,7 @@ export default function ShiftScheduleLayout() {
           {days.map((day) => (
             <Table key={day}>
               <TableHeader>
-                <TableRow>
+                <TableRow className='hover:bg-inherit'>
                   <TableHead className='w-2/5'>{t('time')}</TableHead>
                   <TableHead className='w-3/5 border-x'>
                     {t('day', { day: day })}
@@ -71,7 +71,7 @@ export default function ShiftScheduleLayout() {
               </TableHeader>
               <TableBody>
                 {timeslots.map((timeslot) => (
-                  <TableRow key={timeslot}>
+                  <TableRow key={timeslot} className='hover:bg-inherit'>
                     <TableCell className='border-y'>
                       {getDateTimeRange(timeslot)}
                     </TableCell>
@@ -107,7 +107,7 @@ export default function ShiftScheduleLayout() {
       {/* Table shown on all other screens */}
       <Table className='mt-8 hidden sm:table'>
         <TableHeader>
-          <TableRow>
+          <TableRow className='hover:bg-inherit'>
             <TableHead className='w-1/6'>{t('time')}</TableHead>
             {days.map((day) => (
               <TableHead key={day} className='w-1/6 border-x'>
@@ -118,7 +118,7 @@ export default function ShiftScheduleLayout() {
         </TableHeader>
         <TableBody>
           {timeslots.map((timeslot) => (
-            <TableRow key={timeslot}>
+            <TableRow key={timeslot} className='hover:bg-inherit'>
               <TableCell className='min-w-32 border-y'>
                 {getDateTimeRange(timeslot)}
               </TableCell>

@@ -55,15 +55,15 @@ function ScheduleCell({
             )}
           >
             {/* Icon displaying amount of members on shift */}
-            {members.length === 1 ? (
-              <UserIcon className='size-7' />
-            ) : (
-              members.length > 1 && (
-                <div className='flex flex-col items-center justify-between gap-1'>
+            {members.length > 0 && (
+              <div className='flex flex-col items-center justify-between gap-1'>
+                {members.length > 1 ? (
                   <UsersIcon className='size-7' />
-                  <span className='font-semibold'>{members.length}</span>
-                </div>
-              )
+                ) : (
+                  <UserIcon className='size-7' />
+                )}
+                <span className='font-semibold'>{members.length}</span>
+              </div>
             )}
 
             {/* Closed / Skill icons */}

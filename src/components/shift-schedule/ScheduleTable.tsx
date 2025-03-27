@@ -1,4 +1,5 @@
 import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import {
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
-import { SkillIcon } from '../skills/SkillIcon';
 
 type ScheduleTableProps = Pick<
   Awaited<ReturnType<typeof api.auth.state>>,
@@ -69,7 +69,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
           {days.map((day) => (
             <Table key={day}>
               <TableHeader>
-                <TableRow>
+                <TableRow className='hover:bg-inherit'>
                   <TableHead className='w-2/5'>{t('time')}</TableHead>
                   <TableHead className='w-3/5 border-x'>
                     {t('day', { day: day })}
@@ -82,7 +82,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                     (shift) => shift.day === day && shift.timeslot === timeslot,
                   );
                   return (
-                    <TableRow key={timeslot}>
+                    <TableRow key={timeslot} className='hover:bg-inherit'>
                       <TableCell className='border-y'>
                         {getDateTimeRange(timeslot)}
                       </TableCell>
@@ -124,7 +124,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
       {/* Table shown on all other screens */}
       <Table className='mt-8 hidden sm:table'>
         <TableHeader>
-          <TableRow>
+          <TableRow className='hover:bg-inherit'>
             <TableHead className='w-1/6'>{t('time')}</TableHead>
             {days.map((day) => (
               <TableHead key={day} className='w-1/6 border-x'>
@@ -135,7 +135,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         </TableHeader>
         <TableBody>
           {timeslots.map((timeslot) => (
-            <TableRow key={timeslot}>
+            <TableRow key={timeslot} className='hover:bg-inherit'>
               <TableCell className='min-w-32 border-y'>
                 {getDateTimeRange(timeslot)}
               </TableCell>
