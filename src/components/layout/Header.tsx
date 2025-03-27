@@ -61,6 +61,7 @@ async function Header() {
             t={{
               open: t('desktopNavMenu', { open: true }),
               close: t('desktopNavMenu', { open: false }),
+              rules: t('rules'),
               storage: t('storage'),
               shiftSchedule: t('shiftSchedule'),
             }}
