@@ -31,8 +31,11 @@ const shifts = pgTable(
   },
 );
 
-const shiftsRelations = relations(shifts, ({ many }) => ({
-  users: many(users),
+const shiftsRelations = relations(shifts, ({ one }) => ({
+  users: one(users, {
+    fields: [shifts.userId],
+    references: [users.id],
+  }),
 }));
 
 type SelectShift = InferSelectModel<typeof shifts>;
