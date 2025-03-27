@@ -2,20 +2,20 @@
 
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { cx } from '@/lib/utils';
-import { useState } from 'react';
 
 import { Button } from '@/components/ui/Button';
 import { Input, type InputProps } from '@/components/ui/Input';
 
-const PasswordInput = ({
+function PasswordInput({
   ref,
   className,
   ...props
 }: InputProps & {
-  ref: React.RefObject<HTMLInputElement>;
-}) => {
+  ref?: React.RefObject<HTMLInputElement>;
+}) {
   const t = useTranslations('ui');
   const [showPassword, setShowPassword] = useState(false);
   const disabled =
@@ -36,7 +36,7 @@ const PasswordInput = ({
         className='absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent'
         onClick={() => setShowPassword((prev) => !prev)}
         disabled={disabled}
-        aria-label={showPassword ? t('showPassword') : t('hidePassword')}
+        aria-label={showPassword ? t('hidePassword') : t('showPassword')}
       >
         {showPassword && !disabled ? (
           <EyeIcon className='h-4 w-4' aria-hidden='true' />
@@ -46,7 +46,6 @@ const PasswordInput = ({
       </Button>
     </div>
   );
-};
-PasswordInput.displayName = 'PasswordInput';
+}
 
 export { PasswordInput };

@@ -4,38 +4,48 @@ import { useContext } from 'react';
 
 import { cx } from '@/lib/utils';
 
-const InputOtp = ({
+function InputOtp({
   ref,
   className,
   containerClassName,
   ...props
 }: React.ComponentPropsWithoutRef<typeof OTPInput> & {
-  ref: React.RefObject<React.ComponentRef<typeof OTPInput>>;
-}) => (
-  <OTPInput
-    ref={ref}
-    containerClassName={cx(
-      'flex items-center gap-2 has-[:disabled]:opacity-50',
-      containerClassName,
-    )}
-    className={cx('disabled:cursor-not-allowed', className)}
-    {...props}
-  />
-);
-InputOtp.displayName = 'InputOtp';
+  ref?: React.RefObject<React.ComponentRef<typeof OTPInput>>;
+}) {
+  return (
+    <OTPInput
+      ref={ref}
+      containerClassName={cx(
+        'flex items-center gap-2 has-[:disabled]:opacity-50',
+        containerClassName,
+      )}
+      className={cx('disabled:cursor-not-allowed', className)}
+      {...props}
+    />
+  );
+}
 
-const InputOtpGroup = ({
+function InputOtpGroup({
   ref,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & {
-  ref: React.RefObject<React.ComponentRef<'div'>>;
-}) => (
-  <div ref={ref} className={cx('flex items-center', className)} {...props} />
-);
-InputOtpGroup.displayName = 'InputOtpGroup';
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+}) {
+  return (
+    <div ref={ref} className={cx('flex items-center', className)} {...props} />
+  );
+}
 
-const InputOtpSlot = ({ ref, index, className, ...props }) => {
+function InputOtpSlot({
+  ref,
+  index,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+  index: number;
+}) {
   const inputOTPContext = useContext(OTPInputContext);
   const slot = inputOTPContext.slots[index];
 
@@ -63,19 +73,19 @@ const InputOtpSlot = ({ ref, index, className, ...props }) => {
       )}
     </div>
   );
-};
-InputOtpSlot.displayName = 'InputOtpSlot';
+}
 
-const InputOtpSeparator = ({
+function InputOtpSeparator({
   ref,
   ...props
 }: React.ComponentPropsWithoutRef<'div'> & {
-  ref: React.RefObject<React.ComponentRef<'div'>>;
-}) => (
-  <div ref={ref} aria-hidden='true' {...props}>
-    <MinusIcon />
-  </div>
-);
-InputOtpSeparator.displayName = 'InputOtpSeparator';
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+}) {
+  return (
+    <div ref={ref} aria-hidden='true' {...props}>
+      <MinusIcon />
+    </div>
+  );
+}
 
 export { InputOtp, InputOtpGroup, InputOtpSlot, InputOtpSeparator };

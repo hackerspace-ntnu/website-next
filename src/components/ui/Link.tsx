@@ -38,4 +38,4 @@ function ExternalLink({
   );
 }
 
-export { Link, ExternalLink };
+export { Link, ExternalLink, type LinkProps, type ExternalLinkProps };

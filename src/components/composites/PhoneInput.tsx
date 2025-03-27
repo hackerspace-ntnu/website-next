@@ -36,20 +36,11 @@ type PhoneInputProps = Omit<
     value?: string;
   };
 
-const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = ({
-  ref,
-  className,
-  onChange,
-  value,
-  ...props
-}: PhoneInputProps & {
-  ref: React.RefObject<React.ComponentRef<typeof RPNInput.default>>;
-}) => {
+function PhoneInput({ className, onChange, value, ...props }: PhoneInputProps) {
   const phoneNumber = value ? parsePhoneNumber(value) : undefined;
   const currentLocale = useLocale();
   return (
     <RPNInput.default
-      ref={ref}
       className={cx('flex', className)}
       flagComponent={FlagComponent}
       countrySelectComponent={CountrySelect}
@@ -69,23 +60,16 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = ({
       {...props}
     />
   );
-};
-PhoneInput.displayName = 'PhoneInput';
+}
 
-const InputComponent = ({
-  ref,
-  className,
-  ...props
-}: InputProps & {
-  ref: React.RefObject<HTMLInputElement>;
-}) => (
-  <Input
-    className={cx('rounded-s-none rounded-e-md', className)}
-    {...props}
-    ref={ref}
-  />
-);
-InputComponent.displayName = 'InputComponent';
+function InputComponent({ className, ...props }: InputProps) {
+  return (
+    <Input
+      className={cx('rounded-s-none rounded-e-md', className)}
+      {...props}
+    />
+  );
+}
 
 type CountrySelectOption = { label: string; value: RPNInput.Country };
 
@@ -181,6 +165,5 @@ function FlagComponent({ country, countryName }: RPNInput.FlagProps) {
     </span>
   );
 }
-FlagComponent.displayName = 'FlagComponent';
 
 export { PhoneInput };

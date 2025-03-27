@@ -1,16 +1,17 @@
 'use client';
+
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 import { CheckIcon } from 'lucide-react';
 
 import { cx } from '@/lib/utils';
 
-const RadioGroup = ({
+function RadioGroup({
   ref,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> & {
-  ref: React.RefObject<React.ComponentRef<typeof RadioGroupPrimitive.Root>>;
-}) => {
+  ref?: React.RefObject<React.ComponentRef<typeof RadioGroupPrimitive.Root>>;
+}) {
   return (
     <RadioGroupPrimitive.Root
       className={cx('grid gap-2', className)}
@@ -18,16 +19,15 @@ const RadioGroup = ({
       ref={ref}
     />
   );
-};
-RadioGroup.displayName = RadioGroupPrimitive.Root.displayName;
+}
 
-const RadioGroupItem = ({
+function RadioGroupItem({
   ref,
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item> & {
-  ref: React.RefObject<React.ComponentRef<typeof RadioGroupPrimitive.Item>>;
-}) => {
+  ref?: React.RefObject<React.ComponentRef<typeof RadioGroupPrimitive.Item>>;
+}) {
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
@@ -42,7 +42,6 @@ const RadioGroupItem = ({
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );
-};
-RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
+}
 
 export { RadioGroup, RadioGroupItem };
