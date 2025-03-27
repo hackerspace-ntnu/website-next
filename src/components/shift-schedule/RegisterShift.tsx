@@ -67,14 +67,14 @@ function RegisterShift({
           className='float-right'
           variant={canUnregister ? 'destructive' : 'default'}
           disabled={!user.isMember}
-          onClick={() => {
+          onClick={async () => {
             if (canRegister || canUpdate) {
-              registerShift.mutate({ day, timeslot, recurring });
+              await registerShift.mutateAsync({ day, timeslot, recurring });
             } else if (canUnregister) {
-              unregisterShift.mutate({ day, timeslot });
+              await unregisterShift.mutateAsync({ day, timeslot });
             }
 
-            utils.shiftSchedule.fetchShifts.invalidate();
+            await utils.shiftSchedule.fetchShifts.invalidate();
             router.refresh();
           }}
         >

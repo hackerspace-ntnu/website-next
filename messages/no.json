@@ -320,6 +320,8 @@
       "time": "Tid",
       "day": "{day, select, monday {Mandag} tuesday {Tirsdag} wednesday {Onsdag} thursday {Torsdag} other {Fredag}}",
       "cell": {
+        "description": "Se medlemmer på valgt vakt eller registrer selv",
+        "onShift": "{count, plural, =1 {1 person på vakt} other {# personer på vakt}}",
         "closed": "Stengt",
         "dialog": {
           "empty": "Ingen på vakt",

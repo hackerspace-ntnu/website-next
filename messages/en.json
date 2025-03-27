@@ -320,6 +320,8 @@
       "time": "Time",
       "day": "{day, select, monday {Monday} tuesday {Tuesday} wednesday {Wednesday} thursday {Thursday} other {Friday}}",
       "cell": {
+        "description": "See members on the selected shift or register yourself",
+        "onShift": "{count, plural, =1 {1 person on shift} other {# people on shift}}",
         "closed": "Closed",
         "dialog": {
           "empty": "No one on shift",

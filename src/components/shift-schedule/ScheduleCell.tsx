@@ -2,6 +2,7 @@ import { MemberList } from '@/components/shift-schedule/MemberList';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/Dialog';
@@ -48,7 +49,7 @@ function ScheduleCell({
             className={cx(
               'flex size-full gap-2 rounded-md p-2 text-left',
               userOnShift
-                ? 'bg-primary/20 hover:bg-primary/25'
+                ? 'bg-primary/20 hover:bg-primary/15 dark:hover:bg-primary/25'
                 : members.length === 0
                   ? 'bg-foreground/15 text-accent-foreground hover:bg-foreground/10 dark:bg-accent/40 dark:hover:bg-accent/60'
                   : 'bg-muted text-accent-foreground hover:bg-muted/60 dark:bg-foreground/20 dark:hover:bg-foreground/25',
@@ -56,13 +57,18 @@ function ScheduleCell({
           >
             {/* Icon displaying amount of members on shift */}
             {members.length > 0 && (
-              <div className='flex flex-col items-center justify-between gap-1'>
+              <div
+                className='flex flex-col items-center justify-between gap-1'
+                aria-label={t('onShift', { count: members.length })}
+              >
                 {members.length > 1 ? (
                   <UsersIcon className='size-7' />
                 ) : (
                   <UserIcon className='size-7' />
                 )}
-                <span className='font-semibold'>{members.length}</span>
+                <span className='font-semibold' aria-hidden='true'>
+                  {members.length}
+                </span>
               </div>
             )}
 
@@ -88,6 +94,13 @@ function ScheduleCell({
                 {formattedShift.time}
               </span>
             </DialogTitle>
+            <DialogDescription className='hidden'>
+              {
+                t(
+                  'description',
+                ) /* Not having description causes error, can't use aria-description */
+              }
+            </DialogDescription>
           </DialogHeader>
           <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
             <MemberList
