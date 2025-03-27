@@ -21,7 +21,7 @@ function Footer() {
           <div className='flex'>
             <LogoLink
               className='justify-start'
-              titleClassName='text-lg'
+              titleClassName='text-lg!'
               t={{
                 hackerspaceHome: t('hackerspaceHome'),
               }}
