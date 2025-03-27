@@ -116,6 +116,7 @@ const FormLabel = ({
   return (
     <Label
       className={cx(
+        'mb-2 block',
         isSubmitted && errors.length > 0 && 'text-destructive',
         className,
       )}

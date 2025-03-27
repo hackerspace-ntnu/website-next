@@ -91,7 +91,7 @@ function ProfilePictureForm({
                     />
                     <AvatarFallback>{userInitials}</AvatarFallback>
                   </Avatar>
-                  <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-sm'>
+                  <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-xs'>
                     <CameraIcon className='h-4 w-4' aria-hidden='true' />
                   </div>
                   <TooltipContent side='right'>

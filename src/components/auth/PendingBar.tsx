@@ -54,7 +54,7 @@ function PendingBar() {
       }`}
     >
       <m.div
-        className='h-2 w-1/3 rounded-sm bg-primary/80'
+        className='h-2 w-1/3 rounded-xs bg-primary/80'
         animate={{ x: ['-100%', '300%'] }}
         transition={{
           duration: 1,

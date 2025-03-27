@@ -45,7 +45,7 @@ const InputOtpSlot = forwardRef<
     <div
       ref={ref}
       className={cx(
-        'relative flex h-10 w-10 items-center justify-center border-input border-y border-r text-base shadow-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md',
+        'relative flex h-10 w-10 items-center justify-center border-input border-y border-r text-base shadow-xs transition-all first:rounded-l-md first:border-l last:rounded-r-md',
         isActive && 'z-10 ring-1 ring-ring',
         className,
       )}

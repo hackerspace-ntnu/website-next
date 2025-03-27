@@ -20,7 +20,7 @@ async function Header() {
   }
 
   return (
-    <header className='~px-1/24 sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 px-1-24-clamp backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
@@ -41,13 +41,13 @@ async function Header() {
           }}
         />
         <LogoLink
-          className='md:~md:~ml-12/0 ml-0'
+          className='md:ml-12-0-clamp-md'
           t={{
             hackerspaceHome: t('hackerspaceHome'),
           }}
         />
       </div>
-      <div className='flex gap-6'>
+      <div className='flex'>
         <div className='hidden items-center gap-6 md:flex'>
           <Nav
             className='flex items-center gap-6 text-sm'
