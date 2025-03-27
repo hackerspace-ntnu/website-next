@@ -31,6 +31,7 @@ async function Header() {
             about: t('about'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
+            rules: t('rules'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
