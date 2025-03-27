@@ -1,10 +1,8 @@
 'use client';
-
 import { type VariantProps, cva, cx } from '@/lib/utils';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { forwardRef } from 'react';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -14,10 +12,13 @@ const SheetClose = SheetPrimitive.Close;
 
 const SheetPortal = SheetPrimitive.Portal;
 
-const SheetOverlay = forwardRef<
-  React.ComponentRef<typeof SheetPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
->(({ className, ...props }, ref) => (
+const SheetOverlay = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & {
+  ref: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Overlay>>;
+}) => (
   <SheetPrimitive.Overlay
     className={cx(
       'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=open]:animate-in',
@@ -26,7 +27,7 @@ const SheetOverlay = forwardRef<
     {...props}
     ref={ref}
   />
-));
+);
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva({
@@ -46,11 +47,13 @@ const sheetVariants = cva({
   },
 });
 
-const SheetContent = forwardRef<
-  React.ComponentRef<typeof SheetPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> &
-    VariantProps<typeof sheetVariants>
->(({ side = 'right', className, children, ...props }, ref) => {
+const SheetContent = ({
+  ref,
+  side = 'right',
+  className,
+  children,
+  ...props
+}) => {
   const t = useTranslations('ui');
   return (
     <SheetPortal>
@@ -68,7 +71,7 @@ const SheetContent = forwardRef<
       </SheetPrimitive.Content>
     </SheetPortal>
   );
-});
+};
 
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
@@ -100,28 +103,34 @@ const SheetFooter = ({
 );
 SheetFooter.displayName = 'SheetFooter';
 
-const SheetTitle = forwardRef<
-  React.ComponentRef<typeof SheetPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
->(({ className, ...props }, ref) => (
+const SheetTitle = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title> & {
+  ref: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Title>>;
+}) => (
   <SheetPrimitive.Title
     ref={ref}
     className={cx('font-semibold text-foreground text-lg', className)}
     {...props}
   />
-));
+);
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
-const SheetDescription = forwardRef<
-  React.ComponentRef<typeof SheetPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
->(({ className, ...props }, ref) => (
+const SheetDescription = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description> & {
+  ref: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Description>>;
+}) => (
   <SheetPrimitive.Description
     ref={ref}
     className={cx('text-muted-foreground text-sm', className)}
     {...props}
   />
-));
+);
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
 export {

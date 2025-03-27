@@ -5,7 +5,6 @@ import {
   ChevronRightIcon,
   MoreHorizontalIcon,
 } from 'lucide-react';
-import { forwardRef } from 'react';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -16,23 +15,28 @@ const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
 );
 Pagination.displayName = 'Pagination';
 
-const PaginationContent = forwardRef<
-  HTMLUListElement,
-  React.ComponentProps<'ul'>
->(({ className, ...props }, ref) => (
+const PaginationContent = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentProps<'ul'> & {
+  ref: React.RefObject<HTMLUListElement>;
+}) => (
   <ul
     ref={ref}
     className={cx('flex flex-row items-center gap-1', className)}
     {...props}
   />
-));
+);
 PaginationContent.displayName = 'PaginationContent';
 
-const PaginationItem = forwardRef<HTMLLIElement, React.ComponentProps<'li'>>(
-  ({ className, ...props }, ref) => (
-    <li ref={ref} className={cx('', className)} {...props} />
-  ),
-);
+const PaginationItem = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentProps<'li'> & {
+  ref: React.RefObject<HTMLLIElement>;
+}) => <li ref={ref} className={cx('', className)} {...props} />;
 PaginationItem.displayName = 'PaginationItem';
 
 type PaginationLinkProps = {

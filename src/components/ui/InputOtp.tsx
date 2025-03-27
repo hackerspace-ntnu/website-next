@@ -1,13 +1,17 @@
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from 'lucide-react';
-import { forwardRef, useContext } from 'react';
+import { useContext } from 'react';
 
 import { cx } from '@/lib/utils';
 
-const InputOtp = forwardRef<
-  React.ComponentRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, containerClassName, ...props }, ref) => (
+const InputOtp = ({
+  ref,
+  className,
+  containerClassName,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof OTPInput> & {
+  ref: React.RefObject<React.ComponentRef<typeof OTPInput>>;
+}) => (
   <OTPInput
     ref={ref}
     containerClassName={cx(
@@ -17,21 +21,21 @@ const InputOtp = forwardRef<
     className={cx('disabled:cursor-not-allowed', className)}
     {...props}
   />
-));
+);
 InputOtp.displayName = 'InputOtp';
 
-const InputOtpGroup = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
+const InputOtpGroup = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref: React.RefObject<React.ComponentRef<'div'>>;
+}) => (
   <div ref={ref} className={cx('flex items-center', className)} {...props} />
-));
+);
 InputOtpGroup.displayName = 'InputOtpGroup';
 
-const InputOtpSlot = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'> & { index: number }
->(({ index, className, ...props }, ref) => {
+const InputOtpSlot = ({ ref, index, className, ...props }) => {
   const inputOTPContext = useContext(OTPInputContext);
   const slot = inputOTPContext.slots[index];
 
@@ -59,17 +63,19 @@ const InputOtpSlot = forwardRef<
       )}
     </div>
   );
-});
+};
 InputOtpSlot.displayName = 'InputOtpSlot';
 
-const InputOtpSeparator = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'>
->(({ ...props }, ref) => (
+const InputOtpSeparator = ({
+  ref,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref: React.RefObject<React.ComponentRef<'div'>>;
+}) => (
   <div ref={ref} aria-hidden='true' {...props}>
     <MinusIcon />
   </div>
-));
+);
 InputOtpSeparator.displayName = 'InputOtpSeparator';
 
 export { InputOtp, InputOtpGroup, InputOtpSlot, InputOtpSeparator };

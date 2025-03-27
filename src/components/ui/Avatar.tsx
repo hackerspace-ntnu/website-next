@@ -1,13 +1,14 @@
 'use client';
-
 import { cx } from '@/lib/utils';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import { forwardRef } from 'react';
 
-const Avatar = forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
+const Avatar = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
+  ref: React.RefObject<React.ComponentRef<typeof AvatarPrimitive.Root>>;
+}) => (
   <AvatarPrimitive.Root
     ref={ref}
     className={cx(
@@ -16,25 +17,31 @@ const Avatar = forwardRef<
     )}
     {...props}
   />
-));
+);
 Avatar.displayName = AvatarPrimitive.Root.displayName;
 
-const AvatarImage = forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
+const AvatarImage = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> & {
+  ref: React.RefObject<React.ComponentRef<typeof AvatarPrimitive.Image>>;
+}) => (
   <AvatarPrimitive.Image
     ref={ref}
     className={cx('aspect-square h-full w-full', className)}
     {...props}
   />
-));
+);
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 
-const AvatarFallback = forwardRef<
-  React.ComponentRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
+const AvatarFallback = ({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> & {
+  ref: React.RefObject<React.ComponentRef<typeof AvatarPrimitive.Fallback>>;
+}) => (
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cx(
@@ -43,7 +50,7 @@ const AvatarFallback = forwardRef<
     )}
     {...props}
   />
-));
+);
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
 
 export { Avatar, AvatarImage, AvatarFallback };

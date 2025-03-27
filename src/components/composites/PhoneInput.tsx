@@ -2,7 +2,7 @@
 
 import { CheckIcon, ChevronsUpDown } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import * as RPNInput from 'react-phone-number-input';
 import { parsePhoneNumber } from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
@@ -36,10 +36,15 @@ type PhoneInputProps = Omit<
     value?: string;
   };
 
-const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
-  React.ComponentRef<typeof RPNInput.default>,
-  PhoneInputProps
->(({ className, onChange, value, ...props }, ref) => {
+const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = ({
+  ref,
+  className,
+  onChange,
+  value,
+  ...props
+}: PhoneInputProps & {
+  ref: React.RefObject<React.ComponentRef<typeof RPNInput.default>>;
+}) => {
   const phoneNumber = value ? parsePhoneNumber(value) : undefined;
   const currentLocale = useLocale();
   return (
@@ -64,17 +69,21 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
       {...props}
     />
   );
-});
+};
 PhoneInput.displayName = 'PhoneInput';
 
-const InputComponent = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => (
-    <Input
-      className={cx('rounded-s-none rounded-e-md', className)}
-      {...props}
-      ref={ref}
-    />
-  ),
+const InputComponent = ({
+  ref,
+  className,
+  ...props
+}: InputProps & {
+  ref: React.RefObject<HTMLInputElement>;
+}) => (
+  <Input
+    className={cx('rounded-s-none rounded-e-md', className)}
+    {...props}
+    ref={ref}
+  />
 );
 InputComponent.displayName = 'InputComponent';
 
