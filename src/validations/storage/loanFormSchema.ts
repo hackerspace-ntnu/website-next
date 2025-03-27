@@ -1,9 +1,17 @@
 import type { Translations } from '@/lib/locale';
+import { startOfDay } from 'date-fns';
 import { z } from 'zod';
 
 function loanFormSchema(t: Translations) {
   return z.object({
-    returnBy: z.date().min(new Date(), t('storage.loanForm.dateInFuture')),
+    dates: z.object({
+      from: z
+        .date()
+        .min(startOfDay(new Date()), t('storage.loanForm.dateInFuture')),
+      to: z
+        .date()
+        .min(startOfDay(new Date()), t('storage.loanForm.dateInFuture')),
+    }),
   });
 }
 

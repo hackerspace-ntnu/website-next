@@ -45,7 +45,7 @@ const itemLoans = pgTable('item_loans', {
     .notNull()
     .references(() => users.id),
   unitsBorrowed: integer('units_borrowed').notNull(),
-  borrowedAt: timestamp('borrowed_at').notNull().defaultNow(),
+  borrowedAt: timestamp('borrowed_at').notNull(),
   returnBy: timestamp('return_by').notNull(),
   returnedAt: timestamp('returned_at'),
   accepted: boolean('accepted').default(false),

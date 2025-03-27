@@ -17,8 +17,9 @@ import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { useRouter } from '@/lib/locale/navigation';
 import { loanFormSchema } from '@/validations/storage/loanFormSchema';
-import { addDays, addWeeks, endOfWeek } from 'date-fns';
+import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
+import type { DateRange } from 'react-day-picker';
 
 type LoanFormProps = {
   t: {
@@ -44,7 +45,10 @@ function LoanForm({ t }: LoanFormProps) {
 
   const form = useForm(loanFormSchema(useTranslations()), {
     defaultValues: {
-      returnBy: new Date(),
+      dates: {
+        from: new Date(),
+        to: addDays(new Date(), 1),
+      } as DateRange,
     },
     onSubmit: ({ value }) => {
       if (!cart || isLoading) return;
@@ -52,7 +56,8 @@ function LoanForm({ t }: LoanFormProps) {
         cart.map((i) => ({
           id: i.id,
           amount: i.amount,
-          returnBy: value.returnBy,
+          borrowedAt: value.dates.from ?? new Date(),
+          returnBy: value.dates.to ?? addDays(new Date(), 1),
         })),
       );
       setCart(null);
@@ -62,20 +67,29 @@ function LoanForm({ t }: LoanFormProps) {
 
   return (
     <Form className='xs:space-y-3' onSubmit={form.handleSubmit}>
-      <form.Field name='returnBy'>
+      <form.Field name='dates'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t.returnBy}</FormLabel>
             <FormControl>
               <Calendar
                 className='mx-auto w-fit rounded-md border'
-                mode='single'
+                mode='range'
                 selected={field.state.value}
-                onSelect={(date) => field.handleChange(date || new Date())}
+                onSelect={(range) => {
+                  field.handleChange(
+                    range ?? { from: new Date(), to: addDays(new Date(), 1) },
+                  );
+                }}
+                required={true}
                 showOutsideDays={false}
+                min={1}
+                max={differenceInDays(
+                  addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
+                  new Date(),
+                )}
                 disabled={{
                   before: new Date(),
-                  after: addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
                 }}
               />
             </FormControl>

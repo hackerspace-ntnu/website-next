@@ -244,17 +244,19 @@ const storageRouter = createRouter({
       // Update each items' availableUnits and add new item loans
       for (const item of itemsToBorrow) {
         const borrowing = input.find((i) => i.id === item.id);
+        if (!borrowing) return;
         await ctx.db
           .update(storageItems)
           .set({
-            availableUnits: sql`${storageItems.availableUnits} - ${borrowing?.amount}`,
+            availableUnits: sql`${storageItems.availableUnits} - ${borrowing.amount}`,
           })
           .where(eq(storageItems.id, item.id));
         await ctx.db.insert(itemLoans).values({
           itemId: item.id,
           lenderId: ctx.user.id,
-          returnBy: borrowing?.returnBy as Date,
-          unitsBorrowed: borrowing?.amount as number,
+          borrowedAt: borrowing.borrowedAt,
+          returnBy: borrowing.returnBy as Date,
+          unitsBorrowed: borrowing.amount as number,
         });
       }
     }),
