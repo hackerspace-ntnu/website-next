@@ -27,7 +27,7 @@ export default async function SuccessPage({
   return (
     <div className='relative flex h-full flex-col transition-opacity duration-500'>
       <div className='mb-4 space-y-2 text-center'>
-        <h1 className='text-4xl!'>{t('success')}</h1>
+        <h1 className='text-4xl'>{t('success')}</h1>
         <p className='text-sm'>{t('successDescription')}</p>
       </div>
       <Separator />

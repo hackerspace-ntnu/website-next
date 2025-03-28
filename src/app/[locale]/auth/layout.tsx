@@ -42,7 +42,7 @@ export default async function AuthLayout({
           <CardHeader className='flex items-center justify-between py-2'>
             <LogoLink
               logoClassName='h-7 w-7'
-              titleClassName='text-lg!'
+              titleClassName='text-lg'
               t={{
                 hackerspaceHome: t('hackerspaceHome'),
               }}

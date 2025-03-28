@@ -34,7 +34,7 @@ export default async function SignInPage({
   return (
     <div className='relative flex h-full flex-col transition-opacity duration-500'>
       <div className='mb-4 space-y-2 text-center'>
-        <h1 className='text-4xl!'>{t('welcome')}</h1>
+        <h1 className='text-4xl'>{t('welcome')}</h1>
         <p className='text-sm'>{t('description')}</p>
       </div>
       <Separator />
