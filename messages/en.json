@@ -308,9 +308,9 @@
   },
   "shiftSchedule": {
     "title": "Shift Schedule",
-    "administratorMenu": {
-      "label": "Administrator Menu",
-      "clearShiftSchedule": "Clear shift schedule",
+    "clearShifts": {
+      "label": "Administrator menu (temp)",
+      "clear": "Clear shift schedule",
       "warning": "Warning",
       "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
       "confirm": "Clear",

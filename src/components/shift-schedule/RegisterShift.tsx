@@ -34,9 +34,11 @@ function RegisterShift({
   user,
   className,
 }: RegisterShiftProps) {
-  const router = useRouter();
-  const utils = api.useUtils();
   const [recurring, setRecurring] = useState(user.recurring);
+
+  const router = useRouter();
+
+  const utils = api.useUtils();
   const registerShift = api.shiftSchedule.registerShift.useMutation();
   const unregisterShift = api.shiftSchedule.unregisterShift.useMutation();
 
@@ -56,7 +58,7 @@ function RegisterShift({
       <section className='flex gap-2'>
         <Label htmlFor='recurring'>{t.recurring}: </Label>
         <Checkbox
-          id='recurribooleanng'
+          id='recurring'
           disabled={!user.isMember}
           checked={recurring}
           onCheckedChange={() => setRecurring(!recurring)}

@@ -308,10 +308,10 @@
   },
   "shiftSchedule": {
     "title": "Vaktliste",
-    "administratorMenu": {
-      "label": "Administrator-meny",
+    "clearShifts": {
+      "label": "Administrator-meny (temp)",
+      "clear": "Tøm vaktliste",
       "warning": "Advarsel",
-      "clearShiftSchedule": "Tøm vaktliste",
       "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",
       "confirm": "Tøm",
       "cancel": "Avbryt"

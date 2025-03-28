@@ -122,8 +122,9 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         </Table>
       </div>
 
-      {/* Table shown on all other screens */}
+      {/* Will probably be removed, stops table from making container, including header and footer, wider than viewport */}
       <ScrollArea className='max-w-[90vw]'>
+        {/* Table shown on all other screens */}
         <Table className='mt-8 hidden sm:table'>
           <TableHeader>
             <TableRow className='hover:bg-inherit'>
