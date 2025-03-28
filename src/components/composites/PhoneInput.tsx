@@ -2,7 +2,7 @@
 
 import { CheckIcon, ChevronsUpDown } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { forwardRef, useCallback } from 'react';
+import { useCallback } from 'react';
 import * as RPNInput from 'react-phone-number-input';
 import { parsePhoneNumber } from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
@@ -36,15 +36,11 @@ type PhoneInputProps = Omit<
     value?: string;
   };
 
-const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
-  React.ComponentRef<typeof RPNInput.default>,
-  PhoneInputProps
->(({ className, onChange, value, ...props }, ref) => {
+function PhoneInput({ className, onChange, value, ...props }: PhoneInputProps) {
   const phoneNumber = value ? parsePhoneNumber(value) : undefined;
   const currentLocale = useLocale();
   return (
     <RPNInput.default
-      ref={ref}
       className={cx('flex', className)}
       flagComponent={FlagComponent}
       countrySelectComponent={CountrySelect}
@@ -64,19 +60,16 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
       {...props}
     />
   );
-});
-PhoneInput.displayName = 'PhoneInput';
+}
 
-const InputComponent = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => (
+function InputComponent({ className, ...props }: InputProps) {
+  return (
     <Input
       className={cx('rounded-s-none rounded-e-md', className)}
       {...props}
-      ref={ref}
     />
-  ),
-);
-InputComponent.displayName = 'InputComponent';
+  );
+}
 
 type CountrySelectOption = { label: string; value: RPNInput.Country };
 
@@ -172,6 +165,5 @@ function FlagComponent({ country, countryName }: RPNInput.FlagProps) {
     </span>
   );
 }
-FlagComponent.displayName = 'FlagComponent';
 
 export { PhoneInput };

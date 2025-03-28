@@ -1,9 +1,7 @@
 'use client';
 
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
-import { forwardRef } from 'react';
-
 import { type VariantProps, cva, cx } from '@/lib/utils';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 
 const scrollBarThumbVariants = cva({
   base: 'relative z-10 flex-1 cursor-default scroll-smooth rounded-full',
@@ -31,23 +29,20 @@ type ScrollBarProps = React.ComponentPropsWithoutRef<
     orientation?: 'vertical' | 'horizontal';
   };
 
-const ScrollArea = forwardRef<
-  React.ComponentRef<typeof ScrollAreaPrimitive.Root>,
-  ScrollBarProps
->(
-  (
-    {
-      className,
-      viewPortClassName,
-      scrollBarClassName,
-      orientation,
-      scrollBar = true,
-      variant,
-      children,
-      ...props
-    },
-    ref,
-  ) => (
+function ScrollArea({
+  ref,
+  className,
+  viewPortClassName,
+  scrollBarClassName,
+  orientation,
+  scrollBar = true,
+  variant,
+  children,
+  ...props
+}: ScrollBarProps & {
+  ref?: React.RefObject<React.ComponentRef<typeof ScrollAreaPrimitive.Root>>;
+}) {
+  return (
     <ScrollAreaPrimitive.Root
       ref={ref}
       className={cx('relative overflow-hidden', className)}
@@ -66,27 +61,32 @@ const ScrollArea = forwardRef<
           orientation={orientation}
           className={scrollBarClassName}
           variant={variant}
+          ref={undefined}
+          thumbClassName={undefined}
         />
       )}
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
-  ),
-);
-ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
+  );
+}
 
-const ScrollBar = forwardRef<
-  React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
-  React.ComponentPropsWithoutRef<
-    typeof ScrollAreaPrimitive.ScrollAreaScrollbar
-  > &
-    VariantProps<typeof scrollBarThumbVariants> & {
-      thumbClassName?: string;
-    }
->(
-  (
-    { className, thumbClassName, variant, orientation = 'vertical', ...props },
-    ref,
-  ) => (
+function ScrollBar({
+  ref,
+  className,
+  thumbClassName,
+  variant,
+  orientation = 'vertical',
+  ...props
+}: React.ComponentPropsWithoutRef<
+  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+> & {
+  ref?: React.RefObject<
+    React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
+  >;
+  thumbClassName?: string;
+  variant?: VariantProps<typeof scrollBarThumbVariants>['variant'];
+}) {
+  return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
       ref={ref}
       orientation={orientation}
@@ -105,8 +105,7 @@ const ScrollBar = forwardRef<
         })}
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
-  ),
-);
-ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;
+  );
+}
 
 export { ScrollArea, ScrollBar };

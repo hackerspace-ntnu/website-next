@@ -1,37 +1,51 @@
 import { OTPInput, OTPInputContext } from 'input-otp';
 import { MinusIcon } from 'lucide-react';
-import { forwardRef, useContext } from 'react';
+import { useContext } from 'react';
 
 import { cx } from '@/lib/utils';
 
-const InputOtp = forwardRef<
-  React.ComponentRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, containerClassName, ...props }, ref) => (
-  <OTPInput
-    ref={ref}
-    containerClassName={cx(
-      'flex items-center gap-2 has-[:disabled]:opacity-50',
-      containerClassName,
-    )}
-    className={cx('disabled:cursor-not-allowed', className)}
-    {...props}
-  />
-));
-InputOtp.displayName = 'InputOtp';
+function InputOtp({
+  ref,
+  className,
+  containerClassName,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof OTPInput> & {
+  ref?: React.RefObject<React.ComponentRef<typeof OTPInput>>;
+}) {
+  return (
+    <OTPInput
+      ref={ref}
+      containerClassName={cx(
+        'flex items-center gap-2 has-[:disabled]:opacity-50',
+        containerClassName,
+      )}
+      className={cx('disabled:cursor-not-allowed', className)}
+      {...props}
+    />
+  );
+}
 
-const InputOtpGroup = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cx('flex items-center', className)} {...props} />
-));
-InputOtpGroup.displayName = 'InputOtpGroup';
+function InputOtpGroup({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+}) {
+  return (
+    <div ref={ref} className={cx('flex items-center', className)} {...props} />
+  );
+}
 
-const InputOtpSlot = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'> & { index: number }
->(({ index, className, ...props }, ref) => {
+function InputOtpSlot({
+  ref,
+  index,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+  index: number;
+}) {
   const inputOTPContext = useContext(OTPInputContext);
   const slot = inputOTPContext.slots[index];
 
@@ -59,17 +73,19 @@ const InputOtpSlot = forwardRef<
       )}
     </div>
   );
-});
-InputOtpSlot.displayName = 'InputOtpSlot';
+}
 
-const InputOtpSeparator = forwardRef<
-  React.ComponentRef<'div'>,
-  React.ComponentPropsWithoutRef<'div'>
->(({ ...props }, ref) => (
-  <div ref={ref} aria-hidden='true' {...props}>
-    <MinusIcon />
-  </div>
-));
-InputOtpSeparator.displayName = 'InputOtpSeparator';
+function InputOtpSeparator({
+  ref,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'> & {
+  ref?: React.RefObject<React.ComponentRef<'div'>>;
+}) {
+  return (
+    <div ref={ref} aria-hidden='true' {...props}>
+      <MinusIcon />
+    </div>
+  );
+}
 
 export { InputOtp, InputOtpGroup, InputOtpSlot, InputOtpSeparator };

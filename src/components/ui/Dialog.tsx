@@ -4,35 +4,64 @@ import { cx } from '@/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { forwardRef } from 'react';
 
-const Dialog = DialogPrimitive.Root;
+function Dialog(
+  props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>,
+) {
+  return <DialogPrimitive.Root {...props} />;
+}
 
-const DialogTrigger = DialogPrimitive.Trigger;
+function DialogPortal(
+  props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Portal>,
+) {
+  return <DialogPrimitive.Portal {...props} />;
+}
 
-const DialogPortal = DialogPrimitive.Portal;
+function DialogTrigger({
+  ref,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Trigger>>;
+}) {
+  return <DialogPrimitive.Trigger ref={ref} {...props} />;
+}
 
-const DialogClose = DialogPrimitive.Close;
+function DialogClose({
+  ref,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Close>>;
+}) {
+  return <DialogPrimitive.Close ref={ref} {...props} />;
+}
 
-const DialogOverlay = forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
-    ref={ref}
-    className={cx(
-      'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=open]:animate-in',
-      className,
-    )}
-    {...props}
-  />
-));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+function DialogOverlay({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Overlay>>;
+}) {
+  return (
+    <DialogPrimitive.Overlay
+      ref={ref}
+      className={cx(
+        'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80 data-[state=closed]:animate-out data-[state=open]:animate-in',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DialogContent = forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => {
+function DialogContent({
+  ref,
+  className,
+  children,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Content>>;
+}) {
   const t = useTranslations('ui');
   return (
     <DialogPortal>
@@ -53,63 +82,75 @@ const DialogContent = forwardRef<
       </DialogPrimitive.Content>
     </DialogPortal>
   );
-});
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+}
 
-const DialogHeader = ({
+function DialogHeader({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cx(
-      'flex flex-col space-y-1.5 text-center sm:text-left',
-      className,
-    )}
-    {...props}
-  />
-);
-DialogHeader.displayName = 'DialogHeader';
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cx(
+        'flex flex-col space-y-1.5 text-center sm:text-left',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DialogFooter = ({
+function DialogFooter({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cx(
-      'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
-      className,
-    )}
-    {...props}
-  />
-);
-DialogFooter.displayName = 'DialogFooter';
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cx(
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DialogTitle = forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Title
-    ref={ref}
-    className={cx(
-      'font-semibold text-lg leading-none tracking-tight',
-      className,
-    )}
-    {...props}
-  />
-));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+function DialogTitle({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Title>>;
+}) {
+  return (
+    <DialogPrimitive.Title
+      ref={ref}
+      className={cx(
+        'font-semibold text-lg leading-none tracking-tight',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
-const DialogDescription = forwardRef<
-  React.ComponentRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Description
-    ref={ref}
-    className={cx('text-neutral-500 text-sm dark:text-neutral-400', className)}
-    {...props}
-  />
-));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+function DialogDescription({
+  ref,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description> & {
+  ref?: React.RefObject<React.ComponentRef<typeof DialogPrimitive.Description>>;
+}) {
+  return (
+    <DialogPrimitive.Description
+      ref={ref}
+      className={cx(
+        'text-neutral-500 text-sm dark:text-neutral-400',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
 
 export {
   Dialog,

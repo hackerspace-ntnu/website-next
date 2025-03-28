@@ -99,4 +99,4 @@ function Combobox({
   );
 }
 
-export { Combobox };
+export { Combobox, type ComboboxProps };

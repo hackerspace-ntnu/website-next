@@ -15,6 +15,7 @@ type DesktopNavMenuProps = {
   t: {
     open: string;
     close: string;
+    rules: string;
     storage: string;
     shiftSchedule: string;
   };
@@ -46,6 +47,7 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
         asDropDown
         onClick={() => setOpen(false)}
         t={{
+          rules: t.rules,
           storage: t.storage,
           shiftSchedule: t.shiftSchedule,
         }}

@@ -31,6 +31,7 @@ async function Header() {
             about: t('about'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
+            rules: t('rules'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
@@ -61,6 +62,7 @@ async function Header() {
             t={{
               open: t('desktopNavMenu', { open: true }),
               close: t('desktopNavMenu', { open: false }),
+              rules: t('rules'),
               storage: t('storage'),
               shiftSchedule: t('shiftSchedule'),
             }}
