@@ -78,7 +78,7 @@ function VerifyEmailForm() {
       className={`flex h-full flex-col transition-opacity duration-500 ${isPending ? 'pointer-events-none opacity-50' : ''}`}
     >
       <div className='mb-4 space-y-2 text-center'>
-        <h1 className='text-4xl!'>{t('verifyEmail')}</h1>
+        <h1 className='text-4xl'>{t('verifyEmail')}</h1>
         <p className='text-sm'>{t('verifyEmailDescription')}</p>
       </div>
       <Form onSubmit={form.handleSubmit} className='grow'>
