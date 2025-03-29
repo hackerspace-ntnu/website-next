@@ -55,7 +55,6 @@ function ShoppingCartClearDialog({ t }: ShoppingCartClearDialogProps) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
           <AlertDialogActionDestructive
             onClick={() => {
               setOpen(false);
@@ -64,6 +63,7 @@ function ShoppingCartClearDialog({ t }: ShoppingCartClearDialogProps) {
           >
             {t.clear}
           </AlertDialogActionDestructive>
+          <AlertDialogCancel>{t.cancel}</AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

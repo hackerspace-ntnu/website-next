@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-function acceptLoanSchema() {
+function updateLoanSchema() {
   return z.object({
-    id: z.number().positive(),
+    loanId: z.number().positive(),
     itemId: z.number().positive(),
     lenderId: z.number().positive(),
   });
 }
 
-export { acceptLoanSchema };
+export { updateLoanSchema };

@@ -40,7 +40,7 @@ export default async function EventDetailsPage({
 
   const formattedRange = isSameDay(startDate, endDate)
     ? `${format(startDate, 'HH:mm')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`
-    : `${format(startDate, 'HH:mm, dd/MM/yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
+    : `${format(startDate, 'HH:mm, dd.MM.yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
 
   return (
     <>

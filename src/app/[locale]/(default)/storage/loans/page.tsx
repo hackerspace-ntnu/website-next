@@ -1,4 +1,6 @@
 import { AcceptLoanButton } from '@/components/storage/AcceptLoanButton';
+import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
+import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
 import {
   Card,
   CardContent,
@@ -8,6 +10,14 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { api } from '@/lib/api/server';
+import { format } from 'date-fns';
+import {
+  CalendarIcon,
+  CheckIcon,
+  CircleUserIcon,
+  ShoppingBasketIcon,
+  XIcon,
+} from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { parseAsInteger } from 'nuqs/server';
 import { type SearchParams, createSearchParamsCache } from 'nuqs/server';
@@ -30,6 +40,8 @@ export default async function StorageLoansPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations('storage.loans');
+  const tStorage = await getTranslations('storage');
   const tUi = await getTranslations('ui');
 
   const searchParamsCache = createSearchParamsCache({
@@ -37,9 +49,6 @@ export default async function StorageLoansPage({
   });
 
   const { [tUi('page')]: page } = searchParamsCache.parse(await searchParams);
-
-  const tStorage = await getTranslations('storage');
-  const t = await getTranslations('storage.loans');
 
   const pendingLoans = await api.storage.fetchLoans({
     limit: 10,
@@ -66,17 +75,48 @@ export default async function StorageLoansPage({
             <CardDescription>{t('loanSubheader')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>
-              {t('loanDescription', {
-                name: `${loan.lender.firstName} ${loan.lender.lastName}`,
-                item: loan.item.name,
-                units: loan.unitsBorrowed,
-              })}
-            </p>
-            <p>{t('askForApproval')}</p>
+            <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
+              <li>
+                <CircleUserIcon className='h-8 w-8' />
+                <span>
+                  {loan.lender.firstName} {loan.lender.lastName}
+                </span>
+              </li>
+              <li>
+                <CalendarIcon className='h-8 w-8' />
+                <span>
+                  {t('borrowTimeline', {
+                    from: format(loan.borrowFrom, 'dd.MM.yyyy'),
+                    until: format(loan.borrowUntil, 'dd.MM.yyyy'),
+                  })}
+                </span>
+              </li>
+              <li>
+                <ShoppingBasketIcon className='h-8 w-8' />
+                <span>
+                  {loan.unitsBorrowed}x {loan.item.name}
+                </span>
+              </li>
+            </ul>
+            <p className='pt-6'>{t('askForApproval')}</p>
           </CardContent>
-          <CardFooter>
-            <AcceptLoanButton loan={loan} label={t('accept')} />
+          <CardFooter className='flex gap-2'>
+            <AcceptLoanButton
+              loan={loan}
+              label={t('accept')}
+              successMessage={t('loanAcceptSuccess')}
+            />
+            <DeleteLoanButton
+              loan={loan}
+              t={{
+                buttonLabel: tUi('delete'),
+                title: t('deleteLoan'),
+                description: t('deleteDescription', {
+                  person: `${loan.lender.firstName} ${loan.lender.lastName}`,
+                }),
+                successMessage: t('loanDeleteSuccess'),
+              }}
+            />
           </CardFooter>
         </Card>
       ))}
@@ -88,10 +128,53 @@ export default async function StorageLoansPage({
             <CardDescription>{t('loanAccepted')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Loan info here</p>
+            <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
+              <li>
+                <CircleUserIcon className='h-8 w-8' />
+                <span>
+                  {loan.lender.firstName} {loan.lender.lastName}
+                </span>
+              </li>
+              <li>
+                <CalendarIcon className='h-8 w-8' />
+                <span>
+                  {t('borrowTimeline', {
+                    from: format(loan.borrowFrom, 'dd.MM.yyyy'),
+                    until: format(loan.borrowUntil, 'dd.MM.yyyy'),
+                  })}
+                </span>
+              </li>
+              <li>
+                <ShoppingBasketIcon className='h-8 w-8' />
+                <span>
+                  {loan.unitsBorrowed}x {loan.item.name}
+                </span>
+              </li>
+              {loan.returnedAt ? (
+                <li>
+                  <CheckIcon className='h-8 w-8 text-primary' />
+                  <span>
+                    {t('returned', {
+                      date: format(loan.returnedAt, 'dd.MM.yyyy'),
+                    })}
+                  </span>
+                </li>
+              ) : (
+                <li>
+                  <XIcon className='h-8 w-8 text-red-700' />
+                  <span>{t('notReturned')}</span>
+                </li>
+              )}
+            </ul>
           </CardContent>
           <CardFooter>
-            <AcceptLoanButton loan={loan} label={t('accept')} />
+            {!loan.returnedAt && (
+              <ConfirmLoanReturnedButton
+                loan={loan}
+                label={t('confirmLoanReturn')}
+                successMessage={t('loanReturnSuccess')}
+              />
+            )}
           </CardFooter>
         </Card>
       ))}

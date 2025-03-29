@@ -6,7 +6,7 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 
-function AcceptLoanButton({
+function ConfirmLoanReturnedButton({
   loan,
   label,
   successMessage,
@@ -17,7 +17,7 @@ function AcceptLoanButton({
 }) {
   const router = useRouter();
   const apiUtils = api.useUtils();
-  const acceptLoanMutation = api.storage.acceptLoan.useMutation({
+  const confirmLoanMutation = api.storage.confirmLoanReturned.useMutation({
     onSuccess: async () => {
       toast.success(successMessage);
       await apiUtils.storage.fetchLoans.invalidate();
@@ -28,7 +28,7 @@ function AcceptLoanButton({
   return (
     <Button
       onClick={async () => {
-        acceptLoanMutation.mutateAsync({
+        await confirmLoanMutation.mutateAsync({
           loanId: loan.id,
           itemId: loan.itemId,
           lenderId: loan.lenderId,
@@ -40,4 +40,4 @@ function AcceptLoanButton({
   );
 }
 
-export { AcceptLoanButton };
+export { ConfirmLoanReturnedButton };

@@ -28,6 +28,7 @@
     "hidePassword": "Hide password",
     "showPassword": "Show password",
     "confirm": "Confirm",
+    "delete": "Delete",
     "cancel": "Cancel"
   },
   "error": {
@@ -363,12 +364,21 @@
       "titlePending": "Pending loans",
       "titleAccepted": "Accepted loans",
       "pendingLoan": "Pending loan",
+      "notReturned": "Not returned yet",
+      "returned": "Returned {date}",
       "loanSubheader": "This loan is waiting for approval",
-      "loanDescription": "{name} would like to borrow {units, plural, =1 {1 unit} other {# units}} of {item}.",
       "askForApproval": "Do you wish to accept this loan request?",
       "accept": "Accept",
+      "confirmLoanReturn": "Confirm item return",
+      "deleteLoan": "Delete loan",
+      "deleteDescription": "Do you really wish to delete the loan from {person}?",
       "loan": "Loan",
-      "loanAccepted": "This loan has been accepted"
+      "loanAcceptSuccess": "Loan has been accepted successfully!",
+      "loanDeleteSuccess": "Loan has been deleted successfully!",
+      "loanReturnSuccess": "Loan has been registered as returned!",
+      "loanAccepted": "This loan has been accepted",
+      "borrowTimeline": "Borrowing from {from} until {until}",
+      "requestedAt": "Requested at {date}"
     },
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",

@@ -28,6 +28,7 @@
     "hidePassword": "Gjem passord",
     "showPassword": "Vis passord",
     "confirm": "Bekreft",
+    "delete": "Slett",
     "cancel": "Avbryt"
   },
   "error": {
@@ -363,12 +364,21 @@
       "titlePending": "Utestående lån",
       "titleAccepted": "Godkjente lån",
       "pendingLoan": "Utestående lån",
+      "notReturned": "Ikke levert tilbake enda",
+      "returned": "Levert tilbake {date}",
       "loanSubheader": "Dette lånet venter på godkjenning",
-      "loanDescription": "{name} ønsker å låne {units} stk. av {item}.",
       "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
       "accept": "Godkjenn",
+      "confirmLoanReturn": "Bekreft tilbakelevering",
+      "deleteLoan": "Slett låneforespørsel",
+      "deleteDescription": "Er du helt sikker at du ønsker å slette låneforespørselen fra {person}?",
       "loan": "Lån",
-      "loanAccepted": "Dette lånet har blitt godkjent"
+      "loanAcceptSuccess": "Lånet har blitt godkjent!",
+      "loanDeleteSuccess": "Lånet har blitt slettet!",
+      "loanReturnSuccess": "Lånet har blitt registrert som levert!",
+      "loanAccepted": "Dette lånet har blitt godkjent",
+      "borrowTimeline": "Lån fra {from} til {until}",
+      "requestedAt": "Forespørsel sendt {date}"
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

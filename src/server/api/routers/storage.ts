@@ -12,7 +12,6 @@ import {
   storageItems,
 } from '@/server/db/tables';
 import { insertFile } from '@/server/services/files';
-import { acceptLoanSchema } from '@/validations/storage/acceptLoanSchema';
 import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
@@ -20,6 +19,7 @@ import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
+import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, ilike, inArray, sql } from 'drizzle-orm';
 
@@ -280,7 +280,7 @@ const storageRouter = createRouter({
       });
     }),
   acceptLoan: authenticatedProcedure
-    .input((input) => acceptLoanSchema().parse(input))
+    .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
         .update(itemLoans)
@@ -289,6 +289,36 @@ const storageRouter = createRouter({
         })
         .where(
           and(
+            eq(itemLoans.id, input.loanId),
+            eq(itemLoans.itemId, input.itemId),
+            eq(itemLoans.lenderId, input.lenderId),
+          ),
+        );
+    }),
+  deleteLoan: authenticatedProcedure
+    .input((input) => updateLoanSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .delete(itemLoans)
+        .where(
+          and(
+            eq(itemLoans.id, input.loanId),
+            eq(itemLoans.itemId, input.itemId),
+            eq(itemLoans.lenderId, input.lenderId),
+          ),
+        );
+    }),
+  confirmLoanReturned: authenticatedProcedure
+    .input((input) => updateLoanSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .update(itemLoans)
+        .set({
+          returnedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(itemLoans.id, input.loanId),
             eq(itemLoans.itemId, input.itemId),
             eq(itemLoans.lenderId, input.lenderId),
           ),
