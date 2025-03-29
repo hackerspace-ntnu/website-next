@@ -24,7 +24,7 @@ function InternalBadge({ className, internal }: InternalBadgeProps) {
           <Button
             className={cx(
               className,
-              'absolute z-10 m-1 bg-accent/95 p-0.5 backdrop-blur focus-visible:ring-offset-0 supports-[backdrop-filter]:bg-accent/60',
+              'absolute z-10 m-1 bg-accent/95 p-0.5 backdrop-blur-sm focus-visible:ring-offset-0 supports-[backdrop-filter]:bg-accent/60',
             )}
             asChild
             variant='ghost'

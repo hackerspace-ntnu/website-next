@@ -8,6 +8,7 @@ type SecondaryNavProps = {
   asDropDown?: boolean;
   onClick?: () => void;
   t: {
+    rules: string;
     storage: string;
     shiftSchedule: string;
   };
@@ -20,6 +21,9 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
     </Link>,
     <Link key={1} variant='nav' onClick={onClick} href='/shift-schedule'>
       {t.shiftSchedule}
+    </Link>,
+    <Link key={2} variant='nav' onClick={onClick} href='/rules'>
+      {t.rules}
     </Link>,
   ];
 

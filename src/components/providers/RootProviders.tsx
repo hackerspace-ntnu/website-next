@@ -12,13 +12,13 @@ type RootProvidersProps = {
 function RootProviders({ children, locale }: RootProvidersProps) {
   return (
     <ThemeProvider>
-      <TRPCProvider>
-        <NuqsProvider>
-          <LazyMotionProvider>
-            <IntlClientProvider locale={locale}>{children}</IntlClientProvider>
-          </LazyMotionProvider>
-        </NuqsProvider>
-      </TRPCProvider>
+      <IntlClientProvider locale={locale}>
+        <TRPCProvider>
+          <NuqsProvider>
+            <LazyMotionProvider>{children}</LazyMotionProvider>
+          </NuqsProvider>
+        </TRPCProvider>
+      </IntlClientProvider>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import type { Member } from '@/server/api/routers';
-import { SkillIcon } from '../skills/SkillIcon';
 
 type MemberListProps = {
   t: {
