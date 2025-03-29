@@ -1,7 +1,4 @@
-import { api } from '@/lib/api/server';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { parseAsInteger } from 'nuqs/server';
-import { createSearchParamsCache, type SearchParams } from 'nuqs/server';
+import { AcceptLoanButton } from '@/components/storage/AcceptLoanButton';
 import {
   Card,
   CardContent,
@@ -10,9 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import type { RouterOutput } from '@/server/api';
-import { AcceptLoanButton } from '@/components/storage/AcceptLoanButton';
+import { api } from '@/lib/api/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { parseAsInteger } from 'nuqs/server';
+import { type SearchParams, createSearchParamsCache } from 'nuqs/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');
