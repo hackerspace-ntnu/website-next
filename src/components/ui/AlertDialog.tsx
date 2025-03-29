@@ -82,10 +82,7 @@ function AlertDialogFooter({
   return (
     <div
       data-slot='alert-dialog-footer'
-      className={cx(
-        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
-        className,
-      )}
+      className={cx('flex flex-col gap-2 sm:flex-row', className)}
       {...props}
     />
   );
