@@ -114,7 +114,7 @@ function DatePicker({
             aria-label={t('pickDate')}
             variant={'secondary'}
             className={cx(
-              '-translate-y-1/2 absolute top-1/2 right-1.5 h-7 rounded-sm border px-2 font-normal',
+              '-translate-y-1/2 absolute top-1/2 right-1.5 h-7 rounded-xs border px-2 font-normal',
               !date && 'text-muted-foreground',
             )}
             disabled={disabled}

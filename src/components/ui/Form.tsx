@@ -107,15 +107,20 @@ const useFormItem = () => {
   };
 };
 
-const FormLabel = ({
+function FormLabel({
+  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>) => {
+}: React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+  ref?: React.RefObject<React.ComponentRef<typeof LabelPrimitive.Root>>;
+}) {
   const { formItemId, errors, isSubmitted } = useFormItem();
 
   return (
     <Label
+      ref={ref}
       className={cx(
+        'mb-2 block',
         isSubmitted && errors.length > 0 && 'text-destructive',
         className,
       )}
@@ -123,7 +128,7 @@ const FormLabel = ({
       {...props}
     />
   );
-};
+}
 
 const FormControl = ({
   ...props

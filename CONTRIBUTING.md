@@ -221,6 +221,10 @@ To check linting and formatting you run the respective command:
 bun lint
 ```
 
+### Debugging (Neovim)
+
+To debug with Neovim you need to have DAP setup using the [DAP plugin](https://github.com/mfussenegger/nvim-dap) and [DAP UI](https://github.com/rcarriga/nvim-dap-ui). Then you need to install the node debugging adapter for debugging the server side, and the chrome or firefox debugging adapter for debugging the client side. You can attach the debugger using the same configurations as in VS Code defined in the `.vscode/launch.json` file.
+
 ### Debugging (VS Code)
 
 To start debugging your code, you can run the `Next.js: Debug server-side` configuration followed by either the `Next.js: Debug client-side` if you're using Chrome, or `Next.js: Debug server-side (Firefox)` if you're using Firefox. If you'd like to use Firefox, the [Debugger for Firefox](https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug) extension is required.
