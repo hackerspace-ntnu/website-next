@@ -1,16 +1,17 @@
-import { MemberList } from '@/components/shift-schedule/MemberList';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTrigger,
-} from '@/components/ui/Dialog';
+  ResponsiveDialog,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogTrigger,
+} from '@/components/composites/ResponsiveDialog';
+import { MemberList } from '@/components/shift-schedule/MemberList';
+import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import type { Member } from '@/server/api/routers';
-import { DialogTitle } from '@radix-ui/react-dialog';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { SkillIcon } from '../skills/SkillIcon';
@@ -42,12 +43,13 @@ function ScheduleCell({
   return (
     // 206px width is the largest that doesn't give scroll on iPhone 5/SE (smallest phone we have support for)
     <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
-      <Dialog>
-        <DialogTrigger asChild>
-          <button
-            type='button'
+      <ResponsiveDialog>
+        <ResponsiveDialogTrigger asChild>
+          <Button
+            variant='none'
+            size='none'
             className={cx(
-              'flex size-full gap-2 rounded-md p-2 text-left',
+              'flex size-full items-start justify-start gap-2 rounded-md p-2 text-left',
               userOnShift
                 ? 'bg-primary/20 hover:bg-primary/15 dark:hover:bg-primary/25'
                 : members.length === 0
@@ -82,23 +84,23 @@ function ScheduleCell({
                 ))}
               </div>
             )}
-          </button>
-        </DialogTrigger>
-        <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <DialogHeader>
-            <DialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
+          </Button>
+        </ResponsiveDialogTrigger>
+        <ResponsiveDialogContent className='mb-12 w-full min-w-80 p-3 md:mb-0 md:w-fit lg:w-1/3 lg:min-w-96'>
+          <ResponsiveDialogHeader>
+            <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
               <span className='font-semibold text-3xl'>
                 {formattedShift.day}
               </span>
               <span className='mt-auto font-semibold text-lg'>
                 {formattedShift.time}
               </span>
-            </DialogTitle>
+            </ResponsiveDialogTitle>
             {/* Not having description causes error, can't use aria-description */}
-            <DialogDescription className='hidden'>
+            <ResponsiveDialogDescription className='hidden'>
               {t('description')}
-            </DialogDescription>
-          </DialogHeader>
+            </ResponsiveDialogDescription>
+          </ResponsiveDialogHeader>
           <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
             <MemberList
               t={{
@@ -125,8 +127,8 @@ function ScheduleCell({
               className='mt-auto min-w-fit'
             />
           </div>
-        </DialogContent>
-      </Dialog>
+        </ResponsiveDialogContent>
+      </ResponsiveDialog>
     </TableCell>
   );
 }

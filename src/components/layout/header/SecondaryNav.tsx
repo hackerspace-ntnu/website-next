@@ -3,6 +3,7 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/components/ui/Link';
+import { Button } from '@react-email/components';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;
@@ -43,8 +44,8 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
         >
           {items.map((item) => (
             <DropdownMenuItem
-              className='w-full justify-start focus-visible:hover:ring-0'
               key={item.key}
+              className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
               asChild
             >
               {item}
