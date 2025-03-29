@@ -45,10 +45,11 @@ const itemLoans = pgTable('item_loans', {
     .notNull()
     .references(() => users.id),
   unitsBorrowed: integer('units_borrowed').notNull(),
-  borrowedAt: timestamp('borrowed_at').notNull(),
-  returnBy: timestamp('return_by').notNull(),
-  returnedAt: timestamp('returned_at'),
+  borrowFrom: timestamp('borrow_from').notNull(),
+  borrowUntil: timestamp('borrow_until').notNull(),
   accepted: boolean('accepted').default(false),
+  acceptedAt: timestamp('accepted_at'),
+  returnedAt: timestamp('returned_at'),
   notes: varchar('notes', { length: 512 }),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 });

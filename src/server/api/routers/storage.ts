@@ -258,9 +258,9 @@ const storageRouter = createRouter({
         await ctx.db.insert(itemLoans).values({
           itemId: item.id,
           lenderId: ctx.user.id,
-          borrowedAt: borrowing.borrowedAt,
-          returnBy: borrowing.returnBy as Date,
           unitsBorrowed: borrowing.amount as number,
+          borrowFrom: borrowing.borrowFrom,
+          borrowUntil: borrowing.borrowUntil as Date,
         });
       }
     }),

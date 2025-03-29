@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/Dialog';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
+import { useState } from 'react';
 
 type BorrowDialogProps = {
   t: {
@@ -20,8 +21,8 @@ type BorrowDialogProps = {
     email: string;
     phoneNumber: string;
     phoneNumberDescription: string;
-    returnBy: string;
-    returnByDescription: string;
+    loanPeriod: string;
+    loanPeriodDescription: string;
     submit: string;
     mustbeLoggedIn: string;
     success: string;
@@ -31,11 +32,12 @@ type BorrowDialogProps = {
 };
 
 function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
+  const [open, setOpen] = useState(false);
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             className={cx(!isLoading && !cart ? 'hidden' : 'block', className)}
@@ -49,7 +51,7 @@ function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
           <DialogHeader>
             <DialogTitle>{t.borrowNow}</DialogTitle>
           </DialogHeader>
-          <LoanForm t={t} />
+          <LoanForm t={t} setOpen={setOpen} />
         </DialogContent>
       </Dialog>
     </>

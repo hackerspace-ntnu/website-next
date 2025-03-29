@@ -302,8 +302,8 @@
       "email": "Epost",
       "phoneNumber": "Mobilnummer",
       "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
-      "returnBy": "Lån fram til",
-      "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "loanPeriod": "Velg låneperiode",
+      "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
       "submit": "Send",
       "dateInFuture": "Datoen for levering må være i framtiden",
       "success": "Låneforespørsel sendt! Videresender deg til lageret..."

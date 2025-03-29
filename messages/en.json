@@ -309,10 +309,10 @@
       "email": "Email",
       "phoneNumber": "Phone number",
       "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
-      "returnBy": "Return by",
-      "returnByDescription": "Select how long you would like to borrow the item for.",
+      "loanPeriod": "Select loan period",
+      "loanPeriodDescription": "Select how long you would like to borrow the item for.",
       "submit": "Submit",
-      "dateInFuture": "The return by date must be in the future",
+      "dateInFuture": "The return date must be in the future",
       "success": "Borrow request sent! Redirecting to storage..."
     },
     "edit": {

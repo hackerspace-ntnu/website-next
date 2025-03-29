@@ -28,14 +28,15 @@ type LoanFormProps = {
     email: string;
     phoneNumber: string;
     phoneNumberDescription: string;
-    returnBy: string;
-    returnByDescription: string;
+    loanPeriod: string;
+    loanPeriodDescription: string;
     submit: string;
     success: string;
   };
+  setOpen: (newState: boolean) => void;
 };
 
-function LoanForm({ t }: LoanFormProps) {
+function LoanForm({ t, setOpen }: LoanFormProps) {
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
   const borrowItemsMutation = api.storage.borrowItems.useMutation({
@@ -56,11 +57,12 @@ function LoanForm({ t }: LoanFormProps) {
         cart.map((i) => ({
           id: i.id,
           amount: i.amount,
-          borrowedAt: value.dates.from ?? new Date(),
-          returnBy: value.dates.to ?? addDays(new Date(), 1),
+          borrowFrom: value.dates.from ?? new Date(),
+          borrowUntil: value.dates.to ?? addDays(new Date(), 1),
         })),
       );
       setCart(null);
+      setOpen(false);
       router.push('/storage');
     },
   });
@@ -70,7 +72,7 @@ function LoanForm({ t }: LoanFormProps) {
       <form.Field name='dates'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t.returnBy}</FormLabel>
+            <FormLabel>{t.loanPeriod}</FormLabel>
             <FormControl>
               <Calendar
                 className='mx-auto w-fit rounded-md border'
@@ -93,7 +95,7 @@ function LoanForm({ t }: LoanFormProps) {
                 }}
               />
             </FormControl>
-            <FormDescription>{t.returnByDescription}</FormDescription>
+            <FormDescription>{t.loanPeriodDescription}</FormDescription>
             <FormMessage />
           </FormItem>
         )}
