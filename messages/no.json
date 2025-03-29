@@ -375,7 +375,8 @@
       "notFound": "Den valgte gjenstanden ble ikke funnet.",
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
-      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig."
+      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først."
     }
   },
   "shiftSchedule": {

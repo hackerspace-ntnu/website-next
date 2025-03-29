@@ -1,6 +1,6 @@
 'use client';
 
-import { ConfirmDialog } from '@/components/composites/ConfirmDialog';
+import { DeleteItemDialog } from '@/components/storage/DeleteItemDialog';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useForm } from '@/components/ui/Form';
@@ -55,9 +55,6 @@ function EditItemForm({
   const editItemMutation = api.storage.editItem.useMutation({
     onSuccess: () => toast.success(t('successEdit')),
   });
-  const deleteItemMutation = api.storage.deleteItem.useMutation({
-    onSuccess: () => toast.success(t('successDelete')),
-  });
 
   const form = useForm(schema, {
     validators: {
@@ -85,13 +82,6 @@ function EditItemForm({
       router.refresh();
     },
   });
-
-  function handleDelete() {
-    if (!prefilledItem) return;
-    deleteItemMutation.mutate({ id: prefilledItem.id });
-    router.push('/storage');
-    router.refresh();
-  }
 
   return (
     <Form onSubmit={form.handleSubmit} className='max-w-prose space-y-8'>
@@ -235,17 +225,16 @@ function EditItemForm({
           )}
         </form.Subscribe>
         {prefilledItem && (
-          <ConfirmDialog
+          <DeleteItemDialog
+            item={prefilledItem}
             t={{
               title: t('deleteItem'),
               description: t('deleteItemDescription'),
               confirm: tUi('confirm'),
               cancel: tUi('cancel'),
+              success: t('successDelete'),
             }}
-            confirmAction={handleDelete}
-          >
-            {t('deleteItem')}
-          </ConfirmDialog>
+          />
         )}
       </div>
     </Form>

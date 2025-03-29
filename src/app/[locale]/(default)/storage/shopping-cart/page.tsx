@@ -67,7 +67,6 @@ export default async function StorageShoppingCartPage({
             clearCartDescription: t('clearCartDescription'),
             clear: t('clear'),
           }}
-          className='sm:-translate-y-1/2 sm:absolute sm:top-1/2 sm:right-0'
         />
       </div>
     </>

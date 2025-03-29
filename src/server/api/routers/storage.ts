@@ -194,16 +194,20 @@ const storageRouter = createRouter({
   deleteItem: authenticatedProcedure
     .input((input) => deleteItemSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db
-        .delete(storageItems)
-        .where(eq(storageItems.id, input.id))
-        .catch(() => {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('storage.api.notFound'),
-            cause: { toast: 'error' },
-          });
+      const loansOfThisItem = await ctx.db
+        .select()
+        .from(itemLoans)
+        .where(eq(itemLoans.itemId, input.id));
+
+      if (loansOfThisItem.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.itemIsBorrowed'),
+          cause: { toast: 'error' },
         });
+      }
+
+      await ctx.db.delete(storageItems).where(eq(storageItems.id, input.id));
     }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db

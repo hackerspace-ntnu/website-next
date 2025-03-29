@@ -375,7 +375,8 @@
       "notFound": "The selected storage item was not found.",
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
-      "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units."
+      "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first."
     }
   },
   "shiftSchedule": {
