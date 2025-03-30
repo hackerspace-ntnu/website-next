@@ -24,7 +24,7 @@ import { itemSchema } from '@/validations/storage/itemSchema';
 import { itemsTotalSchema } from '@/validations/storage/itemsTotalSchema';
 import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
 import { TRPCError } from '@trpc/server';
-import { and, count, eq, ilike, inArray } from 'drizzle-orm';
+import { and, count, desc, eq, ilike, inArray } from 'drizzle-orm';
 
 const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
@@ -334,6 +334,7 @@ const storageRouter = createRouter({
         where: input.pending
           ? eq(itemLoans.approved, false)
           : eq(itemLoans.approved, true),
+        orderBy: desc(itemLoans.returnedAt),
         with: {
           item: true,
           lender: true,

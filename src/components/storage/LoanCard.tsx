@@ -85,7 +85,7 @@ async function LoanCard({
             )
           ) : null}
         </ul>
-        <p className='pt-6'>{t('askForApproval')}</p>
+        {status === 'pending' && <p className='pt-6'>{t('askForApproval')}</p>}
       </CardContent>
       <CardFooter className='flex gap-2'>
         {status === 'pending' && (
