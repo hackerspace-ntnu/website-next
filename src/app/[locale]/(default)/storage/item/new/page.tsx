@@ -31,10 +31,7 @@ export default async function NewStorageItemPage({
   const itemCategories = await api.storage.fetchItemCategoryNames();
 
   return (
-    <div className='mx-auto max-w-prose space-y-8'>
-      <h1 className='text-center'>
-        {tStorage('title')}: {t('titleNew')}
-      </h1>
+    <div className='mx-auto max-w-prose'>
       <NextIntlClientProvider
         messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
       >

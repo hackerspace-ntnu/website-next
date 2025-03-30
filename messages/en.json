@@ -378,7 +378,9 @@
       "loanReturnSuccess": "Loan has been registered as returned!",
       "loanAccepted": "This loan has been accepted",
       "borrowTimeline": "Borrowing from {from} until {until}",
-      "requestedAt": "Requested at {date}"
+      "requestedAt": "Requested at {date}",
+      "noPendingLoans": "No pending loans 🎉",
+      "noLoansFound": "No loans found"
     },
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",

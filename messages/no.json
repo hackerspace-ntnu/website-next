@@ -378,7 +378,9 @@
       "loanReturnSuccess": "Lånet har blitt registrert som levert!",
       "loanAccepted": "Dette lånet har blitt godkjent",
       "borrowTimeline": "Lån fra {from} til {until}",
-      "requestedAt": "Forespørsel sendt {date}"
+      "requestedAt": "Forespørsel sendt {date}",
+      "noPendingLoans": "Ingen utestående lån 🎉",
+      "noLoansFound": "Ingen lån funnet"
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

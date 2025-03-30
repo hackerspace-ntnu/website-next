@@ -49,10 +49,7 @@ export default async function EditStorageItemPage({
   }
 
   return (
-    <div className='mx-auto max-w-prose space-y-8'>
-      <h1 className='text-center'>
-        {tStorage('title')}: {t('titleEdit')}
-      </h1>
+    <div className='mx-auto max-w-prose'>
       <NextIntlClientProvider
         messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
       >

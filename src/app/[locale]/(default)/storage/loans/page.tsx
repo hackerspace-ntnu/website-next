@@ -41,7 +41,6 @@ export default async function StorageLoansPage({
   setRequestLocale(locale);
 
   const t = await getTranslations('storage.loans');
-  const tStorage = await getTranslations('storage');
   const tUi = await getTranslations('ui');
 
   const searchParamsCache = createSearchParamsCache({
@@ -64,11 +63,8 @@ export default async function StorageLoansPage({
 
   return (
     <div className='mx-auto max-w-prose space-y-8'>
-      <h1 className='text-center'>
-        {tStorage('title')}: {t('title')}
-      </h1>
       <h2>{t('titlePending')}</h2>
-      {pendingLoans.length === 0 && <h3>No pending loans 🎉</h3>}
+      {pendingLoans.length === 0 && <h3>{t('noPendingLoans')}</h3>}
       {pendingLoans.map((loan) => (
         <Card key={loan.id}>
           <CardHeader>
@@ -122,7 +118,7 @@ export default async function StorageLoansPage({
         </Card>
       ))}
       <h2>{t('titleAccepted')}</h2>
-      {pastLoans.length === 0 && <h3>No loans found</h3>}
+      {pastLoans.length === 0 && <h3>{t('noLoansFound')}</h3>}
       {pastLoans.map((loan) => (
         <Card key={loan.id}>
           <CardHeader>
