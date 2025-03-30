@@ -1,4 +1,3 @@
-import ErrorPage from '@/app/[locale]/error';
 import { EditItemForm } from '@/components/storage/EditItemForm';
 import { api } from '@/lib/api/server';
 import { NextIntlClientProvider } from 'next-intl';
@@ -7,7 +6,6 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { NextResponse } from 'next/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');
@@ -25,7 +23,6 @@ export default async function EditStorageItemPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const tStorage = await getTranslations('storage');
   const t = await getTranslations('storage.edit');
 
   const { storage, ui } = await getMessages();

@@ -19,12 +19,9 @@ export default async function LoansLayout({
 
   return (
     <>
-      <div className='relative mb-8'>
-        <h1 className='mx-auto my-4 text-center'>
-          {t('title')}: {tLoans('title')}
-        </h1>
+      <div className='mb-8 flex items-center justify-between md:relative'>
         <Link
-          className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
+          className='md:-translate-y-1/2 flex gap-2 p-0 sm:px-2 sm:py-4 md:absolute md:top-1/2 md:left-0'
           variant='ghost'
           size='default'
           href='/storage'
@@ -33,6 +30,9 @@ export default async function LoansLayout({
           <ArrowLeftIcon aria-hidden='true' />
           <span className='hidden sm:inline'>{t('backToStorage')}</span>
         </Link>
+        <h1 className='mx-auto my-4 text-center'>
+          {t('title')}: {tLoans('title')}
+        </h1>
       </div>
       {children}
     </>

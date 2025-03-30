@@ -80,7 +80,7 @@ export default async function StorageItemPage({
             <p>
               {item.description ? item.description : t('item.noDescription')}
             </p>
-            <div className='mt-2 flex gap-2'>
+            <div className='mt-2 flex justify-center gap-2 md:justify-start'>
               <AddToCartButton item={item} t={addToCartTranslations} />
               {canManageItems && (
                 <Link
