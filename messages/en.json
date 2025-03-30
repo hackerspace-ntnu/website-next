@@ -355,7 +355,7 @@
       "successNew": "New storage item added successfully! Redirecting to storage...",
       "successEdit": "Storage item edited successfully! Redirecting to storage...",
       "successDelete": "Storage item deleted successfully! Redirecting to storage...",
-      "unauthorized": "Unauthorized to edit storage items"
+      "unauthorized": "Unauthorized to manage storage items"
     },
     "loans": {
       "view": "View loans",
@@ -380,7 +380,8 @@
       "borrowTimeline": "Borrowing from {from} until {until}",
       "requestedAt": "Requested at {date}",
       "noPendingLoans": "No pending loans 🎉",
-      "noLoansFound": "No loans found"
+      "noLoansFound": "No loans found",
+      "unauthorized": "Unauthorized to manage storage item loan requests"
     },
     "api": {
       "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",

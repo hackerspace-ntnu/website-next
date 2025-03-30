@@ -355,7 +355,7 @@
       "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
       "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
       "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
-      "unauthorized": "Du har ikke rettigheter til å redigere gjenstandene på lager"
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandene på lager"
     },
     "loans": {
       "view": "Se lån",
@@ -380,7 +380,8 @@
       "borrowTimeline": "Lån fra {from} til {until}",
       "requestedAt": "Forespørsel sendt {date}",
       "noPendingLoans": "Ingen utestående lån 🎉",
-      "noLoansFound": "Ingen lån funnet"
+      "noLoansFound": "Ingen lån funnet",
+      "unauthorized": "Du har ikke rettigheter til å administrere låneforespørsler"
     },
     "api": {
       "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",

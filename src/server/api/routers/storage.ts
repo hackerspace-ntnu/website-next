@@ -2,6 +2,7 @@ import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
   publicProcedure,
+  storageProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
@@ -16,7 +17,6 @@ import { insertFile } from '@/server/services/files';
 import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
-import { fetchLoansForItemsSchema } from '@/validations/storage/fetchLoansForItemsSchema';
 import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
@@ -165,7 +165,7 @@ const storageRouter = createRouter({
 
       return counts[0].count;
     }),
-  newItem: authenticatedProcedure
+  newItem: storageProcedure
     .input(async (input) =>
       itemSchema(useTranslationsFromContext(), categories).parse(input),
     )
@@ -219,7 +219,7 @@ const storageRouter = createRouter({
 
       await ctx.db.insert(storageItems).values(insertValues);
     }),
-  editItem: authenticatedProcedure
+  editItem: storageProcedure
     .input((input) =>
       editItemSchema(useTranslationsFromContext(), categories).parse(input),
     )
@@ -256,7 +256,7 @@ const storageRouter = createRouter({
         .set(insertValues)
         .where(eq(storageItems.id, input.id));
     }),
-  deleteItem: authenticatedProcedure
+  deleteItem: storageProcedure
     .input((input) => deleteItemSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const loansOfThisItem = await ctx.db
@@ -325,7 +325,7 @@ const storageRouter = createRouter({
         });
       }
     }),
-  fetchLoans: authenticatedProcedure
+  fetchLoans: storageProcedure
     .input((input) => fetchLoansSchema().parse(input))
     .query(async ({ input, ctx }) => {
       return ctx.db.query.itemLoans.findMany({
@@ -340,22 +340,7 @@ const storageRouter = createRouter({
         },
       });
     }),
-  fetchLoansForItems: authenticatedProcedure
-    .input((input) => fetchLoansForItemsSchema().parse(input))
-    .query(async ({ input, ctx }) => {
-      const loans = await ctx.db
-        .select()
-        .from(itemLoans)
-        .where(inArray(itemLoans.itemId, input));
-      const mappedLoans: { [key: number]: (typeof loans)[number] } = {};
-
-      for (const loan of loans) {
-        mappedLoans[loan.itemId] = loan;
-      }
-
-      return mappedLoans;
-    }),
-  approveLoan: authenticatedProcedure
+  approveLoan: storageProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -371,7 +356,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  deleteLoan: authenticatedProcedure
+  deleteLoan: storageProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -384,7 +369,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  confirmLoanReturned: authenticatedProcedure
+  confirmLoanReturned: storageProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db

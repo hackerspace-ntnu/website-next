@@ -43,6 +43,17 @@ export default async function StorageLoansPage({
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
 
+  const auth = await api.auth.state();
+
+  if (
+    !auth.user?.groups.some((g) =>
+      ['labops', 'leadership', 'admin'].includes(g),
+    )
+  ) {
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
+    throw new Error(t('unauthorized'));
+  }
+
   const searchParamsCache = createSearchParamsCache({
     [tUi('page')]: parseAsInteger.withDefault(1),
   });
