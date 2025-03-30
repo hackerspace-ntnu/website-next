@@ -321,7 +321,7 @@ const storageRouter = createRouter({
           borrowFrom: borrowing.borrowFrom,
           borrowUntil: borrowing.borrowUntil as Date,
           // Do not approve automatically unless user is actually a Hackerspace member
-          accepted: borrowing.autoaccept ? ctx.user.groups.length > 0 : false,
+          approved: borrowing.autoapprove ? ctx.user.groups.length > 0 : false,
         });
       }
     }),
@@ -332,8 +332,8 @@ const storageRouter = createRouter({
         limit: input.limit,
         offset: input.offset,
         where: input.pending
-          ? eq(itemLoans.accepted, false)
-          : eq(itemLoans.accepted, true),
+          ? eq(itemLoans.approved, false)
+          : eq(itemLoans.approved, true),
         with: {
           item: true,
           lender: true,
@@ -355,13 +355,13 @@ const storageRouter = createRouter({
 
       return mappedLoans;
     }),
-  acceptLoan: authenticatedProcedure
+  approveLoan: authenticatedProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
         .update(itemLoans)
         .set({
-          accepted: true,
+          approved: true,
         })
         .where(
           and(

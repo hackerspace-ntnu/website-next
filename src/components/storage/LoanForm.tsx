@@ -28,8 +28,8 @@ type LoanFormProps = {
     title: string;
     loanPeriod: string;
     loanPeriodDescription: string;
-    autoaccept: string;
-    autoacceptDescription: string;
+    autoapprove: string;
+    autoapproveDescription: string;
     submit: string;
     success: string;
   };
@@ -54,7 +54,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
         from: new Date(),
         to: addDays(new Date(), 1),
       } as DateRange,
-      autoaccept: userIsMember,
+      autoapprove: userIsMember,
     },
     onSubmit: ({ value }) => {
       if (!cart || isLoading) return;
@@ -64,7 +64,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
           amount: i.amount,
           borrowFrom: value.dates.from ?? new Date(),
           borrowUntil: value.dates.to ?? addDays(new Date(), 1),
-          autoaccept: value.autoaccept,
+          autoapprove: value.autoapprove,
         })),
       );
       setCart(null);
@@ -107,7 +107,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
         )}
       </form.Field>
       {userIsMember && (
-        <form.Field name='autoaccept'>
+        <form.Field name='autoapprove'>
           {(field) => (
             <FormItem errors={field.state.meta.errors}>
               <div className='flex items-center gap-2'>
@@ -121,9 +121,9 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
                     }
                   />
                 </FormControl>
-                <Label>{t.autoaccept}</Label>
+                <Label>{t.autoapprove}</Label>
               </div>
-              <FormDescription>{t.autoacceptDescription}</FormDescription>
+              <FormDescription>{t.autoapproveDescription}</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -19,8 +19,8 @@ type BorrowDialogProps = {
     title: string;
     loanPeriod: string;
     loanPeriodDescription: string;
-    autoaccept: string;
-    autoacceptDescription: string;
+    autoapprove: string;
+    autoapproveDescription: string;
     submit: string;
     mustbeLoggedIn: string;
     success: string;

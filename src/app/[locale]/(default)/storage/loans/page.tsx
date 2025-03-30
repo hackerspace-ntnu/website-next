@@ -1,4 +1,4 @@
-import { AcceptLoanButton } from '@/components/storage/AcceptLoanButton';
+import { ApproveLoanButton } from '@/components/storage/ApproveLoanButton';
 import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
 import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
 import {
@@ -98,10 +98,10 @@ export default async function StorageLoansPage({
             <p className='pt-6'>{t('askForApproval')}</p>
           </CardContent>
           <CardFooter className='flex gap-2'>
-            <AcceptLoanButton
+            <ApproveLoanButton
               loan={loan}
-              label={t('accept')}
-              successMessage={t('loanAcceptSuccess')}
+              label={t('approve')}
+              successMessage={t('loanApproveSuccess')}
             />
             <DeleteLoanButton
               loan={loan}
@@ -117,13 +117,13 @@ export default async function StorageLoansPage({
           </CardFooter>
         </Card>
       ))}
-      <h2>{t('titleAccepted')}</h2>
+      <h2>{t('titleApproved')}</h2>
       {pastLoans.length === 0 && <h3>{t('noLoansFound')}</h3>}
       {pastLoans.map((loan) => (
         <Card key={loan.id}>
           <CardHeader>
             <CardTitle>{t('loan')}</CardTitle>
-            <CardDescription>{t('loanAccepted')}</CardDescription>
+            <CardDescription>{t('loanApproved')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
