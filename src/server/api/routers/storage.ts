@@ -49,11 +49,13 @@ const storageRouter = createRouter({
 
       const { itemLoans, ...itemWithoutLoans } = item;
 
+      const unitsBorrowed = itemLoans
+        .map((loan) => loan.unitsBorrowed)
+        .reduce((a, b) => a + b, 0);
+
       return {
         ...itemWithoutLoans,
-        availableUnits: itemLoans
-          .map((loan) => loan.unitsBorrowed)
-          .reduce((a, b) => a + b, 0),
+        availableUnits: item.quantity - unitsBorrowed,
       };
     }),
   fetchMany: publicProcedure
@@ -74,11 +76,13 @@ const storageRouter = createRouter({
         for (const item of rawItems) {
           const { itemLoans, ...itemWithoutLoans } = item;
 
+          const unitsBorrowed = itemLoans
+            .map((loan) => loan.unitsBorrowed)
+            .reduce((a, b) => a + b, 0);
+
           items.push({
             ...itemWithoutLoans,
-            availableUnits: itemLoans
-              .map((loan) => loan.unitsBorrowed)
-              .reduce((a, b) => a + b, 0),
+            availableUnits: item.quantity - unitsBorrowed,
           });
         }
 
