@@ -91,7 +91,10 @@ export default async function StorageLoansPage({
               <li>
                 <ShoppingBasketIcon className='h-8 w-8' />
                 <span>
-                  {loan.unitsBorrowed}x {loan.item.name}
+                  {t('loanItem', {
+                    units: loan.unitsBorrowed,
+                    name: loan.item.name,
+                  })}
                 </span>
               </li>
             </ul>
@@ -145,7 +148,10 @@ export default async function StorageLoansPage({
               <li>
                 <ShoppingBasketIcon className='h-8 w-8' />
                 <span>
-                  {loan.unitsBorrowed}x {loan.item.name}
+                  {t('loanItem', {
+                    units: loan.unitsBorrowed,
+                    name: loan.item.name,
+                  })}
                 </span>
               </li>
               {loan.returnedAt ? (

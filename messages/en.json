@@ -366,6 +366,7 @@
       "notReturned": "Not returned yet",
       "returned": "Returned {date}",
       "loanSubheader": "This loan is waiting for approval",
+      "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",
       "askForApproval": "Do you wish to approve this loan request?",
       "approve": "Approve",
       "confirmLoanReturn": "Confirm item return",

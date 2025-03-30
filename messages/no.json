@@ -366,6 +366,7 @@
       "notReturned": "Ikke levert tilbake enda",
       "returned": "Levert tilbake {date}",
       "loanSubheader": "Dette lånet venter på godkjenning",
+      "loanItem": "{units, plural, other {# stk.}} av {name}",
       "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
       "approve": "Godkjenn",
       "confirmLoanReturn": "Bekreft tilbakelevering",
