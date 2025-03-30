@@ -68,6 +68,7 @@ export default async function StorageLoansPage({
         {tStorage('title')}: {t('title')}
       </h1>
       <h2>{t('titlePending')}</h2>
+      {pendingLoans.length === 0 && <h3>No pending loans 🎉</h3>}
       {pendingLoans.map((loan) => (
         <Card key={loan.id}>
           <CardHeader>
@@ -121,6 +122,7 @@ export default async function StorageLoansPage({
         </Card>
       ))}
       <h2>{t('titleAccepted')}</h2>
+      {pastLoans.length === 0 && <h3>No loans found</h3>}
       {pastLoans.map((loan) => (
         <Card key={loan.id}>
           <CardHeader>
