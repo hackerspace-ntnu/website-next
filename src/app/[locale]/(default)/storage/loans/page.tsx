@@ -1,23 +1,5 @@
-import { ApproveLoanButton } from '@/components/storage/ApproveLoanButton';
-import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
-import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
+import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
-import { format } from 'date-fns';
-import {
-  CalendarIcon,
-  CheckIcon,
-  CircleUserIcon,
-  ShoppingBasketIcon,
-  XIcon,
-} from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { parseAsInteger } from 'nuqs/server';
 import { type SearchParams, createSearchParamsCache } from 'nuqs/server';
@@ -77,121 +59,12 @@ export default async function StorageLoansPage({
       <h2>{t('titlePending')}</h2>
       {pendingLoans.length === 0 && <h3>{t('noPendingLoans')}</h3>}
       {pendingLoans.map((loan) => (
-        <Card key={loan.id}>
-          <CardHeader>
-            <CardTitle>{t('pendingLoan')}</CardTitle>
-            <CardDescription>{t('loanSubheader')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
-              <li>
-                <CircleUserIcon className='h-8 w-8' />
-                <span>
-                  {loan.lender.firstName} {loan.lender.lastName}
-                </span>
-              </li>
-              <li>
-                <CalendarIcon className='h-8 w-8' />
-                <span>
-                  {t('borrowTimeline', {
-                    from: format(loan.borrowFrom, 'dd.MM.yyyy'),
-                    until: format(loan.borrowUntil, 'dd.MM.yyyy'),
-                  })}
-                </span>
-              </li>
-              <li>
-                <ShoppingBasketIcon className='h-8 w-8' />
-                <span>
-                  {t('loanItem', {
-                    units: loan.unitsBorrowed,
-                    name: loan.item.name,
-                  })}
-                </span>
-              </li>
-            </ul>
-            <p className='pt-6'>{t('askForApproval')}</p>
-          </CardContent>
-          <CardFooter className='flex gap-2'>
-            <ApproveLoanButton
-              loan={loan}
-              label={t('approve')}
-              successMessage={t('loanApproveSuccess')}
-            />
-            <DeleteLoanButton
-              loan={loan}
-              t={{
-                buttonLabel: tUi('delete'),
-                title: t('deleteLoan'),
-                description: t('deleteDescription', {
-                  person: `${loan.lender.firstName} ${loan.lender.lastName}`,
-                }),
-                successMessage: t('loanDeleteSuccess'),
-              }}
-            />
-          </CardFooter>
-        </Card>
+        <LoanCard key={loan.id} loan={loan} status='pending' />
       ))}
       <h2>{t('titleApproved')}</h2>
       {pastLoans.length === 0 && <h3>{t('noLoansFound')}</h3>}
       {pastLoans.map((loan) => (
-        <Card key={loan.id}>
-          <CardHeader>
-            <CardTitle>{t('loan')}</CardTitle>
-            <CardDescription>{t('loanApproved')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
-              <li>
-                <CircleUserIcon className='h-8 w-8' />
-                <span>
-                  {loan.lender.firstName} {loan.lender.lastName}
-                </span>
-              </li>
-              <li>
-                <CalendarIcon className='h-8 w-8' />
-                <span>
-                  {t('borrowTimeline', {
-                    from: format(loan.borrowFrom, 'dd.MM.yyyy'),
-                    until: format(loan.borrowUntil, 'dd.MM.yyyy'),
-                  })}
-                </span>
-              </li>
-              <li>
-                <ShoppingBasketIcon className='h-8 w-8' />
-                <span>
-                  {t('loanItem', {
-                    units: loan.unitsBorrowed,
-                    name: loan.item.name,
-                  })}
-                </span>
-              </li>
-              {loan.returnedAt ? (
-                <li>
-                  <CheckIcon className='h-8 w-8 text-primary' />
-                  <span>
-                    {t('returned', {
-                      date: format(loan.returnedAt, 'dd.MM.yyyy'),
-                    })}
-                  </span>
-                </li>
-              ) : (
-                <li>
-                  <XIcon className='h-8 w-8 text-red-700' />
-                  <span>{t('notReturned')}</span>
-                </li>
-              )}
-            </ul>
-          </CardContent>
-          <CardFooter>
-            {!loan.returnedAt && (
-              <ConfirmLoanReturnedButton
-                loan={loan}
-                label={t('confirmLoanReturn')}
-                successMessage={t('loanReturnSuccess')}
-              />
-            )}
-          </CardFooter>
-        </Card>
+        <LoanCard key={loan.id} loan={loan} status='approved' />
       ))}
     </div>
   );

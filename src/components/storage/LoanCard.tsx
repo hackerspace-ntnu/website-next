@@ -1,0 +1,123 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/Card';
+import type { RouterOutput } from '@/server/api';
+import { format } from 'date-fns';
+import {
+  CalendarIcon,
+  CheckIcon,
+  CircleUserIcon,
+  ShoppingBasketIcon,
+  XIcon,
+} from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+import { ApproveLoanButton } from './ApproveLoanButton';
+import { ConfirmLoanReturnedButton } from './ConfirmLoanReturnedButton';
+import { DeleteLoanButton } from './DeleteLoanButton';
+
+async function LoanCard({
+  loan,
+  status,
+}: {
+  loan: RouterOutput['storage']['fetchLoans'][number];
+  status: 'approved' | 'pending';
+}) {
+  const t = await getTranslations('storage.loans');
+  const tUi = await getTranslations('ui');
+
+  return (
+    <Card key={loan.id}>
+      <CardHeader>
+        <CardTitle>
+          {t(status === 'approved' ? 'loanApproved' : 'loan')}
+        </CardTitle>
+        <CardDescription>
+          {t(status === 'approved' ? 'loanApproved' : 'loanSubheader')}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
+          <li>
+            <CircleUserIcon className='h-8 w-8' />
+            <span>
+              {loan.lender.firstName} {loan.lender.lastName}
+            </span>
+          </li>
+          <li>
+            <CalendarIcon className='h-8 w-8' />
+            <span>
+              {t('borrowTimeline', {
+                from: format(loan.borrowFrom, 'dd.MM.yyyy'),
+                until: format(loan.borrowUntil, 'dd.MM.yyyy'),
+              })}
+            </span>
+          </li>
+          <li>
+            <ShoppingBasketIcon className='h-8 w-8' />
+            <span>
+              {t('loanItem', {
+                units: loan.unitsBorrowed,
+                name: loan.item.name,
+              })}
+            </span>
+          </li>
+          {/* Only show loan return info if loan is already approved */}
+          {status === 'approved' ? (
+            loan.returnedAt ? (
+              <li>
+                <CheckIcon className='h-8 w-8 text-primary' />
+                <span>
+                  {t('returned', {
+                    date: format(loan.returnedAt, 'dd.MM.yyyy'),
+                  })}
+                </span>
+              </li>
+            ) : (
+              <li>
+                <XIcon className='h-8 w-8 text-red-700' />
+                <span>{t('notReturned')}</span>
+              </li>
+            )
+          ) : null}
+        </ul>
+        <p className='pt-6'>{t('askForApproval')}</p>
+      </CardContent>
+      <CardFooter className='flex gap-2'>
+        {status === 'pending' && (
+          <>
+            <ApproveLoanButton
+              loan={loan}
+              label={t('approve')}
+              successMessage={t('loanApproveSuccess')}
+            />
+            <DeleteLoanButton
+              loan={loan}
+              t={{
+                buttonLabel: tUi('delete'),
+                title: t('deleteLoan'),
+                description: t('deleteDescription', {
+                  person: `${loan.lender.firstName} ${loan.lender.lastName}`,
+                }),
+                successMessage: t('loanDeleteSuccess'),
+              }}
+            />
+          </>
+        )}
+        {status === 'approved' && !loan.returnedAt && (
+          <ConfirmLoanReturnedButton
+            loan={loan}
+            label={t('confirmLoanReturn')}
+            successMessage={t('loanReturnSuccess')}
+          />
+        )}
+      </CardFooter>
+    </Card>
+  );
+}
+
+export { LoanCard };
