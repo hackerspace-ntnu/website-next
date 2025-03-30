@@ -320,6 +320,8 @@ const storageRouter = createRouter({
           unitsBorrowed: borrowing.amount as number,
           borrowFrom: borrowing.borrowFrom,
           borrowUntil: borrowing.borrowUntil as Date,
+          // Do not approve automatically unless user is actually a Hackerspace member
+          accepted: borrowing.autoaccept ? ctx.user.groups.length > 0 : false,
         });
       }
     }),

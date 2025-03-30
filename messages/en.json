@@ -307,12 +307,10 @@
       "mustBeLoggedIn": "You must be logged in to borrow items"
     },
     "loanForm": {
-      "name": "Name",
-      "email": "Email",
-      "phoneNumber": "Phone number",
-      "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
       "loanPeriod": "Select loan period",
       "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "autoaccept": "Approve immediately",
+      "autoacceptDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
       "success": "Borrow request sent! Redirecting to storage..."

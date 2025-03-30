@@ -33,13 +33,11 @@ export default async function StorageShoppingCartPage({
   };
 
   const borrowNowMessages = {
-    borrowNow: t('borrowNow'),
-    name: tLoanForm('name'),
-    email: tLoanForm('email'),
-    phoneNumber: tLoanForm('phoneNumber'),
-    phoneNumberDescription: tLoanForm('phoneNumberDescription'),
+    title: t('borrowNow'),
     loanPeriod: tLoanForm('loanPeriod'),
     loanPeriodDescription: tLoanForm('loanPeriodDescription'),
+    autoaccept: tLoanForm('autoaccept'),
+    autoacceptDescription: tLoanForm('autoacceptDescription'),
     submit: tLoanForm('submit'),
     mustbeLoggedIn: t('mustBeLoggedIn'),
     success: tLoanForm('success'),

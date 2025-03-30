@@ -20,16 +20,16 @@ import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import type { DateRange } from 'react-day-picker';
+import { Checkbox } from '../ui/Checkbox';
+import { Label } from '../ui/Label';
 
 type LoanFormProps = {
   t: {
-    borrowNow: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    phoneNumberDescription: string;
+    title: string;
     loanPeriod: string;
     loanPeriodDescription: string;
+    autoaccept: string;
+    autoacceptDescription: string;
     submit: string;
     success: string;
   };
@@ -37,12 +37,16 @@ type LoanFormProps = {
 };
 
 function LoanForm({ t, setOpen }: LoanFormProps) {
+  const router = useRouter();
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
+
   const borrowItemsMutation = api.storage.borrowItems.useMutation({
     onSuccess: () => toast.success(t.success),
   });
-  const router = useRouter();
+
+  const user = api.auth.state.useQuery().data?.user;
+  const userIsMember = user ? user.groups.length > 0 : false;
 
   const form = useForm(loanFormSchema(useTranslations()), {
     defaultValues: {
@@ -50,6 +54,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
         from: new Date(),
         to: addDays(new Date(), 1),
       } as DateRange,
+      autoaccept: userIsMember,
     },
     onSubmit: ({ value }) => {
       if (!cart || isLoading) return;
@@ -59,6 +64,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
           amount: i.amount,
           borrowFrom: value.dates.from ?? new Date(),
           borrowUntil: value.dates.to ?? addDays(new Date(), 1),
+          autoaccept: value.autoaccept,
         })),
       );
       setCart(null);
@@ -100,6 +106,29 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
           </FormItem>
         )}
       </form.Field>
+      {userIsMember && (
+        <form.Field name='autoaccept'>
+          {(field) => (
+            <FormItem errors={field.state.meta.errors}>
+              <div className='flex items-center gap-2'>
+                <FormControl>
+                  <Checkbox
+                    checked={field.state.value}
+                    onCheckedChange={(value) =>
+                      field.handleChange(
+                        value !== 'indeterminate' ? value : false,
+                      )
+                    }
+                  />
+                </FormControl>
+                <Label>{t.autoaccept}</Label>
+              </div>
+              <FormDescription>{t.autoacceptDescription}</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        </form.Field>
+      )}
       <form.Subscribe selector={(state) => [state.canSubmit]}>
         {([canSubmit]) => (
           <Button

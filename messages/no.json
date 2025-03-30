@@ -300,12 +300,10 @@
       "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {
-      "name": "Navn",
-      "email": "Epost",
-      "phoneNumber": "Mobilnummer",
-      "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
       "loanPeriod": "Velg låneperiode",
       "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "autoaccept": "Godkjenn umiddelbart",
+      "autoacceptDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
       "submit": "Send",
       "dateInFuture": "Datoen for levering må være i framtiden",
       "success": "Låneforespørsel sendt! Videresender deg til lageret..."

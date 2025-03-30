@@ -7,6 +7,7 @@ function borrowItemsSchema() {
       amount: z.number().positive(),
       borrowFrom: z.date(),
       borrowUntil: z.date(),
+      autoaccept: z.boolean(),
     }),
   );
 }

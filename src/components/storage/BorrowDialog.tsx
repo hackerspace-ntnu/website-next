@@ -16,13 +16,11 @@ import { useState } from 'react';
 
 type BorrowDialogProps = {
   t: {
-    borrowNow: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    phoneNumberDescription: string;
+    title: string;
     loanPeriod: string;
     loanPeriodDescription: string;
+    autoaccept: string;
+    autoacceptDescription: string;
     submit: string;
     mustbeLoggedIn: string;
     success: string;
@@ -44,12 +42,12 @@ function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
             variant='default'
             disabled={isLoading || !isLoggedIn}
           >
-            {isLoggedIn ? t.borrowNow : t.mustbeLoggedIn}
+            {isLoggedIn ? t.title : t.mustbeLoggedIn}
           </Button>
         </DialogTrigger>
         <DialogContent className='max-w-sm'>
           <DialogHeader>
-            <DialogTitle>{t.borrowNow}</DialogTitle>
+            <DialogTitle>{t.title}</DialogTitle>
           </DialogHeader>
           <LoanForm t={t} setOpen={setOpen} />
         </DialogContent>
