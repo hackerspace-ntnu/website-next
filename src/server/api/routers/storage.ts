@@ -316,8 +316,8 @@ const storageRouter = createRouter({
         limit: input.limit,
         offset: input.offset,
         where: input.pending
-          ? eq(itemLoans.accepted, !input.pending)
-          : undefined,
+          ? eq(itemLoans.accepted, false)
+          : eq(itemLoans.accepted, true),
         with: {
           item: true,
           lender: true,
