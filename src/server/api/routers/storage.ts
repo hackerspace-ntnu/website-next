@@ -21,6 +21,7 @@ import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
+import { itemsTotalSchema } from '@/validations/storage/itemsTotalSchema';
 import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, ilike, inArray } from 'drizzle-orm';
@@ -148,13 +149,22 @@ const storageRouter = createRouter({
 
       return items;
     }),
-  itemsTotal: publicProcedure.query(async ({ ctx }) => {
-    const counts = await ctx.db.select({ count: count() }).from(storageItems);
+  itemsTotal: publicProcedure
+    .input((input) => itemsTotalSchema().parse(input))
+    .query(async ({ input, ctx }) => {
+      const counts = await ctx.db
+        .select({ count: count() })
+        .from(storageItems)
+        .where(
+          input?.categoryId
+            ? eq(storageItems.categoryId, input.categoryId)
+            : undefined,
+        );
 
-    if (!counts[0]) return Number.NaN;
+      if (!counts[0]) return Number.NaN;
 
-    return counts[0].count;
-  }),
+      return counts[0].count;
+    }),
   newItem: authenticatedProcedure
     .input(async (input) =>
       itemSchema(useTranslationsFromContext(), categories).parse(input),

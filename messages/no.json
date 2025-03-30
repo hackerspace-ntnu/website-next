@@ -251,6 +251,7 @@
     "searchPlaceholder": "Søk etter produkt...",
     "addNewItem": "Legg til ny gjenstand",
     "backToStorage": "Tilbake til lageret",
+    "noItemsFound": "Ingen gjenstander funnet. Sjekk filtreringskriteriene dine.",
     "card": {
       "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",

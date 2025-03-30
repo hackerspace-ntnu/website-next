@@ -56,10 +56,15 @@ export default async function StoragePage({
   });
 
   const itemsTotal =
-    (category as number) < 1 ? await api.storage.itemsTotal() : items.length; // FIX
+    (category as number) < 1
+      ? await api.storage.itemsTotal()
+      : await api.storage.itemsTotal({ categoryId: category as number });
 
   return (
     <>
+      {items.length === 0 && (
+        <h3 className='text-center'>{tStorage('noItemsFound')}</h3>
+      )}
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
         {items.map(async (item) => (
           <ItemCard

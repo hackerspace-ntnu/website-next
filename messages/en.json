@@ -251,6 +251,7 @@
     "searchPlaceholder": "Search for product...",
     "addNewItem": "Add new item",
     "backToStorage": "Back to storage",
+    "noItemsFound": "No items found. Please check your filter criteria.",
     "card": {
       "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
