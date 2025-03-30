@@ -302,7 +302,7 @@
       "clearCart": "Empty shopping cart",
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
-      "borrowNow": "Borrow now",
+      "requestLoan": "Request loan",
       "amountOfItemARIA": "Select number of this item",
       "mustBeLoggedIn": "You must be logged in to borrow items"
     },
@@ -313,7 +313,7 @@
       "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
-      "success": "Borrow request sent! Redirecting to storage..."
+      "success": "Loan request sent! Redirecting to storage..."
     },
     "edit": {
       "titleNew": "New Item",

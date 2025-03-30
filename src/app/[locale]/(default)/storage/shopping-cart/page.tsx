@@ -32,8 +32,8 @@ export default async function StorageShoppingCartPage({
     amountOfItemARIA: t('amountOfItemARIA'),
   };
 
-  const borrowNowMessages = {
-    title: t('borrowNow'),
+  const requestLoanMessages = {
+    title: t('requestLoan'),
     loanPeriod: tLoanForm('loanPeriod'),
     loanPeriodDescription: tLoanForm('loanPeriodDescription'),
     autoapprove: tLoanForm('autoapprove'),
@@ -53,7 +53,7 @@ export default async function StorageShoppingCartPage({
           messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
         >
           <BorrowDialog
-            t={borrowNowMessages}
+            t={requestLoanMessages}
             className='sm:mx-auto'
             isLoggedIn={!!user}
           />
