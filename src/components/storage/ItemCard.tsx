@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
-import type { SelectStorageItem } from '@/server/db/tables';
+import type { RouterOutput } from '@/server/api';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -15,7 +15,7 @@ function ItemCard({
   item,
   imageUrl,
 }: {
-  item: SelectStorageItem;
+  item: RouterOutput['storage']['fetchMany'][number];
   imageUrl: string | null;
 }) {
   const t = useTranslations('storage');

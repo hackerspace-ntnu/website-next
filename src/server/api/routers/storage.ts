@@ -7,6 +7,7 @@ import { createRouter } from '@/server/api/trpc';
 import { db } from '@/server/db';
 import {
   type InsertStorageItem,
+  type SelectStorageItem,
   itemCategories,
   itemLoans,
   storageItems,
@@ -15,13 +16,14 @@ import { insertFile } from '@/server/services/files';
 import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
 import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
 import { editItemSchema } from '@/validations/storage/editItemSchema';
+import { fetchLoansForItemsSchema } from '@/validations/storage/fetchLoansForItemsSchema';
 import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
 import { TRPCError } from '@trpc/server';
-import { and, count, eq, ilike, inArray, sql } from 'drizzle-orm';
+import { and, count, eq, ilike, inArray } from 'drizzle-orm';
 
 const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
@@ -45,18 +47,42 @@ const storageRouter = createRouter({
         });
       }
 
-      return item;
+      const { itemLoans, ...itemWithoutLoans } = item;
+
+      return {
+        ...itemWithoutLoans,
+        availableUnits: itemLoans
+          .map((loan) => loan.unitsBorrowed)
+          .reduce((a, b) => a + b, 0),
+      };
     }),
   fetchMany: publicProcedure
     .input((input) =>
       fetchManySchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
+      // Array of items without item loans, but with a calculated number of available units
+      const items: (SelectStorageItem & { availableUnits: number })[] = [];
+
+      // If we've got an array, just return those items and no other
       if (Array.isArray(input)) {
-        return ctx.db
-          .select()
-          .from(storageItems)
-          .where(inArray(storageItems.id, input));
+        const rawItems = await ctx.db.query.storageItems.findMany({
+          where: inArray(storageItems.id, input),
+          with: { itemLoans: true },
+        });
+
+        for (const item of rawItems) {
+          const { itemLoans, ...itemWithoutLoans } = item;
+
+          items.push({
+            ...itemWithoutLoans,
+            availableUnits: itemLoans
+              .map((loan) => loan.unitsBorrowed)
+              .reduce((a, b) => a + b, 0),
+          });
+        }
+
+        return items;
       }
 
       const whereCategory =
@@ -69,16 +95,27 @@ const storageRouter = createRouter({
         ilike(storageItems.name, `%${input.name ?? ''}%`),
       );
 
+      let rawItems: Awaited<
+        ReturnType<
+          typeof ctx.db.query.storageItems.findMany<{
+            with: { itemLoans: true };
+          }>
+        >
+      >;
+
       if (input.sorting === ctx.t('storage.searchParams.name')) {
-        return await ctx.db.query.storageItems.findMany({
+        rawItems = await ctx.db.query.storageItems.findMany({
           limit: input.limit,
           offset: input.offset,
           orderBy: (storageItems, { asc }) => [asc(storageItems.name)],
           where: whereNameAndCategory,
+          with: {
+            itemLoans: true,
+          },
         });
       }
 
-      return await ctx.db.query.storageItems.findMany({
+      rawItems = await ctx.db.query.storageItems.findMany({
         limit: input.limit,
         offset: input.offset,
         orderBy: (storageItems, { asc, desc }) => [
@@ -87,7 +124,25 @@ const storageRouter = createRouter({
             : desc(storageItems.quantity),
         ],
         where: whereNameAndCategory,
+        with: {
+          itemLoans: true,
+        },
       });
+
+      for (const item of rawItems) {
+        const { itemLoans, ...itemWithoutLoans } = item;
+
+        const unitsBorrowed = itemLoans
+          .map((loan) => loan.unitsBorrowed)
+          .reduce((a, b) => a + b, 0);
+
+        items.push({
+          ...itemWithoutLoans,
+          availableUnits: item.quantity - unitsBorrowed,
+        });
+      }
+
+      return items;
     }),
   itemsTotal: publicProcedure.query(async ({ ctx }) => {
     const counts = await ctx.db.select({ count: count() }).from(storageItems);
@@ -101,12 +156,6 @@ const storageRouter = createRouter({
       itemSchema(useTranslationsFromContext(), categories).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      if (input.categoryName === '') {
-        return ctx.db
-          .insert(storageItems)
-          .values({ ...input, availableUnits: input.quantity });
-      }
-
       const duplicateItem = await ctx.db
         .select()
         .from(storageItems)
@@ -118,6 +167,10 @@ const storageRouter = createRouter({
           message: ctx.t('storage.api.duplicateItem'),
           cause: { toast: 'error' },
         });
+      }
+
+      if (input.categoryName === '') {
+        return ctx.db.insert(storageItems).values(input);
       }
 
       const category = await ctx.db
@@ -135,8 +188,7 @@ const storageRouter = createRouter({
         });
       }
 
-      const dbValues: InsertStorageItem = {
-        availableUnits: input.quantity,
+      const insertValues: InsertStorageItem = {
         categoryId,
         ...input,
       };
@@ -148,10 +200,10 @@ const storageRouter = createRouter({
           ctx.user.id,
         );
 
-        dbValues.imageId = file.id;
+        insertValues.imageId = file.id;
       }
 
-      await ctx.db.insert(storageItems).values(dbValues);
+      await ctx.db.insert(storageItems).values(insertValues);
     }),
   editItem: authenticatedProcedure
     .input((input) =>
@@ -170,8 +222,7 @@ const storageRouter = createRouter({
         });
       }
 
-      const dbValues: InsertStorageItem = {
-        availableUnits: input.quantity,
+      const insertValues: InsertStorageItem = {
         categoryId: category.id,
         ...input,
       };
@@ -183,12 +234,12 @@ const storageRouter = createRouter({
           ctx.user.id,
         );
 
-        dbValues.imageId = file.id;
+        insertValues.imageId = file.id;
       }
 
       await ctx.db
         .update(storageItems)
-        .set(dbValues)
+        .set(insertValues)
         .where(eq(storageItems.id, input.id));
     }),
   deleteItem: authenticatedProcedure
@@ -245,16 +296,10 @@ const storageRouter = createRouter({
         });
       }
 
-      // Update each items' availableUnits and add new item loans
+      // Add new item loans
       for (const item of itemsToBorrow) {
         const borrowing = input.find((i) => i.id === item.id);
         if (!borrowing) return;
-        await ctx.db
-          .update(storageItems)
-          .set({
-            availableUnits: sql`${storageItems.availableUnits} - ${borrowing.amount}`,
-          })
-          .where(eq(storageItems.id, item.id));
         await ctx.db.insert(itemLoans).values({
           itemId: item.id,
           lenderId: ctx.user.id,
@@ -278,6 +323,21 @@ const storageRouter = createRouter({
           lender: true,
         },
       });
+    }),
+  fetchLoansForItems: authenticatedProcedure
+    .input((input) => fetchLoansForItemsSchema().parse(input))
+    .query(async ({ input, ctx }) => {
+      const loans = await ctx.db
+        .select()
+        .from(itemLoans)
+        .where(inArray(itemLoans.itemId, input));
+      const mappedLoans: { [key: number]: (typeof loans)[number] } = {};
+
+      for (const loan of loans) {
+        mappedLoans[loan.itemId] = loan;
+      }
+
+      return mappedLoans;
     }),
   acceptLoan: authenticatedProcedure
     .input((input) => updateLoanSchema().parse(input))
