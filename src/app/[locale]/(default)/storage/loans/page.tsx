@@ -1,3 +1,4 @@
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -41,16 +42,18 @@ export default async function StorageLoansPage({
   });
 
   const { [tUi('page')]: page } = searchParamsCache.parse(await searchParams);
+  const itemsPerPage = 10;
+  const approvedLoansTotal = await api.storage.approvedLoansTotal();
 
   const pendingLoans = await api.storage.fetchLoans({
-    limit: 10,
-    offset: page ? (page - 1) * 10 : 0,
+    limit: itemsPerPage,
+    offset: 0,
     pending: true,
   });
 
   const pastLoans = await api.storage.fetchLoans({
-    limit: 10,
-    offset: page ? (page - 1) * 10 : 0,
+    limit: itemsPerPage,
+    offset: page ? (page - 1) * itemsPerPage : 0,
     pending: false,
   });
 
@@ -66,6 +69,9 @@ export default async function StorageLoansPage({
       {pastLoans.map((loan) => (
         <LoanCard key={loan.id} loan={loan} status='approved' />
       ))}
+      <PaginationCarousel
+        totalPages={Math.ceil(approvedLoansTotal / itemsPerPage)}
+      />
     </div>
   );
 }

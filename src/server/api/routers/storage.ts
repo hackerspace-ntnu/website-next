@@ -340,6 +340,16 @@ const storageRouter = createRouter({
         },
       });
     }),
+  approvedLoansTotal: storageProcedure.query(async ({ ctx }) => {
+    const counts = await ctx.db
+      .select({ count: count() })
+      .from(itemLoans)
+      .where(eq(itemLoans.approved, true));
+
+    if (!counts[0]) return Number.NaN;
+
+    return counts[0].count;
+  }),
   approveLoan: storageProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {

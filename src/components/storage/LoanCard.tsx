@@ -34,7 +34,7 @@ async function LoanCard({
     <Card key={loan.id}>
       <CardHeader>
         <CardTitle>
-          {t(status === 'approved' ? 'loanApproved' : 'loan')}
+          {t(status === 'approved' ? 'loan' : 'pendingLoan')}
         </CardTitle>
         <CardDescription>
           {t(status === 'approved' ? 'loanApproved' : 'loanSubheader')}
