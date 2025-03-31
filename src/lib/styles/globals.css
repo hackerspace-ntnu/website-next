@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "tw-clamp-css";
+/*@import "./map";*/
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
