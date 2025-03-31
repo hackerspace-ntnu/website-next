@@ -85,7 +85,7 @@ function ScheduleCell({
             )}
           </Button>
         </ResponsiveDialogTrigger>
-        <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-3 md:mb-0 md:w-fit lg:w-1/3 lg:min-w-96'>
+        <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-5 md:mb-0 md:w-fit lg:w-2/5 lg:min-w-96'>
           <ResponsiveDialogHeader>
             <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
               <span className='font-semibold text-3xl'>

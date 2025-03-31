@@ -309,7 +309,6 @@
   "shiftSchedule": {
     "title": "Vaktliste",
     "clearShifts": {
-      "label": "Administrator-meny (temp)",
       "clear": "Tøm vaktliste",
       "warning": "Advarsel",
       "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",

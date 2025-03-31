@@ -1,6 +1,5 @@
 import { ClearShifts } from '@/components/shift-schedule/ClearShifts';
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
-import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
@@ -21,28 +20,35 @@ export default async function ShiftSchedulePage({
   const { user } = await api.auth.state();
 
   setRequestLocale(locale);
-  const t = await getTranslations('shiftSchedule.clearShifts');
+  const t = await getTranslations('shiftSchedule');
+
+  const canClear = user?.groups.some((group) =>
+    ['admin', 'leadership'].includes(group),
+  );
+  const clearShifts = (
+    <ClearShifts
+      t={{
+        clear: t('clearShifts.clear'),
+        warning: t('clearShifts.warning'),
+        confirmationPrompt: t('clearShifts.confirmationPrompt'),
+        confirm: t('clearShifts.confirm'),
+        cancel: t('clearShifts.cancel'),
+        clearSuccess: t('clearShifts.clearSuccess'),
+      }}
+    />
+  );
 
   return (
     <>
+      <div className='relative flex justify-center'>
+        <h1 className='text-center'>{t('title')}</h1>
+        {canClear && (
+          <div className='absolute right-0 hidden lg:flex'>{clearShifts}</div>
+        )}
+      </div>
       <ScheduleTable user={user} />
-      {user?.groups.some((group) =>
-        ['admin', 'leadership'].includes(group),
-      ) && (
-        <div className='mt-8 flex w-fit flex-col gap-3'>
-          <span>{t('label')}</span>
-          <Separator className='my-1' />
-          <ClearShifts
-            t={{
-              clear: t('clear'),
-              warning: t('warning'),
-              confirmationPrompt: t('confirmationPrompt'),
-              confirm: t('confirm'),
-              cancel: t('cancel'),
-              clearSuccess: t('clearSuccess'),
-            }}
-          />
-        </div>
+      {canClear && (
+        <div className='mt-8 ml-auto w-fit lg:hidden'>{clearShifts}</div>
       )}
     </>
   );
