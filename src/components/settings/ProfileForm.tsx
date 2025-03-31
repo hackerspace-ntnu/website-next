@@ -4,14 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import { DatePicker } from '@/components/composites/DatePicker';
 import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
@@ -35,7 +28,10 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
     },
   });
 
-  const form = useForm(formSchema, {
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       firstName,
       lastName,
@@ -47,79 +43,48 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit} className='space-y-8'>
-      <form.Field name='firstName'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('firstName.label')}</FormLabel>
-            <FormControl>
-              <Input
-                autoComplete='given-name'
-                placeholder={firstName}
-                onChange={(event) => field.handleChange(event.target.value)}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='lastName'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('lastName.label')}</FormLabel>
-            <FormControl>
-              <Input
-                autoComplete='family-name'
-                placeholder={firstName}
-                onChange={(event) => field.handleChange(event.target.value)}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='birthDate'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('birthDate.label')}</FormLabel>
-            <FormControl>
-              <DatePicker
-                side='top'
-                captionLayout='dropdown'
-                avoidCollisions={false}
-                defaultMonth={birthDate}
-                date={field.state.value}
-                setDate={field.handleChange}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
-        {([canSubmit, isPristine]) => (
-          <Button
-            className='min-w-40'
-            type='submit'
-            disabled={
-              !canSubmit ||
-              isPristine ||
-              updateProfileSettingsMutation.isPending
-            }
-          >
-            {updateProfileSettingsMutation.isPending ? (
-              <Spinner className='text-primary-foreground' />
-            ) : (
-              t('updateProfile')
-            )}
-          </Button>
-        )}
-      </form.Subscribe>
-    </Form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className='relative space-y-8'
+    >
+      <form.AppForm>
+        <form.AppField name='firstName'>
+          {(field) => (
+            <field.TextField
+              label={t('firstName.label')}
+              autoComplete='given-name'
+              placeholder={firstName}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='lastName'>
+          {(field) => (
+            <field.TextField
+              label={t('lastName.label')}
+              autoComplete='family-name'
+              placeholder={lastName}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='birthDate'>
+          {(field) => (
+            <field.DateField
+              label={t('birthDate.label')}
+              side='top'
+              captionLayout='dropdown'
+              avoidCollisions={false}
+              defaultMonth={birthDate}
+            />
+          )}
+        </form.AppField>
+        <form.SubmitButton loading={updateProfileSettingsMutation.isPending}>
+          {t('updateProfile')}
+        </form.SubmitButton>
+      </form.AppForm>
+    </form>
   );
 }
 
