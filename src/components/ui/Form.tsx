@@ -20,6 +20,7 @@ import {
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import {
   Select,
   SelectContent,
@@ -524,6 +525,51 @@ function OTPField({
   );
 }
 
+type RadioOption = {
+  label: string;
+  value: string;
+};
+
+type RadioGroupFieldProps = {
+  label: string;
+  className?: string;
+  options: RadioOption[];
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
+function RadioGroupField({
+  label,
+  className,
+  options,
+  labelSibling,
+  description,
+}: RadioGroupFieldProps) {
+  const field = useFieldContext<string>();
+
+  return (
+    <BaseField
+      label={label}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <RadioGroup
+        onValueChange={field.handleChange}
+        defaultValue={field.state.value}
+        className='flex flex-col space-y-1'
+      >
+        {options.map((option) => (
+          <div key={option.value} className='flex items-center space-x-3'>
+            <RadioGroupItem value={option.value} id={option.value} />
+            <Label htmlFor={option.value}>{option.label}</Label>
+          </div>
+        ))}
+      </RadioGroup>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean;
@@ -574,6 +620,7 @@ const { useAppForm } = createFormHook({
     PasswordField,
     DateField,
     OTPField,
+    RadioGroupField,
   },
   formComponents: {
     SubmitButton,

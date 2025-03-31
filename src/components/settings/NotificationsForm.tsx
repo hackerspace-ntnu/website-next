@@ -1,16 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
-import { Spinner } from '@/components/ui/Spinner';
+import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { useTranslations } from 'next-intl';
 
@@ -30,7 +20,10 @@ function NotificationsForm({
       },
     });
 
-  const form = useForm(formSchema, {
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       notifications,
     },
@@ -40,75 +33,34 @@ function NotificationsForm({
   });
 
   return (
-    <Form onSubmit={form.handleSubmit} className='space-y-8'>
-      <form.Field name='notifications'>
-        {(field) => (
-          <FormItem className='space-y-3' errors={field.state.meta.errors}>
-            <FormLabel>{t('notifyMeAbout')}</FormLabel>
-            <FormControl>
-              <RadioGroup
-                onValueChange={(value) => {
-                  if (['all', 'useful', 'essential'].includes(value)) {
-                    field.handleChange(value as 'all' | 'useful' | 'essential');
-                  }
-                }}
-                defaultValue={field.state.value}
-                className='flex flex-col space-y-1'
-                disabled
-              >
-                <FormItem
-                  className='flex items-center space-x-3 space-y-0'
-                  errors={field.state.meta.errors}
-                >
-                  <FormControl className='min-w-fit'>
-                    <RadioGroupItem value='all' />
-                  </FormControl>
-                  <FormLabel className='font-normal'>{t('all')}</FormLabel>
-                </FormItem>
-                <FormItem
-                  className='flex items-center space-x-3 space-y-0'
-                  errors={field.state.meta.errors}
-                >
-                  <FormControl className='min-w-fit'>
-                    <RadioGroupItem value='useful' />
-                  </FormControl>
-                  <FormLabel className='font-normal'>{t('useful')}</FormLabel>
-                </FormItem>
-                <FormItem
-                  className='flex items-center space-x-3 space-y-0'
-                  errors={field.state.meta.errors}
-                >
-                  <FormControl className='min-w-fit'>
-                    <RadioGroupItem value='essential' />
-                  </FormControl>
-                  <FormLabel className='font-normal'>
-                    {t('essential')}
-                  </FormLabel>
-                </FormItem>
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
-        {([canSubmit, isPristine]) => (
-          <Button
-            className='min-w-40'
-            type='submit'
-            disabled={
-              !canSubmit || isPristine || updateNotificationsMutation.isPending
-            }
-          >
-            {updateNotificationsMutation.isPending ? (
-              <Spinner className='text-primary-foreground' />
-            ) : (
-              t('updateNotifications')
-            )}
-          </Button>
-        )}
-      </form.Subscribe>
-    </Form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className='relative space-y-8'
+    >
+      <form.AppForm>
+        <form.AppField name='notifications'>
+          {(field) => (
+            <field.RadioGroupField
+              label={t('notifyMeAbout')}
+              options={[
+                { label: t('all'), value: 'all' },
+                { label: t('useful'), value: 'useful' },
+                { label: t('essential'), value: 'essential' },
+              ]}
+            />
+          )}
+        </form.AppField>
+        <form.SubmitButton
+          loading={updateNotificationsMutation.isPending}
+          className='min-w-40'
+        >
+          {t('updateNotifications')}
+        </form.SubmitButton>
+      </form.AppForm>
+    </form>
   );
 }
 
