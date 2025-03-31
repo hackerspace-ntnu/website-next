@@ -101,6 +101,7 @@
     "@tailwindcss/postcss": "^4.0.14",
     "@types/bun": "^1.2.0",
     "@types/nodemailer": "^6.4.17",
+    "@types/postcss-load-config": "^3.0.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "client-only": "^0.0.1",
