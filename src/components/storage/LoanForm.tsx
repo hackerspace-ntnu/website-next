@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -22,7 +22,7 @@ type LoanFormProps = {
 };
 
 function LoanForm({ t }: LoanFormProps) {
-  const form = useForm({
+  const form = useAppForm({
     validators: {
       onChange: formSchema,
     },

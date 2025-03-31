@@ -7,7 +7,7 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 
 import { usePending } from '@/components/auth/PendingBar';
-import { useForm } from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 
 function AccountSignUpForm() {
   const router = useRouter();
@@ -20,7 +20,7 @@ function AccountSignUpForm() {
     onSuccess: () => router.push('/auth/success'),
   });
 
-  const form = useForm({
+  const form = useAppForm({
     validators: {
       onChange: formSchema,
     },

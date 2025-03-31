@@ -11,7 +11,7 @@ import { useRouter } from '@/lib/locale/navigation';
 
 import { CountdownButton } from '@/components/auth/CountdownButton';
 import { usePending } from '@/components/auth/PendingBar';
-import { useForm } from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 
 function VerifyEmailForm() {
@@ -36,7 +36,7 @@ function VerifyEmailForm() {
       },
     });
 
-  const form = useForm({
+  const form = useAppForm({
     validators: {
       onChange: formSchema,
       onSubmitAsync: async ({ value }) => {
