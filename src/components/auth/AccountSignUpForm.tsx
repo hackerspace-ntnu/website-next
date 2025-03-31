@@ -47,7 +47,7 @@ function AccountSignUpForm() {
         <h1 className='text-4xl'>{t('createPassword')}</h1>
         <p className='text-sm'>{t('passwordDescription')}</p>
       </div>
-      <Form onSubmit={form.handleSubmit} className='flex-grow'>
+      <Form onSubmit={form.handleSubmit} className='grow'>
         <form.Field name='password'>
           {(field) => (
             <FormItem errors={field.state.meta.errors}>
@@ -72,7 +72,6 @@ function AccountSignUpForm() {
               if (value !== fieldApi.form.getFieldValue('password')) {
                 return t('form.password.mismatch');
               }
-              return;
             },
           }}
         >

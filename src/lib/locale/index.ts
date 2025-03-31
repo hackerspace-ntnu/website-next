@@ -6,6 +6,8 @@ import {
   enGB as enDayPicker,
   nb as noDayPicker,
 } from 'react-day-picker/locale';
+import enPhoneNumberInput from 'react-phone-number-input/locale/en';
+import noPhoneNumberInput from 'react-phone-number-input/locale/nb';
 
 type Translations =
   | ReturnType<typeof useTranslations<never>>
@@ -14,6 +16,11 @@ type Translations =
 const localeIcons = { en: GB, no: NO };
 
 const dayPickerLocales = { en: enDayPicker, no: noDayPicker };
+
+const phoneNumberInputLocales = {
+  en: enPhoneNumberInput,
+  no: noPhoneNumberInput,
+};
 
 const routing = defineRouting({
   locales: ['en', 'no'],
@@ -24,6 +31,10 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
+    '/too-many-requests': {
+      en: '/too-many-requests',
+      no: '/for-mange-forespørsler',
+    },
     '/auth': {
       en: '/auth',
       no: '/autentisering',
@@ -40,6 +51,10 @@ const routing = defineRouting({
       en: '/auth/forgot-password',
       no: '/autentisering/glemt-passord',
     },
+    '/auth/verify-email': {
+      en: '/auth/verify-email',
+      no: '/autentisering/bekreft-epost',
+    },
     '/auth/success': {
       en: '/auth/success',
       no: '/autentisering/suksess',
@@ -47,6 +62,18 @@ const routing = defineRouting({
     '/settings': {
       en: '/settings',
       no: '/instillinger',
+    },
+    '/settings/account': {
+      en: '/settings/account',
+      no: '/innstillinger/konto',
+    },
+    '/settings/notifications': {
+      en: '/settings/notifications',
+      no: '/innstillinger/notifikasjoner',
+    },
+    '/settings/administrator': {
+      en: '/settings/administrator',
+      no: '/innstillinger/administrator',
     },
     '/events': {
       en: '/events',
@@ -103,4 +130,10 @@ const routing = defineRouting({
   },
 });
 
-export { localeIcons, dayPickerLocales, routing, type Translations };
+export {
+  localeIcons,
+  dayPickerLocales,
+  phoneNumberInputLocales,
+  routing,
+  type Translations,
+};

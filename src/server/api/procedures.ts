@@ -2,13 +2,20 @@ import { contextStorage } from '@/server/api/context';
 import { trpc } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 
-const contextMiddleware = trpc.middleware((opts) => {
+/**
+ * Makes the context available in input validation
+ */
+const procedureWithContext = trpc.procedure.use((opts) => {
   return contextStorage.run(opts.ctx, async () => {
     return await opts.next();
   });
 });
 
-const timingMiddleware = trpc.middleware(async ({ next, path }) => {
+/**
+ * Use this procedure for any public endpoint.
+ * The timing here adds a varying delay to see loading states in development.
+ */
+const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   const start = Date.now();
 
   if (trpc._config.isDev) {
@@ -24,7 +31,11 @@ const timingMiddleware = trpc.middleware(async ({ next, path }) => {
   return result;
 });
 
-const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
+/**
+ * Procedure for registering a new account.
+ * Checks that the account is authenticated even if not complete.
+ */
+const registrationProcedure = publicProcedure.use(async ({ next, ctx }) => {
   const { user, session } = await ctx.auth();
 
   if (!session) {
@@ -42,10 +53,105 @@ const authMiddleware = trpc.middleware(async ({ next, ctx }) => {
   });
 });
 
-const procedureWithContext = trpc.procedure.use(contextMiddleware);
+/**
+ * Authenticated procedure for users with complete accounts.
+ * Requires user to be authenticated and have a password hash.
+ */
+const authenticatedProcedure = registrationProcedure.use(
+  async ({ next, ctx }) => {
+    if (!ctx.user.passwordHash) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+        message: ctx.t('api.notAuthenticated'),
+      });
+    }
 
-const publicProcedure = procedureWithContext.use(timingMiddleware);
+    return next();
+  },
+);
 
-const authenticatedProcedure = publicProcedure.use(authMiddleware);
+/**
+ * Checks if the user is part of a group (is a member).
+ * Should be used for features like news and shift schedule.
+ * Every member should be able to create news articles.
+ */
+const protectedProcedure = authenticatedProcedure.use(async ({ next, ctx }) => {
+  if (ctx.user.groups.length === 0) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: ctx.t('api.notAuthorized'),
+    });
+  }
 
-export { publicProcedure, authenticatedProcedure };
+  return next();
+});
+
+/**
+ * Checks if the user is part of management.
+ * Management includes the leadership team and leaders of other groups.
+ * Should be used for event management features.
+ */
+const managementProcedure = protectedProcedure.use(async ({ next, ctx }) => {
+  if (
+    !ctx.user.groups.some(
+      // The admin role should have access to every procedure
+      (group) => group === 'management' || group === 'admin',
+    )
+  ) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: ctx.t('api.notAuthorized'),
+    });
+  }
+
+  return next();
+});
+
+/**
+ * Checks if the user is part of the leadership.
+ * Should be used for administrator menu access.
+ */
+const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
+  if (
+    !ctx.user.groups.some(
+      (group) => group === 'leadership' || group === 'admin',
+    )
+  ) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: ctx.t('api.notAuthorized'),
+    });
+  }
+
+  return next();
+});
+
+/**
+ * Checks if the user should be allowed to edit the storage.
+ * Limited to labops, leadership, and admin groups.
+ */
+const storageProcedure = protectedProcedure.use(async ({ next, ctx }) => {
+  if (
+    !ctx.user.groups.some(
+      (group) =>
+        group === 'labops' || group === 'leadership' || group === 'admin',
+    )
+  ) {
+    throw new TRPCError({
+      code: 'FORBIDDEN',
+      message: ctx.t('api.notAuthorized'),
+    });
+  }
+
+  return next();
+});
+
+export {
+  publicProcedure,
+  registrationProcedure,
+  authenticatedProcedure,
+  protectedProcedure,
+  managementProcedure,
+  leadershipProcedure,
+  storageProcedure,
+};

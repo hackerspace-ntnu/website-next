@@ -33,14 +33,16 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
           aria-label={t.toggleTheme}
           className={classname}
         >
-          <SunIcon
-            className='dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0'
-            aria-hidden='true'
-          />
-          <MoonIcon
-            className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
-            aria-hidden='true'
-          />
+          <div className='relative h-[1.2rem] w-[1.2rem]'>
+            <SunIcon
+              className='dark:-rotate-90 h-full w-full rotate-0 scale-100 transition-all dark:scale-0'
+              aria-hidden='true'
+            />
+            <MoonIcon
+              className='absolute inset-0 h-full w-full rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100'
+              aria-hidden='true'
+            />
+          </div>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
