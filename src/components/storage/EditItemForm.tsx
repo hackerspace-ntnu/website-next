@@ -183,7 +183,7 @@ function EditItemForm({
                 onValueChange={field.handleChange}
                 defaultValue={field.state.value}
               >
-                <SelectTrigger className='w-[180px]'>
+                <SelectTrigger className='w-64'>
                   <SelectValue placeholder={itemCategories[0]} />
                 </SelectTrigger>
                 <SelectContent>

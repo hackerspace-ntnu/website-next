@@ -1,0 +1,53 @@
+import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
+import { Link } from '@/components/ui/Link';
+import { Separator } from '@/components/ui/Separator';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { ArrowLeftIcon, BlocksIcon, MapPinIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
+
+export default async function StorageItemLoading() {
+  const t = await getTranslations('storage');
+
+  return (
+    <>
+      <div className='flex items-center justify-between'>
+        <Link
+          className='inline-flex gap-2'
+          variant='ghost'
+          size='default'
+          href='/storage'
+          aria-label={t('backToStorage')}
+        >
+          <ArrowLeftIcon aria-hidden='true' />
+          <span className='hidden sm:inline'>{t('backToStorage')}</span>
+        </Link>
+        <ShoppingCartLink
+          t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
+          className='mx-4'
+        />
+      </div>
+
+      <Skeleton className='my-4 h-12 w-64' />
+      <div className='mt-4 space-y-4'>
+        <div className='flex items-center gap-2'>
+          <MapPinIcon className='h-8 w-8' />
+          <Skeleton className='h-6 w-32' />
+        </div>
+        <div className='flex items-center gap-2'>
+          <BlocksIcon className='h-8 w-8' />
+          <Skeleton className='h-6 w-32' />
+        </div>
+        <Separator />
+        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
+          <div className='max-w-prose'>
+            <Skeleton className='h-12 w-[65ch]' />
+            <div className='mt-2 flex justify-center gap-2 md:justify-start'>
+              <Skeleton className='h-10 w-32' />
+            </div>
+          </div>
+          <Skeleton className='h-48 w-48 rounded-lg object-cover' />
+        </div>
+      </div>
+    </>
+  );
+}
