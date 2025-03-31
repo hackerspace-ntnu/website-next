@@ -35,7 +35,6 @@ export default async function StorageCategoriesPage({
 
   return (
     <div className='mx-auto max-w-prose space-y-8'>
-      <h1 className='text-center'>{t('title')}</h1>
       <CategoriesTable categories={categories} />
     </div>
   );
