@@ -8,9 +8,9 @@ import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
 
 import { BaseMap } from '@/components/composites/BaseMap';
+import { DatePicker } from '@/components/composites/DatePicker';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
-import { DatePicker } from '@/components/compostes/DatePicker';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
