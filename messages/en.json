@@ -324,10 +324,13 @@
       "actions": "Actions",
       "unauthorized": "Unauthorized to manage storage item categories",
       "successAddMessage": "Item category added successfully!",
+      "successEditMessage": "Item category edited successfully!",
       "successDeleteMessage": "Item category deleted successfully!",
       "invalidName": "Invalid category name",
       "api": {
-        "insertFailed": "Failed to add category"
+        "insertFailed": "Failed to add category",
+        "updateFailed": "Failed to update category",
+        "duplicateCategory": "Cannot add another category with the same name"
       }
     },
     "edit": {

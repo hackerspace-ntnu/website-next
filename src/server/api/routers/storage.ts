@@ -20,6 +20,7 @@ import { editItemSchema } from '@/validations/storage/editItemSchema';
 import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
+import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
 import { itemCategorySchema } from '@/validations/storage/itemCategorySchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { itemsTotalSchema } from '@/validations/storage/itemsTotalSchema';
@@ -286,9 +287,22 @@ const storageRouter = createRouter({
   }),
   addItemCategory: storageProcedure
     .input((input) =>
-      itemCategorySchema(useTranslationsFromContext()).parse(input),
+      itemCategoryFormSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
+      const duplicateCategory = await ctx.db
+        .select()
+        .from(itemCategories)
+        .where(eq(itemCategories.name, input.name));
+
+      if (duplicateCategory.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.categories.api.duplicateCategory'),
+          cause: { toast: 'error' },
+        });
+      }
+
       await ctx.db
         .insert(itemCategories)
         .values(input)
@@ -300,6 +314,36 @@ const storageRouter = createRouter({
           });
         });
     }),
+  editItemCategory: storageProcedure
+    .input((input) =>
+      itemCategorySchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const duplicateCategory = await ctx.db
+        .select()
+        .from(itemCategories)
+        .where(eq(itemCategories.name, input.name));
+
+      if (duplicateCategory.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.categories.api.duplicateCategory'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(itemCategories)
+        .set(input)
+        .where(eq(itemCategories.id, input.id))
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('storage.categories.api.updateFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+    }),
   deleteItemCategory: storageProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
@@ -307,7 +351,7 @@ const storageRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       await ctx.db
         .delete(itemCategories)
-        .where(eq(itemCategories.name, input.name))
+        .where(eq(itemCategories.id, input.id))
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',

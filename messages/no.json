@@ -324,10 +324,13 @@
       "actions": "Handlinger",
       "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
       "successAddMessage": "Kategorien har blitt lagt til!",
+      "successEditMessage": "Kategorien har blitt redigert!",
       "successDeleteMessage": "Kategorien har blitt slettet!",
       "invalidName": "Ugyldig kategorinavn",
       "api": {
-        "insertFailed": "Feilet å legge til kategori"
+        "insertFailed": "Feilet å legge til kategori",
+        "updateFailed": "Feilet å redigere kategori",
+        "duplicateCategory": "Kan ikke legge til flere kategorier med samme navn"
       }
     },
     "edit": {

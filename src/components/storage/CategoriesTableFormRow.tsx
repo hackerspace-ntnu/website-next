@@ -14,7 +14,7 @@ import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
-import { itemCategorySchema } from '@/validations/storage/itemCategorySchema';
+import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
 import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
@@ -37,13 +37,26 @@ function CategoriesTableFormRow({
     },
   });
 
-  const formSchema = itemCategorySchema(useTranslations());
+  const editItemCategoryMutation = api.storage.editItemCategory.useMutation({
+    onSuccess: async () => {
+      toast.success(t('successEditMessage'));
+      await apiUtils.storage.fetchItemCategories.invalidate();
+      form.reset();
+      router.refresh();
+    },
+  });
+
+  const formSchema = itemCategoryFormSchema(useTranslations());
   const form = useForm(formSchema, {
     defaultValues: {
       name: category?.name ?? '',
     },
     onSubmit: ({ value }) => {
-      addItemCategoryMutation.mutate(value);
+      if (category) {
+        editItemCategoryMutation.mutate({ id: category.id, ...value });
+      } else {
+        addItemCategoryMutation.mutate(value);
+      }
     },
   });
 
@@ -73,7 +86,11 @@ function CategoriesTableFormRow({
           <div className='flex gap-4'>
             <form.Subscribe selector={(state) => [state.canSubmit]}>
               {([canSubmit]) => (
-                <Button className='flex gap-2' variant='secondary'>
+                <Button
+                  className='flex gap-2'
+                  variant='secondary'
+                  disabled={!canSubmit}
+                >
                   <CheckIcon className='h-8 w-8' />
                   <span>{tUi('save')}</span>
                 </Button>

@@ -25,8 +25,8 @@ function DeleteItemCategoryButton({
     },
   );
 
-  function handleDelete() {
-    deleteItemCategoryMutation.mutate({ name: category.name });
+  async function handleDelete() {
+    await deleteItemCategoryMutation.mutateAsync(category);
   }
 
   return (
