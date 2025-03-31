@@ -1,0 +1,84 @@
+/*
+Mye av stylingen må defineres i en egen .css fil slik det er gjort her med mindre
+man vil lage custom componenter for alt i fullcalendar. Da må man gjøre det slik jeg har
+gjort med CustomEventStyling komponenten eller CustomToolbar.
+Man kan finne hvordan man endrer styling på spesifikke ting ved å sjekke ut fullcalendars github repo under:
+https://github.com/fullcalendar/fullcalendar/blob/9a0edaeb5eddf2cec8bd2409ecc26c4598b98a48/packages/core/src/styles/vars.css
+Alle fullcalendar komponenter skal ha en vars.css fil.
+*/
+
+.fc {
+  /* For selve kalenderen */
+  --fc-page-bg-color: hsl(var(--background));
+  --fc-border-color: hsl(var(--border));
+  --fc-neutral-bg-color: hsl(var(--muted));
+  --fc-neutral-text-color: hsl(var(--muted-foreground));
+
+  /* For events eller reservasjoner, noe er default her mens noe er bestent i CustomEventStyling.tsx */
+  --fc-event-bg-color: hsl(var(--secondary));
+  --fc-event-border-color: hsl(var(--border));
+  --fc-event-text-color: hsl(var(--secondary-foreground));
+  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+  --fc-bg-event-color: hsl(var(--accent));
+  --fc-bg-event-opacity: 0.3;
+  --fc-non-business-color: hsl(var(--muted));
+
+  --fc-event-resizer-thickness: 0.5rem;
+  --fc-event-resizer-dot-total-width: 0.5rem;
+  --fc-event-resizer-dot-border-width: 1px;
+
+  /* Tid nå streken og pilen */
+  --fc-today-bg-color: hsl(var(--accent) / 0.4);
+  --fc-now-indicator-color: hsl(var(--destructive));
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.fc .fc-view-harness {
+  background-color: hsl(var(--background));
+  border-radius: var(--radius);
+}
+
+.fc .fc-toolbar {
+  display: none;
+}
+
+.fc .fc-col-header-cell {
+  background-color: hsl(var(--card));
+  padding: 8px 0;
+  font-weight: 600;
+  border-right: 1px solid hsl(var(--border));
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  padding: 6px;
+  font-size: 1rem;
+}
+
+.fc .fc-timegrid-slot {
+  height: 40px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-bottom: 0;
+}
+
+.fc .fc-timegrid-slot-label {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.fc .fc-timegrid-axis {
+  background-color: hsl(var(--card));
+  width: 70px;
+  font-weight: 500;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: hsl(var(--destructive));
+  width: 100%;
+  border-width: 2px;
+}
