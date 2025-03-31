@@ -32,21 +32,38 @@ const { fieldContext, useFieldContext, formContext, useFormContext } =
 type BaseFieldProps = {
   className?: string;
   label: string;
+  labelSibling?: React.ReactNode;
   children: React.ReactNode;
 };
 
-function BaseField({ className, label, children }: BaseFieldProps) {
+function BaseField({
+  className,
+  label,
+  labelSibling,
+  children,
+}: BaseFieldProps) {
   const field = useFieldContext();
   const id = useId();
 
+  const labelElement = (
+    <Label
+      className={cx(field.state.meta.errors.length > 0 && 'text-destructive')}
+      htmlFor={`${id}-form-item`}
+    >
+      {label}
+    </Label>
+  );
+
   return (
-    <div className={cx('realtive space-y-2', className)}>
-      <Label
-        className={cx(field.state.meta.errors.length > 0 && 'text-destructive')}
-        htmlFor={`${id}-form-item`}
-      >
-        {label}
-      </Label>
+    <div className={cx('relative space-y-2', className)}>
+      {labelSibling ? (
+        <div className='flex items-center justify-between'>
+          {labelElement}
+          {labelSibling}
+        </div>
+      ) : (
+        labelElement
+      )}
       <Slot
         id={`${id}-form-item`}
         aria-describedby={
@@ -81,13 +98,19 @@ type TextFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function TextField({ className, label, ...props }: TextFieldProps) {
+function TextField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: TextFieldProps) {
   const field = useFieldContext<string>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <Input
         type='text'
         value={field.state.value}
@@ -104,13 +127,19 @@ type NumberFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function NumberField({ className, label, ...props }: NumberFieldProps) {
+function NumberField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: NumberFieldProps) {
   const field = useFieldContext<number>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <Input
         type='number'
         value={field.state.value}
@@ -127,13 +156,19 @@ type TextAreaFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function TextAreaField({ className, label, ...props }: TextAreaFieldProps) {
+function TextAreaField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: TextAreaFieldProps) {
   const field = useFieldContext<string>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <Textarea
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
@@ -154,6 +189,7 @@ type MapFieldProps = {
   className?: string;
   zoom?: number;
   coordinates?: Location;
+  labelSibling?: React.ReactNode;
 };
 
 const DEFAULT_COORDINATES: Location = {
@@ -166,6 +202,7 @@ function MapField({
   className,
   zoom = 4,
   coordinates = DEFAULT_COORDINATES,
+  labelSibling,
 }: MapFieldProps) {
   const field = useFieldContext<Location>();
 
@@ -180,7 +217,7 @@ function MapField({
   );
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <div className='h-[400px] w-full rounded-md border'>
         <BaseMap
           initialViewState={{
@@ -215,6 +252,7 @@ type SelectFieldProps = {
   placeholder?: string;
   options: SelectOption[];
   required?: boolean;
+  labelSibling?: React.ReactNode;
 };
 
 function SelectField({
@@ -223,11 +261,12 @@ function SelectField({
   placeholder = 'Select an option',
   options,
   required = true,
+  labelSibling,
 }: SelectFieldProps) {
   const field = useFieldContext<string>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <div className='flex gap-2'>
         <Select
           value={field.state.value ?? undefined}
@@ -265,13 +304,19 @@ type PhoneFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function PhoneField({ className, label, ...props }: PhoneFieldProps) {
+function PhoneField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: PhoneFieldProps) {
   const field = useFieldContext<string>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <PhoneInput
         value={field.state.value}
         onChange={(value) => field.handleChange(value)}
@@ -287,13 +332,19 @@ type PasswordFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function PasswordField({ className, label, ...props }: PasswordFieldProps) {
+function PasswordField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: PasswordFieldProps) {
   const field = useFieldContext<string>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <PasswordInput
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
@@ -309,13 +360,19 @@ type DateFieldProps = Omit<
   'date' | 'setDate' | 'onBlur'
 > & {
   label: string;
+  labelSibling?: React.ReactNode;
 };
 
-function DateField({ className, label, ...props }: DateFieldProps) {
+function DateField({
+  className,
+  label,
+  labelSibling,
+  ...props
+}: DateFieldProps) {
   const field = useFieldContext<Date>();
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
       <DatePicker
         date={field.state.value}
         setDate={(date: Date) => field.handleChange(date)}
