@@ -1,8 +1,9 @@
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { FormLabel } from '@/components/ui/Form';
+import { Link } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { UploadIcon } from 'lucide-react';
+import { EditIcon, UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 function EditItemFormSkeleton({
@@ -40,7 +41,16 @@ function EditItemFormSkeleton({
       </div>
       <div>
         <FormLabel>{t('category.label')}</FormLabel>
-        <Skeleton className='h-10 w-64' />
+        <div className='flex gap-2'>
+          <Skeleton className='h-10 w-64' />
+          <Link
+            href='/storage/categories'
+            variant='default'
+            className='px-2 py-1'
+          >
+            <EditIcon className='h-6 w-6' />
+          </Link>
+        </div>
       </div>
       <div>
         <FormLabel>{t('quantity.label')}</FormLabel>

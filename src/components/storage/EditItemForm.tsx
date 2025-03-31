@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { Link } from '@/components/ui/Link';
 import {
   Select,
   SelectContent,
@@ -26,7 +27,7 @@ import { useRouter } from '@/lib/locale/navigation';
 import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { itemSchema } from '@/validations/storage/itemSchema';
-import { UploadIcon } from 'lucide-react';
+import { EditIcon, UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -178,23 +179,32 @@ function EditItemForm({
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
             <FormLabel>{t('category.label')}</FormLabel>
-            <FormControl>
-              <Select
-                onValueChange={field.handleChange}
-                defaultValue={field.state.value}
+            <div className='flex gap-2'>
+              <FormControl>
+                <Select
+                  onValueChange={field.handleChange}
+                  defaultValue={field.state.value}
+                >
+                  <SelectTrigger className='w-64'>
+                    <SelectValue placeholder={itemCategories[0]} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {itemCategories.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <Link
+                href='/storage/categories'
+                variant='default'
+                className='px-2 py-1'
               >
-                <SelectTrigger className='w-64'>
-                  <SelectValue placeholder={itemCategories[0]} />
-                </SelectTrigger>
-                <SelectContent>
-                  {itemCategories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormControl>
+                <EditIcon className='h-6 w-6' />
+              </Link>
+            </div>
             <FormMessage />
           </FormItem>
         )}
