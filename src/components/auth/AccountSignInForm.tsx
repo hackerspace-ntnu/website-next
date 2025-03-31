@@ -28,6 +28,7 @@ function AccountSignInForm() {
         try {
           await signInMutation.mutateAsync(value);
         } catch (error: unknown) {
+          setPending(false);
           const TRPCError = error as TRPCClientError;
           if (!TRPCError.data?.toast) {
             return { fields: { password: TRPCError.message } };
@@ -71,7 +72,6 @@ function AccountSignInForm() {
               />
             )}
           </form.AppField>
-
           <form.AppField name='password'>
             {(field) => (
               <field.TextField

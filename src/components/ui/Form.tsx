@@ -411,7 +411,7 @@ function SubmitButton({
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
-            <Spinner size='sm' />
+            <Spinner size='sm' className='text-primary-foreground' />
           ) : (
             children
           )}
