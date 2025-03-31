@@ -9,34 +9,34 @@ Alle fullcalendar komponenter skal ha en vars.css fil.
 
 .fc {
   /* For selve kalenderen */
-  --fc-page-bg-color: hsl(var(--background));
-  --fc-border-color: hsl(var(--border));
-  --fc-neutral-bg-color: hsl(var(--muted));
-  --fc-neutral-text-color: hsl(var(--muted-foreground));
+  --fc-page-bg-color: var(--background);
+  --fc-border-color: var(--border);
+  --fc-neutral-bg-color: var(--muted);
+  --fc-neutral-text-color: var(--muted-foreground);
 
   /* For events eller reservasjoner, noe er default her mens noe er bestent i CustomEventStyling.tsx */
-  --fc-event-bg-color: hsl(var(--secondary));
-  --fc-event-border-color: hsl(var(--border));
-  --fc-event-text-color: hsl(var(--secondary-foreground));
-  --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
-  --fc-bg-event-color: hsl(var(--accent));
+  --fc-event-bg-color: var(--secondary);
+  --fc-event-border-color: var(--border);
+  --fc-event-text-color: var(--secondary-foreground);
+  --fc-event-selected-overlay-color: oklch(0, 0, 0, 0.25);
+  --fc-bg-event-color: var(--accent);
   --fc-bg-event-opacity: 0.3;
-  --fc-non-business-color: hsl(var(--muted));
+  --fc-non-business-color: var(--muted);
 
   --fc-event-resizer-thickness: 0.5rem;
   --fc-event-resizer-dot-total-width: 0.5rem;
   --fc-event-resizer-dot-border-width: 1px;
 
   /* Tid nå streken og pilen */
-  --fc-today-bg-color: hsl(var(--accent) / 0.4);
-  --fc-now-indicator-color: hsl(var(--destructive));
+  --fc-today-bg-color: var(--accent) / 0.4;
+  --fc-now-indicator-color: var(--destructive);
 
   font-family: inherit;
   font-size: inherit;
 }
 
 .fc .fc-view-harness {
-  background-color: hsl(var(--background));
+  background-color: var(--background);
   border-radius: var(--radius);
 }
 
@@ -45,14 +45,14 @@ Alle fullcalendar komponenter skal ha en vars.css fil.
 }
 
 .fc .fc-col-header-cell {
-  background-color: hsl(var(--card));
+  background-color: var(--card);
   padding: 8px 0;
   font-weight: 600;
-  border-right: 1px solid hsl(var(--border));
+  border-right: 1px solid var(--border);
 }
 
 .fc .fc-col-header-cell-cushion {
-  color: hsl(var(--foreground));
+  color: var(--foreground);
   text-decoration: none;
   padding: 6px;
   font-size: 1rem;
@@ -66,19 +66,19 @@ Alle fullcalendar komponenter skal ha en vars.css fil.
 }
 
 .fc .fc-timegrid-slot-label {
-  color: hsl(var(--muted-foreground));
+  color: var(--muted-foreground);
   font-size: 0.85rem;
   font-weight: 500;
 }
 
 .fc .fc-timegrid-axis {
-  background-color: hsl(var(--card));
+  background-color: var(--card);
   width: 70px;
   font-weight: 500;
 }
 
 .fc .fc-timegrid-now-indicator-line {
-  border-color: hsl(var(--destructive));
+  border-color: var(--destructive);
   width: 100%;
   border-width: 2px;
 }
