@@ -3,7 +3,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
-import { useCallback, useId } from 'react';
+import { Fragment, useCallback, useId } from 'react';
 import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
 
@@ -13,6 +13,12 @@ import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import {
+  InputOtp,
+  InputOtpGroup,
+  InputOtpSeparator,
+  InputOtpSlot,
+} from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
 import {
   Select,
@@ -383,6 +389,72 @@ function DateField({
   );
 }
 
+type OTPFieldProps = Omit<
+  React.ComponentPropsWithoutRef<typeof InputOtp>,
+  'value' | 'onChange' | 'onBlur' | 'maxLength' | 'render'
+> & {
+  label: string;
+  labelSibling?: React.ReactNode;
+  slots?: number;
+  groups?: number[];
+};
+
+function OTPField({
+  className,
+  label,
+  labelSibling,
+  slots = 6,
+  groups = [],
+  ...props
+}: OTPFieldProps) {
+  const field = useFieldContext<string>();
+
+  const renderSlots = () => {
+    if (groups.length === 0) {
+      return (
+        <InputOtpGroup>
+          {Array.from({ length: slots }).map((_, index) => (
+            <InputOtpSlot key={`slot-${field.name}-${index}`} index={index} />
+          ))}
+        </InputOtpGroup>
+      );
+    }
+
+    return groups.map((groupIndex, groupSize) => (
+      <Fragment key={`group-${field.name}-${groupIndex}`}>
+        {groupIndex > 0 && <InputOtpSeparator />}
+        <InputOtpGroup>
+          {Array.from({ length: groupSize }).map((_, slotIndex) => {
+            const globalIndex =
+              groups.slice(0, groupIndex).reduce((sum, size) => sum + size, 0) +
+              slotIndex;
+            return (
+              <InputOtpSlot
+                key={`slot-${field.name}-${globalIndex}`}
+                index={globalIndex}
+              />
+            );
+          })}
+        </InputOtpGroup>
+      </Fragment>
+    ));
+  };
+
+  return (
+    <BaseField label={label} labelSibling={labelSibling} className={className}>
+      <InputOtp
+        value={field.state.value}
+        onChange={(value) => field.handleChange(value)}
+        onBlur={field.handleBlur}
+        maxLength={slots}
+        {...props}
+      >
+        {renderSlots()}
+      </InputOtp>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean;
@@ -423,6 +495,7 @@ function SubmitButton({
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
+    BaseField,
     TextField,
     NumberField,
     TextAreaField,
@@ -431,6 +504,7 @@ const { useAppForm } = createFormHook({
     PhoneField,
     PasswordField,
     DateField,
+    OTPField,
   },
   formComponents: {
     SubmitButton,

@@ -11,21 +11,7 @@ import { useRouter } from '@/lib/locale/navigation';
 
 import { CountdownButton } from '@/components/auth/CountdownButton';
 import { usePending } from '@/components/auth/PendingBar';
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import {
-  InputOtp,
-  InputOtpGroup,
-  InputOtpSeparator,
-  InputOtpSlot,
-} from '@/components/ui/InputOtp';
+import { useForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 
 function VerifyEmailForm() {
@@ -50,9 +36,9 @@ function VerifyEmailForm() {
       },
     });
 
-  const form = useForm(formSchema, {
+  const form = useForm({
     validators: {
-      // TODO: this gets triggered twice, but will be fixed when we rewrtie the from API for Tanstack Form V1. (That is why you may get an error message on the frontend)
+      onChange: formSchema,
       onSubmitAsync: async ({ value }) => {
         try {
           await verifyEmailMutation.mutateAsync({
@@ -81,59 +67,40 @@ function VerifyEmailForm() {
         <h1 className='text-4xl'>{t('verifyEmail')}</h1>
         <p className='text-sm'>{t('verifyEmailDescription')}</p>
       </div>
-      <Form onSubmit={form.handleSubmit} className='grow'>
-        <form.Field name='otp'>
-          {(field) => (
-            <FormItem errors={field.state.meta.errors}>
-              <FormLabel>{t('form.otp.label')}</FormLabel>
-              <FormControl>
-                <InputOtp
-                  maxLength={8}
-                  containerClassName={'justify-center'}
-                  pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
-                  value={field.state.value}
-                  onChange={(value) => field.handleChange(value.toUpperCase())}
-                  onBlur={field.handleBlur}
-                  pasteTransformer={(pasted) => pasted.replaceAll('-', '')}
-                >
-                  <InputOtpGroup>
-                    <InputOtpSlot index={0} />
-                    <InputOtpSlot index={1} />
-                    <InputOtpSlot index={2} />
-                    <InputOtpSlot index={3} />
-                  </InputOtpGroup>
-                  <InputOtpSeparator />
-                  <InputOtpGroup>
-                    <InputOtpSlot index={4} />
-                    <InputOtpSlot index={5} />
-                    <InputOtpSlot index={6} />
-                    <InputOtpSlot index={7} />
-                  </InputOtpGroup>
-                </InputOtp>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        </form.Field>
-        <div className='absolute bottom-0 flex w-full xs:flex-row flex-col justify-between gap-2'>
-          <CountdownButton
-            initialCountdown={60}
-            onClick={() => {
-              resendVerificationEmailMutation.mutate({
-                theme: resolvedTheme as 'light' | 'dark',
-              });
-            }}
-            label={(seconds) => t('getNewCode', { seconds })}
-          />
-          <form.Subscribe selector={(state) => [state.canSubmit]}>
-            {([canSubmit]) => (
-              <Button className='min-w-28' type='submit' disabled={!canSubmit}>
-                {t('confirmEmail')}
-              </Button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+        className='relative grow space-y-6'
+      >
+        <form.AppForm>
+          <form.AppField name='otp'>
+            {(field) => (
+              <field.OTPField
+                label={t('form.otp.label')}
+                slots={8}
+                groups={[4, 4]}
+                containerClassName='justify-center'
+                pasteTransformer={(pasted) => pasted.replaceAll('-', '')}
+                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+              />
             )}
-          </form.Subscribe>
-        </div>
-      </Form>
+          </form.AppField>
+          <div className='absolute bottom-0 flex w-full xs:flex-row flex-col justify-between gap-2'>
+            <CountdownButton
+              initialCountdown={60}
+              onClick={() => {
+                resendVerificationEmailMutation.mutate({
+                  theme: resolvedTheme as 'light' | 'dark',
+                });
+              }}
+              label={(seconds) => t('getNewCode', { seconds })}
+            />
+            <form.SubmitButton>{t('confirmEmail')}</form.SubmitButton>
+          </div>
+        </form.AppForm>
+      </form>
     </div>
   );
 }
