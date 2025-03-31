@@ -7,16 +7,7 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 
 import { usePending } from '@/components/auth/PendingBar';
-import { PasswordInput } from '@/components/composites/PasswordInput';
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
+import { useForm } from '@/components/ui/Form';
 
 function AccountSignUpForm() {
   const router = useRouter();
@@ -29,7 +20,10 @@ function AccountSignUpForm() {
     onSuccess: () => router.push('/auth/success'),
   });
 
-  const form = useForm(formSchema, {
+  const form = useForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       password: '',
       confirmPassword: '',
@@ -47,59 +41,45 @@ function AccountSignUpForm() {
         <h1 className='text-4xl'>{t('createPassword')}</h1>
         <p className='text-sm'>{t('passwordDescription')}</p>
       </div>
-      <Form onSubmit={form.handleSubmit} className='grow'>
-        <form.Field name='password'>
-          {(field) => (
-            <FormItem errors={field.state.meta.errors}>
-              <FormLabel>{t('form.password.label')}</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  autoComplete='new-password'
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        </form.Field>
-        <form.Field
-          name='confirmPassword'
-          validators={{
-            onChangeListenTo: ['password'],
-            onChange: ({ value, fieldApi }) => {
-              if (value !== fieldApi.form.getFieldValue('password')) {
-                return t('form.password.mismatch');
-              }
-            },
-          }}
-        >
-          {(field) => (
-            <FormItem errors={field.state.meta.errors}>
-              <FormLabel>{t('form.password.confirmLabel')}</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  autoComplete='new-password'
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        </form.Field>
-        <div className='absolute bottom-0 flex w-full xs:flex-row flex-col xs:justify-end justify-between gap-2'>
-          <form.Subscribe selector={(state) => [state.canSubmit]}>
-            {([canSubmit]) => (
-              <Button className='min-w-28' type='submit' disabled={!canSubmit}>
-                {t('createAccount')}
-              </Button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+        className='relative grow space-y-6'
+      >
+        <form.AppForm>
+          <form.AppField name='password'>
+            {(field) => (
+              <field.PasswordField
+                label={t('form.password.label')}
+                autoComplete='new-password'
+              />
             )}
-          </form.Subscribe>
-        </div>
-      </Form>
+          </form.AppField>
+          <form.AppField
+            name='confirmPassword'
+            validators={{
+              onChangeListenTo: ['password'],
+              onChange: ({ value, fieldApi }) => {
+                if (value !== fieldApi.form.getFieldValue('password')) {
+                  return t('form.password.mismatch');
+                }
+              },
+            }}
+          >
+            {(field) => (
+              <field.PasswordField
+                label={t('form.password.confirmLabel')}
+                autoComplete='new-password'
+              />
+            )}
+          </form.AppField>
+          <div className='absolute bottom-0 flex w-full xs:flex-row flex-col xs:justify-end justify-between gap-2'>
+            <form.SubmitButton>{t('createAccount')}</form.SubmitButton>
+          </div>
+        </form.AppForm>
+      </form>
     </div>
   );
 }
