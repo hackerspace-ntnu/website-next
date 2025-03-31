@@ -18,7 +18,7 @@ import { cx } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 
 type Reservation = {
   toolType: string;
@@ -39,12 +39,12 @@ export function MyReservationsTable() {
   const isDesktop = useMediaQuery('(min-width: 42rem)');
   const [checked, setChecked] = useState<string[]>([]);
   const [editPressed, setEditPressed] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLButtonElement | null>(null);
   const ref2 = useRef<HTMLDivElement>(null);
   const refr = [ref, ref2];
   const loggedIn = true;
   const [smallScreen, setSmallScreen] = useState(false);
-  const userId = '5c87e78a-ee0c-4817-82d7-42d857694bed'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
+  const userId = '9c62462d-9695-4e37-9ddb-e1576998f475'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
 
   useEffect(() => {
     const stored = localStorage.getItem('reservations');
@@ -121,7 +121,7 @@ export function MyReservationsTable() {
             <>
               <Button
                 title={t('myReservationsTable.removetitle')}
-                ref={ref}
+                ref={ref as RefObject<HTMLButtonElement>}
                 className='mr-auto rounded-xl'
                 variant='secondary'
                 onClick={handleRemove}

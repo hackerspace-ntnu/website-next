@@ -446,7 +446,7 @@ const TimePeriodSelect = React.forwardRef<
           onValueChange={(value: Period) => handleValueChange(value)}
         >
           <SelectTrigger
-            ref={ref}
+            ref={ref as React.RefObject<HTMLButtonElement>}
             className='w-[65px] focus:bg-accent focus:text-accent-foreground'
             onKeyDown={handleKeyDown}
           >
@@ -556,7 +556,7 @@ const TimePickerInput = React.forwardRef<
 
     return (
       <Input
-        ref={ref}
+        ref={ref as React.RefObject<HTMLInputElement>}
         id={id || picker}
         name={name || picker}
         className={cx(
@@ -842,7 +842,7 @@ const DateTimePicker = React.forwardRef<
               !displayDate && 'text-muted-foreground',
               className,
             )}
-            ref={buttonRef}
+            ref={buttonRef as React.RefObject<HTMLButtonElement>}
           >
             <CalendarIcon className='mr-2 h-4 w-4' />
             {displayDate ? (
