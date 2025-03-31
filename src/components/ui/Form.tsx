@@ -382,4 +382,4 @@ const { useAppForm } = createFormHook({
   formContext,
 });
 
-export { useAppForm };
+export { useAppForm as useForm };
