@@ -9,11 +9,11 @@ export default async function StorageLoansLoading() {
     <div className='mx-auto max-w-prose space-y-8'>
       <h2>{t('titlePending')}</h2>
       {Array.from(Array(3).keys()).map((i) => (
-        <LoanCardSkeleton key={i} status='pending' />
+        <LoanCardSkeleton key={i} status='pending' admin={true} />
       ))}
       <h2>{t('titleApproved')}</h2>
       {Array.from(Array(3).keys()).map((i) => (
-        <LoanCardSkeleton key={i} status='approved' />
+        <LoanCardSkeleton key={i} status='approved' admin={true} />
       ))}
       <PaginationCarousel totalPages={2} />
     </div>

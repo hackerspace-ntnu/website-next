@@ -396,6 +396,33 @@ const storageRouter = createRouter({
           ),
         );
     }),
+  userLoansTotal: authenticatedProcedure.query(async ({ ctx }) => {
+    const counts = await ctx.db
+      .select({ count: count() })
+      .from(itemLoans)
+      .where(eq(itemLoans.lenderId, ctx.user.id));
+
+    if (!counts[0]) return Number.NaN;
+
+    return counts[0].count;
+  }),
+  userLoans: authenticatedProcedure
+    .input((input) => fetchLoansSchema().parse(input))
+    .query(async ({ input, ctx }) => {
+      const pendingWhere = input.pending
+        ? eq(itemLoans.approved, false)
+        : eq(itemLoans.approved, true);
+
+      return await ctx.db.query.itemLoans.findMany({
+        limit: input.limit,
+        offset: input.offset,
+        where: and(eq(itemLoans.lenderId, ctx.user.id), pendingWhere),
+        with: {
+          lender: true,
+          item: true,
+        },
+      });
+    }),
 });
 
 export { storageRouter };

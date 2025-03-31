@@ -12,8 +12,10 @@ import { Skeleton } from '../ui/Skeleton';
 
 async function LoanCardSkeleton({
   status,
+  admin,
 }: {
   status: 'approved' | 'pending';
+  admin: boolean;
 }) {
   const t = await getTranslations('storage.loans');
 
@@ -49,16 +51,18 @@ async function LoanCardSkeleton({
             </li>
           )}
         </ul>
-        {status === 'pending' && <p className='pt-6'>{t('askForApproval')}</p>}
+        {status === 'pending' && admin && (
+          <p className='pt-6'>{t('askForApproval')}</p>
+        )}
       </CardContent>
       <CardFooter className='flex gap-2'>
-        {status === 'pending' && (
+        {status === 'pending' && admin && (
           <>
             <Skeleton className='h-10 w-24' />
             <Skeleton className='h-10 w-24' />
           </>
         )}
-        {status === 'approved' && <Skeleton className='h-10 w-32' />}
+        {status === 'approved' && admin && <Skeleton className='h-10 w-32' />}
       </CardFooter>
     </Card>
   );

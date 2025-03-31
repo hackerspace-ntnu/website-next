@@ -250,6 +250,7 @@
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
     "addNewItem": "Legg til ny gjenstand",
+    "viewLoans": "Se dine lån",
     "backToStorage": "Tilbake til lageret",
     "noItemsFound": "Ingen gjenstander funnet. Sjekk filtreringskriteriene dine.",
     "card": {

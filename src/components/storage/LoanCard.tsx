@@ -23,9 +23,11 @@ import { DeleteLoanButton } from './DeleteLoanButton';
 async function LoanCard({
   loan,
   status,
+  admin,
 }: {
   loan: RouterOutput['storage']['fetchLoans'][number];
   status: 'approved' | 'pending';
+  admin: boolean;
 }) {
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
@@ -85,10 +87,12 @@ async function LoanCard({
             )
           ) : null}
         </ul>
-        {status === 'pending' && <p className='pt-6'>{t('askForApproval')}</p>}
+        {status === 'pending' && admin && (
+          <p className='pt-6'>{t('askForApproval')}</p>
+        )}
       </CardContent>
       <CardFooter className='flex gap-2'>
-        {status === 'pending' && (
+        {status === 'pending' && admin && (
           <>
             <ApproveLoanButton
               loan={loan}
@@ -108,7 +112,7 @@ async function LoanCard({
             />
           </>
         )}
-        {status === 'approved' && !loan.returnedAt && (
+        {status === 'approved' && !loan.returnedAt && admin && (
           <ConfirmLoanReturnedButton
             loan={loan}
             label={t('confirmLoanReturn')}

@@ -62,12 +62,12 @@ export default async function StorageLoansPage({
       <h2>{t('titlePending')}</h2>
       {pendingLoans.length === 0 && <h3>{t('noPendingLoans')}</h3>}
       {pendingLoans.map((loan) => (
-        <LoanCard key={loan.id} loan={loan} status='pending' />
+        <LoanCard key={loan.id} loan={loan} status='pending' admin={true} />
       ))}
       <h2>{t('titleApproved')}</h2>
       {pastLoans.length === 0 && <h3>{t('noLoansFound')}</h3>}
       {pastLoans.map((loan) => (
-        <LoanCard key={loan.id} loan={loan} status='approved' />
+        <LoanCard key={loan.id} loan={loan} status='approved' admin={true} />
       ))}
       <PaginationCarousel
         totalPages={Math.ceil(approvedLoansTotal / itemsPerPage)}
