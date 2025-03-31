@@ -330,12 +330,17 @@
           "register": "Registrer",
           "update": "Oppdater",
           "unregister": "Avregistrer",
-          "signIn": "Logg inn for å registrere vakt",
+          "signIn": "Logg inn",
           "registerSuccess": "Vakt registrert",
           "updateSuccess": "Vakt oppdatert",
           "unregisterSuccess": "Vakt avregistrert"
         }
       }
+    },
+    "api": {
+      "day": "Ugyldig dag",
+      "timeslot": "Ugyldig tidsrom",
+      "recurring": "Ugyldig verdi for gjentagende"
     }
   },
   "events": {
