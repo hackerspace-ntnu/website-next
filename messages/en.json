@@ -238,10 +238,79 @@
   },
   "reservations": {
     "title": "Reservations",
-    "available": "Book item",
-    "unavailable": "Unavailable",
-    "supervision": "Requires supervision",
-    "tooltip": "Read more about this tool",
-    "myReservations": "My reservations"
+    "tools": {
+      "available": "Book item",
+      "unavailable": "Unavailable",
+      "supervision": "Requires supervision",
+      "tooltip": "Read more about this tool",
+      "myReservations": "My reservations"
+    },
+    "myReservationsTable": {
+      "title": "Your reservations",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "editTitle": "Edit table",
+      "cancelTitle": "Cancel action",
+      "removetitle": "Remove checked reservations",
+      "checkBoxTitle": "Press to check",
+      "checkboxAllTitle": "Press to check all",
+      "tool": "Tool",
+      "from": "From",
+      "to": "To",
+      "goToCalendar": "Gå to calendar",
+      "empty": "You have no reservations",
+      "notLoggedIn": "You are not currently logged in. Login to see your reservations."
+    },
+    "information": {
+      "importantTitle": "Important information!",
+      "importantText": "Read the rules regarding the use of 3D-printers or any other tool before you create a reservation. By using our reservation system, we allocate our resources ( both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
+      "dontShow": "Do not show this again"
+    },
+    "toolbar": {
+      "prev": "Prev",
+      "today": "Today",
+      "next": "Next",
+      "day": "Day",
+      "week": "Week",
+      "3days": "3-Days",
+      "dayTitle": "Show day view",
+      "weekTitle": "Show week view",
+      "3daysTitle": "Show 3-day view",
+      "prevWeekTitle": "Previous week",
+      "prev3daysTitle": "Previous 3 days",
+      "prevDayTitle": "Previous day",
+      "todayTitle": "Go to today",
+      "nextWeekTitle": "Next week",
+      "next3daysTitle": "Next 3 days",
+      "nextDayTitle": "Next day"
+    },
+    "form": {
+      "titleCreate": "Create a reservation",
+      "descriptionCreate": "Fill in your name, phone number and, start and end date/time in the empty fields",
+      "titleEdit": "Edit reservation",
+      "descriptionEdit": "Edit the field you wish to and press 'save'",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "create": "Create",
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "phoneNr": "Phone number",
+      "phoneNrPlaceholder": "Your phone number",
+      "email": "Email",
+      "emailPlaceholder": "eksempel@stud.ntnu.test",
+      "startTime": "Start date/time",
+      "endTime": "End date/time",
+      "formSchema": {
+        "navnReq": "Please type in your full name",
+        "phoneNrReq": "Please type in your phone number",
+        "emailReq": "Please type in your Email",
+        "Error": "Somehting went wrong, try again later..."
+      }
+    },
+    "calendar": {
+      "locale": "en"
+    }
   }
 }

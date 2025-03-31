@@ -2,8 +2,10 @@
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import type { t } from '@/components/reservations/ToolCardGrid';
 import { Card, CardContent, CardTitle } from '@/components/ui/Card';
+import { Link } from '@/lib/locale/navigation';
 import { Maximize2 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useId, useState } from 'react';
 import { Button } from '../ui/Button';
@@ -11,14 +13,10 @@ import { Button } from '../ui/Button';
 type HorizontalToolCardProps = {
   tool: Tool;
   onClick: () => void;
-  t: t;
 };
 
-export function HorizontalToolCard({
-  tool,
-  onClick,
-  t,
-}: HorizontalToolCardProps) {
+export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
+  const t = useTranslations('reservations');
   const fieldsToShow = [
     'krever',
     'difficulty',
@@ -44,7 +42,7 @@ export function HorizontalToolCard({
       onTouchStart={() => setTouched(true)}
     >
       <motion.div
-        layoutId={tool.id.toString()}
+        layoutId={`${tool.type}-${tool.title}-${id}`}
         className='flex size-full flex-row'
       >
         <Image
@@ -74,25 +72,29 @@ export function HorizontalToolCard({
               transition={{ type: 'tween', delay: 0.2 }}
               className='~text-xs/sm absolute top-0 right-0 z-0 w-48 whitespace-nowrap rounded-xl rounded-tr-3xl bg-black bg-opacity-40 py-2 pl-2 text-left text-white shadow-lg'
             >
-              {t.tooltip}
+              {t('tools.tooltip')}
             </motion.div>
           )}
           <div className='absolute bottom-0 left-0 flex w-full'>
-            {tool.typeId === 1 ? (
+            {tool.type === 'printer' ? (
               tool.available ? (
-                <Button
-                  onClick={(e) => e.stopPropagation()}
-                  className=' w-full rounded-none hover:brightness-125'
+                <Link
+                  href={{
+                    pathname: '/reservations/[tool]',
+                    params: { tool: tool.slug },
+                  }}
+                  className='w-full rounded-none hover:brightness-125'
                 >
-                  {t.available}
-                </Button>
+                  <Button className='w-full rounded-none hover:brightness-125'>
+                    {t('tools.available')}
+                  </Button>
+                </Link>
               ) : (
                 <Button
                   variant='destructive'
-                  onClick={(e) => e.stopPropagation()}
                   className=' pointer-events-none w-full rounded-none'
                 >
-                  {t.unavailable}
+                  {t('tools.unavailable')}
                 </Button>
               )
             ) : (
@@ -100,7 +102,7 @@ export function HorizontalToolCard({
                 variant='secondary'
                 className=' pointer-events-none w-full rounded-none'
               >
-                {t.supervision}
+                {t('tools.supervision')}
               </Button>
             )}
           </div>

@@ -2,8 +2,10 @@
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import type { t } from '@/components/reservations/ToolCardGrid';
 import { Card } from '@/components/ui/Card';
+import { Link } from '@/lib/locale/navigation';
 import { Maximize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useId, useState } from 'react';
 import { Button } from '../ui/Button';
@@ -11,10 +13,11 @@ import { Button } from '../ui/Button';
 type ToolCardProps = {
   tool: Tool;
   onClick: () => void;
-  t: t;
 };
 
-export function ToolCard({ tool, onClick, t }: ToolCardProps) {
+export function ToolCard({ tool, onClick }: ToolCardProps) {
+  const t = useTranslations('reservations');
+
   const fieldsToShow = [
     'krever',
     'difficulty',
@@ -22,14 +25,13 @@ export function ToolCard({ tool, onClick, t }: ToolCardProps) {
     'filamentType',
     'slicer',
   ] as const;
-
   const [hovered, setHovered] = useState(false);
   const id = useId();
 
   return (
     <Card className='relative z-0 flex h-112 w-80 flex-col overflow-hidden rounded-xl hover:brightness-110'>
       <motion.div
-        layoutId={tool.id.toString()}
+        layoutId={`${tool.type}-${tool.title}-${id}`}
         className='z-0 flex h-full flex-col'
       >
         <div
@@ -61,7 +63,7 @@ export function ToolCard({ tool, onClick, t }: ToolCardProps) {
                 transition={{ type: 'tween', delay: 0.2 }}
                 className='~text-xs/sm absolute top-3 right-11 z-0 whitespace-nowrap rounded-xl rounded-r-none bg-black bg-opacity-40 px-3 py-2 pr-4 text-white shadow-lg'
               >
-                {t.tooltip}
+                {t('tools.tooltip')}
               </motion.div>
             )}
           </div>
@@ -70,7 +72,7 @@ export function ToolCard({ tool, onClick, t }: ToolCardProps) {
           <h1 className='text-wrap px-1 text-center text-xl'>{tool.title}</h1>
           <h2 className='~text-base/lg text-center'>{tool.description}</h2>
           <div className='relative max-h-fit text-wrap pl-8 text-left text-sm'>
-            {tool.typeId === 1 &&
+            {tool.type === 'printer' &&
               fieldsToShow.map((field) => {
                 const text = tool[field];
                 if (text === '' || text === 'null' || text === null)
@@ -83,26 +85,30 @@ export function ToolCard({ tool, onClick, t }: ToolCardProps) {
                 );
               })}
           </div>
-          {tool.typeId === 1 ? (
+          {tool.type === 'printer' ? (
             tool.available ? (
-              <Button
-                onClick={(e) => e.stopPropagation()}
-                className='absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none hover:brightness-125'
+              <Link
+                href={{
+                  pathname: '/reservations/[tool]',
+                  params: { tool: tool.slug },
+                }}
+                className='absolute bottom-0 left-0 h-14 w-full'
               >
-                {t.available}
-              </Button>
+                <Button className='h-full w-full rounded-xl rounded-t-none hover:brightness-125'>
+                  {t('tools.available')}
+                </Button>
+              </Link>
             ) : (
               <Button
                 variant='destructive'
-                onClick={(e) => e.stopPropagation()}
                 className='pointer-events-none absolute bottom-0 left-0 h-14 w-full rounded-xl rounded-t-none'
               >
-                {t.unavailable}
+                {t('tools.unavailable')}
               </Button>
             )
           ) : (
             <div className='absolute bottom-0 left-0 flex h-14 w-full items-center justify-center rounded-xl rounded-t-none bg-gray-600 bg-opacity-50 text-center'>
-              {t.supervision}
+              {t('tools.supervision')}
             </div>
           )}
         </div>

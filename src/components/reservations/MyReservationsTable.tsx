@@ -15,53 +15,66 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
+import { format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
-import { useState } from 'react';
-import React, { useEffect, useRef } from 'react';
-
-type MyReservationsTable = {
-  className?: string;
-  myReservations: Reservation[];
-};
+import { useTranslations } from 'next-intl';
+import { useEffect, useRef, useState } from 'react';
 
 type Reservation = {
-  id: number;
+  toolType: string;
   toolName: string;
-  toolDescription: string;
-  fromDate: string;
-  toDate: string;
+  toolSlug: string;
+  userId: string;
+  reservationId: string;
+  start: Date | string;
+  end: Date | string;
+  navn: string;
+  mobilNr: string;
+  email: string;
 };
 
-export function MyReservationsTable({ myReservations }: MyReservationsTable) {
-  const [reservation, setReservation] = useState<Reservation[]>(myReservations);
+export function MyReservationsTable() {
+  const t = useTranslations('reservations');
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const isDesktop = useMediaQuery('(min-width: 42rem)');
-  const [checked, setChecked] = useState<number[]>([]);
+  const [checked, setChecked] = useState<string[]>([]);
   const [editPressed, setEditPressed] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
   const refr = [ref, ref2];
   const loggedIn = true;
   const [smallScreen, setSmallScreen] = useState(false);
+  const userId = '5c87e78a-ee0c-4817-82d7-42d857694bed'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
+
+  useEffect(() => {
+    const stored = localStorage.getItem('reservations');
+    if (stored) {
+      const parsed = JSON.parse(stored) as Reservation[];
+      setReservations(parsed.filter((res) => res.userId === userId));
+    }
+  }, []);
 
   function handleSelectAll(isChecked: boolean) {
     if (isChecked) {
-      const allIds = reservation.map((res) => res.id);
+      const allIds = reservations.map((res) => res.reservationId);
       setChecked(allIds);
     } else {
       setChecked([]);
     }
   }
 
-  function handleSelect(id: number, isChecked: boolean) {
-    if (isChecked) {
-      setChecked((previous) => [...previous, id]);
-    } else {
-      setChecked((prev) => prev.filter((item) => item !== id));
-    }
+  function handleSelect(id: string, isChecked: boolean) {
+    setChecked((prev) =>
+      isChecked ? [...prev, id] : prev.filter((item) => item !== id),
+    );
   }
 
   function handleRemove() {
-    setReservation(reservation.filter((res) => !checked.includes(res.id)));
+    const updated = reservations.filter(
+      (res) => !checked.includes(res.reservationId),
+    );
+    setReservations(updated);
+    localStorage.setItem('reservations', JSON.stringify(updated));
     setChecked([]);
   }
 
@@ -69,20 +82,14 @@ export function MyReservationsTable({ myReservations }: MyReservationsTable) {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setEditPressed(false);
     };
-
     window.addEventListener('keydown', onKeyDown);
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-    };
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
+
   useOutsideClick(refr, () => setEditPressed(false));
 
   useEffect(() => {
-    if (!isDesktop) {
-      setSmallScreen(true);
-    } else {
-      setSmallScreen(false);
-    }
+    setSmallScreen(!isDesktop);
   }, [isDesktop]);
 
   function selectAllCheckBox() {
@@ -95,38 +102,49 @@ export function MyReservationsTable({ myReservations }: MyReservationsTable) {
         )}
       >
         <Checkbox
+          title={t('myReservationsTable.checkboxAllTitle')}
           checked={
-            reservation.length > 0 && reservation.length === checked.length
+            reservations.length > 0 && reservations.length === checked.length
           }
-          onCheckedChange={(ischecked) => handleSelectAll(ischecked === true)}
-          className={cx(
-            smallScreen && 'mx-2 flex place-self-center justify-self-center',
-          )}
+          onCheckedChange={(isChecked) => handleSelectAll(isChecked === true)}
+          className={cx(smallScreen && 'mx-2 flex place-self-center')}
         />
       </TableHead>
     );
   }
 
   return (
-    <div className='mx-auto flex size-full max-w-3xl flex-col gap-2'>
-      <div className='flex size-full} flex-row'>
+    <div className='mx-auto flex size-full max-w-3xl flex-col gap-1'>
+      <div className='flex flex-row justify-between'>
         {loggedIn &&
           (editPressed ? (
-            <Button
-              ref={ref}
-              className='mr-auto rounded-xl'
-              variant='secondary'
-              onClick={handleRemove}
-            >
-              Remove
-            </Button>
+            <>
+              <Button
+                title={t('myReservationsTable.removetitle')}
+                ref={ref}
+                className='mr-auto rounded-xl'
+                variant='secondary'
+                onClick={handleRemove}
+              >
+                {t('myReservationsTable.remove')}
+              </Button>
+              <Button
+                title={t('myReservationsTable.cancelTitle')}
+                className='ml-auto rounded-xl'
+                variant='secondary'
+                onClick={() => setEditPressed(false)}
+              >
+                {t('myReservationsTable.cancel')}
+              </Button>
+            </>
           ) : (
             <Button
+              title={t('myReservationsTable.editTitle')}
               className='ml-auto rounded-xl'
               variant='secondary'
               onClick={() => setEditPressed(true)}
             >
-              Edit
+              {t('myReservationsTable.edit')}
             </Button>
           ))}
       </div>
@@ -134,83 +152,103 @@ export function MyReservationsTable({ myReservations }: MyReservationsTable) {
         ref={ref2}
         className='max-h-96 overflow-auto rounded-xl border bg-secondary/50'
       >
+        <h3 className='~text-lg/2xl p-3 text-left'>
+          {t('myReservationsTable.title')}
+        </h3>
         <Table>
           <TableHeader>
             {smallScreen ? (
-              <TableRow>
+              <TableRow className='border-t'>
                 {editPressed && loggedIn && selectAllCheckBox()}
-                <TableHead className='text-center'>My reservations</TableHead>
+                <TableHead className='text-center'>Tool</TableHead>
               </TableRow>
             ) : (
-              <TableRow>
+              <TableRow className='border-t'>
                 {editPressed && loggedIn && selectAllCheckBox()}
-                <TableHead>My reservations</TableHead>
-                <TableHead className='border-x'>From</TableHead>
-                <TableHead>To</TableHead>
+                <TableHead>{t('myReservationsTable.tool')}</TableHead>
+                <TableHead className='border-x'>
+                  {t('myReservationsTable.from')}
+                </TableHead>
+                <TableHead>{t('myReservationsTable.to')}</TableHead>
               </TableRow>
             )}
           </TableHeader>
           {loggedIn ? (
-            reservation.length !== 0 ? (
+            reservations.length !== 0 ? (
               <TableBody>
-                {reservation.map((res) =>
+                {reservations.map((res) =>
                   smallScreen ? (
-                    <TableRow key={res.id}>
+                    <TableRow key={res.reservationId}>
                       {editPressed && loggedIn && (
                         <TableCell className='border-r'>
                           <Checkbox
-                            checked={checked.includes(res.id)}
+                            checked={checked.includes(res.reservationId)}
                             onCheckedChange={(isChecked) =>
-                              handleSelect(res.id, isChecked === true)
+                              handleSelect(
+                                res.reservationId,
+                                isChecked === true,
+                              )
                             }
                             className='mx-2 flex place-self-center justify-self-center'
                           />
                         </TableCell>
                       )}
                       <TableCell>
-                        <div className='flex w-full flex-row gap-1'>
+                        <div className='flex w-full flex-row justify-between gap-3'>
                           <h1 className='~text-sm/base w-full text-center'>
                             {res.toolName}
                           </h1>
                           <div className='~text-xs/sm size-full flex-col'>
                             <p className='mb-2 underline'>
-                              {`From: ${res.fromDate}`}{' '}
+                              {`From: ${format(res.start, 'dd.MMM HH:mm')}`}{' '}
                             </p>
-                            <p className='underline'>{`To: ${res.toDate}`}</p>
+                            <p className='underline'>{`To: ${format(res.end, 'dd.MMM HH:mm')}`}</p>
                           </div>
-                          <Link href={'/reservations'} className='mx-2 flex'>
+                          <Link
+                            title={t('myReservationsTable.goToCalendar')}
+                            href={{
+                              pathname: '/reservations/[tool]',
+                              params: { tool: res.toolSlug },
+                            }}
+                            className='mr-4 flex'
+                          >
                             <CalendarDays className='~size-16/20' />
                           </Link>
                         </div>
                       </TableCell>
                     </TableRow>
                   ) : (
-                    <TableRow key={res.id}>
+                    <TableRow key={res.reservationId}>
                       {editPressed && loggedIn && (
                         <TableCell className='flex items-center justify-center border-r'>
                           <Checkbox
-                            checked={checked.includes(res.id)}
+                            checked={checked.includes(res.reservationId)}
                             onCheckedChange={(isChecked) =>
-                              handleSelect(res.id, isChecked === true)
+                              handleSelect(
+                                res.reservationId,
+                                isChecked === true,
+                              )
                             }
                           />
                         </TableCell>
                       )}
                       <TableCell>{res.toolName}</TableCell>
-                      <TableCell className='border-x'>{res.fromDate}</TableCell>
-                      <TableCell>{res.toDate}</TableCell>
+                      <TableCell className='border-x'>
+                        {format(res.start, 'dd.MMM HH:mm')}
+                      </TableCell>
+                      <TableCell>{format(res.end, 'dd.MMM HH:mm')}</TableCell>
                     </TableRow>
                   ),
                 )}
               </TableBody>
             ) : (
-              <TableCaption>You have no reservation</TableCaption>
+              <TableCaption className='~text-sm/base p-3'>
+                {t('myReservationsTable.empty')}
+              </TableCaption>
             )
           ) : (
-            <TableCaption>
-              <p className='~text-sm/base'>
-                You are not logged in. Login to see your reservation.
-              </p>
+            <TableCaption className='~text-sm/base p-3'>
+              {t('myReservationsTable.notLoggedIn')}
             </TableCaption>
           )}
         </Table>

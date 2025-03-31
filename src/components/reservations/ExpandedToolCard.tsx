@@ -4,21 +4,18 @@ import type { t } from '@/components/reservations/ToolCardGrid';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Minimize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import { Button } from '../ui/Button';
 
 type ExpandedToolCardProps = {
   active: Tool;
   onClose: () => void;
-  t: t;
 };
 
-export function ExpandedToolCard({
-  active,
-  onClose,
-  t,
-}: ExpandedToolCardProps) {
+export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
+  const t = useTranslations('reservations');
   const refr = useRef<HTMLDivElement>(null);
   const ref = [refr];
   const fieldsToShow = [
@@ -28,6 +25,7 @@ export function ExpandedToolCard({
     'filamentType',
     'slicer',
   ] as const;
+  const id = useId();
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -44,9 +42,9 @@ export function ExpandedToolCard({
   return (
     <AnimatePresence>
       {active && (
-        <div className='absolute z-20 size-full opacity-95'>
+        <div className='absolute z-20 size-full'>
           <motion.div
-            layoutId={active.id.toString()}
+            layoutId={`${active.type}-${active.title}-${id}`}
             ref={refr}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -55,7 +53,7 @@ export function ExpandedToolCard({
               opacity: { duration: 0.2, delay: 0.05 },
               scale: { duration: 0.2, delay: 0.05 },
             }}
-            className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border bg-white shadow-black shadow-xl md:max-w-lg dark:bg-neutral-900'
+            className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border shadow-2xl shadow-black md:max-w-lg dark:bg-neutral-900'
           >
             <div>
               <Button
@@ -72,29 +70,20 @@ export function ExpandedToolCard({
                 className='h-60 w-full object-fill'
               />
             </div>
-            <div className='relative flex h-80 flex-col gap-1 p-6 pt-4 pr-1'>
-              <div className='inline-flex flex-row gap-3'>
-                <div className='w-2/3'>
-                  <h3>{active.title}</h3>
-                  <p>{active.description}</p>
-                </div>
-                {active.available && (
-                  <Button
-                    variant='default'
-                    className='~text-base/lg mr-4 inline-flex w-1/3 max-w-64 overflow-hidden rounded-xl font-semibold'
-                  >
-                    Reserver
-                  </Button>
-                )}
+            <div className='relative mt-5 flex max-h-80 flex-col gap-5'>
+              <div>
+                <h3>{active.title}</h3>
+                <p className='~text-sm/base'>{active.description}</p>
               </div>
-              <div className='~text-xs/sm flex h-full max-h-60 flex-col gap-2 overflow-auto pt-4 text-neutral-600 dark:text-neutral-400'>
+              <div className='~text-sm/base flex h-full max-h-60 flex-col gap-2 overflow-auto px-5 text-left '>
                 {active.textContent}
+                <br />
                 <div>
-                  {active.typeId === 1 &&
+                  {active.type === 'printer' &&
                     fieldsToShow.map((field) => {
                       const text = active[field];
                       if (text === '' || text === 'null' || text === null)
-                        return null;
+                        return;
                       return (
                         <p key={field}>
                           {field}: {text}
@@ -104,6 +93,14 @@ export function ExpandedToolCard({
                     })}
                 </div>
               </div>
+              {active.available && (
+                <Button
+                  variant='default'
+                  className='~text-base/lg size-full rounded-none font-semibold'
+                >
+                  {t('tools.available')}
+                </Button>
+              )}
             </div>
           </motion.div>
         </div>
