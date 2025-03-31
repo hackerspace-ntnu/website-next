@@ -1,5 +1,4 @@
 import {
-  ResponsiveDialog,
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
   ResponsiveDialogHeader,
@@ -7,6 +6,9 @@ import {
   ResponsiveDialogTrigger,
 } from '@/components/composites/ResponsiveDialog';
 import { MemberList } from '@/components/shift-schedule/MemberList';
+import { RegisterShift } from '@/components/shift-schedule/RegisterShift';
+import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
@@ -14,8 +16,6 @@ import { cx } from '@/lib/utils';
 import type { Member } from '@/server/api/routers';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { SkillIcon } from '../skills/SkillIcon';
-import { RegisterShift } from './RegisterShift';
 
 type ScheduleCellProps = {
   formattedShift: {
@@ -41,9 +41,8 @@ function ScheduleCell({
   const userOnShift = !!members.find((member) => member.id === memberId);
 
   return (
-    // 206px width is the largest that doesn't give scroll on iPhone 5/SE (smallest phone we have support for)
     <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
-      <ResponsiveDialog>
+      <ResponsiveDialogWrapper>
         <ResponsiveDialogTrigger asChild>
           <Button
             variant='none'
@@ -114,6 +113,10 @@ function ScheduleCell({
                 register: t('dialog.register'),
                 update: t('dialog.update'),
                 unregister: t('dialog.unregister'),
+                signIn: t('dialog.signIn'),
+                registerSuccess: t('dialog.registerSuccess'),
+                updateSuccess: t('dialog.updateSuccess'),
+                unregisterSuccess: t('dialog.unregisterSuccess'),
               }}
               day={day}
               timeslot={timeslot}
@@ -124,11 +127,11 @@ function ScheduleCell({
                   (member) => member.id === memberId && member.recurring,
                 ),
               }}
-              className='mt-auto min-w-fit'
+              className='mt-auto w-28 max-w-fit'
             />
           </div>
         </ResponsiveDialogContent>
-      </ResponsiveDialog>
+      </ResponsiveDialogWrapper>
     </TableCell>
   );
 }

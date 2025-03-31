@@ -328,7 +328,11 @@
           "recurring": "Recurring",
           "register": "Register",
           "update": "Update",
-          "unregister": "Unregister"
+          "unregister": "Unregister",
+          "signIn": "Sign in to register shift",
+          "registerSuccess": "Registered shift successfully",
+          "updateSuccess": "Updated shift successfully",
+          "unregisterSuccess": "Unregistered from shift successfully"
         }
       }
     }

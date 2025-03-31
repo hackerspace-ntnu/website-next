@@ -328,7 +328,11 @@
           "recurring": "Gjentagende",
           "register": "Registrer",
           "update": "Oppdater",
-          "unregister": "Avregistrer"
+          "unregister": "Avregistrer",
+          "signIn": "Logg inn for å registrere vakt",
+          "registerSuccess": "Vakt registrert",
+          "updateSuccess": "Vakt oppdatert",
+          "unregisterSuccess": "Vakt avregistrert"
         }
       }
     }
