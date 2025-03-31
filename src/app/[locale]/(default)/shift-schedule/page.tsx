@@ -39,6 +39,7 @@ export default async function ShiftSchedulePage({
               confirmationPrompt: t('confirmationPrompt'),
               confirm: t('confirm'),
               cancel: t('cancel'),
+              clearSuccess: t('clearSuccess'),
             }}
           />
         </div>

@@ -314,7 +314,8 @@
       "warning": "Warning",
       "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
       "confirm": "Clear",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "clearSuccess": "Cleared shifts successfully"
     },
     "table": {
       "time": "Time",

@@ -16,6 +16,7 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 type ClearShiftsProps = {
   t: {
@@ -24,6 +25,7 @@ type ClearShiftsProps = {
     confirmationPrompt: string;
     confirm: string;
     cancel: string;
+    clearSuccess: string;
   };
 };
 
@@ -58,7 +60,9 @@ function ClearShifts({ t }: ClearShiftsProps) {
           </AlertDialogCancel>
           <AlertDialogActionDestructive
             onClick={async () => {
-              await clearShifts.mutateAsync();
+              await clearShifts.mutateAsync(undefined, {
+                onSuccess: () => toast.success(t.clearSuccess),
+              });
               await utils.shiftSchedule.fetchShifts.invalidate();
               router.refresh();
             }}

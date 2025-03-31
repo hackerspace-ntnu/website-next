@@ -314,7 +314,8 @@
       "warning": "Advarsel",
       "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",
       "confirm": "Tøm",
-      "cancel": "Avbryt"
+      "cancel": "Avbryt",
+      "clearSuccess": "Vaktliste tømt"
     },
     "table": {
       "time": "Tid",
