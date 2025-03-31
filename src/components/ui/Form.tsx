@@ -8,6 +8,9 @@ import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
 
 import { BaseMap } from '@/components/composites/BaseMap';
+import { PasswordInput } from '@/components/composites/PasswordInput';
+import { PhoneInput } from '@/components/composites/PhoneInput';
+import { DatePicker } from '@/components/compostes/DatePicker';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
@@ -257,6 +260,72 @@ function SelectField({
   );
 }
 
+type PhoneFieldProps = Omit<
+  React.ComponentProps<typeof PhoneInput>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  label: string;
+};
+
+function PhoneField({ className, label, ...props }: PhoneFieldProps) {
+  const field = useFieldContext<string>();
+
+  return (
+    <BaseField label={label} className={className}>
+      <PhoneInput
+        value={field.state.value}
+        onChange={(value) => field.handleChange(value)}
+        onBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
+type PasswordFieldProps = Omit<
+  React.ComponentProps<typeof PasswordInput>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  label: string;
+};
+
+function PasswordField({ className, label, ...props }: PasswordFieldProps) {
+  const field = useFieldContext<string>();
+
+  return (
+    <BaseField label={label} className={className}>
+      <PasswordInput
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
+type DateFieldProps = Omit<
+  React.ComponentProps<typeof DatePicker>,
+  'date' | 'setDate' | 'onBlur'
+> & {
+  label: string;
+};
+
+function DateField({ className, label, ...props }: DateFieldProps) {
+  const field = useFieldContext<Date>();
+
+  return (
+    <BaseField label={label} className={className}>
+      <DatePicker
+        date={field.state.value}
+        setDate={(date: Date) => field.handleChange(date)}
+        onBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean;
@@ -302,6 +371,9 @@ const { useAppForm } = createFormHook({
     TextAreaField,
     MapField,
     SelectField,
+    PhoneField,
+    PasswordField,
+    DateField,
   },
   formComponents: {
     SubmitButton,
