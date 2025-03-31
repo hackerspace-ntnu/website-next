@@ -78,7 +78,7 @@ export default function ShiftScheduleLayout() {
                     </TableCell>
                     <TableCell
                       key={day}
-                      className='h-20 w-[206px] border p-1.5'
+                      className='h-20 min-w-[206px] max-w-[206px] border p-1.5'
                     >
                       <Skeleton className='size-full' />
                     </TableCell>
@@ -127,7 +127,7 @@ export default function ShiftScheduleLayout() {
                 {days.map((day) => (
                   <TableCell
                     key={day}
-                    className='h-20 min-w-[206px] border p-1.5'
+                    className='h-20 min-w-[206px] max-w-[206px] border p-1.5'
                   >
                     <Skeleton className='size-full' />
                   </TableCell>
@@ -135,8 +135,8 @@ export default function ShiftScheduleLayout() {
               </TableRow>
             ))}
           </TableBody>
-          <TableCaption className='h-12'>
-            <div className='flex w-full justify-center gap-8'>
+          <TableCaption className='h-fit min-h-12'>
+            <div className='flex flex-wrap justify-center gap-8'>
               {skillIdentifiers.map((identifier) => (
                 <div key={identifier} className='flex items-center gap-3'>
                   <SkillIcon identifier={identifier} size='large' />

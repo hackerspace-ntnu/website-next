@@ -77,7 +77,7 @@ function ScheduleCell({
             {members.length === 0 ? (
               <span className='m-1'>{t('closed')}</span>
             ) : (
-              <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5'>
+              <div className='ml-1 flex flex-wrap gap-1.5'>
                 {skills.map((identifier) => (
                   <SkillIcon key={identifier} identifier={identifier} />
                 ))}
@@ -85,7 +85,7 @@ function ScheduleCell({
             )}
           </Button>
         </ResponsiveDialogTrigger>
-        <ResponsiveDialogContent className='mb-12 w-full min-w-80 p-3 md:mb-0 md:w-fit lg:w-1/3 lg:min-w-96'>
+        <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-3 md:mb-0 md:w-fit lg:w-1/3 lg:min-w-96'>
           <ResponsiveDialogHeader>
             <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
               <span className='font-semibold text-3xl'>

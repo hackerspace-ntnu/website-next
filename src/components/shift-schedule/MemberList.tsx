@@ -16,10 +16,10 @@ function MemberList({ t, members }: MemberListProps) {
       ) : (
         <div>
           {members?.map((member) => (
-            <div key={member.name} className='mb-3 last:mb-0'>
+            <div key={member.name} className='mb-5 last:mb-0'>
               <p className='leading-tight'>{member.name}</p>
               {/* Skill icons for small screens */}
-              <div className='my-1 mt-0.5 ml-3 flex min-w-full gap-1.5 lg:hidden'>
+              <div className='my-1 mt-0.5 ml-3 flex min-w-full flex-wrap gap-1.5 lg:hidden'>
                 {member.skills.map((identifier) => (
                   <SkillIcon
                     key={identifier}

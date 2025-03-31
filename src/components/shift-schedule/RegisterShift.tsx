@@ -129,7 +129,7 @@ function RegisterShift({
             <form.Subscribe selector={(state) => [state.canSubmit]}>
               {([canSubmit]) => (
                 <Button
-                  className='float-right w-full'
+                  className='float-right w-28'
                   type='submit'
                   variant={canUnregister ? 'destructive' : 'default'}
                   disabled={
