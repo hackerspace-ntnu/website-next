@@ -127,6 +127,10 @@ const routing = defineRouting({
       en: '/storage/loans/user',
       no: '/lager/lån/bruker',
     },
+    '/storage/categories': {
+      en: '/storage/categories',
+      no: '/lager/kategorier',
+    },
     '/rules': {
       en: '/rules',
       no: '/regler',

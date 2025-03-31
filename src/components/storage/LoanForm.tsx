@@ -3,6 +3,7 @@
 import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
+import { Checkbox } from '@/components/ui/Checkbox';
 import {
   Form,
   FormControl,
@@ -12,6 +13,7 @@ import {
   FormMessage,
   useForm,
 } from '@/components/ui/Form';
+import { Label } from '@/components/ui/Label';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
@@ -20,8 +22,6 @@ import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import type { DateRange } from 'react-day-picker';
-import { Checkbox } from '../ui/Checkbox';
-import { Label } from '../ui/Label';
 
 type LoanFormProps = {
   t: {

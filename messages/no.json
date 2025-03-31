@@ -29,7 +29,8 @@
     "showPassword": "Vis passord",
     "confirm": "Bekreft",
     "delete": "Slett",
-    "cancel": "Avbryt"
+    "cancel": "Avbryt",
+    "save": "Lagre"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -285,6 +286,13 @@
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
     },
+    "item": {
+      "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
+      "noLocation": "Ingen plassering spesifisert",
+      "noCategory": "Ingen kategori spesifisert",
+      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
+      "edit": "Rediger gjenstand"
+    },
     "shoppingCart": {
       "title": "Handlekurv",
       "productId": "Produkt-ID",
@@ -309,12 +317,18 @@
       "dateInFuture": "Datoen for levering må være i framtiden",
       "success": "Låneforespørsel sendt! Videresender deg til lageret..."
     },
-    "item": {
-      "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
-      "noLocation": "Ingen plassering spesifisert",
-      "noCategory": "Ingen kategori spesifisert",
-      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
-      "edit": "Rediger gjenstand"
+    "categories": {
+      "title": "Kategorier",
+      "categoryName": "Kategorinavn",
+      "categoryTableDescription": "Tabell over kategorier",
+      "actions": "Handlinger",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
+      "successAddMessage": "Kategorien har blitt lagt til!",
+      "successDeleteMessage": "Kategorien har blitt slettet!",
+      "invalidName": "Ugyldig kategorinavn",
+      "api": {
+        "insertFailed": "Feilet å legge til kategori"
+      }
     },
     "edit": {
       "titleNew": "Ny gjenstand",

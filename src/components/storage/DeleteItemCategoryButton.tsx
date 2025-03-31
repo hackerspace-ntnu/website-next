@@ -1,0 +1,45 @@
+'use client';
+import { Button } from '@/components/ui/Button';
+import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
+import type { RouterOutput } from '@/server/api';
+import { XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+
+function DeleteItemCategoryButton({
+  category,
+}: { category: RouterOutput['storage']['fetchItemCategories'][number] }) {
+  const tUi = useTranslations('ui');
+  const t = useTranslations('storage.categories');
+  const router = useRouter();
+  const apiUtils = api.useUtils();
+
+  const deleteItemCategoryMutation = api.storage.deleteItemCategory.useMutation(
+    {
+      onSuccess: async () => {
+        toast.success(t('successDeleteMessage'));
+        await apiUtils.storage.fetchItemCategories.invalidate();
+        router.refresh();
+      },
+    },
+  );
+
+  function handleDelete() {
+    deleteItemCategoryMutation.mutate({ name: category.name });
+  }
+
+  return (
+    <Button
+      className='flex gap-2'
+      type='button'
+      variant='destructive'
+      onClick={handleDelete}
+    >
+      <XIcon className='h-8 w-8' />
+      <span>{tUi('delete')}</span>
+    </Button>
+  );
+}
+
+export { DeleteItemCategoryButton };

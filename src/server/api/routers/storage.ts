@@ -20,6 +20,7 @@ import { editItemSchema } from '@/validations/storage/editItemSchema';
 import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
 import { fetchManySchema } from '@/validations/storage/fetchManySchema';
 import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
+import { itemCategorySchema } from '@/validations/storage/itemCategorySchema';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { itemsTotalSchema } from '@/validations/storage/itemsTotalSchema';
 import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
@@ -274,12 +275,47 @@ const storageRouter = createRouter({
 
       await ctx.db.delete(storageItems).where(eq(storageItems.id, input.id));
     }),
+  fetchItemCategories: storageProcedure.query(async ({ ctx }) => {
+    return await ctx.db.select().from(itemCategories);
+  }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db
       .select({ name: itemCategories.name })
       .from(itemCategories);
     return categories.map((c) => c.name);
   }),
+  addItemCategory: storageProcedure
+    .input((input) =>
+      itemCategorySchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .insert(itemCategories)
+        .values(input)
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('storage.categories.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+    }),
+  deleteItemCategory: storageProcedure
+    .input((input) =>
+      itemCategorySchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .delete(itemCategories)
+        .where(eq(itemCategories.name, input.name))
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('storage.categories.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+    }),
   borrowItems: authenticatedProcedure
     .input((input) => borrowItemsSchema().parse(input))
     .mutation(async ({ input, ctx }) => {

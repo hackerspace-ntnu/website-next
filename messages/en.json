@@ -29,7 +29,8 @@
     "showPassword": "Show password",
     "confirm": "Confirm",
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -315,6 +316,19 @@
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
       "success": "Loan request sent! Redirecting to storage..."
+    },
+    "categories": {
+      "title": "Categories",
+      "categoryName": "Category name",
+      "categoryTableDescription": "Table listing categories",
+      "actions": "Actions",
+      "unauthorized": "Unauthorized to manage storage item categories",
+      "successAddMessage": "Item category added successfully!",
+      "successDeleteMessage": "Item category deleted successfully!",
+      "invalidName": "Invalid category name",
+      "api": {
+        "insertFailed": "Failed to add category"
+      }
     },
     "edit": {
       "titleNew": "New Item",
