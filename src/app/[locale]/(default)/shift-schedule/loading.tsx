@@ -10,7 +10,6 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
