@@ -391,7 +391,7 @@
     },
     "information": {
       "importantTitle": "Important information!",
-      "importantText": "Read the rules regarding the use of 3D-printers or any other tool before you create a reservation. By using our reservation system, we allocate our resources ( both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
+      "importantText": "Read the <link>rules regarding the use of 3D-printers</link> before you create a reservation. By using our reservation system, we allocate our resources ( both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
       "dontShow": "Do not show this again"
     },
     "toolbar": {
@@ -430,13 +430,14 @@
       "startTime": "Start date/time",
       "endTime": "End date/time",
       "formSchema": {
-        "navnReq": "Please type in your full name",
+        "nameReq": "Please type in your full name",
         "phoneNrReq": "Please type in your phone number",
         "emailReq": "Please type in your Email",
         "Error": "Somehting went wrong, try again later..."
       }
     },
     "calendar": {
+      "createButton": "Create reservation",
       "locale": "en"
     }
   }

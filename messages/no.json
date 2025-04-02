@@ -391,7 +391,7 @@
     },
     "information": {
       "importantTitle": "Viktig informasjon!",
-      "importantText": "Les regler for bruk av 3D-printer før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
+      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
       "dontShow": "Ikke vis dette igjen"
     },
     "toolbar": {
@@ -413,7 +413,7 @@
       "nextDayTitle": "Neste dag"
     },
     "form": {
-      "titleCreate": "Lag en reservasjon",
+      "titleCreate": "Opprett en reservasjon",
       "descriptionCreate": "Fyll inn navn, mobilnummer og tidspunkt for reservasjon",
       "titleEdit": "Rediger reservasjon",
       "descriptionEdit": "Rediger feltet du ønsker og trykk 'lagre'",
@@ -430,13 +430,14 @@
       "startTime": "Start dato/tid",
       "endTime": "Slutt dato/tid",
       "formSchema": {
-        "navnRegReq": "Vennligst tast inn ditt navn",
+        "nameReq": "Vennligst tast inn ditt navn",
         "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
         "emailReq": "Vennligst tast inn ditt mail",
         "error": "Noe gikk galt, prøv igjen senere..."
       }
     },
     "calendar": {
+      "createButton": "Opprett reservasjon",
       "locale": "nb"
     }
   }

@@ -11,9 +11,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/Sheet';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export default function InformationSheet() {
+  const t = useTranslations('reservations');
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
@@ -35,20 +37,17 @@ export default function InformationSheet() {
         className='mx-auto w-full max-w-3xl rounded-b-lg border border-border'
       >
         <SheetHeader className='mb-3'>
-          <SheetTitle className='text-center'>Viktig informasjon</SheetTitle>
-          <SheetDescription className='~text-sm/base mx-auto max-w-xl'>
-            Les{' '}
-            <a className='text-primary' href='/regler/5'>
-              regler for bruk av 3D-printer
-            </a>{' '}
-            før du starter.
-            <br />
-            <br />
-            Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser
-            (både printer og folk på vakt som følger med).
-            <br />
-            Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter
-            før avsatt tid) og ikke går over tiden du har booket.
+          <SheetTitle className='text-center'>
+            {t('information.importantTitle')}
+          </SheetTitle>
+          <SheetDescription className='mx-auto max-w-xl text-balance text-sm-base-clamp'>
+            {t.rich('information.importantText', {
+              link: (chunks) => (
+                <a href='/regler/5' className='text-primary'>
+                  {chunks}
+                </a>
+              ),
+            })}
           </SheetDescription>
         </SheetHeader>
         <SheetFooter className='w-full'>
