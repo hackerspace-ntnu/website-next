@@ -3,7 +3,15 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { ImageIcon, MapPinIcon, XIcon } from 'lucide-react';
-import { Fragment, useCallback, useId, useState } from 'react';
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
 
@@ -667,6 +675,147 @@ function FileImageField({
   );
 }
 
+type CurrencyFieldProps = Omit<
+  React.ComponentProps<typeof Input>,
+  'type' | 'value' | 'onChange' | 'onBlur'
+> & {
+  label: string;
+  currency?: string;
+  locale?: string;
+};
+
+function CurrencyField({
+  className,
+  label,
+  currency = 'NOK',
+  locale = 'nb-NO',
+  ...props
+}: CurrencyFieldProps) {
+  const field = useFieldContext<number | null>();
+  const [inputValue, setInputValue] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const { decimalSeparator, groupSeparator } = useMemo(() => {
+    const parts = new Intl.NumberFormat(locale).formatToParts(1234.5);
+    return {
+      decimalSeparator: parts.find((p) => p.type === 'decimal')?.value ?? '.',
+      groupSeparator: parts.find((p) => p.type === 'group')?.value ?? ',',
+    };
+  }, [locale]);
+
+  const formatCurrency = useCallback(
+    (value: number | null | undefined): string => {
+      if (value === null || value === undefined || Number.isNaN(value)) {
+        return '';
+      }
+      try {
+        return new Intl.NumberFormat(locale, {
+          style: 'currency',
+          currency: currency,
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }).format(value);
+      } catch (error) {
+        console.error('Error formatting currency:', error);
+        return `${value.toFixed(2)} (Error)`;
+      }
+    },
+    [locale, currency],
+  );
+
+  const parseCurrency = useCallback(
+    (value: string): number | null => {
+      if (typeof value !== 'string' || value.trim() === '') {
+        return null;
+      }
+
+      const valueWithoutGroupSeparators = value.replaceAll(groupSeparator, '');
+
+      const normalizedValue = valueWithoutGroupSeparators.replace(
+        decimalSeparator,
+        '.',
+      );
+
+      const cleanedValue = normalizedValue.replace(/[^-0-9.]/g, '');
+
+      if (
+        cleanedValue === '' ||
+        cleanedValue === '-' ||
+        cleanedValue === '.' ||
+        cleanedValue.split('.').length > 2 ||
+        (cleanedValue.includes('-') && !cleanedValue.startsWith('-'))
+      ) {
+        if (cleanedValue === '-' || cleanedValue === '.') return null;
+        return null;
+      }
+
+      const numberValue = Number.parseFloat(cleanedValue);
+
+      return Number.isNaN(numberValue) ? null : numberValue;
+    },
+    [groupSeparator, decimalSeparator],
+  );
+
+  useEffect(() => {
+    if (document.activeElement !== inputRef.current) {
+      const newValue = formatCurrency(field.state.value);
+      requestAnimationFrame(() => {
+        setInputValue(newValue);
+      });
+    }
+  }, [field.state.value, formatCurrency]);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const rawValue = e.target.value;
+    setInputValue(rawValue);
+
+    const numericValue = parseCurrency(rawValue);
+
+    if (numericValue !== null || rawValue === '') {
+      field.handleChange(numericValue);
+    }
+  }
+
+  function handleFocus() {
+    const numericValue = field.state.value;
+    if (numericValue !== null && numericValue !== undefined) {
+      const plainNumberString = numericValue
+        .toFixed(2)
+        .replace('.', decimalSeparator);
+      setInputValue(plainNumberString);
+    } else {
+      setInputValue('');
+    }
+    requestAnimationFrame(() => {
+      inputRef.current?.select();
+    });
+  }
+
+  function handleBlur() {
+    const numericValue = parseCurrency(inputValue);
+    field.handleChange(numericValue);
+    const formattedValue = formatCurrency(numericValue);
+    setInputValue(formattedValue);
+    field.handleBlur();
+  }
+
+  return (
+    <BaseField label={label} className={className}>
+      <Input
+        ref={inputRef as React.RefObject<HTMLInputElement>}
+        type='text'
+        inputMode='decimal'
+        value={inputValue}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        placeholder={formatCurrency(0)}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean;
@@ -719,6 +868,7 @@ const { useAppForm } = createFormHook({
     OTPField,
     RadioGroupField,
     FileImageField,
+    CurrencyField,
   },
   formComponents: {
     SubmitButton,
