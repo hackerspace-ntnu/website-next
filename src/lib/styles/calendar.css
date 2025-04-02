@@ -7,8 +7,6 @@ Man kan finne hvordan man endrer styling på spesifikke ting ved å sjekke ut fu
 https://github.com/fullcalendar/fullcalendar/blob/9a0edaeb5eddf2cec8bd2409ecc26c4598b98a48/packages/core/src/styles/vars.css
 Alle fullcalendar komponenter skal ha en vars.css fil.
 */
-@custom-variant dark (&:where(.dark, .dark *));
-
 
 .fc {
   /* For selve kalenderen */
@@ -28,7 +26,6 @@ Alle fullcalendar komponenter skal ha en vars.css fil.
   font-family: inherit;
   font-size: inherit;
 }
-
 
 .fc .fc-view-harness {
   background-color: var(--background);
