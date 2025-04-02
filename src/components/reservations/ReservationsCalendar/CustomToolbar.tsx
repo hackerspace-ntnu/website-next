@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/Button';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import type FullCalendar from '@fullcalendar/react';
-import { format, formatDate } from 'date-fns';
+import { format } from 'date-fns';
 import { enGB, nb } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -81,7 +81,7 @@ function CustomToolbar({
           title={t('toolbar.dayTitle')}
           onClick={() => onViewChange('timeGridDay')}
           variant={view === 'timeGridDay' ? 'default' : 'secondary'}
-          className='~w-13/20 ~text-sm/base rounded-r-none rounded-l-lg'
+          className='w-13-20-clamp rounded-r-none rounded-l-lg text-sm-base-clamp'
         >
           {t('toolbar.day')}
         </Button>
@@ -95,15 +95,15 @@ function CustomToolbar({
               ? 'default'
               : 'secondary'
           }
-          className='~w-13/20 ~text-sm/base rounded-r-lg rounded-l-none '
+          className='w-13-20-clamp rounded-r-lg rounded-l-none text-sm-base-clamp'
         >
           {isLaptop ? t('toolbar.week') : t('toolbar.3days')}
         </Button>
       </div>
-      <span className='~text-lg/2xl flex-grow text-center'>
+      <span className='flex-grow text-center text-lg-2xl-clamp'>
         {formattedLabel}
       </span>
-      <div className='~w-5/22 flex whitespace-nowrap'>
+      <div className='flex w-5-22-clamp whitespace-nowrap'>
         <Button
           title={
             isLaptop
@@ -113,7 +113,7 @@ function CustomToolbar({
                 : t('toolbar.prevDayTitle')
           }
           onClick={handlePrev}
-          className='~w-13/20 ~text-sm/base rounded-r-none rounded-l-lg'
+          className='w-13-20-clamp rounded-r-none rounded-l-lg text-sm-base-clamp'
         >
           <ChevronLeft className='h-4 w-4' />
           <span className='ml-1'>{t('toolbar.prev')}</span>
@@ -121,7 +121,7 @@ function CustomToolbar({
         <Button
           title={t('toolbar.todayTitle')}
           onClick={handleToday}
-          className='~w-10/20 ~text-sm/base rounded-none'
+          className='w-10-20-clamp rounded-none text-sm-base-clamp'
         >
           {t('toolbar.today')}
         </Button>
@@ -134,7 +134,7 @@ function CustomToolbar({
                 : t('toolbar.nextDayTitle')
           }
           onClick={handleNext}
-          className='~w-13/20 ~text-sm/base rounded-r-lg rounded-l-none'
+          className='w-13-20-clamp rounded-r-lg rounded-l-none text-sm-base-clamp'
         >
           <span className='mr-1'>{t('toolbar.next')}</span>
           <ChevronRight className='h-4 w-4' />
