@@ -2,6 +2,7 @@
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import type { t } from '@/components/reservations/ToolCardGrid';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
+import { Link } from '@/lib/locale/navigation';
 import { Minimize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
@@ -46,18 +47,18 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
           <motion.div
             layoutId={`${active.type}-${active.title}-${id}`}
             ref={refr}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{
-              opacity: { duration: 0.2, delay: 0.05 },
-              scale: { duration: 0.2, delay: 0.05 },
+              opacity: { duration: 0.4, delay: 0.05 },
+              scale: { duration: 0.4, delay: 0.05 },
             }}
-            className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border shadow-2xl shadow-black md:max-w-lg dark:bg-neutral-900'
+            className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-black md:max-w-lg'
           >
             <div>
               <Button
-                className='absolute top-2 right-2 size-11 transform rounded-full bg-stone-500 bg-opacity-40 p-0 transition delay-150 duration-300 ease-in-out hover:scale-105'
+                className='absolute top-2 right-2 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
                 onClick={onClose}
               >
                 <Minimize2 className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
@@ -70,12 +71,12 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 className='h-60 w-full object-fill'
               />
             </div>
-            <div className='relative mt-5 flex max-h-80 flex-col gap-5'>
+            <div className='relative mt-2 flex max-h-80 flex-col gap-1 p-2'>
               <div>
-                <h3>{active.title}</h3>
-                <p className='~text-sm/base'>{active.description}</p>
+                <h1 className='text-lg-2xl-clamp'>{active.title}</h1>
+                <h2 className='text-base-lg-clamp'>{active.description}</h2>
               </div>
-              <div className='~text-sm/base flex h-full max-h-60 flex-col gap-2 overflow-auto px-5 text-left '>
+              <div className='flex h-full max-h-60 flex-col gap-1 overflow-auto px-5 text-left text-sm-base-clamp '>
                 {active.textContent}
                 <br />
                 <div>
@@ -86,22 +87,30 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                         return;
                       return (
                         <p key={field}>
-                          {field}: {text}
+                          {field.charAt(0).toUpperCase() + field.slice(1)}:{' '}
+                          {text}
                           <br />
                         </p>
                       );
                     })}
                 </div>
               </div>
-              {active.available && (
+            </div>
+            {active.available && (
+              <Link
+                href={{
+                  pathname: '/reservations/[tool]',
+                  params: { tool: active.slug },
+                }}
+              >
                 <Button
                   variant='default'
-                  className='~text-base/lg size-full rounded-none font-semibold'
+                  className='h-12-14-clamp w-full rounded-none font-semibold text-base-lg-clamp'
                 >
                   {t('tools.available')}
                 </Button>
-              )}
-            </div>
+              </Link>
+            )}
           </motion.div>
         </div>
       )}
