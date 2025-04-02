@@ -4,7 +4,7 @@ import type { t } from '@/components/reservations/ToolCardGrid';
 import { Card, CardContent, CardTitle } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
 import { Maximize2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useId, useState } from 'react';
@@ -31,14 +31,14 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
   useEffect(() => {
     const timeoutID = setTimeout(() => {
       setTouched(false);
-    }, 2000);
+    }, 1250);
 
     return () => clearTimeout(timeoutID);
   });
 
   return (
     <Card
-      className='flex h-28 w-full overflow-hidden rounded-xl hover:brightness-110'
+      className='flex h-28 w-full overflow-hidden rounded-xl hover:brightness-105'
       onTouchStart={() => setTouched(true)}
     >
       <motion.div
@@ -46,35 +46,38 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
         className='flex size-full flex-row'
       >
         <Image
+          priority
           width={185}
           height={185}
           src={tool.photoUrl}
           alt={tool.title}
-          className='w-48 object-fill'
+          className='w-full max-w-44 shrink object-fill'
         />
         <CardContent className='relative flex size-full flex-col items-center justify-center gap-1 text-wrap px-2 text-center'>
-          <CardTitle className='~text-xs/sm mx-6 text-wrap'>
+          <CardTitle className='mx-6 line-clamp-2 text-balance font-bold text-sm-xl-clamp'>
             {tool.title}
           </CardTitle>
-          <motion.button
-            className='absolute top-1 right-1 z-10 inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
-            key={`cardHeaderButton-${tool.title}-${id}`}
-            onClick={onClick}
-            animate={{ scale: touched ? 1.1 : 1 }}
-          >
-            <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
-          </motion.button>
-          {touched && (
-            <motion.div
-              key={`cardHeaderToolTip-${tool.title}-${id}`}
-              initial={{ opacity: 0, x: 0 }}
-              animate={{ opacity: 1, x: -11 }}
-              transition={{ type: 'tween', delay: 0.2 }}
-              className='~text-xs/sm absolute top-0 right-0 z-0 w-48 whitespace-nowrap rounded-xl rounded-tr-3xl bg-black bg-opacity-40 py-2 pl-2 text-left text-white shadow-lg'
+          <AnimatePresence>
+            <motion.button
+              className='absolute top-1 right-1 z-10 inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
+              key={`cardHeaderButton-${tool.title}-${id}`}
+              onClick={onClick}
+              animate={{ scale: touched ? 1.1 : 1 }}
             >
-              {t('tools.tooltip')}
-            </motion.div>
-          )}
+              <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
+            </motion.button>
+            {touched && (
+              <motion.div
+                key={`cardHeaderToolTip-${tool.title}-${id}`}
+                initial={{ opacity: 0, x: 0 }}
+                animate={{ opacity: 1, x: -11 }}
+                transition={{ type: 'tween', delay: 0.2 }}
+                className='absolute top-1 right-0 z-0 w-48 whitespace-nowrap rounded-xl border border-border bg-popover py-2 pl-2 text-left text-xs-sm-clamp shadow-lg'
+              >
+                {t('tools.tooltip')}
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className='absolute bottom-0 left-0 flex w-full'>
             {tool.type === 'printer' ? (
               tool.available ? (
@@ -83,16 +86,14 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
                     pathname: '/reservations/[tool]',
                     params: { tool: tool.slug },
                   }}
-                  className='w-full rounded-none hover:brightness-125'
+                  className='w-full rounded-none hover:brightness-110'
                 >
-                  <Button className='w-full rounded-none hover:brightness-125'>
-                    {t('tools.available')}
-                  </Button>
+                  <Button className='w-full'>{t('tools.available')}</Button>
                 </Link>
               ) : (
                 <Button
                   variant='destructive'
-                  className=' pointer-events-none w-full rounded-none'
+                  className=' pointer-events-none w-full rounded-none '
                 >
                   {t('tools.unavailable')}
                 </Button>
@@ -100,7 +101,7 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
             ) : (
               <Button
                 variant='secondary'
-                className=' pointer-events-none w-full rounded-none'
+                className=' pointer-events-none w-full rounded-none brightness-90 '
               >
                 {t('tools.supervision')}
               </Button>
