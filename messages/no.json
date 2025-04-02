@@ -436,6 +436,12 @@
         "error": "Noe gikk galt, prøv igjen senere..."
       }
     },
+    "confirmDialog": {
+      "confirm": "Bekreft",
+      "cancel": "Kanseller",
+      "title": "Bekreft handling",
+      "description": "Er du sikker på at du vil {action}"
+    },
     "calendar": {
       "createButton": "Opprett reservasjon",
       "locale": "nb"

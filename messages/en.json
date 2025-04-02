@@ -436,6 +436,12 @@
         "Error": "Somehting went wrong, try again later..."
       }
     },
+    "confirmDialog": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "title": "Confirm action",
+      "description": "Are you certain you want to {action}"
+    },
     "calendar": {
       "createButton": "Create reservation",
       "locale": "en"

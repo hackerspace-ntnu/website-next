@@ -1,6 +1,6 @@
 'use client';
 
-import CustomEventStyling from '@/components/reservations/ReservationsCalendar/CustomEventStyling';
+import CustomEventContent from '@/components/reservations/ReservationsCalendar/CustomEventContent';
 import CustomToolbar from '@/components/reservations/ReservationsCalendar/CustomToolbar';
 import { Button } from '@/components/ui/Button';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
@@ -10,7 +10,6 @@ import type {
   EventClickArg,
   EventContentArg,
   EventDropArg,
-  FormatDateOptions,
 } from '@fullcalendar/core';
 import interactionPlugin, {
   type EventResizeDoneArg,
@@ -20,63 +19,14 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { Plus } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import '@/lib/styles/calendar.css';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
+import CalendarDialog from '@/components/reservations/ReservationsCalendar/CalendarDialog';
+import InformationCard from '@/components/reservations/ReservationsCalendar/InformationCard';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import { cx } from '@/lib/utils';
 import { format } from 'date-fns';
 import { nb } from 'date-fns/locale';
 import { useTranslations } from 'next-intl';
-import CalendarDialog from './CalendarDialog';
-import InformationCard from './InformationCard';
-
-const viewTypes = {
-  timeGridDay: {
-    type: 'timeGrid',
-    duration: { days: 1 },
-  },
-  timeGridThreeDay: {
-    type: 'timeGrid',
-    duration: { days: 3 },
-  },
-  timeGridWeek: {
-    type: 'timeGrid',
-    duration: { days: 7 },
-  },
-};
-
-const timeFormats: {
-  eventTimeFormat: FormatDateOptions;
-  slotLabelFormat: FormatDateOptions;
-  titleFormat: FormatDateOptions;
-  dayHeaderFormat: FormatDateOptions;
-} = {
-  eventTimeFormat: {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  },
-  slotLabelFormat: {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  },
-  titleFormat: {
-    month: 'long',
-    year: 'numeric',
-    day: 'numeric',
-  },
-  dayHeaderFormat: {
-    weekday: 'short',
-    month: '2-digit',
-    day: '2-digit',
-  },
-};
+import { createCalendarConfig } from './CalendarConfig';
+import CalendarConfirmDialog from './CalendarConfirmDialog';
 
 /** Midlertidig type, legger til mer når jeg begynner på backend */
 type Reservation = {
@@ -105,6 +55,9 @@ type Reservation = {
 
 export default function ToolCalendar() {
   const t = useTranslations('reservations');
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
+  const [cancelAction, setCancelAction] = useState<(() => void) | null>(null);
   const [storedReservations, setStoredReservations] = useLocalStorage<
     Reservation[]
   >('reservations', []);
@@ -137,7 +90,7 @@ export default function ToolCalendar() {
   const calendarRef = useRef<FullCalendar>(null);
 
   /**Midlertidig constandterf */
-  const userId = '9b891ea8-22f5-48ff-88c3-f0d88f27450d'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
+  const userId = '233d9770-817c-4d57-a9ec-1795683ddb54'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
   const isMember = true;
   const isLoggedIn = true;
   const toolType = 'printer';
@@ -146,7 +99,7 @@ export default function ToolCalendar() {
 
   function customEventStyling(eventInfo: EventContentArg) {
     return (
-      <CustomEventStyling
+      <CustomEventContent
         calendarRef={calendarRef}
         eventInfo={eventInfo}
         userId={userId ?? ''}
@@ -251,48 +204,65 @@ export default function ToolCalendar() {
     setSelectedSlot(null);
   }
 
-  function handleEventDrop(info: EventDropArg) {
-    if (info.event.start && info.event.start < new Date()) {
-      info.revert();
-      return;
-    }
-    const { event } = info;
-    const updated = reservations.map((res) =>
-      res.userId === event.extendedProps?.userId
-        ? {
-            ...res,
-            start: event.start ?? res.start,
-            end: event.end ?? res.end,
-          }
-        : res,
-    );
-    setReservations(updated);
-    setStoredReservations(updated);
+  function action(action: () => void, cancel?: () => void) {
+    setConfirmAction(() => action);
+    setCancelAction(() => cancel ?? (() => {}));
+    setConfirmOpen(true);
   }
 
   function handleEventResize(info: EventResizeDoneArg) {
-    if (info.event.start && info.event.start < new Date()) {
-      info.revert();
-      return;
-    }
-    const { event } = info;
-    const updated = reservations.map((res) =>
-      res.userId === event.extendedProps?.userId
-        ? {
-            ...res,
-            start: event.start ?? res.start,
-            end: event.end ?? res.end,
-          }
-        : res,
+    action(
+      () => {
+        if (info.event.start && info.event.start < new Date()) {
+          info.revert();
+          return;
+        }
+        const { event } = info;
+        const updated = reservations.map((res) =>
+          res.userId === event.extendedProps?.userId
+            ? {
+                ...res,
+                start: event.start ?? res.start,
+                end: event.end ?? res.end,
+              }
+            : res,
+        );
+        setReservations(updated);
+        setStoredReservations(updated);
+      },
+      () => info.revert(),
     );
-    setReservations(updated);
-    setStoredReservations(updated);
+  }
+
+  function handleEventDrop(info: EventDropArg) {
+    action(
+      () => {
+        if (info.event.start && info.event.start < new Date()) {
+          info.revert();
+          return;
+        }
+
+        const { event } = info;
+        const updated = reservations.map((res) =>
+          res.userId === event.extendedProps?.userId
+            ? {
+                ...res,
+                start: event.start ?? res.start,
+                end: event.end ?? res.end,
+              }
+            : res,
+        );
+        setReservations(updated);
+        setStoredReservations(updated);
+      },
+      () => info.revert(),
+    );
   }
 
   useEffect(() => {
     if (calendarRef.current) {
       /**
-       * Bruker queueMicroTask for å unngå flushSync error, løsning hentet fra:
+       * Bruker queueMicroTask for å unngå flushSync error:
        * https://github.com/facebook/lexical/discussions/3536#discussioncomment-7441047 */
       queueMicrotask(() => {
         calendarRef.current?.getApi().changeView(view);
@@ -309,11 +279,30 @@ export default function ToolCalendar() {
     }
   }
 
+  const calendarConfig = createCalendarConfig({
+    date,
+    isLoggedIn,
+    isMember,
+    userId,
+    view,
+    handleDatesSet,
+    handleSelectSlot,
+    handleEventClick,
+    handleEventDrop,
+    handleEventResize,
+    t: { week: t('toolbar.week') },
+  });
+
   return (
-    <div className='container my-auto overscroll-none'>
-      <InformationCard
+    <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
+      <Button
+        variant='default'
+        className='mb-1 w-fit self-center'
         onClick={() => setSelectedSlot({ start: new Date(), end: new Date() })}
-      />
+      >
+        <Plus className='mr-2 size-5' />
+        {t('calendar.createButton')}
+      </Button>
       <CalendarDialog
         open={selectedSlot !== null}
         onOpenChange={() => setSelectedSlot(null)}
@@ -341,7 +330,7 @@ export default function ToolCalendar() {
           mobilNr: selectedReservation?.mobilNr ?? '',
         }}
       />
-      <div className='overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
+      <div className='w-full overflow-hidden rounded-lg rounded-b-none border border-border bg-background text-foreground'>
         <CustomToolbar
           view={view}
           date={date}
@@ -351,44 +340,35 @@ export default function ToolCalendar() {
         <FullCalendar
           ref={calendarRef}
           plugins={[timeGridPlugin, interactionPlugin]}
-          slotMinTime={isMember ? '00:00:00' : '10:00:00'}
-          slotMaxTime={isMember ? '23:59:59' : '18:00:00'}
-          initialView={view}
-          headerToolbar={false}
-          views={viewTypes}
-          datesSet={handleDatesSet}
-          height={650}
-          selectable={true}
-          selectMirror={true}
-          eventOverlap={false}
-          selectOverlap={false}
-          weekends={isMember}
           events={calendarEvents}
-          select={handleSelectSlot}
-          eventDrop={handleEventDrop}
-          eventResize={handleEventResize}
-          eventDataTransform={(eventInfo) => ({
-            ...eventInfo,
-            editable: eventInfo.extendedProps?.userId === userId,
-          })}
-          droppable={true}
-          allDaySlot={false}
-          nowIndicator={true}
-          snapDuration='00:15:00'
-          slotDuration='00:30:00'
-          slotLabelInterval='01:00'
-          selectAllow={(info) => {
-            return Date.now() - info.start.getTime() <= 0 && isLoggedIn;
-          }}
-          selectLongPressDelay={200}
-          {...timeFormats}
-          firstDay={1}
+          {...calendarConfig}
           locale={t('calendar.locale')}
-          eventResizableFromStart
           eventContent={customEventStyling}
-          eventClick={handleEventClick}
         />
       </div>
+      <InformationCard />
+      <CalendarConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onConfirm={() => {
+          confirmAction?.();
+          setConfirmAction(null);
+          setCancelAction(null);
+        }}
+        onCancel={() => {
+          cancelAction?.();
+          setConfirmAction(null);
+          setCancelAction(null);
+        }}
+        t={{
+          title: t('confirmDialog.title'),
+          description: t('confirmDialog.description', {
+            action: 'endre tidspunkt for reservasjonen?',
+          }),
+          confirm: t('confirmDialog.confirm'),
+          cancel: t('confirmDialog.cancel'),
+        }}
+      />
     </div>
   );
 }
