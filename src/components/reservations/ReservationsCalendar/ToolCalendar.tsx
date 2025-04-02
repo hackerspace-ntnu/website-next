@@ -48,6 +48,8 @@ type Reservation = {
  * på hooks, props, types osv, på nettsiden deres og ellers i github repoet:
  * https://fullcalendar.io/docs
  * https://github.com/fullcalendar/fullcalendar-examples/tree/main/react18
+ * https://github.com/orgs/fullcalendar/repositories?type=all
+ * https://github.com/fullcalendar/fullcalendar-react
  * https://stackblitz.com/github/fullcalendar/fullcalendar-examples/tree/main/react18?file=src%2FDemoApp.jsx
  * ^ Demo prosjekt laget av fullcalendar selv.
  * @returns ToolCalendar
@@ -71,7 +73,7 @@ export default function ToolCalendar() {
       reservationId: reserv.reservationId,
       toolType: reserv.toolType,
       toolName: reserv.toolName,
-      toolSlug: reserv.toolSlug,
+      toolSlug: reserv.toolSlug, // sikre at riktig reservasjoner dukker opp på riktig kalender, reminder for når jeg begynner med backend
       userId: reserv.userId, //skal ikke sende userId når jeg begynner med backend, sender det nå for å teste click, delete etc. funksjoner
       navn: reserv.navn,
       mobilNr: reserv.mobilNr,
@@ -89,7 +91,7 @@ export default function ToolCalendar() {
   const isIPad = useMediaQuery('(min-width: 41.438rem)');
   const calendarRef = useRef<FullCalendar>(null);
 
-  /**Midlertidig constandterf */
+  /**Midlertidig constandterf, endre disse verdiene for å teste ulike handlers, tabellen på main page osv.*/
   const userId = '233d9770-817c-4d57-a9ec-1795683ddb54'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
   const isMember = true;
   const isLoggedIn = true;

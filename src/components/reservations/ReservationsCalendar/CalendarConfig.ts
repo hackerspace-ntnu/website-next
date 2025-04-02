@@ -63,17 +63,17 @@ const timeFormats: {
   },
 };
 
-type CalendarConfigArgs = {
+type CalendarConfigProps = {
   date: Date;
   isLoggedIn: boolean;
   isMember: boolean;
   userId: string;
   view: string;
-  handleDatesSet: (arg: DatesSetArg) => void;
-  handleSelectSlot: (arg: DateSelectArg) => void;
-  handleEventClick: (arg: EventClickArg) => void;
-  handleEventDrop: (arg: EventDropArg) => void;
-  handleEventResize: (arg: EventResizeDoneArg) => void;
+  handleDatesSet: (info: DatesSetArg) => void;
+  handleSelectSlot: (info: DateSelectArg) => void;
+  handleEventClick: (info: EventClickArg) => void;
+  handleEventDrop: (info: EventDropArg) => void;
+  handleEventResize: (info: EventResizeDoneArg) => void;
   t: {
     week: string;
   };
@@ -91,7 +91,7 @@ export function createCalendarConfig({
   handleEventDrop,
   handleEventResize,
   t,
-}: CalendarConfigArgs) {
+}: CalendarConfigProps) {
   return {
     ...timeFormats,
     select: handleSelectSlot,
