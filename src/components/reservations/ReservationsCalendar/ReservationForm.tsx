@@ -45,7 +45,7 @@ export function ReservationForm({
 }: ReservationFormProps) {
   const t = useTranslations('reservations');
   const formSchema = z.object({
-    navn: z.string().min(1, t('form.formSchema.navnReq')),
+    navn: z.string().min(1, t('form.formSchema.nameReq')),
     mobilNr: z.string().min(1, t('form.formSchema.phoneNrReq')),
     email: z.string().min(1, t('form.formSchema.emailReq')),
     start: z.date().or(z.string()),
@@ -186,7 +186,7 @@ export function ReservationForm({
         )}
       </form.Field>
 
-      <div className='flex justify-end space-x-2'>
+      <div className='flex justify-end gap-2'>
         <Button variant='outline' type='button' onClick={onCancel}>
           {t('form.cancel')}
         </Button>

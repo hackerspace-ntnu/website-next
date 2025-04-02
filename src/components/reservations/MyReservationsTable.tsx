@@ -16,6 +16,7 @@ import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import { format } from 'date-fns';
+import { enGB, nb } from 'date-fns/locale';
 import { CalendarDays } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type RefObject, useEffect, useRef, useState } from 'react';
@@ -195,14 +196,14 @@ export function MyReservationsTable() {
                       )}
                       <TableCell>
                         <div className='flex w-full flex-row justify-between gap-3'>
-                          <h1 className='~text-sm/base w-full text-center'>
+                          <h1 className='w-full text-center text-sm-base-clamp'>
                             {res.toolName}
                           </h1>
                           <div className='~text-xs/sm size-full flex-col'>
                             <p className='mb-2 underline'>
-                              {`From: ${format(res.start, 'dd.MMM HH:mm')}`}{' '}
+                              {`From: ${format(res.start, 'dd.MMM HH:mm', { locale: t('calendar.locale') === 'en' ? enGB : nb })}`}{' '}
                             </p>
-                            <p className='underline'>{`To: ${format(res.end, 'dd.MMM HH:mm')}`}</p>
+                            <p className='underline'>{`To: ${format(res.end, 'dd.MMM HH:mm', { locale: t('calendar.locale') === 'en' ? enGB : nb })}`}</p>
                           </div>
                           <Link
                             title={t('myReservationsTable.goToCalendar')}
@@ -212,7 +213,7 @@ export function MyReservationsTable() {
                             }}
                             className='mr-4 flex'
                           >
-                            <CalendarDays className='~size-16/20' />
+                            <CalendarDays className='size-16-20-clamp' />
                           </Link>
                         </div>
                       </TableCell>
@@ -234,20 +235,26 @@ export function MyReservationsTable() {
                       )}
                       <TableCell>{res.toolName}</TableCell>
                       <TableCell className='border-x'>
-                        {format(res.start, 'dd.MMM HH:mm')}
+                        {format(res.start, 'dd.MMM HH:mm', {
+                          locale: t('calendar.locale') === 'en' ? enGB : nb,
+                        })}
                       </TableCell>
-                      <TableCell>{format(res.end, 'dd.MMM HH:mm')}</TableCell>
+                      <TableCell>
+                        {format(res.end, 'dd.MMM HH:mm', {
+                          locale: t('calendar.locale') === 'en' ? enGB : nb,
+                        })}
+                      </TableCell>
                     </TableRow>
                   ),
                 )}
               </TableBody>
             ) : (
-              <TableCaption className='~text-sm/base p-3'>
+              <TableCaption className='p-3 text-sm-base-clamp'>
                 {t('myReservationsTable.empty')}
               </TableCaption>
             )
           ) : (
-            <TableCaption className='~text-sm/base p-3'>
+            <TableCaption className='p-3 text-sm-base-clamp'>
               {t('myReservationsTable.notLoggedIn')}
             </TableCaption>
           )}
