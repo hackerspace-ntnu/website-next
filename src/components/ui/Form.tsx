@@ -64,7 +64,10 @@ function BaseField({
 
   const labelElement = (
     <Label
-      className={cx(field.state.meta.errors.length > 0 && 'text-destructive')}
+      className={cx(
+        'mb-2 block',
+        field.state.meta.errors.length > 0 && 'text-destructive',
+      )}
       htmlFor={`${id}-form-item`}
     >
       {label}
@@ -565,7 +568,7 @@ function RadioGroupField({
       <RadioGroup
         onValueChange={field.handleChange}
         defaultValue={field.state.value}
-        className='flex flex-col space-y-1'
+        className='flex flex-col space-y-2'
       >
         {options.map((option) => (
           <div key={option.value} className='flex items-center space-x-3'>
