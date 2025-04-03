@@ -570,7 +570,7 @@ function RadioGroupField({
       <RadioGroup
         onValueChange={field.handleChange}
         defaultValue={field.state.value}
-        className='flex flex-col space-y-2'
+        className='mt-4 flex flex-col space-y-2'
       >
         {options.map((option) => (
           <div key={option.value} className='flex items-center space-x-3'>
