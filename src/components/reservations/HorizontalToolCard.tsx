@@ -45,14 +45,9 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
         layoutId={`${tool.type}-${tool.title}-${id}`}
         className='flex size-full flex-row'
       >
-        <Image
-          priority
-          width={185}
-          height={185}
-          src={tool.photoUrl}
-          alt={tool.title}
-          className='w-full max-w-44 shrink object-fill'
-        />
+        <div className='relative h-full w-44'>
+          <Image priority src={tool.photoUrl} alt={tool.title} fill />
+        </div>
         <CardContent className='relative flex size-full flex-col items-center justify-center gap-1 text-wrap px-2 text-center'>
           <CardTitle className='mx-6 line-clamp-2 text-balance font-bold text-sm-xl-clamp'>
             {tool.title}
@@ -78,7 +73,7 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
               </motion.div>
             )}
           </AnimatePresence>
-          <div className='absolute bottom-0 left-0 flex w-full'>
+          <div className='absolute bottom-0 left-0 w-full'>
             {tool.type === 'printer' ? (
               tool.available ? (
                 <Link
