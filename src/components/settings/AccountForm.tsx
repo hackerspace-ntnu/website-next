@@ -78,7 +78,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
                   phoneNumber: value,
                 });
                 if (!result) {
-                  return t('phoneNumber.inUse');
+                  return { message: t('phoneNumber.inUse') };
                 }
               }
             },
@@ -103,7 +103,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
                   email: value,
                 });
                 if (!result) {
-                  return t('email.inUse');
+                  return { message: t('email.inUse') };
                 }
               }
             },
@@ -123,7 +123,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
             onChangeListenTo: ['email'],
             onChange: ({ value, fieldApi }) => {
               if (value !== fieldApi.form.getFieldValue('email')) {
-                return t('password.mismatch');
+                return { message: t('password.mismatch') };
               }
             },
           }}

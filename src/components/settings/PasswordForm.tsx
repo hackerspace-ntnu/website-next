@@ -33,8 +33,11 @@ function PasswordForm() {
         } catch (error: unknown) {
           const TRPCError = error as TRPCClientError;
           if (!TRPCError.data?.toast) {
-            return { fields: { currentPassword: TRPCError.message } };
+            return {
+              fields: { currentPassword: { message: TRPCError.message } },
+            };
           }
+          // We return something (not undefined) here so it will block the onSubmit handler when a Toast error is shown
           return ' ';
         }
       },
@@ -80,7 +83,7 @@ function PasswordForm() {
             onChangeListenTo: ['newPassword'],
             onChange: ({ value, fieldApi }) => {
               if (value !== fieldApi.form.getFieldValue('newPassword')) {
-                return t('password.mismatch');
+                return { message: t('password.mismatch') };
               }
             },
           }}

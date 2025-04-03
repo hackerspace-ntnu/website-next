@@ -48,7 +48,7 @@ function VerifyEmailForm() {
         } catch (error: unknown) {
           const TRPCError = error as TRPCClientError;
           if (!TRPCError.data?.toast) {
-            return { fields: { otp: TRPCError.message } };
+            return { fields: { otp: { message: TRPCError.message } } };
           }
         }
       },

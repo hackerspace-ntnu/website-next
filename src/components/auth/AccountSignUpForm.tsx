@@ -66,7 +66,7 @@ function AccountSignUpForm() {
               onChangeListenTo: ['password'],
               onChange: ({ value, fieldApi }) => {
                 if (value !== fieldApi.form.getFieldValue('password')) {
-                  return t('form.password.mismatch');
+                  return { message: t('form.password.mismatch') };
                 }
               },
             }}

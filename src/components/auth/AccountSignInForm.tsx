@@ -31,7 +31,7 @@ function AccountSignInForm() {
           setPending(false);
           const TRPCError = error as TRPCClientError;
           if (!TRPCError.data?.toast) {
-            return { fields: { password: TRPCError.message } };
+            return { fields: { password: { message: TRPCError.message } } };
           }
           return ' ';
         }
