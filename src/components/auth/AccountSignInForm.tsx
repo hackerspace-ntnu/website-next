@@ -74,24 +74,17 @@ function AccountSignInForm() {
           </form.AppField>
           <form.AppField name='password'>
             {(field) => (
-              <field.TextField
+              <field.PasswordField
                 label={t('form.password.label')}
                 autoComplete='current-password'
-                labelSibling={
-                  <Link
-                    className='h-auto p-0 leading-none'
-                    variant='link'
-                    size='default'
-                    href='/auth/forgot-password'
-                  >
-                    {`${t('forgotPassword')}?`}
-                  </Link>
-                }
               />
             )}
           </form.AppField>
-          <div className='absolute bottom-0 flex w-full xs:flex-row flex-col xs:justify-end justify-between gap-2'>
+          <div className='absolute bottom-0 flex w-full xs:flex-row-reverse flex-col justify-between gap-2'>
             <form.SubmitButton>{t('submit')}</form.SubmitButton>
+            <Link variant='link' size='default' href='/auth/forgot-password'>
+              {`${t('forgotPassword')}?`}
+            </Link>
           </div>
         </form.AppForm>
       </form>
