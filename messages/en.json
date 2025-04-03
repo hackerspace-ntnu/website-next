@@ -25,7 +25,9 @@
     "searchCountry": "Search country...",
     "noCountryFound": "No country found",
     "hidePassword": "Hide password",
-    "showPassword": "Show password"
+    "showPassword": "Show password",
+    "uploadText": "Drop files here or click to upload",
+    "noValidFiles": "No valid files were dropped"
   },
   "error": {
     "notFound": "404 - Page not found",
