@@ -81,7 +81,7 @@ function VerifyEmailForm() {
         <h1 className='text-4xl'>{t('verifyEmail')}</h1>
         <p className='text-sm'>{t('verifyEmailDescription')}</p>
       </div>
-      <Form onSubmit={form.handleSubmit} className='flex-grow'>
+      <Form onSubmit={form.handleSubmit} className='grow'>
         <form.Field name='otp'>
           {(field) => (
             <FormItem errors={field.state.meta.errors}>

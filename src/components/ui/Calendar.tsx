@@ -89,7 +89,7 @@ function Calendar({
     <DayPicker
       className={cx('p-3', className)}
       classNames={{
-        root: '~p-2/6',
+        root: 'p-2-6-clamp',
         months: 'relative',
         month: 'space-y-4',
         nav: 'flex items-center justify-between absolute w-full z-10 px-1',
@@ -208,6 +208,5 @@ function Calendar({
     />
   );
 }
-Calendar.displayName = 'Calendar';
 
 export { Calendar, type CalendarProps };

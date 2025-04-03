@@ -81,7 +81,7 @@ export default async function LocaleLayout({
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
+      <body className='h-full w-full font-inter antialiased'>
         <RootProviders locale={locale}>
           <ScrollArea className='h-full w-full' variant='primary'>
             <div className='flex h-full w-full flex-col'>

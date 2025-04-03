@@ -48,7 +48,7 @@ function Footer() {
         </div>
         <div>
           <h4>{t('socialMedia')}</h4>
-          <ul className='grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
+          <ul className='grid grid-flow-row grid-cols-[repeat(2,auto)] justify-start text-foreground/80 sm:grid-cols-[repeat(3,auto)] xl:grid-flow-col xl:grid-cols-none'>
             <li>
               <ExternalLink
                 variant='ghost'
