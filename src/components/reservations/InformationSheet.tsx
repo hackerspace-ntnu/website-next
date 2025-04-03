@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/Sheet';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { Label } from '../ui/Label';
 
 export default function InformationSheet() {
   const t = useTranslations('reservations');
@@ -52,7 +53,10 @@ export default function InformationSheet() {
         </SheetHeader>
         <SheetFooter className='w-full'>
           <div className='flex w-full flex-row items-center justify-center gap-3'>
-            <Checkbox /> Ikke vis dette igjen
+            <Checkbox id='checkboxInformationSheet' />
+            <Label htmlFor='checkboxInformationSheet'>
+              {t('information.dontShow')}
+            </Label>
           </div>
         </SheetFooter>
       </SheetContent>
