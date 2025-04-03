@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { z } from 'zod';
 
 import { usePending } from '@/components/auth/PendingBar';
 import { useAppForm } from '@/components/ui/Form';
@@ -12,7 +13,9 @@ import { useAppForm } from '@/components/ui/Form';
 function AccountSignUpForm() {
   const router = useRouter();
   const t = useTranslations('auth');
-  const formSchema = accountSignUpSchema(useTranslations());
+  const formSchema = accountSignUpSchema(useTranslations()).extend({
+    confirmPassword: z.string(),
+  });
   const { isPending, setPending } = usePending();
   const signUpMutation = api.auth.signUp.useMutation({
     onMutate: () => setPending(true),

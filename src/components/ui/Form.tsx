@@ -1,8 +1,10 @@
 'use client';
 
+import { FileUpload } from '@/components/composites/FileUpload';
+import { fileToBase64String } from '@/lib/utils/files';
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
-import { ImageIcon, MapPinIcon, XIcon } from 'lucide-react';
+import { MapPinIcon, XIcon } from 'lucide-react';
 import {
   Fragment,
   useCallback,
@@ -581,38 +583,40 @@ function RadioGroupField({
   );
 }
 
-type FileImageFieldProps = Omit<
-  React.ComponentProps<typeof Input>,
-  'type' | 'value' | 'onChange' | 'onBlur'
+type FileUploadFieldProps = Omit<
+  React.ComponentProps<typeof FileUpload>,
+  'onFilesUploaded'
 > & {
   label: string;
   labelSibling?: React.ReactNode;
   description?: string;
-  previewUrl?: string;
-  width?: number;
-  height?: number;
+  className?: string;
 };
 
-function FileImageField({
+function FileUploadField({
   className,
   label,
   labelSibling,
   description,
-  previewUrl,
-  width = 200,
-  height = 200,
   ...props
-}: FileImageFieldProps) {
+}: FileUploadFieldProps) {
   const field = useFieldContext<string>();
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const fileToBase64String = async (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
+  const handleFilesUploaded = async (files: File | File[] | null) => {
+    if (!files) {
+      field.handleChange('');
+      return;
+    }
+
+    if (Array.isArray(files)) {
+      const base64Strings = await Promise.all(
+        files.map((file) => fileToBase64String(file)),
+      );
+      field.handleChange(base64Strings.join(','));
+    } else {
+      const base64String = await fileToBase64String(files);
+      field.handleChange(base64String);
+    }
   };
 
   return (
@@ -622,58 +626,7 @@ function FileImageField({
       className={className}
       description={description}
     >
-      <div className='relative' style={{ width, height }}>
-        <Input
-          className={cx(
-            'absolute inset-0 z-10 cursor-pointer opacity-0',
-            'file:hidden',
-          )}
-          type='file'
-          accept='image/jpeg,image/png'
-          onChange={async (e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              const base64String = await fileToBase64String(file);
-              setPreviewImage(base64String);
-              field.handleChange(base64String);
-            }
-          }}
-          {...props}
-        />
-        <div
-          className={cx(
-            'relative h-full w-full rounded-md border border-dashed',
-            'transition-colors hover:bg-muted/50',
-          )}
-        >
-          {previewImage || previewUrl ? (
-            <img
-              src={previewImage ?? previewUrl}
-              alt={label}
-              className='h-full w-full rounded-md object-contain'
-            />
-          ) : (
-            <div className='absolute inset-0 flex flex-col items-center justify-center gap-2 text-muted-foreground'>
-              <ImageIcon className='h-8 w-8' />
-              <span className='text-sm'>Click or drag to upload image</span>
-            </div>
-          )}
-        </div>
-        {(previewImage || previewUrl) && (
-          <Button
-            type='button'
-            variant='destructive'
-            size='icon'
-            className='absolute top-2 right-2 z-20'
-            onClick={() => {
-              setPreviewImage(null);
-              field.handleChange('');
-            }}
-          >
-            <XIcon className='h-4 w-4' />
-          </Button>
-        )}
-      </div>
+      <FileUpload onFilesUploaded={handleFilesUploaded} {...props} />
     </BaseField>
   );
 }
@@ -870,7 +823,7 @@ const { useAppForm } = createFormHook({
     DateField,
     OTPField,
     RadioGroupField,
-    FileImageField,
+    FileUploadField,
     CurrencyField,
   },
   formComponents: {

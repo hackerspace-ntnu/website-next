@@ -25,7 +25,9 @@
     "searchCountry": "Søk etter land...",
     "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
-    "showPassword": "Vis passord"
+    "showPassword": "Vis passord",
+    "uploadText": "Slipp filer her eller klikk for å laste opp",
+    "noValidFiles": "Ingen gyldige filer ble sluppet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",

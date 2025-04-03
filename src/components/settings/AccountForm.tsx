@@ -5,6 +5,7 @@ import { toast } from '@/components/ui/Toaster';
 import { useRouter } from '@/lib/locale/navigation';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+import { z } from 'zod';
 
 import { api } from '@/lib/api/client';
 import { accountSchema } from '@/validations/settings/accountSchema';
@@ -17,7 +18,9 @@ type AccountFormProps = {
 function AccountForm({ phoneNumber, email }: AccountFormProps) {
   const t = useTranslations('settings.account');
   const router = useRouter();
-  const formSchema = accountSchema(useTranslations());
+  const formSchema = accountSchema(useTranslations()).extend({
+    confirmEmail: z.string(),
+  });
   const { resolvedTheme } = useTheme();
 
   const checkPhoneAvailability =

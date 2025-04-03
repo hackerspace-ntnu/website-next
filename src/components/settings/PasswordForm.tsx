@@ -4,13 +4,16 @@ import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import type { TRPCClientError } from '@/lib/api/types';
 import { useTranslations } from 'next-intl';
+import { z } from 'zod';
 
 import { api } from '@/lib/api/client';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 
 function PasswordForm() {
   const t = useTranslations('settings.account');
-  const formSchema = passwordSchema(useTranslations());
+  const formSchema = passwordSchema(useTranslations()).extend({
+    confirmPassword: z.string(),
+  });
 
   const updatePasswordMutation = api.settings.updatePassword.useMutation({
     onSuccess: () => {
