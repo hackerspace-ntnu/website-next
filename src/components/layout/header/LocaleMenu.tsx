@@ -44,11 +44,11 @@ function LocaleMenu({ t, classname }: LocaleMenuProps) {
               key={locale}
               onClick={() =>
                 router.push(
-                  {
-                    pathname,
-                    params: params as never,
-                  },
-                  { locale: locale },
+                  // @ts-expect-error TypeScript will validate that only known `params`
+                  // are used in combination with a given `pathname`. Since the two will
+                  // always match for the current route, we can skip runtime checks.
+                  { pathname, params },
+                  { locale },
                 )
               }
               className='flex items-center'
