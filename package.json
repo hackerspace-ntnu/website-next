@@ -86,6 +86,7 @@
     "nuqs": "^2.0.4",
     "oslo": "^1.2.1",
     "postgres": "^3.4.5",
+    "posthog-js": "^1.232.6",
     "react": "^19.0.0",
     "react-day-picker": "^9.2.1",
     "react-dom": "^19.0.0",
