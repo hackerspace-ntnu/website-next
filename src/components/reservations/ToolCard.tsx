@@ -39,14 +39,15 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          <Image
-            priority
-            width={185}
-            height={185}
-            src={tool.photoUrl}
-            alt={tool.title}
-            className='h-48 w-full rounded-t-g object-fill'
-          />
+          <div className='relative h-48 w-full'>
+            <Image
+              priority
+              src={tool.photoUrl}
+              alt={tool.title}
+              fill
+              objectFit='cover'
+            />
+          </div>
           <div className='z-0'>
             <AnimatePresence>
               <motion.button
