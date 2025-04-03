@@ -1,4 +1,3 @@
-// app/providers.tsx
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
