@@ -414,7 +414,7 @@
     },
     "form": {
       "titleCreate": "Opprett en reservasjon",
-      "descriptionCreate": "Fyll inn navn, mobilnummer og tidspunkt for reservasjon",
+      "descriptionCreate": "Sørg for at feltene er fylt ut og klikk 'lagre' for å reservere",
       "titleEdit": "Rediger reservasjon",
       "descriptionEdit": "Rediger feltet du ønsker og trykk 'lagre'",
       "cancel": "Kanseller",
@@ -426,7 +426,7 @@
       "phoneNr": "mobilnummer",
       "phoneNrPlaceholder": "Din mobilnummer",
       "email": "Mail",
-      "emailPlaceholder": "eksempel@stud.ntnu.test",
+      "emailPlaceholder": "imagine@dragin.com",
       "startTime": "Start dato/tid",
       "endTime": "Slutt dato/tid",
       "formSchema": {

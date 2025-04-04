@@ -385,7 +385,7 @@
       "tool": "Tool",
       "from": "From",
       "to": "To",
-      "goToCalendar": "Gå to calendar",
+      "goToCalendar": "Go to calendar",
       "empty": "You have no reservations",
       "notLoggedIn": "You are not currently logged in. Login to see your reservations."
     },
@@ -414,7 +414,7 @@
     },
     "form": {
       "titleCreate": "Create a reservation",
-      "descriptionCreate": "Fill in your name, phone number and, start and end date/time in the empty fields",
+      "descriptionCreate": "Ensure the input fields are correct and press 'create' to book a reservation",
       "titleEdit": "Edit reservation",
       "descriptionEdit": "Edit the field you wish to and press 'save'",
       "cancel": "Cancel",
@@ -422,11 +422,11 @@
       "delete": "Delete",
       "create": "Create",
       "name": "Name",
-      "namePlaceholder": "John Doe",
+      "namePlaceholder": "Admin Jim",
       "phoneNr": "Phone number",
       "phoneNrPlaceholder": "Your phone number",
       "email": "Email",
-      "emailPlaceholder": "eksempel@stud.ntnu.test",
+      "emailPlaceholder": "imagine@dragin.com",
       "startTime": "Start date/time",
       "endTime": "End date/time",
       "formSchema": {
