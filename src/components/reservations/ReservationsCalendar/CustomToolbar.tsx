@@ -3,11 +3,9 @@
 import { Button } from '@/components/ui/Button';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import type FullCalendar from '@fullcalendar/react';
-import { format } from 'date-fns';
-import { enGB, nb } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { type RefObject, useEffect, useState } from 'react';
+import type { RefObject } from 'react';
 
 type ToolbarProps = {
   view: string;
@@ -16,36 +14,10 @@ type ToolbarProps = {
   calendarRef: RefObject<FullCalendar | null>;
 };
 
-function CustomToolbar({
-  view,
-  date,
-  onViewChange,
-  calendarRef,
-}: ToolbarProps) {
+function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
   const t = useTranslations('reservations');
-  const locale = t('calendar.locale');
   const isIPad = useMediaQuery('(min-width: 41.3125rem)');
   const isLaptop = useMediaQuery('(min-width: 64.1rem)');
-  const [formattedLabel, setFormattedLabel] = useState<string>('');
-
-  // tittelen nektet å oppdatere seg automatisk når man trykker next eller prev, måtte gjøre det manuelt
-  useEffect(() => {
-    let label = '';
-    if (view === 'timeGridDay') {
-      label = format(date, 'MMMM dd, yyyy', {
-        locale: locale === 'en' ? enGB : nb,
-      });
-    } else if (view === 'timeGridThreeDay') {
-      const endDate = new Date(date);
-      endDate.setDate(endDate.getDate() + 2);
-      label = `${format(date, 'MMM d', { locale: locale === 'en' ? enGB : nb })} - ${format(endDate, 'MMM d, yyyy', { locale: locale === 'en' ? enGB : nb })}`;
-    } else {
-      const endDate = new Date(date);
-      endDate.setDate(endDate.getDate() + 6);
-      label = `${format(date, 'MMM d', { locale: locale === 'en' ? enGB : nb })} - ${format(endDate, 'MMM d, yyyy', { locale: locale === 'en' ? enGB : nb })}`;
-    }
-    setFormattedLabel(label);
-  }, [date, view, locale]);
 
   const handlePrev = () => {
     if (calendarRef?.current) {
@@ -101,7 +73,7 @@ function CustomToolbar({
         </Button>
       </div>
       <span className='flex-grow text-center text-lg-2xl-clamp'>
-        {formattedLabel}
+        {calendarRef.current?.getApi().view.title}
       </span>
       <div className='flex w-5-22-clamp whitespace-nowrap'>
         <Button
