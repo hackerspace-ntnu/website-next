@@ -14,6 +14,14 @@ type ToolbarProps = {
   calendarRef: RefObject<FullCalendar | null>;
 };
 
+/**
+ * FullCalendar does have its default toolbar and if youre planning on using it for anything else
+ * you will most likely not need to create your own custom toolbar. This one was created because
+ * the reservations calendar changes view based on window size thus my own custom view needed its own
+ * translations, buttons, and styling.
+ * It relies on calendarRef prop passed to it by ToolCalendar.tsx to react on button actions, i.e.
+ * handlePrev, handleNext etc.
+ */
 function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
   const t = useTranslations('reservations');
   const isIPad = useMediaQuery('(min-width: 41.3125rem)');
