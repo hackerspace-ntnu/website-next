@@ -1,10 +1,11 @@
+import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
 
-function borrowItemsSchema() {
+function borrowItemsSchema(t: Translations) {
   return z.array(
     z.object({
       id: z.number(),
-      amount: z.number().positive(),
+      amount: z.number().positive(t('storage.api.borrowPositiveAmount')),
       borrowFrom: z.date(),
       borrowUntil: z.date(),
       autoapprove: z.boolean(),
