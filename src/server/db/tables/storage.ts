@@ -1,17 +1,11 @@
-import { files, users } from '@/server/db/tables';
+import { files } from '@/server/db/tables';
+import { itemLoans } from '@/server/db/tables/loans';
 import {
   type InferInsertModel,
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import {
-  boolean,
-  integer,
-  pgTable,
-  serial,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, varchar } from 'drizzle-orm/pg-core';
 
 const storageItems = pgTable('storage_items', {
   id: serial('id').primaryKey(),
@@ -35,35 +29,6 @@ const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
   }),
 }));
 
-const itemLoans = pgTable('item_loans', {
-  id: serial('id').primaryKey(),
-  itemId: integer('item_id')
-    .notNull()
-    .references(() => storageItems.id),
-  lenderId: integer('lender_id')
-    .notNull()
-    .references(() => users.id),
-  unitsBorrowed: integer('units_borrowed').notNull(),
-  borrowFrom: timestamp('borrow_from').notNull(),
-  borrowUntil: timestamp('borrow_until').notNull(),
-  approved: boolean('approved').default(false),
-  approvedAt: timestamp('approved_at'),
-  returnedAt: timestamp('returned_at'),
-  notes: varchar('notes', { length: 512 }),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-});
-
-const itemLoansRelations = relations(itemLoans, ({ one }) => ({
-  item: one(storageItems, {
-    fields: [itemLoans.itemId],
-    references: [storageItems.id],
-  }),
-  lender: one(users, {
-    fields: [itemLoans.lenderId],
-    references: [users.id],
-  }),
-}));
-
 const itemCategories = pgTable('item_categories', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 128 }).notNull().unique(),
@@ -75,22 +40,16 @@ const itemCategoriesRelations = relations(itemCategories, ({ many }) => ({
 
 type SelectStorageItem = InferSelectModel<typeof storageItems>;
 type InsertStorageItem = InferInsertModel<typeof storageItems>;
-type SelectItemLoan = InferSelectModel<typeof itemLoans>;
-type InsertItemLoan = InferInsertModel<typeof itemLoans>;
 type InsertItemCategory = InferInsertModel<typeof itemCategories>;
 type SelectItemCategory = InferSelectModel<typeof itemCategories>;
 
 export {
   storageItems,
   storageItemsRelations,
-  itemLoans,
-  itemLoansRelations,
   itemCategories,
   itemCategoriesRelations,
   type SelectStorageItem,
   type InsertStorageItem,
-  type SelectItemLoan,
-  type InsertItemLoan,
   type InsertItemCategory,
   type SelectItemCategory,
 };
