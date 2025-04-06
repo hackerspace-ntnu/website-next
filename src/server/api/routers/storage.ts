@@ -14,17 +14,19 @@ import {
   storageItems,
 } from '@/server/db/tables';
 import { insertFile } from '@/server/services/files';
-import { borrowItemsSchema } from '@/validations/storage/borrowItemsSchema';
-import { deleteItemSchema } from '@/validations/storage/deleteItemSchema';
-import { editItemSchema } from '@/validations/storage/editItemSchema';
-import { fetchLoansSchema } from '@/validations/storage/fetchLoansSchema';
-import { fetchManySchema } from '@/validations/storage/fetchManySchema';
-import { fetchOneSchema } from '@/validations/storage/fetchOneSchema';
-import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
-import { itemCategorySchema } from '@/validations/storage/itemCategorySchema';
-import { itemSchema } from '@/validations/storage/itemSchema';
-import { itemsTotalSchema } from '@/validations/storage/itemsTotalSchema';
-import { updateLoanSchema } from '@/validations/storage/updateLoanSchema';
+import {
+  borrowItemsSchema,
+  deleteItemSchema,
+  editItemSchema,
+  fetchLoansSchema,
+  fetchManySchema,
+  fetchOneSchema,
+  itemCategoryFormSchema,
+  itemCategorySchema,
+  itemSchema,
+  itemsTotalSchema,
+  updateLoanSchema,
+} from '@/validations/storage';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, ilike, inArray } from 'drizzle-orm';
 
