@@ -27,25 +27,23 @@ function ShoppingCartLink({ t, className }: ShoppingCartLinkProps) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div>
-            <Link
-              variant='default'
-              size='icon'
-              href='/storage/shopping-cart'
-              aria-label={t.viewShoppingCart}
-              className={cx('relative', className)}
-            >
-              <ShoppingCartIcon />
-              {!isLoading && cart && cart.length > 0 && (
-                <Badge
-                  className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
-                  variant='destructive'
-                >
-                  {cart.length}
-                </Badge>
-              )}
-            </Link>
-          </div>
+          <Link
+            variant='default'
+            size='icon'
+            href='/storage/shopping-cart'
+            aria-label={t.viewShoppingCart}
+            className={cx('relative', className)}
+          >
+            <ShoppingCartIcon />
+            {!isLoading && cart && cart.length > 0 && (
+              <Badge
+                className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
+                variant='destructive'
+              >
+                {cart.length}
+              </Badge>
+            )}
+          </Link>
         </TooltipTrigger>
         <TooltipContent>
           <p>{t.viewShoppingCart}</p>
