@@ -305,7 +305,7 @@
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "requestLoan": "Send låneforespørsel",
-      "amountOfItemARIA": "Velg antallet av denne gjenstanden",
+      "amountOfItemAria": "Velg antallet av denne gjenstanden",
       "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {

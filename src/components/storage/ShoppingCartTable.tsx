@@ -24,7 +24,7 @@ type ShoppingCartTableProps = {
     location: string;
     unitsAvailable: string;
     cartEmpty: string;
-    amountOfItemARIA: string;
+    amountOfItemAria: string;
   };
 };
 
@@ -90,7 +90,7 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
                   updateAmountInCart(item.id, Number(e.currentTarget.value))
                 }
                 className='w-[80px]'
-                aria-label={t.amountOfItemARIA}
+                aria-label={t.amountOfItemAria}
               />
             </TableCell>
             <TableCell className='font-medium'>{item.id}</TableCell>

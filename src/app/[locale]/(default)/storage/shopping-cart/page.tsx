@@ -29,7 +29,7 @@ export default async function StorageShoppingCartPage({
     location: t('location'),
     unitsAvailable: t('unitsAvailable'),
     cartEmpty: t('cartEmpty'),
-    amountOfItemARIA: t('amountOfItemARIA'),
+    amountOfItemAria: t('amountOfItemAria'),
   };
 
   const requestLoanMessages = {

@@ -305,7 +305,7 @@
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
-      "amountOfItemARIA": "Select number of this item",
+      "amountOfItemAria": "Select number of this item",
       "mustBeLoggedIn": "You must be logged in to borrow items"
     },
     "loanForm": {
