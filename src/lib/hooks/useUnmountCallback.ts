@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function useUnmount(func: () => void) {
+function useUnmountCallback(func: () => void) {
   const funcRef = useRef(func);
 
   funcRef.current = func;
@@ -13,4 +13,4 @@ function useUnmount(func: () => void) {
   );
 }
 
-export { useUnmount };
+export { useUnmountCallback };

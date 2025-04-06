@@ -1,4 +1,4 @@
-import { useUnmount } from '@/lib/hooks/useUnmount';
+import { useUnmountCallback } from '@/lib/hooks/useUnmountCallback';
 import debounce from 'lodash.debounce';
 import { useEffect, useMemo, useRef } from 'react';
 
@@ -28,7 +28,7 @@ function useDebounceCallback<T extends (...args: any) => ReturnType<T>>(
 ): DebouncedState<T> {
   const debouncedFunc = useRef<ReturnType<typeof debounce>>(undefined);
 
-  useUnmount(() => {
+  useUnmountCallback(() => {
     if (debouncedFunc.current) {
       debouncedFunc.current.cancel();
     }
