@@ -6,4 +6,5 @@ export * from './groups';
 export * from './skills';
 export * from './emails';
 export * from './storage';
+export * from './loans';
 export * from './files';

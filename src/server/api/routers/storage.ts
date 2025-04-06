@@ -10,9 +10,9 @@ import {
   type InsertStorageItem,
   type SelectStorageItem,
   itemCategories,
-  itemLoans,
   storageItems,
 } from '@/server/db/tables';
+import { itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
@@ -367,7 +367,9 @@ const storageRouter = createRouter({
         });
     }),
   borrowItems: authenticatedProcedure
-    .input((input) => borrowItemsSchema().parse(input))
+    .input((input) =>
+      borrowItemsSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const itemIds = input.map((i) => i.id);
       const itemsToBorrow = await ctx.db
@@ -412,7 +414,9 @@ const storageRouter = createRouter({
       }
     }),
   fetchLoans: storageProcedure
-    .input((input) => fetchLoansSchema().parse(input))
+    .input((input) =>
+      fetchLoansSchema(useTranslationsFromContext()).parse(input),
+    )
     .query(async ({ input, ctx }) => {
       return ctx.db.query.itemLoans.findMany({
         limit: input.limit,
@@ -493,7 +497,9 @@ const storageRouter = createRouter({
     return counts[0].count;
   }),
   userLoans: authenticatedProcedure
-    .input((input) => fetchLoansSchema().parse(input))
+    .input((input) =>
+      fetchLoansSchema(useTranslationsFromContext()).parse(input),
+    )
     .query(async ({ input, ctx }) => {
       const pendingWhere = input.pending
         ? eq(itemLoans.approved, false)
