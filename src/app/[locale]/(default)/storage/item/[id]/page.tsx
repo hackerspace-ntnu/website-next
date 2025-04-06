@@ -1,9 +1,10 @@
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
+import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { ArrowLeftIcon, BlocksIcon, MapPinIcon } from 'lucide-react';
+import { BlocksIcon, MapPinIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
@@ -49,16 +50,7 @@ export default async function StorageItemPage({
   return (
     <>
       <div className='flex items-center justify-between'>
-        <Link
-          className='inline-flex gap-2'
-          variant='ghost'
-          size='default'
-          href='/storage'
-          aria-label={t('backToStorage')}
-        >
-          <ArrowLeftIcon aria-hidden='true' />
-          <span className='hidden sm:inline'>{t('backToStorage')}</span>
-        </Link>
+        <BackToStorageButton />
         <ShoppingCartLink
           t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
           className='mx-4'
