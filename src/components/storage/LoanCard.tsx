@@ -1,3 +1,6 @@
+import { ApproveLoanButton } from '@/components/storage/ApproveLoanButton';
+import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
+import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
 import {
   Card,
   CardContent,
@@ -16,9 +19,6 @@ import {
   XIcon,
 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { ApproveLoanButton } from './ApproveLoanButton';
-import { ConfirmLoanReturnedButton } from './ConfirmLoanReturnedButton';
-import { DeleteLoanButton } from './DeleteLoanButton';
 
 async function LoanCard({
   loan,

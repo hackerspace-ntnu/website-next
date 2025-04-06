@@ -4,8 +4,8 @@ import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
-import { cx } from 'cva';
 import { useState } from 'react';
 
 type AddToCartButtonProps = {
