@@ -1,3 +1,4 @@
+import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -5,7 +6,6 @@ import {
   storageProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { db } from '@/server/db';
 import {
   type InsertStorageItem,
   type SelectStorageItem,
@@ -29,8 +29,6 @@ import {
 } from '@/validations/storage';
 import { TRPCError } from '@trpc/server';
 import { and, count, desc, eq, ilike, inArray } from 'drizzle-orm';
-
-const categories = (await db.select().from(itemCategories)).map((c) => c.name);
 
 const storageRouter = createRouter({
   fetchOne: publicProcedure
@@ -171,7 +169,10 @@ const storageRouter = createRouter({
     }),
   newItem: storageProcedure
     .input(async (input) =>
-      itemSchema(useTranslationsFromContext(), categories).parse(input),
+      itemSchema(
+        useTranslationsFromContext(),
+        await getItemCategoriesFromContext(),
+      ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const duplicateItem = await ctx.db
@@ -224,8 +225,11 @@ const storageRouter = createRouter({
       await ctx.db.insert(storageItems).values(insertValues);
     }),
   editItem: storageProcedure
-    .input((input) =>
-      editItemSchema(useTranslationsFromContext(), categories).parse(input),
+    .input(async (input) =>
+      editItemSchema(
+        useTranslationsFromContext(),
+        await getItemCategoriesFromContext(),
+      ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const category = await ctx.db.query.itemCategories.findFirst({

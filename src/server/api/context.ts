@@ -3,6 +3,7 @@ import { routing } from '@/lib/locale';
 import type { Translations } from '@/lib/locale';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
+import { itemCategories } from '@/server/db/tables';
 import { s3 } from '@/server/s3';
 import { getTranslations } from 'next-intl/server';
 
@@ -39,4 +40,15 @@ function getContext() {
   return ctx;
 }
 
-export { createContext, contextStorage, getContext, type TRPCContext };
+async function getItemCategoriesFromContext() {
+  const ctx = getContext();
+  return (await ctx.db.select().from(itemCategories)).map((c) => c.name);
+}
+
+export {
+  createContext,
+  contextStorage,
+  getContext,
+  getItemCategoriesFromContext,
+  type TRPCContext,
+};
