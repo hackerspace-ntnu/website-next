@@ -10,15 +10,15 @@ import Image from 'next/image';
 
 type StorageItemParams = Promise<{
   locale: string;
-  id: string;
+  itemId: string;
 }>;
 
 export async function generateMetadata({
   params,
 }: { params: StorageItemParams }) {
   const t = await getTranslations('storage');
-  const { id } = await params;
-  const item = await api.storage.fetchOne(Number.parseInt(id));
+  const { itemId } = await params;
+  const item = await api.storage.fetchOne(Number.parseInt(itemId));
 
   return {
     title: `${t('title')}: ${item.name}`,
@@ -28,11 +28,11 @@ export async function generateMetadata({
 export default async function StorageItemPage({
   params,
 }: { params: StorageItemParams }) {
-  const { locale, id } = await params;
+  const { locale, itemId } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('storage');
-  const item = await api.storage.fetchOne(Number.parseInt(id));
+  const item = await api.storage.fetchOne(Number.parseInt(itemId));
   const imageUrl = item.imageId
     ? await api.utils.getFileUrl({ fileId: item.imageId })
     : null;
@@ -77,8 +77,8 @@ export default async function StorageItemPage({
               {canManageItems && (
                 <Link
                   href={{
-                    pathname: '/storage/item/[id]/edit',
-                    params: { id: id },
+                    pathname: '/storage/item/[itemId]/edit',
+                    params: { itemId },
                   }}
                   variant='secondary'
                   size='default'

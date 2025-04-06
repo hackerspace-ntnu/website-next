@@ -1,6 +1,4 @@
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
-import { Link } from '@/components/ui/Link';
-import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 type EditItemLayoutProps = {

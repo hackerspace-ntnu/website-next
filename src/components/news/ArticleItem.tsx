@@ -24,8 +24,8 @@ function ArticleItem({
     <Link
       className={cx('group block whitespace-normal font-normal', className)}
       href={{
-        pathname: '/news/[article]',
-        params: { article: id },
+        pathname: '/news/[articleId]',
+        params: { articleId: id },
       }}
     >
       <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>

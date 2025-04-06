@@ -51,7 +51,7 @@ function EventCard({
 
   return (
     <Link
-      href={{ pathname: '/events/[id]', params: { id: event.id } }}
+      href={{ pathname: '/events/[eventId]', params: { eventId: event.id } }}
       aria-label={t.detailsAboutEvent}
       className={cx(
         'block rounded-md border border-transparent ring-offset-background transition-colors hover:border-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',

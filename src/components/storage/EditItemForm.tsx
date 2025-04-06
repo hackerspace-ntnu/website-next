@@ -73,8 +73,8 @@ function EditItemForm({
       if (prefilledItem) {
         editItemMutation.mutate({ id: prefilledItem.id, ...value });
         router.push({
-          pathname: '/storage/item/[id]',
-          params: { id: prefilledItem.id },
+          pathname: '/storage/item/[itemId]',
+          params: { itemId: prefilledItem.id },
         });
       } else {
         newItemMutation.mutate(value);

@@ -26,7 +26,12 @@ function ItemCard({
       key={item.name}
       className='group text-center duration-200 hover:box-border hover:border-primary'
     >
-      <Link href={{ pathname: '/storage/item/[id]', params: { id: item.id } }}>
+      <Link
+        href={{
+          pathname: '/storage/item/[itemId]',
+          params: { itemId: item.id },
+        }}
+      >
         <CardHeader>
           <div className='mx-auto inline-block h-48 w-48 overflow-hidden rounded-md'>
             <Image

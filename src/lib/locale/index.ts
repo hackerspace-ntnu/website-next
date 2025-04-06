@@ -79,9 +79,9 @@ const routing = defineRouting({
       en: '/events',
       no: '/arrangementer',
     },
-    '/events/[id]': {
-      en: '/events/[id]',
-      no: '/arrangementer/[id]',
+    '/events/[eventId]': {
+      en: '/events/[eventId]',
+      no: '/arrangementer/[eventId]',
     },
     '/news': {
       en: '/news',
@@ -91,9 +91,9 @@ const routing = defineRouting({
       en: '/news/new',
       no: '/nyheter/ny',
     },
-    '/news/[article]': {
-      en: '/news/[article]',
-      no: '/nyheter/[article]',
+    '/news/[articleId]': {
+      en: '/news/[articleId]',
+      no: '/nyheter/[articleId]',
     },
     '/about': {
       en: '/about',
@@ -111,13 +111,13 @@ const routing = defineRouting({
       en: '/storage/item/new',
       no: '/lager/gjenstand/ny',
     },
-    '/storage/item/[id]': {
-      en: '/storage/item/[id]',
-      no: '/lager/gjenstand/[id]',
+    '/storage/item/[itemId]': {
+      en: '/storage/item/[itemId]',
+      no: '/lager/gjenstand/[itemId]',
     },
-    '/storage/item/[id]/edit': {
-      en: '/storage/item/[id]/edit',
-      no: '/lager/gjenstand/[id]/rediger',
+    '/storage/item/[itemId]/edit': {
+      en: '/storage/item/[itemId]/edit',
+      no: '/lager/gjenstand/[itemId]/rediger',
     },
     '/storage/loans': {
       en: '/storage/loans',
@@ -135,9 +135,9 @@ const routing = defineRouting({
       en: '/rules',
       no: '/regler',
     },
-    '/rules/[subset]': {
-      en: '/rules/[subset]',
-      no: '/regler/[subset]',
+    '/rules/[subsetId]': {
+      en: '/rules/[subsetId]',
+      no: '/regler/[subsetId]',
     },
     '/shift-schedule': {
       en: '/shift-schedule',

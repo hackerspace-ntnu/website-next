@@ -26,13 +26,13 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: string; article: string }>;
+  params: Promise<{ locale: string; articleId: string }>;
 }) {
-  const { locale, article } = await params;
+  const { locale, articleId } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('news');
 
-  const data = articleData.find((a) => a.id === Number(article));
+  const data = articleData.find((a) => a.id === Number(articleId));
   if (!data) {
     return notFound();
   }

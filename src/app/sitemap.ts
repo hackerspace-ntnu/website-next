@@ -31,8 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     getEntry('/news', 'weekly', 0.7),
     getEntry(
       {
-        pathname: '/news/[article]',
-        params: { article: '1' },
+        pathname: '/news/[articleId]',
+        params: { articleId: '1' },
       },
       'daily',
       0.4,

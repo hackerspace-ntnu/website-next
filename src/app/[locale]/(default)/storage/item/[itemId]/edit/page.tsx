@@ -18,16 +18,16 @@ export async function generateMetadata() {
 export default async function EditStorageItemPage({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; itemId: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale, itemId } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('storage.edit');
 
   const { storage, ui } = await getMessages();
 
-  const item = await api.storage.fetchOne(Number(id));
+  const item = await api.storage.fetchOne(Number(itemId));
   const itemCategories = await api.storage.fetchItemCategoryNames();
 
   const auth = await api.auth.state();
