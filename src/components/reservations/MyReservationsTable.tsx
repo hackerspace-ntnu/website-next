@@ -24,7 +24,7 @@ import { type RefObject, useEffect, useRef, useState } from 'react';
 type Reservation = {
   toolType: string;
   toolName: string;
-  toolSlug: string;
+  toolId: string;
   userId: string;
   reservationId: string;
   start: Date | string;
@@ -208,8 +208,8 @@ export function MyReservationsTable() {
                           <Link
                             title={t('myReservationsTable.goToCalendar')}
                             href={{
-                              pathname: '/reservations/[tool]',
-                              params: { tool: res.toolSlug },
+                              pathname: '/reservations/[Id]',
+                              params: { Id: res.toolId },
                             }}
                             className='mr-4 flex'
                           >

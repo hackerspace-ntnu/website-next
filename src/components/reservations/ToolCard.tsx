@@ -95,8 +95,8 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             tool.available ? (
               <Link
                 href={{
-                  pathname: '/reservations/[tool]',
-                  params: { tool: tool.slug },
+                  pathname: '/reservations/[Id]',
+                  params: { Id: tool.toolId },
                 }}
                 className='absolute bottom-0 left-0 h-14 w-full'
               >

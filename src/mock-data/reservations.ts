@@ -2,7 +2,7 @@ const tools = [
   {
     type: 'printer',
     title: 'Bambu lab X1 Carbon',
-    slug: 'bambux1',
+    toolId: 'bambux1',
     description: 'Geir Ove Mjølsnes',
     krever: 'SD-kort eller sky-overføring',
     photoUrl: '/mock.jpg',
@@ -21,7 +21,7 @@ const tools = [
   {
     type: 'printer',
     title: 'Prusa i3 MK3',
-    slug: 'prusamk3',
+    toolId: 'prusamk3',
     description: 'Petter',
     krever: 'SD-kort',
     photoUrl: '/mock.jpg',
@@ -39,7 +39,7 @@ const tools = [
   {
     type: 'printer',
     title: 'Prusa MK4',
-    slug: 'prusamk4',
+    toolId: 'prusamk4',
     description: 'Kurt Kåre Rogers',
     krever: 'USB-stick',
     photoUrl: '/mock.jpg',
@@ -58,7 +58,7 @@ const tools = [
   {
     type: 'printer',
     title: 'Creality Printmill Belt Printer',
-    slug: 'creality',
+    toolId: 'creality',
     description: 'Gerd Gunda Brunsnes',
     photoUrl: '/mock.jpg',
     difficulty: 5,
@@ -80,7 +80,7 @@ const tools = [
   {
     type: 'annet',
     title: 'Loddestasjon',
-    slug: 'loddestasjon',
+    toolId: 'loddestasjon',
     description: 'null',
     photoUrl: '/mock.jpg',
     textContent: `
@@ -91,7 +91,7 @@ const tools = [
   {
     type: 'annet',
     title: 'Fiberlaser',
-    slug: 'fiberlaser',
+    toolId: 'fiberlaser',
     description: 'null',
     photoUrl: '/mock.jpg',
     textContent: 'null',

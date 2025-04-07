@@ -123,9 +123,9 @@ const routing = defineRouting({
       en: '/reservations',
       no: '/reservasjoner',
     },
-    '/reservations/[tool]': {
-      en: '/reservations/[tool]',
-      no: '/reservasjoner/[tool]',
+    '/reservations/[Id]': {
+      en: '/reservations/[Id]',
+      no: '/reservasjoner/[Id]',
     },
   },
 });

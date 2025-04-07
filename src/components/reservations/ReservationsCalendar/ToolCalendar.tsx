@@ -22,9 +22,8 @@ import '@/lib/styles/calendar.css';
 import CalendarDialog from '@/components/reservations/ReservationsCalendar/CalendarDialog';
 import InformationCard from '@/components/reservations/ReservationsCalendar/InformationCard';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import { format } from 'date-fns';
 import { nb } from 'date-fns/locale';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 import { createCalendarConfig } from './CalendarConfig';
 import CalendarConfirmDialog from './CalendarConfirmDialog';
 
@@ -32,7 +31,7 @@ import CalendarConfirmDialog from './CalendarConfirmDialog';
 type Reservation = {
   toolType: string;
   toolName: string;
-  toolSlug: string;
+  toolId: string;
   userId: string;
   reservationId: string;
   start: Date | string;
@@ -56,6 +55,7 @@ type Reservation = {
  */
 
 export default function ToolCalendar() {
+  const format = useFormatter();
   const t = useTranslations('reservations');
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
@@ -73,7 +73,7 @@ export default function ToolCalendar() {
       reservationId: reserv.reservationId,
       toolType: reserv.toolType,
       toolName: reserv.toolName,
-      toolSlug: reserv.toolSlug, // sikre at riktig reservasjoner dukker opp på riktig kalender, reminder for når jeg begynner med backend
+      toolId: reserv.toolId, // sikre at riktig reservasjoner dukker opp på riktig kalender, reminder for når jeg begynner med backend
       userId: reserv.userId, //skal ikke sende userId når jeg begynner med backend, sender det nå for å teste click, delete etc. funksjoner
       navn: reserv.navn,
       mobilNr: reserv.mobilNr,
@@ -97,7 +97,7 @@ export default function ToolCalendar() {
   const isLoggedIn = true;
   const toolType = 'printer';
   const toolName = 'Prusa i3 MK3';
-  const toolSlug = 'prusamk3';
+  const toolId = 'prusamk3';
 
   function customEventStyling(eventInfo: EventContentArg) {
     return (
@@ -152,7 +152,7 @@ export default function ToolCalendar() {
       | 'reservationId'
       | 'toolType'
       | 'toolName'
-      | 'toolSlug'
+      | 'toolId'
       | 'reservationId'
       | 'userId'
     >,
@@ -183,7 +183,7 @@ export default function ToolCalendar() {
       | 'reservationId'
       | 'toolType'
       | 'toolName'
-      | 'toolSlug'
+      | 'toolId'
       | 'reservationId'
       | 'userId'
     >,
@@ -191,7 +191,7 @@ export default function ToolCalendar() {
     const newEvent = {
       toolType: toolType,
       toolName: toolName,
-      toolSlug: toolSlug,
+      toolId: toolId,
       reservationId: crypto.randomUUID(),
       userId: crypto.randomUUID(),
       navn: data.navn,
@@ -277,7 +277,7 @@ export default function ToolCalendar() {
     if (calendarRef.current) {
       calendarRef.current
         ?.getApi()
-        .scrollToTime(format(date, 'hh:mm:ss', { locale: nb }));
+        .scrollToTime(calendarRef.current.getApi().getDate().toString());
     }
   }
 

@@ -19,7 +19,7 @@ export type t = {
 export type Tool = {
   type: string;
   title: string;
-  slug: string;
+  toolId: string;
   description?: string;
   krever?: string;
   photoUrl: string;

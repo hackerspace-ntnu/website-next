@@ -12,7 +12,7 @@ export default async function ToolCalendarPage({
   setRequestLocale(locale);
   const t = await getTranslations('reservations');
 
-  const data = tools.find((t) => t.slug === tool);
+  const data = tools.find((t) => t.toolId === tool);
   if (!data) return notFound();
 
   return (
