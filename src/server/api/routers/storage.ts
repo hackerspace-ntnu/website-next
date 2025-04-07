@@ -28,7 +28,16 @@ import {
   updateLoanSchema,
 } from '@/validations/storage';
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, ilike, inArray } from 'drizzle-orm';
+import {
+  and,
+  count,
+  desc,
+  eq,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+} from 'drizzle-orm';
 
 const storageRouter = createRouter({
   fetchOne: publicProcedure
@@ -403,7 +412,10 @@ const storageRouter = createRouter({
           borrowFrom: borrowing.borrowFrom,
           borrowUntil: borrowing.borrowUntil as Date,
           // Do not approve automatically unless user is actually a Hackerspace member
-          approved: borrowing.autoapprove ? ctx.user.groups.length > 0 : false,
+          approvedAt:
+            borrowing.autoapprove && ctx.user.groups.length > 0
+              ? new Date()
+              : null,
         });
       }
     }),
@@ -416,8 +428,8 @@ const storageRouter = createRouter({
         limit: input.limit,
         offset: input.offset,
         where: input.pending
-          ? eq(itemLoans.approved, false)
-          : eq(itemLoans.approved, true),
+          ? isNull(itemLoans.approvedAt)
+          : isNotNull(itemLoans.approvedAt),
         orderBy: desc(itemLoans.returnedAt),
         with: {
           item: true,
@@ -429,7 +441,7 @@ const storageRouter = createRouter({
     const counts = await ctx.db
       .select({ count: count() })
       .from(itemLoans)
-      .where(eq(itemLoans.approved, true));
+      .where(isNotNull(itemLoans.approvedAt));
 
     if (!counts[0]) return Number.NaN;
 
@@ -441,7 +453,7 @@ const storageRouter = createRouter({
       await ctx.db
         .update(itemLoans)
         .set({
-          approved: true,
+          approvedAt: new Date(),
         })
         .where(
           and(
@@ -496,8 +508,8 @@ const storageRouter = createRouter({
     )
     .query(async ({ input, ctx }) => {
       const pendingWhere = input.pending
-        ? eq(itemLoans.approved, false)
-        : eq(itemLoans.approved, true);
+        ? isNull(itemLoans.approvedAt)
+        : isNotNull(itemLoans.approvedAt);
 
       return await ctx.db.query.itemLoans.findMany({
         limit: input.limit,

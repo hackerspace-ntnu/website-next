@@ -25,7 +25,6 @@ const itemLoans = pgTable('item_loans', {
   unitsBorrowed: integer('units_borrowed').notNull(),
   borrowFrom: timestamp('borrow_from').notNull(),
   borrowUntil: timestamp('borrow_until').notNull(),
-  approved: boolean('approved').default(false),
   approvedAt: timestamp('approved_at'),
   returnedAt: timestamp('returned_at'),
   notes: varchar('notes', { length: 512 }),
