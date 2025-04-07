@@ -29,7 +29,7 @@ function ArticleItem({
       }}
     >
       <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
-        <div className='relative h-28 w-28 flex-shrink-0'>
+        <div className='relative h-28 w-28 shrink-0'>
           <InternalBadge className='h-5 w-5' internal={internal} />
           <Image
             className='rounded-lg object-cover object-center'

@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 function ArticleItemSkeleton() {
   return (
     <div className='flex gap-4 overflow-hidden rounded-lg'>
-      <div className='relative h-28 w-28 flex-shrink-0'>
+      <div className='relative h-28 w-28 shrink-0'>
         <Skeleton className='h-full w-full rounded-lg object-cover object-center' />
       </div>
       <div className='w-full py-2 pr-1'>

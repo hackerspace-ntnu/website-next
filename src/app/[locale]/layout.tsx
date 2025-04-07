@@ -27,11 +27,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Omit<LocaleLayoutProps, 'children'>) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
+export async function generateMetadata() {
+  const t = await getTranslations('meta');
 
   return {
     title: {
@@ -84,7 +81,7 @@ export default async function LocaleLayout({
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
+      <body className='h-full w-full font-inter antialiased'>
         <RootProviders locale={locale}>
           <ScrollArea className='h-full w-full' variant='primary'>
             <div className='flex h-full w-full flex-col'>

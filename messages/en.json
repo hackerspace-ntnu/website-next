@@ -22,14 +22,20 @@
     "selectYear": "Select year",
     "pickDate": "Pick a date",
     "dateFormat": "dd/MM/yyyy",
+    "searchCountry": "Search country...",
+    "noCountryFound": "No country found",
     "hidePassword": "Hide password",
-    "showPassword": "Show password"
+    "showPassword": "Show password",
+    "uploadText": "Drop files here or click to upload",
+    "noValidFiles": "No valid files were dropped"
   },
   "error": {
     "notFound": "404 - Page not found",
     "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
+    "tooManyRequests": "Too Many Requests",
+    "tooManyRequestsDescription": "Please wait a moment before trying again.",
     "goToHomepage": "Return to homepage",
     "tryAgain": "Try again",
     "invalidLocale": "Invalid locale: {locale}"
@@ -52,6 +58,15 @@
     "passwordDescription": "The password will be used for signing into Matrix and your Hackerspace Account",
     "createAccount": "Create Account",
     "feideNotConfigured": "Feide is not configured",
+    "verifyEmail": "Verify your email address",
+    "verifyEmailDescription": "Enter the confirmation code sent to your new email. If you don't see it, check your spam folder.",
+    "getNewCode": "Get new code {seconds, plural, =0 {} =1 {(# second)} other {(# seconds)}}",
+    "newCodeSent": "A new code was sent to your inbox",
+    "confirmEmail": "Confirm email",
+    "unableToCreateVerificationRequest": "Unable to create email verification request",
+    "noVerificationRequest": "No verification request found",
+    "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
+    "emailUpdateSuccess": "Email updated successfully",
     "form": {
       "username": {
         "label": "Username",
@@ -70,14 +85,21 @@
         "confirmLabel": "Confirm password",
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
+      },
+      "otp": {
+        "label": "One-time password",
+        "required": "One-time password is required",
+        "length": "One-time password must be {count} characters long",
+        "invalid": "One-time password must only contain digits and characters",
+        "incorrect": "Incorrect one-time password"
       }
     },
     "error": {
       "authenticationFailed": "Authentication failed",
       "userInfoFailed": "Failed to get user info",
       "userInfoMissing": "User info is missing",
-      "phoneTaken": "Phone number is already taken",
-      "emailTaken": "Email is already taken",
+      "phoneInUse": "Phone number is already in use",
+      "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
       "userCreationFailed": "Failed to create user"
     }
@@ -91,7 +113,7 @@
     "about": "About",
     "shiftSchedule": "Shift Schedule",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
-    "goToMatrix": "Go to matrix",
+    "goToMatrix": "Go to Matrix",
     "rules": "Rules",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
@@ -107,7 +129,7 @@
     "haveYouFoundA": "Have you found a",
     "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
-    "allWeekdays": "Mon-Fri",
+    "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
     "sendAnEmail": "Send an email",
     "visitSlack": "Visit Slack",
@@ -120,6 +142,100 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "settings": {
+    "manageAccountSettings": "Manage your account settings and set preferences.",
+    "profile": {
+      "title": "Profile",
+      "username": "Username",
+      "updateProfile": "Update profile",
+      "updateProfileFailed": "Failed to update profile",
+      "updateProfileSuccess": "Profile updated successfully",
+      "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureFailed": "Failed to update profile picture",
+      "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "updateProfilePictureTooltip": "Click to change profile picture",
+      "profilePicture": {
+        "label": "Profile picture",
+        "mustBeImage": "Profile picture must be an image",
+        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "sizeLimit": "Profile picture must be less than {size} MB"
+      },
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "minLength": "First name must be at least {count} characters",
+        "maxLength": "First name must be less than {count} characters",
+        "general": "Is your first name correct?"
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "minLength": "Last name must be at least {count} characters",
+        "maxLength": "Last name must be less than {count} characters",
+        "general": "Is your last name correct?"
+      },
+      "birthDate": {
+        "label": "Birth date",
+        "required": "Birth date is required",
+        "invalid": "Birth date is invalid",
+        "minAge": "You must be at least {age} years old",
+        "maxAge": "You must be less than {age} years old"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "updateAccount": "Update account",
+      "updateAccountFailed": "Failed to update account",
+      "updateAccountSuccess": "Account updated successfully",
+      "email": {
+        "label": "Email",
+        "description": "If you change your email, you will recieve a verification email to confirm your new address.",
+        "required": "Email is required",
+        "invalid": "Invalid email address format",
+        "confirmLabel": "Confirm email",
+        "mismatch": "Emails do not match",
+        "inUse": "Email is already in use"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "description": "Your phone number will be visible when reserving 3D printers or borrowing items, allowing us to contact you if any issues arise.",
+        "required": "Phone number is required",
+        "invalid": "Invalid phone number",
+        "format": "Phone number is formatted incorrectly",
+        "inUse": "Phone number is already in use"
+      },
+      "password": {
+        "currentLabel": "Current password",
+        "newLabel": "New password",
+        "confirmLabel": "Confirm password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "weak": "Password is too weak",
+        "mismatch": "Passwords do not match",
+        "update": "Update password",
+        "updateSuccess": "Password updated successfully",
+        "updateFailed": "Failed to update password",
+        "incorrectPassword": "Incorrect password"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "updateNotifications": "Update notifications",
+      "updateNotificationsFailed": "Failed to update notifications",
+      "updateNotificationsSuccess": "Notifications updated successfully",
+      "notifyMeAbout": "Notify me about via email",
+      "all": "Finished prints, borrowed item deadlines, coffee cups filled and account updates",
+      "useful": "Finished prints, borrowed item deadlines and account updates",
+      "essential": "Account updates"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
   },
   "news": {
     "title": "News",
@@ -341,13 +457,26 @@
     "endedAt": "Ended at",
     "backToEvents": "Back to Events"
   },
-  "api": {
-    "tooManyRequests": "Too many requests, please try again later",
-    "notAuthenticated": "Not authenticated"
-  },
   "rules": {
     "title": "Rules",
     "forEveryone": "For everyone",
     "internal": "Internal rules"
+  },
+  "skills": {
+    "printing": "3D Printing",
+    "soldering": "Soldering",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Lniux",
+    "laser": "Laser Cutting",
+    "workshop": "Workshop Tools",
+    "microcontroller": "Microcontroller Programming",
+    "webdevelopment": "Web Development"
+  },
+  "api": {
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
   }
 }

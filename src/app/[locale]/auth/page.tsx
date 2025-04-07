@@ -23,9 +23,9 @@ export default async function SignInPage({
 
   if (user) {
     if (!user.isAccountComplete) {
-      redirect({ href: '/auth/create-account', locale });
+      return redirect({ href: '/auth/create-account', locale });
     }
-    redirect({ href: '/', locale });
+    return redirect({ href: '/', locale });
   }
 
   // @ts-expect-error: Unknown if error is a valid translation key

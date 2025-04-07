@@ -16,7 +16,7 @@ function EventCardSkeleton() {
       </CardHeader>
       <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
         <Skeleton className='h-32 w-full md:h-16 md:w-96' />
-        <Skeleton className='h-48 w-48 flex-shrink-0 rounded-full' />
+        <Skeleton className='h-48 w-48 shrink-0 rounded-full' />
       </CardContent>
       <CardFooter className='mt-auto flex-col'>
         <Skeleton className='h-6 w-56' />

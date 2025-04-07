@@ -1,8 +1,8 @@
-import { withFluid } from '@fluid-tailwind/tailwind-merge';
 import { type VariantProps, defineConfig } from 'cva';
 import { extendTailwindMerge } from 'tailwind-merge';
+import { withClamp } from 'tw-clamp-css/merge';
 
-const twMerge = extendTailwindMerge(withFluid);
+const twMerge = extendTailwindMerge(withClamp);
 
 const { cva, cx, compose } = defineConfig({
   hooks: {

@@ -10,12 +10,6 @@ import readingTime from 'reading-time';
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
 import { Badge } from '@/components/ui/Badge';
 
-// export async function generateStaticParams() {
-//   return articleData.map((article) => ({
-//     article: String(article.id),
-//   }));
-// }
-
 export async function generateMetadata({
   params,
 }: {
