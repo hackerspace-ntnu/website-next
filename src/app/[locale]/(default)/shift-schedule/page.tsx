@@ -1,7 +1,12 @@
-import { ClearShifts } from '@/components/shift-schedule/ClearShifts';
+import { ClearShifts } from '@/components/shift-schedule/ClearShiftsButton';
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
 import { api } from '@/lib/api/server';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -20,26 +25,18 @@ export default async function ShiftSchedulePage({
   const { user } = await api.auth.state();
 
   setRequestLocale(locale);
+  const { shiftSchedule, ui } = await getMessages();
   const t = await getTranslations('shiftSchedule');
 
   const canClear = user?.groups.some((group) =>
     ['admin', 'leadership'].includes(group),
   );
-  const clearShifts = (
-    <ClearShifts
-      t={{
-        clear: t('clearShifts.clear'),
-        warning: t('clearShifts.warning'),
-        confirmationPrompt: t('clearShifts.confirmationPrompt'),
-        confirm: t('clearShifts.confirm'),
-        cancel: t('clearShifts.cancel'),
-        clearSuccess: t('clearShifts.clearSuccess'),
-      }}
-    />
-  );
+  const clearShifts = <ClearShifts />;
 
   return (
-    <>
+    <NextIntlClientProvider
+      messages={{ shiftSchedule, ui } as Pick<Messages, 'shiftSchedule' | 'ui'>}
+    >
       <div className='relative flex justify-center'>
         <h1 className='text-center'>{t('title')}</h1>
         {canClear && (
@@ -50,6 +47,6 @@ export default async function ShiftSchedulePage({
       {canClear && (
         <div className='mt-8 ml-auto w-fit lg:hidden'>{clearShifts}</div>
       )}
-    </>
+    </NextIntlClientProvider>
   );
 }

@@ -22,6 +22,7 @@ import { DatePicker } from '@/components/composites/DatePicker';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -42,7 +43,6 @@ import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
 
 import { type VariantProps, cx } from '@/lib/utils';
-import { Checkbox } from './Checkbox';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();

@@ -122,4 +122,4 @@ const shiftScheduleRouter = createRouter({
     }),
 });
 
-export { type Member, shiftScheduleRouter };
+export { shiftScheduleRouter };

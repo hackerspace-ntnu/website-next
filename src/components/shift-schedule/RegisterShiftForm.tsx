@@ -11,17 +11,7 @@ import { registerShiftSchema } from '@/validations/shiftSchedule/registerShiftSc
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-type RegisterShiftProps = {
-  t: {
-    recurring: string;
-    register: string;
-    update: string;
-    unregister: string;
-    signIn: string;
-    registerSuccess: string;
-    updateSuccess: string;
-    unregisterSuccess: string;
-  };
+type RegisterShiftFormProps = {
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
   user: {
@@ -32,13 +22,14 @@ type RegisterShiftProps = {
   className?: string;
 };
 
-function RegisterShift({
-  t,
+function RegisterShiftForm({
   day,
   timeslot,
   user,
   className,
-}: RegisterShiftProps) {
+}: RegisterShiftFormProps) {
+  const t = useTranslations('shiftSchedule.table.cell.dialog');
+
   const router = useRouter();
 
   const utils = api.useUtils();
@@ -68,17 +59,17 @@ function RegisterShift({
       if (canRegister)
         registerShift.mutate(
           { day, timeslot, recurring: value.recurring },
-          { onSuccess: () => success(t.registerSuccess) },
+          { onSuccess: () => success(t('registerSuccess')) },
         );
       else if (canUpdate)
         registerShift.mutate(
           { day, timeslot, recurring: value.recurring },
-          { onSuccess: () => success(t.updateSuccess) },
+          { onSuccess: () => success(t('updateSuccess')) },
         );
       else if (canUnregister)
         unregisterShift.mutate(
           { day, timeslot },
-          { onSuccess: () => success(t.unregisterSuccess) },
+          { onSuccess: () => success(t('unregisterSuccess')) },
         );
     },
   });
@@ -91,9 +82,9 @@ function RegisterShift({
   const canUnregister = !canRegister && !canUpdate && user.isMember;
 
   function getButtonText() {
-    if (canRegister) return t.register;
-    if (canUpdate) return t.update;
-    if (canUnregister) return t.unregister;
+    if (canRegister) return t('register');
+    if (canUpdate) return t('update');
+    if (canUnregister) return t('unregister');
   }
 
   return (
@@ -111,8 +102,8 @@ function RegisterShift({
               {(field) => (
                 <field.CheckboxField
                   onClick={() => setRecurring(!form.getFieldValue('recurring'))}
-                  label={t.recurring}
-                  className='flex items-center gap-2'
+                  label={t('recurring')}
+                  className='ml-auto flex items-center gap-2'
                 />
               )}
             </form.AppField>
@@ -127,11 +118,11 @@ function RegisterShift({
         </form>
       ) : (
         <Link variant='default' size='default' href='/auth'>
-          {t.signIn}
+          {t('signIn')}
         </Link>
       )}
     </div>
   );
 }
 
-export { RegisterShift };
+export { RegisterShiftForm };

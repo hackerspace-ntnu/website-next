@@ -1,19 +1,12 @@
-import {
-  ResponsiveDialogContent,
-  ResponsiveDialogDescription,
-  ResponsiveDialogHeader,
-  ResponsiveDialogTitle,
-  ResponsiveDialogTrigger,
-} from '@/components/composites/ResponsiveDialog';
-import { MemberList } from '@/components/shift-schedule/MemberList';
-import { RegisterShift } from '@/components/shift-schedule/RegisterShift';
+import { ResponsiveDialogTrigger } from '@/components/composites/ResponsiveDialog';
 import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
+import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
+import type { RouterOutputs } from '@/lib/api/client';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
-import type { Member } from '@/server/api/routers';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -24,9 +17,9 @@ type ScheduleCellProps = {
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
-  members: Member[];
+  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
   skills: (typeof skillIdentifiers)[number][];
-  memberId: number;
+  user: RouterOutputs['auth']['state']['user'];
 };
 
 function ScheduleCell({
@@ -35,10 +28,11 @@ function ScheduleCell({
   timeslot,
   members,
   skills,
-  memberId,
+  user,
 }: ScheduleCellProps) {
   const t = useTranslations('shiftSchedule.table.cell');
-  const userOnShift = !!members.find((member) => member.id === memberId);
+  const memberId = user && user.groups.length > 0 ? user.id : 0;
+  const userOnShift = !!members.find((member) => member.id === user?.id);
 
   return (
     <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
@@ -85,52 +79,14 @@ function ScheduleCell({
             )}
           </Button>
         </ResponsiveDialogTrigger>
-        <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-5 md:mb-0 md:w-fit lg:w-2/5 lg:min-w-96'>
-          <ResponsiveDialogHeader>
-            <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
-              <span className='font-semibold text-3xl'>
-                {formattedShift.day}
-              </span>
-              <span className='mt-auto font-semibold text-lg'>
-                {formattedShift.time}
-              </span>
-            </ResponsiveDialogTitle>
-            {/* Not having description causes error, can't use aria-description */}
-            <ResponsiveDialogDescription className='hidden'>
-              {t('description')}
-            </ResponsiveDialogDescription>
-          </ResponsiveDialogHeader>
-          <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-            <MemberList
-              t={{
-                empty: t('dialog.empty'),
-              }}
-              members={members}
-            />
-            <RegisterShift
-              t={{
-                recurring: t('dialog.recurring'),
-                register: t('dialog.register'),
-                update: t('dialog.update'),
-                unregister: t('dialog.unregister'),
-                signIn: t('dialog.signIn'),
-                registerSuccess: t('dialog.registerSuccess'),
-                updateSuccess: t('dialog.updateSuccess'),
-                unregisterSuccess: t('dialog.unregisterSuccess'),
-              }}
-              day={day}
-              timeslot={timeslot}
-              user={{
-                isMember: memberId !== 0,
-                onShift: userOnShift,
-                recurring: !!members.find(
-                  (member) => member.id === memberId && member.recurring,
-                ),
-              }}
-              className='mt-auto w-28 max-w-fit'
-            />
-          </div>
-        </ResponsiveDialogContent>
+        <ScheduleCellDialog
+          formattedShift={formattedShift}
+          day={day}
+          timeslot={timeslot}
+          members={members}
+          memberId={memberId}
+          userOnShift={userOnShift}
+        />
       </ResponsiveDialogWrapper>
     </TableCell>
   );

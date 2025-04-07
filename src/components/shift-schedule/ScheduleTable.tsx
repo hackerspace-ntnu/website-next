@@ -9,14 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import type { RouterOutputs } from '@/lib/api/client';
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
-type ScheduleTableProps = Pick<
-  Awaited<ReturnType<typeof api.auth.state>>,
-  'user'
->;
+type ScheduleTableProps = {
+  user: RouterOutputs['auth']['state']['user'];
+};
 
 async function ScheduleTable({ user }: ScheduleTableProps) {
   const t = await getTranslations('shiftSchedule.table');
@@ -95,7 +95,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                         timeslot={timeslot}
                         members={shift?.members ?? []}
                         skills={shift?.skills ?? []}
-                        memberId={user?.groups.length ? user.id : 0}
+                        user={user}
                       />
                     </TableRow>
                   );
@@ -154,7 +154,7 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
                     timeslot={timeslot}
                     members={shift?.members ?? []}
                     skills={shift?.skills ?? []}
-                    memberId={user?.groups.length ? user.id : 0}
+                    user={user}
                   />
                 );
               })}
