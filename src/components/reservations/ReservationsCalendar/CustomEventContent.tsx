@@ -1,10 +1,8 @@
-import type { ClassNamesGenerator, EventContentArg } from '@fullcalendar/core';
+import type { EventContentArg } from '@fullcalendar/core';
 import '@/lib/styles/calendar.css';
 import { Separator } from '@/components/ui/Separator';
-import { cx } from '@/lib/utils';
-import type { Identity } from '@fullcalendar/core/internal';
 import type FullCalendar from '@fullcalendar/react';
-import { ArrowDownToLine, ArrowUpToLine } from 'lucide-react';
+import { ArrowDownToLineIcon, ArrowUpToLineIcon } from 'lucide-react';
 import type { RefObject } from 'react';
 
 type CustomEventStylingProps = {
@@ -38,7 +36,7 @@ export default function CustomEventContent({
     <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
       {isLoggedIn && userId === res.event.extendedProps.userId && (
         <div className='flex w-full flex-col'>
-          <ArrowUpToLine className='size-base-xs-clamp self-center' />
+          <ArrowUpToLineIcon className='size-base-xs-clamp self-center' />
           <Separator className='mb-1 w-full dark:bg-foreground' />
         </div>
       )}
@@ -51,7 +49,7 @@ export default function CustomEventContent({
       {isLoggedIn && userId === res.event.extendedProps.userId && (
         <div className='flex w-full flex-col'>
           <Separator className='mt-1 w-full dark:bg-foreground' />
-          <ArrowDownToLine className='self-center' />
+          <ArrowDownToLineIcon className='self-center' />
         </div>
       )}
     </div>
