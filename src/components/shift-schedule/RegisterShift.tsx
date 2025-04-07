@@ -1,24 +1,15 @@
 'use client';
 
-import { ResponsiveDialogClose } from '@/components/composites/ResponsiveDialog';
 import { useResponsiveDialog } from '@/components/shift-schedule/ResponsiveDialogWrapper';
-import { Button } from '@/components/ui/Button';
-import { Checkbox } from '@/components/ui/Checkbox';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  useForm,
-} from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { Link } from '@/components/ui/Link';
-import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import type { days, timeslots } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
+import { registerShiftSchema } from '@/validations/shiftSchedule/registerShiftSchema';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { z } from 'zod';
 
 type RegisterShiftProps = {
   t: {
@@ -56,9 +47,13 @@ function RegisterShift({
 
   const { closeDialog } = useResponsiveDialog();
 
-  // Needs recurring state to display correct text on button
-  const [recurring, setRecurring] = useState(user.recurring);
-  const form = useForm(z.object({ recurring: z.boolean() }), {
+  const formSchema = registerShiftSchema(useTranslations()).pick({
+    recurring: true,
+  });
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       recurring: user.recurring,
     },
@@ -88,6 +83,9 @@ function RegisterShift({
     },
   });
 
+  // Needs recurring state to display correct text on button
+  const [recurring, setRecurring] = useState(user.recurring);
+
   const canRegister = user.isMember && !user.onShift;
   const canUpdate = user.onShift && user.recurring !== recurring;
   const canUnregister = !canRegister && !canUpdate && user.isMember;
@@ -101,53 +99,32 @@ function RegisterShift({
   return (
     <div className={className}>
       {user.isMember ? (
-        <Form onSubmit={form.handleSubmit} className='space-y-3'>
-          <form.Field name='recurring'>
-            {(field) => (
-              <FormItem
-                errors={field.state.meta.errors}
-                className='flex items-center justify-end gap-2'
-              >
-                <FormLabel>{t.recurring}</FormLabel>
-                <FormControl>
-                  <Checkbox
-                    checked={field.state.value}
-                    onCheckedChange={() => {
-                      field.handleChange(!field.state.value);
-                      setRecurring(field.state.value);
-                    }}
-                    disabled={
-                      registerShift.isPending || unregisterShift.isPending
-                    }
-                    className='cursor-pointer'
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          </form.Field>
-          <ResponsiveDialogClose asChild>
-            <form.Subscribe selector={(state) => [state.canSubmit]}>
-              {([canSubmit]) => (
-                <Button
-                  className='float-right w-28'
-                  type='submit'
-                  variant={canUnregister ? 'destructive' : 'default'}
-                  disabled={
-                    !canSubmit ||
-                    registerShift.isPending ||
-                    unregisterShift.isPending
-                  }
-                >
-                  {registerShift.isPending || unregisterShift.isPending ? (
-                    <Spinner />
-                  ) : (
-                    getButtonText()
-                  )}
-                </Button>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
+          className='flex flex-col gap-3'
+        >
+          <form.AppForm>
+            <form.AppField name='recurring'>
+              {(field) => (
+                <field.CheckboxField
+                  onClick={() => setRecurring(!form.getFieldValue('recurring'))}
+                  label={t.recurring}
+                  className='flex items-center gap-2'
+                />
               )}
-            </form.Subscribe>
-          </ResponsiveDialogClose>
-        </Form>
+            </form.AppField>
+
+            <form.SubmitButton
+              loading={registerShift.isPending || unregisterShift.isPending}
+              variant={canUnregister ? 'destructive' : 'default'}
+            >
+              {getButtonText()}
+            </form.SubmitButton>
+          </form.AppForm>
+        </form>
       ) : (
         <Link variant='default' size='default' href='/auth'>
           {t.signIn}
