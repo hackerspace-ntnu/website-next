@@ -1,10 +1,12 @@
 import type { Translations } from '@/lib/locale';
-import { imageUploadZodString } from '@/validations/utils/imageUploadZodString';
+import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 import { z } from 'zod';
 
 function itemSchema(t: Translations, categories: string[]) {
   return z.object({
-    image: imageUploadZodString({
+    image: fileUploadZodString({
+      allowedMediaType: 'image',
+      allowedFileTypes: ['jpeg', 'png'],
       maxFileSize: 50,
       sizeLimitError: t('storage.edit.image.sizeLimitError', { size: 50 }),
       wrongFileTypeError: t('storage.edit.image.wrongFileTypeError'),

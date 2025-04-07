@@ -1,10 +1,12 @@
 import type { Translations } from '@/lib/locale';
-import { imageUploadZodString } from '@/validations/utils/imageUploadZodString';
+import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 import { z } from 'zod';
 
 function profilePictureSchema(t: Translations) {
   return z.object({
-    profilePicture: imageUploadZodString({
+    profilePicture: fileUploadZodString({
+      allowedMediaType: 'image',
+      allowedFileTypes: ['jpeg', 'png'],
       maxFileSize: 50,
       fileNotImageError: t('settings.profile.profilePicture.mustBeImage'),
       wrongFileTypeError: t('settings.profile.profilePicture.mustbePngOrJpg'),
