@@ -72,9 +72,21 @@ const routing = defineRouting({
       en: '/about',
       no: '/om-oss',
     },
-    '/about/[group]': {
-      en: '/about/[group]',
-      no: '/om-oss/[group]',
+    '/about/devops': {
+      en: '/about/devops',
+      no: '/om-oss/devops',
+    },
+    '/about/LabOps': {
+      en: '/about/LabOps',
+      no: '/om-oss/LabOps',
+    },
+    '/about/breadboard-computer': {
+      en: '/about/breadboard-computer',
+      no: '/om-oss/brødbrett-datamaskin',
+    },
+    '/about/TTRPG': {
+      en: '/about/ttrpg',
+      no: '/om-oss/bordoverflaterollespillspill',
     },
     '/storage': {
       en: '/storage',

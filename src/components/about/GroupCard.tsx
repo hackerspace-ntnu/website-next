@@ -33,12 +33,7 @@ function GroupCard({
       variant='none'
       size='none'
     >
-      <Link
-        href={{
-          pathname: '/about/[group]',
-          params: { group: name },
-        }}
-      >
+      <Link href={`about/group/${id}`}>
         <div className='relative flex h-96 w-96 flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
             <Meteors
