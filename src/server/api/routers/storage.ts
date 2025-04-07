@@ -12,7 +12,7 @@ import {
   itemCategories,
   storageItems,
 } from '@/server/db/tables';
-import { itemLoans } from '@/server/db/tables/loans';
+import { type SelectItemLoan, itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
@@ -102,13 +102,7 @@ const storageRouter = createRouter({
         ilike(storageItems.name, `%${input.name ?? ''}%`),
       );
 
-      let rawItems: Awaited<
-        ReturnType<
-          typeof ctx.db.query.storageItems.findMany<{
-            with: { itemLoans: true };
-          }>
-        >
-      >;
+      let rawItems: (SelectStorageItem & { itemLoans: SelectItemLoan[] })[];
 
       if (input.sorting === ctx.t('storage.searchParams.name')) {
         rawItems = await ctx.db.query.storageItems.findMany({
