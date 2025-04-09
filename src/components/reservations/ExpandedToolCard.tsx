@@ -1,24 +1,23 @@
 'use client';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
-import type { t } from '@/components/reservations/ToolCardGrid';
+import { Button } from '@/components/ui/Button';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
-import { Minimize2 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { Minimize2Icon } from 'lucide-react';
+import { AnimatePresence, m } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React, { useEffect, useId, useRef } from 'react';
-import { Button } from '../ui/Button';
+import { useEffect, useId, useRef } from 'react';
 
 type ExpandedToolCardProps = {
   active: Tool;
   onClose: () => void;
 };
 
-export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
+function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
   const t = useTranslations('reservations');
-  const refr = useRef<HTMLDivElement>(null);
-  const ref = [refr];
+  const ref = [useRef<HTMLDivElement | null>(null)];
+
   const fieldsToShow = [
     'krever',
     'difficulty',
@@ -29,9 +28,9 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
   const id = useId();
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
+    function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') onClose();
-    };
+    }
 
     window.addEventListener('keydown', onKeyDown);
     return () => {
@@ -44,9 +43,9 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
     <AnimatePresence>
       {active && (
         <div className='absolute z-20 size-full'>
-          <motion.div
+          <m.div
             layoutId={`${active.type}-${active.title}-${id}`}
-            ref={refr}
+            ref={ref[0]}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -61,7 +60,7 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 className='absolute top-2 right-2 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
                 onClick={onClose}
               >
-                <Minimize2 className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
+                <Minimize2Icon className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
               </Button>
               <Image
                 src={active.photoUrl}
@@ -111,9 +110,11 @@ export function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 </Button>
               </Link>
             )}
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>
   );
 }
+
+export { ExpandedToolCard };
