@@ -1,29 +1,22 @@
 'use client';
+
 import type { Tool } from '@/components/reservations/ToolCardGrid';
-import type { t } from '@/components/reservations/ToolCardGrid';
+import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardTitle } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
-import { Maximize2 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { Maximize2Icon } from 'lucide-react';
+import { AnimatePresence, m } from 'motion/react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useId, useState } from 'react';
-import { Button } from '../ui/Button';
 
 type HorizontalToolCardProps = {
   tool: Tool;
   onClick: () => void;
 };
 
-export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
+function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
   const t = useTranslations('reservations');
-  const fieldsToShow = [
-    'krever',
-    'difficulty',
-    'filamentSize',
-    'filamentType',
-    'slicer',
-  ] as const;
 
   const [touched, setTouched] = useState(false);
   const id = useId();
@@ -41,28 +34,28 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
       className='flex h-28 w-full overflow-hidden rounded-xl hover:brightness-105'
       onTouchStart={() => setTouched(true)}
     >
-      <motion.div
+      <m.div
         layoutId={`${tool.type}-${tool.title}-${id}`}
-        className='flex size-full flex-row'
+        className='flex h-full w-full flex-row'
       >
         <div className='relative h-full w-44'>
-          <Image priority src={tool.photoUrl} alt={tool.title} fill />
+          <Image src={tool.photoUrl} alt={tool.title} fill objectFit='cover' />
         </div>
-        <CardContent className='relative flex size-full flex-col items-center justify-center gap-1 text-wrap px-2 text-center'>
+        <CardContent className='relative flex h-full w-full flex-col items-center justify-center gap-1 text-wrap px-2 text-center'>
           <CardTitle className='mx-6 line-clamp-2 text-balance font-bold text-sm-xl-clamp'>
             {tool.title}
           </CardTitle>
           <AnimatePresence>
-            <motion.button
+            <m.button
               className='absolute top-1 right-1 z-10 inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
               key={`cardHeaderButton-${tool.title}-${id}`}
               onClick={onClick}
               animate={{ scale: touched ? 1.1 : 1 }}
             >
-              <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
-            </motion.button>
+              <Maximize2Icon className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
+            </m.button>
             {touched && (
-              <motion.div
+              <m.div
                 key={`cardHeaderToolTip-${tool.title}-${id}`}
                 initial={{ opacity: 0, x: 0 }}
                 animate={{ opacity: 1, x: -11 }}
@@ -70,7 +63,7 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
                 className='absolute top-1 right-0 z-0 w-48 whitespace-nowrap rounded-xl border border-border bg-popover py-2 pl-2 text-left text-xs-sm-clamp shadow-lg'
               >
                 {t('tools.tooltip')}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
           <div className='absolute bottom-0 left-0 w-full'>
@@ -81,9 +74,11 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
                     pathname: '/reservations/[id]',
                     params: { id: tool.toolId },
                   }}
-                  className='w-full rounded-none hover:brightness-110'
+                  className='w-full hover:brightness-110'
                 >
-                  <Button className='w-full'>{t('tools.available')}</Button>
+                  <Button className='w-full rounded-none'>
+                    {t('tools.available')}
+                  </Button>
                 </Link>
               ) : (
                 <Button
@@ -103,7 +98,9 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
             )}
           </div>
         </CardContent>
-      </motion.div>
+      </m.div>
     </Card>
   );
 }
+
+export { HorizontalToolCard };
