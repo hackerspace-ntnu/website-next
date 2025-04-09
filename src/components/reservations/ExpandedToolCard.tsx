@@ -1,6 +1,7 @@
 'use client';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
+import { toolDescriptionFields } from '@/lib/constants';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
 import { Minimize2Icon } from 'lucide-react';
@@ -17,14 +18,6 @@ type ExpandedToolCardProps = {
 function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
   const t = useTranslations('reservations');
   const ref = [useRef<HTMLDivElement | null>(null)];
-
-  const fieldsToShow = [
-    'krever',
-    'difficulty',
-    'filamentSize',
-    'filamentType',
-    'slicer',
-  ] as const;
   const id = useId();
 
   useEffect(() => {
@@ -80,7 +73,7 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 <br />
                 <div>
                   {active.type === 'printer' &&
-                    fieldsToShow.map((field) => {
+                    toolDescriptionFields.map((field) => {
                       const text = active[field];
                       if (text === '' || text === 'null' || text === null)
                         return;

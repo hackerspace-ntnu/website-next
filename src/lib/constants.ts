@@ -21,4 +21,12 @@ const skillIdentifiers = [
   'webdevelopment',
 ] as const;
 
-export { groupIdentifiers, skillIdentifiers };
+const toolDescriptionFields = [
+  'krever',
+  'difficulty',
+  'filamentSize',
+  'filamentType',
+  'slicer',
+] as const;
+
+export { groupIdentifiers, skillIdentifiers, toolDescriptionFields };
