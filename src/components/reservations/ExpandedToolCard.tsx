@@ -48,21 +48,19 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
             }}
             className='fixed inset-0 z-30 w-full max-w-96 flex-col place-self-center overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-black md:max-w-lg'
           >
-            <div>
+            <div className='relative h-72 w-full'>
               <Button
-                className='absolute top-2 right-2 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
+                className='absolute top-2 right-2 z-10 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
                 onClick={onClose}
               >
                 <Minimize2Icon className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
               </Button>
-              <div className='relative h-72 w-full'>
-                <Image
-                  src={active.photoUrl}
-                  alt={active.title}
-                  fill
-                  objectFit='cover'
-                />
-              </div>
+              <Image
+                src={active.photoUrl}
+                alt={active.title}
+                fill
+                objectFit='cover'
+              />
             </div>
             <div className='relative mt-2 flex max-h-80 flex-col gap-1 p-2'>
               <div>
