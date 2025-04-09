@@ -10,9 +10,10 @@ import {
   type InsertStorageItem,
   type SelectStorageItem,
   itemCategories,
+  itemLocalizations,
   storageItems,
 } from '@/server/db/tables';
-import { type SelectItemLoan, itemLoans } from '@/server/db/tables/loans';
+import { itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
@@ -30,6 +31,7 @@ import {
 import { TRPCError } from '@trpc/server';
 import {
   and,
+  asc,
   count,
   desc,
   eq,
@@ -43,15 +45,18 @@ const storageRouter = createRouter({
   fetchOne: publicProcedure
     .input((input) => fetchOneSchema(useTranslationsFromContext()).parse(input))
     .query(async ({ ctx, input }) => {
-      const item = await ctx.db.query.storageItems.findFirst({
-        where: eq(storageItems.id, input),
+      const localization = await ctx.db.query.itemLocalizations.findFirst({
+        where: eq(itemLocalizations.itemId, input),
         with: {
-          category: true,
-          itemLoans: true,
+          item: {
+            with: {
+              itemLoans: true,
+            },
+          },
         },
       });
 
-      if (!item) {
+      if (!localization) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('storage.api.notFound'),
@@ -59,14 +64,17 @@ const storageRouter = createRouter({
         });
       }
 
-      const { itemLoans, ...itemWithoutLoans } = item;
+      const { item, itemId: _, locale: __, ...localizationOnly } = localization;
 
-      const unitsBorrowed = itemLoans
+      const unitsBorrowed = item.itemLoans
         .map((loan) => loan.unitsBorrowed)
         .reduce((a, b) => a + b, 0);
 
+      const { itemLoans, ...itemWithoutLoans } = item;
+
       return {
         ...itemWithoutLoans,
+        ...localizationOnly,
         availableUnits: item.quantity - unitsBorrowed,
       };
     }),
@@ -75,30 +83,36 @@ const storageRouter = createRouter({
       fetchManySchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      // Array of items without item loans, but with a calculated number of available units
-      const items: (SelectStorageItem & { availableUnits: number })[] = [];
-
       // If we've got an array, just return those items and no other
       if (Array.isArray(input)) {
-        const rawItems = await ctx.db.query.storageItems.findMany({
-          where: inArray(storageItems.id, input),
-          with: { itemLoans: true },
+        const rawLocalizations = await ctx.db.query.itemLocalizations.findMany({
+          where: inArray(itemLocalizations.itemId, input),
+          with: {
+            item: {
+              with: {
+                itemLoans: true,
+              },
+            },
+          },
         });
 
-        for (const item of rawItems) {
-          const { itemLoans, ...itemWithoutLoans } = item;
+        // Calculate available units, add it to the object,
+        // and remove item loans to avoid leaking more information than necessary
+        return rawLocalizations.map(
+          ({ item, itemId: _, locale: __, ...localizationOnly }) => {
+            const unitsBorrowed = item.itemLoans
+              .map((loan) => loan.unitsBorrowed)
+              .reduce((a, b) => a + b, 0);
 
-          const unitsBorrowed = itemLoans
-            .map((loan) => loan.unitsBorrowed)
-            .reduce((a, b) => a + b, 0);
+            const { itemLoans, ...itemWithoutLoans } = item;
 
-          items.push({
-            ...itemWithoutLoans,
-            availableUnits: item.quantity - unitsBorrowed,
-          });
-        }
-
-        return items;
+            return {
+              ...itemWithoutLoans,
+              ...localizationOnly,
+              availableUnits: item.quantity - unitsBorrowed,
+            };
+          },
+        );
       }
 
       const whereCategory =
@@ -106,53 +120,58 @@ const storageRouter = createRouter({
           ? eq(storageItems.categoryId, input.category)
           : undefined;
 
-      const whereNameAndCategory = and(
+      const whereLocalizations = and(
         whereCategory,
-        ilike(storageItems.name, `%${input.name ?? ''}%`),
+        ilike(itemLocalizations.name, `%${input.name ?? ''}%`),
+        eq(itemLocalizations.locale, ctx.locale),
       );
 
-      let rawItems: (SelectStorageItem & { itemLoans: SelectItemLoan[] })[];
+      const localizationSorting =
+        input.sorting === ctx.t('storage.searchParams.name')
+          ? [asc(itemLocalizations.name)]
+          : undefined;
 
-      if (input.sorting === ctx.t('storage.searchParams.name')) {
-        rawItems = await ctx.db.query.storageItems.findMany({
-          limit: input.limit,
-          offset: input.offset,
-          orderBy: (storageItems, { asc }) => [asc(storageItems.name)],
-          where: whereNameAndCategory,
-          with: {
-            itemLoans: true,
-          },
-        });
-      }
-
-      rawItems = await ctx.db.query.storageItems.findMany({
+      const rawLocalizations = await ctx.db.query.itemLocalizations.findMany({
         limit: input.limit,
         offset: input.offset,
-        orderBy: (storageItems, { asc, desc }) => [
-          input.sorting === ctx.t('storage.searchParams.ascending')
-            ? asc(storageItems.quantity)
-            : desc(storageItems.quantity),
-        ],
-        where: whereNameAndCategory,
+        where: whereLocalizations,
+        orderBy: localizationSorting,
         with: {
-          itemLoans: true,
+          item: {
+            with: {
+              itemLoans: true,
+            },
+          },
         },
       });
 
-      for (const item of rawItems) {
-        const { itemLoans, ...itemWithoutLoans } = item;
+      if (input.sorting !== ctx.t('storage.searchParams.name')) {
+        const sortMultiplier =
+          input.sorting === ctx.t('storage.searchParams.ascending') ? 1 : -1;
 
-        const unitsBorrowed = itemLoans
-          .map((loan) => loan.unitsBorrowed)
-          .reduce((a, b) => a + b, 0);
-
-        items.push({
-          ...itemWithoutLoans,
-          availableUnits: item.quantity - unitsBorrowed,
-        });
+        rawLocalizations.sort(
+          (local1, local2) =>
+            sortMultiplier * (local1.item.quantity - local2.item.quantity),
+        );
       }
 
-      return items;
+      // Calculate available units, add it to the object,
+      // and remove item loans to avoid leaking more information than necessary
+      return rawLocalizations.map(
+        ({ item, itemId: _, locale: __, ...localizationOnly }) => {
+          const unitsBorrowed = item.itemLoans
+            .map((loan) => loan.unitsBorrowed)
+            .reduce((a, b) => a + b, 0);
+
+          const { itemLoans, ...itemWithoutLoans } = item;
+
+          return {
+            ...itemWithoutLoans,
+            ...localizationOnly,
+            availableUnits: item.quantity - unitsBorrowed,
+          };
+        },
+      );
     }),
   itemsTotal: publicProcedure
     .input((input) => itemsTotalSchema().parse(input))
@@ -178,54 +197,55 @@ const storageRouter = createRouter({
       ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const duplicateItem = await ctx.db
-        .select()
-        .from(storageItems)
-        .where(eq(storageItems.name, input.name));
-
-      if (duplicateItem.length > 0) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('storage.api.duplicateItem'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      if (input.categoryName === '') {
-        return ctx.db.insert(storageItems).values(input);
-      }
-
-      const category = await ctx.db
-        .select()
-        .from(itemCategories)
-        .where(eq(itemCategories.name, input.categoryName));
-
-      const categoryId = category[0]?.id;
-
-      if (!categoryId) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('storage.api.categoryNotFound'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      const insertValues: InsertStorageItem = {
-        categoryId,
-        ...input,
-      };
-
-      if (input.image) {
-        const file = await insertFile(
-          input.image,
-          'storage-items',
-          ctx.user.id,
-        );
-
-        insertValues.imageId = file.id;
-      }
-
-      await ctx.db.insert(storageItems).values(insertValues);
+      // const duplicateItem = await ctx.db
+      //   .select()
+      //   .from(itemLocalizations)
+      //   .where(
+      //     and(
+      //       eq(itemLocalizations.name, input.name),
+      //       eq(itemLocalizations.locale, ctx.locale),
+      //     ),
+      //   );
+      // if (duplicateItem.length > 0) {
+      //   throw new TRPCError({
+      //     code: 'BAD_REQUEST',
+      //     message: ctx.t('storage.api.duplicateItem'),
+      //     cause: { toast: 'error' },
+      //   });
+      // }
+      // await ctx.db.insert(itemLocalizations).values({
+      //   name: input.name,
+      //   locale: ...
+      // })
+      // if (input.categoryName === '') {
+      //   ctx.db.insert(itemCategories)
+      //   return ctx.db.insert(storageItems).values(input);
+      // }
+      // const category = await ctx.db
+      //   .select()
+      //   .from(itemCategories)
+      //   .where(eq(itemCategories.name, input.categoryName));
+      // const categoryId = category[0]?.id;
+      // if (!categoryId) {
+      //   throw new TRPCError({
+      //     code: 'NOT_FOUND',
+      //     message: ctx.t('storage.api.categoryNotFound'),
+      //     cause: { toast: 'error' },
+      //   });
+      // }
+      // const insertValues: InsertStorageItem = {
+      //   categoryId,
+      //   ...input,
+      // };
+      // if (input.image) {
+      //   const file = await insertFile(
+      //     input.image,
+      //     'storage-items',
+      //     ctx.user.id,
+      //   );
+      //   insertValues.imageId = file.id;
+      // }
+      // await ctx.db.insert(storageItems).values(insertValues);
     }),
   editItem: storageProcedure
     .input(async (input) =>
@@ -235,37 +255,32 @@ const storageRouter = createRouter({
       ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const category = await ctx.db.query.itemCategories.findFirst({
-        where: eq(itemCategories.name, input.categoryName),
-      });
-
-      if (!category) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('storage.api.categoryNotFound'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      const insertValues: InsertStorageItem = {
-        categoryId: category.id,
-        ...input,
-      };
-
-      if (input.image) {
-        const file = await insertFile(
-          input.image,
-          'storage-items',
-          ctx.user.id,
-        );
-
-        insertValues.imageId = file.id;
-      }
-
-      await ctx.db
-        .update(storageItems)
-        .set(insertValues)
-        .where(eq(storageItems.id, input.id));
+      // const category = await ctx.db.query.itemCategories.findFirst({
+      //   where: eq(itemCategories.name, input.categoryName),
+      // });
+      // if (!category) {
+      //   throw new TRPCError({
+      //     code: 'NOT_FOUND',
+      //     message: ctx.t('storage.api.categoryNotFound'),
+      //     cause: { toast: 'error' },
+      //   });
+      // }
+      // const insertValues: InsertStorageItem = {
+      //   categoryId: category.id,
+      //   ...input,
+      // };
+      // if (input.image) {
+      //   const file = await insertFile(
+      //     input.image,
+      //     'storage-items',
+      //     ctx.user.id,
+      //   );
+      //   insertValues.imageId = file.id;
+      // }
+      // await ctx.db
+      //   .update(storageItems)
+      //   .set(insertValues)
+      //   .where(eq(storageItems.id, input.id));
     }),
   deleteItem: storageProcedure
     .input((input) => deleteItemSchema().parse(input))
@@ -274,7 +289,6 @@ const storageRouter = createRouter({
         .select()
         .from(itemLoans)
         .where(eq(itemLoans.itemId, input.id));
-
       if (loansOfThisItem.length > 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -282,15 +296,22 @@ const storageRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
-
       await ctx.db.delete(storageItems).where(eq(storageItems.id, input.id));
+      await ctx.db
+        .delete(itemLocalizations)
+        .where(eq(itemLocalizations.itemId, input.id));
     }),
   fetchItemCategories: storageProcedure.query(async ({ ctx }) => {
     return await ctx.db.select().from(itemCategories);
   }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db
-      .select({ name: itemCategories.name })
+      .select({
+        name:
+          ctx.locale === 'en'
+            ? itemCategories.nameEnglish
+            : itemCategories.nameNorwegian,
+      })
       .from(itemCategories);
     return categories.map((c) => c.name);
   }),
@@ -299,59 +320,55 @@ const storageRouter = createRouter({
       itemCategoryFormSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const duplicateCategory = await ctx.db
-        .select()
-        .from(itemCategories)
-        .where(eq(itemCategories.name, input.name));
-
-      if (duplicateCategory.length > 0) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('storage.categories.api.duplicateCategory'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      await ctx.db
-        .insert(itemCategories)
-        .values(input)
-        .catch(() => {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('storage.categories.api.insertFailed'),
-            cause: { toast: 'error' },
-          });
-        });
+      // const duplicateCategory = await ctx.db
+      //   .select()
+      //   .from(itemCategories)
+      //   .where(eq(itemCategories.name, input.name));
+      // if (duplicateCategory.length > 0) {
+      //   throw new TRPCError({
+      //     code: 'BAD_REQUEST',
+      //     message: ctx.t('storage.categories.api.duplicateCategory'),
+      //     cause: { toast: 'error' },
+      //   });
+      // }
+      // await ctx.db
+      //   .insert(itemCategories)
+      //   .values(input)
+      //   .catch(() => {
+      //     throw new TRPCError({
+      //       code: 'INTERNAL_SERVER_ERROR',
+      //       message: ctx.t('storage.categories.api.insertFailed'),
+      //       cause: { toast: 'error' },
+      //     });
+      //   });
     }),
   editItemCategory: storageProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const duplicateCategory = await ctx.db
-        .select()
-        .from(itemCategories)
-        .where(eq(itemCategories.name, input.name));
-
-      if (duplicateCategory.length > 0) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('storage.categories.api.duplicateCategory'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      await ctx.db
-        .update(itemCategories)
-        .set(input)
-        .where(eq(itemCategories.id, input.id))
-        .catch(() => {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('storage.categories.api.updateFailed'),
-            cause: { toast: 'error' },
-          });
-        });
+      // const duplicateCategory = await ctx.db
+      //   .select()
+      //   .from(itemCategories)
+      //   .where(eq(itemCategories.name, input.name));
+      // if (duplicateCategory.length > 0) {
+      //   throw new TRPCError({
+      //     code: 'BAD_REQUEST',
+      //     message: ctx.t('storage.categories.api.duplicateCategory'),
+      //     cause: { toast: 'error' },
+      //   });
+      // }
+      // await ctx.db
+      //   .update(itemCategories)
+      //   .set(input)
+      //   .where(eq(itemCategories.id, input.id))
+      //   .catch(() => {
+      //     throw new TRPCError({
+      //       code: 'INTERNAL_SERVER_ERROR',
+      //       message: ctx.t('storage.categories.api.updateFailed'),
+      //       cause: { toast: 'error' },
+      //     });
+      //   });
     }),
   deleteItemCategory: storageProcedure
     .input((input) =>

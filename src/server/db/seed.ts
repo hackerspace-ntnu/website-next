@@ -3,6 +3,7 @@ import { routing } from '@/lib/locale';
 import {
   type InsertGroup,
   type InsertItemCategory,
+  type InsertItemLocalization,
   type InsertSkill,
   type InsertStorageItem,
   type InsertUser,
@@ -10,6 +11,7 @@ import {
   type InsertUserSkill,
   groups,
   itemCategories,
+  itemLocalizations,
   skills,
   storageItems,
   userGroups,
@@ -221,13 +223,15 @@ async function main() {
   console.log('Inserting storage item categories...');
   const storageItemCategories: InsertItemCategory[] = [
     {
-      name: 'Cables',
+      nameEnglish: 'Cables',
+      nameNorwegian: 'Kabler',
     },
-    { name: 'Sensors' },
+    { nameEnglish: 'Sensors', nameNorwegian: 'Sensorer' },
     {
-      name: 'PC peripherals',
+      nameEnglish: 'PC peripherals',
+      nameNorwegian: 'PC-tilbehør',
     },
-    { name: 'Mini PC' },
+    { nameEnglish: 'Mini PC', nameNorwegian: 'Mini PC' },
   ];
 
   await db.insert(itemCategories).values(storageItemCategories);
@@ -236,128 +240,336 @@ async function main() {
   console.log('Inserting storage items...');
   const storageItemsData: InsertStorageItem[] = [
     {
-      name: 'Laptop',
       quantity: 15,
-      location: 'Storage Room A',
       categoryId: 4,
     },
     {
-      name: 'Desktop PC',
       quantity: 10,
-      location: 'Workstation Area 1',
       categoryId: 4,
     },
     {
-      name: 'Monitor',
       quantity: 20,
-      location: 'Storage Room B',
       categoryId: 3,
     },
     {
-      name: 'Keyboard',
       quantity: 50,
-      location: 'Storage Room A',
       categoryId: 3,
     },
     {
-      name: 'Mouse',
       quantity: 50,
-      location: 'Storage Room A',
       categoryId: 3,
     },
     {
-      name: 'Router',
       quantity: 5,
-      location: 'Networking Room',
       categoryId: 3,
     },
     {
-      name: 'Ethernet Cable',
       quantity: 100,
-      location: 'Networking Room',
       categoryId: 1,
     },
     {
-      name: 'External Hard Drive',
       quantity: 25,
-      location: 'Storage Room B',
       categoryId: 3,
     },
     {
-      name: 'USB Flash Drive',
       quantity: 75,
-      location: 'Storage Room B',
       categoryId: 3,
     },
     {
-      name: 'Power Supply Unit (PSU)',
       quantity: 30,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'Graphics Card',
       quantity: 12,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'RAM Module',
       quantity: 40,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'Motherboard',
       quantity: 10,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'CPU',
       quantity: 10,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'SSD',
       quantity: 20,
-      location: 'Storage Room C',
       categoryId: 3,
     },
     {
-      name: 'Network Switch',
       quantity: 5,
-      location: 'Networking Room',
       categoryId: 3,
     },
     {
-      name: 'Soldering Iron',
       quantity: 8,
-      location: 'Repair Station',
       categoryId: 1,
     },
     {
-      name: 'Multimeter',
       quantity: 10,
-      location: 'Repair Station',
       categoryId: 3,
     },
     {
-      name: 'Screwdriver Set',
       quantity: 20,
-      location: 'Toolbox 1',
       categoryId: 3,
     },
     {
-      name: 'Anti-static Wrist Strap',
       quantity: 15,
-      location: 'Toolbox 2',
       categoryId: 3,
     },
   ];
   await db.insert(storageItems).values(storageItemsData);
   console.log('Storage items inserted');
+
+  console.log('Inserting storage item localizations...');
+
+  const storageItemLocalizations: InsertItemLocalization[] = [
+    {
+      name: 'Laptop',
+      location: 'Storage Room A',
+      locale: 'en',
+      itemId: 1,
+    },
+    {
+      name: 'Laptop',
+      location: 'Lagerrom A',
+      locale: 'no',
+      itemId: 1,
+    },
+    {
+      name: 'Desktop PC',
+      location: 'Workstation Area 1',
+      locale: 'en',
+      itemId: 2,
+    },
+    {
+      name: 'Stasjonær PC',
+      location: 'Verksted 1',
+      locale: 'no',
+      itemId: 2,
+    },
+    {
+      name: 'Monitor',
+      location: 'Storage Room B',
+      locale: 'en',
+      itemId: 3,
+    },
+    {
+      name: 'Monitor',
+      location: 'Lagerrom B',
+      locale: 'no',
+      itemId: 3,
+    },
+    {
+      name: 'Keyboard',
+      location: 'Storage Room A',
+      locale: 'en',
+      itemId: 4,
+    },
+    {
+      name: 'Tastatur',
+      location: 'Lagerrom A',
+      locale: 'no',
+      itemId: 4,
+    },
+    {
+      name: 'Mouse',
+      location: 'Storage Room A',
+      locale: 'en',
+      itemId: 5,
+    },
+    {
+      name: 'Mus',
+      location: 'Lagerrom A',
+      locale: 'no',
+      itemId: 5,
+    },
+    {
+      name: 'Router',
+      location: 'Networking Room',
+      locale: 'en',
+      itemId: 6,
+    },
+    {
+      name: 'Ruter',
+      location: 'Nettverksrom',
+      locale: 'no',
+      itemId: 6,
+    },
+    {
+      name: 'Ethernet Cable',
+      location: 'Networking Room',
+      locale: 'en',
+      itemId: 7,
+    },
+    {
+      name: 'Ethernet-kabel',
+      location: 'Nettverksrom',
+      locale: 'no',
+      itemId: 7,
+    },
+    {
+      name: 'External Hard Drive',
+      location: 'Storage Room B',
+      locale: 'en',
+      itemId: 8,
+    },
+    {
+      name: 'Ekstern harddisk',
+      location: 'Lagerrom B',
+      locale: 'no',
+      itemId: 8,
+    },
+    {
+      name: 'USB Flash Drive',
+      location: 'Storage Room B',
+      locale: 'en',
+      itemId: 9,
+    },
+    {
+      name: 'USB minnepinne',
+      location: 'Lagerrom B',
+      locale: 'no',
+      itemId: 9,
+    },
+    {
+      name: 'Power Supply Unit (PSU)',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 10,
+    },
+    {
+      name: 'Strømforsyning (PSU)',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 10,
+    },
+    {
+      name: 'Graphics Card',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 11,
+    },
+    {
+      name: 'Grafikkort',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 11,
+    },
+    {
+      name: 'RAM Module',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 12,
+    },
+    {
+      name: 'RAM-modul',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 12,
+    },
+    {
+      name: 'Motherboard',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 13,
+    },
+    {
+      name: 'Hovedkort',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 13,
+    },
+    {
+      name: 'CPU',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 14,
+    },
+    {
+      name: 'CPU',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 14,
+    },
+    {
+      name: 'SSD',
+      location: 'Storage Room C',
+      locale: 'en',
+      itemId: 15,
+    },
+    {
+      name: 'SSD',
+      location: 'Lagerrom C',
+      locale: 'no',
+      itemId: 15,
+    },
+    {
+      name: 'Network Switch',
+      location: 'Networking Room',
+      locale: 'en',
+      itemId: 16,
+    },
+    {
+      name: 'Nettverksswitch',
+      location: 'Nettverksrom',
+      locale: 'no',
+      itemId: 16,
+    },
+    {
+      name: 'Soldering Iron',
+      location: 'Repair Station',
+      locale: 'en',
+      itemId: 17,
+    },
+    {
+      name: 'Loddejern',
+      location: 'Fiks-selv stasjon',
+      locale: 'no',
+      itemId: 17,
+    },
+    {
+      name: 'Multimeter',
+      location: 'Repair Station',
+      locale: 'en',
+      itemId: 18,
+    },
+    {
+      name: 'Multimeter',
+      location: 'Fiks-selv stasjon',
+      locale: 'no',
+      itemId: 18,
+    },
+    {
+      name: 'Screwdriver Set',
+      location: 'Toolbox 1',
+      locale: 'en',
+      itemId: 19,
+    },
+    {
+      name: 'Skrutrekkere',
+      location: 'Verktøykasse 1',
+      locale: 'no',
+      itemId: 19,
+    },
+    {
+      name: 'Anti-static Wrist Strap',
+      location: 'Toolbox 2',
+      locale: 'en',
+      itemId: 20,
+    },
+    {
+      name: 'Antistatisk armbånd',
+      location: 'Toolbox 2',
+      locale: 'no',
+      itemId: 20,
+    },
+  ];
+
+  await db.insert(itemLocalizations).values(storageItemLocalizations);
+  console.log('Storage item localizations inserted');
 }
 
 await main();
