@@ -365,6 +365,7 @@
   },
   "reservations": {
     "title": "Reservations",
+    "backButton": "Back",
     "tools": {
       "available": "Book item",
       "unavailable": "Unavailable",

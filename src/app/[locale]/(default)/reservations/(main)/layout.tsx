@@ -2,13 +2,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getMessages } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('reservations'),
@@ -21,8 +16,8 @@ type ReservationsLayoutProps = {
 };
 
 export default async function ReservationsLayout({
-  params,
   children,
+  params,
 }: ReservationsLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -30,10 +25,13 @@ export default async function ReservationsLayout({
   const { reservations, ui } = await getMessages();
 
   return (
-    <NextIntlClientProvider
-      messages={{ reservations, ui } as Pick<Messages, 'reservations' | 'ui'>}
-    >
-      {children}
-    </NextIntlClientProvider>
+    <div className='flex flex-col gap-2'>
+      <h1 className='my-4 text-center'>{t('title')}</h1>
+      <NextIntlClientProvider
+        messages={{ reservations, ui } as Pick<Messages, 'reservations' | 'ui'>}
+      >
+        {children}
+      </NextIntlClientProvider>
+    </div>
   );
 }

@@ -365,6 +365,7 @@
   },
   "reservations": {
     "title": "Reservasjoner",
+    "backButton": "Tilbake",
     "tools": {
       "available": "Reserver",
       "unavailable": "Utilgjengelig",

@@ -208,8 +208,8 @@ export function MyReservationsTable() {
                           <Link
                             title={t('myReservationsTable.goToCalendar')}
                             href={{
-                              pathname: '/reservations/[Id]',
-                              params: { Id: res.toolId },
+                              pathname: '/reservations/[id]',
+                              params: { id: res.toolId },
                             }}
                             className='mr-4 flex'
                           >

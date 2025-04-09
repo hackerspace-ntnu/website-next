@@ -78,8 +78,8 @@ export function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
               tool.available ? (
                 <Link
                   href={{
-                    pathname: '/reservations/[Id]',
-                    params: { Id: tool.toolId },
+                    pathname: '/reservations/[id]',
+                    params: { id: tool.toolId },
                   }}
                   className='w-full rounded-none hover:brightness-110'
                 >
