@@ -35,7 +35,7 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
   return (
     <AnimatePresence>
       {active && (
-        <div className='absolute z-20 size-full'>
+        <div className='absolute z-20 h-full w-full'>
           <m.div
             layoutId={`${active.type}-${active.title}-${id}`}
             ref={ref[0]}
@@ -55,13 +55,14 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
               >
                 <Minimize2Icon className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
               </Button>
-              <Image
-                src={active.photoUrl}
-                alt={active.title}
-                width={200}
-                height={200}
-                className='h-60 w-full object-fill'
-              />
+              <div className='relative h-72 w-full'>
+                <Image
+                  src={active.photoUrl}
+                  alt={active.title}
+                  fill
+                  objectFit='cover'
+                />
+              </div>
             </div>
             <div className='relative mt-2 flex max-h-80 flex-col gap-1 p-2'>
               <div>
