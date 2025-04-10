@@ -7,13 +7,13 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
-  type InsertStorageItem,
+  type SelectItemLocalization,
   type SelectStorageItem,
   itemCategories,
   itemLocalizations,
   storageItems,
 } from '@/server/db/tables';
-import { itemLoans } from '@/server/db/tables/loans';
+import { SelectItemLoan, itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
@@ -35,6 +35,7 @@ import {
   count,
   desc,
   eq,
+  getTableColumns,
   ilike,
   inArray,
   isNotNull,
@@ -83,10 +84,18 @@ const storageRouter = createRouter({
       fetchManySchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
+      const items: (SelectStorageItem &
+        SelectItemLocalization & {
+          availableUnits: number;
+        })[] = [];
+
       // If we've got an array, just return those items and no other
       if (Array.isArray(input)) {
         const rawLocalizations = await ctx.db.query.itemLocalizations.findMany({
-          where: inArray(itemLocalizations.itemId, input),
+          where: and(
+            inArray(itemLocalizations.itemId, input),
+            eq(itemLocalizations.locale, ctx.locale),
+          ),
           with: {
             item: {
               with: {
@@ -98,21 +107,22 @@ const storageRouter = createRouter({
 
         // Calculate available units, add it to the object,
         // and remove item loans to avoid leaking more information than necessary
-        return rawLocalizations.map(
-          ({ item, itemId: _, locale: __, ...localizationOnly }) => {
-            const unitsBorrowed = item.itemLoans
-              .map((loan) => loan.unitsBorrowed)
-              .reduce((a, b) => a + b, 0);
+        for (const localization of rawLocalizations) {
+          const unitsBorrowed = localization.item.itemLoans
+            .map((loan) => loan.unitsBorrowed)
+            .reduce((a, b) => a + b, 0);
 
-            const { itemLoans, ...itemWithoutLoans } = item;
+          const { item, ...localizationOnly } = localization;
+          const { itemLoans, ...itemWithoutLoans } = item;
 
-            return {
-              ...itemWithoutLoans,
-              ...localizationOnly,
-              availableUnits: item.quantity - unitsBorrowed,
-            };
-          },
-        );
+          items.push({
+            ...itemWithoutLoans,
+            ...localizationOnly,
+            availableUnits: item.quantity - unitsBorrowed,
+          });
+        }
+
+        return items;
       }
 
       const whereCategory =
@@ -120,58 +130,61 @@ const storageRouter = createRouter({
           ? eq(storageItems.categoryId, input.category)
           : undefined;
 
-      const whereLocalizations = and(
+      const whereItems = and(
         whereCategory,
         ilike(itemLocalizations.name, `%${input.name ?? ''}%`),
         eq(itemLocalizations.locale, ctx.locale),
       );
 
-      const localizationSorting =
+      const orderBy =
         input.sorting === ctx.t('storage.searchParams.name')
-          ? [asc(itemLocalizations.name)]
-          : undefined;
+          ? asc(itemLocalizations.name)
+          : input.sorting === ctx.t('storage.searchParams.ascending')
+            ? asc(storageItems.quantity)
+            : desc(storageItems.quantity);
 
-      const rawLocalizations = await ctx.db.query.itemLocalizations.findMany({
-        limit: input.limit,
-        offset: input.offset,
-        where: whereLocalizations,
-        orderBy: localizationSorting,
-        with: {
-          item: {
-            with: {
-              itemLoans: true,
-            },
-          },
-        },
-      });
-
-      if (input.sorting !== ctx.t('storage.searchParams.name')) {
-        const sortMultiplier =
-          input.sorting === ctx.t('storage.searchParams.ascending') ? 1 : -1;
-
-        rawLocalizations.sort(
-          (local1, local2) =>
-            sortMultiplier * (local1.item.quantity - local2.item.quantity),
+      const rawSelect = await ctx.db
+        .select({
+          item: storageItems,
+          localization: itemLocalizations,
+        })
+        .from(storageItems)
+        .offset(input.offset)
+        .limit(input.limit)
+        .where(whereItems)
+        .orderBy(orderBy)
+        .innerJoin(
+          itemLocalizations,
+          eq(itemLocalizations.itemId, storageItems.id),
         );
+
+      const fetchedItemIds = rawSelect.map((selected) => selected.item.id);
+
+      const loansToItems = await ctx.db
+        .select({
+          ...getTableColumns(itemLoans),
+        })
+        .from(itemLoans)
+        .where(inArray(itemLoans.itemId, fetchedItemIds));
+
+      for (const selected of rawSelect) {
+        const { item, localization } = selected;
+        const itemLoans = loansToItems.filter(
+          (loan) => loan.itemId === item.id,
+        );
+
+        const unitsBorrowed = itemLoans
+          .map((loan) => loan.unitsBorrowed)
+          .reduce((a, b) => a + b, 0);
+
+        items.push({
+          ...item,
+          ...localization,
+          availableUnits: item.quantity - unitsBorrowed,
+        });
       }
 
-      // Calculate available units, add it to the object,
-      // and remove item loans to avoid leaking more information than necessary
-      return rawLocalizations.map(
-        ({ item, itemId: _, locale: __, ...localizationOnly }) => {
-          const unitsBorrowed = item.itemLoans
-            .map((loan) => loan.unitsBorrowed)
-            .reduce((a, b) => a + b, 0);
-
-          const { itemLoans, ...itemWithoutLoans } = item;
-
-          return {
-            ...itemWithoutLoans,
-            ...localizationOnly,
-            availableUnits: item.quantity - unitsBorrowed,
-          };
-        },
-      );
+      return items;
     }),
   itemsTotal: publicProcedure
     .input((input) => itemsTotalSchema().parse(input))
