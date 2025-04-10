@@ -46,18 +46,21 @@ const storageRouter = createRouter({
   fetchOne: publicProcedure
     .input((input) => fetchOneSchema(useTranslationsFromContext()).parse(input))
     .query(async ({ ctx, input }) => {
-      const localization = await ctx.db.query.itemLocalizations.findFirst({
-        where: eq(itemLocalizations.itemId, input),
-        with: {
-          item: {
-            with: {
-              itemLoans: true,
-            },
-          },
-        },
-      });
+      const rawSelect = await ctx.db
+        .select({
+          item: storageItems,
+          localization: itemLocalizations,
+          category: itemCategories,
+        })
+        .from(itemLocalizations)
+        .where(eq(itemLocalizations.itemId, input))
+        .innerJoin(storageItems, eq(storageItems.id, itemLocalizations.itemId))
+        .leftJoin(
+          itemCategories,
+          eq(itemCategories.id, storageItems.categoryId),
+        );
 
-      if (!localization) {
+      if (!rawSelect[0]) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('storage.api.notFound'),
@@ -65,17 +68,26 @@ const storageRouter = createRouter({
         });
       }
 
-      const { item, itemId: _, locale: __, ...localizationOnly } = localization;
+      const item = rawSelect[0].item;
 
-      const unitsBorrowed = item.itemLoans
+      const loans = await ctx.db.query.itemLoans.findMany({
+        where: eq(itemLoans.itemId, item.id),
+        columns: {
+          unitsBorrowed: true,
+        },
+      });
+
+      const unitsBorrowed = loans
         .map((loan) => loan.unitsBorrowed)
         .reduce((a, b) => a + b, 0);
 
-      const { itemLoans, ...itemWithoutLoans } = item;
-
       return {
-        ...itemWithoutLoans,
-        ...localizationOnly,
+        ...item,
+        category: rawSelect[0].category,
+        english: rawSelect.find((s) => s.localization.locale === 'en')
+          ?.localization,
+        norwegian: rawSelect.find((s) => s.localization.locale === 'no')
+          ?.localization,
         availableUnits: item.quantity - unitsBorrowed,
       };
     }),

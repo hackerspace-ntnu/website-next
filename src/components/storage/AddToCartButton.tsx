@@ -10,7 +10,9 @@ import { useState } from 'react';
 
 type AddToCartButtonProps = {
   className?: string;
-  item: RouterOutput['storage']['fetchMany'][number];
+  item:
+    | RouterOutput['storage']['fetchOne']
+    | RouterOutput['storage']['fetchMany'][number];
   t: {
     addToCart: string;
     removeFromCart: string;

@@ -7,6 +7,7 @@ import { api } from '@/lib/api/server';
 import { BlocksIcon, MapPinIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 type StorageItemParams = Promise<{
   locale: string;
@@ -17,11 +18,13 @@ export async function generateMetadata({
   params,
 }: { params: StorageItemParams }) {
   const t = await getTranslations('storage');
-  const { itemId } = await params;
+  const { itemId, locale } = await params;
   const item = await api.storage.fetchOne(Number.parseInt(itemId));
+  if (!item.english || !item.norwegian) return;
+  const itemName = locale === 'en' ? item.english.name : item.norwegian.name;
 
   return {
-    title: `${t('title')}: ${item.name}`,
+    title: `${t('title')}: ${itemName}`,
   };
 }
 
@@ -47,6 +50,13 @@ export default async function StorageItemPage({
     ['labops', 'leadership', 'admin'].includes(g),
   );
 
+  const itemLocale = locale === 'en' ? item.english : item.norwegian;
+
+  if (!itemLocale) return notFound();
+
+  const itemCategoryName =
+    locale === 'en' ? item.category?.nameEnglish : item.category?.nameNorwegian;
+
   return (
     <>
       <div className='flex items-center justify-between'>
@@ -56,22 +66,22 @@ export default async function StorageItemPage({
           className='mx-4'
         />
       </div>
-      <h1 className='my-4'>{item.name}</h1>
+      <h1 className='my-4'>{itemLocale.name}</h1>
       <div className='mt-4 space-y-4'>
         <div className='flex items-center gap-2'>
           <MapPinIcon className='h-8 w-8' />
-          {item.location.length > 0 ? item.location : t('item.noLocation')}
+          {itemLocale.location && itemLocale.location.length > 0
+            ? itemLocale.location
+            : t('item.noLocation')}
         </div>
         <div className='flex items-center gap-2'>
           <BlocksIcon className='h-8 w-8' />
-          {item.category?.name ? item.category.name : t('item.noCategory')}
+          {itemCategoryName ?? t('item.noCategory')}
         </div>
         <Separator />
         <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>
-            <p>
-              {item.description ? item.description : t('item.noDescription')}
-            </p>
+            <p>{itemLocale.description ?? t('item.noDescription')}</p>
             <div className='mt-2 flex justify-center gap-2 md:justify-start'>
               <AddToCartButton item={item} t={addToCartTranslations} />
               {canManageItems && (
@@ -92,7 +102,7 @@ export default async function StorageItemPage({
             src={imageUrl ?? '/unknown.png'}
             width={192}
             height={192}
-            alt={item.name}
+            alt={itemLocale.name}
             className='h-48 w-48 rounded-lg object-cover'
           />
         </div>

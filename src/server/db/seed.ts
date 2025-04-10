@@ -562,7 +562,7 @@ async function main() {
     },
     {
       name: 'Antistatisk armbånd',
-      location: 'Toolbox 2',
+      location: 'Verktøykasse 2',
       locale: 'no',
       itemId: 20,
     },
