@@ -28,7 +28,8 @@ import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { EditIcon, UploadIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -57,16 +58,24 @@ function EditItemForm({
     onSuccess: () => toast.success(t('successEdit')),
   });
 
+  const itemLocale =
+    useLocale() === 'en' ? prefilledItem?.english : prefilledItem?.norwegian;
+
+  const categoryName =
+    useLocale() === 'en'
+      ? prefilledItem?.category?.nameEnglish
+      : prefilledItem?.category?.nameNorwegian;
+
   const form = useForm(schema, {
     validators: {
       onChange: schema,
     },
     defaultValues: {
-      image: undefined as string | undefined,
-      name: prefilledItem?.name ?? '',
-      description: prefilledItem?.description ?? '',
-      location: prefilledItem?.location ?? '',
-      categoryName: prefilledItem?.category?.name ?? itemCategories[0] ?? '',
+      image: '',
+      name: itemLocale?.name ?? '',
+      description: itemLocale?.description ?? '',
+      location: itemLocale?.location ?? '',
+      categoryName: categoryName ?? itemCategories[0] ?? '',
       quantity: prefilledItem?.quantity ?? 1,
     },
     onSubmit: ({ value }) => {
