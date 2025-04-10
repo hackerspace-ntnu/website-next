@@ -34,7 +34,7 @@ type Reservation = {
   email: string;
 };
 
-export function MyReservationsTable() {
+function MyReservationsTable() {
   const t = useTranslations('reservations');
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const isDesktop = useMediaQuery('(min-width: 42rem)');
@@ -131,6 +131,7 @@ export function MyReservationsTable() {
               </Button>
               <Button
                 title={t('myReservationsTable.cancelTitle')}
+                ref={ref as RefObject<HTMLButtonElement>}
                 className='ml-auto rounded-xl'
                 variant='secondary'
                 onClick={() => setEditPressed(false)}
@@ -263,3 +264,5 @@ export function MyReservationsTable() {
     </div>
   );
 }
+
+export { MyReservationsTable };
