@@ -1,6 +1,6 @@
 import { FAQAccordion } from '@/components/about/FAQAccordion';
 import { GroupCardGrid } from '@/components/about/GroupCardGrid';
-import { Meteors } from '@/components/ui/Meteor';
+import { Meteors } from '@/components/fancy/Meteors';
 import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
@@ -135,11 +135,7 @@ export default async function AboutPage({
                 {card.content}
               </CardContent>
               <div className='absolute inset-0 z-10 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-                <Meteors
-                  number={15}
-                  className={'absolute inset-0 z-10'}
-                  hoverDelay='0.5s'
-                />
+                <Meteors number={15} className={'absolute inset-0 z-10'} />
               </div>
             </Card>
           </div>

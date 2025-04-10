@@ -1,4 +1,4 @@
-import { Meteors } from '@/components/ui/Meteor';
+import { Meteors } from '@/components/fancy/Meteors';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import Image from 'next/image';
@@ -30,11 +30,7 @@ function GroupCard({
       <Link href={`about/group/${id}`}>
         <div className='relative flex h-96 w-96 flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
           <div className='absolute inset-0 z-0 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-            <Meteors
-              number={15}
-              className={'absolute inset-0 z-10'}
-              hoverDelay='0.5s'
-            />
+            <Meteors number={15} className={'absolute inset-0 z-10'} />
           </div>
 
           <div className='relative z-10 h-44 w-44 self-center'>
