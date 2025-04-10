@@ -332,6 +332,7 @@
           "update": "Update",
           "unregister": "Unregister",
           "signIn": "Sign in",
+          "signInDescription": "Sign in to register for shifts",
           "registerSuccess": "Registered shift successfully",
           "updateSuccess": "Updated shift successfully",
           "unregisterSuccess": "Unregistered from shift successfully"
@@ -341,7 +342,8 @@
     "api": {
       "day": "Invalid day",
       "timeslot": "Invalid timeslot",
-      "recurring": "Invalid value for recurring"
+      "recurring": "Invalid value for recurring",
+      "fetchShiftsFailed": "Failed to fetch shifts"
     }
   },
   "events": {

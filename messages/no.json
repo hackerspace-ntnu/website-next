@@ -187,7 +187,7 @@
     "account": {
       "title": "Konto",
       "updateAccount": "Oppdater konto",
-      "updateAccountFailed": "Failed to update account",
+      "updateAccountFailed": "Kunne ikke oppdatere konto",
       "updateAccountSuccess": "Konto oppdatert",
       "email": {
         "label": "E-post",
@@ -332,6 +332,7 @@
           "update": "Oppdater",
           "unregister": "Avregistrer",
           "signIn": "Logg inn",
+          "signInDescription": "Logg inn for å registrere vakt",
           "registerSuccess": "Vakt registrert",
           "updateSuccess": "Vakt oppdatert",
           "unregisterSuccess": "Vakt avregistrert"
@@ -341,7 +342,8 @@
     "api": {
       "day": "Ugyldig dag",
       "timeslot": "Ugyldig tidsrom",
-      "recurring": "Ugyldig verdi for gjentagende"
+      "recurring": "Ugyldig verdi for gjentagende",
+      "fetchShiftsFailed": "Kunne ikke hente vakter"
     }
   },
   "events": {

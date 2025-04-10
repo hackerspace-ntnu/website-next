@@ -11,6 +11,7 @@ import {
   registerShiftSchema,
   unregisterShiftSchema,
 } from '@/validations/shiftSchedule/registerShiftSchema';
+import { TRPCError } from '@trpc/server';
 import { endOfWeek } from 'date-fns';
 import { and, eq, gte, isNull, or, sql } from 'drizzle-orm';
 
@@ -46,7 +47,14 @@ const shiftScheduleRouter = createRouter({
       .leftJoin(userSkills, eq(users.id, userSkills.userId))
       .leftJoin(skills, eq(userSkills.skillId, skills.id))
       .where(or(isNull(shifts.endDate), gte(shifts.endDate, new Date())))
-      .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id);
+      .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id)
+      .catch(() => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('shiftSchedule.api.fetchShiftsFailed'),
+          cause: { toast: 'error' },
+        });
+      });
 
     const returnShifts: Shift[] = [];
     for (const day of days) {

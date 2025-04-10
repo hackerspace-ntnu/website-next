@@ -1,18 +1,17 @@
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import type { Member } from '@/server/api/routers';
+import type { RouterOutputs } from '@/lib/api/client';
+import { useTranslations } from 'next-intl';
 
 type MemberListProps = {
-  t: {
-    empty: string;
-  };
-  members: Member[];
+  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
 };
 
-function MemberList({ t, members }: MemberListProps) {
+function MemberList({ members }: MemberListProps) {
+  const t = useTranslations('shiftSchedule.table.cell.dialog');
   return (
     <>
       {members.length === 0 ? (
-        <p className='leading-tight'>{t.empty}</p>
+        <p className='leading-tight'>{t('empty')}</p>
       ) : (
         <div>
           {members?.map((member) => (

@@ -47,12 +47,7 @@ function ScheduleCellDialog({
         </ResponsiveDialogDescription>
       </ResponsiveDialogHeader>
       <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-        <MemberList
-          t={{
-            empty: t('empty'),
-          }}
-          members={members}
-        />
+        <MemberList members={members} />
         <RegisterShiftForm
           day={day}
           timeslot={timeslot}

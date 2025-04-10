@@ -117,7 +117,12 @@ function RegisterShiftForm({
           </form.AppForm>
         </form>
       ) : (
-        <Link variant='default' size='default' href='/auth'>
+        <Link
+          variant='default'
+          size='default'
+          href='/auth'
+          title={t('signInDescription')}
+        >
           {t('signIn')}
         </Link>
       )}
