@@ -134,7 +134,7 @@ export default async function AboutPage({
               <CardContent className='max-h-30 overflow-hidden text-ellipsis whitespace-normal'>
                 {card.content}
               </CardContent>
-              <div className='absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+              <div className='absolute inset-0 z-10 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
                 <Meteors
                   number={15}
                   className={'absolute inset-0 z-10'}

@@ -138,3 +138,22 @@
     @apply scroll-m-20 font-montserrat text-xl font-semibold tracking-tight;
   }
 }
+@layer utilities {
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 0;
+    }
+    25% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 1;
+    }
+  }
+
+  .animate-meteor {
+    animation: meteor 5s linear infinite;
+  }
+}

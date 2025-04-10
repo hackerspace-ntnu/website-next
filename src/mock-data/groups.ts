@@ -5,6 +5,7 @@ const groupMockData = [
     photoUrl: 'mock.jpg',
     description:
       'We do all the cool techy tech stuff, aka the backbone, the spirit and soul of Hackerspace',
+    members: ['Michael', 'Martin', 'Moa', 'Sander', 'Peder'],
   },
   {
     id: 'labops',
