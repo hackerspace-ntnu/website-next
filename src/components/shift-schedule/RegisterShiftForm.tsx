@@ -8,8 +8,8 @@ import { api } from '@/lib/api/client';
 import type { days, timeslots } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
 import { registerShiftSchema } from '@/validations/shiftSchedule/registerShiftSchema';
+import { useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 type RegisterShiftFormProps = {
   day: (typeof days)[number];
@@ -46,7 +46,7 @@ function RegisterShiftForm({
       onChange: formSchema,
     },
     defaultValues: {
-      recurring: user.recurring,
+      recurring: user.onShift ? user.recurring : true,
     },
     onSubmit: ({ value }) => {
       async function success(message: string) {
@@ -74,11 +74,12 @@ function RegisterShiftForm({
     },
   });
 
-  // Needs recurring state to display correct text on button
-  const [recurring, setRecurring] = useState(user.recurring);
-
   const canRegister = user.isMember && !user.onShift;
-  const canUpdate = user.onShift && user.recurring !== recurring;
+  // useStore makes canUpdate update when the value of 'recurring' changes
+  const canUpdate = useStore(
+    form.store,
+    (state) => user.onShift && user.recurring !== state.values.recurring,
+  );
   const canUnregister = !canRegister && !canUpdate && user.isMember;
 
   function getButtonText() {
@@ -101,7 +102,6 @@ function RegisterShiftForm({
             <form.AppField name='recurring'>
               {(field) => (
                 <field.CheckboxField
-                  onClick={() => setRecurring(!form.getFieldValue('recurring'))}
                   label={t('recurring')}
                   className='ml-auto flex items-center gap-2'
                 />

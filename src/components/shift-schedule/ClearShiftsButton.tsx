@@ -2,7 +2,7 @@
 
 import {
   AlertDialog,
-  AlertDialogActionDestructive,
+  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -52,7 +52,8 @@ function ClearShifts() {
           <AlertDialogCancel onClick={() => setIsOpen(false)}>
             {t('cancel')}
           </AlertDialogCancel>
-          <AlertDialogActionDestructive
+          <AlertDialogAction
+            variant='destructive'
             onClick={async () => {
               clearShifts.mutate();
               await utils.shiftSchedule.fetchShifts.invalidate();
@@ -60,7 +61,7 @@ function ClearShifts() {
             }}
           >
             {t('confirm')}
-          </AlertDialogActionDestructive>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
