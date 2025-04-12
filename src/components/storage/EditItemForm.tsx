@@ -29,7 +29,6 @@ import type { RouterOutput } from '@/server/api';
 import { itemSchema } from '@/validations/storage/itemSchema';
 import { EditIcon, UploadIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -58,9 +57,6 @@ function EditItemForm({
     onSuccess: () => toast.success(t('successEdit')),
   });
 
-  const itemLocale =
-    useLocale() === 'en' ? prefilledItem?.english : prefilledItem?.norwegian;
-
   const categoryName =
     useLocale() === 'en'
       ? prefilledItem?.category?.nameEnglish
@@ -71,10 +67,13 @@ function EditItemForm({
       onChange: schema,
     },
     defaultValues: {
-      image: '',
-      name: itemLocale?.name ?? '',
-      description: itemLocale?.description ?? '',
-      location: itemLocale?.location ?? '',
+      image: undefined as string | undefined,
+      nameNorwegian: prefilledItem?.norwegian?.name ?? '',
+      nameEnglish: prefilledItem?.english?.name ?? '',
+      descriptionNorwegian: prefilledItem?.norwegian?.description ?? '',
+      descriptionEnglish: prefilledItem?.english?.description ?? '',
+      locationEnglish: prefilledItem?.english?.location ?? '',
+      locationNorwegian: prefilledItem?.norwegian?.location ?? '',
       categoryName: categoryName ?? itemCategories[0] ?? '',
       quantity: prefilledItem?.quantity ?? 1,
     },
@@ -136,10 +135,10 @@ function EditItemForm({
           </FormItem>
         )}
       </form.Field>
-      <form.Field name='name'>
+      <form.Field name='nameNorwegian'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('name.label')}</FormLabel>
+            <FormLabel>{t('name.labelNorwegian')}</FormLabel>
             <FormControl>
               <Input
                 placeholder={t('name.placeholder')}
@@ -152,10 +151,26 @@ function EditItemForm({
           </FormItem>
         )}
       </form.Field>
-      <form.Field name='description'>
+      <form.Field name='nameEnglish'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('description.label')}</FormLabel>
+            <FormLabel>{t('name.labelEnglish')}</FormLabel>
+            <FormControl>
+              <Input
+                placeholder={t('name.placeholder')}
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      </form.Field>
+      <form.Field name='descriptionNorwegian'>
+        {(field) => (
+          <FormItem errors={field.state.meta.errors}>
+            <FormLabel>{t('description.labelNorwegian')}</FormLabel>
             <FormControl>
               <Textarea
                 placeholder={t('description.placeholder')}
@@ -168,10 +183,42 @@ function EditItemForm({
           </FormItem>
         )}
       </form.Field>
-      <form.Field name='location'>
+      <form.Field name='descriptionEnglish'>
         {(field) => (
           <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('location.label')}</FormLabel>
+            <FormLabel>{t('description.labelEnglish')}</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder={t('description.placeholder')}
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      </form.Field>
+      <form.Field name='locationNorwegian'>
+        {(field) => (
+          <FormItem errors={field.state.meta.errors}>
+            <FormLabel>{t('location.labelNorwegian')}</FormLabel>
+            <FormControl>
+              <Input
+                placeholder={t('location.placeholder')}
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      </form.Field>
+      <form.Field name='locationEnglish'>
+        {(field) => (
+          <FormItem errors={field.state.meta.errors}>
+            <FormLabel>{t('location.labelEnglish')}</FormLabel>
             <FormControl>
               <Input
                 placeholder={t('location.placeholder')}

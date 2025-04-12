@@ -13,9 +13,15 @@ function itemSchema(t: Translations, categories: string[]) {
       fileNotImageError: t('storage.edit.image.fileNotImageError'),
       optional: true,
     }),
-    name: z.string().min(1, t('storage.edit.name.required')),
-    description: z.string(),
-    location: z
+    nameEnglish: z.string().min(1, t('storage.edit.name.required')),
+    nameNorwegian: z.string().min(1, t('storage.edit.name.required')),
+    descriptionEnglish: z.string(),
+    descriptionNorwegian: z.string(),
+    locationEnglish: z
+      .string()
+      .min(1, t('storage.edit.location.required'))
+      .max(50, t('storage.edit.location.invalid')),
+    locationNorwegian: z
       .string()
       .min(1, t('storage.edit.location.required'))
       .max(50, t('storage.edit.location.invalid')),

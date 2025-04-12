@@ -42,7 +42,9 @@ function getContext() {
 
 async function getItemCategoriesFromContext() {
   const ctx = getContext();
-  return (await ctx.db.select().from(itemCategories)).map((c) => c.name);
+  return (await ctx.db.select().from(itemCategories)).map((c) =>
+    ctx.locale === 'en' ? c.nameEnglish : c.nameNorwegian,
+  );
 }
 
 export {

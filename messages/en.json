@@ -291,7 +291,11 @@
       "noLocation": "No location specified",
       "noCategory": "No category specified",
       "invalidId": "The provided storage item ID was invalid.",
-      "edit": "Edit item"
+      "edit": "Edit item",
+      "api": {
+        "insertFailed": "Failed to add storage item",
+        "insertLocalizationsFailed": "Failed to add storage item translations. Please contact Hackerspace DevOps about this issue!"
+      }
     },
     "shoppingCart": {
       "title": "Shopping Cart",
@@ -344,16 +348,19 @@
         "fileNotImageError": "The file is not an image"
       },
       "name": {
-        "label": "Item name",
+        "labelEnglish": "Item name (English)",
+        "labelNorwegian": "Item name Norwegian)",
         "placeholder": "Raspberry Pi 5",
         "required": "Item name is required."
       },
       "description": {
-        "label": "Description",
+        "labelEnglish": "Description (English)",
+        "labelNorwegian": "Description (Norwegian)",
         "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
       },
       "location": {
-        "label": "Location",
+        "labelEnglish": "Location (English)",
+        "labelNorwegian": "Location (Norwegian)",
         "placeholder": "Box 2A",
         "required": "Item location is required.",
         "invalid": "Please provide a short and concise location."

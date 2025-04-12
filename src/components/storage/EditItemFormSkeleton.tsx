@@ -28,15 +28,27 @@ function EditItemFormSkeleton({
         </Badge>
       </div>
       <div>
-        <FormLabel>{t('name.label')}</FormLabel>
+        <FormLabel>{t('name.labelNorwegian')}</FormLabel>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('description.label')}</FormLabel>
+        <FormLabel>{t('name.labelEnglish')}</FormLabel>
+        <Skeleton className='flex h-10 w-full rounded-md' />
+      </div>
+      <div>
+        <FormLabel>{t('description.labelNorwegian')}</FormLabel>
         <Skeleton className='flex h-[60px] w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('location.label')}</FormLabel>
+        <FormLabel>{t('description.labelEnglish')}</FormLabel>
+        <Skeleton className='flex h-[60px] w-full rounded-md' />
+      </div>
+      <div>
+        <FormLabel>{t('location.labelNorwegian')}</FormLabel>
+        <Skeleton className='flex h-10 w-full rounded-md' />
+      </div>
+      <div>
+        <FormLabel>{t('location.labelEnglish')}</FormLabel>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>

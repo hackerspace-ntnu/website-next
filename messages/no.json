@@ -291,7 +291,11 @@
       "noLocation": "Ingen plassering spesifisert",
       "noCategory": "Ingen kategori spesifisert",
       "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
-      "edit": "Rediger gjenstand"
+      "edit": "Rediger gjenstand",
+      "api": {
+        "insertFailed": "Feilet å legge til gjenstanden",
+        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace DevOps om denne feilen!"
+      }
     },
     "shoppingCart": {
       "title": "Handlekurv",
@@ -344,16 +348,19 @@
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "name": {
-        "label": "Navn",
+        "labelEnglish": "Navn (engelsk)",
+        "labelNorwegian": "Navn (norsk)",
         "placeholder": "Raspberry Pi 5",
         "required": "Navn er påkrevd."
       },
       "description": {
-        "label": "Beskrivelse",
+        "labelEnglish": "Beskrivelse (engelsk)",
+        "labelNorwegian": "Beskrivelse (norwegian)",
         "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
       },
       "location": {
-        "label": "Plassering",
+        "labelEnglish": "Plassering (engelsk)",
+        "labelNorwegian": "Plassering (norsk)",
         "placeholder": "Boks 2A",
         "required": "Plassering er påkrevd.",
         "invalid": "Vennligst oppgi en kort og konsis plassering."

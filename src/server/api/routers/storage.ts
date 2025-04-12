@@ -7,6 +7,7 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
+  type InsertStorageItem,
   type SelectItemLocalization,
   type SelectStorageItem,
   itemCategories,
@@ -40,6 +41,7 @@ import {
   inArray,
   isNotNull,
   isNull,
+  or,
 } from 'drizzle-orm';
 
 const storageRouter = createRouter({
@@ -222,55 +224,98 @@ const storageRouter = createRouter({
       ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      // const duplicateItem = await ctx.db
-      //   .select()
-      //   .from(itemLocalizations)
-      //   .where(
-      //     and(
-      //       eq(itemLocalizations.name, input.name),
-      //       eq(itemLocalizations.locale, ctx.locale),
-      //     ),
-      //   );
-      // if (duplicateItem.length > 0) {
-      //   throw new TRPCError({
-      //     code: 'BAD_REQUEST',
-      //     message: ctx.t('storage.api.duplicateItem'),
-      //     cause: { toast: 'error' },
-      //   });
-      // }
-      // await ctx.db.insert(itemLocalizations).values({
-      //   name: input.name,
-      //   locale: ...
-      // })
-      // if (input.categoryName === '') {
-      //   ctx.db.insert(itemCategories)
-      //   return ctx.db.insert(storageItems).values(input);
-      // }
-      // const category = await ctx.db
-      //   .select()
-      //   .from(itemCategories)
-      //   .where(eq(itemCategories.name, input.categoryName));
-      // const categoryId = category[0]?.id;
-      // if (!categoryId) {
-      //   throw new TRPCError({
-      //     code: 'NOT_FOUND',
-      //     message: ctx.t('storage.api.categoryNotFound'),
-      //     cause: { toast: 'error' },
-      //   });
-      // }
-      // const insertValues: InsertStorageItem = {
-      //   categoryId,
-      //   ...input,
-      // };
-      // if (input.image) {
-      //   const file = await insertFile(
-      //     input.image,
-      //     'storage-items',
-      //     ctx.user.id,
-      //   );
-      //   insertValues.imageId = file.id;
-      // }
-      // await ctx.db.insert(storageItems).values(insertValues);
+      const duplicateItem = await ctx.db
+        .select()
+        .from(itemLocalizations)
+        .where(
+          or(
+            eq(itemLocalizations.name, input.nameEnglish),
+            eq(itemLocalizations.name, input.nameNorwegian),
+          ),
+        );
+
+      if (duplicateItem.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.duplicateItem'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const insertValues: InsertStorageItem = {
+        ...input,
+      };
+
+      if (input.categoryName !== '') {
+        const category = await ctx.db
+          .select()
+          .from(itemCategories)
+          .where(
+            or(
+              eq(itemCategories.nameEnglish, input.categoryName),
+              eq(itemCategories.nameNorwegian, input.categoryName),
+            ),
+          );
+        const categoryId = category[0]?.id;
+        if (!categoryId) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('storage.api.categoryNotFound'),
+            cause: { toast: 'error' },
+          });
+        }
+        insertValues.categoryId = categoryId;
+      }
+
+      if (input.image) {
+        const file = await insertFile(
+          input.image,
+          'storage-items',
+          ctx.user.id,
+        );
+        insertValues.imageId = file.id;
+      }
+
+      const insertedItem = await ctx.db
+        .insert(storageItems)
+        .values(insertValues)
+        .returning({ id: storageItems.id });
+
+      const itemId = insertedItem[0]?.id;
+
+      if (!itemId) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('storage.item.api.insertFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .insert(itemLocalizations)
+        .values([
+          {
+            name: input.nameEnglish,
+            description: input.descriptionEnglish,
+            location: input.locationEnglish,
+            itemId,
+            locale: 'en',
+          },
+          {
+            name: input.nameNorwegian,
+            description: input.descriptionNorwegian,
+            location: input.locationNorwegian,
+            itemId,
+            locale: 'no',
+          },
+        ])
+        .catch(() => {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('storage.item.api.insertLocalizationsFailed'),
+            cause: { toast: 'error' },
+          });
+        });
     }),
   editItem: storageProcedure
     .input(async (input) =>
