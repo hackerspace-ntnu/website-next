@@ -9,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import type { RouterOutputs } from '@/lib/api/client';
 import { api } from '@/lib/api/server';
 import { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import type { RouterOutputs } from '@/server/api';
 import { getFormatter, getTranslations } from 'next-intl/server';
 
 type ScheduleTableProps = {

@@ -19,7 +19,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-function ClearShifts() {
+function ClearShiftsButton() {
   const t = useTranslations('shiftSchedule.clearShifts');
 
   const [isOpen, setIsOpen] = useState(false);
@@ -68,4 +68,4 @@ function ClearShifts() {
   );
 }
 
-export { ClearShifts };
+export { ClearShiftsButton };

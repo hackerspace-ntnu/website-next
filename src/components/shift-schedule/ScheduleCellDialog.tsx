@@ -6,8 +6,8 @@ import {
 } from '@/components/composites/ResponsiveDialog';
 import { MemberList } from '@/components/shift-schedule/MemberList';
 import { RegisterShiftForm } from '@/components/shift-schedule/RegisterShiftForm';
-import type { RouterOutputs } from '@/lib/api/client';
 import type { days, timeslots } from '@/lib/constants';
+import type { RouterOutputs } from '@/server/api';
 import { useTranslations } from 'next-intl';
 
 type ScheduleCellDialogProps = {

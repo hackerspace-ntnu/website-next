@@ -1,5 +1,5 @@
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import type { RouterOutputs } from '@/lib/api/client';
+import type { RouterOutputs } from '@/server/api';
 import { useTranslations } from 'next-intl';
 
 type MemberListProps = {

@@ -4,9 +4,9 @@ import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDial
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
-import type { RouterOutputs } from '@/lib/api/client';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import type { RouterOutputs } from '@/server/api';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 

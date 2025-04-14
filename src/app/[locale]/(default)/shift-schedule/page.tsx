@@ -1,4 +1,4 @@
-import { ClearShifts } from '@/components/shift-schedule/ClearShiftsButton';
+import { ClearShiftsButton } from '@/components/shift-schedule/ClearShiftsButton';
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
 import { api } from '@/lib/api/server';
 import { NextIntlClientProvider } from 'next-intl';
@@ -31,7 +31,7 @@ export default async function ShiftSchedulePage({
   const canClear = user?.groups.some((group) =>
     ['admin', 'leadership'].includes(group),
   );
-  const clearShifts = <ClearShifts />;
+  const clearShiftsButton = <ClearShiftsButton />;
 
   return (
     <NextIntlClientProvider
@@ -40,12 +40,14 @@ export default async function ShiftSchedulePage({
       <div className='relative flex justify-center'>
         <h1 className='text-center'>{t('title')}</h1>
         {canClear && (
-          <div className='absolute right-0 hidden lg:flex'>{clearShifts}</div>
+          <div className='absolute right-0 hidden lg:flex'>
+            {clearShiftsButton}
+          </div>
         )}
       </div>
       <ScheduleTable user={user} />
       {canClear && (
-        <div className='mt-8 ml-auto w-fit lg:hidden'>{clearShifts}</div>
+        <div className='mt-8 ml-auto w-fit lg:hidden'>{clearShiftsButton}</div>
       )}
     </NextIntlClientProvider>
   );
