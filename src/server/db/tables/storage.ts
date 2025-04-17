@@ -37,7 +37,7 @@ const itemLocalizations = pgTable(
   'storage_item_localizations',
   {
     itemId: integer()
-      .references(() => storageItems.id)
+      .references(() => storageItems.id, { onDelete: 'cascade' })
       .notNull(),
     name: varchar('name', { length: 128 }).notNull(),
     description: varchar('description', { length: 512 }),
