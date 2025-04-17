@@ -3,7 +3,8 @@ import { z } from 'zod';
 
 function itemCategoryFormSchema(t: Translations) {
   return z.object({
-    name: z.string({ message: t('storage.categories.invalidName') }),
+    nameEnglish: z.string({ message: t('storage.categories.invalidName') }),
+    nameNorwegian: z.string({ message: t('storage.categories.invalidName') }),
   });
 }
 

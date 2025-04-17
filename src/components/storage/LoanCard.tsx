@@ -18,7 +18,7 @@ import {
   ShoppingBasketIcon,
   XIcon,
 } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 async function LoanCard({
   loan,
@@ -31,6 +31,11 @@ async function LoanCard({
 }) {
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
+  const locale = await getLocale();
+  const englishLocale = loan.item.localizations.find((l) => l.locale === 'en');
+  const norwegianLocale = loan.item.localizations.find(
+    (l) => l.locale === 'no',
+  );
 
   return (
     <Card key={loan.id}>
@@ -64,7 +69,8 @@ async function LoanCard({
             <span>
               {t('loanItem', {
                 units: loan.unitsBorrowed,
-                name: loan.item.name,
+                name:
+                  locale === 'en' ? englishLocale?.name : norwegianLocale?.name,
               })}
             </span>
           </li>

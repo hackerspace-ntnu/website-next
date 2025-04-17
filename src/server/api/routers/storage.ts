@@ -14,7 +14,7 @@ import {
   itemLocalizations,
   storageItems,
 } from '@/server/db/tables';
-import { SelectItemLoan, itemLoans } from '@/server/db/tables/loans';
+import { itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
@@ -325,32 +325,36 @@ const storageRouter = createRouter({
       ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      // const category = await ctx.db.query.itemCategories.findFirst({
-      //   where: eq(itemCategories.name, input.categoryName),
-      // });
-      // if (!category) {
-      //   throw new TRPCError({
-      //     code: 'NOT_FOUND',
-      //     message: ctx.t('storage.api.categoryNotFound'),
-      //     cause: { toast: 'error' },
-      //   });
-      // }
-      // const insertValues: InsertStorageItem = {
-      //   categoryId: category.id,
-      //   ...input,
-      // };
-      // if (input.image) {
-      //   const file = await insertFile(
-      //     input.image,
-      //     'storage-items',
-      //     ctx.user.id,
-      //   );
-      //   insertValues.imageId = file.id;
-      // }
-      // await ctx.db
-      //   .update(storageItems)
-      //   .set(insertValues)
-      //   .where(eq(storageItems.id, input.id));
+      const category = await ctx.db.query.itemCategories.findFirst({
+        where: or(
+          eq(itemCategories.nameEnglish, input.categoryName),
+          eq(itemCategories.nameNorwegian, input.categoryName),
+        ),
+      });
+      if (!category) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('storage.api.categoryNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const insertValues: InsertStorageItem = {
+        categoryId: category.id,
+        ...input,
+      };
+      if (input.image) {
+        const file = await insertFile(
+          input.image,
+          'storage-items',
+          ctx.user.id,
+        );
+        insertValues.imageId = file.id;
+      }
+      await ctx.db
+        .update(storageItems)
+        .set(insertValues)
+        .where(eq(storageItems.id, input.id));
     }),
   deleteItem: storageProcedure
     .input((input) => deleteItemSchema().parse(input))
@@ -390,55 +394,65 @@ const storageRouter = createRouter({
       itemCategoryFormSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      // const duplicateCategory = await ctx.db
-      //   .select()
-      //   .from(itemCategories)
-      //   .where(eq(itemCategories.name, input.name));
-      // if (duplicateCategory.length > 0) {
-      //   throw new TRPCError({
-      //     code: 'BAD_REQUEST',
-      //     message: ctx.t('storage.categories.api.duplicateCategory'),
-      //     cause: { toast: 'error' },
-      //   });
-      // }
-      // await ctx.db
-      //   .insert(itemCategories)
-      //   .values(input)
-      //   .catch(() => {
-      //     throw new TRPCError({
-      //       code: 'INTERNAL_SERVER_ERROR',
-      //       message: ctx.t('storage.categories.api.insertFailed'),
-      //       cause: { toast: 'error' },
-      //     });
-      //   });
+      const duplicateCategory = await ctx.db
+        .select()
+        .from(itemCategories)
+        .where(
+          or(
+            eq(itemCategories.nameEnglish, input.nameEnglish),
+            eq(itemCategories.nameNorwegian, input.nameNorwegian),
+          ),
+        );
+      if (duplicateCategory.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.categories.api.duplicateCategory'),
+          cause: { toast: 'error' },
+        });
+      }
+      await ctx.db
+        .insert(itemCategories)
+        .values(input)
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('storage.categories.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        });
     }),
   editItemCategory: storageProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      // const duplicateCategory = await ctx.db
-      //   .select()
-      //   .from(itemCategories)
-      //   .where(eq(itemCategories.name, input.name));
-      // if (duplicateCategory.length > 0) {
-      //   throw new TRPCError({
-      //     code: 'BAD_REQUEST',
-      //     message: ctx.t('storage.categories.api.duplicateCategory'),
-      //     cause: { toast: 'error' },
-      //   });
-      // }
-      // await ctx.db
-      //   .update(itemCategories)
-      //   .set(input)
-      //   .where(eq(itemCategories.id, input.id))
-      //   .catch(() => {
-      //     throw new TRPCError({
-      //       code: 'INTERNAL_SERVER_ERROR',
-      //       message: ctx.t('storage.categories.api.updateFailed'),
-      //       cause: { toast: 'error' },
-      //     });
-      //   });
+      const duplicateCategory = await ctx.db
+        .select()
+        .from(itemCategories)
+        .where(
+          or(
+            eq(itemCategories.nameEnglish, input.nameEnglish),
+            eq(itemCategories.nameNorwegian, input.nameNorwegian),
+          ),
+        );
+      if (duplicateCategory.length > 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.categories.api.duplicateCategory'),
+          cause: { toast: 'error' },
+        });
+      }
+      await ctx.db
+        .update(itemCategories)
+        .set(input)
+        .where(eq(itemCategories.id, input.id))
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('storage.categories.api.updateFailed'),
+            cause: { toast: 'error' },
+          });
+        });
     }),
   deleteItemCategory: storageProcedure
     .input((input) =>
@@ -519,7 +533,11 @@ const storageRouter = createRouter({
           : isNotNull(itemLoans.approvedAt),
         orderBy: desc(itemLoans.returnedAt),
         with: {
-          item: true,
+          item: {
+            with: {
+              localizations: true,
+            },
+          },
           lender: true,
         },
       });
