@@ -621,8 +621,12 @@ const storageRouter = createRouter({
         offset: input.offset,
         where: and(eq(itemLoans.lenderId, ctx.user.id), pendingWhere),
         with: {
+          item: {
+            with: {
+              localizations: true,
+            },
+          },
           lender: true,
-          item: true,
         },
       });
     }),
