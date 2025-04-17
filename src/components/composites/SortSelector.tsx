@@ -7,7 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { parseAsString, useQueryState } from 'nuqs';
+import { useTransition } from 'react';
 
 type SortSelectorProps = {
   filters: {
@@ -23,11 +25,12 @@ type SortSelectorProps = {
 };
 
 function SortSelector({ filters, t }: SortSelectorProps) {
+  const [isLoading, startTransition] = useTransition();
   const [filter, setFilter] = useQueryState(
     t.sort,
     parseAsString
       .withDefault(t.defaultSorting)
-      .withOptions({ shallow: false, clearOnDefault: true }),
+      .withOptions({ shallow: false, clearOnDefault: true, startTransition }),
   );
 
   function handleChange(value: string) {
@@ -36,6 +39,8 @@ function SortSelector({ filters, t }: SortSelectorProps) {
       setFilter(filterUrlName);
     }
   }
+
+  if (isLoading) return <Skeleton className='w-full lg:w-[250px]' />;
 
   return (
     <Select

@@ -1,8 +1,10 @@
 'use client';
 
 import { Combobox } from '@/components/ui/Combobox';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { useQueryState } from 'nuqs';
 import { parseAsInteger } from 'nuqs/server';
+import { useTransition } from 'react';
 
 type CategorySelectorProps = {
   categories: {
@@ -18,17 +20,20 @@ type CategorySelectorProps = {
 };
 
 function CategorySelector({ categories, t }: CategorySelectorProps) {
+  const [isLoading, startTransition] = useTransition();
   const [category, setCategory] = useQueryState(
     t.category,
     parseAsInteger
       .withDefault(-1)
-      .withOptions({ shallow: false, clearOnDefault: true }),
+      .withOptions({ shallow: false, clearOnDefault: true, startTransition }),
   );
 
   function valueCallback(category: string | null) {
     const categoryToSet = categories.findIndex((c) => c.label === category);
     setCategory(categoryToSet !== -1 ? categoryToSet + 1 : -1);
   }
+
+  if (isLoading) return <Skeleton className='w-full lg:w-[250px]' />;
 
   return (
     <Combobox
