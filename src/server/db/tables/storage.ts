@@ -21,8 +21,7 @@ const storageItems = pgTable('storage_items', {
 });
 
 const storageItemsRelations = relations(storageItems, ({ one, many }) => ({
-  english: one(itemLocalizations),
-  norwegian: one(itemLocalizations),
+  localizations: many(itemLocalizations),
   itemLoans: many(itemLoans),
   category: one(itemCategories, {
     fields: [storageItems.categoryId],
