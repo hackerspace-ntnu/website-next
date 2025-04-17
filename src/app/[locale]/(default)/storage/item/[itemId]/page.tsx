@@ -69,17 +69,17 @@ export default async function StorageItemPage({
       <h1 className='my-4'>{itemLocale.name}</h1>
       <div className='mt-4 space-y-4'>
         <div className='flex items-center gap-2'>
-          <MapPinIcon className='h-8 w-8' />
+          <MapPinIcon className='h-6 w-6' />
           {itemLocale.location && itemLocale.location.length > 0
             ? itemLocale.location
             : t('item.noLocation')}
         </div>
         <div className='flex items-center gap-2'>
-          <BlocksIcon className='h-8 w-8' />
+          <BlocksIcon className='h-6 w-6' />
           {itemCategoryName ?? t('item.noCategory')}
         </div>
         <Separator />
-        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
+        <div className='flex flex-col-reverse items-center gap-8 md:flex-row'>
           <div className='max-w-prose'>
             <p>{itemLocale.description ?? t('item.noDescription')}</p>
             <div className='mt-2 flex justify-center gap-2 md:justify-start'>

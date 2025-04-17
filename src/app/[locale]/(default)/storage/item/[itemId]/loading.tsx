@@ -21,15 +21,15 @@ export default async function StorageItemLoading() {
       <Skeleton className='my-4 h-12 w-64' />
       <div className='mt-4 space-y-4'>
         <div className='flex items-center gap-2'>
-          <MapPinIcon className='h-8 w-8' />
+          <MapPinIcon className='h-6 w-6' />
           <Skeleton className='h-6 w-32' />
         </div>
         <div className='flex items-center gap-2'>
-          <BlocksIcon className='h-8 w-8' />
+          <BlocksIcon className='h-6 w-6' />
           <Skeleton className='h-6 w-32' />
         </div>
         <Separator />
-        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
+        <div className='flex flex-col-reverse items-center gap-8 md:flex-row'>
           <div className='max-w-prose'>
             <Skeleton className='h-12 w-[65ch]' />
             <div className='mt-2 flex justify-center gap-2 md:justify-start'>
