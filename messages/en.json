@@ -323,7 +323,7 @@
     },
     "categories": {
       "title": "Categories",
-      "categoryName": "Category name",
+      "categoryName": "Category name (norwegian & english)",
       "categoryTableDescription": "Table listing categories",
       "actions": "Actions",
       "unauthorized": "Unauthorized to manage storage item categories",
@@ -334,6 +334,7 @@
       "api": {
         "insertFailed": "Failed to add category",
         "updateFailed": "Failed to update category",
+        "deleteFailed": "Failed to delete category",
         "duplicateCategory": "Cannot add another category with the same name"
       }
     },

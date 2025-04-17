@@ -323,7 +323,7 @@
     },
     "categories": {
       "title": "Kategorier",
-      "categoryName": "Kategorinavn",
+      "categoryName": "Kategorinavn (norsk og engelsk)",
       "categoryTableDescription": "Tabell over kategorier",
       "actions": "Handlinger",
       "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
@@ -334,6 +334,7 @@
       "api": {
         "insertFailed": "Feilet å legge til kategori",
         "updateFailed": "Feilet å redigere kategori",
+        "deleteFailed": "Feilet å fjerne kategori",
         "duplicateCategory": "Kan ikke legge til flere kategorier med samme navn"
       }
     },

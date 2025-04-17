@@ -1,5 +1,6 @@
 'use client';
 
+import { DeleteItemCategoryButton } from '@/components/storage/DeleteItemCategoryButton';
 import { Button } from '@/components/ui/Button';
 import {
   Form,
@@ -16,17 +17,16 @@ import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
 import { CheckIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useId } from 'react';
-import { DeleteItemCategoryButton } from './DeleteItemCategoryButton';
 
 function CategoriesTableFormRow({
   category,
 }: { category?: RouterOutput['storage']['fetchItemCategories'][number] }) {
+  const apiUtils = api.useUtils();
   const router = useRouter();
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
-  const apiUtils = api.useUtils();
 
   const addItemCategoryMutation = api.storage.addItemCategory.useMutation({
     onSuccess: async () => {
@@ -49,7 +49,8 @@ function CategoriesTableFormRow({
   const formSchema = itemCategoryFormSchema(useTranslations());
   const form = useForm(formSchema, {
     defaultValues: {
-      name: category?.name ?? '',
+      nameEnglish: category?.nameEnglish ?? '',
+      nameNorwegian: category?.nameNorwegian ?? '',
     },
     onSubmit: ({ value }) => {
       if (category) {
@@ -68,22 +69,37 @@ function CategoriesTableFormRow({
           className='flex justify-between space-y-0'
           onSubmit={form.handleSubmit}
         >
-          <form.Field name='name'>
-            {(field) => (
-              <FormItem errors={field.state.meta.errors}>
-                <FormControl>
-                  <Input
-                    placeholder={t('categoryName')}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          </form.Field>
-          <div className='flex gap-4'>
+          <div className='grid grid-cols-4 gap-4'>
+            <form.Field name='nameNorwegian'>
+              {(field) => (
+                <FormItem errors={field.state.meta.errors}>
+                  <FormControl>
+                    <Input
+                      placeholder='Kategorinavn'
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            </form.Field>
+            <form.Field name='nameEnglish'>
+              {(field) => (
+                <FormItem errors={field.state.meta.errors}>
+                  <FormControl>
+                    <Input
+                      placeholder='Category name'
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            </form.Field>
             <form.Subscribe selector={(state) => [state.canSubmit]}>
               {([canSubmit]) => (
                 <Button
