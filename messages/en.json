@@ -350,7 +350,7 @@
       },
       "name": {
         "labelEnglish": "Item name (English)",
-        "labelNorwegian": "Item name Norwegian)",
+        "labelNorwegian": "Item name (Norwegian)",
         "placeholder": "Raspberry Pi 5",
         "required": "Item name is required."
       },
