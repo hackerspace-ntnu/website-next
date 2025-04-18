@@ -30,7 +30,9 @@
     "confirm": "Bekreft",
     "delete": "Slett",
     "cancel": "Avbryt",
-    "save": "Lagre"
+    "save": "Lagre",
+    "uploadText": "Slipp filer her eller klikk for å laste opp",
+    "noValidFiles": "Ingen gyldige filer ble sluppet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",

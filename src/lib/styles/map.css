@@ -1,0 +1,21 @@
+.maplibregl-ctrl-group {
+  @apply bg-background! border-border! rounded-md! overflow-hidden!;
+}
+
+.maplibregl-ctrl-group button {
+  @apply bg-background! text-foreground!;
+}
+
+.maplibregl-ctrl-group button:hover {
+  @apply bg-secondary!;
+}
+
+.maplibregl-ctrl-group > button + button {
+  @apply border-t! border-border!;
+}
+
+.maplibregl-ctrl-group button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon,
+.maplibregl-ctrl-group button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon,
+.maplibregl-ctrl-group button.maplibregl-ctrl-compass .maplibregl-ctrl-icon {
+  @apply text-foreground! opacity-65!;
+}

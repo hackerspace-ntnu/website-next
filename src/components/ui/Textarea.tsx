@@ -1,10 +1,12 @@
 import { cx } from '@/lib/utils';
-import { forwardRef } from 'react';
 
-const Textarea = forwardRef<
-  HTMLTextAreaElement,
-  React.ComponentProps<'textarea'>
->(({ className, ...props }, ref) => {
+function Textarea({
+  ref,
+  className,
+  ...props
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  ref?: React.RefObject<HTMLTextAreaElement>;
+}) {
   return (
     <textarea
       className={cx(
@@ -15,7 +17,6 @@ const Textarea = forwardRef<
       {...props}
     />
   );
-});
-Textarea.displayName = 'Textarea';
+}
 
 export { Textarea };

@@ -30,7 +30,9 @@
     "confirm": "Confirm",
     "delete": "Delete",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "uploadText": "Drop files here or click to upload",
+    "noValidFiles": "No valid files were dropped"
   },
   "error": {
     "notFound": "404 - Page not found",
