@@ -52,7 +52,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
     defaultValues: {
       dates: {
         from: new Date(),
-        to: addDays(new Date(), 1),
+        to: addDays(new Date(), 7),
       } as DateRange,
       autoapprove: userIsMember,
     },
