@@ -64,17 +64,18 @@ function BaseField({
   const field = useFieldContext();
   const id = useId();
 
-  const labelElement = (
-    <Label
-      className={cx(
-        'mb-2 block',
-        field.state.meta.errors.length > 0 && 'text-destructive',
-      )}
-      htmlFor={`${id}-form-item`}
-    >
-      {label}
-    </Label>
-  );
+  const labelElement =
+    label.length > 0 ? (
+      <Label
+        className={cx(
+          'mb-2 block',
+          field.state.meta.errors.length > 0 && 'text-destructive',
+        )}
+        htmlFor={`${id}-form-item`}
+      >
+        {label}
+      </Label>
+    ) : undefined;
 
   return (
     <div className={cx('relative space-y-2', className)}>
