@@ -68,7 +68,6 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead className='w-20' />
-          <TableHead className='w-40'>{t.productId}</TableHead>
           <TableHead>{t.productName}</TableHead>
           <TableHead>{t.location}</TableHead>
           <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
@@ -82,7 +81,7 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
               <Input
                 type='number'
                 min={1}
-                max={5}
+                max={Math.min(item.availableUnits, 5)}
                 defaultValue={
                   cart.find((cartItem) => cartItem.id === item.id)?.amount || 0
                 }
@@ -93,10 +92,9 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
                 aria-label={t.amountOfItemAria}
               />
             </TableCell>
-            <TableCell className='font-medium'>{item.id}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.location}</TableCell>
-            <TableCell className='text-right'>{item.quantity}</TableCell>
+            <TableCell className='text-right'>{item.availableUnits}</TableCell>
             <TableCell>
               <Button
                 variant='destructive'
