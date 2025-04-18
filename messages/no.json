@@ -319,7 +319,7 @@
       "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
       "submit": "Send",
       "dateInFuture": "Datoen for levering må være i framtiden",
-      "success": "Låneforespørsel sendt! Videresender deg til lageret..."
+      "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
     },
     "categories": {
       "title": "Kategorier",

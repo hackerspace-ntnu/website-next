@@ -48,15 +48,15 @@ async function LoanCard({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
+        <ul className='space-y-2 [&>li]:flex [&>li]:items-center [&>li]:gap-2'>
           <li>
-            <CircleUserIcon className='h-8 w-8' />
+            <CircleUserIcon className='h-6 w-6 text-primary' />
             <span>
               {loan.lender.firstName} {loan.lender.lastName}
             </span>
           </li>
           <li>
-            <CalendarIcon className='h-8 w-8' />
+            <CalendarIcon className='h-6 w-6 text-primary' />
             <span>
               {t('borrowTimeline', {
                 from: format(loan.borrowFrom, 'dd.MM.yyyy'),
@@ -65,7 +65,7 @@ async function LoanCard({
             </span>
           </li>
           <li>
-            <ShoppingBasketIcon className='h-8 w-8' />
+            <ShoppingBasketIcon className='h-6 w-6 text-primary' />
             <span>
               {t('loanItem', {
                 units: loan.unitsBorrowed,
@@ -78,7 +78,7 @@ async function LoanCard({
           {status === 'approved' ? (
             loan.returnedAt ? (
               <li>
-                <CheckIcon className='h-8 w-8 text-primary' />
+                <CheckIcon className='h-6 w-6 text-primary' />
                 <span>
                   {t('returned', {
                     date: format(loan.returnedAt, 'dd.MM.yyyy'),
@@ -87,7 +87,7 @@ async function LoanCard({
               </li>
             ) : (
               <li>
-                <XIcon className='h-8 w-8 text-red-700' />
+                <XIcon className='h-6 w-6 text-red-700' />
                 <span>{t('notReturned')}</span>
               </li>
             )

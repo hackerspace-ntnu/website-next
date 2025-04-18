@@ -30,23 +30,23 @@ async function LoanCardSkeleton({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ul className='[&>li]:flex [&>li]:items-center [&>li]:gap-2'>
+        <ul className='space-y-2 [&>li]:flex [&>li]:items-center [&>li]:gap-2'>
           <li>
-            <CircleUserIcon className='h-8 w-8' />
+            <CircleUserIcon className='h-6 w-6 text-primary' />
             <Skeleton className='h-6 w-32' />
           </li>
           <li>
-            <CalendarIcon className='h-8 w-8' />
+            <CalendarIcon className='h-6 w-6 text-primary' />
             <Skeleton className='h-6 w-64' />
           </li>
           <li>
-            <ShoppingBasketIcon className='h-8 w-8' />
+            <ShoppingBasketIcon className='h-6 w-6 text-primary' />
             <Skeleton className='h-6 w-64' />
           </li>
           {/* Only show loan return info if loan is already approved */}
           {status === 'approved' && (
             <li>
-              <Skeleton className='h-8 w-8' />
+              <Skeleton className='h-6 w-6' />
               <Skeleton className='h-6 w-32' />
             </li>
           )}

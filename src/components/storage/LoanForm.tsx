@@ -69,7 +69,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
       );
       setCart(null);
       setOpen(false);
-      router.push('/storage');
+      router.push('/storage/loans/user');
     },
   });
 

@@ -319,7 +319,7 @@
       "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
-      "success": "Loan request sent! Redirecting to storage..."
+      "success": "Loan request sent! Redirecting to loans..."
     },
     "categories": {
       "title": "Categories",
