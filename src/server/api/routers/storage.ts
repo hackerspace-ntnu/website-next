@@ -76,10 +76,12 @@ const storageRouter = createRouter({
         where: eq(itemLoans.itemId, item.id),
         columns: {
           unitsBorrowed: true,
+          returnedAt: true,
         },
       });
 
       const unitsBorrowed = loans
+        .filter((loan) => loan.returnedAt === null)
         .map((loan) => loan.unitsBorrowed)
         .reduce((a, b) => a + b, 0);
 
@@ -123,6 +125,7 @@ const storageRouter = createRouter({
         // and remove item loans to avoid leaking more information than necessary
         for (const localization of rawLocalizations) {
           const unitsBorrowed = localization.item.itemLoans
+            .filter((loan) => loan.returnedAt === null)
             .map((loan) => loan.unitsBorrowed)
             .reduce((a, b) => a + b, 0);
 
@@ -188,6 +191,7 @@ const storageRouter = createRouter({
         );
 
         const unitsBorrowed = itemLoans
+          .filter((loan) => loan.returnedAt === null)
           .map((loan) => loan.unitsBorrowed)
           .reduce((a, b) => a + b, 0);
 
