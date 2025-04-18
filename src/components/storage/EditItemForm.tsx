@@ -46,15 +46,24 @@ function EditItemForm({
   const t = useTranslations('storage.edit');
   const tUi = useTranslations('ui');
   const router = useRouter();
+  const utils = api.useUtils();
 
   const [previewImage, setPreviewImage] = useState(imageUrl);
 
   const schema = itemSchema(useTranslations(), itemCategories);
   const newItemMutation = api.storage.newItem.useMutation({
-    onSuccess: () => toast.success(t('successNew')),
+    onSuccess: async () => {
+      toast.success(t('successNew'));
+      await utils.storage.fetchMany.invalidate();
+      await utils.storage.itemsTotal.invalidate();
+    },
   });
   const editItemMutation = api.storage.editItem.useMutation({
-    onSuccess: () => toast.success(t('successEdit')),
+    onSuccess: async () => {
+      toast.success(t('successEdit'));
+      await utils.storage.fetchOne.invalidate();
+      await utils.storage.fetchMany.invalidate();
+    },
   });
 
   const categoryName =

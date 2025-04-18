@@ -31,9 +31,13 @@ type DeleteItemDialogProps = {
 
 function DeleteItemDialog({ item, t }: DeleteItemDialogProps) {
   const router = useRouter();
+  const utils = api.useUtils();
   const deleteItemMutation = api.storage.deleteItem.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(t.success);
+      await utils.storage.fetchOne.invalidate();
+      await utils.storage.fetchMany.invalidate();
+      await utils.storage.itemsTotal.invalidate();
       router.push('/storage');
       router.refresh();
     },
