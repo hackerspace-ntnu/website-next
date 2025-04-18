@@ -366,7 +366,9 @@ const storageRouter = createRouter({
       const loansOfThisItem = await ctx.db
         .select()
         .from(itemLoans)
-        .where(eq(itemLoans.itemId, input.id));
+        .where(
+          and(eq(itemLoans.itemId, input.id), isNull(itemLoans.returnedAt)),
+        );
       if (loansOfThisItem.length > 0) {
         throw new TRPCError({
           code: 'BAD_REQUEST',

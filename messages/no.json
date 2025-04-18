@@ -377,7 +377,7 @@
       },
       "submit": "Submit",
       "deleteItem": "Slett gjenstand",
-      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Denne handlingen kan ikke angres!",
+      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
       "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
       "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
       "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",

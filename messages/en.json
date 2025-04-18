@@ -377,7 +377,7 @@
       },
       "submit": "Submit",
       "deleteItem": "Delete item",
-      "deleteItemDescription": "Are you sure you want to delete this item? This action cannot be undone!",
+      "deleteItemDescription": "Are you sure you want to delete this item? All loans of this item will also be deleted. This action cannot be undone!",
       "successNew": "New storage item added successfully! Redirecting to storage...",
       "successEdit": "Storage item edited successfully! Redirecting to storage...",
       "successDelete": "Storage item deleted successfully! Redirecting to storage...",
