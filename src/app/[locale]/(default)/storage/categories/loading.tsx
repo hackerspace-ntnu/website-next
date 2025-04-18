@@ -44,8 +44,8 @@ export default async function StorageCategoriesLoading() {
               <TableCell className='grid grid-cols-4 gap-4'>
                 <Skeleton className='h-10 w-full' />
                 <Skeleton className='h-10 w-full' />
-                <Skeleton className='h-10 w-full' />
-                <Skeleton className='h-10 w-full' />
+                <Skeleton className='h-10 w-32' />
+                <Skeleton className='h-10 w-32' />
               </TableCell>
             </TableRow>
           ))}

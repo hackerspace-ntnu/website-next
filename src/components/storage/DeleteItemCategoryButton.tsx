@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
@@ -31,13 +32,20 @@ function DeleteItemCategoryButton({
 
   return (
     <Button
-      className='flex gap-2'
+      className='flex w-32 gap-2'
       type='button'
       variant='destructive'
       onClick={handleDelete}
+      disabled={deleteItemCategoryMutation.isPending}
     >
-      <XIcon className='h-8 w-8' />
-      <span>{tUi('delete')}</span>
+      {deleteItemCategoryMutation.isPending ? (
+        <Spinner />
+      ) : (
+        <>
+          <XIcon className='h-8 w-8' />
+          <span>{tUi('delete')}</span>
+        </>
+      )}
     </Button>
   );
 }
