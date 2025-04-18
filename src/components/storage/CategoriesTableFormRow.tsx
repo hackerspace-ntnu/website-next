@@ -10,6 +10,7 @@ import {
   useForm,
 } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { Spinner } from '@/components/ui/Spinner';
 import { TableCell, TableRow } from '@/components/ui/Table';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
@@ -17,7 +18,7 @@ import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
 import { CheckIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useId } from 'react';
 
 function CategoriesTableFormRow({
@@ -100,15 +101,29 @@ function CategoriesTableFormRow({
                 </FormItem>
               )}
             </form.Field>
-            <form.Subscribe selector={(state) => [state.canSubmit]}>
-              {([canSubmit]) => (
+            <form.Subscribe
+              selector={(state) => [state.canSubmit, state.isPristine]}
+            >
+              {([canSubmit, isPristine]) => (
                 <Button
-                  className='flex gap-2'
+                  className='flex w-32 gap-2'
                   variant='secondary'
-                  disabled={!canSubmit}
+                  disabled={
+                    !canSubmit ||
+                    isPristine ||
+                    editItemCategoryMutation.isPending ||
+                    addItemCategoryMutation.isPending
+                  }
                 >
-                  <CheckIcon className='h-8 w-8' />
-                  <span>{tUi('save')}</span>
+                  {editItemCategoryMutation.isPending ||
+                  addItemCategoryMutation.isPending ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <CheckIcon className='h-8 w-8' />
+                      <span>{tUi('save')}</span>
+                    </>
+                  )}
                 </Button>
               )}
             </form.Subscribe>

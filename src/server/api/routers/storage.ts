@@ -380,7 +380,10 @@ const storageRouter = createRouter({
         .where(eq(itemLocalizations.itemId, input.id));
     }),
   fetchItemCategories: storageProcedure.query(async ({ ctx }) => {
-    return await ctx.db.select().from(itemCategories);
+    return await ctx.db
+      .select()
+      .from(itemCategories)
+      .orderBy(asc(itemCategories.id));
   }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db
@@ -430,22 +433,6 @@ const storageRouter = createRouter({
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const duplicateCategory = await ctx.db
-        .select()
-        .from(itemCategories)
-        .where(
-          or(
-            eq(itemCategories.nameEnglish, input.nameEnglish),
-            eq(itemCategories.nameNorwegian, input.nameNorwegian),
-          ),
-        );
-      if (duplicateCategory.length > 0) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('storage.categories.api.duplicateCategory'),
-          cause: { toast: 'error' },
-        });
-      }
       await ctx.db
         .update(itemCategories)
         .set(input)
