@@ -775,12 +775,14 @@ function CurrencyField({
 
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
+    spinnerClassName?: string;
     loading?: boolean;
   };
 
 function SubmitButton({
   children,
   className,
+  spinnerClassName,
   loading,
   ...props
 }: SubmitButtonProps) {
@@ -801,7 +803,10 @@ function SubmitButton({
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
-            <Spinner size='sm' className='text-primary-foreground' />
+            <Spinner
+              size='sm'
+              className={cx('text-primary-foreground', spinnerClassName)}
+            />
           ) : (
             children
           )}
