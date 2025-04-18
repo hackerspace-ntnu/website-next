@@ -58,11 +58,11 @@ async function LoanCardSkeleton({
       <CardFooter className='flex gap-2'>
         {status === 'pending' && admin && (
           <>
-            <Skeleton className='h-10 w-24' />
-            <Skeleton className='h-10 w-24' />
+            <Skeleton className='h-10 w-32' />
+            <Skeleton className='h-10 w-28' />
           </>
         )}
-        {status === 'approved' && admin && <Skeleton className='h-10 w-32' />}
+        {status === 'approved' && admin && <Skeleton className='h-10 w-40' />}
       </CardFooter>
     </Card>
   );

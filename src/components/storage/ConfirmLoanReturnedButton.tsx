@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
@@ -27,6 +28,8 @@ function ConfirmLoanReturnedButton({
 
   return (
     <Button
+      className='w-40'
+      disabled={confirmLoanMutation.isPending}
       onClick={async () => {
         await confirmLoanMutation.mutateAsync({
           loanId: loan.id,
@@ -35,7 +38,7 @@ function ConfirmLoanReturnedButton({
         });
       }}
     >
-      {label}
+      {confirmLoanMutation.isPending ? <Spinner /> : label}
     </Button>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
@@ -27,6 +28,8 @@ function ApproveLoanButton({
 
   return (
     <Button
+      className='w-32'
+      disabled={approveLoanMutation.isPending}
       onClick={async () => {
         approveLoanMutation.mutateAsync({
           loanId: loan.id,
@@ -35,7 +38,7 @@ function ApproveLoanButton({
         });
       }}
     >
-      {label}
+      {approveLoanMutation.isPending ? <Spinner /> : label}
     </Button>
   );
 }

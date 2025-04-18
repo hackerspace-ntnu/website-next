@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
@@ -43,7 +44,13 @@ function DeleteLoanButton({ loan, t }: DeleteLoanButtonProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='destructive'>{t.buttonLabel}</Button>
+        <Button
+          className='w-28'
+          variant='destructive'
+          disabled={deleteLoanMutation.isPending}
+        >
+          {deleteLoanMutation.isPending ? <Spinner /> : t.buttonLabel}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className='sm:max-w-md'>
         <AlertDialogHeader>
