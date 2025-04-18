@@ -30,10 +30,9 @@ type ShoppingCartClearDialogProps = {
 function ShoppingCartClearDialog({ t }: ShoppingCartClearDialogProps) {
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
-  const [open, setOpen] = useState(false);
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           className={cx(
@@ -57,7 +56,6 @@ function ShoppingCartClearDialog({ t }: ShoppingCartClearDialogProps) {
         <AlertDialogFooter>
           <AlertDialogActionDestructive
             onClick={() => {
-              setOpen(false);
               setCart(null);
             }}
           >
