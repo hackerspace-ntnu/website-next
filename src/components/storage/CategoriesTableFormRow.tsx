@@ -1,16 +1,7 @@
 'use client';
 
 import { DeleteItemCategoryButton } from '@/components/storage/DeleteItemCategoryButton';
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import { Input } from '@/components/ui/Input';
-import { Spinner } from '@/components/ui/Spinner';
+import { useAppForm } from '@/components/ui/Form';
 import { TableCell, TableRow } from '@/components/ui/Table';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
@@ -48,7 +39,10 @@ function CategoriesTableFormRow({
   });
 
   const formSchema = itemCategoryFormSchema(useTranslations());
-  const form = useForm(formSchema, {
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       nameEnglish: category?.nameEnglish ?? '',
       nameNorwegian: category?.nameNorwegian ?? '',
@@ -66,70 +60,49 @@ function CategoriesTableFormRow({
     <TableRow key={category?.id || useId()}>
       <TableCell>{category?.id || null}</TableCell>
       <TableCell>
-        <Form
-          className='flex justify-between space-y-0'
-          onSubmit={form.handleSubmit}
+        <form
+          className='grid grid-cols-4 gap-4'
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}
         >
-          <div className='grid grid-cols-4 gap-4'>
-            <form.Field name='nameNorwegian'>
-              {(field) => (
-                <FormItem errors={field.state.meta.errors}>
-                  <FormControl>
-                    <Input
-                      placeholder='Kategorinavn'
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            </form.Field>
-            <form.Field name='nameEnglish'>
-              {(field) => (
-                <FormItem errors={field.state.meta.errors}>
-                  <FormControl>
-                    <Input
-                      placeholder='Category name'
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            </form.Field>
-            <form.Subscribe
-              selector={(state) => [state.canSubmit, state.isPristine]}
+          <form.AppField name='nameNorwegian'>
+            {(field) => (
+              <field.TextField
+                label=''
+                placeholder='Kategorinavn'
+                className='space-y-0'
+              />
+            )}
+          </form.AppField>
+          <form.AppField name='nameEnglish'>
+            {(field) => (
+              <field.TextField
+                label=''
+                placeholder='Category name'
+                className='space-y-0'
+              />
+            )}
+          </form.AppField>
+          <form.AppForm>
+            <form.SubmitButton
+              className='flex w-32 gap-2'
+              variant='secondary'
+              loading={
+                addItemCategoryMutation.isPending ||
+                editItemCategoryMutation.isPending
+              }
+              spinnerClassName='text-primary'
             >
-              {([canSubmit, isPristine]) => (
-                <Button
-                  className='flex w-32 gap-2'
-                  variant='secondary'
-                  disabled={
-                    !canSubmit ||
-                    isPristine ||
-                    editItemCategoryMutation.isPending ||
-                    addItemCategoryMutation.isPending
-                  }
-                >
-                  {editItemCategoryMutation.isPending ||
-                  addItemCategoryMutation.isPending ? (
-                    <Spinner />
-                  ) : (
-                    <>
-                      <CheckIcon className='h-8 w-8' />
-                      <span>{tUi('save')}</span>
-                    </>
-                  )}
-                </Button>
-              )}
-            </form.Subscribe>
-            {category && <DeleteItemCategoryButton category={category} />}
-          </div>
-        </Form>
+              <>
+                <CheckIcon className='h-8 w-8' />
+                <span>{tUi('save')}</span>
+              </>
+            </form.SubmitButton>
+          </form.AppForm>
+          {category && <DeleteItemCategoryButton category={category} />}
+        </form>
       </TableCell>
     </TableRow>
   );
