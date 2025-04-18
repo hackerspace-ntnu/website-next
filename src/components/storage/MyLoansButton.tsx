@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
@@ -6,26 +8,23 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { BookUserIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
-async function MyLoansButton() {
-  const t = await getTranslations('storage');
-
+function MyLoansButton({ label }: { label: string }) {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Link
             variant='default'
             size='icon'
             href='/storage/loans/user'
-            aria-label={t('viewLoans')}
+            aria-label={label}
           >
             <BookUserIcon />
           </Link>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{t('viewLoans')}</p>
+          <p>{label}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

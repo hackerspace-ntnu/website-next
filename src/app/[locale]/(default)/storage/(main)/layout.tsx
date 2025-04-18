@@ -45,11 +45,11 @@ export default async function StorageLayout({
             ['labops', 'leadership', 'admin'].includes(group),
           ) && (
             <>
-              <ItemLoansButton />
-              <AddItemButton />
+              <ItemLoansButton label={t('loans.view')} />
+              <AddItemButton label={t('addNewItem')} />
             </>
           )}
-          {user && <MyLoansButton />}
+          {user && <MyLoansButton label={t('viewLoans')} />}
           <ShoppingCartLink
             t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
           />

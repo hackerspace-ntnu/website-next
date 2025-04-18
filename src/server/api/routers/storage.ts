@@ -456,7 +456,7 @@ const storageRouter = createRouter({
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('storage.categories.api.insertFailed'),
+            message: ctx.t('storage.categories.api.deleteFailed'),
             cause: { toast: 'error' },
           });
         });

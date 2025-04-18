@@ -1,3 +1,5 @@
+'use client';
+
 import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
@@ -6,26 +8,23 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { PlusIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
-async function AddItemButton() {
-  const t = await getTranslations('storage');
-
+function AddItemButton({ label }: { label: string }) {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Link
             variant='default'
             size='icon'
             href='/storage/item/new'
-            aria-label={t('addNewItem')}
+            aria-label={label}
           >
             <PlusIcon />
           </Link>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{t('addNewItem')}</p>
+          <p>{label}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
