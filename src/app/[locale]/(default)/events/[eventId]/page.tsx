@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const event = events.find((event) => event.id.toString() === id);
+  const event = events.find((event) => event.id === Number(id));
 
   return {
     title: `${event?.title}`,
@@ -31,7 +31,7 @@ export default async function EventDetailsPage({
   setRequestLocale(locale);
 
   const tLayout = await getTranslations('layout');
-  const event = events.find((event) => event.id.toString() === eventId);
+  const event = events.find((event) => event.id === Number(eventId));
 
   if (!event) return notFound();
 
