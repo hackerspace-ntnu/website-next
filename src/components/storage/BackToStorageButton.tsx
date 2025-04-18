@@ -7,8 +7,7 @@ const backToStorageButtonVariants = cva({
   base: 'flex gap-2',
   variants: {
     variant: {
-      absolute:
-        'md:-translate-y-1/2 p-0 sm:px-2 sm:py-4 md:absolute md:top-1/2 md:left-0',
+      absolute: 'absolute left-0 flex gap-2 p-2',
     },
   },
 });
@@ -28,7 +27,7 @@ async function BackToStorageButton({
       aria-label={t('backToStorage')}
     >
       <ArrowLeftIcon aria-hidden='true' />
-      <span className='hidden sm:inline'>{t('backToStorage')}</span>
+      <span className='hidden md:inline'>{t('backToStorage')}</span>
     </Link>
   );
 }
