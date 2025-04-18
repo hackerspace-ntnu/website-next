@@ -60,12 +60,16 @@ export default async function StorageLoansPage({
   return (
     <div className='mx-auto max-w-prose space-y-8'>
       <h2>{t('titlePending')}</h2>
-      {pendingLoans.length === 0 && <h3>{t('noPendingLoans')}</h3>}
+      {pendingLoans.length === 0 && (
+        <p className='ml-4 text-lg'>{t('noPendingLoans')}</p>
+      )}
       {pendingLoans.map((loan) => (
         <LoanCard key={loan.id} loan={loan} status='pending' admin={true} />
       ))}
       <h2>{t('titleApproved')}</h2>
-      {pastLoans.length === 0 && <h3>{t('noLoansFound')}</h3>}
+      {pastLoans.length === 0 && (
+        <p className='ml-4 text-lg'>{t('noLoansFound')}</p>
+      )}
       {pastLoans.map((loan) => (
         <LoanCard key={loan.id} loan={loan} status='approved' admin={true} />
       ))}
