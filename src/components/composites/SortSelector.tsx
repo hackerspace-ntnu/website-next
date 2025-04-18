@@ -49,7 +49,10 @@ function SortSelector({ filters, t }: SortSelectorProps) {
         filters.find((f) => f.urlName === filter)?.name ?? t.defaultValue
       }
     >
-      <SelectTrigger className='w-full lg:w-[250px]' aria-label={t.ariaLabel}>
+      <SelectTrigger
+        className='w-full cursor-pointer hover:bg-accent lg:w-[250px]'
+        aria-label={t.ariaLabel}
+      >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
