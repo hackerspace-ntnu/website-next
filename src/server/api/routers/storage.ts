@@ -359,6 +359,32 @@ const storageRouter = createRouter({
         .update(storageItems)
         .set(insertValues)
         .where(eq(storageItems.id, input.id));
+      await ctx.db
+        .update(itemLocalizations)
+        .set({
+          name: input.nameEnglish,
+          description: input.descriptionEnglish,
+          location: input.locationEnglish,
+        })
+        .where(
+          and(
+            eq(itemLocalizations.itemId, input.id),
+            eq(itemLocalizations.locale, 'en'),
+          ),
+        );
+      await ctx.db
+        .update(itemLocalizations)
+        .set({
+          name: input.nameNorwegian,
+          description: input.descriptionNorwegian,
+          location: input.locationNorwegian,
+        })
+        .where(
+          and(
+            eq(itemLocalizations.itemId, input.id),
+            eq(itemLocalizations.locale, 'no'),
+          ),
+        );
     }),
   deleteItem: storageProcedure
     .input((input) => deleteItemSchema().parse(input))
