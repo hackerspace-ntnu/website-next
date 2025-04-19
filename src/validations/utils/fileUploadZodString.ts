@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-type FileUploadProps = {
+type FileUploadParams = {
   maxFileSize: number;
   allowedMediaType:
     | 'application'
@@ -28,6 +28,20 @@ type FileUploadProps = {
  * @param optional Whether the image upload is optional. Defaults to `false`.
  * @returns ZodString which accepts images following the rules set.
  */
+// Overload if the string isn't optional
+function fileUploadZodString(
+  params:
+    | Omit<FileUploadParams, 'optional'>
+    | (Omit<FileUploadParams, 'optional'> & {
+        optional: false;
+      }),
+): Zod.ZodString;
+// Overload if the string is optional
+function fileUploadZodString(
+  params: Omit<FileUploadParams, 'optional'> & {
+    optional: true;
+  },
+): Zod.ZodNullable<Zod.ZodString>;
 function fileUploadZodString({
   maxFileSize,
   allowedMediaType,
@@ -36,7 +50,7 @@ function fileUploadZodString({
   wrongFileTypeError,
   sizeLimitError,
   optional = false,
-}: FileUploadProps) {
+}: FileUploadParams) {
   const MAX_FILE_SIZE = maxFileSize * 1024 * 1024; // in bytes
   let zodString = z.string();
 
@@ -66,7 +80,7 @@ function fileUploadZodString({
     }, sizeLimitError)
     .transform(({ data }) => data);
 
-  return optional ? zodString.optional() : zodString;
+  return optional ? zodString.nullable() : zodString;
 }
 
 export { fileUploadZodString };
