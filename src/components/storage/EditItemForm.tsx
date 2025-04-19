@@ -3,14 +3,7 @@
 import { DeleteItemDialog } from '@/components/storage/DeleteItemDialog';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { useForm } from '@/components/ui/Form';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { Link } from '@/components/ui/Link';
 import {
@@ -71,12 +64,12 @@ function EditItemForm({
       ? prefilledItem?.category?.nameEnglish
       : prefilledItem?.category?.nameNorwegian;
 
-  const form = useForm(schema, {
+  const form = useAppForm({
     validators: {
       onChange: schema,
     },
     defaultValues: {
-      image: undefined as string | undefined,
+      image: null as string | null,
       nameNorwegian: prefilledItem?.norwegian?.name ?? '',
       nameEnglish: prefilledItem?.english?.name ?? '',
       descriptionNorwegian: prefilledItem?.norwegian?.description ?? '',
@@ -102,203 +95,123 @@ function EditItemForm({
   });
 
   return (
-    <Form onSubmit={form.handleSubmit} className='max-w-prose space-y-8'>
-      <form.Field name='image'>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className='max-w-prose space-y-8'
+    >
+      <form.AppField name='image'>
         {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('image.label')}</FormLabel>
-            <div className='group relative h-64 w-64 rounded-lg'>
-              <FormControl>
-                <Input
-                  className='h-full w-full cursor-pointer'
-                  type='file'
-                  accept='image/jpeg,image/png'
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const base64String = await fileToBase64String(file);
-                      setPreviewImage(base64String);
-                      field.handleChange(base64String);
-                    }
-                  }}
-                  onBlur={field.handleBlur}
-                />
-              </FormControl>
-              <div className='pointer-events-none absolute top-0 left-0 overflow-hidden'>
-                <Image
-                  className='h-64 w-64 rounded-lg object-cover'
-                  alt={t('image.label')}
-                  width='256'
-                  height='256'
-                  src={previewImage ?? '/unknown.png'}
-                />
-              </div>
-              <div className='pointer-events-none absolute top-0 left-0 flex h-full w-full items-center justify-center bg-background/70 opacity-0 transition group-hover:opacity-100'>
-                {t('image.upload')}
-              </div>
-              <Badge className='-bottom-2 -right-2 pointer-events-none absolute rounded-full p-0.5'>
-                <UploadIcon className='h-6 w-6' />
-              </Badge>
+          <div className='group relative h-64 w-64 rounded-lg'>
+            <field.BaseField label={t('image.label')}>
+              <Input
+                className='h-58 w-full cursor-pointer rounded-lg border-none'
+                type='file'
+                accept='image/jpeg,image/png'
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const base64String = await fileToBase64String(file);
+                    setPreviewImage(base64String);
+                    field.handleChange(base64String);
+                  }
+                }}
+                onBlur={field.handleBlur}
+              />
+            </field.BaseField>
+            <div className='pointer-events-none absolute bottom-0 left-0'>
+              <Image
+                className='h-58 w-64 rounded-lg object-cover'
+                alt={t('image.label')}
+                width='256'
+                height='256'
+                src={previewImage ?? '/unknown.png'}
+              />
             </div>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='nameNorwegian'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('name.labelNorwegian')}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t('name.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='nameEnglish'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('name.labelEnglish')}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t('name.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='descriptionNorwegian'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('description.labelNorwegian')}</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder={t('description.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='descriptionEnglish'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('description.labelEnglish')}</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder={t('description.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='locationNorwegian'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('location.labelNorwegian')}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t('location.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='locationEnglish'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('location.labelEnglish')}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t('location.placeholder')}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='categoryName'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('category.label')}</FormLabel>
-            <div className='flex gap-2'>
-              <FormControl>
-                <Select
-                  onValueChange={field.handleChange}
-                  defaultValue={field.state.value}
-                >
-                  <SelectTrigger className='w-64'>
-                    <SelectValue placeholder={itemCategories[0]} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {itemCategories.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <Link
-                href='/storage/categories'
-                variant='default'
-                className='px-2 py-1'
-              >
-                <EditIcon className='h-6 w-6' />
-              </Link>
+            <div className='pointer-events-none absolute bottom-0 left-0 flex h-58 w-64 items-center justify-center bg-background/70 opacity-0 transition group-hover:opacity-100'>
+              {t('image.upload')}
             </div>
-            <FormMessage />
-          </FormItem>
+            <Badge className='-bottom-2 -right-2 pointer-events-none absolute rounded-full p-0.5'>
+              <UploadIcon className='h-6 w-6' />
+            </Badge>
+          </div>
         )}
-      </form.Field>
-      <form.Field name='quantity'>
+      </form.AppField>
+      <form.AppField name='nameNorwegian'>
         {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('quantity.label')}</FormLabel>
-            <FormControl>
-              <Input
-                type='number'
-                min={0}
-                value={field.state.value}
-                onChange={(e) => field.handleChange(Number(e.target.value))}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <field.TextField
+            label={t('name.labelNorwegian')}
+            placeholder={t('name.placeholder')}
+          />
         )}
-      </form.Field>
+      </form.AppField>
+      <form.AppField name='nameEnglish'>
+        {(field) => (
+          <field.TextField
+            label={t('name.labelEnglish')}
+            placeholder={t('name.placeholder')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='descriptionNorwegian'>
+        {(field) => (
+          <field.TextAreaField
+            label={t('description.labelNorwegian')}
+            placeholder={t('description.placeholder')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='descriptionEnglish'>
+        {(field) => (
+          <field.TextAreaField
+            label={t('description.labelEnglish')}
+            placeholder={t('description.placeholder')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='locationNorwegian'>
+        {(field) => (
+          <field.TextField
+            label={t('location.labelNorwegian')}
+            placeholder={t('location.placeholder')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='locationEnglish'>
+        {(field) => (
+          <field.TextField
+            label={t('location.labelEnglish')}
+            placeholder={t('location.placeholder')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='categoryName'>
+        {(field) => (
+          <div className='relative w-48'>
+            <field.SelectField
+              label={t('category.label')}
+              options={itemCategories.map((c) => ({ label: c, value: c }))}
+              placeholder={itemCategories[0]}
+            />
+            <Link
+              href='/storage/categories'
+              variant='default'
+              className='-right-2 absolute bottom-1 translate-x-full px-2 py-1'
+            >
+              <EditIcon className='h-6 w-6' />
+            </Link>
+          </div>
+        )}
+      </form.AppField>
+      <form.AppField name='quantity'>
+        {(field) => <field.NumberField label={t('quantity.label')} min={0} />}
+      </form.AppField>
       <div className='flex w-full justify-between'>
-        <form.Subscribe selector={(state) => [state.canSubmit]}>
-          {([canSubmit]) => (
-            <Button type='submit' disabled={!canSubmit}>
-              {t('submit')}
-            </Button>
-          )}
-        </form.Subscribe>
+        <form.AppForm>
+          <form.SubmitButton>{t('submit')}</form.SubmitButton>
+        </form.AppForm>
         {prefilledItem && (
           <DeleteItemDialog
             item={prefilledItem}
@@ -312,7 +225,7 @@ function EditItemForm({
           />
         )}
       </div>
-    </Form>
+    </form>
   );
 }
 

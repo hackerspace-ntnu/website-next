@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { FormLabel } from '@/components/ui/Form';
+import { Label } from '@/components/ui/Label';
 import { Link } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { EditIcon, UploadIcon } from 'lucide-react';
@@ -15,7 +15,7 @@ function EditItemFormSkeleton({
 
   return (
     <div className='max-w-prose space-y-8'>
-      <FormLabel>{t('image.label')}</FormLabel>
+      <Label>{t('image.label')}</Label>
       <div className='group relative h-64 w-64 rounded-lg'>
         <div className='pointer-events-none absolute top-0 left-0 overflow-hidden'>
           <Skeleton className='h-64 w-64 rounded-lg object-cover' />
@@ -28,44 +28,44 @@ function EditItemFormSkeleton({
         </Badge>
       </div>
       <div>
-        <FormLabel>{t('name.labelNorwegian')}</FormLabel>
+        <Label>{t('name.labelNorwegian')}</Label>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('name.labelEnglish')}</FormLabel>
+        <Label>{t('name.labelEnglish')}</Label>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('description.labelNorwegian')}</FormLabel>
+        <Label>{t('description.labelNorwegian')}</Label>
         <Skeleton className='flex h-[60px] w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('description.labelEnglish')}</FormLabel>
+        <Label>{t('description.labelEnglish')}</Label>
         <Skeleton className='flex h-[60px] w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('location.labelNorwegian')}</FormLabel>
+        <Label>{t('location.labelNorwegian')}</Label>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('location.labelEnglish')}</FormLabel>
+        <Label>{t('location.labelEnglish')}</Label>
         <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div>
-        <FormLabel>{t('category.label')}</FormLabel>
-        <div className='flex gap-2'>
-          <Skeleton className='h-10 w-64' />
+        <Label>{t('category.label')}</Label>
+        <div className='relative w-48'>
+          <Skeleton className='h-10 w-48' />
           <Link
             href='/storage/categories'
             variant='default'
-            className='px-2 py-1'
+            className='-right-2 absolute bottom-1 translate-x-full px-2 py-1'
           >
             <EditIcon className='h-6 w-6' />
           </Link>
         </div>
       </div>
       <div>
-        <FormLabel>{t('quantity.label')}</FormLabel>
+        <Label>{t('quantity.label')}</Label>
         <Skeleton className='h-10' />
       </div>
       <div className='flex w-full justify-between'>
