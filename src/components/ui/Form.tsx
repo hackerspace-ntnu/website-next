@@ -23,6 +23,7 @@ import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -226,6 +227,78 @@ function TextAreaField({
         {...props}
       />
     </BaseField>
+  );
+}
+
+type CheckboxFieldProps = Omit<
+  React.ComponentProps<typeof Checkbox>,
+  'checked' | 'value' | 'onCheckedChange' | 'onBlur'
+> & {
+  label: string;
+  description?: string;
+};
+
+function CheckboxField({
+  className,
+  label,
+  description,
+  ...props
+}: CheckboxFieldProps) {
+  const field = useFieldContext<boolean>();
+  const id = useId();
+
+  const labelElement =
+    label.length > 0 ? (
+      <Label
+        className={cx(
+          'block',
+          field.state.meta.errors.length > 0 && 'text-destructive',
+        )}
+        htmlFor={`${id}-form-item`}
+      >
+        {label}
+      </Label>
+    ) : undefined;
+
+  return (
+    <div className={className}>
+      <div className='mb-2 flex items-center gap-2'>
+        <Checkbox
+          id={`${id}-form-item`}
+          aria-describedby={
+            !(field.state.meta.errors.length > 0)
+              ? `${id}-form-item-description`
+              : `${id}-form-item-description ${id}-form-item-message`
+          }
+          aria-invalid={!!(field.state.meta.errors.length > 0)}
+          checked={field.state.value}
+          onCheckedChange={(value) =>
+            field.handleChange(value !== 'indeterminate' ? value : false)
+          }
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {labelElement}
+      </div>
+      {description && (
+        <p
+          id={`${id}-form-item-description`}
+          className={cx('text-muted-foreground text-sm', className)}
+        >
+          {description}
+        </p>
+      )}
+      <p
+        id={`${id}-form-item-message`}
+        className={cx(
+          '-translate-y-2 absolute font-medium text-[0.8rem] text-destructive',
+          className,
+        )}
+      >
+        {field.state.meta.errors.length > 0 &&
+          (field.state.meta.errors[0] as { message: string }).message}
+      </p>
+    </div>
   );
 }
 
@@ -865,6 +938,7 @@ const { useAppForm } = createFormHook({
     TextField,
     NumberField,
     TextAreaField,
+    CheckboxField,
     MapField,
     SelectField,
     PhoneField,
