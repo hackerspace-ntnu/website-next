@@ -22,6 +22,7 @@ import { DatePicker } from '@/components/composites/DatePicker';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
+import { Calendar } from '@/components/ui/Calendar';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -42,6 +43,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
 
 import { type VariantProps, cx } from '@/lib/utils';
+import type { DateRange } from 'react-day-picker';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();
@@ -773,6 +775,47 @@ function CurrencyField({
   );
 }
 
+// Omit wasn't used to skip onSelect and onDayBlur,
+// because it messes up the DayPickerProps
+// (which are dynamic based on whether
+// we choose the mode to be 'single', 'multiple' or 'range')
+type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
+  label: string;
+  labelSibling?: React.ReactNode;
+  description?: string;
+  calendarClassName?: string;
+};
+
+function CalendarField({
+  className,
+  calendarClassName,
+  label,
+  labelSibling,
+  description,
+  ...props
+}: CalendarFieldProps) {
+  const field = useFieldContext<Date | Date[] | DateRange | undefined>();
+
+  return (
+    <BaseField
+      label={label}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Calendar
+        // @ts-expect-error We cannot be sure of what mode we're using
+        onSelect={(selected) => {
+          field.handleChange(selected);
+        }}
+        className={cx('rounded-md border', calendarClassName)}
+        onDayBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
@@ -831,6 +874,7 @@ const { useAppForm } = createFormHook({
     RadioGroupField,
     FileUploadField,
     CurrencyField,
+    CalendarField,
   },
   formComponents: {
     SubmitButton,
