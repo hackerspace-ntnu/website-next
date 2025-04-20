@@ -22,6 +22,7 @@ import { DatePicker } from '@/components/composites/DatePicker';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -772,6 +773,29 @@ function CurrencyField({
   );
 }
 
+type CheckboxFieldProps = Omit<
+  React.ComponentProps<typeof Checkbox>,
+  'checked' | 'onCheckedChange' | 'onBlur'
+> & {
+  label: string;
+};
+
+function CheckboxField({ className, label, ...props }: CheckboxFieldProps) {
+  const field = useFieldContext<boolean>();
+
+  return (
+    <BaseField label={label} className={className}>
+      <Checkbox
+        checked={field.state.value}
+        onCheckedChange={(e) => field.handleChange(!field.state.value)}
+        onBlur={field.handleBlur}
+        {...props}
+        className='cursor-pointer'
+      />
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     loading?: boolean;
@@ -825,6 +849,7 @@ const { useAppForm } = createFormHook({
     RadioGroupField,
     FileUploadField,
     CurrencyField,
+    CheckboxField,
   },
   formComponents: {
     SubmitButton,

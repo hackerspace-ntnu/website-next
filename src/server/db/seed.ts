@@ -2,11 +2,13 @@ import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
 import { routing } from '@/lib/locale';
 import {
   type InsertGroup,
+  type InsertShift,
   type InsertSkill,
   type InsertUser,
   type InsertUserGroup,
   type InsertUserSkill,
   groups,
+  shifts,
   skills,
   userGroups,
   userSkills,
@@ -213,6 +215,59 @@ async function main() {
   ];
   await db.insert(userSkills).values(userSkillsData);
   console.log('Userskills inserted');
+
+  console.log('Inserting shifts...');
+  const shiftsData: InsertShift[] = [
+    {
+      day: 'monday',
+      timeslot: '1',
+      userId: insertedUsers[0]?.id ?? 0,
+    },
+    {
+      day: 'tuesday',
+      timeslot: '2',
+      userId: insertedUsers[3]?.id ?? 0,
+    },
+    {
+      day: 'wednesday',
+      timeslot: '2',
+      userId: insertedUsers[3]?.id ?? 0,
+    },
+    {
+      day: 'wednesday',
+      timeslot: '2',
+      userId: insertedUsers[0]?.id ?? 0,
+    },
+    {
+      day: 'wednesday',
+      timeslot: '3',
+      userId: insertedUsers[1]?.id ?? 0,
+    },
+    {
+      day: 'thursday',
+      timeslot: '4',
+      userId: insertedUsers[1]?.id ?? 0,
+    },
+    {
+      day: 'friday',
+      timeslot: '1',
+      userId: insertedUsers[1]?.id ?? 0,
+    },
+    {
+      day: 'friday',
+      timeslot: '1',
+      userId: insertedUsers[4]?.id ?? 0,
+    },
+    {
+      // Past end date, shouldn't be displayed
+      day: 'friday',
+      timeslot: '4',
+      userId: insertedUsers[0]?.id ?? 0,
+      endDate: new Date(0),
+    },
+  ];
+  await db.insert(shifts).values(shiftsData);
+  console.log('Shifts inserted');
 }
 
 await main();

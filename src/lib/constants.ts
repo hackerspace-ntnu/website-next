@@ -21,4 +21,8 @@ const skillIdentifiers = [
   'webdevelopment',
 ] as const;
 
-export { groupIdentifiers, skillIdentifiers };
+const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
+
+const timeslots = ['1', '2', '3', '4'] as const;
+
+export { groupIdentifiers, skillIdentifiers, days, timeslots };

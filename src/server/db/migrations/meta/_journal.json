@@ -15,6 +15,13 @@
       "when": 1741352684222,
       "tag": "0001_third_sister_grimm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744291487050,
+      "tag": "0002_wonderful_wind_dancer",
+      "breakpoints": true
     }
   ]
 }
