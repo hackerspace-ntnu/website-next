@@ -12,6 +12,7 @@ function loanFormSchema(t: Translations) {
         .date()
         .min(startOfDay(new Date()), t('storage.loanForm.dateInFuture')),
     }),
+    autoapprove: z.boolean(),
   });
 }
 

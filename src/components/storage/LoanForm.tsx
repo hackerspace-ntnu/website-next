@@ -2,18 +2,7 @@
 
 import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
-import { Calendar } from '@/components/ui/Calendar';
-import { Checkbox } from '@/components/ui/Checkbox';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import { Label } from '@/components/ui/Label';
+import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
@@ -48,7 +37,10 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
   const user = api.auth.state.useQuery().data?.user;
   const userIsMember = user ? user.groups.length > 0 : false;
 
-  const form = useForm(loanFormSchema(useTranslations()), {
+  const form = useAppForm({
+    validators: {
+      onChange: loanFormSchema(useTranslations()),
+    },
     defaultValues: {
       dates: {
         from: new Date(),
@@ -74,60 +66,45 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
   });
 
   return (
-    <Form className='xs:space-y-3' onSubmit={form.handleSubmit}>
-      <form.Field name='dates'>
+    <form
+      className='xs:space-y-3'
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
+      <form.AppField name='dates'>
         {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t.loanPeriod}</FormLabel>
-            <FormControl>
-              <Calendar
-                className='mx-auto w-fit rounded-md border'
-                mode='range'
-                selected={field.state.value}
-                onSelect={(range) => {
-                  field.handleChange(
-                    range ?? { from: new Date(), to: addDays(new Date(), 1) },
-                  );
-                }}
-                required={true}
-                showOutsideDays={false}
-                min={1}
-                max={differenceInDays(
-                  addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
-                  new Date(),
-                )}
-                disabled={{
-                  before: new Date(),
-                }}
-              />
-            </FormControl>
-            <FormDescription>{t.loanPeriodDescription}</FormDescription>
-            <FormMessage />
-          </FormItem>
+          <field.CalendarField
+            label={t.loanPeriod}
+            description={t.loanPeriodDescription}
+            calendarClassName='mx-auto w-fit'
+            mode='range'
+            required={true}
+            selected={field.state.value ?? addDays(new Date(), 1)}
+            showOutsideDays={false}
+            min={1}
+            max={differenceInDays(
+              addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
+              new Date(),
+            )}
+            disabled={{
+              before: new Date(),
+            }}
+          />
         )}
-      </form.Field>
+      </form.AppField>
       {userIsMember && (
-        <form.Field name='autoapprove'>
+        <form.AppField name='autoapprove'>
           {(field) => (
-            <FormItem errors={field.state.meta.errors}>
-              <div className='flex items-center gap-2'>
-                <FormControl>
-                  <Checkbox
-                    checked={field.state.value}
-                    onCheckedChange={(value) =>
-                      field.handleChange(
-                        value !== 'indeterminate' ? value : false,
-                      )
-                    }
-                  />
-                </FormControl>
-                <Label>{t.autoapprove}</Label>
-              </div>
-              <FormDescription>{t.autoapproveDescription}</FormDescription>
-              <FormMessage />
-            </FormItem>
+            <div className='flex items-center gap-2'>
+              <field.CheckboxField
+                label={t.autoapprove}
+                description={t.autoapproveDescription}
+              />
+            </div>
           )}
-        </form.Field>
+        </form.AppField>
       )}
       <form.Subscribe selector={(state) => [state.canSubmit]}>
         {([canSubmit]) => (
@@ -140,7 +117,7 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
           </Button>
         )}
       </form.Subscribe>
-    </Form>
+    </form>
   );
 }
 
