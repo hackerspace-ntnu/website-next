@@ -3,6 +3,7 @@
     "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
   },
   "ui": {
+    "open": "Open",
     "close": "Close",
     "previous": "Previous",
     "goToPreviousPage": "Go to previous page",
@@ -424,25 +425,40 @@
   },
   "shiftSchedule": {
     "title": "Shift Schedule",
-    "administratorMenu": {
-      "label": "Administrator Menu",
-      "open": "Open Administrator Menu",
-      "close": "Close Administrator Menu",
-      "clearShiftSchedule": "Clear shift schedule"
+    "clearShifts": {
+      "clear": "Clear shift schedule",
+      "warning": "Warning",
+      "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
+      "confirm": "Clear",
+      "cancel": "Cancel",
+      "clearSuccess": "Cleared shifts successfully"
     },
-    "scheduleTable": {
+    "table": {
       "time": "Time",
       "day": "{day, select, monday {Monday} tuesday {Tuesday} wednesday {Wednesday} thursday {Thursday} other {Friday}}",
-      "scheduleCell": {
-        "onShift": "{count, plural, =0 {Closed} =1 {1 person on shift} other {# people on shift}}",
-        "scheduleCellDialog": {
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person on shift} other {# people on shift}}",
+        "closed": "Closed",
+        "dialog": {
+          "description": "See members on the selected shift or register yourself",
           "empty": "No one on shift",
-          "registerSection": {
-            "recurring": "Recurring",
-            "register": "Register"
-          }
+          "recurring": "Recurring",
+          "register": "Register",
+          "update": "Update",
+          "unregister": "Unregister",
+          "signIn": "Sign in",
+          "signInDescription": "Sign in to register for shifts",
+          "registerSuccess": "Registered shift successfully",
+          "updateSuccess": "Updated shift successfully",
+          "unregisterSuccess": "Unregistered from shift successfully"
         }
       }
+    },
+    "api": {
+      "day": "Invalid day",
+      "timeslot": "Invalid timeslot",
+      "recurring": "Invalid value for recurring",
+      "fetchShiftsFailed": "Failed to fetch shifts"
     }
   },
   "events": {
@@ -466,7 +482,7 @@
     "printing": "3D Printing",
     "soldering": "Soldering",
     "raspberry": "Raspberry Pi",
-    "unix": "Unix/Lniux",
+    "unix": "Unix/Linux",
     "laser": "Laser Cutting",
     "workshop": "Workshop Tools",
     "microcontroller": "Microcontroller Programming",

@@ -3,6 +3,7 @@
     "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Slack-kanal for assistanse eller en vennlig prat."
   },
   "ui": {
+    "open": "Åpne",
     "close": "Lukk",
     "previous": "Forrige",
     "goToPreviousPage": "Gå til forrige side",
@@ -119,7 +120,7 @@
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
-    "rules": "Rules",
+    "rules": "Regler",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -191,7 +192,7 @@
     "account": {
       "title": "Konto",
       "updateAccount": "Oppdater konto",
-      "updateAccountFailed": "Failed to update account",
+      "updateAccountFailed": "Kunne ikke oppdatere konto",
       "updateAccountSuccess": "Konto oppdatert",
       "email": {
         "label": "E-post",
@@ -424,25 +425,40 @@
   },
   "shiftSchedule": {
     "title": "Vaktliste",
-    "administratorMenu": {
-      "label": "Administrator-meny",
-      "open": "Åpne Administrator-meny",
-      "close": "Lukk Administrator-meny",
-      "clearShiftSchedule": "Tøm vaktliste"
+    "clearShifts": {
+      "clear": "Tøm vaktliste",
+      "warning": "Advarsel",
+      "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",
+      "confirm": "Tøm",
+      "cancel": "Avbryt",
+      "clearSuccess": "Vaktliste tømt"
     },
-    "scheduleTable": {
+    "table": {
       "time": "Tid",
       "day": "{day, select, monday {Mandag} tuesday {Tirsdag} wednesday {Onsdag} thursday {Torsdag} other {Fredag}}",
-      "scheduleCell": {
-        "onShift": "{count, plural, =0 {Stengt} =1 {1 person på vakt} other {# personer på vakt}}",
-        "scheduleCellDialog": {
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person på vakt} other {# personer på vakt}}",
+        "closed": "Stengt",
+        "dialog": {
+          "description": "Se medlemmer på valgt vakt eller registrer selv",
           "empty": "Ingen på vakt",
-          "registerSection": {
-            "recurring": "Gjentagende",
-            "register": "Registrer"
-          }
+          "recurring": "Gjentagende",
+          "register": "Registrer",
+          "update": "Oppdater",
+          "unregister": "Avregistrer",
+          "signIn": "Logg inn",
+          "signInDescription": "Logg inn for å registrere vakt",
+          "registerSuccess": "Vakt registrert",
+          "updateSuccess": "Vakt oppdatert",
+          "unregisterSuccess": "Vakt avregistrert"
         }
       }
+    },
+    "api": {
+      "day": "Ugyldig dag",
+      "timeslot": "Ugyldig tidsrom",
+      "recurring": "Ugyldig verdi for gjentagende",
+      "fetchShiftsFailed": "Kunne ikke hente vakter"
     }
   },
   "events": {
