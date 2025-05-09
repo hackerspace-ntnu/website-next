@@ -22,6 +22,7 @@ import {
   matrixChangeDisplayname,
   matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
+  matrixEraseUser,
 } from '@/server/services/matrix';
 import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
@@ -241,6 +242,8 @@ const settingsRouter = createRouter({
     for (const file of userFiles) {
       await ctx.s3.deleteFile(file.directory, String(file.id));
     }
+
+    await matrixEraseUser(ctx.user.username);
 
     await ctx.db
       .delete(users)
