@@ -23,7 +23,7 @@ const shifts = pgTable(
     timeslot: timeslotsEnum('timeslot').notNull(),
     userId: integer('user_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade' }),
     endDate: timestamp('end_date'),
   },
   (table) => {

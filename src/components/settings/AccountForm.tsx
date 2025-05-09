@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { z } from 'zod';
 
+import { DeleteAccountDialog } from '@/components/settings/DeleteAccountDialog';
 import { api } from '@/lib/api/client';
 import { accountSchema } from '@/validations/settings/accountSchema';
 
@@ -136,10 +137,12 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
             />
           )}
         </form.AppField>
-
-        <form.SubmitButton loading={updateAccountMutation.isPending}>
-          {t('updateAccount')}
-        </form.SubmitButton>
+        <div className='flex justify-between'>
+          <form.SubmitButton loading={updateAccountMutation.isPending}>
+            {t('updateAccount')}
+          </form.SubmitButton>
+          <DeleteAccountDialog />
+        </div>
       </form.AppForm>
     </form>
   );

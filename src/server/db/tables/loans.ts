@@ -21,7 +21,7 @@ const itemLoans = pgTable('item_loans', {
     .references(() => storageItems.id, { onDelete: 'cascade' }),
   lenderId: integer('lender_id')
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: 'cascade' }),
   unitsBorrowed: integer('units_borrowed').notNull(),
   borrowFrom: timestamp('borrow_from').notNull(),
   borrowUntil: timestamp('borrow_until').notNull(),

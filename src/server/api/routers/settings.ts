@@ -232,6 +232,25 @@ const settingsRouter = createRouter({
       notificationsSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {}),
+  deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {
+    const userFiles = await ctx.db.query.files.findMany({
+      where: eq(files.uploadedBy, ctx.user.id),
+    });
+
+    for (const file of userFiles) {
+      await ctx.s3.deleteFile(file.directory, String(file.id));
+    }
+
+    await ctx.db
+      .delete(users)
+      .where(eq(users.id, ctx.user.id))
+      .catch(() => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.account.delete.failedToDelete'),
+        });
+      });
+  }),
 });
 
 export { settingsRouter };
