@@ -70,7 +70,8 @@ function CategoriesTableFormRow({
           <form.AppField name='nameNorwegian'>
             {(field) => (
               <field.TextField
-                label=''
+                label='Kategorinavn'
+                labelVisible={false}
                 placeholder='Kategorinavn'
                 className='space-y-0'
               />
@@ -79,7 +80,8 @@ function CategoriesTableFormRow({
           <form.AppField name='nameEnglish'>
             {(field) => (
               <field.TextField
-                label=''
+                label='Category name'
+                labelVisible={false}
                 placeholder='Category name'
                 className='space-y-0'
               />

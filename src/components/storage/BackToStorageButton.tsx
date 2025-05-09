@@ -1,5 +1,5 @@
 import { Link } from '@/components/ui/Link';
-import { type VariantProps, cva } from 'cva';
+import { type VariantProps, cva } from '@/lib/utils';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 

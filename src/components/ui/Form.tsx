@@ -52,6 +52,7 @@ const { fieldContext, useFieldContext, formContext, useFormContext } =
 type BaseFieldProps = {
   className?: string;
   label: string;
+  labelVisible?: boolean;
   description?: string;
   labelSibling?: React.ReactNode;
   children: React.ReactNode;
@@ -60,6 +61,7 @@ type BaseFieldProps = {
 function BaseField({
   className,
   label,
+  labelVisible = true,
   labelSibling,
   description,
   children,
@@ -73,6 +75,7 @@ function BaseField({
         className={cx(
           'mb-2 block',
           field.state.meta.errors.length > 0 && 'text-destructive',
+          !labelVisible && 'sr-only',
         )}
         htmlFor={`${id}-form-item`}
       >
@@ -84,11 +87,11 @@ function BaseField({
     <div className={cx('relative space-y-2', className)}>
       {labelSibling ? (
         <div className='flex items-center justify-between'>
-          {labelElement}
-          {labelSibling}
+          {labelVisible && labelElement}
+          {labelVisible && labelSibling}
         </div>
       ) : (
-        labelElement
+        labelVisible && labelElement
       )}
       {description && (
         <p
@@ -128,6 +131,7 @@ type TextFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -135,6 +139,7 @@ type TextFieldProps = Omit<
 function TextField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -144,6 +149,7 @@ function TextField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -164,6 +170,7 @@ type NumberFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -171,6 +178,7 @@ type NumberFieldProps = Omit<
 function NumberField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -180,6 +188,7 @@ function NumberField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -200,6 +209,7 @@ type TextAreaFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -207,6 +217,7 @@ type TextAreaFieldProps = Omit<
 function TextAreaField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -216,6 +227,7 @@ function TextAreaField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -235,12 +247,14 @@ type CheckboxFieldProps = Omit<
   'checked' | 'value' | 'onCheckedChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   description?: string;
 };
 
 function CheckboxField({
   className,
   label,
+  labelVisible,
   description,
   ...props
 }: CheckboxFieldProps) {
@@ -278,7 +292,7 @@ function CheckboxField({
           onBlur={field.handleBlur}
           {...props}
         />
-        {labelElement}
+        {labelVisible && labelElement}
       </div>
       {description && (
         <p
@@ -309,6 +323,7 @@ type Location = {
 
 type MapFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   zoom?: number;
   coordinates?: Location;
@@ -323,6 +338,7 @@ const DEFAULT_COORDINATES: Location = {
 
 function MapField({
   label,
+  labelVisible,
   className,
   zoom = 4,
   coordinates = DEFAULT_COORDINATES,
@@ -344,6 +360,7 @@ function MapField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -378,6 +395,7 @@ type SelectOption = {
 
 type SelectFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   placeholder?: string;
   options: SelectOption[];
@@ -388,6 +406,7 @@ type SelectFieldProps = {
 
 function SelectField({
   label,
+  labelVisible,
   className,
   placeholder = 'Select an option',
   options,
@@ -400,6 +419,7 @@ function SelectField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -441,6 +461,7 @@ type PhoneFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -448,6 +469,7 @@ type PhoneFieldProps = Omit<
 function PhoneField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -457,6 +479,7 @@ function PhoneField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -476,6 +499,7 @@ type PasswordFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -483,6 +507,7 @@ type PasswordFieldProps = Omit<
 function PasswordField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -492,6 +517,7 @@ function PasswordField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -511,6 +537,7 @@ type DateFieldProps = Omit<
   'date' | 'setDate' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -518,6 +545,7 @@ type DateFieldProps = Omit<
 function DateField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -527,6 +555,7 @@ function DateField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -546,6 +575,7 @@ type OTPFieldProps = Omit<
   'value' | 'onChange' | 'onBlur' | 'maxLength' | 'render'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   slots?: number;
   groups?: number[];
@@ -555,6 +585,7 @@ type OTPFieldProps = Omit<
 function OTPField({
   className,
   label,
+  labelVisible,
   labelSibling,
   slots = 6,
   groups = [],
@@ -597,6 +628,7 @@ function OTPField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -621,6 +653,7 @@ type RadioOption = {
 
 type RadioGroupFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   options: RadioOption[];
   labelSibling?: React.ReactNode;
@@ -629,6 +662,7 @@ type RadioGroupFieldProps = {
 
 function RadioGroupField({
   label,
+  labelVisible,
   className,
   options,
   labelSibling,
@@ -639,6 +673,7 @@ function RadioGroupField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -664,6 +699,7 @@ type FileUploadFieldProps = Omit<
   'onFilesUploaded'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
   className?: string;
@@ -672,6 +708,7 @@ type FileUploadFieldProps = Omit<
 function FileUploadField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -698,6 +735,7 @@ function FileUploadField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -712,6 +750,7 @@ type CurrencyFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   currency?: string;
   locale?: string;
 };
@@ -719,6 +758,7 @@ type CurrencyFieldProps = Omit<
 function CurrencyField({
   className,
   label,
+  labelVisible,
   currency = 'NOK',
   locale = 'nb-NO',
   ...props
@@ -832,7 +872,7 @@ function CurrencyField({
   }
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} className={className} labelVisible={labelVisible}>
       <Input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type='text'
@@ -854,6 +894,7 @@ function CurrencyField({
 // we choose the mode to be 'single', 'multiple' or 'range')
 type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
   calendarClassName?: string;
@@ -863,6 +904,7 @@ function CalendarField({
   className,
   calendarClassName,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -872,6 +914,7 @@ function CalendarField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
