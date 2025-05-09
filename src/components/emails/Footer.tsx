@@ -1,5 +1,5 @@
-import type { routing } from '@/lib/locale';
 import { Container, Img, Link, Text } from '@react-email/components';
+import type { Locale } from 'next-intl';
 
 function Footer({
   publicSiteUrl,
@@ -7,7 +7,7 @@ function Footer({
   theme,
 }: {
   publicSiteUrl: string;
-  locale: (typeof routing.locales)[number];
+  locale: Locale;
   theme: 'dark' | 'light';
 }) {
   return (

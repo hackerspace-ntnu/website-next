@@ -3,6 +3,7 @@ import { Header } from '@/components/emails/Header';
 import { Wrapper } from '@/components/emails/Wrapper';
 import { routing } from '@/lib/locale';
 import { Section, Text } from '@react-email/components';
+import type { Locale } from 'next-intl';
 
 export default function VerificationCodeEmail({
   locale = routing.defaultLocale,
@@ -10,7 +11,7 @@ export default function VerificationCodeEmail({
   publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   validationCode = 'ABCD-EFGH',
 }: {
-  locale: (typeof routing.locales)[number];
+  locale: Locale;
   theme: 'dark' | 'light';
   publicSiteUrl: string;
   validationCode: string;
