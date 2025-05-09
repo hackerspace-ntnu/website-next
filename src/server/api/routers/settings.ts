@@ -85,7 +85,7 @@ const settingsRouter = createRouter({
         }
 
         const file = await insertFile(
-          input.profilePicture,
+          input.profilePicture as string,
           PROFILE_PICTURE_DIRECTORY,
           ctx.user.id,
           true,

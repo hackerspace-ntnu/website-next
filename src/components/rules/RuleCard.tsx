@@ -20,8 +20,8 @@ function RuleCard({ className, id, internal, title, photoUrl }: RuleCardProps) {
     <Link
       className={cx(className)}
       href={{
-        pathname: '/rules/[subset]',
-        params: { subset: id },
+        pathname: '/rules/[subsetId]',
+        params: { subsetId: id },
       }}
       aria-label={title}
     >

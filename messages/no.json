@@ -10,6 +10,7 @@
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
     "morePages": "Flere sider",
+    "name": "navn",
     "page": "side",
     "category": "kategori",
     "sort": "sortering",
@@ -27,6 +28,10 @@
     "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
     "showPassword": "Vis passord",
+    "confirm": "Bekreft",
+    "delete": "Slett",
+    "cancel": "Avbryt",
+    "save": "Lagre",
     "uploadText": "Slipp filer her eller klikk for å laste opp",
     "noValidFiles": "Ingen gyldige filer ble sluppet"
   },
@@ -248,18 +253,21 @@
   "storage": {
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
+    "addNewItem": "Legg til ny gjenstand",
+    "viewLoans": "Se dine lån",
+    "backToStorage": "Tilbake til lageret",
+    "noItemsFound": "Ingen gjenstander funnet. Sjekk filtreringskriteriene dine.",
     "card": {
-      "quantityInfo": "{quantity} stk.",
+      "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",
       "removeFromCart": "Fjern fra handlekurven"
     },
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
       "filters": "Filtre",
-      "popularity": "Popularitet",
+      "name": "Navn (alfabetisk)",
       "sortDescending": "Lagerbeholdning (synkende)",
-      "sortAscending": "Lagerbeholdning (stigende)",
-      "name": "Navn (alfabetisk)"
+      "sortAscending": "Lagerbeholdning (stigende)"
     },
     "combobox": {
       "defaultDescription": "Velg kategori...",
@@ -270,10 +278,9 @@
       "miniPC": "Mini-PC"
     },
     "searchParams": {
-      "popularity": "popularitet",
+      "name": "navn",
       "descending": "synkende",
       "ascending": "stigende",
-      "name": "navn",
       "cables": "kabler",
       "sensors": "sensorer",
       "peripherals": "tilbehoer",
@@ -282,6 +289,17 @@
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
     },
+    "item": {
+      "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
+      "noLocation": "Ingen plassering spesifisert",
+      "noCategory": "Ingen kategori spesifisert",
+      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
+      "edit": "Rediger gjenstand",
+      "api": {
+        "insertFailed": "Feilet å legge til gjenstanden",
+        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace DevOps om denne feilen!"
+      }
+    },
     "shoppingCart": {
       "title": "Handlekurv",
       "productId": "Produkt-ID",
@@ -289,23 +307,120 @@
       "location": "Plass",
       "unitsAvailable": "Stk tilgjengelig",
       "tableDescription": "En liste over handlekurven din.",
-      "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
-      "cancel": "Avbryt",
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
-      "borrowNow": "Lån nå",
-      "amountOfItemARIA": "Velg antallet av denne gjenstanden"
+      "requestLoan": "Send låneforespørsel",
+      "amountOfItemAria": "Velg antallet av denne gjenstanden",
+      "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {
-      "name": "Navn",
-      "email": "Epost",
-      "phoneNumber": "Mobilnummer",
-      "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
-      "returnBy": "Lån fram til",
-      "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
-      "submit": "Send"
+      "loanPeriod": "Velg låneperiode",
+      "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "autoapprove": "Godkjenn umiddelbart",
+      "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
+      "submit": "Send",
+      "dateInFuture": "Datoen for levering må være i framtiden",
+      "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
+    },
+    "categories": {
+      "title": "Kategorier",
+      "categoryName": "Kategorinavn (norsk og engelsk)",
+      "categoryTableDescription": "Tabell over kategorier",
+      "actions": "Handlinger",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
+      "successAddMessage": "Kategorien har blitt lagt til!",
+      "successEditMessage": "Kategorien har blitt redigert!",
+      "successDeleteMessage": "Kategorien har blitt slettet!",
+      "invalidName": "Ugyldig kategorinavn",
+      "api": {
+        "insertFailed": "Feilet å legge til kategori",
+        "updateFailed": "Feilet å redigere kategori",
+        "deleteFailed": "Feilet å fjerne kategori",
+        "duplicateCategory": "Kan ikke legge til flere kategorier med samme navn"
+      }
+    },
+    "edit": {
+      "titleNew": "Ny gjenstand",
+      "titleEdit": "Rediger gjenstand",
+      "image": {
+        "label": "Bilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Bildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelEnglish": "Navn (engelsk)",
+        "labelNorwegian": "Navn (norsk)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "Navn er påkrevd."
+      },
+      "description": {
+        "labelEnglish": "Beskrivelse (engelsk)",
+        "labelNorwegian": "Beskrivelse (norwegian)",
+        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
+      },
+      "location": {
+        "labelEnglish": "Plassering (engelsk)",
+        "labelNorwegian": "Plassering (norsk)",
+        "placeholder": "Boks 2A",
+        "required": "Plassering er påkrevd.",
+        "invalid": "Vennligst oppgi en kort og konsis plassering."
+      },
+      "quantity": {
+        "label": "Antall",
+        "placeholder": "4",
+        "negative": "Antallet kan ikke være negativt."
+      },
+      "category": {
+        "label": "Kategori",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "deleteItem": "Slett gjenstand",
+      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
+      "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
+      "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
+      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandene på lager"
+    },
+    "loans": {
+      "view": "Se lån",
+      "title": "Lån",
+      "titlePending": "Utestående lån",
+      "titleApproved": "Godkjente lån",
+      "pendingLoan": "Utestående lån",
+      "notReturned": "Ikke levert tilbake enda",
+      "returned": "Levert tilbake {date}",
+      "loanSubheader": "Dette lånet venter på godkjenning",
+      "loanItem": "{units, plural, other {# stk.}} av {name}",
+      "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
+      "approve": "Godkjenn",
+      "confirmLoanReturn": "Bekreft tilbakelevering",
+      "deleteLoan": "Slett låneforespørsel",
+      "deleteDescription": "Er du helt sikker at du ønsker å slette låneforespørselen fra {person}?",
+      "loan": "Lån",
+      "loanApproveSuccess": "Lånet har blitt godkjent!",
+      "loanDeleteSuccess": "Lånet har blitt slettet!",
+      "loanReturnSuccess": "Lånet har blitt registrert som levert!",
+      "loanApproved": "Dette lånet har blitt godkjent",
+      "borrowTimeline": "Lån fra {from} til {until}",
+      "requestedAt": "Forespørsel sendt {date}",
+      "noPendingLoans": "Ingen utestående lån 🎉",
+      "noLoansFound": "Ingen lån funnet",
+      "unauthorized": "Du har ikke rettigheter til å administrere låneforespørsler"
+    },
+    "api": {
+      "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
+      "notFound": "Den valgte gjenstanden ble ikke funnet.",
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
+      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
+      "borrowPositiveAmount": "Må låne et positivt antall.",
+      "limitNotInRange": "limit må være mellom 1 og 50."
     }
   },
   "shiftSchedule": {

@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const event = events.find((event) => event.id.toString() === id);
+  const event = events.find((event) => event.id === Number(id));
 
   return {
     title: `${event?.title}`,
@@ -25,13 +25,13 @@ export async function generateMetadata({
 export default async function EventDetailsPage({
   params,
 }: {
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: string; eventId: string }>;
 }) {
-  const { locale, id } = await params;
+  const { locale, eventId } = await params;
   setRequestLocale(locale);
 
   const tLayout = await getTranslations('layout');
-  const event = events.find((event) => event.id.toString() === id);
+  const event = events.find((event) => event.id === Number(eventId));
 
   if (!event) return notFound();
 
@@ -40,7 +40,7 @@ export default async function EventDetailsPage({
 
   const formattedRange = isSameDay(startDate, endDate)
     ? `${format(startDate, 'HH:mm')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`
-    : `${format(startDate, 'HH:mm, dd/MM/yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
+    : `${format(startDate, 'HH:mm, dd.MM.yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
 
   return (
     <>

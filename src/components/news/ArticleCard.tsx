@@ -30,8 +30,8 @@ function ArticleCard({
     <Link
       className={cx('group whitespace-normal font-normal', className)}
       href={{
-        pathname: '/news/[article]',
-        params: { article: id },
+        pathname: '/news/[articleId]',
+        params: { articleId: id },
       }}
     >
       <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>

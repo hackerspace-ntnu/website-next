@@ -1,6 +1,6 @@
 'use client';
 
-import type { CartItem } from '@/components/storage/AddToCartButton';
+import type { CartItem } from '@/components/storage/types';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import {
@@ -10,30 +10,31 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { cx } from '@/lib/utils';
 import { ShoppingCartIcon } from 'lucide-react';
 
 type ShoppingCartLinkProps = {
   t: {
     viewShoppingCart: string;
   };
+  className?: string;
 };
 
-function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
+function ShoppingCartLink({ t, className }: ShoppingCartLinkProps) {
   const [cart, _, isLoading] = useLocalStorage<CartItem[]>('shopping-cart');
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className='absolute right-0 xs:right-5 bottom-0'>
-            <Link
-              variant='default'
-              size='icon'
-              href='/storage/shopping-cart'
-              aria-label={t.viewShoppingCart}
-            >
-              <ShoppingCartIcon />
-            </Link>
+          <Link
+            variant='default'
+            size='icon'
+            href='/storage/shopping-cart'
+            aria-label={t.viewShoppingCart}
+            className={cx('relative', className)}
+          >
+            <ShoppingCartIcon />
             {!isLoading && cart && cart.length > 0 && (
               <Badge
                 className='-top-2 -right-3.5 pointer-events-none absolute rounded-full'
@@ -42,7 +43,7 @@ function ShoppingCartLink({ t }: ShoppingCartLinkProps) {
                 {cart.length}
               </Badge>
             )}
-          </div>
+          </Link>
         </TooltipTrigger>
         <TooltipContent>
           <p>{t.viewShoppingCart}</p>

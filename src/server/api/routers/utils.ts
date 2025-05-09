@@ -11,7 +11,7 @@ const utilsRouter = createRouter({
         fileId: z.number().positive(),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
+    .query(async ({ input, ctx }) => {
       try {
         return await getFileUrl(input.fileId);
       } catch (error) {
