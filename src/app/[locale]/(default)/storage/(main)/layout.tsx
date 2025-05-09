@@ -8,12 +8,13 @@ import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
 import { api } from '@/lib/api/server';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default async function StorageLayout({

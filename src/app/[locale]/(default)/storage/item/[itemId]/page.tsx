@@ -5,12 +5,13 @@ import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { BlocksIcon, MapPinIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 type StorageItemParams = Promise<{
-  locale: string;
+  locale: Locale;
   itemId: string;
 }>;
 

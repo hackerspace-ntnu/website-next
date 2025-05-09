@@ -70,7 +70,9 @@ async function LoanCard({
               {t('loanItem', {
                 units: loan.unitsBorrowed,
                 name:
-                  locale === 'en' ? englishLocale?.name : norwegianLocale?.name,
+                  (locale === 'en'
+                    ? englishLocale?.name
+                    : norwegianLocale?.name) ?? '',
               })}
             </span>
           </li>

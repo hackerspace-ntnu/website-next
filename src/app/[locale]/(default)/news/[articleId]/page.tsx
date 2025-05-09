@@ -9,6 +9,7 @@ import readingTime from 'reading-time';
 
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
 import { Badge } from '@/components/ui/Badge';
+import type { Locale } from 'next-intl';
 
 export async function generateMetadata({
   params,
@@ -26,7 +27,7 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: string; articleId: string }>;
+  params: Promise<{ locale: Locale; articleId: string }>;
 }) {
   const { locale, articleId } = await params;
   setRequestLocale(locale);

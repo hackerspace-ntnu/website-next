@@ -1,6 +1,7 @@
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { parseAsInteger } from 'nuqs/server';
 import { type SearchParams, createSearchParamsCache } from 'nuqs/server';
@@ -17,7 +18,7 @@ export default async function UserLoansPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;

@@ -2,7 +2,7 @@ import { BorrowDialog } from '@/components/storage/BorrowDialog';
 import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { api } from '@/lib/api/server';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
@@ -12,7 +12,7 @@ import {
 export default async function StorageShoppingCartPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 

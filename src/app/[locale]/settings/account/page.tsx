@@ -3,6 +3,7 @@ import { PasswordForm } from '@/components/settings/PasswordForm';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -16,7 +17,7 @@ export async function generateMetadata() {
 export default async function AccountPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);

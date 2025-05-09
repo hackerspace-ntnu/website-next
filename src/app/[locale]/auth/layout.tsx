@@ -3,7 +3,7 @@ import { LogoLink } from '@/components/layout/LogoLink';
 import { Main } from '@/components/layout/Main';
 import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
 import { Card, CardHeader } from '@/components/ui/Card';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
@@ -12,7 +12,7 @@ import {
 
 type AuthLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata() {
