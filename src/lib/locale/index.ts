@@ -61,7 +61,7 @@ const routing = defineRouting({
     },
     '/settings': {
       en: '/settings',
-      no: '/instillinger',
+      no: '/innstillinger',
     },
     '/settings/account': {
       en: '/settings/account',
