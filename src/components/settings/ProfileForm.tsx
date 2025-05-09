@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 
+import { DeleteAccountDialog } from '@/components/settings/DeleteAccountDialog';
 import { api } from '@/lib/api/client';
 import { profileSchema } from '@/validations/settings/profileSchema';
 
@@ -76,9 +77,12 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
             />
           )}
         </form.AppField>
-        <form.SubmitButton loading={updateProfileSettingsMutation.isPending}>
-          {t('updateProfile')}
-        </form.SubmitButton>
+        <div className='flex justify-between'>
+          <form.SubmitButton loading={updateProfileSettingsMutation.isPending}>
+            {t('updateProfile')}
+          </form.SubmitButton>
+          <DeleteAccountDialog />
+        </div>
       </form.AppForm>
     </form>
   );

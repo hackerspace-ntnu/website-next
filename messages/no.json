@@ -187,6 +187,11 @@
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"
+      },
+      "delete": {
+        "buttonLabel": "Slett konto",
+        "dialogTitle": "Er du sikker på at du ønsker å slette kontoen din?",
+        "dialogDescription": "All data relatert til deg, inkludert all kontaktinformasjon, profilbilde, lån via lagersystemet, arrangementsregistreringer, tilknyttede grupper, reservasjoner, innstillinger og mer vil bli slettet. Dette valget kan ikke angres. Hvis du endrer meningen din senere, vil gjenopprettelsen av denne dataen være umulig, men du er likevel velkommen til å lage en ny konto."
       }
     },
     "account": {
