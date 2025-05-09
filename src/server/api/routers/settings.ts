@@ -13,6 +13,7 @@ import {
   verifyPasswordStrength,
 } from '@/server/auth/password';
 import { checkPhoneAvailability } from '@/server/auth/phone';
+import { deleteSessionTokenCookie } from '@/server/auth/session';
 import { updateUserPassword } from '@/server/auth/user';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
@@ -250,6 +251,8 @@ const settingsRouter = createRouter({
           message: ctx.t('settings.account.delete.failedToDelete'),
         });
       });
+
+    await deleteSessionTokenCookie();
   }),
 });
 
