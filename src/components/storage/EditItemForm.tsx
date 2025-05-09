@@ -60,7 +60,7 @@ function EditItemForm({
   });
 
   const categoryName =
-    useLocale() === 'en'
+    useLocale() === 'en-GB'
       ? prefilledItem?.category?.nameEnglish
       : prefilledItem?.category?.nameNorwegian;
 

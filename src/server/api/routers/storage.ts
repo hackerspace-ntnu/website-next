@@ -88,9 +88,9 @@ const storageRouter = createRouter({
       return {
         ...item,
         category: rawSelect[0].category,
-        english: rawSelect.find((s) => s.localization.locale === 'en')
+        english: rawSelect.find((s) => s.localization.locale === 'en-GB')
           ?.localization,
-        norwegian: rawSelect.find((s) => s.localization.locale === 'no')
+        norwegian: rawSelect.find((s) => s.localization.locale === 'nb-NO')
           ?.localization,
         availableUnits: item.quantity - unitsBorrowed,
       };
@@ -303,14 +303,14 @@ const storageRouter = createRouter({
             description: input.descriptionEnglish,
             location: input.locationEnglish,
             itemId,
-            locale: 'en',
+            locale: 'en-GB',
           },
           {
             name: input.nameNorwegian,
             description: input.descriptionNorwegian,
             location: input.locationNorwegian,
             itemId,
-            locale: 'no',
+            locale: 'nb-NO',
           },
         ])
         .catch(() => {
@@ -369,7 +369,7 @@ const storageRouter = createRouter({
         .where(
           and(
             eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'en'),
+            eq(itemLocalizations.locale, 'en-GB'),
           ),
         );
       await ctx.db
@@ -382,7 +382,7 @@ const storageRouter = createRouter({
         .where(
           and(
             eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'no'),
+            eq(itemLocalizations.locale, 'nb-NO'),
           ),
         );
     }),
@@ -417,7 +417,7 @@ const storageRouter = createRouter({
     const categories = await ctx.db
       .select({
         name:
-          ctx.locale === 'en'
+          ctx.locale === 'en-GB'
             ? itemCategories.nameEnglish
             : itemCategories.nameNorwegian,
       })

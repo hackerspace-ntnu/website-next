@@ -124,7 +124,7 @@ async function sendVerificationEmail(
       publicSiteUrl: env.NEXT_PUBLIC_SITE_URL,
       validationCode: code,
     },
-    locale === 'no'
+    locale === 'nb-NO'
       ? `Din Hackerspace NTNU bekreftelseskode er ${code}`
       : `Your Hackerspace NTNU confirmation code is ${code}`,
     email,

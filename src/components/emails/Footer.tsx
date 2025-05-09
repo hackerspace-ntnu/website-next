@@ -16,7 +16,7 @@ function Footer({
         <Link
           href={(() => {
             switch (locale) {
-              case 'no':
+              case 'nb-NO':
                 return 'https://www.ntnu.no/idi';
               default:
                 return 'https://www.ntnu.edu/idi';
@@ -30,7 +30,7 @@ function Footer({
             height='64'
             alt={(() => {
               switch (locale) {
-                case 'no':
+                case 'nb-NO':
                   return 'NTNU Institutt for datateknologi og informatikk';
                 default:
                   return 'NTNU Department of Computer Science';
@@ -46,7 +46,7 @@ function Footer({
             height='64'
             alt={(() => {
               switch (locale) {
-                case 'no':
+                case 'nb-NO':
                   return 'Arbeidslivsnettverket Nexus';
                 default:
                   return 'The working life network Nexus';
@@ -58,7 +58,7 @@ function Footer({
       <Text className='text-center text-xs'>
         {(() => {
           switch (locale) {
-            case 'no':
+            case 'nb-NO':
               return 'Åpningstider';
             default:
               return 'Opening hours';
@@ -67,7 +67,7 @@ function Footer({
         <br />
         {(() => {
           switch (locale) {
-            case 'no':
+            case 'nb-NO':
               return 'Mandag-Fredag';
             default:
               return 'Monday-Friday';

@@ -1,6 +1,6 @@
 import type { routing } from '@/lib/locale';
 import type { formats } from '@/lib/locale/request';
-import type messages from './messages/en.json';
+import type messages from './messages/en-GB.json';
 
 declare module 'next-intl' {
   interface AppConfig {
