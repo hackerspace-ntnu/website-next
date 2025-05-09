@@ -22,6 +22,13 @@
       "when": 1744291487050,
       "tag": "0002_wonderful_wind_dancer",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1746809009259,
+      "tag": "0003_furry_stick",
+      "breakpoints": true
     }
   ]
 }
