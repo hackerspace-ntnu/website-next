@@ -44,10 +44,15 @@ function DeleteAccountDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t('delete.dialogTitle')}</DialogTitle>
-          <DialogDescription>{t('delete.dialogDescription')}</DialogDescription>
+          <DialogDescription>
+            {t.rich('delete.dialogDescription', {
+              bold: (chunks) => <b>{chunks}</b>,
+            })}
+          </DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex sm:justify-between'>
           <Button
+            className='md:w-1/3'
             variant='destructive'
             disabled={timeout > 0}
             onClick={() => deleteAccountMutation.mutate()}
