@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/Dialog';
+import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
@@ -54,14 +55,22 @@ function DeleteAccountDialog() {
           <Button
             className='md:w-1/3'
             variant='destructive'
-            disabled={timeout > 0}
+            disabled={timeout > 0 || deleteAccountMutation.isPending}
             onClick={() => deleteAccountMutation.mutate()}
           >
-            {t('delete.buttonLabel')}
-            {timeout > 0 && ` (${timeout}s)`}
+            {deleteAccountMutation.isPending ? (
+              <Spinner size='sm' />
+            ) : (
+              <>
+                {t('delete.buttonLabel')}
+                {timeout > 0 && ` (${timeout}s)`}
+              </>
+            )}
           </Button>
           <DialogClose asChild>
-            <Button>{tUi('close')}</Button>
+            <Button disabled={deleteAccountMutation.isPending}>
+              {tUi('close')}
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
