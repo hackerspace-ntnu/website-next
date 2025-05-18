@@ -1,46 +1,67 @@
-import { RegisterShift } from '@/components/shift-schedule/RegisterShift';
-import { DialogHeader, DialogTitle } from '@/components/ui/Dialog';
+import {
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+} from '@/components/composites/ResponsiveDialog';
+import { MemberList } from '@/components/shift-schedule/MemberList';
+import { RegisterShiftForm } from '@/components/shift-schedule/RegisterShiftForm';
+import type { days, timeslots } from '@/lib/constants';
+import type { RouterOutputs } from '@/server/api';
 import { useTranslations } from 'next-intl';
 
 type ScheduleCellDialogProps = {
-  tDialog: {
+  formattedShift: {
     day: string;
     time: string;
   };
-  members: {
-    name: string;
-  }[];
+  day: (typeof days)[number];
+  timeslot: (typeof timeslots)[number];
+  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
+  memberId: number;
+  userOnShift: boolean;
 };
 
-function ScheduleCellDialog({ tDialog, members }: ScheduleCellDialogProps) {
-  const t = useTranslations(
-    'shiftSchedule.scheduleTable.scheduleCell.scheduleCellDialog',
-  );
+function ScheduleCellDialog({
+  formattedShift,
+  day,
+  timeslot,
+  members,
+  memberId,
+  userOnShift,
+}: ScheduleCellDialogProps) {
+  const t = useTranslations('shiftSchedule.table.cell.dialog');
 
   return (
-    <>
-      <DialogHeader>
-        <DialogTitle className='flex flex-col text-left lg:block lg:space-x-5'>
-          <span className='font-semibold text-3xl'>{tDialog.day}</span>
-          <span className='mt-auto font-semibold text-lg'>{tDialog.time}</span>
-        </DialogTitle>
-      </DialogHeader>
+    <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-5 md:mb-0 md:w-fit lg:w-2/5 lg:min-w-96'>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
+          <span className='font-semibold text-3xl'>{formattedShift.day}</span>
+          <span className='mt-auto font-semibold text-lg'>
+            {formattedShift.time}
+          </span>
+        </ResponsiveDialogTitle>
+        {/* Not having description causes error, can't use aria-description */}
+        <ResponsiveDialogDescription className='hidden'>
+          {t('description')}
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
       <div className='flex justify-between gap-8 px-1.5 pb-1.5'>
-        {members.length === 0 ? (
-          <p className='leading-tight'>{t('empty')}</p>
-        ) : (
-          <div>
-            {members.map((member) => (
-              <section key={member.name} className='mb-3 last:mb-0'>
-                <p className='leading-tight'>{member.name}</p>
-                <section className='mt-0.5 ml-5'>[skill icons]</section>
-              </section>
-            ))}
-          </div>
-        )}
-        <RegisterShift className='mt-auto min-w-fit' />
+        <MemberList members={members} />
+        <RegisterShiftForm
+          day={day}
+          timeslot={timeslot}
+          user={{
+            isMember: memberId !== 0,
+            onShift: userOnShift,
+            recurring: !!members.find(
+              (member) => member.id === memberId && member.recurring,
+            ),
+          }}
+          className='mt-auto w-28 max-w-fit'
+        />
       </div>
-    </>
+    </ResponsiveDialogContent>
   );
 }
 

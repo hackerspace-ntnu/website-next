@@ -29,6 +29,7 @@ type MobileSheetProps = {
     about: string;
     storage: string;
     shiftSchedule: string;
+    rules: string;
     hackerspaceHome: string;
     goToMatrix: string;
     changeLocale: string;
@@ -88,6 +89,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
           <SecondaryNav
             onClick={() => setOpen(false)}
             t={{
+              rules: t.rules,
               storage: t.storage,
               shiftSchedule: t.shiftSchedule,
             }}

@@ -1,8 +1,10 @@
 'use client';
 
 import { Combobox } from '@/components/ui/Combobox';
+import { Skeleton } from '@/components/ui/Skeleton';
 import { useQueryState } from 'nuqs';
-import { parseAsString } from 'nuqs/server';
+import { parseAsInteger } from 'nuqs/server';
+import { useTransition } from 'react';
 
 type CategorySelectorProps = {
   categories: {
@@ -18,16 +20,20 @@ type CategorySelectorProps = {
 };
 
 function CategorySelector({ categories, t }: CategorySelectorProps) {
+  const [isLoading, startTransition] = useTransition();
   const [category, setCategory] = useQueryState(
     t.category,
-    parseAsString
-      .withDefault('')
-      .withOptions({ shallow: false, clearOnDefault: true }),
+    parseAsInteger
+      .withDefault(-1)
+      .withOptions({ shallow: false, clearOnDefault: true, startTransition }),
   );
 
   function valueCallback(category: string | null) {
-    setCategory(category);
+    const categoryToSet = categories.findIndex((c) => c.label === category);
+    setCategory(categoryToSet !== -1 ? categoryToSet + 1 : -1);
   }
+
+  if (isLoading) return <Skeleton className='w-full lg:w-[250px]' />;
 
   return (
     <Combobox
@@ -37,7 +43,7 @@ function CategorySelector({ categories, t }: CategorySelectorProps) {
       buttonClassName='w-full lg:w-[250px]'
       contentClassName='w-full lg:w-[200px]'
       valueCallback={valueCallback}
-      initialValue={category}
+      initialValue={categories[category - 1]?.value}
       ariaLabel={t.defaultDescription}
     />
   );

@@ -29,7 +29,6 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
           <TableHead className='w-20'>
             <Skeleton />
           </TableHead>
-          <TableHead className='w-40'>{t.productId}</TableHead>
           <TableHead>{t.productName}</TableHead>
           <TableHead>{t.location}</TableHead>
           <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
@@ -41,9 +40,6 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
           <TableRow key={useId()}>
             <TableCell>
               <Input type='number' disabled className='w-20' />
-            </TableCell>
-            <TableCell>
-              <Skeleton className='my-[3px] h-[14px] w-1/4 rounded-lg' />
             </TableCell>
             <TableCell>
               <Skeleton className='my-[3px] h-[14px] w-1/2 rounded-lg' />

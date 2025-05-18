@@ -3,12 +3,14 @@
     "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Slack-kanal for assistanse eller en vennlig prat."
   },
   "ui": {
+    "open": "Åpne",
     "close": "Lukk",
     "previous": "Forrige",
     "goToPreviousPage": "Gå til forrige side",
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
     "morePages": "Flere sider",
+    "name": "navn",
     "page": "side",
     "category": "kategori",
     "sort": "sortering",
@@ -22,14 +24,24 @@
     "selectYear": "Velg år",
     "pickDate": "Velg en dato",
     "dateFormat": "dd.MM.yyyy",
+    "searchCountry": "Søk etter land...",
+    "noCountryFound": "Ingen land funnet",
     "hidePassword": "Gjem passord",
-    "showPassword": "Vis passord"
+    "showPassword": "Vis passord",
+    "confirm": "Bekreft",
+    "delete": "Slett",
+    "cancel": "Avbryt",
+    "save": "Lagre",
+    "uploadText": "Slipp filer her eller klikk for å laste opp",
+    "noValidFiles": "Ingen gyldige filer ble sluppet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
     "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
     "error": "Oops! Noe gikk galt",
     "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "tooManyRequests": "For mange forespørsler",
+    "tooManyRequestsDescription": "Vennligst vent litt og prøv igjen.",
     "goToHomepage": "Gå tilbake til hjemmesiden",
     "tryAgain": "Prøv igjen",
     "invalidLocale": "Ugyldig språk: {locale}"
@@ -52,6 +64,15 @@
     "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
     "createAccount": "Opprett konto",
     "feideNotConfigured": "Feide er ikke konfigurert",
+    "verifyEmail": "Bekreft e-postadressen din",
+    "verifyEmailDescription": "Skriv inn bekreftelseskoden sendt til din nye e-postadresse. Hvis du ikke ser den, sjekk spam-mappen din.",
+    "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
+    "newCodeSent": "En ny kode ble sendt til innboksen din",
+    "confirmEmail": "Bekreft e-post",
+    "unableToCreateVerificationRequest": "Kunne ikke opprette e-post verifikasjonsforespørsel",
+    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet",
+    "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
+    "emailUpdateSuccess": "E-postadressen ble oppdatert",
     "form": {
       "username": {
         "label": "Brukernavn",
@@ -70,14 +91,21 @@
         "confirmLabel": "Bekreft passord",
         "mismatch": "Passordene stemmer ikke overens",
         "weak": "Passordet er for svakt"
+      },
+      "otp": {
+        "label": "Engangspassord",
+        "required": "Engangspassord er påkrevd",
+        "length": "Engangspassordet må være {count} tegn langt",
+        "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
+        "incorrect": "Feil engangspassord"
       }
     },
     "error": {
       "authenticationFailed": "Autentisering mislyktes",
       "userInfoFailed": "Kunne ikke hente brukerinformasjon",
       "userInfoMissing": "Brukerinformasjon mangler",
-      "phoneTaken": "Telefonnummeret er allerede i bruk",
-      "emailTaken": "E-postadressen er allerede i bruk",
+      "phoneInUse": "Telefonnummeret er allerede i bruk",
+      "emailInUse": "E-postadressen er allerede i bruk",
       "invalidUserData": "Ugyldig brukerdata",
       "userCreationFailed": "Kunne ikke opprette bruker"
     }
@@ -91,7 +119,8 @@
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
-    "goToMatrix": "Dra til matrix",
+    "goToMatrix": "Dra til Matrix",
+    "rules": "Regler",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -120,6 +149,100 @@
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
+  "settings": {
+    "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "profile": {
+      "title": "Profil",
+      "username": "Brukernavn",
+      "updateProfile": "Oppdater profil",
+      "updateProfileFailed": "Kunne ikke oppdatere profil",
+      "updateProfileSuccess": "Profil oppdatert",
+      "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
+      "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
+      "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "profilePicture": {
+        "label": "Profilbilde",
+        "mustBeImage": "Profilbilde må være et bilde",
+        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "sizeLimit": "Profilbilde må være mindre enn {size} MB"
+      },
+      "firstName": {
+        "label": "Fornavn",
+        "required": "Fornavn er påkrevd",
+        "minLength": "Fornavn må være minst {count} tegn",
+        "maxLength": "Fornavn må være mindre enn {count} tegn",
+        "general": "Er fornavnet ditt riktig?"
+      },
+      "lastName": {
+        "label": "Etternavn",
+        "required": "Etternavn er påkrevd",
+        "minLength": "Etternavn må være minst {count} tegn",
+        "maxLength": "Etternavn må være mindre enn {count} tegn",
+        "general": "Er etternavnet ditt riktig?"
+      },
+      "birthDate": {
+        "label": "Fødselsdato",
+        "required": "Fødselsdato er påkrevd",
+        "invalid": "Ugyldig fødselsdato",
+        "minAge": "Du må være minst {age} år",
+        "maxAge": "Du må være under {age} år"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "updateAccount": "Oppdater konto",
+      "updateAccountFailed": "Kunne ikke oppdatere konto",
+      "updateAccountSuccess": "Konto oppdatert",
+      "email": {
+        "label": "E-post",
+        "description": "Hvis du endrer e-postadressen din, så vil du motta en forespørsel på e-post som du kan bekrefte.",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresseformat",
+        "confirmLabel": "Bekreft e-post",
+        "mismatch": "E-postadressene er ikke like",
+        "inUse": "E-postadressen er allerede i bruk"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "description": "Telefonnummeret ditt vil være synlig når du reserverer 3D-printere eller låner utstyr, slik at vi kan kontakte deg hvis det oppstår problemer.",
+        "required": "Telefonnummer er påkrevd",
+        "invalid": "Ugyldig telefonnummer",
+        "format": "Telefonnummeret er feil formatert",
+        "inUse": "Telefonnummeret er allerede i bruk"
+      },
+      "password": {
+        "currentLabel": "Nåværende passord",
+        "newLabel": "Nytt passord",
+        "confirmLabel": "Bekreft passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "lowercase": "Passord må inneholde minst én liten bokstav",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "weak": "Passordet er for svakt",
+        "mismatch": "Passordene er ikke like",
+        "update": "Oppdater passord",
+        "updateSuccess": "Passordet ble oppdatert",
+        "updateFailed": "Kunne ikke oppdatere passord",
+        "incorrectPassword": "Feil passord"
+      }
+    },
+    "notifications": {
+      "title": "Varslinger",
+      "updateNotifications": "Oppdater varslinger",
+      "updateNotificationsFailed": "Kunne ikke oppdatere varslinger",
+      "updateNotificationsSuccess": "Varslinger oppdatert",
+      "notifyMeAbout": "Varsle meg via e-post",
+      "all": "Ferdige utskrifter, frister for lånte gjenstander, fylte kaffekopper og kontooppdateringer",
+      "useful": "Ferdige utskrifter, frister for lånte gjenstander og kontooppdateringer",
+      "essential": "Kontooppdateringer"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
+  },
   "home": {
     "whoAreWe": "Hvem er vi?",
     "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Viverra id convallis taciti ex; egestas duis varius mus praesent. Augue orci scelerisque habitant aenean elit varius sociosqu et libero. Tempus magnis penatibus elementum integer pretium parturient fringilla massa. Felis tristique molestie facilisis sagittis eros hendrerit. Gravida himenaeos est sodales metus rhoncus hendrerit massa. Nostra vehicula quis molestie integer fringilla interdum. Congue tempor ligula proin ornare fermentum bibendum nisi dis.",
@@ -141,18 +264,21 @@
   "storage": {
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
+    "addNewItem": "Legg til ny gjenstand",
+    "viewLoans": "Se dine lån",
+    "backToStorage": "Tilbake til lageret",
+    "noItemsFound": "Ingen gjenstander funnet. Sjekk filtreringskriteriene dine.",
     "card": {
-      "quantityInfo": "{quantity} stk.",
+      "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",
       "removeFromCart": "Fjern fra handlekurven"
     },
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
       "filters": "Filtre",
-      "popularity": "Popularitet",
+      "name": "Navn (alfabetisk)",
       "sortDescending": "Lagerbeholdning (synkende)",
-      "sortAscending": "Lagerbeholdning (stigende)",
-      "name": "Navn (alfabetisk)"
+      "sortAscending": "Lagerbeholdning (stigende)"
     },
     "combobox": {
       "defaultDescription": "Velg kategori...",
@@ -163,10 +289,9 @@
       "miniPC": "Mini-PC"
     },
     "searchParams": {
-      "popularity": "popularitet",
+      "name": "navn",
       "descending": "synkende",
       "ascending": "stigende",
-      "name": "navn",
       "cables": "kabler",
       "sensors": "sensorer",
       "peripherals": "tilbehoer",
@@ -175,6 +300,17 @@
     "tooltips": {
       "viewShoppingCart": "Vis handlekurv"
     },
+    "item": {
+      "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
+      "noLocation": "Ingen plassering spesifisert",
+      "noCategory": "Ingen kategori spesifisert",
+      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
+      "edit": "Rediger gjenstand",
+      "api": {
+        "insertFailed": "Feilet å legge til gjenstanden",
+        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace DevOps om denne feilen!"
+      }
+    },
     "shoppingCart": {
       "title": "Handlekurv",
       "productId": "Produkt-ID",
@@ -182,46 +318,158 @@
       "location": "Plass",
       "unitsAvailable": "Stk tilgjengelig",
       "tableDescription": "En liste over handlekurven din.",
-      "backToStorage": "Tilbake til lageret",
       "cartEmpty": "Handlekurven din er tom.",
       "clearCart": "Tøm handlekurven",
-      "cancel": "Avbryt",
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
-      "borrowNow": "Lån nå",
-      "amountOfItemARIA": "Velg antallet av denne gjenstanden"
+      "requestLoan": "Send låneforespørsel",
+      "amountOfItemAria": "Velg antallet av denne gjenstanden",
+      "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {
-      "name": "Navn",
-      "email": "Epost",
-      "phoneNumber": "Mobilnummer",
-      "phoneNumberDescription": "Mobilnummer for kontakt. Inkluder landskode hvis mobilnummeret er ikke norsk.",
-      "returnBy": "Lån fram til",
-      "returnByDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
-      "submit": "Send"
+      "loanPeriod": "Velg låneperiode",
+      "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "autoapprove": "Godkjenn umiddelbart",
+      "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
+      "submit": "Send",
+      "dateInFuture": "Datoen for levering må være i framtiden",
+      "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
+    },
+    "categories": {
+      "title": "Kategorier",
+      "categoryName": "Kategorinavn (norsk og engelsk)",
+      "categoryTableDescription": "Tabell over kategorier",
+      "actions": "Handlinger",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
+      "successAddMessage": "Kategorien har blitt lagt til!",
+      "successEditMessage": "Kategorien har blitt redigert!",
+      "successDeleteMessage": "Kategorien har blitt slettet!",
+      "invalidName": "Ugyldig kategorinavn",
+      "api": {
+        "insertFailed": "Feilet å legge til kategori",
+        "updateFailed": "Feilet å redigere kategori",
+        "deleteFailed": "Feilet å fjerne kategori",
+        "duplicateCategory": "Kan ikke legge til flere kategorier med samme navn"
+      }
+    },
+    "edit": {
+      "titleNew": "Ny gjenstand",
+      "titleEdit": "Rediger gjenstand",
+      "image": {
+        "label": "Bilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Bildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelEnglish": "Navn (engelsk)",
+        "labelNorwegian": "Navn (norsk)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "Navn er påkrevd."
+      },
+      "description": {
+        "labelEnglish": "Beskrivelse (engelsk)",
+        "labelNorwegian": "Beskrivelse (norwegian)",
+        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
+      },
+      "location": {
+        "labelEnglish": "Plassering (engelsk)",
+        "labelNorwegian": "Plassering (norsk)",
+        "placeholder": "Boks 2A",
+        "required": "Plassering er påkrevd.",
+        "invalid": "Vennligst oppgi en kort og konsis plassering."
+      },
+      "quantity": {
+        "label": "Antall",
+        "placeholder": "4",
+        "negative": "Antallet kan ikke være negativt."
+      },
+      "category": {
+        "label": "Kategori",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "deleteItem": "Slett gjenstand",
+      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
+      "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
+      "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
+      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandene på lager"
+    },
+    "loans": {
+      "view": "Se lån",
+      "title": "Lån",
+      "titlePending": "Utestående lån",
+      "titleApproved": "Godkjente lån",
+      "pendingLoan": "Utestående lån",
+      "notReturned": "Ikke levert tilbake enda",
+      "returned": "Levert tilbake {date}",
+      "loanSubheader": "Dette lånet venter på godkjenning",
+      "loanItem": "{units, plural, other {# stk.}} av {name}",
+      "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
+      "approve": "Godkjenn",
+      "confirmLoanReturn": "Bekreft tilbakelevering",
+      "deleteLoan": "Slett låneforespørsel",
+      "deleteDescription": "Er du helt sikker at du ønsker å slette låneforespørselen fra {person}?",
+      "loan": "Lån",
+      "loanApproveSuccess": "Lånet har blitt godkjent!",
+      "loanDeleteSuccess": "Lånet har blitt slettet!",
+      "loanReturnSuccess": "Lånet har blitt registrert som levert!",
+      "loanApproved": "Dette lånet har blitt godkjent",
+      "borrowTimeline": "Lån fra {from} til {until}",
+      "requestedAt": "Forespørsel sendt {date}",
+      "noPendingLoans": "Ingen utestående lån 🎉",
+      "noLoansFound": "Ingen lån funnet",
+      "unauthorized": "Du har ikke rettigheter til å administrere låneforespørsler"
+    },
+    "api": {
+      "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
+      "notFound": "Den valgte gjenstanden ble ikke funnet.",
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
+      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
+      "borrowPositiveAmount": "Må låne et positivt antall.",
+      "limitNotInRange": "limit må være mellom 1 og 50."
     }
   },
   "shiftSchedule": {
     "title": "Vaktliste",
-    "administratorMenu": {
-      "label": "Administrator-meny",
-      "open": "Åpne Administrator-meny",
-      "close": "Lukk Administrator-meny",
-      "clearShiftSchedule": "Tøm vaktliste"
+    "clearShifts": {
+      "clear": "Tøm vaktliste",
+      "warning": "Advarsel",
+      "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",
+      "confirm": "Tøm",
+      "cancel": "Avbryt",
+      "clearSuccess": "Vaktliste tømt"
     },
-    "scheduleTable": {
+    "table": {
       "time": "Tid",
       "day": "{day, select, monday {Mandag} tuesday {Tirsdag} wednesday {Onsdag} thursday {Torsdag} other {Fredag}}",
-      "scheduleCell": {
-        "onShift": "{count, plural, =0 {Stengt} =1 {1 person på vakt} other {# personer på vakt}}",
-        "scheduleCellDialog": {
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person på vakt} other {# personer på vakt}}",
+        "closed": "Stengt",
+        "dialog": {
+          "description": "Se medlemmer på valgt vakt eller registrer selv",
           "empty": "Ingen på vakt",
-          "registerSection": {
-            "recurring": "Gjentagende",
-            "register": "Registrer"
-          }
+          "recurring": "Gjentagende",
+          "register": "Registrer",
+          "update": "Oppdater",
+          "unregister": "Avregistrer",
+          "signIn": "Logg inn",
+          "signInDescription": "Logg inn for å registrere vakt",
+          "registerSuccess": "Vakt registrert",
+          "updateSuccess": "Vakt oppdatert",
+          "unregisterSuccess": "Vakt avregistrert"
         }
       }
+    },
+    "api": {
+      "day": "Ugyldig dag",
+      "timeslot": "Ugyldig tidsrom",
+      "recurring": "Ugyldig verdi for gjentagende",
+      "fetchShiftsFailed": "Kunne ikke hente vakter"
     }
   },
   "events": {
@@ -236,8 +484,26 @@
     "endedAt": "Sluttet kl.",
     "backToEvents": "Tilbake til arrangementer"
   },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
+  },
+  "skills": {
+    "printing": "3D-printing",
+    "soldering": "Lodding",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laserkutting",
+    "workshop": "Verkstedsverktøy",
+    "microcontroller": "Mikrokontroller-programmering",
+    "webdevelopment": "Webutvikling"
+  },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
-    "notAuthenticated": "Ikke autentisert"
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet",
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
   }
 }
