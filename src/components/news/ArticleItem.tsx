@@ -24,12 +24,12 @@ function ArticleItem({
     <Link
       className={cx('group block whitespace-normal font-normal', className)}
       href={{
-        pathname: '/news/[article]',
-        params: { article: id },
+        pathname: '/news/[articleId]',
+        params: { articleId: id },
       }}
     >
       <div className='flex gap-4 overflow-hidden rounded-lg transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
-        <div className='relative h-28 w-28 flex-shrink-0'>
+        <div className='relative h-28 w-28 shrink-0'>
           <InternalBadge className='h-5 w-5' internal={internal} />
           <Image
             className='rounded-lg object-cover object-center'

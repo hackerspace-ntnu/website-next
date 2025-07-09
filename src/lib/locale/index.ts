@@ -6,6 +6,8 @@ import {
   enGB as enDayPicker,
   nb as noDayPicker,
 } from 'react-day-picker/locale';
+import enPhoneNumberInput from 'react-phone-number-input/locale/en';
+import noPhoneNumberInput from 'react-phone-number-input/locale/nb';
 
 type Translations =
   | ReturnType<typeof useTranslations<never>>
@@ -14,6 +16,11 @@ type Translations =
 const localeIcons = { en: GB, no: NO };
 
 const dayPickerLocales = { en: enDayPicker, no: noDayPicker };
+
+const phoneNumberInputLocales = {
+  en: enPhoneNumberInput,
+  no: noPhoneNumberInput,
+};
 
 const routing = defineRouting({
   locales: ['en', 'no'],
@@ -24,6 +31,10 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
+    '/too-many-requests': {
+      en: '/too-many-requests',
+      no: '/for-mange-forespørsler',
+    },
     '/auth': {
       en: '/auth',
       no: '/autentisering',
@@ -40,6 +51,10 @@ const routing = defineRouting({
       en: '/auth/forgot-password',
       no: '/autentisering/glemt-passord',
     },
+    '/auth/verify-email': {
+      en: '/auth/verify-email',
+      no: '/autentisering/bekreft-epost',
+    },
     '/auth/success': {
       en: '/auth/success',
       no: '/autentisering/suksess',
@@ -48,13 +63,25 @@ const routing = defineRouting({
       en: '/settings',
       no: '/instillinger',
     },
+    '/settings/account': {
+      en: '/settings/account',
+      no: '/innstillinger/konto',
+    },
+    '/settings/notifications': {
+      en: '/settings/notifications',
+      no: '/innstillinger/notifikasjoner',
+    },
+    '/settings/administrator': {
+      en: '/settings/administrator',
+      no: '/innstillinger/administrator',
+    },
     '/events': {
       en: '/events',
       no: '/arrangementer',
     },
-    '/events/[id]': {
-      en: '/events/[id]',
-      no: '/arrangementer/[id]',
+    '/events/[eventId]': {
+      en: '/events/[eventId]',
+      no: '/arrangementer/[eventId]',
     },
     '/news': {
       en: '/news',
@@ -64,9 +91,9 @@ const routing = defineRouting({
       en: '/news/new',
       no: '/nyheter/ny',
     },
-    '/news/[article]': {
-      en: '/news/[article]',
-      no: '/nyheter/[article]',
+    '/news/[articleId]': {
+      en: '/news/[articleId]',
+      no: '/nyheter/[articleId]',
     },
     '/about': {
       en: '/about',
@@ -80,6 +107,38 @@ const routing = defineRouting({
       en: '/storage/shopping-cart',
       no: '/lager/handlekurv',
     },
+    '/storage/item/new': {
+      en: '/storage/item/new',
+      no: '/lager/gjenstand/ny',
+    },
+    '/storage/item/[itemId]': {
+      en: '/storage/item/[itemId]',
+      no: '/lager/gjenstand/[itemId]',
+    },
+    '/storage/item/[itemId]/edit': {
+      en: '/storage/item/[itemId]/edit',
+      no: '/lager/gjenstand/[itemId]/rediger',
+    },
+    '/storage/loans': {
+      en: '/storage/loans',
+      no: '/lager/lån',
+    },
+    '/storage/loans/user': {
+      en: '/storage/loans/user',
+      no: '/lager/lån/bruker',
+    },
+    '/storage/categories': {
+      en: '/storage/categories',
+      no: '/lager/kategorier',
+    },
+    '/rules': {
+      en: '/rules',
+      no: '/regler',
+    },
+    '/rules/[subsetId]': {
+      en: '/rules/[subsetId]',
+      no: '/regler/[subsetId]',
+    },
     '/shift-schedule': {
       en: '/shift-schedule',
       no: '/vaktliste',
@@ -87,4 +146,10 @@ const routing = defineRouting({
   },
 });
 
-export { localeIcons, dayPickerLocales, routing, type Translations };
+export {
+  localeIcons,
+  dayPickerLocales,
+  phoneNumberInputLocales,
+  routing,
+  type Translations,
+};

@@ -1,74 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "tw-clamp-css";
+@import "./map";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: oklch(100% 0 0); /* #ffffff */
+  --foreground: oklch(14.05% 0.0044 285.82); /* #09090b */
+  --card: oklch(100% 0 0); /* #ffffff */
+  --card-foreground: oklch(14.05% 0.0044 285.82); /* #09090b */
+  --popover: oklch(100% 0 0); /* #ffffff */
+  --popover-foreground: oklch(14.05% 0.0044 285.82); /* #09090b */
+  --primary: oklch(62.73% 0.17 149.2); /* #16a34a */
+  --primary-foreground: oklch(96.99% 0.0149 12.4); /* #fff1f2 */
+  --secondary: oklch(96.76% 0.0013 286.38); /* #f4f4f5 */
+  --secondary-foreground: oklch(21.03% 0.0059 285.88); /* #18181b */
+  --muted: oklch(96.76% 0.0013 286.38); /* #f4f4f5 */
+  --muted-foreground: oklch(55.19% 0.0137 285.94); /* #71717a */
+  --accent: oklch(96.76% 0.0013 286.38); /* #f4f4f5 */
+  --accent-foreground: oklch(21.03% 0.0059 285.88); /* #18181b */
+  --destructive: oklch(63.68% 0.2078 25.33); /* #ef4444 */
+  --destructive-foreground: oklch(98.48% 0 0); /* #fafafa */
+  --border: oklch(91.97% 0.004 286.32); /* #e4e4e7 */
+  --input: oklch(91.97% 0.004 286.32); /* #e4e4e7 */
+  --ring: oklch(62.73% 0.17 149.2); /* #16a34a */
+  --radius: 0.3rem;
+}
+
+.dark {
+  --background: oklch(14.67% 0.0041 49.31); /* #0c0a09 */
+  --foreground: oklch(96.19% 0 0); /* #f2f2f2 */
+  --card: oklch(21.61% 0.0061 56.04); /* #1c1917 */
+  --card-foreground: oklch(96.19% 0 0); /* #f2f2f2 */
+  --popover: oklch(20.44% 0 0); /* #171717 */
+  --popover-foreground: oklch(96.19% 0 0); /* #f2f2f2 */
+  --primary: oklch(72.29% 0.1921 149.58); /* #22c55e */
+  --primary-foreground: oklch(26.64% 0.0628 152.95); /* #052e16 */
+  --secondary: oklch(27.41% 0.0055 286.03); /* #27272a */
+  --secondary-foreground: oklch(98.48% 0 0); /* 	#fafafa */
+  --muted: oklch(26.97% 0 0); /* #262626 */
+  --muted-foreground: oklch(71.19% 0.0129 286.07); /* #a1a1aa */
+  --accent: oklch(26.85% 0.0063 34.3); /* #292524 */
+  --accent-foreground: oklch(98.48% 0 0); /* #fafafa */
+  --destructive: oklch(39.59% 0.1331 25.72); /* #7f1d1d */
+  --destructive-foreground: oklch(97.1% 0.0127 17.38); /* #fef2f2 */
+  --border: oklch(27.41% 0.0055 286.03); /* #27272a */
+  --input: oklch(27.41% 0.0055 286.03); /* #27272a */
+  --ring: oklch(52.71% 0.1371 150.05); /* #15803d */
+}
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonts */
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-montserrat: var(--font-montserrat), ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  /* Breakpoints */
+  --breakpoint-2xs: 24rem;
+  --breakpoint-xs: 32rem;
+
+  /* Spacing */
+  --spacing-112: 28rem;
+  --spacing-128: 32rem;
+  --spacing-144: 36rem;
+  --spacing-160: 40rem;
+  --spacing-176: 44rem;
+  --spacing-192: 48rem;
+}
 
 @layer base {
   * {
-    @apply min-w-0 border-border;
+    @apply border-border outline-ring/50;
   }
-
-  :root {
-    --background: 0 0% 100%; /* #ffffff */
-    --foreground: 240 10% 3.9%; /* #09090b */
-    --card: 0 0% 100%; /* #ffffff */
-    --card-foreground: 240 10% 3.9%; /* #09090b */
-    --popover: 0 0% 100%; /* #ffffff */
-    --popover-foreground: 240 10% 3.9%; /* #09090b */
-    --primary: 142.1 76.2% 36.3%; /* #16a34a */
-    --primary-foreground: 355.7 100% 97.3%; /* #fff1f2 */
-    --secondary: 240 4.8% 95.9%; /* #f4f4f5 */
-    --secondary-foreground: 240 5.9% 10%; /* #18181b */
-    --muted: 240 4.8% 95.9%; /* #f4f4f5 */
-    --muted-foreground: 240 3.8% 46.1%; /* #71717a */
-    --accent: 240 4.8% 95.9%; /* #f4f4f5 */
-    --accent-foreground: 240 5.9% 10%; /* #18181b */
-    --destructive: 0 84.2% 60.2%; /* #ef4444 */
-    --destructive-foreground: 0 0% 98%; /* #fafafa */
-    --border: 240 5.9% 90%; /* #e4e4e7 */
-    --input: 240 5.9% 90%; /* #e4e4e7 */
-    --ring: 142.1 76.2% 36.3%; /* #16a34a */
-    --radius: 0.3rem;
+  body {
+    @apply bg-background text-foreground;
   }
-
-  .dark {
-    --background: 20 14.3% 4.1%; /* #0c0a09 */
-    --foreground: 0 0% 95%; /* #f2f2f2 */
-    --card: 24 9.8% 10%; /* #1c1917 */
-    --card-foreground: 0 0% 95%; /* #f2f2f2 */
-    --popover: 0 0% 9%; /* #171717 */
-    --popover-foreground: 0 0% 95%; /* #f2f2f2 */
-    --primary: 142.1 70.6% 45.3%; /* #22c55e */
-    --primary-foreground: 144.9 80.4% 10%; /* #052e16 */
-    --secondary: 240 3.7% 15.9%; /* #27272a */
-    --secondary-foreground: 0 0% 98%; /* 	#fafafa */
-    --muted: 0 0% 15%; /* #262626 */
-    --muted-foreground: 240 5% 64.9%; /* #a1a1aa */
-    --accent: 12 6.5% 15.1%; /* #292524 */
-    --accent-foreground: 0 0% 98%; /* #fafafa */
-    --destructive: 0 62.8% 30.6%; /* #7f1d1d */
-    --destructive-foreground: 0 85.7% 97.3%; /* #fef2f2 */
-    --border: 240 3.7% 15.9%; /* #27272a */
-    --input: 240 3.7% 15.9%; /* #27272a */
-    --ring: 142.4 71.8% 29.2%; /* #15803d */
-  }
-
   ::selection {
     @apply bg-primary/50;
   }
 
   /* Typography */
   h1 {
-    @apply scroll-m-20 font-montserrat text-4xl font-extrabold tracking-tight lg:text-5xl;
+    @apply scroll-m-20 font-montserrat text-4xl-5xl-clamp font-extrabold tracking-tight;
   }
-
   h2 {
     @apply scroll-m-20 font-montserrat text-3xl font-semibold tracking-tight;
   }
-
   h3 {
     @apply scroll-m-20 font-montserrat text-2xl font-semibold tracking-tight;
   }
-
   h4 {
     @apply scroll-m-20 font-montserrat text-xl font-semibold tracking-tight;
   }

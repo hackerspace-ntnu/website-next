@@ -8,6 +8,11 @@ const config: NextConfig = {
   output: 'standalone',
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        hostname: new URL(env.NEXT_PUBLIC_SITE_URL).hostname,
+      },
+    ],
   },
   async rewrites() {
     return {

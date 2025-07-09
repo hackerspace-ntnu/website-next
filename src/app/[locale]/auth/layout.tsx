@@ -4,22 +4,19 @@ import { Main } from '@/components/layout/Main';
 import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
 import { Card, CardHeader } from '@/components/ui/Card';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { setRequestLocale } from 'next-intl/server';
-import { getTranslations } from 'next-intl/server';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('signIn'),
@@ -38,8 +35,8 @@ export default async function AuthLayout({
   const { auth, ui } = await getMessages();
 
   return (
-    <Main className='flex h-full items-center justify-center'>
-      <Card className='~p-3/6 relative z-10 w-full max-w-md overflow-hidden'>
+    <Main className='flex h-full min-h-screen items-center justify-center'>
+      <Card className='relative z-10 w-full max-w-md overflow-hidden p-3-6-clamp'>
         <PendingProvider>
           <PendingBar />
           <CardHeader className='flex items-center justify-between py-2'>
@@ -51,12 +48,12 @@ export default async function AuthLayout({
               }}
             />
           </CardHeader>
-          <div className='~min-[24rem]/xs:~h-112/96'>
+          <div className='h-112-96-clamp-sm-md'>
             <NextIntlClientProvider
               messages={{ auth, ui } as Pick<Messages, 'auth' | 'ui'>}
             >
               <AnimatePresenceProvider className='absolute left-0 flex w-full justify-center'>
-                <div className='~px-3/6 ~min-[24rem]/xs:~h-112/96 w-full max-w-md overflow-hidden'>
+                <div className='h-112-96-clamp-2xs-xs w-full max-w-md overflow-hidden px-3-6-clamp'>
                   {children}
                 </div>
               </AnimatePresenceProvider>

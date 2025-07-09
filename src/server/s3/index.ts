@@ -1,27 +1,105 @@
 import { env } from '@/env';
-import { S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-const endpoint = `http://${env.S3_HOST}:${env.S3_PORT}`;
+class S3Service {
+  private readonly client: S3Client;
+  private readonly bucket: string;
 
-// Cache the S3 client in development. This avoids creating a new client on every HMR update.
-const globalForS3 = globalThis as unknown as {
-  s3: S3Client | undefined;
-};
+  constructor() {
+    this.bucket = env.S3_NAME;
 
-const s3 =
-  globalForS3.s3 ??
-  new S3Client({
-    credentials: {
-      accessKeyId: env.S3_USER,
-      secretAccessKey: env.S3_PASSWORD,
-    },
-    endpoint: endpoint,
-    forcePathStyle: true,
-    region: 'auto', // Required but not used with self-hosted storage
-  });
+    // Cache the S3 client in development
+    const globalForS3 = globalThis as unknown as {
+      s3: S3Client | undefined;
+    };
 
-if (env.NODE_ENV !== 'production') globalForS3.s3 = s3;
+    this.client =
+      globalForS3.s3 ??
+      new S3Client({
+        credentials: {
+          accessKeyId: env.S3_USER,
+          secretAccessKey: env.S3_PASSWORD,
+        },
+        endpoint: `http://${env.S3_HOST}:${env.S3_PORT}`,
+        forcePathStyle: true,
+        region: 'auto',
+      });
 
-const bucket = env.S3_NAME;
+    if (env.NODE_ENV !== 'production') globalForS3.s3 = this.client;
+  }
 
-export { s3, endpoint, bucket };
+  async uploadFile(
+    directory: (typeof directories)[number],
+    key: string,
+    file: Buffer,
+    contentType: string,
+  ) {
+    const fileKey = `${directory}/${key}`;
+
+    const command = new PutObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+      Body: file,
+      ContentType: contentType,
+    });
+
+    return await this.client.send(command);
+  }
+
+  async deleteFile(directory: (typeof directories)[number], key: string) {
+    const fileKey = `${directory}/${key}`;
+
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+    });
+
+    return await this.client.send(command);
+  }
+
+  async fileExists(directory: (typeof directories)[number], key: string) {
+    const fileKey = `${directory}/${key}`;
+    await this.client.send(
+      new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: fileKey,
+      }),
+    );
+    return true;
+  }
+
+  async getSignedUrl(
+    directory: (typeof directories)[number],
+    key: string,
+    expiresIn = 3600,
+  ) {
+    const fileKey = `${directory}/${key}`;
+
+    const command = new GetObjectCommand({
+      Bucket: this.bucket,
+      Key: fileKey,
+    });
+
+    const url = await getSignedUrl(this.client, command, { expiresIn });
+    const internalEndpoint = `http://${env.S3_HOST}:${env.S3_PORT}`;
+    const publicEndpoint = `${env.NEXT_PUBLIC_SITE_URL}/s3`;
+
+    if (!url.includes(internalEndpoint)) {
+      throw new Error('Unexpected URL format');
+    }
+
+    return url.replace(internalEndpoint, publicEndpoint);
+  }
+}
+
+const directories = ['profile-pictures', 'news', 'storage-items'] as const;
+
+const s3 = new S3Service();
+
+export { s3, directories };

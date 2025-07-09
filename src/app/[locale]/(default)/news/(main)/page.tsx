@@ -13,14 +13,8 @@ import { ItemGrid } from '@/components/news/ItemGrid';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('news'),

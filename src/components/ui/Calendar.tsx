@@ -89,7 +89,7 @@ function Calendar({
     <DayPicker
       className={cx('p-3', className)}
       classNames={{
-        root: '~p-2/6',
+        root: 'p-2-6-clamp',
         months: 'relative',
         month: 'space-y-4',
         nav: 'flex items-center justify-between absolute w-full z-10 px-1',
@@ -115,7 +115,7 @@ function Calendar({
         weekday: 'text-muted-foreground w-9 font-normal text-xs',
         weeks: '',
         week: 'flex mt-2',
-        day: 'p-0',
+        day: 'p-0 min-w-9 bg-transparent',
         outside: 'bg-accent/40',
         range_middle: 'bg-accent last:rounded-e-md first:rounded-s-md',
         range_start: 'bg-accent rounded-s-md',
@@ -208,6 +208,5 @@ function Calendar({
     />
   );
 }
-Calendar.displayName = 'Calendar';
 
 export { Calendar, type CalendarProps };

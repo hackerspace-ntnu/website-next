@@ -31,13 +31,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     getEntry('/news', 'weekly', 0.7),
     getEntry(
       {
-        pathname: '/news/[article]',
-        params: { article: '1' },
+        pathname: '/news/[articleId]',
+        params: { articleId: '1' },
       },
       'daily',
       0.4,
     ),
     getEntry('/events', 'weekly', 0.7),
     getEntry('/storage', 'daily', 0.4),
+    getEntry('/shift-schedule', 'daily', 0.4),
   ];
 }

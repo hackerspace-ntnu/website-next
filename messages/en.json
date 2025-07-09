@@ -3,12 +3,14 @@
     "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
   },
   "ui": {
+    "open": "Open",
     "close": "Close",
     "previous": "Previous",
     "goToPreviousPage": "Go to previous page",
     "next": "Next",
     "goToNextPage": "Go to next page",
     "morePages": "More pages",
+    "name": "name",
     "page": "page",
     "category": "category",
     "sort": "sort",
@@ -22,14 +24,24 @@
     "selectYear": "Select year",
     "pickDate": "Pick a date",
     "dateFormat": "dd/MM/yyyy",
+    "searchCountry": "Search country...",
+    "noCountryFound": "No country found",
     "hidePassword": "Hide password",
-    "showPassword": "Show password"
+    "showPassword": "Show password",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "uploadText": "Drop files here or click to upload",
+    "noValidFiles": "No valid files were dropped"
   },
   "error": {
     "notFound": "404 - Page not found",
     "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
     "error": "Oops! Something went wrong",
     "errorDescription": "Don't worry, our best hackers are on it!",
+    "tooManyRequests": "Too Many Requests",
+    "tooManyRequestsDescription": "Please wait a moment before trying again.",
     "goToHomepage": "Return to homepage",
     "tryAgain": "Try again",
     "invalidLocale": "Invalid locale: {locale}"
@@ -52,6 +64,15 @@
     "passwordDescription": "The password will be used for signing into Matrix and your Hackerspace Account",
     "createAccount": "Create Account",
     "feideNotConfigured": "Feide is not configured",
+    "verifyEmail": "Verify your email address",
+    "verifyEmailDescription": "Enter the confirmation code sent to your new email. If you don't see it, check your spam folder.",
+    "getNewCode": "Get new code {seconds, plural, =0 {} =1 {(# second)} other {(# seconds)}}",
+    "newCodeSent": "A new code was sent to your inbox",
+    "confirmEmail": "Confirm email",
+    "unableToCreateVerificationRequest": "Unable to create email verification request",
+    "noVerificationRequest": "No verification request found",
+    "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
+    "emailUpdateSuccess": "Email updated successfully",
     "form": {
       "username": {
         "label": "Username",
@@ -70,14 +91,21 @@
         "confirmLabel": "Confirm password",
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
+      },
+      "otp": {
+        "label": "One-time password",
+        "required": "One-time password is required",
+        "length": "One-time password must be {count} characters long",
+        "invalid": "One-time password must only contain digits and characters",
+        "incorrect": "Incorrect one-time password"
       }
     },
     "error": {
       "authenticationFailed": "Authentication failed",
       "userInfoFailed": "Failed to get user info",
       "userInfoMissing": "User info is missing",
-      "phoneTaken": "Phone number is already taken",
-      "emailTaken": "Email is already taken",
+      "phoneInUse": "Phone number is already in use",
+      "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
       "userCreationFailed": "Failed to create user"
     }
@@ -91,7 +119,8 @@
     "about": "About",
     "shiftSchedule": "Shift Schedule",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
-    "goToMatrix": "Go to matrix",
+    "goToMatrix": "Go to Matrix",
+    "rules": "Rules",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -106,7 +135,7 @@
     "haveYouFoundA": "Have you found a",
     "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
-    "allWeekdays": "Mon-Fri",
+    "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
     "sendAnEmail": "Send an email",
     "visitSlack": "Visit Slack",
@@ -120,6 +149,100 @@
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
   },
+  "settings": {
+    "manageAccountSettings": "Manage your account settings and set preferences.",
+    "profile": {
+      "title": "Profile",
+      "username": "Username",
+      "updateProfile": "Update profile",
+      "updateProfileFailed": "Failed to update profile",
+      "updateProfileSuccess": "Profile updated successfully",
+      "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureFailed": "Failed to update profile picture",
+      "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "updateProfilePictureTooltip": "Click to change profile picture",
+      "profilePicture": {
+        "label": "Profile picture",
+        "mustBeImage": "Profile picture must be an image",
+        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "sizeLimit": "Profile picture must be less than {size} MB"
+      },
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "minLength": "First name must be at least {count} characters",
+        "maxLength": "First name must be less than {count} characters",
+        "general": "Is your first name correct?"
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "minLength": "Last name must be at least {count} characters",
+        "maxLength": "Last name must be less than {count} characters",
+        "general": "Is your last name correct?"
+      },
+      "birthDate": {
+        "label": "Birth date",
+        "required": "Birth date is required",
+        "invalid": "Birth date is invalid",
+        "minAge": "You must be at least {age} years old",
+        "maxAge": "You must be less than {age} years old"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "updateAccount": "Update account",
+      "updateAccountFailed": "Failed to update account",
+      "updateAccountSuccess": "Account updated successfully",
+      "email": {
+        "label": "Email",
+        "description": "If you change your email, you will recieve a verification email to confirm your new address.",
+        "required": "Email is required",
+        "invalid": "Invalid email address format",
+        "confirmLabel": "Confirm email",
+        "mismatch": "Emails do not match",
+        "inUse": "Email is already in use"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "description": "Your phone number will be visible when reserving 3D printers or borrowing items, allowing us to contact you if any issues arise.",
+        "required": "Phone number is required",
+        "invalid": "Invalid phone number",
+        "format": "Phone number is formatted incorrectly",
+        "inUse": "Phone number is already in use"
+      },
+      "password": {
+        "currentLabel": "Current password",
+        "newLabel": "New password",
+        "confirmLabel": "Confirm password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "weak": "Password is too weak",
+        "mismatch": "Passwords do not match",
+        "update": "Update password",
+        "updateSuccess": "Password updated successfully",
+        "updateFailed": "Failed to update password",
+        "incorrectPassword": "Incorrect password"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "updateNotifications": "Update notifications",
+      "updateNotificationsFailed": "Failed to update notifications",
+      "updateNotificationsSuccess": "Notifications updated successfully",
+      "notifyMeAbout": "Notify me about via email",
+      "all": "Finished prints, borrowed item deadlines, coffee cups filled and account updates",
+      "useful": "Finished prints, borrowed item deadlines and account updates",
+      "essential": "Account updates"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
+  },
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",
@@ -130,18 +253,21 @@
   "storage": {
     "title": "Storage",
     "searchPlaceholder": "Search for product...",
+    "addNewItem": "Add new item",
+    "viewLoans": "View your loans",
+    "backToStorage": "Back to storage",
+    "noItemsFound": "No items found. Please check your filter criteria.",
     "card": {
-      "quantityInfo": "{quantity} units",
+      "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
       "removeFromCart": "Remove from cart"
     },
     "select": {
       "ariaLabel": "Select how to filter the storage items",
       "filters": "Filters",
-      "popularity": "Popularity",
+      "name": "Name (in alphabetical order)",
       "sortDescending": "Inventory (descending)",
-      "sortAscending": "Inventory (ascending)",
-      "name": "Name (in alphabetical order)"
+      "sortAscending": "Inventory (ascending)"
     },
     "combobox": {
       "defaultDescription": "Choose category...",
@@ -152,10 +278,9 @@
       "miniPC": "Mini PC"
     },
     "searchParams": {
-      "popularity": "popularity",
+      "name": "name",
       "descending": "descending",
       "ascending": "ascending",
-      "name": "name",
       "cables": "cables",
       "sensors": "sensors",
       "peripherals": "peripherals",
@@ -164,6 +289,17 @@
     "tooltips": {
       "viewShoppingCart": "View shopping cart"
     },
+    "item": {
+      "noDescription": "No description has been provided for this item.",
+      "noLocation": "No location specified",
+      "noCategory": "No category specified",
+      "invalidId": "The provided storage item ID was invalid.",
+      "edit": "Edit item",
+      "api": {
+        "insertFailed": "Failed to add storage item",
+        "insertLocalizationsFailed": "Failed to add storage item translations. Please contact Hackerspace DevOps about this issue!"
+      }
+    },
     "shoppingCart": {
       "title": "Shopping Cart",
       "productId": "Product ID",
@@ -171,46 +307,158 @@
       "location": "Location",
       "unitsAvailable": "Units available",
       "tableDescription": "A list of your shopping cart items.",
-      "backToStorage": "Back to storage",
       "cartEmpty": "Your shopping cart is empty.",
       "clearCart": "Empty shopping cart",
-      "cancel": "Cancel",
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
-      "borrowNow": "Borrow now",
-      "amountOfItemARIA": "Select number of this item"
+      "requestLoan": "Request loan",
+      "amountOfItemAria": "Select number of this item",
+      "mustBeLoggedIn": "You must be logged in to borrow items"
     },
     "loanForm": {
-      "name": "Name",
-      "email": "Email",
-      "phoneNumber": "Phone number",
-      "phoneNumberDescription": "Phone number for contact. Include country code if the number isn't Norwegian.",
-      "returnBy": "Return by",
-      "returnByDescription": "Select how long you would like to borrow the item for.",
-      "submit": "Submit"
+      "loanPeriod": "Select loan period",
+      "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "autoapprove": "Approve immediately",
+      "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
+      "submit": "Submit",
+      "dateInFuture": "The return date must be in the future",
+      "success": "Loan request sent! Redirecting to loans..."
+    },
+    "categories": {
+      "title": "Categories",
+      "categoryName": "Category name (norwegian & english)",
+      "categoryTableDescription": "Table listing categories",
+      "actions": "Actions",
+      "unauthorized": "Unauthorized to manage storage item categories",
+      "successAddMessage": "Item category added successfully!",
+      "successEditMessage": "Item category edited successfully!",
+      "successDeleteMessage": "Item category deleted successfully!",
+      "invalidName": "Invalid category name",
+      "api": {
+        "insertFailed": "Failed to add category",
+        "updateFailed": "Failed to update category",
+        "deleteFailed": "Failed to delete category",
+        "duplicateCategory": "Cannot add another category with the same name"
+      }
+    },
+    "edit": {
+      "titleNew": "New Item",
+      "titleEdit": "Edit Item",
+      "image": {
+        "label": "Item image",
+        "upload": "Upload an image...",
+        "sizeLimitError": "Item image must be less than {size} MB",
+        "wrongFileTypeError": "Item image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelEnglish": "Item name (English)",
+        "labelNorwegian": "Item name (Norwegian)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "Item name is required."
+      },
+      "description": {
+        "labelEnglish": "Description (English)",
+        "labelNorwegian": "Description (Norwegian)",
+        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
+      },
+      "location": {
+        "labelEnglish": "Location (English)",
+        "labelNorwegian": "Location (Norwegian)",
+        "placeholder": "Box 2A",
+        "required": "Item location is required.",
+        "invalid": "Please provide a short and concise location."
+      },
+      "quantity": {
+        "label": "Quantity",
+        "placeholder": "4",
+        "negative": "Quantity cannot be negative."
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "deleteItem": "Delete item",
+      "deleteItemDescription": "Are you sure you want to delete this item? All loans of this item will also be deleted. This action cannot be undone!",
+      "successNew": "New storage item added successfully! Redirecting to storage...",
+      "successEdit": "Storage item edited successfully! Redirecting to storage...",
+      "successDelete": "Storage item deleted successfully! Redirecting to storage...",
+      "unauthorized": "Unauthorized to manage storage items"
+    },
+    "loans": {
+      "view": "View loans",
+      "title": "Loans",
+      "titlePending": "Pending loans",
+      "titleApproved": "Approved loans",
+      "pendingLoan": "Pending loan",
+      "notReturned": "Not returned yet",
+      "returned": "Returned {date}",
+      "loanSubheader": "This loan is waiting for approval",
+      "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",
+      "askForApproval": "Do you wish to approve this loan request?",
+      "approve": "Approve",
+      "confirmLoanReturn": "Confirm item return",
+      "deleteLoan": "Delete loan",
+      "deleteDescription": "Do you really wish to delete the loan from {person}?",
+      "loan": "Loan",
+      "loanApproveSuccess": "Loan has been approved successfully!",
+      "loanDeleteSuccess": "Loan has been deleted successfully!",
+      "loanReturnSuccess": "Loan has been registered as returned!",
+      "loanApproved": "This loan has been approved",
+      "borrowTimeline": "Borrowing from {from} until {until}",
+      "requestedAt": "Requested at {date}",
+      "noPendingLoans": "No pending loans 🎉",
+      "noLoansFound": "No loans found",
+      "unauthorized": "Unauthorized to manage storage item loan requests"
+    },
+    "api": {
+      "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
+      "notFound": "The selected storage item was not found.",
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
+      "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
+      "borrowPositiveAmount": "Must borrow a positive amount.",
+      "limitNotInRange": "limit must be between 1 and 50."
     }
   },
   "shiftSchedule": {
     "title": "Shift Schedule",
-    "administratorMenu": {
-      "label": "Administrator Menu",
-      "open": "Open Administrator Menu",
-      "close": "Close Administrator Menu",
-      "clearShiftSchedule": "Clear shift schedule"
+    "clearShifts": {
+      "clear": "Clear shift schedule",
+      "warning": "Warning",
+      "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
+      "confirm": "Clear",
+      "cancel": "Cancel",
+      "clearSuccess": "Cleared shifts successfully"
     },
-    "scheduleTable": {
+    "table": {
       "time": "Time",
       "day": "{day, select, monday {Monday} tuesday {Tuesday} wednesday {Wednesday} thursday {Thursday} other {Friday}}",
-      "scheduleCell": {
-        "onShift": "{count, plural, =0 {Closed} =1 {1 person on shift} other {# people on shift}}",
-        "scheduleCellDialog": {
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person on shift} other {# people on shift}}",
+        "closed": "Closed",
+        "dialog": {
+          "description": "See members on the selected shift or register yourself",
           "empty": "No one on shift",
-          "registerSection": {
-            "recurring": "Recurring",
-            "register": "Register"
-          }
+          "recurring": "Recurring",
+          "register": "Register",
+          "update": "Update",
+          "unregister": "Unregister",
+          "signIn": "Sign in",
+          "signInDescription": "Sign in to register for shifts",
+          "registerSuccess": "Registered shift successfully",
+          "updateSuccess": "Updated shift successfully",
+          "unregisterSuccess": "Unregistered from shift successfully"
         }
       }
+    },
+    "api": {
+      "day": "Invalid day",
+      "timeslot": "Invalid timeslot",
+      "recurring": "Invalid value for recurring",
+      "fetchShiftsFailed": "Failed to fetch shifts"
     }
   },
   "events": {
@@ -225,9 +473,27 @@
     "endedAt": "Ended at",
     "backToEvents": "Back to Events"
   },
+  "rules": {
+    "title": "Rules",
+    "forEveryone": "For everyone",
+    "internal": "Internal rules"
+  },
+  "skills": {
+    "printing": "3D Printing",
+    "soldering": "Soldering",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laser Cutting",
+    "workshop": "Workshop Tools",
+    "microcontroller": "Microcontroller Programming",
+    "webdevelopment": "Web Development"
+  },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
-    "notAuthenticated": "Not authenticated"
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
   },
   "privacy": {
     "privacy": "Privacy",

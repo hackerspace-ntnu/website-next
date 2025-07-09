@@ -13,12 +13,11 @@ export default async function CreateAccountPage({
 
   const { user } = await api.auth.state();
 
-  if (user) {
-    if (user.isAccountComplete) {
-      redirect({ href: '/', locale });
-    }
-  } else {
-    redirect({ href: '/auth', locale });
+  if (!user) {
+    return redirect({ href: '/auth', locale });
+  }
+  if (user.isAccountComplete) {
+    return redirect({ href: '/', locale });
   }
 
   return <AccountSignUpForm />;

@@ -1,89 +1,111 @@
 'use client';
 
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
-import { Calendar } from '@/components/ui/Calendar';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import { Input } from '@/components/ui/Input';
-import { addDays, addWeeks, endOfWeek } from 'date-fns';
-import { z } from 'zod';
-
-const formSchema = z.object({
-  phone: z.string().min(1),
-  returnBy: z.date().min(new Date()),
-});
+import { useAppForm } from '@/components/ui/Form';
+import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { useRouter } from '@/lib/locale/navigation';
+import { loanFormSchema } from '@/validations/storage/loanFormSchema';
+import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import type { DateRange } from 'react-day-picker';
 
 type LoanFormProps = {
   t: {
-    borrowNow: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    phoneNumberDescription: string;
-    returnBy: string;
-    returnByDescription: string;
+    title: string;
+    loanPeriod: string;
+    loanPeriodDescription: string;
+    autoapprove: string;
+    autoapproveDescription: string;
     submit: string;
+    success: string;
   };
+  setOpen: (newState: boolean) => void;
 };
 
-function LoanForm({ t }: LoanFormProps) {
-  const form = useForm(formSchema, {
+function LoanForm({ t, setOpen }: LoanFormProps) {
+  const router = useRouter();
+  const [cart, setCart, isLoading] =
+    useLocalStorage<CartItem[]>('shopping-cart');
+
+  const borrowItemsMutation = api.storage.borrowItems.useMutation({
+    onSuccess: () => toast.success(t.success),
+  });
+
+  const user = api.auth.state.useQuery().data?.user;
+  const userIsMember = user ? user.groups.length > 0 : false;
+
+  const form = useAppForm({
+    validators: {
+      onChange: loanFormSchema(useTranslations()),
+    },
     defaultValues: {
-      phone: '',
-      returnBy: new Date(),
+      dates: {
+        from: new Date(),
+        to: addDays(new Date(), 7),
+      } as DateRange,
+      autoapprove: userIsMember,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      if (!cart || isLoading) return;
+      borrowItemsMutation.mutate(
+        cart.map((i) => ({
+          id: i.id,
+          amount: i.amount,
+          borrowFrom: value.dates.from ?? new Date(),
+          borrowUntil: value.dates.to ?? addDays(new Date(), 1),
+          autoapprove: value.autoapprove,
+        })),
+      );
+      setCart(null);
+      setOpen(false);
+      router.push('/storage/loans/user');
     },
   });
+
   return (
-    <Form className='xs:space-y-3' onSubmit={form.handleSubmit}>
-      <form.Field name='phone'>
+    <form
+      className='xs:space-y-3'
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+    >
+      <form.AppField name='dates'>
         {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t.phoneNumber}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder='420 69 420'
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormDescription>{t.phoneNumberDescription}</FormDescription>
-            <FormMessage />
-          </FormItem>
+          <field.CalendarField
+            label={t.loanPeriod}
+            description={t.loanPeriodDescription}
+            calendarClassName='mx-auto w-fit'
+            mode='range'
+            required={true}
+            selected={field.state.value ?? addDays(new Date(), 1)}
+            showOutsideDays={false}
+            min={1}
+            max={differenceInDays(
+              addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
+              new Date(),
+            )}
+            disabled={{
+              before: new Date(),
+            }}
+          />
         )}
-      </form.Field>
-      <form.Field name='returnBy'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t.returnBy}</FormLabel>
-            <FormControl>
-              <Calendar
-                className='mx-auto w-fit rounded-md border'
-                mode='single'
-                selected={field.state.value}
-                onSelect={(date) => field.handleChange(date || new Date())}
-                showOutsideDays={false}
-                disabled={{
-                  before: new Date(),
-                  after: addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
-                }}
+      </form.AppField>
+      {userIsMember && (
+        <form.AppField name='autoapprove'>
+          {(field) => (
+            <div className='flex items-center gap-2'>
+              <field.CheckboxField
+                label={t.autoapprove}
+                description={t.autoapproveDescription}
               />
-            </FormControl>
-            <FormDescription>{t.returnByDescription}</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
+            </div>
+          )}
+        </form.AppField>
+      )}
       <form.Subscribe selector={(state) => [state.canSubmit]}>
         {([canSubmit]) => (
           <Button
@@ -95,7 +117,7 @@ function LoanForm({ t }: LoanFormProps) {
           </Button>
         )}
       </form.Subscribe>
-    </Form>
+    </form>
   );
 }
 
