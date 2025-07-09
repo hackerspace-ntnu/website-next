@@ -1,5 +1,4 @@
-import { Indent } from "lucide-react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function PrivacyPage({
   params,
@@ -8,124 +7,100 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("privacy");
+  const t = await getTranslations('privacy');
+
   return (
-    <div className="max-w-prose">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        {t("privacy")}
+    <div className='mx-auto my-6 max-w-prose'>
+      <h1 className='scroll-m-20 font-extrabold text-4xl tracking-tight lg:text-5xl'>
+        {t('title')}
       </h1>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        {t("atHackerspace")}
-      </p>
-      <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-        {t("dataResponsability")}
+      <span className='my-8 block'>{t('lastUpdated')}</span>
+      <p className='leading-7'>{t('intro.part1')}</p>
+      <p className='leading-7'>{t('intro.part2')}</p>
+      <p className='leading-7'>{t('intro.part3')}</p>
+      <h2 className='mt-10 mb-6 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('dataResponsibility.title')}
       </h2>
-      <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>{t("dataResponsabilityListItemOne")}</li>
-        <li>{t("dataResponsabilityListItemTwo")}</li>
-        <li>{t("dataResponsabilityListItemThree")}</li>
-      </ul>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">{t("yourData")}</p>
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("collect")}
-      </h3>
-      <p>{t("weCollect")}</p>
-      <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>{t("weCollectListItemOne")}</li>
-        <li>{t("weCollectListItemTwo")}</li>
-        <li>{t("weCollectListItemThree")}</li>
-        <li>{t("weCollectListItemFour")}</li>
-      </ul>
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("howWeUseData")}
-      </h3>
-      <p>{t("forTheFollowing")}</p>
-      <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>
-          <span className="font-semibold">
-            {t("forTheFollowingListItemOneSpan")}
-          </span>{" "}
-          {t("forTheFollowingListItemOne")}
-        </li>
-        <li>
-          <span className="font-semibold">
-            {t("forTheFollowingListItemTwoSpan")}
-          </span>{" "}
-          {t("forTheFollowingListItemTwo")}
-        </li>
-        <li>
-          <span className="font-semibold">
-            {t("forTheFollowingListItemThreeSpan")}
-          </span>{" "}
-          Med ditt
-          {t("forTheFollowingListItemThree")}
-        </li>
-        <li>
-          <span className="font-semibold">
-            {t("forTheFollowingListItemFourSpan")}
-          </span>{" "}
-          {t("forTheFollowingListItemFour")}
-        </li>
-      </ul>
-      <h3>{t("protect")}</h3>
-      <p>{t("weProtect")}</p>
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("rights")}
-      </h3>
-      <p>{t("gdpr")}</p>
-      <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>
-          <span className="font-semibold">{t("gdprListItemOneSpan")}</span>{" "}
-          {t("gdprListItemOne")}
-        </li>
-        <li>
-          <span className="font-semibold">{t("gdprListItemTwoSpan")}</span>{" "}
-          {t("gdprListItemTwo")}
-        </li>
-        <li>
-          <span className="font-semibold">{t("gdprListItemThreeSpan")}</span>{" "}
-          {t("gdprListItemThree")}
-        </li>
-        <li>
-          <span className="font-semibold">{t("gdprListItemFourSpan")}</span>{" "}
-          {t("gdprListItemFour")}
-        </li>
-        <li>
-          <span className="font-semibold">{t("gdprListItemFiveSpan")}</span>{" "}
-          {t("gdprListItemFive")}
-        </li>
-      </ul>
-      {t("exercise")}
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("cookies")}
-      </h3>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        {t("weUseCookies")}
+      <p className='my-6 ml-6 list-disc [&>li]:mt-2'>
+        {t('dataResponsibility.organization')}
+        <br />
+        {t('dataResponsibility.address')}
+        <br />
+        {t('dataResponsibility.email')}
       </p>
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("thirdPartySharing")}
-      </h3>
-      {t("thirdPartySharingPurposes")}
-      <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+      <p className='leading-7 [&:not(:first-child)]:mt-6'>
+        {t('dataResponsibility.comment')}
+      </p>
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('collect.title')}
+      </h2>
+      <p>{t('collect.intro1')}</p>
+      <p>{t('collect.intro2')}</p>
+      <p>{t('collect.weCollectTheFollowing')}</p>
+      <ul className='my-6 ml-6 list-disc [&>li]:mt-2'>
+        <li>{t('collect.weCollect1')}</li>
+        <li>{t('collect.weCollect2')}</li>
+        <li>{t('collect.weCollect3')}</li>
+        <li>{t('collect.weCollect4')}</li>
+      </ul>
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('dataPurpose.title')}
+      </h2>
+      <p>{t('dataPurpose.intro')}</p>
+      <ul className='my-6 ml-6 list-disc [&>li]:mt-2'>
         <li>
-          <span className="font-semibold">
-            {" "}
-            {t("thirdPartyListItemOneSpan")}
-          </span>{" "}
-          {t("thirdPartyListItemOne")}
+          <span className='font-semibold'>{t('dataPurpose.purpose11')}</span>{' '}
+          {t('dataPurpose.purpose12')}
         </li>
         <li>
-          <span className="font-semibold">
-            {t("thirdPartyListItemTwoSpan")}
-          </span>{" "}
-          {t("thirdPartyListItemTwo")}
+          <span className='font-semibold'>{t('dataPurpose.purpose21')}</span>{' '}
+          {t('dataPurpose.purpose22')}
+        </li>
+        <li>
+          <span className='font-semibold'>{t('dataPurpose.purpose31')}</span>{' '}
+          {t('dataPurpose.purpose32')}
         </li>
       </ul>
-      <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">
-        {t("privacyChange")}
-      </h3>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        {t("privacyChangeClause")}
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('protection.title')}
+      </h2>
+      <p>{t('protection.content')}</p>
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('rights.title')}
+      </h2>
+      <p>{t('rights.gdprIntro')}</p>
+      <ul className='my-6 ml-6 list-disc [&>li]:mt-2'>
+        <li>
+          <span className='font-semibold'>{t('rights.gdpr11')}</span>{' '}
+          {t('rights.gdpr12')}
+        </li>
+        <li>
+          <span className='font-semibold'>{t('rights.gdpr21')}</span>{' '}
+          {t('rights.gdpr22')}
+        </li>
+        <li>
+          <span className='font-semibold'>{t('rights.gdpr31')}</span>{' '}
+          {t('rights.gdpr32')}
+        </li>
+        <li>
+          <span className='font-semibold'>{t('rights.gdpr41')}</span>{' '}
+          {t('rights.gdpr42')}
+        </li>
+      </ul>
+      <p>{t('rights.consentComment')}</p>
+      <p>{t('rights.exercise')}</p>
+      <p>{t('rights.responseTime')}</p>
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('cookies.title')}
+      </h2>
+      <p className='leading-7 [&:not(:first-child)]:mt-6'>
+        {t('cookies.content')}
+      </p>
+      <h2 className='mt-10 mb-4 scroll-m-20 border-b pb-2 font-semibold text-3xl tracking-tight'>
+        {t('policyChange.title')}
+      </h2>
+      <p className='leading-7 [&:not(:first-child)]:mt-6'>
+        {t('policyChange.content')}
       </p>
     </div>
   );
