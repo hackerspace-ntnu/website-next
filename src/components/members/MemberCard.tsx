@@ -50,8 +50,8 @@ function MemberCard({
     >
       <Link
         href={{
-          pathname: '/members/[member]',
-          params: { member: id },
+          pathname: '/members/[memberId]',
+          params: { memberId: id },
         }}
       >
         <Card className='relative flex h-full min-h-60 w-full overflow-hidden'>

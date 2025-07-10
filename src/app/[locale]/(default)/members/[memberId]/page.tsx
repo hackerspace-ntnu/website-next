@@ -25,14 +25,14 @@ export async function generateMetadata({
 export default async function MemberPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; member: string }>;
+  params: Promise<{ locale: Locale; memberId: string }>;
 }) {
-  const { locale, member } = await params;
+  const { locale, memberId } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('members');
 
   const memberData = memberMockData.find(
-    (mockMember) => mockMember.id === Number(member),
+    (mockMember) => mockMember.id === Number(memberId),
   );
   if (!memberData) {
     return notFound();

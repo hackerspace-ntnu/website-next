@@ -32,8 +32,8 @@ function MemberItem({
     >
       <Link
         href={{
-          pathname: '/members/[member]',
-          params: { member: id },
+          pathname: '/members/[memberId]',
+          params: { memberId: id },
         }}
       >
         <div className='flex h-72 flex-col gap-4 overflow-hidden rounded-lg bg-card px-10 py-3 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>

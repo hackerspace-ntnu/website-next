@@ -67,9 +67,8 @@ export default async function GroupPage({
               <Link
                 key={member.id}
                 href={{
-                  // @ts-expect-error Page not implemented yet
-                  pathname: '/members/[id]',
-                  params: { id: member.id },
+                  pathname: '/members/[memberId]',
+                  params: { memberId: member.id },
                 }}
                 className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
               >

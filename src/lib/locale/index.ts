@@ -110,12 +110,12 @@ const routing = defineRouting({
       'nb-NO': '/nyheter/[articleId]',
     },
     '/members': {
-      en: '/members',
-      no: '/medlemmer',
+      'en-GB': '/members',
+      'nb-NO': '/medlemmer',
     },
-    '/members/[member]': {
-      en: '/members/[member]',
-      no: '/medlemmer/[member]',
+    '/members/[memberId]': {
+      'en-GB': '/members/[memberId]',
+      'nb-NO': '/medlemmer/[memberId]',
     },
     '/storage': {
       'en-GB': '/storage',

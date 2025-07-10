@@ -1,4 +1,3 @@
-import { SearchBar } from '@/components/composites/SearchBar';
 import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 import { type Locale, useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
