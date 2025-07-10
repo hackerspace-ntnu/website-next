@@ -1,5 +1,5 @@
 import { groupIdentifiers } from '@/lib/constants';
-import { localesEnum, users } from '@/server/db/tables';
+import { files, localesEnum, users } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
@@ -18,6 +18,7 @@ const groupIdentifiersEnum = pgEnum('group_identifiers', groupIdentifiers);
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
   identifier: groupIdentifiersEnum('identifier'),
+  imageId: integer('image_id').references(() => files.id),
 });
 
 const groupLocalizations = pgTable(
@@ -63,9 +64,13 @@ const userGroups = pgTable(
   },
 );
 
-const groupsRelations = relations(groups, ({ many }) => ({
+const groupsRelations = relations(groups, ({ one, many }) => ({
   usersGroups: many(userGroups),
   localizations: many(groupLocalizations),
+  image: one(files, {
+    fields: [groups.imageId],
+    references: [files.id],
+  }),
 }));
 
 const groupLocalizationsRelations = relations(

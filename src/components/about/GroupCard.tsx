@@ -1,58 +1,62 @@
 import { Meteors } from '@/components/fancy/Meteors';
-import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import Image from 'next/image';
-
-import { Button } from '@/components/ui/Button';
+import type { RouterOutput } from '@/server/api';
+import { getLocale } from 'next-intl/server';
+import { UsersRoundIcon } from 'lucide-react';
+import { Link } from '@/components/ui/Link';
 
 type GroupCardProps = {
+  group: RouterOutput['about']['fetchGroups'][number];
   className?: string;
-  id: number;
-  name: string;
-  photoUrl: string;
-  description: string;
 };
 
-function GroupCard({
-  className,
-  id,
-  name,
-  photoUrl,
-  description,
-}: GroupCardProps) {
+async function GroupCard({ className, group }: GroupCardProps) {
+  const locale = await getLocale();
+  const groupLocalization = group.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!groupLocalization) {
+    return null;
+  }
+
   return (
-    <Button
-      className={cx('group block whitespace-normal font-normal', className)}
-      asChild
+    <Link
+      href={`about/group/${group.id}`}
+      className={cx(
+        'group block whitespace-normal font-normal w-fit',
+        className,
+      )}
       variant='none'
       size='none'
     >
-      <Link href={`about/group/${id}`}>
-        <div className='relative flex h-96 w-96 flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
-          <div className='absolute inset-0 z-0 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
-            <Meteors number={15} className={'absolute inset-0 z-10'} />
-          </div>
-
-          <div className='relative z-10 h-44 w-44 self-center'>
+      <div className='relative flex h-96 w-96 flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
+        <div className='absolute inset-0 z-0 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
+          <Meteors number={15} className={'absolute inset-0 z-10'} />
+        </div>
+        <div className='relative z-10 h-32 w-32 self-center'>
+          {group.imageUrl ? (
             <Image
               className='rounded-full object-cover object-center'
-              src={`/${photoUrl}`}
-              alt={name}
+              src={group.imageUrl}
+              alt={`${groupLocalization.name} logo`}
               fill
             />
-          </div>
-
-          <div className='relative z-10 py-2 pr-1'>
-            <h3 className='line-clamp-2 text-lg transition-colors group-hover:text-primary'>
-              {name}
-            </h3>
-            <p className='line-clamp-2 text-xs sm:text-sm [&:not(:first-child)]:mt-2'>
-              {description}
-            </p>
-          </div>
+          ) : (
+            <UsersRoundIcon className='h-full w-full' />
+          )}
         </div>
-      </Link>
-    </Button>
+        <div className='relative z-10 py-2 pr-1'>
+          <h3 className='line-clamp-2 text-lg transition-colors group-hover:text-primary'>
+            {groupLocalization.name}
+          </h3>
+          <p className='line-clamp-2 text-xs sm:text-sm [&:not(:first-child)]:mt-2'>
+            {groupLocalization.summary}
+          </p>
+        </div>
+      </div>
+    </Link>
   );
 }
 

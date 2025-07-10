@@ -1,6 +1,7 @@
 import { type FAQ, FAQAccordion } from '@/components/about/FAQAccordion';
-import { GroupCardGrid } from '@/components/about/GroupCardGrid';
+import { GroupCard } from '@/components/about/GroupCard';
 import { HackerspaceLogo } from '@/components/assets/logos';
+import { api } from '@/lib/api/server';
 import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -23,6 +24,8 @@ export default async function AboutPage({
   setRequestLocale(locale);
   const t = await getTranslations('about');
   const tFAQ = await getTranslations('about.FAQ');
+
+  const groups = await api.about.fetchGroups();
 
   const faqs: FAQ[] = [
     {
@@ -65,7 +68,11 @@ export default async function AboutPage({
       <h2 className='m-5 content-center items-center text-center'>
         {t('activeGroup')}
       </h2>
-      <GroupCardGrid />
+      <div className='mx-auto grid grid-cols-3 w-full items-center justify-center sm:gap-x-4 sm:gap-y-7'>
+        {groups.map((group) => (
+          <GroupCard key={group.id} group={group} />
+        ))}
+      </div>
       <FAQAccordion faqs={faqs} />
     </div>
   );
