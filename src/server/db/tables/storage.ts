@@ -10,8 +10,9 @@ import {
   serial,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { files, localesEnum } from '@/server/db/tables';
+import { files } from '@/server/db/tables/files';
 import { itemLoans } from '@/server/db/tables/loans';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const storageItems = pgTable('storage_items', {
   id: serial('id').primaryKey(),
