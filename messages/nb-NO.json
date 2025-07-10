@@ -494,5 +494,68 @@
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet",
     "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+  },
+  "privacy": {
+    "title": "Personvernerklæring",
+    "lastUpdated": "Sist oppdatert: 9. juli 2025",
+    "intro": {
+      "part1": "På Hackerspace er vi forpliktet til å beskytte personvernet ditt og være transparente om databehandling. Vi ønsker å sikre at dine personopplysninger behandles i samsvar med gjeldende lover, inkludert EUs generelle personvernforordning (GDPR).",
+      "part2": "Vår organisasjon har som mål å være åpen om behandlingen av personopplysninger og IT-sikkerhetstiltak. Det finnes alltid prosedyrer på Hackerspace for å sikre riktig behandling av personopplysninger.",
+      "part3": "Denne personvernerklæringen forklarer hvordan vi samler inn, bruker og beskytter dine personopplysninger når du besøker, bruker eller interagerer med nettsiden vår. Den inneholder også informasjon om dine rettigheter angående personopplysningene dine."
+    },
+    "dataResponsibility": {
+      "title": "Hvem er ansvarlig for dine data?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, Norge",
+      "email": "hackerspace-dev@idi.ntnu.no",
+      "comment": "Vi er enheten som er ansvarlig for behandlingen av dine personopplysninger."
+    },
+    "collect": {
+      "title": "Hvilke data samler vi inn?",
+      "intro1": "For at Hackerspace skal kunne levere tjenestene som er tilgjengelige på denne nettsiden, samt opprettholde et oppdatert medlemsregister, må vi samle inn personopplysninger som er spesifisert i denne personvernerklæringen.",
+      "intro2": "Personopplysningene er primært ment for å opprette en komplett profil for å knytte brukerkontoen til en person. Ved å ha et fullt navn kan vi få en god oversikt over våre medlemmer og brukere, og det gjør det mulig for oss å tilby tjenester som deltakelse på arrangementer, utlån av gjenstander og mer.",
+      "weCollectTheFollowing": "Vi samler inn følgende personopplysninger:",
+      "weCollect1": "Kontaktinformasjon: Hvis du bestemmer deg for å registrere en konto på Hackerspace, vil vi samle inn ditt navn og e-postadresse. I tillegg, hvis du velger å gi det til oss, vil vi samle inn telefonnummeret ditt for kontaktformål.",
+      "weCollect2": "Bruksdata: Informasjon om hvordan du bruker nettsiden vår, for eksempel interaksjonene dine, informasjon om enheten din, nettlesertype og besøkstidspunkt.",
+      "weCollect3": "Informasjonskapsler: Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden. Dette kan inkludere preferanser, besøkshistorikk og annen teknisk informasjon.",
+      "weCollect4": "Andre data: Vi kan samle inn data som du frivillig gir oss, for eksempel ved å fylle ut skjemaer eller sende e-poster."
+    },
+    "dataPurpose": {
+      "title": "Hvordan bruker vi dataene dine?",
+      "intro": "Vi bruker personopplysningene dine for følgende formål:",
+      "purpose11": "For å tilby tjenester:",
+      "purpose12": "Behandle bestillinger, svare på henvendelser, håndtere arrangementer, administrere utlån av gjenstander, gi støtte og mer.",
+      "purpose21": "For å forbedre brukeropplevelsen:",
+      "purpose22": "Forstå hvordan nettsiden brukes, forbedre innhold og funksjonalitet.",
+      "purpose31": "Sikkerhet:",
+      "purpose32": "Beskytte nettsiden og brukere mot svindel eller uautorisert tilgang."
+    },
+    "protection": {
+      "title": "Hvordan beskytter vi dataene dine?",
+      "content": "Vi bruker moderne sikkerhetstiltak for å beskytte personopplysningene dine mot tap, misbruk eller uautorisert tilgang. Dette inkluderer kryptering, brannmurer og tilgangskontroller. Ved ytterligere spørsmål om våre sikkerhetstiltak, vennligst kontakt DevOps-teamet på Hackerspace."
+    },
+    "rights": {
+      "title": "Dine rettigheter",
+      "gdprIntro": "I henhold til norsk lovgivning og GDPR har du følgende rettigheter:",
+      "gdpr11": "Rett til innsyn:",
+      "gdpr12": "Du har rett til å be om hvilken informasjon vi har om deg.",
+      "gdpr21": "Rett til korrigering:",
+      "gdpr22": "Du har rett til å be om korrigering av unøyaktige personopplysninger om deg.",
+      "gdpr31": "Rett til sletting:",
+      "gdpr32": "Du har rett til å be om sletting av dine personopplysninger.",
+      "gdpr41": "Rett til å trekke tilbake samtykke:",
+      "gdpr42": "Du har rett til å be om at vi slutter å behandle dataene dine.",
+      "consentComment": "Vær oppmerksom på at det er frivillig å samtykke til databehandlingen og at du kan trekke ditt samtykke når som helst. Hvis samtykket trekkes tilbake, vil brukerkontoen din bli slettet og du kan miste tilgang til våre interne tjenester som er avhengige av informasjonen du gir, samt fysisk tilgang til organisasjonens lokaler.",
+      "exercise": "For å utøve dine rettigheter kan du kontakte oss på: hackerspace-dev@idi.ntnu.no",
+      "responseTime": "Vi svarer på alle forespørsler etter beste evne, og vi vil gjøre dette innen én måned etter at vi har mottatt forespørselen din."
+    },
+    "cookies": {
+      "title": "Informasjonskapsler",
+      "content": "Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden vår. En informasjonskapsel er en liten tekstfil som lagres på enheten din. Du kan administrere informasjonskapsler i nettleseren din. Vi bruker både nødvendige og funksjonelle informasjonskapsler, samt tredjepartsinformasjon for analyse."
+    },
+    "policyChange": {
+      "title": "Endringer i denne personvernerklæringen",
+      "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
+    }
   }
 }
