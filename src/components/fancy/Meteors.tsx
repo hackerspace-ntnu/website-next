@@ -1,7 +1,8 @@
 'use client';
 
 import { cx } from '@/lib/utils';
-import { m } from 'framer-motion';
+import { m } from 'motion/react';
+import { useEffect, useState } from 'react';
 
 function Meteors({
   number,
@@ -11,6 +12,13 @@ function Meteors({
   className?: string;
 }) {
   const meteors = new Array(number || 20).fill(true);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  });
+  if (!isClient) return null;
+
   return (
     <m.div
       initial={{ opacity: 0 }}
