@@ -1,4 +1,5 @@
 import { FingerprintIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FeideButton } from '@/components/auth/FeideButton';
 import { ErrorToast } from '@/components/layout/ErrorToast';
@@ -11,7 +12,7 @@ export default async function SignInPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ error?: string }>;
 }) {
   const { locale } = await params;

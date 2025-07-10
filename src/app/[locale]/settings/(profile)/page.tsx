@@ -1,3 +1,4 @@
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { ProfileForm } from '@/components/settings/ProfileForm';
 import { ProfilePictureForm } from '@/components/settings/ProfilePictureForm';
@@ -17,7 +18,7 @@ export async function generateMetadata() {
 export default async function ProfilePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);

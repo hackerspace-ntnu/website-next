@@ -1,3 +1,4 @@
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { EventCard } from '@/components/events/EventCard';
 import { ExternalLink } from '@/components/ui/Link';
@@ -15,7 +16,7 @@ export async function generateMetadata() {
 export default async function EventsPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);

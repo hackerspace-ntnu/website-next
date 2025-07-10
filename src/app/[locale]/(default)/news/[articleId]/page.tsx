@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import readingTime from 'reading-time';
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
@@ -25,7 +26,7 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: string; articleId: string }>;
+  params: Promise<{ locale: Locale; articleId: string }>;
 }) {
   const { locale, articleId } = await params;
   setRequestLocale(locale);

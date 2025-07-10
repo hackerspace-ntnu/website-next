@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { rulesMockdata } from '@/mock-data/rules';
 
 export default async function RuleSubSetPage({
   params,
 }: {
-  params: Promise<{ locale: string; subsetId: string }>;
+  params: Promise<{ locale: Locale; subsetId: string }>;
 }) {
   const { locale, subsetId } = await params;
   setRequestLocale(locale);

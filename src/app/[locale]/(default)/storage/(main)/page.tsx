@@ -1,3 +1,4 @@
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   createSearchParamsCache,
@@ -21,7 +22,7 @@ export default async function StoragePage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;

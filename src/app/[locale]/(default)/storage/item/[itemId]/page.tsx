@@ -1,6 +1,7 @@
 import { BlocksIcon, MapPinIcon } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
@@ -10,7 +11,7 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
 type StorageItemParams = Promise<{
-  locale: string;
+  locale: Locale;
   itemId: string;
 }>;
 
@@ -23,7 +24,7 @@ export async function generateMetadata({
   const { itemId, locale } = await params;
   const item = await api.storage.fetchOne(Number.parseInt(itemId));
   if (!item.english || !item.norwegian) return;
-  const itemName = locale === 'en' ? item.english.name : item.norwegian.name;
+  const itemName = locale === 'en-GB' ? item.english.name : item.norwegian.name;
 
   return {
     title: `${t('title')}: ${itemName}`,
@@ -54,12 +55,14 @@ export default async function StorageItemPage({
     ['labops', 'leadership', 'admin'].includes(g),
   );
 
-  const itemLocale = locale === 'en' ? item.english : item.norwegian;
+  const itemLocale = locale === 'en-GB' ? item.english : item.norwegian;
 
   if (!itemLocale) return notFound();
 
   const itemCategoryName =
-    locale === 'en' ? item.category?.nameEnglish : item.category?.nameNorwegian;
+    locale === 'en-GB'
+      ? item.category?.nameEnglish
+      : item.category?.nameNorwegian;
 
   return (
     <>

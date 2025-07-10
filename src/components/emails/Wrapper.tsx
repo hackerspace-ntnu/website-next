@@ -7,6 +7,7 @@ import {
   Preview,
   Tailwind,
 } from '@react-email/components';
+import type { Locale } from 'next-intl';
 import type { routing } from '@/lib/locale';
 
 function Wrapper({
@@ -19,7 +20,7 @@ function Wrapper({
   children: React.ReactNode;
   previewText: string;
   publicSiteUrl: string;
-  locale: (typeof routing.locales)[number];
+  locale: Locale;
   theme: 'dark' | 'light';
 }) {
   return (

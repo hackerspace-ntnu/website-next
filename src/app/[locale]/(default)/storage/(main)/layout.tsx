@@ -1,3 +1,4 @@
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 import { CategorySelector } from '@/components/composites/CategorySelector';
@@ -12,7 +13,7 @@ import { api } from '@/lib/api/server';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default async function StorageLayout({

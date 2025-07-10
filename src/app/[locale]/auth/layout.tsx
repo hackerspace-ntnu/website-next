@@ -1,4 +1,4 @@
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
@@ -12,7 +12,7 @@ import { Card, CardHeader } from '@/components/ui/Card';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata() {

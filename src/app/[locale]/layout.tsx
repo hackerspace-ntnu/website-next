@@ -1,4 +1,5 @@
 import { Inter, Montserrat } from 'next/font/google';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RootProviders } from '@/components/providers/RootProviders';
 import { ScrollArea } from '@/components/ui/ScrollArea';
@@ -8,7 +9,7 @@ import { cx } from '@/lib/utils';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 const inter = Inter({

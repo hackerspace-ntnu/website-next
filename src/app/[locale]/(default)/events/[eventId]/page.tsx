@@ -1,8 +1,8 @@
 import { format, isSameDay } from 'date-fns';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
@@ -25,7 +25,7 @@ export async function generateMetadata({
 export default async function EventDetailsPage({
   params,
 }: {
-  params: Promise<{ locale: string; eventId: string }>;
+  params: Promise<{ locale: Locale; eventId: string }>;
 }) {
   const { locale, eventId } = await params;
   setRequestLocale(locale);

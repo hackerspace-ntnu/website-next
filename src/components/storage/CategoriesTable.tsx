@@ -1,4 +1,4 @@
-import { NextIntlClientProvider } from 'next-intl';
+import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { CategoriesTableFormRow } from '@/components/storage/CategoriesTableFormRow';
 import {

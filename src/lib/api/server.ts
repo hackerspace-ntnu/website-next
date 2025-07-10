@@ -4,7 +4,6 @@ import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { getLocale } from 'next-intl/server';
 import { cache } from 'react';
 import { createQueryClient } from '@/lib/api/queryClient';
-import type { routing } from '@/lib/locale';
 import { createCaller, type router } from '@/server/api';
 import { createContext } from '@/server/api/context';
 
@@ -12,9 +11,7 @@ const getQueryClient = cache(createQueryClient);
 
 const getApiClient = cache(async () => {
   const locale = await getLocale();
-  const caller = createCaller(
-    await createContext(locale as (typeof routing.locales)[number]),
-  );
+  const caller = createCaller(await createContext(locale));
 
   return createHydrationHelpers<typeof router>(caller, getQueryClient);
 });

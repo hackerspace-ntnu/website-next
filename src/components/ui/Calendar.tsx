@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 
-import { dayPickerLocales, type routing } from '@/lib/locale';
+import { dayPickerLocales } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 
 type CalendarProps = DayPickerProps;
@@ -35,7 +35,6 @@ type CalendarProps = DayPickerProps;
  * Our version supports a dropdown for the month and year if enabled via the captionLayout prop.
  * Also it uses the correct locale labels for everything based on the current locale.
  */
-
 function Dropdown({
   value,
   onChange,
@@ -185,7 +184,7 @@ function Calendar({
       }}
       showOutsideDays={showOutsideDays}
       fixedWeeks
-      locale={dayPickerLocales[locale as (typeof routing.locales)[number]]}
+      locale={dayPickerLocales[locale]}
       labels={{
         labelDayButton: (date, { today, selected }) => {
           let label = format.dateTime(date, {

@@ -1,3 +1,4 @@
+import type { Locale } from 'next-intl';
 import { IntlClientProvider } from '@/components/providers/IntlClientProvider';
 import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
 import { NuqsProvider } from '@/components/providers/NuqsProvider';
@@ -7,7 +8,7 @@ import { TRPCProvider } from '@/components/providers/TRPCProvider';
 
 type RootProvidersProps = {
   children: React.ReactNode;
-  locale: string;
+  locale: Locale;
 };
 
 function RootProviders({ children, locale }: RootProvidersProps) {
