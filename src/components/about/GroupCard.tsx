@@ -54,7 +54,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
           <h3 className='line-clamp-2 text-lg transition-colors group-hover:text-primary'>
             {groupLocalization.name}
           </h3>
-          <p className='line-clamp-2 text-xs sm:text-sm [&:not(:first-child)]:mt-2'>
+          <p className='line-clamp-2 text-sm [&:not(:first-child)]:mt-2'>
             {groupLocalization.summary}
           </p>
         </div>

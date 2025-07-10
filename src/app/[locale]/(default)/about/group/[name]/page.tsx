@@ -71,9 +71,9 @@ export default async function GroupPage({
                   pathname: '/members/[id]',
                   params: { id: member.id },
                 }}
-                className='group relative box-border border border-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
               >
-                <div className='relative z-10 h-44 w-44 self-center'>
+                <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (
                     <Image
                       className='object-cover duration-200 group-hover:scale-105'
@@ -82,10 +82,10 @@ export default async function GroupPage({
                       fill
                     />
                   ) : (
-                    <CircleUserRoundIcon className='h-full w-full object-cover duration-200 group-hover:scale-105' />
+                    <CircleUserRoundIcon className='h-full w-full duration-200 group-hover:scale-105' />
                   )}
                 </div>
-                <p className='group-hover:text-primary duration-200'>
+                <p className='duration-200 group-hover:text-primary'>
                   {member.firstName} {member.lastName}
                 </p>
               </Link>

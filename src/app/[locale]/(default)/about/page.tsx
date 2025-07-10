@@ -68,7 +68,7 @@ export default async function AboutPage({
       <h2 className='m-5 content-center items-center text-center'>
         {t('activeGroup')}
       </h2>
-      <div className='mx-auto grid w-fit grid-cols-3 items-center justify-center sm:gap-x-4 sm:gap-y-8'>
+      <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3'>
         {groups.map((group) => (
           <GroupCard key={group.id} group={group} />
         ))}
