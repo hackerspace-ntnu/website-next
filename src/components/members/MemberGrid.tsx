@@ -8,7 +8,7 @@ type MemberGridProps = {
 
 function MemberGrid({ page }: MemberGridProps) {
   const itemsDisplayedAsCards = 0;
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
 
   const start = (page - 1) * itemsPerPage + itemsDisplayedAsCards;
   const end = start + itemsPerPage;

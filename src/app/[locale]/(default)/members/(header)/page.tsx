@@ -1,7 +1,11 @@
 import { memberMockData } from '@/mock-data/member';
-import { type Locale, useTranslations } from 'next-intl';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
+import {
+  type SearchParams,
+  createSearchParamsCache,
+  parseAsInteger,
+} from 'nuqs/server';
 import { Suspense } from 'react';
 
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
@@ -21,16 +25,18 @@ export default async function MembersPage({
   searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = useTranslations('ui');
+
+  const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
   });
 
-  const { [t('page')]: page = 1 } = searchParamsCache.parse(searchParams);
+  const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
+
   return (
     <>
       <Suspense key={page} fallback={<ItemGridSkeleton />}>
@@ -38,7 +44,7 @@ export default async function MembersPage({
       </Suspense>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(memberMockData.length / 12)}
+        totalPages={Math.ceil(memberMockData.length / 8)}
       />
     </>
   );
