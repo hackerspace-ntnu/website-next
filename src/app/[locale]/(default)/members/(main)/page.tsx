@@ -1,6 +1,6 @@
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
-import { ItemGridSkeleton } from '@/components/members/ItemGridSkeleton';
-import { MemberItem } from '@/components/members/MemberItem';
+import { MemberCard } from '@/components/members/MemberCard';
+import { Separator } from '@/components/ui/Separator';
 import { memberMockData } from '@/mock-data/member';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -10,7 +10,6 @@ import {
   parseAsInteger,
   parseAsString,
 } from 'nuqs/server';
-import { Suspense } from 'react';
 
 export async function generateMetadata() {
   const t = await getTranslations('members');
@@ -39,10 +38,9 @@ export default async function MembersPage({
   const { [t('page')]: page = 1, [t('name')]: name = '' } =
     searchParamsCache.parse(await searchParams);
 
-  const itemsDisplayedAsCards = 0;
   const itemsPerPage = 8;
 
-  const start = ((page as number) - 1) * itemsPerPage + itemsDisplayedAsCards;
+  const start = ((page as number) - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   let currentData = memberMockData.slice(start, end);
 
@@ -56,13 +54,11 @@ export default async function MembersPage({
 
   return (
     <>
-      <Suspense key={page} fallback={<ItemGridSkeleton />}>
-        {currentData.length === 0 && (
-          <p className='py-4 text-center'>No members found.</p>
-        )}
-        <div className='mx-auto grid w-fit grid-cols-1 justify-items-center gap-4 sm:grid-cols-3 sm:gap-8 lg:grid-cols-4'>
+      {currentData.length > 0 && (
+        <div className='relative mx-auto mt-12 grid w-fit grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4'>
+          <Separator className='-top-6 -translate-x-1/2 absolute left-1/2 w-full' />
           {currentData.map((data) => (
-            <MemberItem
+            <MemberCard
               key={data.id}
               id={data.id}
               internal={data.internal}
@@ -72,7 +68,10 @@ export default async function MembersPage({
             />
           ))}
         </div>
-      </Suspense>
+      )}
+      {currentData.length === 0 && (
+        <p className='py-4 text-center'>No members found.</p>
+      )}
       <PaginationCarousel
         className='my-6'
         totalPages={Math.ceil(memberMockData.length / 8)}
