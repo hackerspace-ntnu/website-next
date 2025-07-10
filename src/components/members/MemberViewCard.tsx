@@ -1,12 +1,4 @@
 'use client';
-import { MailIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import ExternalLink from 'next/link';
-
-import { Link } from '@/lib/locale/navigation';
-import { cx } from '@/lib/utils';
-
 import {
   DiscordIcon,
   GitHubIcon,
@@ -14,23 +6,19 @@ import {
   LinkedInIcon,
 } from '@/components/assets/icons';
 import { InternalBadge } from '@/components/members/InternalBadge';
-import {
-  MemberCard,
-  type MemberCardProps,
-} from '@/components/members/MemberCard';
+import type { MemberCardProps } from '@/components/members/MemberCard';
 import { Button } from '@/components/ui/Button';
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
+import { MailIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import ExternalLink from 'next/link';
 import { toast } from 'sonner';
 
 function MemberViewCard({
