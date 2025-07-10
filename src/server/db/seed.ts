@@ -2,6 +2,7 @@ import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
 import { routing } from '@/lib/locale';
 import {
   type InsertGroup,
+  type InsertGroupLocalization,
   type InsertItemCategory,
   type InsertItemLocalization,
   type InsertShift,
@@ -10,6 +11,7 @@ import {
   type InsertUser,
   type InsertUserGroup,
   type InsertUserSkill,
+  groupLocalizations,
   groups,
   itemCategories,
   itemLocalizations,
@@ -123,10 +125,120 @@ async function main() {
   console.log('Users inserted');
 
   console.log('Inserting groups...');
+  const groupLocalizationsData: InsertGroupLocalization[] = [
+    {
+      groupId: 1,
+      name: 'DevOps',
+      summary: 'DevOps group focused on infrastructure and operations.',
+      description:
+        'The DevOps group is responsible for managing the infrastructure and operations of Hackerspace. They work on automating processes, managing servers, and ensuring smooth operations.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 1,
+      name: 'DevOps',
+      summary: 'DevOps fokuserer på infrastruktur og drift.',
+      description:
+        'DevOps er ansvarlig for å administrere infrastruktur og drift av Hackerspace. De jobber med automatisering av prosesser, serveradministrasjon og sikrer smidig drift.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 2,
+      name: 'LabOps',
+      summary: "LabOps handles Hackerspace's operations.",
+      description:
+        'The LabOps group is responsible for managing the operations of Hackerspace. They work on maintaining equipment, ensuring safety protocols, and facilitating events.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 2,
+      name: 'LabOps',
+      summary: 'LabOps driver verkstedet.',
+      description:
+        'LabOps-gruppen er ansvarlig for å administrere driften av Hackerspace. De jobber med vedlikehold av utstyr, sikkerhetsprotokoller og tilrettelegging av arrangementer.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 3,
+      name: 'Leadership',
+      summary: 'Leadership group focused on strategic direction.',
+      description:
+        'The Leadership group is responsible for setting the strategic direction of Hackerspace. They work on long-term planning, community engagement, and overall management.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 3,
+      name: 'Lederskap',
+      summary: 'Lederskapsgruppen er fokusert på strategisk retning.',
+      description:
+        'Lederskapsgruppen er ansvarlig for å sette den strategiske retningen for Hackerspace. De jobber med langsiktig planlegging, samfunnsengasjement og overordnet ledelse.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 5,
+      name: 'Trusted Representative',
+      summary:
+        'A selected member which can be contacted for various inquiries.',
+      description:
+        'Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 5,
+      name: 'Tillitsvalgt',
+      summary: 'Et utvalgt medlem som kan kontaktes for ulike henvendelser.',
+      description:
+        'Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 6,
+      name: 'TTRPG',
+      summary: 'TTRPG group focused on tabletop role-playing games.',
+      description:
+        'The TTRPG group is dedicated to tabletop role-playing games. They organize game sessions, create campaigns, and foster a community of gamers.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 7,
+      name: 'Breadboard',
+      summary: 'Breadboard group focused on electronics prototyping.',
+      description:
+        'The Breadboard group is focused on electronics prototyping and experimentation. They work on building circuits, testing components, and sharing knowledge about electronics.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 7,
+      name: 'Breadboard',
+      summary: 'Breadboard-gruppe fokusert på elektronikkprototyping.',
+      description:
+        'Breadboard-gruppen er fokusert på elektronikkprototyping og eksperimentering. De jobber med å bygge kretser, teste komponenter og dele kunnskap om elektronikk.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 8,
+      name: 'Pang',
+      summary:
+        'Members which have fulfilled their duties and are now retired from Hackerspace.',
+      description:
+        'The Pang group consists of members who have fulfilled their duties and are now retired from the Hackerspace. They are recognized for their contributions and continue to be part of the community.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 8,
+      name: 'Pang',
+      summary:
+        'Medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace.',
+      description:
+        'Pang-gruppen består av medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace. De anerkjennes for sine bidrag og fortsetter å være en del av fellesskapet.',
+      locale: 'nb-NO',
+    },
+  ];
   const groupsData: InsertGroup[] = groupIdentifiers.map((identifier) => ({
     identifier,
   }));
   const insertedGroups = await db.insert(groups).values(groupsData).returning();
+  await db.insert(groupLocalizations).values(groupLocalizationsData);
 
   if (insertedGroups.length < 9) {
     console.error('Error: Inserted groups data is incomplete.');

@@ -250,6 +250,27 @@
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger"
   },
+  "about": {
+    "whatIsHackerspace": "Hva er Hackerspace?",
+    "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
+    "showMap": "Vis kart!",
+    "FAQ": {
+      "title": "Ofte stilte spørsmål",
+      "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
+      "answerCanIUseThe3dPrinter": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
+      "canITryVRGames-Equipment": "Kan jeg prøve VR spill/utstyr?",
+      "answerCanITryVRGames-Equipment": "VR utstyret vårt kan lånes og prøves ut av alle studenter uavhengig av medlemskap i Hackerspace. Vi har eget VR-rom der man kan komme og spille så lenge et Hackerspace-medlem er tilgjengelig ved oppsett og avslutning. Utstyret kan lånes ut på vanlig måte gjennom lagersystemet. Kom innom i våre åpningstider om dette interesserer deg.",
+      "howDoIBecomeAMember": "Hvordan blir jeg medlem?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
+    },
+    "activeGroup": "Våre aktive grupper",
+    "backToAbout": "Tilbake til Om Oss",
+    "api": {
+      "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
+      "invalidId": "Ugyldig ID",
+      "invalidGroupIdentifier": "Ugyldig gruppe-ID"
+    }
+  },
   "storage": {
     "title": "Lager",
     "searchPlaceholder": "Søk etter produkt...",
