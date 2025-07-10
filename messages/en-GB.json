@@ -264,6 +264,7 @@
       "answerHowDoIBecomeAMember": "<p1> Hackerspace has ongoing admissions. You can apply whenever you want. We usually respond within 3 working weeks. </p1> <p2> Note that you do not need membership to borrow equipment or try something cool. Come by for a chat during our opening hours to learn more about our offerings and what it's like to be a member. </p2>"
     },
     "activeGroup": "Our Active Groups",
+    "backToAbout": "Back to About",
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
       "invalidId": "Invalid ID",

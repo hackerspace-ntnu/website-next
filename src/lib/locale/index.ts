@@ -41,6 +41,14 @@ const routing = defineRouting({
       'en-GB': '/too-many-requests',
       'nb-NO': '/for-mange-forespørsler',
     },
+    '/about': {
+      'en-GB': '/about',
+      'nb-NO': '/om-oss',
+    },
+    '/about/group/[name]': {
+      'en-GB': '/about/group/[name]',
+      'nb-NO': '/om-oss/grupper/[name]',
+    },
     '/auth': {
       'en-GB': '/auth',
       'nb-NO': '/autentisering',
@@ -100,26 +108,6 @@ const routing = defineRouting({
     '/news/[articleId]': {
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
-    },
-    '/about': {
-      'en-GB': '/about',
-      'nb-NO': '/om-oss',
-    },
-    '/about/devops': {
-      en: '/about/devops',
-      no: '/om-oss/devops',
-    },
-    '/about/LabOps': {
-      en: '/about/LabOps',
-      no: '/om-oss/LabOps',
-    },
-    '/about/breadboard-computer': {
-      en: '/about/breadboard-computer',
-      no: '/om-oss/brødbrett-datamaskin',
-    },
-    '/about/TTRPG': {
-      en: '/about/ttrpg',
-      no: '/om-oss/bordoverflaterollespillspill',
     },
     '/storage': {
       'en-GB': '/storage',
