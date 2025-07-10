@@ -78,11 +78,12 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Fonts */
-  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+  --font-inter:
+    var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-montserrat:
+    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-montserrat: var(--font-montserrat), ui-sans-serif, system-ui,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
 
   /* Breakpoints */
   --breakpoint-2xs: 24rem;

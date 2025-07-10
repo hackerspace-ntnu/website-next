@@ -1,13 +1,13 @@
+import { BlocksIcon, MapPinIcon } from 'lucide-react';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { BlocksIcon, MapPinIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
 
 type StorageItemParams = Promise<{
   locale: string;
@@ -16,7 +16,9 @@ type StorageItemParams = Promise<{
 
 export async function generateMetadata({
   params,
-}: { params: StorageItemParams }) {
+}: {
+  params: StorageItemParams;
+}) {
   const t = await getTranslations('storage');
   const { itemId, locale } = await params;
   const item = await api.storage.fetchOne(Number.parseInt(itemId));
@@ -30,7 +32,9 @@ export async function generateMetadata({
 
 export default async function StorageItemPage({
   params,
-}: { params: StorageItemParams }) {
+}: {
+  params: StorageItemParams;
+}) {
   const { locale, itemId } = await params;
   setRequestLocale(locale);
 
