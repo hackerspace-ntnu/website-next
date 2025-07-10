@@ -7,9 +7,8 @@ import {
 
 type FAQ = {
   id: string;
-  question: string;
-  answer: string;
-
+  question: React.ReactNode;
+  answer: React.ReactNode;
   icon?: React.ReactNode;
 };
 
@@ -44,4 +43,4 @@ function FAQAccordion({ faqs }: FAQAccordionProps) {
   );
 }
 
-export { FAQAccordion };
+export { FAQAccordion, type FAQ, type FAQAccordionProps };

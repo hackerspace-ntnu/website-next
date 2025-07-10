@@ -1,14 +1,15 @@
 import {
   articleMockData as articleData,
   authorMockData as authorData,
-} from "@/mock-data/article";
-import Image from "next/image";
-import { notFound } from "next/navigation";
-import readingTime from "reading-time";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+} from '@/mock-data/article';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import readingTime from 'reading-time';
 
-import { AvatarIcon } from "@/components/profile/AvatarIcon";
-import { Badge } from "@/components/ui/Badge";
+import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { Badge } from '@/components/ui/Badge';
+import type { Locale } from 'next-intl';
 
 export async function generateMetadata({
   params,
@@ -26,11 +27,12 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: string; article: string }>;
+  params: Promise<{ locale: Locale; article: string }>;
 }) {
   const { locale, article } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("about");
+  const t = await getTranslations('about');
+  const tNews = await getTranslations('news');
 
   const data = articleData.find((a) => a.id === Number(article));
   if (!data) {
@@ -46,9 +48,9 @@ export default async function ArticlePage({
   return (
     <article>
       <header>
-        <div className="mb-10 flex justify-center">
+        <div className='mb-10 flex justify-center'>
           <Image
-            className="h-auto w-full max-w-4xl rounded-lg"
+            className='h-auto w-full max-w-4xl rounded-lg'
             src={`/${data.photoUrl}`}
             alt={data.title}
             width={1600}
@@ -56,25 +58,25 @@ export default async function ArticlePage({
             priority
           />
         </div>
-        <h2 className="my-4">{data.title}</h2>
+        <h2 className='my-4'>{data.title}</h2>
       </header>
-      <section className="mb-6 space-y-4">
-        <div className="flex items-center gap-4">
+      <section className='mb-6 space-y-4'>
+        <div className='flex items-center gap-4'>
           <AvatarIcon
             photoUrl={`/${author.photoUrl}`}
             name={author.name}
             initials={author.initials}
           />
-          <div className="flex flex-col">
-            <p className="font-montserrat font-semibold">{author.name}</p>
-            <small className="text-foreground/60">
-              {t("readTime", { count: Math.ceil(minutes) })}
+          <div className='flex flex-col'>
+            <p className='font-montserrat font-semibold'>{author.name}</p>
+            <small className='text-foreground/60'>
+              {tNews('readTime', { count: Math.ceil(minutes) })}
               &nbsp;&nbsp;•&nbsp;&nbsp;
               {data.date}
             </small>
           </div>
         </div>
-        <Badge variant="secondary">{`${data.views} ${t("views")}`}</Badge>
+        <Badge variant='secondary'>{`${data.views} ${tNews('views')}`}</Badge>
       </section>
       <section>{data.content}</section>
     </article>
