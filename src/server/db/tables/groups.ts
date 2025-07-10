@@ -7,8 +7,8 @@ import {
   pgTable,
   primaryKey,
   serial,
-  varchar,
   text,
+  varchar,
 } from 'drizzle-orm/pg-core';
 
 const groups = pgTable('groups', {

@@ -47,6 +47,9 @@ export default async function GroupPage({
       <h1 className='mb-4'>{groupLocalization.name}</h1>
       <h3>{groupLocalization.summary}</h3>
       <p className='max-w-prose'>{groupLocalization.description}</p>
+      {members.length === 0 && (
+        <p className='text-center'>No members in this group yet.</p>
+      )}
       <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
         {members.map((member) => {
           return (

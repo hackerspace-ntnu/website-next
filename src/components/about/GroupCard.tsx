@@ -1,10 +1,10 @@
 import { Meteors } from '@/components/fancy/Meteors';
-import { cx } from '@/lib/utils';
-import Image from 'next/image';
-import type { RouterOutput } from '@/server/api';
-import { getLocale } from 'next-intl/server';
-import { UsersRoundIcon } from 'lucide-react';
 import { Link } from '@/components/ui/Link';
+import { cx } from '@/lib/utils';
+import type { RouterOutput } from '@/server/api';
+import { UsersRoundIcon } from 'lucide-react';
+import { getLocale } from 'next-intl/server';
+import Image from 'next/image';
 
 type GroupCardProps = {
   group: RouterOutput['about']['fetchGroups'][number];
@@ -25,7 +25,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
     <Link
       href={`about/group/${group.identifier}`}
       className={cx(
-        'group block whitespace-normal font-normal w-fit',
+        'group block w-fit whitespace-normal font-normal',
         className,
       )}
       variant='none'
