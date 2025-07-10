@@ -8,7 +8,6 @@ import {
   Tailwind,
 } from '@react-email/components';
 import type { Locale } from 'next-intl';
-import type { routing } from '@/lib/locale';
 
 function Wrapper({
   children,

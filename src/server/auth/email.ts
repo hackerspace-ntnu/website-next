@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 import type { Locale } from 'next-intl';
 import VerificationCodeEmail from '@/emails/VerificationCodeEmail';
 import { env } from '@/env';
-import type { routing } from '@/lib/locale';
 import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { generateRandomOTP } from '@/server/auth/code';
 import { db } from '@/server/db';
