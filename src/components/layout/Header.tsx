@@ -60,8 +60,8 @@ async function Header() {
           />
           <DesktopNavMenu
             t={{
-              open: t('desktopNavMenu', { open: true }),
-              close: t('desktopNavMenu', { open: false }),
+              open: t('desktopNavMenu', { open: 'true' }),
+              close: t('desktopNavMenu', { open: 'false' }),
               rules: t('rules'),
               storage: t('storage'),
               shiftSchedule: t('shiftSchedule'),

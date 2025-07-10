@@ -29,6 +29,13 @@
       "when": 1746809009259,
       "tag": "0003_furry_stick",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1746819078088,
+      "tag": "0004_skinny_mercury",
+      "breakpoints": true
     }
   ]
 }

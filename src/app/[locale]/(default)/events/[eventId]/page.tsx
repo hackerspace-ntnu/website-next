@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
+import type { Locale } from 'next-intl';
 
 export async function generateMetadata({
   params,
@@ -25,7 +26,7 @@ export async function generateMetadata({
 export default async function EventDetailsPage({
   params,
 }: {
-  params: Promise<{ locale: string; eventId: string }>;
+  params: Promise<{ locale: Locale; eventId: string }>;
 }) {
   const { locale, eventId } = await params;
   setRequestLocale(locale);

@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import type { RouterOutput } from '@/server/api';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 
 async function CategoriesTable({

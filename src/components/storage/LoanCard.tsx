@@ -32,9 +32,11 @@ async function LoanCard({
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
   const locale = await getLocale();
-  const englishLocale = loan.item.localizations.find((l) => l.locale === 'en');
+  const englishLocale = loan.item.localizations.find(
+    (l) => l.locale === 'en-GB',
+  );
   const norwegianLocale = loan.item.localizations.find(
-    (l) => l.locale === 'no',
+    (l) => l.locale === 'nb-NO',
   );
 
   return (
@@ -70,7 +72,9 @@ async function LoanCard({
               {t('loanItem', {
                 units: loan.unitsBorrowed,
                 name:
-                  locale === 'en' ? englishLocale?.name : norwegianLocale?.name,
+                  (locale === 'en-GB'
+                    ? englishLocale?.name
+                    : norwegianLocale?.name) ?? '',
               })}
             </span>
           </li>

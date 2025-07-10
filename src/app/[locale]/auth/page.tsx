@@ -5,13 +5,14 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 import { FingerprintIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SignInPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ error?: string }>;
 }) {
   const { locale } = await params;

@@ -1,6 +1,6 @@
 import { EditItemForm } from '@/components/storage/EditItemForm';
 import { api } from '@/lib/api/server';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default async function EditStorageItemPage({
   params,
 }: {
-  params: Promise<{ locale: string; itemId: string }>;
+  params: Promise<{ locale: Locale; itemId: string }>;
 }) {
   const { locale, itemId } = await params;
   setRequestLocale(locale);

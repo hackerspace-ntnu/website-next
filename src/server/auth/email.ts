@@ -14,6 +14,7 @@ import {
   users,
 } from '@/server/db/tables';
 import { sendEmail } from '@/server/services/emails';
+import type { Locale } from 'next-intl';
 
 const sendVerificationEmailBucket = new ExpiringTokenBucket(3, 600);
 
@@ -113,7 +114,7 @@ async function updateUserEmailAndSetEmailAsVerified(
 async function sendVerificationEmail(
   email: string,
   code: string,
-  locale: (typeof routing.locales)[number],
+  locale: Locale,
   theme: 'dark' | 'light',
 ) {
   await sendEmail(
@@ -124,7 +125,7 @@ async function sendVerificationEmail(
       publicSiteUrl: env.NEXT_PUBLIC_SITE_URL,
       validationCode: code,
     },
-    locale === 'no'
+    locale === 'nb-NO'
       ? `Din Hackerspace NTNU bekreftelseskode er ${code}`
       : `Your Hackerspace NTNU confirmation code is ${code}`,
     email,
