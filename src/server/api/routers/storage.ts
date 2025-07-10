@@ -1,3 +1,17 @@
+import { TRPCError } from '@trpc/server';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  getTableColumns,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  or,
+} from 'drizzle-orm';
 import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
@@ -8,10 +22,10 @@ import {
 import { createRouter } from '@/server/api/trpc';
 import {
   type InsertStorageItem,
-  type SelectItemLocalization,
-  type SelectStorageItem,
   itemCategories,
   itemLocalizations,
+  type SelectItemLocalization,
+  type SelectStorageItem,
   storageItems,
 } from '@/server/db/tables';
 import { itemLoans } from '@/server/db/tables/loans';
@@ -29,20 +43,6 @@ import {
   itemsTotalSchema,
   updateLoanSchema,
 } from '@/validations/storage';
-import { TRPCError } from '@trpc/server';
-import {
-  and,
-  asc,
-  count,
-  desc,
-  eq,
-  getTableColumns,
-  ilike,
-  inArray,
-  isNotNull,
-  isNull,
-  or,
-} from 'drizzle-orm';
 
 const storageRouter = createRouter({
   fetchOne: publicProcedure
@@ -130,7 +130,7 @@ const storageRouter = createRouter({
             .reduce((a, b) => a + b, 0);
 
           const { item, ...localizationOnly } = localization;
-          const { itemLoans, ...itemWithoutLoans } = item;
+          const { itemLoans: _, ...itemWithoutLoans } = item;
 
           items.push({
             ...itemWithoutLoans,

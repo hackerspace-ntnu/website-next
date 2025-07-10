@@ -1,6 +1,12 @@
+import { fakerEN, fakerNB_NO } from '@faker-js/faker';
+import { reset } from 'drizzle-seed';
 import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
 import { routing } from '@/lib/locale';
+import { hashPassword } from '@/server/auth/password';
+import { db } from '@/server/db';
+import * as schema from '@/server/db/tables';
 import {
+  groups,
   type InsertGroup,
   type InsertItemCategory,
   type InsertItemLocalization,
@@ -10,7 +16,6 @@ import {
   type InsertUser,
   type InsertUserGroup,
   type InsertUserSkill,
-  groups,
   itemCategories,
   itemLocalizations,
   shifts,
@@ -20,19 +25,15 @@ import {
   userSkills,
   users,
 } from '@/server/db/tables';
-import * as schema from '@/server/db/tables';
-import { fakerEN, fakerNB_NO } from '@faker-js/faker';
-import { reset } from 'drizzle-seed';
-
-import { hashPassword } from '@/server/auth/password';
-import { db } from '@/server/db';
 
 // To generate fake data use these helpers
+// biome-ignore-start lint/correctness/noUnusedVariables: These may be used in the future
 const locales = routing.locales;
 const faker = {
   en: fakerEN,
   no: fakerNB_NO,
 };
+// biome-ignore-end lint/correctness/noUnusedVariables: These may be used in the future
 
 async function main() {
   console.log('Resetting database...');

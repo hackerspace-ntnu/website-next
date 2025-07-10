@@ -1,3 +1,5 @@
+import { XIcon } from 'lucide-react';
+import { useId } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -9,8 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { XIcon } from 'lucide-react';
-import { useId } from 'react';
 
 type ShoppingCartTableSkeletonProps = {
   t: {
@@ -22,6 +22,7 @@ type ShoppingCartTableSkeletonProps = {
 };
 
 function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
+  const ids = [useId(), useId(), useId()];
   return (
     <Table className='my-4'>
       <TableHeader>
@@ -36,8 +37,8 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Array.from({ length: 3 }).map(() => (
-          <TableRow key={useId()}>
+        {ids.map((id) => (
+          <TableRow key={id}>
             <TableCell>
               <Input type='number' disabled className='w-20' />
             </TableCell>

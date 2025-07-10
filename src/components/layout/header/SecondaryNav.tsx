@@ -3,7 +3,6 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/components/ui/Link';
-import { Button } from '@react-email/components';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;

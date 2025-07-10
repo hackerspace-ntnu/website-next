@@ -1,29 +1,20 @@
 'use client';
 
+import { EditIcon, UploadIcon } from 'lucide-react';
+import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { DeleteItemDialog } from '@/components/storage/DeleteItemDialog';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
 import { Link } from '@/components/ui/Link';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/Select';
-import { Textarea } from '@/components/ui/Textarea';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { itemSchema } from '@/validations/storage/itemSchema';
-import { EditIcon, UploadIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
 
 type EditItemFormProps = {
   itemCategories: string[];

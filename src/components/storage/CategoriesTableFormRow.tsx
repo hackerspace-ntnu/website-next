@@ -1,5 +1,8 @@
 'use client';
 
+import { CheckIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useId } from 'react';
 import { DeleteItemCategoryButton } from '@/components/storage/DeleteItemCategoryButton';
 import { useAppForm } from '@/components/ui/Form';
 import { TableCell, TableRow } from '@/components/ui/Table';
@@ -8,17 +11,17 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { itemCategoryFormSchema } from '@/validations/storage/itemCategoryFormSchema';
-import { CheckIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useId } from 'react';
 
 function CategoriesTableFormRow({
   category,
-}: { category?: RouterOutput['storage']['fetchItemCategories'][number] }) {
+}: {
+  category?: RouterOutput['storage']['fetchItemCategories'][number];
+}) {
   const apiUtils = api.useUtils();
   const router = useRouter();
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
+  const id = useId();
 
   const addItemCategoryMutation = api.storage.addItemCategory.useMutation({
     onSuccess: async () => {
@@ -57,7 +60,7 @@ function CategoriesTableFormRow({
   });
 
   return (
-    <TableRow key={category?.id || useId()}>
+    <TableRow key={category?.id || id}>
       <TableCell>{category?.id || null}</TableCell>
       <TableCell>
         <form
@@ -97,10 +100,8 @@ function CategoriesTableFormRow({
               }
               spinnerClassName='text-primary'
             >
-              <>
-                <CheckIcon className='h-8 w-8' />
-                <span>{tUi('save')}</span>
-              </>
+              <CheckIcon className='h-8 w-8' />
+              <span>{tUi('save')}</span>
             </form.SubmitButton>
           </form.AppForm>
           {category && <DeleteItemCategoryButton category={category} />}

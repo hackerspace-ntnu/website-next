@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+import { useId } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -6,8 +8,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/Pagination';
-import { useTranslations } from 'next-intl';
-import { useId } from 'react';
 
 type PaginationCarouselSkeletonProps = {
   className?: string;
@@ -17,6 +17,7 @@ function PaginationCarouselSkeleton({
   className,
 }: PaginationCarouselSkeletonProps) {
   const t = useTranslations('ui');
+  const ids = [useId(), useId(), useId(), useId()];
   return (
     <Pagination className={className}>
       <PaginationContent>
@@ -30,11 +31,8 @@ function PaginationCarouselSkeleton({
             tabIndex={-1}
           />
         </PaginationItem>
-        {Array.from({ length: 4 }).map(() => (
-          <PaginationItem
-            className='cursor-not-allowed opacity-50'
-            key={useId()}
-          >
+        {ids.map((id) => (
+          <PaginationItem className='cursor-not-allowed opacity-50' key={id}>
             <PaginationEllipsis morePages='' />
           </PaginationItem>
         ))}
