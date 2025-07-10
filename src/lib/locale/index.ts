@@ -13,91 +13,97 @@ type Translations =
   | ReturnType<typeof useTranslations<never>>
   | Awaited<ReturnType<typeof getTranslations<never>>>;
 
-const localeIcons = { en: GB, no: NO };
+const localeIcons = { 'en-GB': GB, 'nb-NO': NO };
 
-const dayPickerLocales = { en: enDayPicker, no: noDayPicker };
+const dayPickerLocales = { 'en-GB': enDayPicker, 'nb-NO': noDayPicker };
 
 const phoneNumberInputLocales = {
-  en: enPhoneNumberInput,
-  no: noPhoneNumberInput,
+  'en-GB': enPhoneNumberInput,
+  'nb-NO': noPhoneNumberInput,
 };
 
 const routing = defineRouting({
-  locales: ['en', 'no'],
-  defaultLocale: 'no',
-  localePrefix: 'as-needed',
+  locales: ['en-GB', 'nb-NO'],
+  defaultLocale: 'nb-NO',
+  localePrefix: {
+    mode: 'as-needed',
+    prefixes: {
+      'en-GB': '/en',
+      'nb-NO': '/no',
+    },
+  },
   localeCookie: {
     name: 'locale',
   },
   pathnames: {
     '/': '/',
     '/too-many-requests': {
-      en: '/too-many-requests',
-      no: '/for-mange-forespørsler',
+      'en-GB': '/too-many-requests',
+      'nb-NO': '/for-mange-forespørsler',
     },
     '/auth': {
-      en: '/auth',
-      no: '/autentisering',
+      'en-GB': '/auth',
+      'nb-NO': '/autentisering',
     },
     '/auth/account': {
-      en: '/auth/account',
-      no: '/autentisering/konto',
+      'en-GB': '/auth/account',
+      'nb-NO': '/autentisering/konto',
     },
     '/auth/create-account': {
-      en: '/auth/create-account',
-      no: '/autentisering/opprett-konto',
+      'en-GB': '/auth/create-account',
+      'nb-NO': '/autentisering/opprett-konto',
     },
     '/auth/forgot-password': {
-      en: '/auth/forgot-password',
-      no: '/autentisering/glemt-passord',
+      'en-GB': '/auth/forgot-password',
+      'nb-NO': '/autentisering/glemt-passord',
     },
     '/auth/verify-email': {
-      en: '/auth/verify-email',
-      no: '/autentisering/bekreft-epost',
+      'en-GB': '/auth/verify-email',
+      'nb-NO': '/autentisering/bekreft-epost',
     },
     '/auth/success': {
-      en: '/auth/success',
-      no: '/autentisering/suksess',
+      'en-GB': '/auth/success',
+      'nb-NO': '/autentisering/suksess',
     },
     '/settings': {
-      en: '/settings',
-      no: '/instillinger',
+      'en-GB': '/settings',
+      'nb-NO': '/instillinger',
     },
     '/settings/account': {
-      en: '/settings/account',
-      no: '/innstillinger/konto',
+      'en-GB': '/settings/account',
+      'nb-NO': '/innstillinger/konto',
     },
     '/settings/notifications': {
-      en: '/settings/notifications',
-      no: '/innstillinger/notifikasjoner',
+      'en-GB': '/settings/notifications',
+      'nb-NO': '/innstillinger/notifikasjoner',
     },
     '/settings/administrator': {
-      en: '/settings/administrator',
-      no: '/innstillinger/administrator',
+      'en-GB': '/settings/administrator',
+      'nb-NO': '/innstillinger/administrator',
     },
     '/events': {
-      en: '/events',
-      no: '/arrangementer',
+      'en-GB': '/events',
+      'nb-NO': '/arrangementer',
     },
-    '/events/[id]': {
-      en: '/events/[id]',
-      no: '/arrangementer/[id]',
+    '/events/[eventId]': {
+      'en-GB': '/events/[eventId]',
+      'nb-NO': '/arrangementer/[eventId]',
     },
     '/news': {
-      en: '/news',
-      no: '/nyheter',
+      'en-GB': '/news',
+      'nb-NO': '/nyheter',
     },
     '/news/new': {
-      en: '/news/new',
-      no: '/nyheter/ny',
+      'en-GB': '/news/new',
+      'nb-NO': '/nyheter/ny',
     },
-    '/news/[article]': {
-      en: '/news/[article]',
-      no: '/nyheter/[article]',
+    '/news/[articleId]': {
+      'en-GB': '/news/[articleId]',
+      'nb-NO': '/nyheter/[articleId]',
     },
     '/about': {
-      en: '/about',
-      no: '/om-oss',
+      'en-GB': '/about',
+      'nb-NO': '/om-oss',
     },
     '/about/devops': {
       en: '/about/devops',
@@ -116,24 +122,48 @@ const routing = defineRouting({
       no: '/om-oss/bordoverflaterollespillspill',
     },
     '/storage': {
-      en: '/storage',
-      no: '/lager',
+      'en-GB': '/storage',
+      'nb-NO': '/lager',
     },
     '/storage/shopping-cart': {
-      en: '/storage/shopping-cart',
-      no: '/lager/handlekurv',
+      'en-GB': '/storage/shopping-cart',
+      'nb-NO': '/lager/handlekurv',
+    },
+    '/storage/item/new': {
+      'en-GB': '/storage/item/new',
+      'nb-NO': '/lager/gjenstand/ny',
+    },
+    '/storage/item/[itemId]': {
+      'en-GB': '/storage/item/[itemId]',
+      'nb-NO': '/lager/gjenstand/[itemId]',
+    },
+    '/storage/item/[itemId]/edit': {
+      'en-GB': '/storage/item/[itemId]/edit',
+      'nb-NO': '/lager/gjenstand/[itemId]/rediger',
+    },
+    '/storage/loans': {
+      'en-GB': '/storage/loans',
+      'nb-NO': '/lager/lån',
+    },
+    '/storage/loans/user': {
+      'en-GB': '/storage/loans/user',
+      'nb-NO': '/lager/lån/bruker',
+    },
+    '/storage/categories': {
+      'en-GB': '/storage/categories',
+      'nb-NO': '/lager/kategorier',
     },
     '/rules': {
-      en: '/rules',
-      no: '/regler',
+      'en-GB': '/rules',
+      'nb-NO': '/regler',
     },
-    '/rules/[subset]': {
-      en: '/rules/[subset]',
-      no: '/regler/[subset]',
+    '/rules/[subsetId]': {
+      'en-GB': '/rules/[subsetId]',
+      'nb-NO': '/regler/[subsetId]',
     },
     '/shift-schedule': {
-      en: '/shift-schedule',
-      no: '/vaktliste',
+      'en-GB': '/shift-schedule',
+      'nb-NO': '/vaktliste',
     },
   },
 });

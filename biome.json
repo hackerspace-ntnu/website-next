@@ -39,6 +39,6 @@
     "defaultBranch": "main"
   },
   "files": {
-    "ignore": [".next"]
+    "ignore": [".next", ".vscode"]
   }
 }

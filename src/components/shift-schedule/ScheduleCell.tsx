@@ -1,56 +1,93 @@
+import { ResponsiveDialogTrigger } from '@/components/composites/ResponsiveDialog';
+import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
 import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
+import { SkillIcon } from '@/components/skills/SkillIcon';
+import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
+import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import type { RouterOutputs } from '@/server/api';
 import { UserIcon, UsersIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 type ScheduleCellProps = {
-  tDialog: {
+  formattedShift: {
     day: string;
     time: string;
   };
-  members: {
-    name: string;
-  }[];
+  day: (typeof days)[number];
+  timeslot: (typeof timeslots)[number];
+  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
+  skills: (typeof skillIdentifiers)[number][];
+  user: RouterOutputs['auth']['state']['user'];
 };
 
-function ScheduleCell({ tDialog, members }: ScheduleCellProps) {
-  const t = useTranslations('shiftSchedule.scheduleTable.scheduleCell');
+function ScheduleCell({
+  formattedShift,
+  day,
+  timeslot,
+  members,
+  skills,
+  user,
+}: ScheduleCellProps) {
+  const t = useTranslations('shiftSchedule.table.cell');
+  const memberId = user && user.groups.length > 0 ? user.id : 0;
+  const userOnShift = !!members.find((member) => member.id === user?.id);
 
   return (
-    <TableCell className='h-20 min-w-52 border p-1.5'>
-      <Dialog>
-        <DialogTrigger asChild>
-          <button
-            type='button'
+    <TableCell className='h-20 min-w-[206px] max-w-[206px] border p-1.5'>
+      <ResponsiveDialogWrapper>
+        <ResponsiveDialogTrigger asChild>
+          <Button
+            variant='none'
+            size='none'
             className={cx(
-              'flex size-full gap-2 rounded-md p-3 text-left',
-              members.length === 0
-                ? 'bg-accent/50 text-accent-foreground hover:bg-accent dark:bg-accent/40 dark:hover:bg-accent/60'
-                : 'bg-foreground/20 hover:bg-foreground/25',
+              'flex size-full items-start justify-start gap-2 rounded-md p-2 text-left',
+              userOnShift
+                ? 'bg-primary/20 hover:bg-primary/15 dark:hover:bg-primary/25'
+                : members.length === 0
+                  ? 'bg-foreground/15 text-accent-foreground hover:bg-foreground/10 dark:bg-accent/40 dark:hover:bg-accent/60'
+                  : 'bg-muted text-accent-foreground hover:bg-muted/60 dark:bg-foreground/20 dark:hover:bg-foreground/25',
             )}
           >
-            {/* Icon displaying amount of people on shift */}
-            {members.length === 1 ? (
-              <UserIcon className='size-7' />
-            ) : (
-              members.length > 1 && <UsersIcon className='size-7' />
+            {/* Icon displaying amount of members on shift */}
+            {members.length > 0 && (
+              <div
+                className='flex flex-col items-center justify-between gap-1'
+                aria-label={t('onShift', { count: members.length })}
+              >
+                {members.length > 1 ? (
+                  <UsersIcon className='size-7' />
+                ) : (
+                  <UserIcon className='size-7' />
+                )}
+                <span className='font-semibold' aria-hidden='true'>
+                  {members.length}
+                </span>
+              </div>
             )}
-            <div className='flex flex-col'>
-              {/* Amount of people on shift */}
-              <span>{t('onShift', { count: members.length })}</span>
-              {/* Skill icons */}
-              {members.length !== 0 && (
-                <span className='leading-7'>[skill icons total]</span>
-              )}
-            </div>
-          </button>
-        </DialogTrigger>
-        <DialogContent className='w-1/3 min-w-80 p-3 lg:min-w-96'>
-          <ScheduleCellDialog tDialog={tDialog} members={members} />
-        </DialogContent>
-      </Dialog>
+
+            {/* Closed / Skill icons */}
+            {members.length === 0 ? (
+              <span className='m-1'>{t('closed')}</span>
+            ) : (
+              <div className='ml-1 flex flex-wrap gap-1.5'>
+                {skills.map((identifier) => (
+                  <SkillIcon key={identifier} identifier={identifier} />
+                ))}
+              </div>
+            )}
+          </Button>
+        </ResponsiveDialogTrigger>
+        <ScheduleCellDialog
+          formattedShift={formattedShift}
+          day={day}
+          timeslot={timeslot}
+          members={members}
+          memberId={memberId}
+          userOnShift={userOnShift}
+        />
+      </ResponsiveDialogWrapper>
     </TableCell>
   );
 }

@@ -23,3 +23,6 @@ public/robots.txt
 
 # Ignore husky files, see PR #54
 /.husky/*
+
+# Nix shell
+shell.nix

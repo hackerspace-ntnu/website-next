@@ -1,8 +1,13 @@
-import { NextIntlClientProvider, useMessages } from 'next-intl';
+import {
+  type Locale,
+  type Messages,
+  NextIntlClientProvider,
+  useMessages,
+} from 'next-intl';
 
 type Props = {
   children: React.ReactNode;
-  locale: string;
+  locale: Locale;
 };
 
 function IntlClientProvider({ children, locale }: Props) {

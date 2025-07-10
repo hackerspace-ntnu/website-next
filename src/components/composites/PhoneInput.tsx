@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/Popover';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 
-import { phoneNumberInputLocales, type routing } from '@/lib/locale';
+import { phoneNumberInputLocales } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 
 type PhoneInputProps = Omit<
@@ -52,11 +52,7 @@ function PhoneInput({ className, onChange, value, ...props }: PhoneInputProps) {
           onChange?.(value);
         }
       }}
-      labels={
-        phoneNumberInputLocales[
-          currentLocale as (typeof routing.locales)[number]
-        ]
-      }
+      labels={phoneNumberInputLocales[currentLocale]}
       {...props}
     />
   );

@@ -22,6 +22,8 @@ import { DatePicker } from '@/components/composites/DatePicker';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
+import { Calendar } from '@/components/ui/Calendar';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -42,6 +44,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
 
 import { type VariantProps, cx } from '@/lib/utils';
+import type { DateRange } from 'react-day-picker';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();
@@ -49,6 +52,7 @@ const { fieldContext, useFieldContext, formContext, useFormContext } =
 type BaseFieldProps = {
   className?: string;
   label: string;
+  labelVisible?: boolean;
   description?: string;
   labelSibling?: React.ReactNode;
   children: React.ReactNode;
@@ -57,6 +61,7 @@ type BaseFieldProps = {
 function BaseField({
   className,
   label,
+  labelVisible = true,
   labelSibling,
   description,
   children,
@@ -64,27 +69,29 @@ function BaseField({
   const field = useFieldContext();
   const id = useId();
 
-  const labelElement = (
-    <Label
-      className={cx(
-        'mb-2 block',
-        field.state.meta.errors.length > 0 && 'text-destructive',
-      )}
-      htmlFor={`${id}-form-item`}
-    >
-      {label}
-    </Label>
-  );
+  const labelElement =
+    label.length > 0 ? (
+      <Label
+        className={cx(
+          'mb-2 block',
+          field.state.meta.errors.length > 0 && 'text-destructive',
+          !labelVisible && 'sr-only',
+        )}
+        htmlFor={`${id}-form-item`}
+      >
+        {label}
+      </Label>
+    ) : undefined;
 
   return (
     <div className={cx('relative space-y-2', className)}>
       {labelSibling ? (
         <div className='flex items-center justify-between'>
-          {labelElement}
-          {labelSibling}
+          {labelVisible && labelElement}
+          {labelVisible && labelSibling}
         </div>
       ) : (
-        labelElement
+        labelVisible && labelElement
       )}
       {description && (
         <p
@@ -124,6 +131,7 @@ type TextFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -131,6 +139,7 @@ type TextFieldProps = Omit<
 function TextField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -140,6 +149,7 @@ function TextField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -160,6 +170,7 @@ type NumberFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -167,6 +178,7 @@ type NumberFieldProps = Omit<
 function NumberField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -176,6 +188,7 @@ function NumberField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -196,6 +209,7 @@ type TextAreaFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -203,6 +217,7 @@ type TextAreaFieldProps = Omit<
 function TextAreaField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -212,6 +227,7 @@ function TextAreaField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -226,6 +242,80 @@ function TextAreaField({
   );
 }
 
+type CheckboxFieldProps = Omit<
+  React.ComponentProps<typeof Checkbox>,
+  'checked' | 'value' | 'onCheckedChange' | 'onBlur'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  description?: string;
+};
+
+function CheckboxField({
+  className,
+  label,
+  labelVisible,
+  description,
+  ...props
+}: CheckboxFieldProps) {
+  const field = useFieldContext<boolean>();
+  const id = useId();
+
+  const labelElement =
+    label.length > 0 ? (
+      <Label
+        className={cx(
+          'block',
+          field.state.meta.errors.length > 0 && 'text-destructive',
+        )}
+        htmlFor={`${id}-form-item`}
+      >
+        {label}
+      </Label>
+    ) : undefined;
+
+  return (
+    <div className={className}>
+      <div className='mb-2 flex items-center gap-2'>
+        <Checkbox
+          id={`${id}-form-item`}
+          aria-describedby={
+            !(field.state.meta.errors.length > 0)
+              ? `${id}-form-item-description`
+              : `${id}-form-item-description ${id}-form-item-message`
+          }
+          aria-invalid={!!(field.state.meta.errors.length > 0)}
+          checked={field.state.value}
+          onCheckedChange={(value) =>
+            field.handleChange(value !== 'indeterminate' ? value : false)
+          }
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {labelVisible && labelElement}
+      </div>
+      {description && (
+        <p
+          id={`${id}-form-item-description`}
+          className={cx('text-muted-foreground text-sm', className)}
+        >
+          {description}
+        </p>
+      )}
+      <p
+        id={`${id}-form-item-message`}
+        className={cx(
+          '-translate-y-2 absolute font-medium text-[0.8rem] text-destructive',
+          className,
+        )}
+      >
+        {field.state.meta.errors.length > 0 &&
+          (field.state.meta.errors[0] as { message: string }).message}
+      </p>
+    </div>
+  );
+}
+
 type Location = {
   longitude: number;
   latitude: number;
@@ -233,6 +323,7 @@ type Location = {
 
 type MapFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   zoom?: number;
   coordinates?: Location;
@@ -247,6 +338,7 @@ const DEFAULT_COORDINATES: Location = {
 
 function MapField({
   label,
+  labelVisible,
   className,
   zoom = 4,
   coordinates = DEFAULT_COORDINATES,
@@ -268,6 +360,7 @@ function MapField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -302,6 +395,7 @@ type SelectOption = {
 
 type SelectFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   placeholder?: string;
   options: SelectOption[];
@@ -312,6 +406,7 @@ type SelectFieldProps = {
 
 function SelectField({
   label,
+  labelVisible,
   className,
   placeholder = 'Select an option',
   options,
@@ -324,6 +419,7 @@ function SelectField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -365,6 +461,7 @@ type PhoneFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -372,6 +469,7 @@ type PhoneFieldProps = Omit<
 function PhoneField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -381,6 +479,7 @@ function PhoneField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -400,6 +499,7 @@ type PasswordFieldProps = Omit<
   'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -407,6 +507,7 @@ type PasswordFieldProps = Omit<
 function PasswordField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -416,6 +517,7 @@ function PasswordField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -435,6 +537,7 @@ type DateFieldProps = Omit<
   'date' | 'setDate' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
 };
@@ -442,6 +545,7 @@ type DateFieldProps = Omit<
 function DateField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -451,6 +555,7 @@ function DateField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -470,6 +575,7 @@ type OTPFieldProps = Omit<
   'value' | 'onChange' | 'onBlur' | 'maxLength' | 'render'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   slots?: number;
   groups?: number[];
@@ -479,6 +585,7 @@ type OTPFieldProps = Omit<
 function OTPField({
   className,
   label,
+  labelVisible,
   labelSibling,
   slots = 6,
   groups = [],
@@ -521,6 +628,7 @@ function OTPField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -545,6 +653,7 @@ type RadioOption = {
 
 type RadioGroupFieldProps = {
   label: string;
+  labelVisible?: boolean;
   className?: string;
   options: RadioOption[];
   labelSibling?: React.ReactNode;
@@ -553,6 +662,7 @@ type RadioGroupFieldProps = {
 
 function RadioGroupField({
   label,
+  labelVisible,
   className,
   options,
   labelSibling,
@@ -563,6 +673,7 @@ function RadioGroupField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -588,6 +699,7 @@ type FileUploadFieldProps = Omit<
   'onFilesUploaded'
 > & {
   label: string;
+  labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
   className?: string;
@@ -596,6 +708,7 @@ type FileUploadFieldProps = Omit<
 function FileUploadField({
   className,
   label,
+  labelVisible,
   labelSibling,
   description,
   ...props
@@ -622,6 +735,7 @@ function FileUploadField({
   return (
     <BaseField
       label={label}
+      labelVisible={labelVisible}
       labelSibling={labelSibling}
       className={className}
       description={description}
@@ -636,6 +750,7 @@ type CurrencyFieldProps = Omit<
   'type' | 'value' | 'onChange' | 'onBlur'
 > & {
   label: string;
+  labelVisible?: boolean;
   currency?: string;
   locale?: string;
 };
@@ -643,6 +758,7 @@ type CurrencyFieldProps = Omit<
 function CurrencyField({
   className,
   label,
+  labelVisible,
   currency = 'NOK',
   locale = 'nb-NO',
   ...props
@@ -756,7 +872,7 @@ function CurrencyField({
   }
 
   return (
-    <BaseField label={label} className={className}>
+    <BaseField label={label} className={className} labelVisible={labelVisible}>
       <Input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type='text'
@@ -772,14 +888,60 @@ function CurrencyField({
   );
 }
 
+// Omit wasn't used to skip onSelect and onDayBlur,
+// because it messes up the DayPickerProps
+// (which are dynamic based on whether
+// we choose the mode to be 'single', 'multiple' or 'range')
+type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+  calendarClassName?: string;
+};
+
+function CalendarField({
+  className,
+  calendarClassName,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: CalendarFieldProps) {
+  const field = useFieldContext<Date | Date[] | DateRange | undefined>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Calendar
+        // @ts-expect-error We cannot be sure of what mode we're using
+        onSelect={(selected) => {
+          field.handleChange(selected);
+        }}
+        className={cx('rounded-md border', calendarClassName)}
+        onDayBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
+    spinnerClassName?: string;
     loading?: boolean;
   };
 
 function SubmitButton({
   children,
   className,
+  spinnerClassName,
   loading,
   ...props
 }: SubmitButtonProps) {
@@ -800,7 +962,10 @@ function SubmitButton({
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
-            <Spinner size='sm' className='text-primary-foreground' />
+            <Spinner
+              size='sm'
+              className={cx('text-primary-foreground', spinnerClassName)}
+            />
           ) : (
             children
           )}
@@ -816,6 +981,7 @@ const { useAppForm } = createFormHook({
     TextField,
     NumberField,
     TextAreaField,
+    CheckboxField,
     MapField,
     SelectField,
     PhoneField,
@@ -825,6 +991,7 @@ const { useAppForm } = createFormHook({
     RadioGroupField,
     FileUploadField,
     CurrencyField,
+    CalendarField,
   },
   formComponents: {
     SubmitButton,
