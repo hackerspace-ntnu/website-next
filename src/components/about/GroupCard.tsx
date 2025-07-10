@@ -23,7 +23,10 @@ async function GroupCard({ className, group }: GroupCardProps) {
 
   return (
     <Link
-      href={`about/group/${group.identifier}`}
+      href={{
+        pathname: '/about/group/[name]',
+        params: { name: group.identifier },
+      }}
       className={cx(
         'group block w-fit whitespace-normal font-normal',
         className,
