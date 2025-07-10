@@ -255,7 +255,7 @@
     "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
     "showMap": "Vis kart!",
     "FAQ": {
-      "FAQ-title": "Ofte stilte spørsmål",
+      "title": "Ofte stilte spørsmål",
       "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
       "answerCanIUseThe3dPrinter": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
       "canITryVRGames-Equipment": "Kan jeg prøve VR spill/utstyr?",
@@ -275,7 +275,7 @@
       "title": "Tillitsvalgt",
       "about": "<p1> Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret. </p1> <p2> Dersom du ønsker å ta kontakt er tillitsvalgt tilgjengelig på Slack. </p2>",
       "FAQ": {
-        "FAQ-title": "Ofte stilte spørsmål",
+        "title": "Ofte stilte spørsmål",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -288,7 +288,7 @@
       "title": "DevOps",
       "information": "Hovedoppgavene til DevOps er å utvikle og drifte Hackerspace sin nettside, men vi jobber også med drift av infrastruktur, databaser, servere, og har ansvar for diverse dingser.",
       "FAQ": {
-        "FAQ-title": "Ofte stilte spørsmål",
+        "title": "Ofte stilte spørsmål",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -304,7 +304,7 @@
       "title": "LabOps",
       "about": "Hovedoppgavene til LabOps er å drifte Hackerspace sine lokaler, planlegge og gjennomføre arrangement, holde stands og drive annen promotering.",
       "FAQ": {
-        "FAQ-title": "Ofte stilte spørsmål",
+        "title": "Ofte stilte spørsmål",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -320,7 +320,7 @@
       "title": "Prosjekt: Breadboard Computer",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Ofte stilte spørsmål",
+        "title": "Ofte stilte spørsmål",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -336,7 +336,7 @@
       "title": "Prosjekt: spill",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -352,7 +352,7 @@
       "title": "Prosjekt: ttrpg",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",

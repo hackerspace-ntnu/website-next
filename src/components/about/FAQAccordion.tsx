@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/Accordion';
+import { getTranslations } from 'next-intl/server';
 
 type FAQ = {
   id: string;
@@ -16,10 +17,12 @@ type FAQAccordionProps = {
   faqs: FAQ[];
 };
 
-function FAQAccordion({ faqs }: FAQAccordionProps) {
+async function FAQAccordion({ faqs }: FAQAccordionProps) {
+  const t = await getTranslations('about.FAQ');
+
   return (
     <div className='mt-10 mb-10'>
-      <h3> FAQ'S </h3>
+      <h3>{t('title')}</h3>
       <Accordion
         type='single'
         collapsible

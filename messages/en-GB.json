@@ -255,7 +255,7 @@
     "aboutDescription": "<p1> Hackerspace NTNU is a student-driven project open to all students, regardless of study direction or Hackerspace membership. We offer a creative arena where students from different disciplines can get help realizing their ideas in an engaged and inclusive environment. Here, you will find new technology at your disposal, including drones, 3D printers, and Virtual Reality equipment. </p1> <p2> Whether you are a first-year student needing help with your first Arduino project or a fourth-year student wanting to create a 3D model of Trondheim, we can provide both equipment and expertise. We also regularly hold courses for both beginners and advanced students in many exciting subjects. </p2> <p3> Come by to see what we're doing and have a chat. </p3> You can find us on the second floor of the A-block in the Realfagbygget at NTNU Gløshaugen.",
     "showMap": "Show map!",
     "FAQ": {
-      "FAQ-title": "Frequently Asked Questions",
+      "title": "Frequently Asked Questions",
       "canIUseThe3dPrinter": "Can I use the 3D printer?",
       "answerCanIUseThe3dPrinter": "<p1> All students can use the 3D printers and the rest of the workshop, regardless of whether they are members of Hackerspace or not. We have a reservation system available for all students with FEIDE login from the website's navigation bar. </p1> <p2> Come by during opening hours and get help from one of our members.</p2>",
       "canITryVRGames-Equipment": "Can I try VR games/equipment?",
@@ -275,7 +275,7 @@
       "title": "Member representative",
       "about": "<p1> Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board. </p1> <p2> If you wish to get in touch, the representative is available on Slack. </p2>",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -288,7 +288,7 @@
       "title": "DevOps",
       "about": "The main tasks of DevOps are to develop and manage Hackerspace's website, but we also work on the operation of infrastructure, databases, servers, and are responsible for various gadgets.",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -304,7 +304,7 @@
       "title": "LabOps",
       "about": "The main tasks of LabOps are to run Hackerspace's premises, plan and carry out events, hold stands and run other promotions.",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "hei?",
         "answer1": "hallo <3",
         "question2": "hei?",
@@ -320,7 +320,7 @@
       "title": " Project: Breadboard Computer",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -336,7 +336,7 @@
       "title": "Project: game",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",
@@ -352,7 +352,7 @@
       "title": "Project: ttrpg",
       "about": "",
       "FAQ": {
-        "FAQ-title": "Frequently Asked Questions",
+        "title": "Frequently Asked Questions",
         "question1": "",
         "answer1": "",
         "question2": "",

@@ -180,7 +180,7 @@ async function main() {
       summary:
         'A selected member which can be contacted for various inquiries.',
       description:
-        'The Trusted Representative is a member who has been selected to represent Hackerspace in various inquiries. They are trusted to handle sensitive information and contact the appropriate members if issues arise.',
+        'Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board.',
       locale: 'en-GB',
     },
     {
@@ -188,7 +188,7 @@ async function main() {
       name: 'Tillitsvalgt',
       summary: 'Et utvalgt medlem som kan kontaktes for ulike henvendelser.',
       description:
-        'Tillitsvalgt er et medlem som har blitt valgt til å representere Hackerspace i ulike henvendelser. De er betrodd med å håndtere sensitiv informasjon og kontakte relevante medlemmer dersom problemer oppstår.',
+        'Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret.',
       locale: 'nb-NO',
     },
     {
