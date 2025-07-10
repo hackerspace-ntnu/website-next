@@ -1,6 +1,6 @@
-import { memberMockData as memberData } from '@/mock-data/member';
-import { useTranslations } from 'next-intl';
-import { getTranslations,setRequestLocale } from 'next-intl/server';
+import { memberMockData } from '@/mock-data/member';
+import { type Locale, useTranslations } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
 import { Suspense } from 'react';
 
@@ -8,25 +8,22 @@ import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemGridSkeleton } from '@/components/members/ItemGridSkeleton';
 import { MemberGrid } from '@/components/members/MemberGrid';
 
-export async function generateMetadata({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
-  const t = await getTranslations({ locale, namespace: 'members' });
+export async function generateMetadata() {
+  const t = await getTranslations('members');
 
   return {
     title: t('title'),
   };
 }
 
-export default function MembersPage({
-  params: { locale },
+export default async function MembersPage({
+  params,
   searchParams,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: Locale }>;
   searchParams: Record<string, string | string[] | undefined>;
 }) {
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = useTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
@@ -41,7 +38,7 @@ export default function MembersPage({
       </Suspense>
       <PaginationCarousel
         className='my-6'
-        totalPages={Math.ceil(memberData.length / 12)}
+        totalPages={Math.ceil(memberMockData.length / 12)}
       />
     </>
   );

@@ -2,10 +2,10 @@ import { MemberViewCard } from '@/components/members/MemberViewCard';
 import { SkillCard } from '@/components/members/SkillCard';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/lib/locale/navigation';
-import { memberMockData as memberData } from '@/mock-data/member';
+import { memberMockData } from '@/mock-data/member';
 import { ArrowLeftIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -13,7 +13,7 @@ export async function generateMetadata({
 }: {
   params: { member: string };
 }) {
-  const member = memberData.find(
+  const member = memberMockData.find(
     (member) => member.id === Number(params.member),
   );
 
@@ -22,18 +22,19 @@ export async function generateMetadata({
   };
 }
 
-export default function memberPage({
+export default async function MemberPage({
   params,
 }: {
-  params: { locale: string; member: string };
+  params: Promise<{ locale: Locale; member: string }>;
 }) {
-  setRequestLocale(params.locale);
-  const t = useTranslations('members');
+  const { locale, member } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('members');
 
-  const member = memberData.find(
-    (member) => member.id === Number(params.member),
+  const memberData = memberMockData.find(
+    (mockMember) => mockMember.id === Number(member),
   );
-  if (!member) {
+  if (!memberData) {
     return notFound();
   }
 
@@ -41,7 +42,7 @@ export default function memberPage({
     <>
       <div className='relative'>
         <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>
-          {member.name}
+          {memberData.name}
         </h2>
         <Button asChild variant='ghost'>
           <Link
@@ -57,32 +58,32 @@ export default function memberPage({
 
       <div className='my-10 flex flex-col items-center space-y-5'>
         <MemberViewCard
-          key={member.id}
-          id={member.id}
-          internal={member.internal}
-          name={member.name}
-          group={member.group}
-          photoUrl={member.photoUrl}
-          bio={member.bio}
-          mail={member.mail}
-          instagram={member.instagram}
-          discord={member.discord}
-          github={member.github}
-          linkedin={member.linkedin}
+          key={memberData.id}
+          id={memberData.id}
+          internal={memberData.internal}
+          name={memberData.name}
+          group={memberData.group}
+          photoUrl={memberData.photoUrl}
+          bio={memberData.bio}
+          mail={memberData.mail}
+          instagram={memberData.instagram}
+          discord={memberData.discord}
+          github={memberData.github}
+          linkedin={memberData.linkedin}
         />
         <SkillCard
-          key={member.id}
-          id={member.id}
-          internal={member.internal}
-          name={member.name}
-          group={member.group}
-          photoUrl={member.photoUrl}
-          bio={member.bio}
-          mail={member.mail}
-          instagram={member.instagram}
-          discord={member.discord}
-          github={member.github}
-          linkedin={member.linkedin}
+          key={memberData.id}
+          id={memberData.id}
+          internal={memberData.internal}
+          name={memberData.name}
+          group={memberData.group}
+          photoUrl={memberData.photoUrl}
+          bio={memberData.bio}
+          mail={memberData.mail}
+          instagram={memberData.instagram}
+          discord={memberData.discord}
+          github={memberData.github}
+          linkedin={memberData.linkedin}
         />
       </div>
     </>

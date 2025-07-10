@@ -1,10 +1,10 @@
 import { SearchBar } from '@/components/composites/SearchBar';
-import { useTranslations } from 'next-intl';
-import {setRequestLocale } from 'next-intl/server';
+import { type Locale, useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
 type MemberHeaderLayoutProps = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: { locale: Locale };
 };
 
 export default function MemberHeaderLayout({

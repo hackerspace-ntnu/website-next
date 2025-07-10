@@ -151,6 +151,13 @@
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
   },
+  "news": {
+    "title": "Nyheter",
+    "internalArticle": "Dette er en intern artikkel",
+    "newArticle": "Ny artikkel",
+    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
+    "views": "Visninger"
+  },
   "members": {
     "title": "Medlemmer",
     "internalMember": "Dette er et internt medlem",
@@ -259,13 +266,6 @@
     "administrator": {
       "title": "Administrator"
     }
-  },
-  "news": {
-    "title": "Nyheter",
-    "internalArticle": "Dette er en intern artikkel",
-    "newArticle": "Ny artikkel",
-    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
   },
   "about": {
     "whatIsHackerspace": "Hva er Hackerspace?",
