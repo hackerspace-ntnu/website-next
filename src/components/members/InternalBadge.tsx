@@ -13,12 +13,11 @@ import {
 
 type InternalBadgeProps = {
   className?: string;
-  internal: boolean;
 };
 
-function InternalBadge({ className, internal }: InternalBadgeProps) {
+function InternalBadge({ className }: InternalBadgeProps) {
   const t = useTranslations('members');
-  if (!internal) return null;
+
   return (
     <TooltipProvider>
       <Tooltip>
