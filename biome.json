@@ -49,6 +49,7 @@
     "defaultBranch": "main"
   },
   "files": {
-    "includes": ["src/**/*", "messages/**/*"]
+    "includes": ["src/**/*", "messages/**/*"],
+    "experimentalScannerIgnores": ["data"]
   }
 }
