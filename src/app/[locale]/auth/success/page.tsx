@@ -1,9 +1,9 @@
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SuccessParticles } from '@/components/auth/SuccessParticles';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SuccessPage({
   params,

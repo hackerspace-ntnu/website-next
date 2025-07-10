@@ -1,13 +1,13 @@
-import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
-import { ItemCard } from '@/components/storage/ItemCard';
-import { api } from '@/lib/api/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
-  type SearchParams,
   createSearchParamsCache,
   parseAsInteger,
   parseAsString,
+  type SearchParams,
 } from 'nuqs/server';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
+import { ItemCard } from '@/components/storage/ItemCard';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');

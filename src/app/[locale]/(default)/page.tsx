@@ -1,6 +1,6 @@
+import { setRequestLocale } from 'next-intl/server';
 import { HelloWorld } from '@/components/home/HelloWorld';
 import { api } from '@/lib/api/server';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
   params,

@@ -1,14 +1,14 @@
-import { PendingBar, PendingProvider } from '@/components/auth/PendingBar';
-import { LogoLink } from '@/components/layout/LogoLink';
-import { Main } from '@/components/layout/Main';
-import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
-import { Card, CardHeader } from '@/components/ui/Card';
 import { NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { PendingBar, PendingProvider } from '@/components/auth/PendingBar';
+import { LogoLink } from '@/components/layout/LogoLink';
+import { Main } from '@/components/layout/Main';
+import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
+import { Card, CardHeader } from '@/components/ui/Card';
 
 type AuthLayoutProps = {
   children: React.ReactNode;

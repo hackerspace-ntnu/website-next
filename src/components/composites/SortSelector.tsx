@@ -1,5 +1,7 @@
 'use client';
 
+import { parseAsString, useQueryState } from 'nuqs';
+import { useTransition } from 'react';
 import {
   Select,
   SelectContent,
@@ -8,8 +10,6 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { parseAsString, useQueryState } from 'nuqs';
-import { useTransition } from 'react';
 
 type SortSelectorProps = {
   filters: {

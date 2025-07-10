@@ -1,6 +1,6 @@
-import { rulesMockdata } from '@/mock-data/rules';
-import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
+import { rulesMockdata } from '@/mock-data/rules';
 
 export default async function RuleSubSetPage({
   params,

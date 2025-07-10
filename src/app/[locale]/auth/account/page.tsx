@@ -1,7 +1,7 @@
+import { setRequestLocale } from 'next-intl/server';
 import { AccountSignInForm } from '@/components/auth/AccountSignInForm';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function AccountPage({
   params,

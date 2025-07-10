@@ -1,11 +1,11 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { routing } from '@/lib/locale';
+import { getTranslations } from 'next-intl/server';
 import type { Translations } from '@/lib/locale';
+import { routing } from '@/lib/locale';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
 import { itemCategories } from '@/server/db/tables';
 import { s3 } from '@/server/s3';
-import { getTranslations } from 'next-intl/server';
 
 type TRPCContext = {
   locale: (typeof routing.locales)[number];

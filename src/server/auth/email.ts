@@ -1,16 +1,16 @@
+import { encodeBase32 } from '@oslojs/encoding';
+import { and, eq } from 'drizzle-orm';
+import { cookies } from 'next/headers';
 import VerificationCodeEmail from '@/emails/VerificationCodeEmail';
 import { env } from '@/env';
 import type { routing } from '@/lib/locale';
 import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { generateRandomOTP } from '@/server/auth/code';
 import { db } from '@/server/db';
-import { encodeBase32 } from '@oslojs/encoding';
-import { and, eq } from 'drizzle-orm';
-import { cookies } from 'next/headers';
 
 import {
-  type SelectEmailVerificationRequest,
   emailVerificationRequests,
+  type SelectEmailVerificationRequest,
   users,
 } from '@/server/db/tables';
 import { sendEmail } from '@/server/services/emails';

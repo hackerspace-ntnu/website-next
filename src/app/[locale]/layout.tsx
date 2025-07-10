@@ -1,10 +1,10 @@
+import { Inter, Montserrat } from 'next/font/google';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RootProviders } from '@/components/providers/RootProviders';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;

@@ -1,5 +1,7 @@
 'use client';
 
+import { EllipsisIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { SecondaryNav } from '@/components/layout/header/SecondaryNav';
 import { Button } from '@/components/ui/Button';
 import {
@@ -7,8 +9,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { EllipsisIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 type DesktopNavMenuProps = {
   className?: string;

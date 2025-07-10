@@ -1,10 +1,10 @@
 'use client';
 
-import { Dialog, DialogContent } from '@/components/ui/Dialog';
-import { cx } from '@/lib/utils';
 import type { DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
 import { SearchIcon } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/Dialog';
+import { cx } from '@/lib/utils';
 
 function Command({
   ref,

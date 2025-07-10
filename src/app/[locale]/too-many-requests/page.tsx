@@ -1,7 +1,7 @@
-import { Main } from '@/components/layout/Main';
-import { Link } from '@/components/ui/Link';
 import { AlertTriangleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Main } from '@/components/layout/Main';
+import { Link } from '@/components/ui/Link';
 
 export default function TooManyRequestsPage() {
   const t = useTranslations('error');

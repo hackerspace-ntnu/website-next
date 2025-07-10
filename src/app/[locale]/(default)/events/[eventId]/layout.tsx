@@ -1,6 +1,6 @@
-import { Link } from '@/components/ui/Link';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Link } from '@/components/ui/Link';
 
 type DefaultLayoutProps = {
   children: React.ReactNode;

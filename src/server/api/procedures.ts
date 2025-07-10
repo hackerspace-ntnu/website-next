@@ -1,6 +1,6 @@
+import { TRPCError } from '@trpc/server';
 import { contextStorage } from '@/server/api/context';
 import { trpc } from '@/server/api/trpc';
-import { TRPCError } from '@trpc/server';
 
 /**
  * Makes the context available in input validation

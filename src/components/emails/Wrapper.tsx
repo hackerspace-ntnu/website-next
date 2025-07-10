@@ -1,4 +1,3 @@
-import type { routing } from '@/lib/locale';
 import {
   Body,
   Container,
@@ -8,6 +7,7 @@ import {
   Preview,
   Tailwind,
 } from '@react-email/components';
+import type { routing } from '@/lib/locale';
 
 function Wrapper({
   children,

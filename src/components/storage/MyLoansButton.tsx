@@ -1,5 +1,6 @@
 'use client';
 
+import { BookUserIcon } from 'lucide-react';
 import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
@@ -7,7 +8,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { BookUserIcon } from 'lucide-react';
 
 function MyLoansButton({ label }: { label: string }) {
   return (

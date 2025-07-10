@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
@@ -8,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');

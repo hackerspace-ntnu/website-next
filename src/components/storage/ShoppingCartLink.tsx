@@ -1,5 +1,6 @@
 'use client';
 
+import { ShoppingCartIcon } from 'lucide-react';
 import type { CartItem } from '@/components/storage/types';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
@@ -11,7 +12,6 @@ import {
 } from '@/components/ui/Tooltip';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
-import { ShoppingCartIcon } from 'lucide-react';
 
 type ShoppingCartLinkProps = {
   t: {

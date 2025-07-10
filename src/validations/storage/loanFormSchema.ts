@@ -1,6 +1,6 @@
-import type { Translations } from '@/lib/locale';
 import { startOfDay } from 'date-fns';
 import { z } from 'zod';
+import type { Translations } from '@/lib/locale';
 
 function loanFormSchema(t: Translations) {
   return z.object({

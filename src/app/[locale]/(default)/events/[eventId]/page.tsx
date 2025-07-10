@@ -1,7 +1,7 @@
 import { format, isSameDay } from 'date-fns';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';

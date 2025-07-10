@@ -1,5 +1,5 @@
-import type { routing } from '@/lib/locale';
 import { Container, Img, Link, Text } from '@react-email/components';
+import type { routing } from '@/lib/locale';
 
 function Footer({
   publicSiteUrl,
