@@ -1,11 +1,9 @@
-import { groupIdentifiers } from '@/lib/constants';
 import { files, localesEnum, users } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
   index,
   integer,
-  pgEnum,
   pgTable,
   primaryKey,
   serial,
@@ -13,11 +11,9 @@ import {
   text,
 } from 'drizzle-orm/pg-core';
 
-const groupIdentifiersEnum = pgEnum('group_identifiers', groupIdentifiers);
-
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
-  identifier: groupIdentifiersEnum('identifier'),
+  identifier: varchar('identifier', { length: 50 }).notNull().unique(),
   imageId: integer('image_id').references(() => files.id),
 });
 
@@ -102,7 +98,6 @@ type SelectUserGroup = InferSelectModel<typeof userGroups>;
 type InsertUserGroup = InferInsertModel<typeof userGroups>;
 
 export {
-  groupIdentifiersEnum,
   groups,
   groupLocalizations,
   userGroups,

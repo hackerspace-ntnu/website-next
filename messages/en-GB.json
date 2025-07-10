@@ -265,7 +265,9 @@
     },
     "activeGroup": "Our Active Groups",
     "api": {
-      "fetchGroupsFailed": "Failed to fetch active groups"
+      "fetchGroupsFailed": "Failed to fetch active groups",
+      "invalidId": "Invalid ID",
+      "invalidGroupIdentifier": "Invalid group identifier"
     }
   },
   "storage": {

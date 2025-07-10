@@ -23,7 +23,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
 
   return (
     <Link
-      href={`about/group/${group.id}`}
+      href={`about/group/${group.identifier}`}
       className={cx(
         'group block whitespace-normal font-normal w-fit',
         className,

@@ -265,7 +265,9 @@
     },
     "activeGroup": "Våre aktive grupper",
     "api": {
-      "fetchGroupsFailed": "Kunne ikke hente aktive grupper"
+      "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
+      "invalidId": "Ugyldig ID",
+      "invalidGroupIdentifier": "Ugyldig gruppe-ID"
     }
   },
   "storage": {
