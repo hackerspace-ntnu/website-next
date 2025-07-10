@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/Button';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
@@ -65,28 +64,31 @@ export default async function GroupPage({
         <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
           {members.map((member) => {
             return (
-              <div
+              <Link
                 key={member.id}
-                className='flex items-center justify-center self-center transition-colors duration-300 hover:bg-gray-200'
+                href={{
+                  // @ts-expect-error Page not implemented yet
+                  pathname: '/members/[id]',
+                  params: { id: member.id },
+                }}
+                className='group relative box-border border border-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 text-white duration-200 hover:border-primary'
               >
-                <div className='group relative flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 text-white transition-colors duration-300 ease-in-out group-hover:bg-accent group-hover:dark:bg-card '>
-                  <div className='relative z-10 h-44 w-44 self-center'>
-                    {member?.profilePictureUrl ? (
-                      <Image
-                        className='object-cover'
-                        src={member.profilePictureUrl}
-                        alt={`${member.firstName} ${member.lastName}`}
-                        fill
-                      />
-                    ) : (
-                      <CircleUserRoundIcon className='h-full w-full' />
-                    )}
-                  </div>
-                  <p className='self-center bg-[length:0%_2px] bg-gradient-to-r bg-left-bottom from-white to-white bg-no-repeat transition-all duration-350 ease-out group-hover:bg-[length:100%_2px]'>
-                    {member.firstName} {member.lastName}
-                  </p>
+                <div className='relative z-10 h-44 w-44 self-center'>
+                  {member?.profilePictureUrl ? (
+                    <Image
+                      className='object-cover duration-200 group-hover:scale-105'
+                      src={member.profilePictureUrl}
+                      alt={`${member.firstName} ${member.lastName}`}
+                      fill
+                    />
+                  ) : (
+                    <CircleUserRoundIcon className='h-full w-full object-cover duration-200 group-hover:scale-105' />
+                  )}
                 </div>
-              </div>
+                <p className='group-hover:text-primary duration-200'>
+                  {member.firstName} {member.lastName}
+                </p>
+              </Link>
             );
           })}
         </div>
