@@ -1,10 +1,9 @@
 import { type FAQ, FAQAccordion } from '@/components/about/FAQAccordion';
 import { GroupCardGrid } from '@/components/about/GroupCardGrid';
+import { HackerspaceLogo } from '@/components/assets/logos';
 import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import pizzaWolfs from 'public/about/pizzaWolfs-min.png';
 import React from 'react';
 
 export async function generateMetadata() {
@@ -54,25 +53,14 @@ export default async function AboutPage({
 
   return (
     <div>
-      <div className='mt-7 mb-5 flex flex-col items-center justify-center'>
-        <Image
-          className='pizzaWolfs'
-          src={pizzaWolfs}
-          alt='pizza wolfs'
-          height={400}
-          width={400}
-          priority
-        />
-      </div>
-      <div>
-        <h1 className='mt-8 mb-4 text-center'>{t('whatIsHackerspace')}</h1>
-        <div className='mx-auto mb-6 max-w-prose text-base'>
-          {t.rich('aboutDescription', {
-            p1: (chunks) => <p className='p1'>{chunks}</p>,
-            p2: (chunks) => <p className='p2'>{chunks}</p>,
-            p3: (chunks) => <p className='p3'>{chunks}</p>,
-          })}
-        </div>
+      <HackerspaceLogo className='mx-auto mt-7 mb-5 h-36 w-36' />
+      <h1 className='mt-8 mb-4 text-center'>{t('whatIsHackerspace')}</h1>
+      <div className='mx-auto mb-6 max-w-prose text-base'>
+        {t.rich('aboutDescription', {
+          p1: (chunks) => <p className='p1'>{chunks}</p>,
+          p2: (chunks) => <p className='p2'>{chunks}</p>,
+          p3: (chunks) => <p className='p3'>{chunks}</p>,
+        })}
       </div>
       <h2 className='m-5 content-center items-center text-center'>
         {t('activeGroup')}
