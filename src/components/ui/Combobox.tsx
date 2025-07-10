@@ -62,7 +62,7 @@ function Combobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
-        <Command>
+        <Command className='bg-popover dark:bg-popover'>
           <CommandInput placeholder={defaultPlaceholder} />
           <CommandList>
             <CommandEmpty>Ingen valg funnet.</CommandEmpty>
@@ -99,4 +99,4 @@ function Combobox({
   );
 }
 
-export { Combobox };
+export { Combobox, type ComboboxProps };

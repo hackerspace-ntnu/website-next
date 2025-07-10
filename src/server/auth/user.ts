@@ -1,33 +1,22 @@
-import { auth } from '@/server/auth';
-import { cookies } from 'next/headers';
-import { cache } from 'react';
+import { db } from '@/server/db';
+import { eq } from 'drizzle-orm';
 
-const getUser = cache(async () => {
-  const sessionId =
-    (await cookies()).get(auth.sessionCookieName)?.value ?? null;
-  if (!sessionId) return null;
-  const { user, session } = await auth.validateSession(sessionId);
-  try {
-    if (session?.fresh) {
-      const sessionCookie = auth.createSessionCookie(session.id);
-      (await cookies()).set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
-    }
-    if (!session) {
-      const sessionCookie = auth.createBlankSessionCookie();
-      (await cookies()).set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
-    }
-  } catch {
-    // Next.js throws error when attempting to set cookies when rendering page
-  }
+import { type InsertUser, users } from '@/server/db/tables';
+
+async function getUserFromUsername(username: string) {
+  return await db.query.users.findFirst({
+    where: eq(users.username, username),
+  });
+}
+
+async function createUser(userValues: InsertUser) {
+  const [user] = await db.insert(users).values(userValues).returning();
+
   return user;
-});
+}
 
-export { getUser };
+async function updateUserPassword(userId: number, passwordHash: string) {
+  await db.update(users).set({ passwordHash }).where(eq(users.id, userId));
+}
+
+export { getUserFromUsername, createUser, updateUserPassword };

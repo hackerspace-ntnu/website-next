@@ -1,13 +1,11 @@
+import { Link } from '@/components/ui/Link';
 import { SquarePenIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-
-import { Link } from '@/lib/locale/navigation';
-
-import { Button } from '@/components/ui/Button';
 
 type NewsHeaderLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default async function NewsHeaderLayout({
@@ -22,12 +20,10 @@ export default async function NewsHeaderLayout({
     <>
       <div className='flex items-center justify-between'>
         <h1 className='my-4'>{t('title')}</h1>
-        <Button asChild size='sm'>
-          <Link href='/news/new'>
-            <SquarePenIcon className='mr-2 h-4 w-4' />
-            {t('newArticle')}
-          </Link>
-        </Button>
+        <Link variant='default' size='sm' href='/news/new'>
+          <SquarePenIcon className='mr-2 h-4 w-4' />
+          {t('newArticle')}
+        </Link>
       </div>
       {children}
     </>

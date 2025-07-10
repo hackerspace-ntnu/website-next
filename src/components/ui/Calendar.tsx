@@ -15,9 +15,6 @@ import {
   type DropdownProps,
 } from 'react-day-picker';
 
-import { dayPickerLocales } from '@/lib/locale';
-import { cx } from '@/lib/utils';
-
 import { Button, buttonVariants } from '@/components/ui/Button';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import {
@@ -28,7 +25,10 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 
-export type CalendarProps = DayPickerProps;
+import { dayPickerLocales } from '@/lib/locale';
+import { cx } from '@/lib/utils';
+
+type CalendarProps = DayPickerProps;
 
 /**
  * This component is also customised a lot from its shadcn counterpart.
@@ -83,12 +83,12 @@ function Calendar({
 }: CalendarProps) {
   const t = useTranslations('ui');
   const format = useFormatter();
-  const currentLocale = useLocale();
+  const locale = useLocale();
   return (
     <DayPicker
       className={cx('p-3', className)}
       classNames={{
-        root: '~p-2/6',
+        root: 'p-2-6-clamp',
         months: 'relative',
         month: 'space-y-4',
         nav: 'flex items-center justify-between absolute w-full z-10 px-1',
@@ -114,7 +114,7 @@ function Calendar({
         weekday: 'text-muted-foreground w-9 font-normal text-xs',
         weeks: '',
         week: 'flex mt-2',
-        day: 'p-0',
+        day: 'p-0 min-w-9 bg-transparent',
         outside: 'bg-accent/40',
         range_middle: 'bg-accent last:rounded-e-md first:rounded-s-md',
         range_start: 'bg-accent rounded-s-md',
@@ -185,7 +185,7 @@ function Calendar({
       }}
       showOutsideDays={showOutsideDays}
       fixedWeeks
-      locale={dayPickerLocales[currentLocale as keyof typeof dayPickerLocales]}
+      locale={dayPickerLocales[locale]}
       labels={{
         labelDayButton: (date, { today, selected }) => {
           let label = format.dateTime(date, {
@@ -207,6 +207,5 @@ function Calendar({
     />
   );
 }
-Calendar.displayName = 'Calendar';
 
-export { Calendar };
+export { Calendar, type CalendarProps };

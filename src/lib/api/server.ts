@@ -1,32 +1,42 @@
 import 'server-only';
 
 import { createQueryClient } from '@/lib/api/queryClient';
-import { type AppRouter, createCaller } from '@/server/api/root';
-import { createTRPCContext } from '@/server/api/trpc';
+import { createCaller, type router } from '@/server/api';
+import { createContext } from '@/server/api/context';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
-import { headers } from 'next/headers';
+import { getLocale } from 'next-intl/server';
 import { cache } from 'react';
 
-/**
- * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
- * handling a tRPC call from a React Server Component.
- */
-const createContext = cache(async () => {
-  const headerStore = await headers();
-  const heads = new Headers(headerStore);
-  heads.set('x-trpc-source', 'rsc');
+const getQueryClient = cache(createQueryClient);
 
-  return createTRPCContext({
-    headers: heads,
-  });
+const getApiClient = cache(async () => {
+  const locale = await getLocale();
+  const caller = createCaller(await createContext(locale));
+
+  return createHydrationHelpers<typeof router>(caller, getQueryClient);
 });
 
-const getQueryClient = cache(createQueryClient);
-const caller = createCaller(createContext);
+type ApiClient = Awaited<ReturnType<typeof getApiClient>>['trpc'];
 
-const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
-  caller,
-  getQueryClient,
-);
+const api = new Proxy({} as ApiClient, {
+  get(_target, prop: keyof ApiClient) {
+    return new Proxy(
+      {},
+      {
+        get(_target, method: string) {
+          return async (...args: unknown[]) => {
+            const { trpc } = await getApiClient();
+            type Router = ApiClient[typeof prop];
+            return (
+              trpc[prop][method as keyof Router] as (
+                ...args: unknown[]
+              ) => Promise<unknown>
+            )(...args);
+          };
+        },
+      },
+    );
+  },
+});
 
-export { api, HydrateClient };
+export { api };

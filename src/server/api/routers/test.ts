@@ -1,8 +1,10 @@
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { publicProcedure } from '@/server/api/procedures';
+import { createRouter } from '@/server/api/trpc';
 
-const testRouter = createTRPCRouter({
-  helloWorld: publicProcedure.query(async () => {
-    return 'Hello, World!';
+const testRouter = createRouter({
+  helloWorld: publicProcedure.query(async ({ ctx }) => {
+    // Dette er bare et eksempel, vi vil selfølgelig brukt ctx.t() istedet
+    return ctx.locale === 'nb-NO' ? 'Hei Verden!' : 'Hello World!';
   }),
 });
 

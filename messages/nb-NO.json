@@ -1,0 +1,599 @@
+{
+  "meta": {
+    "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Slack-kanal for assistanse eller en vennlig prat."
+  },
+  "ui": {
+    "open": "Åpne",
+    "close": "Lukk",
+    "previous": "Forrige",
+    "goToPreviousPage": "Gå til forrige side",
+    "next": "Neste",
+    "goToNextPage": "Gå til neste side",
+    "morePages": "Flere sider",
+    "name": "navn",
+    "page": "side",
+    "category": "kategori",
+    "sort": "sortering",
+    "photoOf": "Bilde av {name}",
+    "today": "I dag",
+    "selected": "Valgt",
+    "week": "Uke",
+    "nextMonth": "Neste måned",
+    "previousMonth": "Forrige måned",
+    "selectMonth": "Velg måned",
+    "selectYear": "Velg år",
+    "pickDate": "Velg en dato",
+    "dateFormat": "dd.MM.yyyy",
+    "searchCountry": "Søk etter land...",
+    "noCountryFound": "Ingen land funnet",
+    "hidePassword": "Gjem passord",
+    "showPassword": "Vis passord",
+    "confirm": "Bekreft",
+    "delete": "Slett",
+    "cancel": "Avbryt",
+    "save": "Lagre",
+    "uploadText": "Slipp filer her eller klikk for å laste opp",
+    "noValidFiles": "Ingen gyldige filer ble sluppet"
+  },
+  "error": {
+    "notFound": "404 - Siden ble ikke funnet",
+    "notFoundDescription": "Oops! Ser ut som denne siden gikk seg vill i cyberspace.",
+    "error": "Oops! Noe gikk galt",
+    "errorDescription": "Ikke bekymre deg, våre beste hackere jobber med saken!",
+    "tooManyRequests": "For mange forespørsler",
+    "tooManyRequestsDescription": "Vennligst vent litt og prøv igjen.",
+    "goToHomepage": "Gå tilbake til hjemmesiden",
+    "tryAgain": "Prøv igjen",
+    "invalidLocale": "Ugyldig språk: {locale}"
+  },
+  "auth": {
+    "welcome": "Velkommen!",
+    "description": "Er du her for første gang? Bruk Feide",
+    "signInWith": "Logg inn med",
+    "hackerspaceAccount": "Hackerspace-konto",
+    "success": "Suksess!",
+    "successDescription": "Gratulerer, du er nå medlem av Hackerspace NTNU!",
+    "home": "Hjem",
+    "signIn": "Logg inn",
+    "useYourAccount": "Bruk din konto",
+    "forgotPassword": "Glemt passord",
+    "submit": "Send",
+    "invalidCredentials": "Ugyldige påloggingsdetaljer",
+    "matrixRegistrationFailed": "Matrix bruker registrering feilet",
+    "createPassword": "Lag passord",
+    "passwordDescription": "Passordet vil bli brukt for å logge inn på Matrix og din Hackerspace-konto",
+    "createAccount": "Opprett konto",
+    "feideNotConfigured": "Feide er ikke konfigurert",
+    "verifyEmail": "Bekreft e-postadressen din",
+    "verifyEmailDescription": "Skriv inn bekreftelseskoden sendt til din nye e-postadresse. Hvis du ikke ser den, sjekk spam-mappen din.",
+    "getNewCode": "Få ny kode {seconds, plural, =0 {} =1 {(# sekund)} other {(# sekunder)}}",
+    "newCodeSent": "En ny kode ble sendt til innboksen din",
+    "confirmEmail": "Bekreft e-post",
+    "unableToCreateVerificationRequest": "Kunne ikke opprette e-post verifikasjonsforespørsel",
+    "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet",
+    "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
+    "emailUpdateSuccess": "E-postadressen ble oppdatert",
+    "form": {
+      "username": {
+        "label": "Brukernavn",
+        "required": "Brukernavn er påkrevd",
+        "minLength": "Brukernavn må være minst {count} tegn",
+        "maxLength": "Brukernavn må være mindre enn {count} tegn",
+        "invalid": "Brukernavn må kun inneholde bokstaver"
+      },
+      "password": {
+        "label": "Passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "confirmLabel": "Bekreft passord",
+        "mismatch": "Passordene stemmer ikke overens",
+        "weak": "Passordet er for svakt"
+      },
+      "otp": {
+        "label": "Engangspassord",
+        "required": "Engangspassord er påkrevd",
+        "length": "Engangspassordet må være {count} tegn langt",
+        "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
+        "incorrect": "Feil engangspassord"
+      }
+    },
+    "error": {
+      "authenticationFailed": "Autentisering mislyktes",
+      "userInfoFailed": "Kunne ikke hente brukerinformasjon",
+      "userInfoMissing": "Brukerinformasjon mangler",
+      "phoneInUse": "Telefonnummeret er allerede i bruk",
+      "emailInUse": "E-postadressen er allerede i bruk",
+      "invalidUserData": "Ugyldig brukerdata",
+      "userCreationFailed": "Kunne ikke opprette bruker"
+    }
+  },
+  "layout": {
+    "hackerspaceHome": "Hackerspace hjemmeside",
+    "navigationMenu": "Navigasjonsmeny",
+    "news": "Nyheter",
+    "events": "Arrangementer",
+    "storage": "Lager",
+    "about": "Om oss",
+    "shiftSchedule": "Vaktliste",
+    "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
+    "goToMatrix": "Dra til Matrix",
+    "rules": "Regler",
+    "changeLocale": "Bytt språk",
+    "toggleTheme": "Bytt tema",
+    "light": "Lys",
+    "dark": "Mørk",
+    "system": "System",
+    "profile": "Profil",
+    "signIn": "Logg inn",
+    "signOut": "Logg ut",
+    "settings": "Innstillinger",
+    "links": "Lenker",
+    "utilities": "Verktøy",
+    "haveYouFoundA": "Har du funnet en",
+    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til DevOps eller bruk <code>#dev-public</code> kanalen på <SlackLink>Slack</SlackLink>! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
+    "openingHours": "Åpningstider",
+    "allWeekdays": "Mandag - Fredag",
+    "socialMedia": "Sosiale medier",
+    "sendAnEmail": "Send en e-post",
+    "visitSlack": "Besøk Slack",
+    "visitFacebook": "Besøk Facebook",
+    "visitGithub": "Besøk Github",
+    "visitLinkedin": "Besøk Linkedin",
+    "visitInstagram": "Besøk Instagram",
+    "discordTag": "Kopier Discord-taggen",
+    "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
+    "NTNUIDIURL": "https://www.ntnu.no/idi",
+    "NTNUNexus": "Arbeidslivsnettverket Nexus",
+    "internal": "Internal",
+    "copyright": "Opphavsrett",
+    "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "members": {
+    "title": "Medlemmer",
+    "internalMember": "Dette er et internt medlem",
+    "backToMember": "Tilbake til medlemmer",
+    "searchPlaceholder": "Søk etter et medlem...",
+    "skills": {
+      "arduinoMicrocontrollers": "Arduino og mikrokontrollere",
+      "raspberryPi": "Raspberry Pi",
+      "linuxTerminal": "Linux/Terminal",
+      "workshop": "Verksted",
+      "3dPrinting": "3D printing",
+      "solderingSmallElectronics": "Lodding og småelektronikk",
+      "laserCutting": "Laserkutting"
+    }
+  },
+  "settings": {
+    "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "profile": {
+      "title": "Profil",
+      "username": "Brukernavn",
+      "updateProfile": "Oppdater profil",
+      "updateProfileFailed": "Kunne ikke oppdatere profil",
+      "updateProfileSuccess": "Profil oppdatert",
+      "updateProfilePicture": "Oppdater profilbilde",
+      "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
+      "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
+      "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "profilePicture": {
+        "label": "Profilbilde",
+        "mustBeImage": "Profilbilde må være et bilde",
+        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "sizeLimit": "Profilbilde må være mindre enn {size} MB"
+      },
+      "firstName": {
+        "label": "Fornavn",
+        "required": "Fornavn er påkrevd",
+        "minLength": "Fornavn må være minst {count} tegn",
+        "maxLength": "Fornavn må være mindre enn {count} tegn",
+        "general": "Er fornavnet ditt riktig?"
+      },
+      "lastName": {
+        "label": "Etternavn",
+        "required": "Etternavn er påkrevd",
+        "minLength": "Etternavn må være minst {count} tegn",
+        "maxLength": "Etternavn må være mindre enn {count} tegn",
+        "general": "Er etternavnet ditt riktig?"
+      },
+      "birthDate": {
+        "label": "Fødselsdato",
+        "required": "Fødselsdato er påkrevd",
+        "invalid": "Ugyldig fødselsdato",
+        "minAge": "Du må være minst {age} år",
+        "maxAge": "Du må være under {age} år"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "updateAccount": "Oppdater konto",
+      "updateAccountFailed": "Kunne ikke oppdatere konto",
+      "updateAccountSuccess": "Konto oppdatert",
+      "email": {
+        "label": "E-post",
+        "description": "Hvis du endrer e-postadressen din, så vil du motta en forespørsel på e-post som du kan bekrefte.",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresseformat",
+        "confirmLabel": "Bekreft e-post",
+        "mismatch": "E-postadressene er ikke like",
+        "inUse": "E-postadressen er allerede i bruk"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "description": "Telefonnummeret ditt vil være synlig når du reserverer 3D-printere eller låner utstyr, slik at vi kan kontakte deg hvis det oppstår problemer.",
+        "required": "Telefonnummer er påkrevd",
+        "invalid": "Ugyldig telefonnummer",
+        "format": "Telefonnummeret er feil formatert",
+        "inUse": "Telefonnummeret er allerede i bruk"
+      },
+      "password": {
+        "currentLabel": "Nåværende passord",
+        "newLabel": "Nytt passord",
+        "confirmLabel": "Bekreft passord",
+        "required": "Passord er påkrevd",
+        "minLength": "Passord må være minst {count} tegn",
+        "maxLength": "Passord må være mindre enn {count} tegn",
+        "lowercase": "Passord må inneholde minst én liten bokstav",
+        "uppercase": "Passord må inneholde minst én stor bokstav",
+        "specialChar": "Passord må inneholde minst ett spesialtegn",
+        "weak": "Passordet er for svakt",
+        "mismatch": "Passordene er ikke like",
+        "update": "Oppdater passord",
+        "updateSuccess": "Passordet ble oppdatert",
+        "updateFailed": "Kunne ikke oppdatere passord",
+        "incorrectPassword": "Feil passord"
+      }
+    },
+    "notifications": {
+      "title": "Varslinger",
+      "updateNotifications": "Oppdater varslinger",
+      "updateNotificationsFailed": "Kunne ikke oppdatere varslinger",
+      "updateNotificationsSuccess": "Varslinger oppdatert",
+      "notifyMeAbout": "Varsle meg via e-post",
+      "all": "Ferdige utskrifter, frister for lånte gjenstander, fylte kaffekopper og kontooppdateringer",
+      "useful": "Ferdige utskrifter, frister for lånte gjenstander og kontooppdateringer",
+      "essential": "Kontooppdateringer"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
+  },
+  "news": {
+    "title": "Nyheter",
+    "internalArticle": "Dette er en intern artikkel",
+    "newArticle": "Ny artikkel",
+    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
+    "views": "Visninger"
+  },
+  "about": {
+    "whatIsHackerspace": "Hva er Hackerspace?",
+    "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
+    "showMap": "Vis kart!",
+    "FAQ": {
+      "title": "Ofte stilte spørsmål",
+      "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
+      "answerCanIUseThe3dPrinter": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
+      "canITryVRGames-Equipment": "Kan jeg prøve VR spill/utstyr?",
+      "answerCanITryVRGames-Equipment": "VR utstyret vårt kan lånes og prøves ut av alle studenter uavhengig av medlemskap i Hackerspace. Vi har eget VR-rom der man kan komme og spille så lenge et Hackerspace-medlem er tilgjengelig ved oppsett og avslutning. Utstyret kan lånes ut på vanlig måte gjennom lagersystemet. Kom innom i våre åpningstider om dette interesserer deg.",
+      "howDoIBecomeAMember": "Hvordan blir jeg medlem?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
+    },
+    "activeGroup": "Våre aktive grupper",
+    "backToAbout": "Tilbake til Om Oss",
+    "api": {
+      "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
+      "invalidId": "Ugyldig ID",
+      "invalidGroupIdentifier": "Ugyldig gruppe-ID"
+    }
+  },
+  "storage": {
+    "title": "Lager",
+    "searchPlaceholder": "Søk etter produkt...",
+    "addNewItem": "Legg til ny gjenstand",
+    "viewLoans": "Se dine lån",
+    "backToStorage": "Tilbake til lageret",
+    "noItemsFound": "Ingen gjenstander funnet. Sjekk filtreringskriteriene dine.",
+    "card": {
+      "availableUnits": "{units}/{total} stk.",
+      "addToCart": "Legg i handlekurven",
+      "removeFromCart": "Fjern fra handlekurven"
+    },
+    "select": {
+      "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
+      "filters": "Filtre",
+      "name": "Navn (alfabetisk)",
+      "sortDescending": "Lagerbeholdning (synkende)",
+      "sortAscending": "Lagerbeholdning (stigende)"
+    },
+    "combobox": {
+      "defaultDescription": "Velg kategori...",
+      "defaultPlaceholder": "Søk etter kategori...",
+      "cables": "Kabler",
+      "sensors": "Sensorer",
+      "peripherals": "PC-tilbehør",
+      "miniPC": "Mini-PC"
+    },
+    "searchParams": {
+      "name": "navn",
+      "descending": "synkende",
+      "ascending": "stigende",
+      "cables": "kabler",
+      "sensors": "sensorer",
+      "peripherals": "tilbehoer",
+      "miniPC": "minipc"
+    },
+    "tooltips": {
+      "viewShoppingCart": "Vis handlekurv"
+    },
+    "item": {
+      "noDescription": "Ingen beskrivelse har blitt oppgitt for denne gjenstanden.",
+      "noLocation": "Ingen plassering spesifisert",
+      "noCategory": "Ingen kategori spesifisert",
+      "invalidId": "Den oppgitte ID-en for gjenstanden er ugyldig.",
+      "edit": "Rediger gjenstand",
+      "api": {
+        "insertFailed": "Feilet å legge til gjenstanden",
+        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace DevOps om denne feilen!"
+      }
+    },
+    "shoppingCart": {
+      "title": "Handlekurv",
+      "productId": "Produkt-ID",
+      "productName": "Produktnavn",
+      "location": "Plass",
+      "unitsAvailable": "Stk tilgjengelig",
+      "tableDescription": "En liste over handlekurven din.",
+      "cartEmpty": "Handlekurven din er tom.",
+      "clearCart": "Tøm handlekurven",
+      "clear": "Tøm",
+      "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
+      "requestLoan": "Send låneforespørsel",
+      "amountOfItemAria": "Velg antallet av denne gjenstanden",
+      "mustBeLoggedIn": "Du må være logget inn for å låne"
+    },
+    "loanForm": {
+      "loanPeriod": "Velg låneperiode",
+      "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "autoapprove": "Godkjenn umiddelbart",
+      "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
+      "submit": "Send",
+      "dateInFuture": "Datoen for levering må være i framtiden",
+      "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
+    },
+    "categories": {
+      "title": "Kategorier",
+      "categoryName": "Kategorinavn (norsk og engelsk)",
+      "categoryTableDescription": "Tabell over kategorier",
+      "actions": "Handlinger",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandskategorier",
+      "successAddMessage": "Kategorien har blitt lagt til!",
+      "successEditMessage": "Kategorien har blitt redigert!",
+      "successDeleteMessage": "Kategorien har blitt slettet!",
+      "invalidName": "Ugyldig kategorinavn",
+      "api": {
+        "insertFailed": "Feilet å legge til kategori",
+        "updateFailed": "Feilet å redigere kategori",
+        "deleteFailed": "Feilet å fjerne kategori",
+        "duplicateCategory": "Kan ikke legge til flere kategorier med samme navn"
+      }
+    },
+    "edit": {
+      "titleNew": "Ny gjenstand",
+      "titleEdit": "Rediger gjenstand",
+      "image": {
+        "label": "Bilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Bildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelEnglish": "Navn (engelsk)",
+        "labelNorwegian": "Navn (norsk)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "Navn er påkrevd."
+      },
+      "description": {
+        "labelEnglish": "Beskrivelse (engelsk)",
+        "labelNorwegian": "Beskrivelse (norwegian)",
+        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
+      },
+      "location": {
+        "labelEnglish": "Plassering (engelsk)",
+        "labelNorwegian": "Plassering (norsk)",
+        "placeholder": "Boks 2A",
+        "required": "Plassering er påkrevd.",
+        "invalid": "Vennligst oppgi en kort og konsis plassering."
+      },
+      "quantity": {
+        "label": "Antall",
+        "placeholder": "4",
+        "negative": "Antallet kan ikke være negativt."
+      },
+      "category": {
+        "label": "Kategori",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "deleteItem": "Slett gjenstand",
+      "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
+      "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
+      "successEdit": "Gjenstanden ble redigert! Videresender deg til lageret...",
+      "successDelete": "Gjenstanden ble slettet! Videresender deg til lageret...",
+      "unauthorized": "Du har ikke rettigheter til å administrere gjenstandene på lager"
+    },
+    "loans": {
+      "view": "Se lån",
+      "title": "Lån",
+      "titlePending": "Utestående lån",
+      "titleApproved": "Godkjente lån",
+      "pendingLoan": "Utestående lån",
+      "notReturned": "Ikke levert tilbake enda",
+      "returned": "Levert tilbake {date}",
+      "loanSubheader": "Dette lånet venter på godkjenning",
+      "loanItem": "{units, plural, other {# stk.}} av {name}",
+      "askForApproval": "Ønsker du å godkjenne denne forespørselen?",
+      "approve": "Godkjenn",
+      "confirmLoanReturn": "Bekreft tilbakelevering",
+      "deleteLoan": "Slett låneforespørsel",
+      "deleteDescription": "Er du helt sikker at du ønsker å slette låneforespørselen fra {person}?",
+      "loan": "Lån",
+      "loanApproveSuccess": "Lånet har blitt godkjent!",
+      "loanDeleteSuccess": "Lånet har blitt slettet!",
+      "loanReturnSuccess": "Lånet har blitt registrert som levert!",
+      "loanApproved": "Dette lånet har blitt godkjent",
+      "borrowTimeline": "Lån fra {from} til {until}",
+      "requestedAt": "Forespørsel sendt {date}",
+      "noPendingLoans": "Ingen utestående lån 🎉",
+      "noLoansFound": "Ingen lån funnet",
+      "unauthorized": "Du har ikke rettigheter til å administrere låneforespørsler"
+    },
+    "api": {
+      "duplicateItem": "Kan ikke legge til en gjenstand med samme navn flere ganger. Rediger den eksisterende gjenstanden istedenfor.",
+      "notFound": "Den valgte gjenstanden ble ikke funnet.",
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
+      "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
+      "borrowPositiveAmount": "Må låne et positivt antall.",
+      "limitNotInRange": "limit må være mellom 1 og 50."
+    }
+  },
+  "shiftSchedule": {
+    "title": "Vaktliste",
+    "clearShifts": {
+      "clear": "Tøm vaktliste",
+      "warning": "Advarsel",
+      "confirmationPrompt": "Er du sikker på at du vil tømme vaktlisten?",
+      "confirm": "Tøm",
+      "cancel": "Avbryt",
+      "clearSuccess": "Vaktliste tømt"
+    },
+    "table": {
+      "time": "Tid",
+      "day": "{day, select, monday {Mandag} tuesday {Tirsdag} wednesday {Onsdag} thursday {Torsdag} other {Fredag}}",
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person på vakt} other {# personer på vakt}}",
+        "closed": "Stengt",
+        "dialog": {
+          "description": "Se medlemmer på valgt vakt eller registrer selv",
+          "empty": "Ingen på vakt",
+          "recurring": "Gjentagende",
+          "register": "Registrer",
+          "update": "Oppdater",
+          "unregister": "Avregistrer",
+          "signIn": "Logg inn",
+          "signInDescription": "Logg inn for å registrere vakt",
+          "registerSuccess": "Vakt registrert",
+          "updateSuccess": "Vakt oppdatert",
+          "unregisterSuccess": "Vakt avregistrert"
+        }
+      }
+    },
+    "api": {
+      "day": "Ugyldig dag",
+      "timeslot": "Ugyldig tidsrom",
+      "recurring": "Ugyldig verdi for gjentagende",
+      "fetchShiftsFailed": "Kunne ikke hente vakter"
+    }
+  },
+  "events": {
+    "title": "Arrangementer",
+    "activeEvents": "Pågående arrangementer",
+    "upcomingEvents": "Kommende arrangementer",
+    "pastEvents": "Tidligere arrangementer",
+    "detailsAboutEvent": "Les mer om {eventName}",
+    "startsAt": "Starter kl.",
+    "startedAt": "Startet kl.",
+    "endsAt": "Slutter kl.",
+    "endedAt": "Sluttet kl.",
+    "backToEvents": "Tilbake til arrangementer"
+  },
+  "rules": {
+    "title": "Regler",
+    "forEveryone": "For alle",
+    "internal": "Interne regler"
+  },
+  "skills": {
+    "printing": "3D-printing",
+    "soldering": "Lodding",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laserkutting",
+    "workshop": "Verkstedsverktøy",
+    "microcontroller": "Mikrokontroller-programmering",
+    "webdevelopment": "Webutvikling"
+  },
+  "api": {
+    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet",
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+  },
+  "privacy": {
+    "title": "Personvernerklæring",
+    "lastUpdated": "Sist oppdatert: 9. juli 2025",
+    "intro": {
+      "part1": "På Hackerspace er vi forpliktet til å beskytte personvernet ditt og være transparente om databehandling. Vi ønsker å sikre at dine personopplysninger behandles i samsvar med gjeldende lover, inkludert EUs generelle personvernforordning (GDPR).",
+      "part2": "Vår organisasjon har som mål å være åpen om behandlingen av personopplysninger og IT-sikkerhetstiltak. Det finnes alltid prosedyrer på Hackerspace for å sikre riktig behandling av personopplysninger.",
+      "part3": "Denne personvernerklæringen forklarer hvordan vi samler inn, bruker og beskytter dine personopplysninger når du besøker, bruker eller interagerer med nettsiden vår. Den inneholder også informasjon om dine rettigheter angående personopplysningene dine."
+    },
+    "dataResponsibility": {
+      "title": "Hvem er ansvarlig for dine data?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, Norge",
+      "email": "hackerspace-dev@idi.ntnu.no",
+      "comment": "Vi er enheten som er ansvarlig for behandlingen av dine personopplysninger."
+    },
+    "collect": {
+      "title": "Hvilke data samler vi inn?",
+      "intro1": "For at Hackerspace skal kunne levere tjenestene som er tilgjengelige på denne nettsiden, samt opprettholde et oppdatert medlemsregister, må vi samle inn personopplysninger som er spesifisert i denne personvernerklæringen.",
+      "intro2": "Personopplysningene er primært ment for å opprette en komplett profil for å knytte brukerkontoen til en person. Ved å ha et fullt navn kan vi få en god oversikt over våre medlemmer og brukere, og det gjør det mulig for oss å tilby tjenester som deltakelse på arrangementer, utlån av gjenstander og mer.",
+      "weCollectTheFollowing": "Vi samler inn følgende personopplysninger:",
+      "weCollect1": "Kontaktinformasjon: Hvis du bestemmer deg for å registrere en konto på Hackerspace, vil vi samle inn ditt navn og e-postadresse. I tillegg, hvis du velger å gi det til oss, vil vi samle inn telefonnummeret ditt for kontaktformål.",
+      "weCollect2": "Bruksdata: Informasjon om hvordan du bruker nettsiden vår, for eksempel interaksjonene dine, informasjon om enheten din, nettlesertype og besøkstidspunkt.",
+      "weCollect3": "Informasjonskapsler: Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden. Dette kan inkludere preferanser, besøkshistorikk og annen teknisk informasjon.",
+      "weCollect4": "Andre data: Vi kan samle inn data som du frivillig gir oss, for eksempel ved å fylle ut skjemaer eller sende e-poster."
+    },
+    "dataPurpose": {
+      "title": "Hvordan bruker vi dataene dine?",
+      "intro": "Vi bruker personopplysningene dine for følgende formål:",
+      "purpose11": "For å tilby tjenester:",
+      "purpose12": "Behandle bestillinger, svare på henvendelser, håndtere arrangementer, administrere utlån av gjenstander, gi støtte og mer.",
+      "purpose21": "For å forbedre brukeropplevelsen:",
+      "purpose22": "Forstå hvordan nettsiden brukes, forbedre innhold og funksjonalitet.",
+      "purpose31": "Sikkerhet:",
+      "purpose32": "Beskytte nettsiden og brukere mot svindel eller uautorisert tilgang."
+    },
+    "protection": {
+      "title": "Hvordan beskytter vi dataene dine?",
+      "content": "Vi bruker moderne sikkerhetstiltak for å beskytte personopplysningene dine mot tap, misbruk eller uautorisert tilgang. Dette inkluderer kryptering, brannmurer og tilgangskontroller. Ved ytterligere spørsmål om våre sikkerhetstiltak, vennligst kontakt DevOps-teamet på Hackerspace."
+    },
+    "rights": {
+      "title": "Dine rettigheter",
+      "gdprIntro": "I henhold til norsk lovgivning og GDPR har du følgende rettigheter:",
+      "gdpr11": "Rett til innsyn:",
+      "gdpr12": "Du har rett til å be om hvilken informasjon vi har om deg.",
+      "gdpr21": "Rett til korrigering:",
+      "gdpr22": "Du har rett til å be om korrigering av unøyaktige personopplysninger om deg.",
+      "gdpr31": "Rett til sletting:",
+      "gdpr32": "Du har rett til å be om sletting av dine personopplysninger.",
+      "gdpr41": "Rett til å trekke tilbake samtykke:",
+      "gdpr42": "Du har rett til å be om at vi slutter å behandle dataene dine.",
+      "consentComment": "Vær oppmerksom på at det er frivillig å samtykke til databehandlingen og at du kan trekke ditt samtykke når som helst. Hvis samtykket trekkes tilbake, vil brukerkontoen din bli slettet og du kan miste tilgang til våre interne tjenester som er avhengige av informasjonen du gir, samt fysisk tilgang til organisasjonens lokaler.",
+      "exercise": "For å utøve dine rettigheter kan du kontakte oss på: hackerspace-dev@idi.ntnu.no",
+      "responseTime": "Vi svarer på alle forespørsler etter beste evne, og vi vil gjøre dette innen én måned etter at vi har mottatt forespørselen din."
+    },
+    "cookies": {
+      "title": "Informasjonskapsler",
+      "content": "Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden vår. En informasjonskapsel er en liten tekstfil som lagres på enheten din. Du kan administrere informasjonskapsler i nettleseren din. Vi bruker både nødvendige og funksjonelle informasjonskapsler, samt tredjepartsinformasjon for analyse."
+    },
+    "policyChange": {
+      "title": "Endringer i denne personvernerklæringen",
+      "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
+    }
+  }
+}
