@@ -1,8 +1,3 @@
-import { ShieldAlert } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-import { cx } from '@/lib/utils';
-
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -10,13 +5,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
+import { cx } from '@/lib/utils';
+import { ShieldAlert } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 type InternalBadgeProps = {
   className?: string;
 };
 
-function InternalBadge({ className }: InternalBadgeProps) {
-  const t = useTranslations('members');
+async function InternalBadge({ className }: InternalBadgeProps) {
+  const t = await getTranslations('members');
 
   return (
     <TooltipProvider>

@@ -165,6 +165,7 @@
     "backToMember": "Back to members",
     "searchPlaceholder": "Search for a member...",
     "guest": "Guest",
+    "usernameCopied": "Username copied to clipboard!",
     "api": {
       "idOrNameRequired": "Either ID or name must be provided",
       "errorFetchingMember": "Error fetching member"
@@ -514,6 +515,7 @@
     "internal": "Internal rules"
   },
   "skills": {
+    "skills": "Skills",
     "printing": "3D Printing",
     "soldering": "Soldering",
     "raspberry": "Raspberry Pi",
