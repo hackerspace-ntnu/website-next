@@ -15,9 +15,7 @@ function MemberCardSkeleton() {
         <CardTitle>
           <Skeleton className='h-8 w-2/3' />
         </CardTitle>
-        <CardDescription>
-          <Skeleton className='h-6 w-1/4' />
-        </CardDescription>
+        <Skeleton className='h-6 w-1/4' />
       </CardHeader>
       <CardContent>
         <div className='relative h-48 w-48'>

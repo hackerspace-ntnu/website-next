@@ -164,14 +164,10 @@
     "internalMember": "This is an internal member",
     "backToMember": "Back to members",
     "searchPlaceholder": "Search for a member...",
-    "skills": {
-      "arduinoMicrocontrollers": "Arduino and microcontrollers",
-      "raspberryPi": "Raspberry Pi",
-      "linuxTerminal": "Linux/Terminal",
-      "workshop": "Workshop",
-      "3dPrinting": "3D printing",
-      "solderingSmallElectronics": "Soldering and small electronics",
-      "laserCutting": "Laser cutting"
+    "guest": "Guest",
+    "api": {
+      "idOrNameRequired": "Either ID or name must be provided",
+      "errorFetchingMember": "Error fetching member"
     }
   },
   "settings": {

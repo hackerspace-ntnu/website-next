@@ -164,14 +164,10 @@
     "internalMember": "Dette er et internt medlem",
     "backToMember": "Tilbake til medlemmer",
     "searchPlaceholder": "Søk etter et medlem...",
-    "skills": {
-      "arduinoMicrocontrollers": "Arduino og mikrokontrollere",
-      "raspberryPi": "Raspberry Pi",
-      "linuxTerminal": "Linux/Terminal",
-      "workshop": "Verksted",
-      "3dPrinting": "3D printing",
-      "solderingSmallElectronics": "Lodding og småelektronikk",
-      "laserCutting": "Laserkutting"
+    "guest": "Gjest",
+    "api": {
+      "idOrNameRequired": "Enten ID eller navn må oppgis",
+      "errorFetchingMember": "Kunne ikke hente medlem"
     }
   },
   "settings": {

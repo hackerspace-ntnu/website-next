@@ -1,6 +1,7 @@
 import { MemberViewCard } from '@/components/members/MemberViewCard';
 import { SkillCard } from '@/components/members/SkillCard';
 import { Button } from '@/components/ui/Button';
+import { api } from '@/lib/api/server';
 import { Link } from '@/lib/locale/navigation';
 import { memberMockData } from '@/mock-data/member';
 import { ArrowLeftIcon } from 'lucide-react';
@@ -31,18 +32,22 @@ export default async function MemberPage({
   setRequestLocale(locale);
   const t = await getTranslations('members');
 
-  const memberData = memberMockData.find(
-    (mockMember) => mockMember.id === Number(memberId),
-  );
-  if (!memberData) {
+  const processedMemberId = Number(memberId);
+
+  if (Number.isNaN(processedMemberId) || !Number.isInteger(processedMemberId))
     return notFound();
-  }
+
+  const user = await api.users.fetchUser({
+    id: processedMemberId,
+  });
+
+  if (!user) return notFound();
 
   return (
     <>
       <div className='relative'>
-        <h2 className='mx-auto mt-96 text-center text-3xl sm:text-4xl'>
-          {memberData.name}
+        <h2 className='mx-auto text-center text-3xl sm:text-4xl'>
+          {user.firstName} {user.lastName}
         </h2>
         <Button asChild variant='ghost'>
           <Link
@@ -56,35 +61,9 @@ export default async function MemberPage({
         </Button>
       </div>
 
-      <div className='my-10 flex flex-col items-center space-y-5'>
-        <MemberViewCard
-          key={memberData.id}
-          id={memberData.id}
-          internal={memberData.internal}
-          name={memberData.name}
-          group={memberData.group}
-          photoUrl={memberData.photoUrl}
-          bio={memberData.bio}
-          mail={memberData.mail}
-          instagram={memberData.instagram}
-          discord={memberData.discord}
-          github={memberData.github}
-          linkedin={memberData.linkedin}
-        />
-        <SkillCard
-          key={memberData.id}
-          id={memberData.id}
-          internal={memberData.internal}
-          name={memberData.name}
-          group={memberData.group}
-          photoUrl={memberData.photoUrl}
-          bio={memberData.bio}
-          mail={memberData.mail}
-          instagram={memberData.instagram}
-          discord={memberData.discord}
-          github={memberData.github}
-          linkedin={memberData.linkedin}
-        />
+      <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
+        <MemberViewCard user={user} />
+        <SkillCard skills={user.usersSkills.map((row) => row.skill)} />
       </div>
     </>
   );

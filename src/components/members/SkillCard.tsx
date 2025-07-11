@@ -1,159 +1,38 @@
-import { Button } from '@/components/ui/Button';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Card } from '@/components/ui/Card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/Tooltip';
-import { MailIcon } from 'lucide-react';
+import { skillIdentifiers } from '@/lib/constants';
+import type { SelectSkill } from '@/server/db/tables';
+import { CheckIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-type SkillCardProps = {
-  className?: string;
-  id: number;
-  internal: boolean;
-  name: string;
-  group: string;
-  photoUrl: string;
-  bio: string;
-  mail: string;
-  instagram: string;
-  discord: string;
-  github: string;
-  linkedin: string;
-  workshop: boolean;
-  printing: boolean;
-  lasercutter: boolean;
-  linuxTerminal: boolean;
-};
+async function SkillCard({
+  skills,
+}: {
+  skills: SelectSkill[];
+}) {
+  const t = await getTranslations('skills');
 
-function SkillCard({
-  className,
-  id,
-  internal,
-  name,
-  group,
-  photoUrl,
-  bio,
-  mail,
-  instagram,
-  discord,
-  github,
-  linkedin,
-  workshop,
-  printing,
-  lasercutter,
-  linuxTerminal,
-}: SkillCardProps) {
-  const t = useTranslations('members.skills');
   return (
-    <Card className='relative flex w-4/5 overflow-hidden rounded-xl'>
+    <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit'>
       <div className='flex w-full flex-col items-center justify-center'>
         <h3 className='mt-4 text-center'>Skills</h3>
-        <ul className='mt-5 mb-7 flex grid grid-cols-4 flex-wrap justify-center gap-2 sm:grid sm:grid-cols-3-auto md:grid-flow-col md:grid-cols-auto xl:grid-flow-col xl:grid-cols-auto'>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('arduinoMicrocontrollers')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('raspberryPi')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('linuxTerminal')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('workshop')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('3dPrinting')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('solderingSmallElectronics')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button asChild variant='ghost' size='sm-icon'>
-                    <MailIcon className='size-28' />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='bg-background'>
-                  <p>{t('laserCutting')}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
+        <ul className='mt-5 mb-7 divide-y'>
+          {skillIdentifiers.map((identifier) => (
+            <li key={identifier} className='flex items-center gap-2 py-2'>
+              {skills.some((skill) => skill.identifier === identifier) ? (
+                <CheckIcon className='h-4 w-4 text-green-500' />
+              ) : (
+                <XIcon className='h-4 w-4 text-red-500' />
+              )}
+              <SkillIcon identifier={identifier} />
+              <span>{t(identifier)}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </Card>
   );
 }
 
-export { SkillCard, type SkillCardProps };
+export { SkillCard };

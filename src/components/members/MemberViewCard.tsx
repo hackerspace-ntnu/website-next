@@ -1,4 +1,3 @@
-'use client';
 import {
   DiscordIcon,
   GitHubIcon,
@@ -6,7 +5,6 @@ import {
   LinkedInIcon,
 } from '@/components/assets/icons';
 import { InternalBadge } from '@/components/members/InternalBadge';
-import type { MemberCardProps } from '@/components/members/MemberCard';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import {
@@ -15,50 +13,70 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { MailIcon } from 'lucide-react';
+import { api } from '@/lib/api/server';
+import type { RouterOutput } from '@/server/api';
+import { MailIcon, UserCircle2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
 import ExternalLink from 'next/link';
 import { toast } from 'sonner';
 
-function MemberViewCard({
-  className,
-  id,
-  internal,
-  name,
-  group,
-  photoUrl,
-  bio,
-  mail,
-  instagram,
-  discord,
-  github,
-  linkedin,
-}: MemberCardProps) {
+async function MemberViewCard({
+  user,
+}: {
+  user: NonNullable<RouterOutput['users']['fetchUser']>;
+}) {
   const t = useTranslations('layout');
+  const tMembers = useTranslations('members');
+  const locale = await getLocale();
+  const profilePictureUrl = user.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: user.profilePictureId,
+      })
+    : null;
+
+  const groupNames = user.usersGroups
+    .map(
+      (row) =>
+        row.group.localizations.find(
+          (localization) => localization.locale === locale,
+        )?.name,
+    )
+    .filter((item) => item !== undefined)
+    .join(', ');
+
   return (
-    <Card className='relative flex w-4/5 overflow-hidden rounded-xl'>
-      <InternalBadge internal={internal} />
-
+    <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit lg:min-w-96'>
+      {user.private && <InternalBadge />}
       <div className='flex w-full flex-col items-center justify-center'>
-        <div className='relative m-6 size-48 lg:size-64'>
-          <Image
-            className='rounded-full object-cover'
-            src={`/${photoUrl}`}
-            alt={name}
-            fill
-          />
+        <div className='relative my-2 size-48 lg:size-64'>
+          {profilePictureUrl ? (
+            <Image
+              className='rounded-full object-cover'
+              src={profilePictureUrl}
+              alt={`${user.firstName} ${user.lastName}`}
+              fill
+            />
+          ) : (
+            <UserCircle2Icon className='h-full w-full object-cover' />
+          )}
         </div>
-        <h3 className='mt-4 text-center'>{name}</h3>
-        <h5 className='text-center'>{group}</h5>
-        <p className='mx-10 my-10 text-center lg:mx-52'>{bio}</p>
-
+        <h3 className='mt-4 text-center'>
+          {user.firstName} {user.lastName}
+        </h3>
+        <h5 className='my-4 text-center'>
+          {groupNames.length > 0 ? groupNames : tMembers('guest')}
+        </h5>
+        {user.bio && user.bio.length > 0 && (
+          <p className='my-6 max-w-prose text-center'>{user.bio}</p>
+        )}
         <ul className='mb-5 flex flex-wrap justify-center gap-1 sm:grid sm:grid-cols-3-auto md:grid-flow-col xl:grid-flow-col xl:grid-cols-none md:xl:grid-cols-none'>
-          {github && (
+          {user.gitHubUsername && (
             <li>
               <Button asChild variant='ghost' size='sm-icon'>
                 <ExternalLink
-                  href={`https://github.com/${github}`}
+                  href={`https://github.com/${user.gitHubUsername}`}
                   prefetch={false}
                   aria-label={t('visitGithub')}
                   target='_blank'
@@ -69,11 +87,11 @@ function MemberViewCard({
               </Button>
             </li>
           )}
-          {linkedin && (
+          {user.linkedInUsername && (
             <li>
               <Button asChild variant='ghost' size='sm-icon'>
                 <ExternalLink
-                  href={`https://linkedin.com/in/${linkedin}`}
+                  href={`https://linkedin.com/in/${user.linkedInUsername}`}
                   prefetch={false}
                   aria-label={t('visitLinkedin')}
                   target='_blank'
@@ -84,7 +102,7 @@ function MemberViewCard({
               </Button>
             </li>
           )}
-          {discord && (
+          {user.discordUsername && (
             <li>
               <TooltipProvider>
                 <Tooltip>
@@ -97,7 +115,9 @@ function MemberViewCard({
                     >
                       <ExternalLink
                         onClick={() => {
-                          navigator.clipboard.writeText(discord);
+                          navigator.clipboard.writeText(
+                            user.discordUsername as string,
+                          );
                         }}
                         href=''
                         prefetch={false}
@@ -109,17 +129,17 @@ function MemberViewCard({
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent className='bg-background'>
-                    <p>{discord}</p>
+                    <p>{user.discordUsername}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </li>
           )}
-          {instagram && (
+          {user.instagramUsername && (
             <li>
               <Button asChild variant='ghost' size='sm-icon'>
                 <ExternalLink
-                  href={`https://www.instagram.com/${instagram}`}
+                  href={`https://www.instagram.com/${user.instagramUsername}`}
                   prefetch={false}
                   aria-label={t('visitInstagram')}
                   target='_blank'
@@ -133,7 +153,7 @@ function MemberViewCard({
           <li>
             <Button asChild variant='ghost' size='sm-icon'>
               <ExternalLink
-                href={`mailto:${mail}`}
+                href={`mailto:${user.email}`}
                 aria-label={t('sendAnEmail')}
               >
                 <MailIcon className='h-4 w-4' />
@@ -146,4 +166,4 @@ function MemberViewCard({
   );
 }
 
-export { MemberViewCard, type MemberCardProps };
+export { MemberViewCard };
