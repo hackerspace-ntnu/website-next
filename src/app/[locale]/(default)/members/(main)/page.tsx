@@ -56,7 +56,7 @@ export default async function MembersPage({
     <>
       {currentData.length > 0 && (
         <div className='relative mx-auto mt-12 grid w-fit grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4'>
-          <Separator className='-top-6 -translate-x-1/2 absolute left-1/2 w-full' />
+          <Separator className='-top-6 -translate-x-1/2 absolute left-1/2 hidden w-full lg:block' />
           {currentData.map((data) => (
             <MemberCard
               key={data.id}

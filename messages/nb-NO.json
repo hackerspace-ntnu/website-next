@@ -118,6 +118,7 @@
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
+    "members": "Medlemmer",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
@@ -281,7 +282,7 @@
       "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
     },
     "activeGroup": "Våre aktive grupper",
-    "backToAbout": "Tilbake til Om Oss",
+    "backToAbout": "Tilbake til Om oss",
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
       "invalidId": "Ugyldig ID",

@@ -7,7 +7,7 @@ type MemberHeaderLayoutProps = {
   params: { locale: Locale };
 };
 
-export default function MemberHeaderLayout({
+export default function MembersLayout({
   children,
   params: { locale },
 }: MemberHeaderLayoutProps) {
