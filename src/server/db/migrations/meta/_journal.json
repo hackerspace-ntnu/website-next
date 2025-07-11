@@ -43,6 +43,13 @@
       "when": 1752181013741,
       "tag": "0005_massive_piledriver",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1752269685709,
+      "tag": "0006_heavy_rocket_raccoon",
+      "breakpoints": true
     }
   ]
 }

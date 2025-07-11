@@ -118,6 +118,7 @@
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
+    "members": "Medlemmer",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
@@ -141,13 +142,37 @@
     "visitSlack": "Besøk Slack",
     "visitFacebook": "Besøk Facebook",
     "visitGithub": "Besøk Github",
+    "visitLinkedin": "Besøk Linkedin",
     "visitInstagram": "Besøk Instagram",
+    "discordTag": "Kopier Discord-taggen",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
     "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert"
+  },
+  "news": {
+    "title": "Nyheter",
+    "internalArticle": "Dette er en intern artikkel",
+    "newArticle": "Ny artikkel",
+    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
+    "views": "Visninger"
+  },
+  "members": {
+    "title": "Medlemmer",
+    "internalMember": "Dette er et internt medlem",
+    "backToMember": "Tilbake til medlemmer",
+    "searchPlaceholder": "Søk etter et medlem...",
+    "memberSince": "Medlem siden {date}",
+    "guest": "Gjest",
+    "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "api": {
+      "idOrNameRequired": "Enten ID eller navn må oppgis",
+      "errorFetchingMember": "Kunne ikke hente medlem",
+      "errorFetchingMembers": "Kunne ikke hente medlemmer",
+      "pageNumberRequired": "Sidetall må oppgis"
+    }
   },
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
@@ -243,13 +268,6 @@
       "title": "Administrator"
     }
   },
-  "news": {
-    "title": "Nyheter",
-    "internalArticle": "Dette er en intern artikkel",
-    "newArticle": "Ny artikkel",
-    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
-  },
   "about": {
     "whatIsHackerspace": "Hva er Hackerspace?",
     "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
@@ -264,7 +282,7 @@
       "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
     },
     "activeGroup": "Våre aktive grupper",
-    "backToAbout": "Tilbake til Om Oss",
+    "backToAbout": "Tilbake til Om oss",
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
       "invalidId": "Ugyldig ID",
@@ -500,6 +518,7 @@
     "internal": "Interne regler"
   },
   "skills": {
+    "skills": "Ferdigheter",
     "printing": "3D-printing",
     "soldering": "Lodding",
     "raspberry": "Raspberry Pi",

@@ -118,6 +118,7 @@
     "storage": "Storage",
     "about": "About",
     "shiftSchedule": "Shift Schedule",
+    "members": "Members",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
@@ -141,13 +142,37 @@
     "visitSlack": "Visit Slack",
     "visitFacebook": "Visit Facebook",
     "visitGithub": "Visit Github",
+    "visitLinkedin": "Visit Linkedin",
     "visitInstagram": "Visit our Instagram",
+    "discordTag": "Copy the Discord tag",
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUNexus": "The working life network Nexus",
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved"
+  },
+  "news": {
+    "title": "News",
+    "internalArticle": "This is an internal article",
+    "newArticle": "New article",
+    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
+    "views": "Views"
+  },
+  "members": {
+    "title": "Members",
+    "internalMember": "This is an internal member",
+    "backToMember": "Back to members",
+    "searchPlaceholder": "Search for a member...",
+    "memberSince": "Member since {date}",
+    "guest": "Guest",
+    "usernameCopied": "Username copied to clipboard!",
+    "api": {
+      "idOrNameRequired": "Either ID or name must be provided",
+      "errorFetchingMember": "Error fetching member",
+      "errorFetchingMembers": "Error fetching members",
+      "pageNumberRequired": "Page number required"
+    }
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
@@ -242,13 +267,6 @@
     "administrator": {
       "title": "Administrator"
     }
-  },
-  "news": {
-    "title": "News",
-    "internalArticle": "This is an internal article",
-    "newArticle": "New article",
-    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
-    "views": "Views"
   },
   "about": {
     "whatIsHackerspace": "What is Hackerspace?",
@@ -500,6 +518,7 @@
     "internal": "Internal rules"
   },
   "skills": {
+    "skills": "Skills",
     "printing": "3D Printing",
     "soldering": "Soldering",
     "raspberry": "Raspberry Pi",

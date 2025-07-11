@@ -91,6 +91,7 @@ export default async function LocaleLayout({
             </div>
           </ScrollArea>
         </RootProviders>
+        <Toaster />
       </body>
     </html>
   );
