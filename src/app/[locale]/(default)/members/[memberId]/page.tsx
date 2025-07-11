@@ -11,14 +11,26 @@ import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
-  params: { member: string };
+  params: Promise<{ memberId: string }>;
 }) {
-  const member = memberMockData.find(
-    (member) => member.id === Number(params.member),
-  );
+  const { memberId } = await params;
+
+  const processedMemberId = Number(memberId);
+  if (
+    !memberId ||
+    Number.isNaN(processedMemberId) ||
+    !Number.isInteger(processedMemberId)
+  )
+    return;
+
+  const user = await api.users.fetchUser({
+    id: processedMemberId,
+  });
+
+  if (!user) return;
 
   return {
-    title: member?.name,
+    title: `${user.firstName} ${user.lastName}`,
   };
 }
 
