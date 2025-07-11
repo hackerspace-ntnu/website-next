@@ -8,56 +8,82 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
+import type { RouterOutput } from '@/server/api';
+import { UserCircle2Icon } from 'lucide-react';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
 type MemberItemCardProps = {
+  user: RouterOutput['users']['fetchUsers'][number];
   className?: string;
-  id: number;
-  internal: boolean;
-  name: string;
-  group: string;
-  photoUrl: string;
 };
 
-function MemberCard({
-  className,
-  id,
-  internal,
-  name,
-  group,
-  photoUrl,
-}: MemberItemCardProps) {
+async function MemberCard({ user, className }: MemberItemCardProps) {
+  const t = await getTranslations('members');
+  const locale = await getLocale();
+  const format = await getFormatter();
+  const profilePictureUrl = user.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: user.profilePictureId,
+      })
+    : null;
+
   return (
     <Link
-      className={cx('group block whitespace-normal font-normal', className)}
+      className={cx('h-full w-full', className)}
       href={{
         pathname: '/members/[memberId]',
-        params: { memberId: id },
+        params: { memberId: user.id },
       }}
       variant='none'
       size='none'
     >
-      <Card className='relative px-2'>
+      <Card className='relative h-full w-full px-2'>
         <CardHeader>
-          <CardTitle>{name}</CardTitle>
-          <CardDescription>{group}</CardDescription>
+          <CardTitle>
+            {user.firstName} {user.lastName}
+          </CardTitle>
+          <CardDescription>
+            {user.usersGroups
+              .map(
+                (row) =>
+                  row.group.localizations.find(
+                    (localization) => localization.locale === locale,
+                  )?.name,
+              )
+              .filter((item) => item !== undefined)
+              .join(', ')}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          {internal && (
+          {user.private && (
             <InternalBadge className='absolute top-2 right-2 h-5 w-5' />
           )}
-          <div className='relative h-48 w-48'>
-            <Image
-              className='rounded-full object-cover object-center'
-              src={`/${photoUrl}`}
-              alt={name}
-              fill
-            />
+          <div className='mx-auto h-48 w-48'>
+            {profilePictureUrl ? (
+              <Image
+                className='rounded-full object-cover object-center'
+                src={profilePictureUrl}
+                alt={`${user.firstName} ${user.lastName}`}
+                fill
+              />
+            ) : (
+              <UserCircle2Icon className='h-full w-full object-cover' />
+            )}
           </div>
         </CardContent>
         <CardFooter>
-          <p>Member since...</p>
+          {user.memberSince && (
+            <span className='text-muted-foreground text-sm'>
+              {t('memberSince', {
+                date: format.dateTime(user.memberSince, {
+                  dateStyle: 'short',
+                }),
+              })}
+            </span>
+          )}
         </CardFooter>
       </Card>
     </Link>

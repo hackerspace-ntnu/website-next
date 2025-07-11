@@ -45,6 +45,10 @@ const users = pgTable(
     }).notNull(),
     phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
     passwordHash: text('password_hash'),
+    memberSince: timestamp('member_since', {
+      withTimezone: true,
+      mode: 'date',
+    }),
     bio: text('bio'),
     fieldOfStudy: text('field_of_study'),
     gitHubUsername: varchar('github_username', { length: 52 }),

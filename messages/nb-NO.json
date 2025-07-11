@@ -164,11 +164,14 @@
     "internalMember": "Dette er et internt medlem",
     "backToMember": "Tilbake til medlemmer",
     "searchPlaceholder": "Søk etter et medlem...",
+    "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
     "api": {
       "idOrNameRequired": "Enten ID eller navn må oppgis",
-      "errorFetchingMember": "Kunne ikke hente medlem"
+      "errorFetchingMember": "Kunne ikke hente medlem",
+      "errorFetchingMembers": "Kunne ikke hente medlemmer",
+      "pageNumberRequired": "Sidetall må oppgis"
     }
   },
   "settings": {

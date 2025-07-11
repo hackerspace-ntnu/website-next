@@ -164,11 +164,14 @@
     "internalMember": "This is an internal member",
     "backToMember": "Back to members",
     "searchPlaceholder": "Search for a member...",
+    "memberSince": "Member since {date}",
     "guest": "Guest",
     "usernameCopied": "Username copied to clipboard!",
     "api": {
       "idOrNameRequired": "Either ID or name must be provided",
-      "errorFetchingMember": "Error fetching member"
+      "errorFetchingMember": "Error fetching member",
+      "errorFetchingMembers": "Error fetching members",
+      "pageNumberRequired": "Page number required"
     }
   },
   "settings": {
