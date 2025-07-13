@@ -45,6 +45,7 @@ import { Textarea } from '@/components/ui/Textarea';
 
 import { type VariantProps, cx } from '@/lib/utils';
 import type { DateRange } from 'react-day-picker';
+import type { ZodError } from 'zod';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();
@@ -703,6 +704,7 @@ type FileUploadFieldProps = Omit<
   labelSibling?: React.ReactNode;
   description?: string;
   className?: string;
+  validator?: (value: string) => { success: boolean; error?: ZodError };
 };
 
 function FileUploadField({
@@ -713,11 +715,11 @@ function FileUploadField({
   description,
   ...props
 }: FileUploadFieldProps) {
-  const field = useFieldContext<string>();
+  const field = useFieldContext<string | null>();
 
   const handleFilesUploaded = async (files: File | File[] | null) => {
-    if (!files) {
-      field.handleChange('');
+    if (!files || (Array.isArray(files) && files.length === 0)) {
+      field.handleChange(null);
       return;
     }
 
