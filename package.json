@@ -71,6 +71,8 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.41.0",
     "drizzle-zod": "^0.7.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "libphonenumber-js": "^1.12.6",
     "lodash.debounce": "^4.0.8",
