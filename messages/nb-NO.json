@@ -283,6 +283,46 @@
     },
     "activeGroup": "Våre aktive grupper",
     "backToAbout": "Tilbake til Om oss",
+    "new": {
+      "title": "Ny gruppe",
+      "image": {
+        "label": "Gruppebilde",
+        "description": "Last opp et bilde...",
+        "required": "Gruppebilde er påkrevd",
+        "sizeLimitError": "Gruppebildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Gruppebildet må være i formatet PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelNorwegian": "Gruppenavn (norsk)",
+        "labelEnglish": "Gruppenavn (engelsk)",
+        "placeholder": "DevOps",
+        "required": "Gruppenavn er påkrevd",
+        "maxLength": "Gruppenavn må være mindre enn {count} tegn"
+      },
+      "summary": {
+        "labelNorwegian": "Sammendrag (norsk)",
+        "labelEnglish": "Sammendrag (engelsk)",
+        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "required": "Sammendrag er påkrevd",
+        "maxLength": "Sammendraget må være mindre enn {count} tegn"
+      },
+      "description": {
+        "labelNorwegian": "Beskrivelse (norsk)",
+        "labelEnglish": "Beskrivelse (engelsk)",
+        "required": "Gruppebeskrivelse er påkrevd"
+      },
+      "identifier": {
+        "label": "Gruppe-identifikator",
+        "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
+        "placeholder": "devops",
+        "isReserved": "Beklager, denne identifikatoren er reservert av interne systemer",
+        "required": "Gruppe-identifikator er påkrevd"
+      },
+      "createGroup": "Opprett gruppe",
+      "unauthorized": "Du har ikke rettigheter til å opprette nye grupper"
+    },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
       "invalidId": "Ugyldig ID",

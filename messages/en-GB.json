@@ -283,6 +283,46 @@
     },
     "activeGroup": "Our Active Groups",
     "backToAbout": "Back to About",
+    "new": {
+      "title": "New Group",
+      "image": {
+        "label": "Group image",
+        "description": "Upload an image...",
+        "required": "Group image is required",
+        "sizeLimitError": "Group image must be less than {size} MB",
+        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Group name (Norwegian)",
+        "labelEnglish": "Group name (English)",
+        "placeholder": "DevOps",
+        "required": "Group name is required",
+        "maxLength": "Group name must be less than {count} characters"
+      },
+      "summary": {
+        "labelNorwegian": "Summary (Norwegian)",
+        "labelEnglish": "Summary (English)",
+        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "required": "Group summary is required",
+        "maxLength": "Group summary must be less than {count} characters"
+      },
+      "description": {
+        "labelNorwegian": "Description (Norwegian)",
+        "labelEnglish": "Description (English)",
+        "required": "Group description is required"
+      },
+      "identifier": {
+        "label": "Group identifier",
+        "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
+        "placeholder": "devops",
+        "isReserved": "Sorry, this identifier is reserved by internal systems",
+        "required": "Group identifier is required"
+      },
+      "createGroup": "Create group",
+      "unauthorized": "Unauthorized to create new groups"
+    },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
       "invalidId": "Invalid ID",
