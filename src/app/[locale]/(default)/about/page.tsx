@@ -1,8 +1,9 @@
 import { type FAQ, FAQAccordion } from '@/components/about/FAQAccordion';
 import { GroupCard } from '@/components/about/GroupCard';
 import { HackerspaceLogo } from '@/components/assets/logos';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
-import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
+import { Gamepad2, PlusIcon, Printer, SquareUserRound } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import React from 'react';
@@ -25,6 +26,7 @@ export default async function AboutPage({
   const t = await getTranslations('about');
   const tFAQ = await getTranslations('about.FAQ');
 
+  const { user } = await api.auth.state();
   const groups = await api.about.fetchGroups();
 
   const faqs: FAQ[] = [
@@ -65,13 +67,27 @@ export default async function AboutPage({
           p3: (chunks) => <p className='p3'>{chunks}</p>,
         })}
       </div>
-      <h2 className='m-5 content-center items-center text-center'>
-        {t('activeGroup')}
-      </h2>
-      <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3'>
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
-        ))}
+      <div className='mx-auto w-fit items-center justify-center gap-2'>
+        <div className='relative'>
+          <h2 className='my-4 md:text-center'>{t('activeGroup')}</h2>
+          {user?.groups.some((g) =>
+            ['labops', 'leadership', 'admin'].includes(g),
+          ) && (
+            <Link
+              className='-translate-y-1/2 absolute top-1/2 right-0'
+              href='/about/group/new'
+              variant='default'
+              size='icon'
+            >
+              <PlusIcon />
+            </Link>
+          )}
+        </div>
+        <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3'>
+          {groups.map((group) => (
+            <GroupCard key={group.id} group={group} />
+          ))}
+        </div>
       </div>
       <FAQAccordion faqs={faqs} />
     </div>

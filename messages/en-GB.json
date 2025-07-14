@@ -283,6 +283,7 @@
     },
     "activeGroup": "Our Active Groups",
     "backToAbout": "Back to About",
+    "noMembers": "No members are a part of this group yet.",
     "new": {
       "title": "New Group",
       "image": {
@@ -320,13 +321,19 @@
         "isReserved": "Sorry, this identifier is reserved by internal systems",
         "required": "Group identifier is required"
       },
+      "internal": {
+        "label": "Internal group",
+        "description": "If selected, this group will only be visible to Hackerspace members."
+      },
       "createGroup": "Create group",
       "unauthorized": "Unauthorized to create new groups"
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
       "invalidId": "Invalid ID",
-      "invalidGroupIdentifier": "Invalid group identifier"
+      "invalidGroupIdentifier": "Invalid group identifier",
+      "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
+      "insertFailed": "Failed to add group"
     }
   },
   "storage": {

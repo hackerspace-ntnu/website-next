@@ -41,7 +41,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
         <div className='relative z-10 h-32 w-32 self-center'>
           {group.imageUrl ? (
             <Image
-              className='rounded-full object-cover object-center'
+              className='rounded-lg object-cover object-center'
               src={group.imageUrl}
               alt={`${groupLocalization.name} logo`}
               fill

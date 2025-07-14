@@ -2,6 +2,7 @@ import { files, localesEnum, users } from '@/server/db/tables';
 import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
+  boolean,
   index,
   integer,
   pgTable,
@@ -15,6 +16,7 @@ const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
   identifier: varchar('identifier', { length: 50 }).notNull().unique(),
   imageId: integer('image_id').references(() => files.id),
+  internal: boolean().default(false),
 });
 
 const groupLocalizations = pgTable(

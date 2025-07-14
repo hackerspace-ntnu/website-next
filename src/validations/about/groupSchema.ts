@@ -4,6 +4,15 @@ import { z } from 'zod';
 
 function groupSchema(t: Translations) {
   return z.object({
+    image: fileUploadZodString({
+      allowedMediaType: 'image',
+      allowedFileTypes: ['jpeg', 'png'],
+      maxFileSize: 5,
+      sizeLimitError: t('about.new.image.sizeLimitError', { size: 50 }),
+      wrongFileTypeError: t('about.new.image.wrongFileTypeError'),
+      fileNotImageError: t('about.new.image.fileNotImageError'),
+      optional: true,
+    }),
     nameNorwegian: z
       .string()
       .min(1, t('about.new.name.required'))
@@ -28,15 +37,7 @@ function groupSchema(t: Translations) {
       .string()
       .min(1, t('about.new.identifier.required'))
       .refine((value) => value !== 'new', t('about.new.identifier.isReserved')),
-    image: fileUploadZodString({
-      allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png'],
-      maxFileSize: 5,
-      sizeLimitError: t('about.new.image.sizeLimitError', { size: 50 }),
-      wrongFileTypeError: t('about.new.image.wrongFileTypeError'),
-      fileNotImageError: t('about.new.image.fileNotImageError'),
-      optional: true,
-    }),
+    internal: z.boolean(),
   });
 }
 

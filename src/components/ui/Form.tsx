@@ -255,7 +255,7 @@ type CheckboxFieldProps = Omit<
 function CheckboxField({
   className,
   label,
-  labelVisible,
+  labelVisible = true,
   description,
   ...props
 }: CheckboxFieldProps) {

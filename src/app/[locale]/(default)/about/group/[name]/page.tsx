@@ -1,7 +1,11 @@
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
-import { ArrowLeftIcon, CircleUserRoundIcon } from 'lucide-react';
+import {
+  ArrowLeftIcon,
+  CircleUserRoundIcon,
+  TriangleAlertIcon,
+} from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -57,9 +61,23 @@ export default async function GroupPage({
       <div className='flex flex-col items-center justify-center gap-4 p-4'>
         <h1 className='mb-4'>{groupLocalization.name}</h1>
         <h3>{groupLocalization.summary}</h3>
+        {group.imageUrl && (
+          <div className='relative mx-auto h-auto w-64 max-w-2xl overflow-hidden rounded-lg md:w-96'>
+            <Image
+              src={group.imageUrl}
+              alt={groupLocalization.name}
+              width={512}
+              height={512}
+              className='rounded-lg object-cover'
+            />
+          </div>
+        )}
         <p className='max-w-prose'>{groupLocalization.description}</p>
         {members.length === 0 && (
-          <p className='text-center'>No members in this group yet.</p>
+          <div className='flex w-full items-center justify-center gap-2'>
+            <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
+            <p className='text-center'>{t('noMembers')}</p>
+          </div>
         )}
         <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
           {members.map((member) => {

@@ -31,7 +31,7 @@ export default async function NewStorageItemPage({
       ['labops', 'leadership', 'admin'].includes(g),
     )
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }
 

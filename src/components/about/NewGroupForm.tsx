@@ -1,6 +1,7 @@
 'use client';
 
 import { useAppForm } from '@/components/ui/Form';
+import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { groupSchema } from '@/validations/about/groupSchema';
 import { useTranslations } from 'next-intl';
@@ -9,12 +10,17 @@ function NewGroupForm() {
   const t = useTranslations('about.new');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
+  const newGroup = api.about.newGroup.useMutation({
+    onSuccess: (id) =>
+      router.push({ pathname: '/about/group/[name]', params: { name: id } }),
+  });
 
   const form = useAppForm({
     validators: {
       onChange: formSchema,
     },
     defaultValues: {
+      image: null as string | null,
       nameNorwegian: '',
       nameEnglish: '',
       summaryNorwegian: '',
@@ -22,10 +28,10 @@ function NewGroupForm() {
       descriptionNorwegian: '',
       descriptionEnglish: '',
       identifier: '',
-      image: null as string | null,
+      internal: false,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      newGroup.mutate(value);
     },
   });
 
@@ -102,7 +108,17 @@ function NewGroupForm() {
             />
           )}
         </form.AppField>
-        <form.SubmitButton>{t('createGroup')}</form.SubmitButton>
+        <form.AppField name='internal'>
+          {(field) => (
+            <field.CheckboxField
+              label={t('internal.label')}
+              description={t('internal.description')}
+            />
+          )}
+        </form.AppField>
+        <form.SubmitButton loading={newGroup.isPending}>
+          {t('createGroup')}
+        </form.SubmitButton>
       </form.AppForm>
     </form>
   );

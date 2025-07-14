@@ -283,6 +283,7 @@
     },
     "activeGroup": "Våre aktive grupper",
     "backToAbout": "Tilbake til Om oss",
+    "noMembers": "Ingen medlemmer er en del av denne gruppen enda.",
     "new": {
       "title": "Ny gruppe",
       "image": {
@@ -320,13 +321,19 @@
         "isReserved": "Beklager, denne identifikatoren er reservert av interne systemer",
         "required": "Gruppe-identifikator er påkrevd"
       },
+      "internal": {
+        "label": "Intern gruppe",
+        "description": "Hvis valgt, vil denne gruppen kun være synlig for Hackerspace-medlemmer."
+      },
       "createGroup": "Opprett gruppe",
       "unauthorized": "Du har ikke rettigheter til å opprette nye grupper"
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
       "invalidId": "Ugyldig ID",
-      "invalidGroupIdentifier": "Ugyldig gruppe-ID"
+      "invalidGroupIdentifier": "Ugyldig gruppe-identifikator",
+      "groupWithIdExists": "En gruppe med identifikatoren \"{identifier}\" finnes allerede",
+      "insertFailed": "Kunne ikke legge til gruppe"
     }
   },
   "storage": {
