@@ -6,6 +6,11 @@
       "dependencies": {
         "@aws-sdk/client-s3": "^3.806.0",
         "@aws-sdk/s3-request-presigner": "^3.806.0",
+        "@fullcalendar/core": "^6.1.15",
+        "@fullcalendar/daygrid": "^6.1.15",
+        "@fullcalendar/interaction": "^6.1.15",
+        "@fullcalendar/react": "^6.1.15",
+        "@fullcalendar/timegrid": "^6.1.15",
         "@oslojs/crypto": "^1.0.1",
         "@oslojs/encoding": "^1.1.0",
         "@radix-ui/react-accordion": "^1.2.11",
@@ -312,6 +317,16 @@
     "@formatjs/icu-skeleton-parser": ["@formatjs/icu-skeleton-parser@1.8.14", "", { "dependencies": { "@formatjs/ecma402-abstract": "2.3.4", "tslib": "^2.8.0" } }, "sha512-i4q4V4qslThK4Ig8SxyD76cp3+QJ3sAqr7f6q9VVfeGtxG9OhiAk3y9XF6Q41OymsKzsGQ6OQQoJNY4/lI8TcQ=="],
 
     "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.5.10", "", { "dependencies": { "tslib": "2" } }, "sha512-af3qATX+m4Rnd9+wHcjJ4w2ijq+rAVP3CCinJQvFv1kgSu1W6jypUmvleJxcewdxmutM8dmIRZFxO/IQBZmP2Q=="],
+
+    "@fullcalendar/core": ["@fullcalendar/core@6.1.15", "", { "dependencies": { "preact": "~10.12.1" } }, "sha512-BuX7o6ALpLb84cMw1FCB9/cSgF4JbVO894cjJZ6kP74jzbUZNjtwffwRdA+Id8rrLjT30d/7TrkW90k4zbXB5Q=="],
+
+    "@fullcalendar/daygrid": ["@fullcalendar/daygrid@6.1.15", "", { "peerDependencies": { "@fullcalendar/core": "~6.1.15" } }, "sha512-j8tL0HhfiVsdtOCLfzK2J0RtSkiad3BYYemwQKq512cx6btz6ZZ2RNc/hVnIxluuWFyvx5sXZwoeTJsFSFTEFA=="],
+
+    "@fullcalendar/interaction": ["@fullcalendar/interaction@6.1.15", "", { "peerDependencies": { "@fullcalendar/core": "~6.1.15" } }, "sha512-DOTSkofizM7QItjgu7W68TvKKvN9PSEEvDJceyMbQDvlXHa7pm/WAVtAc6xSDZ9xmB1QramYoWGLHkCYbTW1rQ=="],
+
+    "@fullcalendar/react": ["@fullcalendar/react@6.1.15", "", { "peerDependencies": { "@fullcalendar/core": "~6.1.15", "react": "^16.7.0 || ^17 || ^18 || ^19", "react-dom": "^16.7.0 || ^17 || ^18 || ^19" } }, "sha512-L0b9hybS2J4e7lq6G2CD4nqriyLEqOH1tE8iI6JQjAMTVh5JicOo5Mqw+fhU5bJ7hLfMw2K3fksxX3Ul1ssw5w=="],
+
+    "@fullcalendar/timegrid": ["@fullcalendar/timegrid@6.1.15", "", { "dependencies": { "@fullcalendar/daygrid": "~6.1.15" }, "peerDependencies": { "@fullcalendar/core": "~6.1.15" } }, "sha512-61ORr3A148RtxQ2FNG7JKvacyA/TEVZ7z6I+3E9Oeu3dqTf6M928bFcpehRTIK6zIA6Yifs7BeWHgOE9dFnpbw=="],
 
     "@img/sharp-darwin-arm64": ["@img/sharp-darwin-arm64@0.34.1", "", { "optionalDependencies": { "@img/sharp-libvips-darwin-arm64": "1.1.0" }, "os": "darwin", "cpu": "arm64" }, "sha512-pn44xgBtgpEbZsu+lWf2KNb6OAf70X68k+yk69Ic2Xz11zHR/w24/U49XT7AeRwJ0Px+mhALhU5LPci1Aymk7A=="],
 

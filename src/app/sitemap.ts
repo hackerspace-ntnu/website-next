@@ -41,5 +41,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     getEntry('/events', 'weekly', 0.7),
     getEntry('/storage', 'daily', 0.4),
     getEntry('/shift-schedule', 'daily', 0.4),
+    getEntry('/reservations', 'hourly', 0.8),
+    getEntry(
+      {
+        pathname: '/reservations/[id]',
+        params: { id: '' },
+      },
+      'hourly',
+      0.8,
+    ),
   ];
 }

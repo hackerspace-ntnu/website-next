@@ -161,6 +161,14 @@ const routing = defineRouting({
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/reservations': {
+      en: '/reservations',
+      no: '/reservasjoner',
+    },
+    '/reservations/[id]': {
+      en: '/reservations/[id]',
+      no: '/reservasjoner/[id]',
+    },
   },
 });
 
