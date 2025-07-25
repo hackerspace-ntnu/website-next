@@ -1,6 +1,7 @@
 'use client';
 
-import type { CartItem } from '@/components/storage/AddToCartButton';
+import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {
@@ -11,12 +12,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { XIcon } from 'lucide-react';
-
-// TODO: Must be replaced by requesting the data from a database.
-import { items } from '@/mock-data/items';
-import { ShoppingCartTableSkeleton } from './ShoppingCartTableSkeleton';
 
 type ShoppingCartTableProps = {
   t: {
@@ -26,7 +24,7 @@ type ShoppingCartTableProps = {
     location: string;
     unitsAvailable: string;
     cartEmpty: string;
-    amountOfItemARIA: string;
+    amountOfItemAria: string;
   };
 };
 
@@ -36,17 +34,18 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
     [],
   );
 
-  if (isLoading) {
+  const itemsInCart = api.storage.fetchMany.useQuery(
+    cart?.map((i) => i.id) ?? [],
+    { enabled: !isLoading },
+  ).data;
+
+  if (isLoading || !itemsInCart) {
     return <ShoppingCartTableSkeleton t={t} />;
   }
 
   if (!cart || cart.length === 0) {
     return <p className='py-20 text-center font-medium'>{t.cartEmpty}</p>;
   }
-
-  const itemsInCart = items.filter((item) =>
-    cart.some((cartItem) => cartItem.id === item.id),
-  );
 
   function updateAmountInCart(id: number, newValue: number) {
     if (!cart) return;
@@ -69,7 +68,6 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
       <TableHeader>
         <TableRow>
           <TableHead className='w-20' />
-          <TableHead className='w-40'>{t.productId}</TableHead>
           <TableHead>{t.productName}</TableHead>
           <TableHead>{t.location}</TableHead>
           <TableHead className='text-right'>{t.unitsAvailable}</TableHead>
@@ -77,13 +75,13 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {itemsInCart.map((item) => (
+        {itemsInCart?.map((item) => (
           <TableRow key={item.name}>
             <TableCell>
               <Input
                 type='number'
                 min={1}
-                max={5}
+                max={Math.min(item.availableUnits, 5)}
                 defaultValue={
                   cart.find((cartItem) => cartItem.id === item.id)?.amount || 0
                 }
@@ -91,13 +89,12 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
                   updateAmountInCart(item.id, Number(e.currentTarget.value))
                 }
                 className='w-[80px]'
-                aria-label={t.amountOfItemARIA}
+                aria-label={t.amountOfItemAria}
               />
             </TableCell>
-            <TableCell className='font-medium'>{item.id}</TableCell>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.location}</TableCell>
-            <TableCell className='text-right'>{item.quantity}</TableCell>
+            <TableCell className='text-right'>{item.availableUnits}</TableCell>
             <TableCell>
               <Button
                 variant='destructive'

@@ -7,8 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
-import { Link, useRouter } from '@/lib/locale/navigation';
+import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 import { UserIcon } from 'lucide-react';
 
@@ -46,15 +47,32 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
         {hasUser ? (
           <>
             <DropdownMenuItem asChild>
-              <Link href='/settings'>{t.settings}</Link>
+              <Link
+                href='/settings'
+                className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+              >
+                {t.settings}
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => signOutMutation.mutate()}>
-              {t.signOut}
+            <DropdownMenuItem asChild>
+              <Button
+                onClick={() => signOutMutation.mutate()}
+                variant='none'
+                size='none'
+                className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+              >
+                {t.signOut}
+              </Button>
             </DropdownMenuItem>
           </>
         ) : (
           <DropdownMenuItem asChild>
-            <Link href='/auth'>{t.signIn}</Link>
+            <Link
+              href='/auth'
+              className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+            >
+              {t.signIn}
+            </Link>
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

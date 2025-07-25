@@ -10,7 +10,7 @@ export default function StorageLoading() {
           <ItemCardSkeleton key={useId()} />
         ))}
       </div>
-      <PaginationCarouselSkeleton className='my-6' />
+      <PaginationCarouselSkeleton className='my-4' />
     </>
   );
 }

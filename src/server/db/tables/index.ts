@@ -5,4 +5,7 @@ export * from './locales';
 export * from './groups';
 export * from './skills';
 export * from './emails';
+export * from './storage';
+export * from './loans';
+export * from './shifts';
 export * from './files';

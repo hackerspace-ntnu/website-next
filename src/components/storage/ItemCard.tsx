@@ -1,4 +1,3 @@
-import type { StorageItem } from '@/components/storage/AddToCartButton';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import {
   Card,
@@ -7,40 +6,56 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import { Link } from '@/components/ui/Link';
+import type { RouterOutput } from '@/server/api';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 function ItemCard({
   item,
+  imageUrl,
 }: {
-  item: StorageItem;
+  item: RouterOutput['storage']['fetchMany'][number];
+  imageUrl: string | null;
 }) {
   const t = useTranslations('storage');
   const tUi = useTranslations('ui');
+
   return (
     <Card
       key={item.name}
-      className='group text-center duration-200 hover:box-border hover:border-primary'
+      className='group rounded-md text-center ring-offset-background duration-200 hover:box-border hover:border-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
     >
-      <CardHeader>
-        <div className='mx-auto inline-block overflow-hidden rounded-md'>
-          <Image
-            src='/unknown.png'
-            width={192}
-            height={192}
-            alt={tUi('photoOf', { name: item.name })}
-            className='duration-200 group-hover:scale-105'
-            priority={true}
-          />
-        </div>
-        <CardTitle className='mt-2 truncate leading-tight' level='h2'>
-          {item.name}
-        </CardTitle>
-        <CardDescription>{item.location}</CardDescription>
-      </CardHeader>
+      <Link
+        href={{
+          pathname: '/storage/item/[itemId]',
+          params: { itemId: item.id },
+        }}
+        className='block'
+      >
+        <CardHeader>
+          <div className='mx-auto inline-block h-48 w-48 overflow-hidden rounded-md'>
+            <Image
+              src={imageUrl ?? '/unknown.png'}
+              width={192}
+              height={192}
+              alt={tUi('photoOf', { name: item.name })}
+              className='h-full w-full object-cover duration-200 group-hover:scale-105'
+              priority={true}
+            />
+          </div>
+          <CardTitle className='mt-2 truncate leading-tight' level='h2'>
+            {item.name}
+          </CardTitle>
+          <CardDescription>{item.location}</CardDescription>
+        </CardHeader>
+      </Link>
       <CardFooter className='justify-center gap-2'>
         <p className='text-sm'>
-          {t('card.quantityInfo', { quantity: item.quantity })}
+          {t('card.availableUnits', {
+            units: item.availableUnits,
+            total: item.quantity,
+          })}
         </p>
         <AddToCartButton
           item={item}

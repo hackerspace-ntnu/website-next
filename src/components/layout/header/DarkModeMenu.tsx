@@ -46,14 +46,35 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          {t.light}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('light')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.light}
+          </Button>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          {t.dark}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('dark')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.dark}
+          </Button>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          {t.system}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('system')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.system}
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

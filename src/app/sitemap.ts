@@ -2,6 +2,7 @@ import { env } from '@/env';
 import { routing } from '@/lib/locale';
 import { getPathname } from '@/lib/locale/navigation';
 import type { MetadataRoute } from 'next';
+import type { Locale } from 'next-intl';
 
 type Href = Parameters<typeof getPathname>[0]['href'];
 
@@ -19,7 +20,7 @@ function getEntry(href: Href, changefreq: string, priority: number) {
   };
 }
 
-function getUrl(href: Href, locale: (typeof routing.locales)[number]) {
+function getUrl(href: Href, locale: Locale) {
   const pathname = getPathname({ locale, href });
   return `${env.NEXT_PUBLIC_SITE_URL}${pathname}`;
 }
@@ -31,14 +32,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     getEntry('/news', 'weekly', 0.7),
     getEntry(
       {
-        pathname: '/news/[article]',
-        params: { article: '1' },
+        pathname: '/news/[articleId]',
+        params: { articleId: '1' },
       },
       'daily',
       0.4,
     ),
     getEntry('/events', 'weekly', 0.7),
     getEntry('/storage', 'daily', 0.4),
+    getEntry('/shift-schedule', 'daily', 0.4),
     getEntry('/reservations', 'hourly', 0.8),
     getEntry(
       {

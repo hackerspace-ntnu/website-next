@@ -21,6 +21,10 @@ const skillIdentifiers = [
   'webdevelopment',
 ] as const;
 
+const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
+
+const timeslots = ['1', '2', '3', '4'] as const;
+
 const toolDescriptionFields = [
   'krever',
   'difficulty',
@@ -29,4 +33,10 @@ const toolDescriptionFields = [
   'slicer',
 ] as const;
 
-export { groupIdentifiers, skillIdentifiers, toolDescriptionFields };
+export {
+  groupIdentifiers,
+  skillIdentifiers,
+  days,
+  timeslots,
+  toolDescriptionFields,
+};
