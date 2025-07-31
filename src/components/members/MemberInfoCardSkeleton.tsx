@@ -1,6 +1,6 @@
+import { useId } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { useId } from 'react';
 
 async function MemberInfoCardSkeleton() {
   const ids = [useId(), useId(), useId(), useId(), useId()];

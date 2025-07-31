@@ -1,7 +1,7 @@
-import { RuleCard } from '@/components/rules/RuleCard';
-import { rulesMockdata as rules } from '@/mock-data/rules';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { RuleCard } from '@/components/rules/RuleCard';
+import { rulesMockdata as rules } from '@/mock-data/rules';
 
 export async function generateMetadata({
   params,

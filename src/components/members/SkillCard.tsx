@@ -1,15 +1,11 @@
+import { CheckIcon, XIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Card } from '@/components/ui/Card';
 import { skillIdentifiers } from '@/lib/constants';
 import type { SelectSkill } from '@/server/db/tables';
-import { CheckIcon, XIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
-async function SkillCard({
-  skills,
-}: {
-  skills: SelectSkill[];
-}) {
+async function SkillCard({ skills }: { skills: SelectSkill[] }) {
   const t = await getTranslations('skills');
 
   return (

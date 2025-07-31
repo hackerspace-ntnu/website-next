@@ -1,7 +1,7 @@
-import { CategoriesTable } from '@/components/storage/CategoriesTable';
-import { api } from '@/lib/api/server';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { CategoriesTable } from '@/components/storage/CategoriesTable';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');

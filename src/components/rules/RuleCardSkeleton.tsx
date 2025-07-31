@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/Button';
 import { Card, CardTitle } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { cx } from '@/lib/utils';
 
 function RuleCardSkeleton() {
   return (

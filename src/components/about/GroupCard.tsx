@@ -1,10 +1,10 @@
+import { UsersRoundIcon } from 'lucide-react';
+import Image from 'next/image';
+import { getLocale } from 'next-intl/server';
 import { Meteors } from '@/components/fancy/Meteors';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
-import { UsersRoundIcon } from 'lucide-react';
-import { getLocale } from 'next-intl/server';
-import Image from 'next/image';
 
 type GroupCardProps = {
   group: RouterOutput['about']['fetchGroups'][number];

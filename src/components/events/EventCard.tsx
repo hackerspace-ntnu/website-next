@@ -1,5 +1,9 @@
 'use client';
 
+import { format } from 'date-fns';
+
+import { Avatar, AvatarImage } from '@/components/ui/Avatar';
+import { Badge } from '@/components/ui/Badge';
 import {
   Card,
   CardContent,
@@ -8,13 +12,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
-
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
-import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
 import type { events } from '@/mock-data/events';
-import { format } from 'date-fns';
 
 type EventCardProps = {
   event: (typeof events)[number];
@@ -84,12 +84,11 @@ function EventCard({
         </CardContent>
         <CardFooter className='mt-auto flex-col'>
           <p>
-            <strong>{started ? <>{t.startedAt}</> : <>{t.startsAt}</>}</strong>{' '}
+            <strong>{started ? t.startedAt : t.startsAt}</strong>{' '}
             {formattedStartDate}
           </p>
           <p className='[&:not(:first-child)]:mt-2'>
-            <strong>{ended ? <>{t.endedAt}</> : <>{t.endsAt}</>}</strong>{' '}
-            {formattedEndDate}
+            <strong>{ended ? t.endedAt : t.endsAt}</strong> {formattedEndDate}
           </p>
         </CardFooter>
       </Card>

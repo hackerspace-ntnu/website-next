@@ -1,13 +1,5 @@
-import {
-  emailVerificationRequests,
-  files,
-  sessions,
-  shifts,
-  userGroups,
-  userSkills,
-} from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
   boolean,
   foreignKey,
@@ -19,6 +11,14 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import {
+  emailVerificationRequests,
+  files,
+  sessions,
+  shifts,
+  userGroups,
+  userSkills,
+} from '@/server/db/tables';
 
 const users = pgTable(
   'users',

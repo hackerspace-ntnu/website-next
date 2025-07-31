@@ -1,17 +1,19 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
-import { useTranslations } from 'next-intl';
 
 import { api } from '@/lib/api/client';
 import { notificationsSchema } from '@/validations/settings/notificationsSchema';
 
 function NotificationsForm({
   notifications,
-}: { notifications: 'all' | 'useful' | 'essential' }) {
+}: {
+  notifications: 'all' | 'useful' | 'essential';
+}) {
   const t = useTranslations('settings.notifications');
-  const formSchema = notificationsSchema(useTranslations());
+  const formSchema = notificationsSchema();
 
   const updateNotificationsMutation =
     api.settings.updateNotifications.useMutation({

@@ -1,6 +1,6 @@
-import { routing } from '@/lib/locale';
 import { type Formats, hasLocale } from 'next-intl';
 import { getRequestConfig } from 'next-intl/server';
+import { routing } from '@/lib/locale';
 
 export const formats = {
   dateTime: {},

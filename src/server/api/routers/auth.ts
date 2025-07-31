@@ -1,3 +1,7 @@
+import { TRPCError } from '@trpc/server';
+import { headers } from 'next/headers';
+import { z } from 'zod';
+import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
   publicProcedure,
@@ -7,34 +11,6 @@ import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
-import {
-  hashPassword,
-  verifyPasswordHash,
-  verifyPasswordStrength,
-} from '@/server/auth/password';
-import {
-  deleteSessionTokenCookie,
-  invalidateSession,
-} from '@/server/auth/session';
-import {
-  createSession,
-  generateSessionToken,
-  setSessionTokenCookie,
-} from '@/server/auth/session';
-import { getUserFromUsername, updateUserPassword } from '@/server/auth/user';
-import {
-  createFeideAuthorization,
-  setFeideAuthorizationCookies,
-} from '@/server/services/feide';
-import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
-import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
-import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
-import { z } from 'zod';
-
-import { TRPCError } from '@trpc/server';
-import { headers } from 'next/headers';
-
-import { useTranslationsFromContext } from '@/server/api/locale';
 import { sanitizeAuth } from '@/server/auth';
 import {
   createEmailVerificationRequest,
@@ -45,8 +21,30 @@ import {
   setEmailVerificationRequestCookie,
   updateUserEmailAndSetEmailAsVerified,
 } from '@/server/auth/email';
-import { matrixRegisterUser } from '@/server/services/matrix';
-import { matrixChangeEmailAndPhoneNumber } from '@/server/services/matrix';
+import {
+  hashPassword,
+  verifyPasswordHash,
+  verifyPasswordStrength,
+} from '@/server/auth/password';
+import {
+  createSession,
+  deleteSessionTokenCookie,
+  generateSessionToken,
+  invalidateSession,
+  setSessionTokenCookie,
+} from '@/server/auth/session';
+import { getUserFromUsername, updateUserPassword } from '@/server/auth/user';
+import {
+  createFeideAuthorization,
+  setFeideAuthorizationCookies,
+} from '@/server/services/feide';
+import {
+  matrixChangeEmailAndPhoneNumber,
+  matrixRegisterUser,
+} from '@/server/services/matrix';
+import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
+import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
+import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);

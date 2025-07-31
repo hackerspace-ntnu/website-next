@@ -1,6 +1,5 @@
-import { files, localesEnum, users } from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
   index,
   integer,
@@ -10,6 +9,7 @@ import {
   text,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { files, localesEnum, users } from '@/server/db/tables';
 
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),

@@ -1,9 +1,9 @@
+import { Section, Text } from '@react-email/components';
+import type { Locale } from 'next-intl';
 import { Footer } from '@/components/emails/Footer';
 import { Header } from '@/components/emails/Header';
 import { Wrapper } from '@/components/emails/Wrapper';
 import { routing } from '@/lib/locale';
-import { Section, Text } from '@react-email/components';
-import type { Locale } from 'next-intl';
 
 export default function VerificationCodeEmail({
   locale = routing.defaultLocale,

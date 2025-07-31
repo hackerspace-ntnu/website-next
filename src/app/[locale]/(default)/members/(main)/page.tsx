@@ -1,15 +1,15 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  parseAsString,
+  type SearchParams,
+} from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { MemberCard } from '@/components/members/MemberCard';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import {
-  type SearchParams,
-  createSearchParamsCache,
-  parseAsInteger,
-  parseAsString,
-} from 'nuqs/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('members');
@@ -40,8 +40,6 @@ export default async function MembersPage({
   const { [t('page')]: page = 1, [t('name')]: name = '' } =
     searchParamsCache.parse(await searchParams);
 
-  const start = ((page as number) - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
   const users = await api.users.fetchUsers({
     page: page as number,
     name: name as string,

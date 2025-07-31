@@ -1,8 +1,10 @@
+import { TRPCError } from '@trpc/server';
+import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { checkEmailAvailability } from '@/server/auth/email';
 import {
+  checkEmailAvailability,
   createEmailVerificationRequest,
   sendVerificationEmail,
   setEmailVerificationRequestCookie,
@@ -29,8 +31,6 @@ import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
-import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
 
 const PROFILE_PICTURE_DIRECTORY = 'profile-pictures';
 
@@ -104,7 +104,7 @@ const settingsRouter = createRouter({
           PROFILE_PICTURE_DIRECTORY,
           String(file.id),
         );
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.profile.updateProfilePictureFailed'),
@@ -228,10 +228,8 @@ const settingsRouter = createRouter({
       }
     }),
   updateNotifications: authenticatedProcedure
-    .input((input) =>
-      notificationsSchema(useTranslationsFromContext()).parse(input),
-    )
-    .mutation(async ({ input, ctx }) => {}),
+    .input((input) => notificationsSchema().parse(input))
+    .mutation(async () => {}),
 });
 
 export { settingsRouter };

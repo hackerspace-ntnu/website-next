@@ -1,6 +1,6 @@
-import { env } from '@/env';
 import { render } from '@react-email/components';
 import nodemailer from 'nodemailer';
+import { env } from '@/env';
 
 let transporter: nodemailer.Transporter | null = null;
 

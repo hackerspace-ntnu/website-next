@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server';
+import { eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -5,8 +7,6 @@ import { groups, userGroups } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
 import { fetchGroupMembersSchema } from '@/validations/about/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/about/fetchGroupSchema';
-import { TRPCError } from '@trpc/server';
-import { eq } from 'drizzle-orm';
 
 const aboutRouter = createRouter({
   fetchGroup: publicProcedure

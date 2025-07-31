@@ -1,8 +1,8 @@
 'use client';
 
-import { cx } from '@/lib/utils';
 import { m } from 'motion/react';
 import { useEffect, useState } from 'react';
+import { cx } from '@/lib/utils';
 
 function Meteors({
   number,

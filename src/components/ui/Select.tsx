@@ -1,8 +1,8 @@
 'use client';
 
-import { cx } from '@/lib/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import { cx } from '@/lib/utils';
 
 function Select(
   props: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,

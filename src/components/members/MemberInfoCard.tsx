@@ -1,19 +1,17 @@
+import { MailIcon, UserCircle2Icon } from 'lucide-react';
+import Image from 'next/image';
+import { getLocale, getTranslations } from 'next-intl/server';
 import {
-  DiscordIcon,
   GitHubIcon,
   InstagramIcon,
   LinkedInIcon,
 } from '@/components/assets/icons';
 import { DiscordMemberTag } from '@/components/members/DiscordMemberTag';
 import { InternalBadge } from '@/components/members/InternalBadge';
-import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { ExternalLink } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { RouterOutput } from '@/server/api';
-import { MailIcon, UserCircle2Icon } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 
 async function MemberInfoCard({
   user,

@@ -1,10 +1,10 @@
+import { ArrowLeftIcon, CircleUserRoundIcon } from 'lucide-react';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
-import { ArrowLeftIcon, CircleUserRoundIcon } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
 
 export default async function GroupPage({
   params,

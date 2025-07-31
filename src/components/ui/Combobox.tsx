@@ -1,5 +1,7 @@
 'use client';
 
+import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Command,
@@ -15,8 +17,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils';
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { useState } from 'react';
 
 type ComboboxProps = {
   choices: {

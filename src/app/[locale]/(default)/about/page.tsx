@@ -1,11 +1,10 @@
+import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { type FAQ, FAQAccordion } from '@/components/about/FAQAccordion';
 import { GroupCard } from '@/components/about/GroupCard';
 import { HackerspaceLogo } from '@/components/assets/logos';
 import { api } from '@/lib/api/server';
-import { Gamepad2, Printer, SquareUserRound } from 'lucide-react';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import React from 'react';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');

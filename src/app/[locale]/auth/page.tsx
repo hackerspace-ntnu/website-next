@@ -1,12 +1,12 @@
+import { FingerprintIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FeideButton } from '@/components/auth/FeideButton';
 import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { FingerprintIcon } from 'lucide-react';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SignInPage({
   params,

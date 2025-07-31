@@ -1,7 +1,7 @@
-import { Link } from '@/components/ui/Link';
 import { SquarePenIcon } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Link } from '@/components/ui/Link';
 
 type NewsHeaderLayoutProps = {
   children: React.ReactNode;

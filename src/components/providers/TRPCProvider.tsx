@@ -1,14 +1,14 @@
 'use client';
 
-import { env } from '@/env';
-import { api } from '@/lib/api/client';
-import { createQueryClient } from '@/lib/api/queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { httpBatchLink, loggerLink } from '@trpc/client';
 import { useLocale } from 'next-intl';
 import { cache, useEffect, useState } from 'react';
 import SuperJSON from 'superjson';
+import { env } from '@/env';
+import { api } from '@/lib/api/client';
+import { createQueryClient } from '@/lib/api/queryClient';
 
 const getQueryClient = cache(createQueryClient);
 

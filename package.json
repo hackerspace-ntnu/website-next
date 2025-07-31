@@ -102,7 +102,7 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "2.0.6",
     "@faker-js/faker": "^9.7.0",
     "@tailwindcss/postcss": "^4.1.6",
     "@types/bun": "^1.2.12",

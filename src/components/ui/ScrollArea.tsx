@@ -1,7 +1,7 @@
 'use client';
 
-import { type VariantProps, cva, cx } from '@/lib/utils';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { cva, cx, type VariantProps } from '@/lib/utils';
 
 const scrollBarThumbVariants = cva({
   base: 'relative z-10 flex-1 cursor-default scroll-smooth rounded-full',

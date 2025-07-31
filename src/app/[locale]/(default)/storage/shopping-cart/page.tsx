@@ -1,13 +1,13 @@
-import { BorrowDialog } from '@/components/storage/BorrowDialog';
-import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
-import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
-import { api } from '@/lib/api/server';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { BorrowDialog } from '@/components/storage/BorrowDialog';
+import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
+import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
+import { api } from '@/lib/api/server';
 
 export default async function StorageShoppingCartPage({
   params,

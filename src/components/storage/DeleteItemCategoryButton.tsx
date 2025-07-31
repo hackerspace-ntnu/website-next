@@ -1,16 +1,18 @@
 'use client';
+import { XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
-import { XIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 function DeleteItemCategoryButton({
   category,
-}: { category: RouterOutput['storage']['fetchItemCategories'][number] }) {
+}: {
+  category: RouterOutput['storage']['fetchItemCategories'][number];
+}) {
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
   const router = useRouter();
