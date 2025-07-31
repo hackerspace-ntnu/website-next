@@ -271,7 +271,7 @@
   "about": {
     "whatIsHackerspace": "Hva er Hackerspace?",
     "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
-    "showMap": "Vis kart!",
+    "showMap": "Vis kart",
     "FAQ": {
       "title": "Ofte stilte spørsmål",
       "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
@@ -326,14 +326,22 @@
         "description": "Hvis valgt, vil denne gruppen kun være synlig for Hackerspace-medlemmer."
       },
       "createGroup": "Opprett gruppe",
-      "unauthorized": "Du har ikke rettigheter til å opprette nye grupper"
+      "unauthorized": "Du har ikke rettigheter til å opprette nye grupper",
+      "deleteGroupImage": "Slett gruppebilde",
+      "editGroup": "Rediger gruppe"
+    },
+    "edit": {
+      "title": "Rediger gruppe",
+      "backToGroup": "Tilbake til gruppe",
+      "unauthorized": "Du har ikke rettigheter til å redigere grupper"
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
       "invalidId": "Ugyldig ID",
       "invalidGroupIdentifier": "Ugyldig gruppe-identifikator",
       "groupWithIdExists": "En gruppe med identifikatoren \"{identifier}\" finnes allerede",
-      "insertFailed": "Kunne ikke legge til gruppe"
+      "insertFailed": "Kunne ikke legge til gruppe",
+      "groupNotFound": "Gruppen kunne ikke bli funnet"
     }
   },
   "storage": {

@@ -4,6 +4,7 @@ import type { SelectUser } from '@/server/db/tables';
 import {
   ArrowLeftIcon,
   CircleUserRoundIcon,
+  EditIcon,
   TriangleAlertIcon,
 } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
@@ -58,8 +59,21 @@ export default async function GroupPage({
         <ArrowLeftIcon />
         <span>{t('backToAbout')}</span>
       </Link>
+      <div className='relative'>
+        <h1 className='mb-4 text-center'>{groupLocalization.name}</h1>
+        <Link
+          className='absolute top-0 right-0'
+          href={{
+            pathname: '/about/group/[name]/edit',
+            params: { name: group.identifier },
+          }}
+          variant='default'
+          size='icon'
+        >
+          <EditIcon />
+        </Link>
+      </div>
       <div className='flex flex-col items-center justify-center gap-4 p-4'>
-        <h1 className='mb-4'>{groupLocalization.name}</h1>
         <h3>{groupLocalization.summary}</h3>
         {group.imageUrl && (
           <div className='relative mx-auto h-auto w-64 max-w-2xl overflow-hidden rounded-lg md:w-96'>

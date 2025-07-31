@@ -53,6 +53,10 @@ const routing = defineRouting({
       'en-GB': '/about/group/[name]',
       'nb-NO': '/om-oss/gruppe/[name]',
     },
+    '/about/group/[name]/edit': {
+      'en-GB': '/about/group/[name]/edit',
+      'nb-NO': '/om-oss/gruppe/[name]/rediger',
+    },
     '/auth': {
       'en-GB': '/auth',
       'nb-NO': '/autentisering',

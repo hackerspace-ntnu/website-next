@@ -5,7 +5,8 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { groupLocalizations, groups, userGroups } from '@/server/db/tables';
-import { getFileUrl, insertFile } from '@/server/services/files';
+import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
+import { editGroupSchema } from '@/validations/about/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/about/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/about/fetchGroupSchema';
 import { groupSchema } from '@/validations/about/groupSchema';
@@ -183,6 +184,80 @@ const aboutRouter = createRouter({
         description: input.descriptionEnglish,
         locale: 'en-GB',
       });
+
+      return input.identifier;
+    }),
+  editGroup: protectedEditProcedure
+    .input((input) =>
+      editGroupSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const existingGroup = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.id),
+      });
+
+      if (!existingGroup) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('about.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      let imageId: number | null = null;
+
+      if (input.image) {
+        if (existingGroup?.imageId) {
+          await deleteFile(existingGroup.imageId);
+        }
+
+        const file = await insertFile(
+          input.image,
+          'groups',
+          ctx.user.id,
+          false,
+        );
+        imageId = file.id;
+      }
+
+      await ctx.db
+        .update(groups)
+        .set({
+          identifier: input.identifier,
+          imageId: imageId,
+          internal: input.internal,
+        })
+        .where(eq(groups.identifier, input.identifier));
+
+      await ctx.db
+        .update(groupLocalizations)
+        .set({
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          locale: 'nb-NO',
+        })
+        .where(
+          and(
+            eq(groupLocalizations.groupId, input.id),
+            eq(groupLocalizations.locale, 'nb-NO'),
+          ),
+        );
+
+      await ctx.db
+        .update(groupLocalizations)
+        .set({
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          locale: 'en-GB',
+        })
+        .where(
+          and(
+            eq(groupLocalizations.groupId, input.id),
+            eq(groupLocalizations.locale, 'en-GB'),
+          ),
+        );
 
       return input.identifier;
     }),

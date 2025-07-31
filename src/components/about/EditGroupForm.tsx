@@ -1,12 +1,19 @@
 'use client';
 
+import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import type { RouterOutput } from '@/server/api';
 import { groupSchema } from '@/validations/about/groupSchema';
+import { useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 
-function NewGroupForm() {
+function EditGroupForm({
+  group,
+}: {
+  group?: RouterOutput['about']['fetchGroup'];
+}) {
   const t = useTranslations('about.new');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
@@ -14,6 +21,23 @@ function NewGroupForm() {
     onSuccess: (id) =>
       router.push({ pathname: '/about/group/[name]', params: { name: id } }),
   });
+  const editGroup = api.about.editGroup.useMutation({
+    onSuccess: (id) => {
+      router.push({ pathname: '/about/group/[name]', params: { name: id } });
+    },
+  });
+
+  const english = group
+    ? group.localizations.find(
+        (localization) => localization.locale === 'en-GB',
+      )
+    : null;
+
+  const norwegian = group
+    ? group.localizations.find(
+        (localization) => localization.locale === 'nb-NO',
+      )
+    : null;
 
   const form = useAppForm({
     validators: {
@@ -21,19 +45,30 @@ function NewGroupForm() {
     },
     defaultValues: {
       image: null as string | null,
-      nameNorwegian: '',
-      nameEnglish: '',
-      summaryNorwegian: '',
-      summaryEnglish: '',
-      descriptionNorwegian: '',
-      descriptionEnglish: '',
-      identifier: '',
+      nameNorwegian: english?.name ?? '',
+      nameEnglish: english?.name ?? '',
+      summaryNorwegian: norwegian?.summary ?? '',
+      summaryEnglish: english?.summary ?? '',
+      descriptionNorwegian: norwegian?.description ?? '',
+      descriptionEnglish: english?.description ?? '',
+      identifier: group?.identifier ?? '',
       internal: false,
     },
     onSubmit: ({ value }) => {
+      if (group) {
+        return editGroup.mutate({
+          ...value,
+          id: group.id,
+        });
+      }
       newGroup.mutate(value);
     },
   });
+
+  const newImageUploaded = useStore(
+    form.store,
+    (state) => state.values.image !== null,
+  );
 
   return (
     <form
@@ -57,6 +92,11 @@ function NewGroupForm() {
             />
           )}
         </form.AppField>
+        {group?.imageId && !newImageUploaded && (
+          <Button type='button' variant='destructive'>
+            {t('deleteGroupImage')}
+          </Button>
+        )}
         <form.AppField name='nameNorwegian'>
           {(field) => (
             <field.TextField
@@ -117,11 +157,11 @@ function NewGroupForm() {
           )}
         </form.AppField>
         <form.SubmitButton loading={newGroup.isPending}>
-          {t('createGroup')}
+          {group ? t('editGroup') : t('createGroup')}
         </form.SubmitButton>
       </form.AppForm>
     </form>
   );
 }
 
-export { NewGroupForm };
+export { EditGroupForm };
