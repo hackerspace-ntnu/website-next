@@ -41,6 +41,14 @@ const routing = defineRouting({
       'en-GB': '/too-many-requests',
       'nb-NO': '/for-mange-forespørsler',
     },
+    '/about': {
+      'en-GB': '/about',
+      'nb-NO': '/om-oss',
+    },
+    '/about/group/[name]': {
+      'en-GB': '/about/group/[name]',
+      'nb-NO': '/om-oss/grupper/[name]',
+    },
     '/auth': {
       'en-GB': '/auth',
       'nb-NO': '/autentisering',
@@ -101,9 +109,13 @@ const routing = defineRouting({
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
     },
-    '/about': {
-      'en-GB': '/about',
-      'nb-NO': '/om-oss',
+    '/members': {
+      'en-GB': '/members',
+      'nb-NO': '/medlemmer',
+    },
+    '/members/[memberId]': {
+      'en-GB': '/members/[memberId]',
+      'nb-NO': '/medlemmer/[memberId]',
     },
     '/storage': {
       'en-GB': '/storage',

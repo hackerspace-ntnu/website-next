@@ -29,6 +29,7 @@ type MobileSheetProps = {
     about: string;
     storage: string;
     shiftSchedule: string;
+    members: string;
     rules: string;
     hackerspaceHome: string;
     goToMatrix: string;
@@ -91,6 +92,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
             t={{
               rules: t.rules,
               storage: t.storage,
+              members: t.members,
               shiftSchedule: t.shiftSchedule,
             }}
           />
