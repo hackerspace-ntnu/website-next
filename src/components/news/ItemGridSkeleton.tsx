@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import { ArticleItemSkeleton } from '@/components/news/ArticleItemSkeleton';
 
 function ItemGridSkeleton() {

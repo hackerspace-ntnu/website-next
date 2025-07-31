@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { useId } from 'react';
 import {
   Pagination,
   PaginationContent,

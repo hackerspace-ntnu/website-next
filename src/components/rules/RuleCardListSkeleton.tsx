@@ -1,4 +1,3 @@
-import { useId } from 'react';
 import { RuleCardSkeleton } from '@/components/rules/RuleCardSkeleton';
 
 function RuleCardListSkeleton() {
