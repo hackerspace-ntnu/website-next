@@ -17,7 +17,7 @@ function PaginationCarouselSkeleton({
   className,
 }: PaginationCarouselSkeletonProps) {
   const t = useTranslations('ui');
-  const ids = [useId(), useId(), useId(), useId()];
+
   return (
     <Pagination className={className}>
       <PaginationContent>
@@ -31,8 +31,9 @@ function PaginationCarouselSkeleton({
             tabIndex={-1}
           />
         </PaginationItem>
-        {ids.map((id) => (
-          <PaginationItem className='cursor-not-allowed opacity-50' key={id}>
+        {Array.from({ length: 4 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
+          <PaginationItem className='cursor-not-allowed opacity-50' key={index}>
             <PaginationEllipsis morePages='' />
           </PaginationItem>
         ))}

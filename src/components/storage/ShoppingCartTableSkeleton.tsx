@@ -22,7 +22,6 @@ type ShoppingCartTableSkeletonProps = {
 };
 
 function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
-  const ids = [useId(), useId(), useId()];
   return (
     <Table className='my-4'>
       <TableHeader>
@@ -37,8 +36,9 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {ids.map((id) => (
-          <TableRow key={id}>
+        {Array.from({ length: 3 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
+          <TableRow key={index}>
             <TableCell>
               <Input type='number' disabled className='w-20' />
             </TableCell>
