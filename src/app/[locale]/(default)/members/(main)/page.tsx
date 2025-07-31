@@ -40,8 +40,6 @@ export default async function MembersPage({
   const { [t('page')]: page = 1, [t('name')]: name = '' } =
     searchParamsCache.parse(await searchParams);
 
-  const start = ((page as number) - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
   const users = await api.users.fetchUsers({
     page: page as number,
     name: name as string,
