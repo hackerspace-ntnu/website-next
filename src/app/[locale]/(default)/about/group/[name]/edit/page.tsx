@@ -37,7 +37,7 @@ export default async function EditGroupPage({
     return notFound();
   }
 
-  const { about, ui } = await getMessages();
+  const { about, groups, ui } = await getMessages();
 
   return (
     <main>
@@ -54,7 +54,9 @@ export default async function EditGroupPage({
         <h1>{t('title')}</h1>
       </div>
       <NextIntlClientProvider
-        messages={{ about, ui } as Pick<Messages, 'about' | 'ui'>}
+        messages={
+          { about, groups, ui } as Pick<Messages, 'about' | 'groups' | 'ui'>
+        }
       >
         <div className='mx-auto lg:max-w-2xl'>
           <EditGroupForm group={group} />

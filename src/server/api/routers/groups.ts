@@ -287,6 +287,31 @@ const groupsRouter = createRouter({
 
       await deleteFile(group.imageId);
     }),
+  deleteGroup: protectedEditProcedure
+    .input((input) =>
+      editGroupSchema(useTranslationsFromContext())
+        .pick({ id: true })
+        .parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.id),
+      });
+
+      if (!group) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (group.imageId) {
+        await deleteFile(group.imageId);
+      }
+
+      await ctx.db.delete(groups).where(eq(groups.id, input.id));
+    }),
 });
 
 export { groupsRouter };

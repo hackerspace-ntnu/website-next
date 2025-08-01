@@ -34,18 +34,27 @@ function EditGroupForm({
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
   const newGroup = api.groups.newGroup.useMutation({
-    onSuccess: (id) =>
-      router.push({ pathname: '/about/group/[name]', params: { name: id } }),
+    onSuccess: (id) => {
+      toast.success(tNew('groupCreated'));
+      router.push({ pathname: '/about/group/[name]', params: { name: id } });
+    },
   });
   const editGroup = api.groups.editGroup.useMutation({
     onSuccess: (id) => {
+      toast.success(tEdit('groupEdited'));
       router.push({ pathname: '/about/group/[name]', params: { name: id } });
     },
   });
   const deleteGroupImage = api.groups.deleteGroupImage.useMutation({
     onSuccess: () => {
-      toast.success(t('imageDeleted'));
+      toast.success(tEdit('imageDeleted'));
       router.refresh();
+    },
+  });
+  const deleteGroup = api.groups.deleteGroup.useMutation({
+    onSuccess: () => {
+      toast.success(tEdit('groupDeleted'));
+      router.push('/about');
     },
   });
 
@@ -121,17 +130,17 @@ function EditGroupForm({
                 {deleteGroupImage.isPending ? (
                   <Spinner />
                 ) : (
-                  <span>{t('deleteGroupImage')}</span>
+                  <span>{tEdit('deleteGroupImage')}</span>
                 )}
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  {t('deleteGroupImageTitle')}
+                  {tEdit('deleteGroupImageTitle')}
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                  <span>{t('deleteGroupImageDescription')}</span>
+                  <span>{tEdit('deleteGroupImageDescription')}</span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -204,9 +213,42 @@ function EditGroupForm({
             />
           )}
         </form.AppField>
-        <form.SubmitButton loading={newGroup.isPending}>
-          {group ? tEdit('editGroup') : tNew('createGroup')}
-        </form.SubmitButton>
+        <div className='flex justify-between'>
+          <form.SubmitButton loading={newGroup.isPending}>
+            {group ? tEdit('editGroup') : tNew('createGroup')}
+          </form.SubmitButton>
+          {group && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type='button' variant='destructive'>
+                  {deleteGroup.isPending ? (
+                    <Spinner />
+                  ) : (
+                    <span>{tEdit('deleteGroup')}</span>
+                  )}
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {tEdit('deleteGroupTitle')}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    <span>{tEdit('deleteGroupDescription')}</span>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
+                  <AlertDialogActionDestructive
+                    onClick={() => deleteGroup.mutate({ id: group.id })}
+                  >
+                    {tUi('confirm')}
+                  </AlertDialogActionDestructive>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
       </form.AppForm>
     </form>
   );

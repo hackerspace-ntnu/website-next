@@ -289,13 +289,23 @@
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
-      "unauthorized": "Du har ikke rettigheter til å opprette nye grupper"
+      "unauthorized": "Du har ikke rettigheter til å opprette nye grupper",
+      "groupCreated": "Gruppen ble opprettet"
     },
     "edit": {
       "title": "Rediger gruppe",
       "backToGroup": "Tilbake til gruppe",
       "unauthorized": "Du har ikke rettigheter til å redigere grupper",
-      "editGroup": "Rediger gruppe"
+      "editGroup": "Rediger gruppe",
+      "groupEdited": "Gruppen ble redigert",
+      "deleteGroup": "Slett gruppe",
+      "imageDeleted": "Gruppebilde slettet",
+      "groupDeleted": "Gruppen ble slettet",
+      "deleteGroupTitle": "Er du sikker på at du vil slette denne gruppen?",
+      "deleteGroupDescription": "Gruppen vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "deleteGroupImage": "Slett gruppebilde",
+      "deleteGroupImageTitle": "Er du sikker på at du vil slette dette gruppebildet?",
+      "deleteGroupImageDescription": "Gruppebildet vil bli permanent slettet. Denne handlingen kan ikke angres."
     },
     "form": {
       "image": {
@@ -336,11 +346,7 @@
       "internal": {
         "label": "Intern gruppe",
         "description": "Hvis valgt, vil denne gruppen kun være synlig for Hackerspace-medlemmer."
-      },
-      "imageDeleted": "Gruppebilde slettet",
-      "deleteGroupImage": "Slett gruppebilde",
-      "deleteGroupImageTitle": "Er du sikker på at du vil slette dette gruppebildet?",
-      "deleteGroupImageDescription": "Gruppebildet vil bli permanent slettet. Denne handlingen kan ikke angres."
+      }
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",

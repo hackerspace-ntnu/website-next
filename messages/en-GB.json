@@ -289,13 +289,23 @@
     "new": {
       "title": "New Group",
       "createGroup": "Create group",
-      "unauthorized": "Unauthorized to create new groups"
+      "unauthorized": "Unauthorized to create new groups",
+      "groupCreated": "Group created successfully"
     },
     "edit": {
       "title": "Edit Group",
       "backToGroup": "Back to group",
       "unauthorized": "Unauthorized to edit groups",
-      "editGroup": "Edit group"
+      "editGroup": "Edit group",
+      "groupEdited": "Group edited successfully",
+      "deleteGroup": "Delete group",
+      "imageDeleted": "Group image deleted successfully",
+      "groupDeleted": "Group deleted successfully",
+      "deleteGroupTitle": "Are you sure you want to delete this group?",
+      "deleteGroupDescription": "The group will be permanently deleted. This action cannot be undone.",
+      "deleteGroupImage": "Delete group image",
+      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
+      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
     },
     "form": {
       "image": {
@@ -336,11 +346,7 @@
       "internal": {
         "label": "Internal group",
         "description": "If selected, this group will only be visible to Hackerspace members."
-      },
-      "imageDeleted": "Group image deleted successfully",
-      "deleteGroupImage": "Delete group image",
-      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
-      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
+      }
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",

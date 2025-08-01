@@ -16,7 +16,7 @@ export async function generateMetadata() {
 export default async function NewGroupPage() {
   const { user } = await api.auth.state();
   const t = await getTranslations('groups');
-  const { about, ui } = await getMessages();
+  const { about, groups, ui } = await getMessages();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -40,7 +40,9 @@ export default async function NewGroupPage() {
         <h1>{t('new.title')}</h1>
       </div>
       <NextIntlClientProvider
-        messages={{ about, ui } as Pick<Messages, 'about' | 'ui'>}
+        messages={
+          { about, groups, ui } as Pick<Messages, 'about' | 'groups' | 'ui'>
+        }
       >
         <div className='mx-auto lg:max-w-2xl'>
           <EditGroupForm />
