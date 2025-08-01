@@ -510,7 +510,14 @@
     "startedAt": "Started at",
     "endsAt": "Ends at",
     "endedAt": "Ended at",
-    "backToEvents": "Back to Events"
+    "backToEvents": "Back to Events",
+    "api": {
+      "invalidId": "Invalid event ID",
+      "fetchEventFailed": "Failed to fetch event",
+      "unauthorized": "Unauthorized to view this event",
+      "invalidOffset": "Invalid offset",
+      "invalidLimit": "Invalid limit"
+    }
   },
   "rules": {
     "title": "Rules",

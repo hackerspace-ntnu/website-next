@@ -510,7 +510,14 @@
     "startedAt": "Startet kl.",
     "endsAt": "Slutter kl.",
     "endedAt": "Sluttet kl.",
-    "backToEvents": "Tilbake til arrangementer"
+    "backToEvents": "Tilbake til arrangementer",
+    "api": {
+      "invalidId": "Ugyldig arrangement-ID",
+      "fetchEventFailed": "Kunne ikke hente arrangement",
+      "unauthorized": "Du har ikke rettigheter til å se dette arrangementet",
+      "invalidOffset": "Ugyldig offset",
+      "invalidLimit": "Ugyldig limit"
+    }
   },
   "rules": {
     "title": "Regler",

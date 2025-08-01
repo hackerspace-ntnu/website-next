@@ -1,4 +1,3 @@
-import { and, asc, desc, eq, gte, lte, notInArray } from 'drizzle-orm';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
@@ -9,8 +8,6 @@ import {
 import { EventCard } from '@/components/events/EventCard';
 import { ExternalLink } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
-import { db } from '@/server/db';
-import { eventLocalizations, events as eventsTable } from '@/server/db/tables';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -41,47 +38,13 @@ export default async function EventsPage({
 
   const { [tUi('page')]: page } = searchParamsCache.parse(await searchParams);
 
-  const { user } = await api.auth.state();
+  const activeEvents = await api.events.fetchActiveEvents();
 
-  const activeEventsWhere = [
-    lte(eventsTable.startTime, new Date()),
-    gte(eventsTable.endTime, new Date()),
-  ];
-
-  const activeEvents = await db.query.events.findMany({
-    where:
-      user && user?.groups.length > 0
-        ? and(...activeEventsWhere)
-        : and(...activeEventsWhere, eq(eventsTable.internal, false)),
-    orderBy: asc(eventsTable.startTime),
-    with: {
-      localizations: {
-        where: eq(eventLocalizations.locale, locale),
-      },
-    },
-  });
-
-  const rawEventsWhere = notInArray(
-    eventsTable.id,
-    activeEvents.map((e) => e.id),
-  );
-
-  const rawEvents = await db.query.events.findMany({
-    where:
-      user && user.groups.length > 0
-        ? rawEventsWhere
-        : and(rawEventsWhere, eq(eventsTable.internal, false)),
-    orderBy: desc(eventsTable.startTime),
-    with: {
-      localizations: {
-        where: eq(eventLocalizations.locale, locale),
-      },
-    },
+  const events = await api.events.fetchEvents({
     limit: ITEMS_PER_PAGE,
     offset: ((page as number) - 1) * ITEMS_PER_PAGE,
+    excludeIds: activeEvents.map((event) => event.id),
   });
-
-  const events = rawEvents.filter((event) => event.localizations.length === 1);
 
   const upcomingEvents = events.filter((event) => event.startTime > new Date());
   const pastEvents = events.filter((event) => event.endTime < new Date());
