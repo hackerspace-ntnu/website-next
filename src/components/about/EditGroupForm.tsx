@@ -1,5 +1,16 @@
 'use client';
 
+import {
+  AlertDialog,
+  AlertDialogActionDestructive,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
@@ -17,6 +28,8 @@ function EditGroupForm({
   group?: RouterOutput['about']['fetchGroup'];
 }) {
   const t = useTranslations('about.new');
+  const tUi = useTranslations('ui');
+  const tEdit = useTranslations('about.edit');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
   const newGroup = api.about.newGroup.useMutation({
@@ -101,17 +114,35 @@ function EditGroupForm({
           )}
         </form.AppField>
         {group?.imageId && !newImageUploaded && (
-          <Button
-            type='button'
-            variant='destructive'
-            onClick={() => deleteGroupImage.mutate({ id: group.id })}
-          >
-            {deleteGroupImage.isPending ? (
-              <Spinner />
-            ) : (
-              <span>{t('deleteGroupImage')}</span>
-            )}
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type='button' variant='destructive'>
+                {deleteGroupImage.isPending ? (
+                  <Spinner />
+                ) : (
+                  <span>{t('deleteGroupImage')}</span>
+                )}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {tEdit('deleteGroupImageTitle')}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  <span>{tEdit('deleteGroupImageDescription')}</span>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
+                <AlertDialogActionDestructive
+                  onClick={() => deleteGroupImage.mutate({ id: group.id })}
+                >
+                  {tUi('confirm')}
+                </AlertDialogActionDestructive>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         )}
         <form.AppField name='nameNorwegian'>
           {(field) => (

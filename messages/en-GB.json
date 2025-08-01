@@ -334,7 +334,9 @@
     "edit": {
       "title": "Edit Group",
       "backToGroup": "Back to group",
-      "unauthorized": "Unauthorized to edit groups"
+      "unauthorized": "Unauthorized to edit groups",
+      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
+      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
