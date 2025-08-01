@@ -261,6 +261,32 @@ const aboutRouter = createRouter({
 
       return input.identifier;
     }),
+  deleteGroupImage: protectedEditProcedure
+    .input((input) =>
+      editGroupSchema(useTranslationsFromContext())
+        .pick({ id: true })
+        .parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.id),
+      });
+
+      if (!group || !group.imageId) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('about.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(groups)
+        .set({ imageId: null })
+        .where(eq(groups.id, input.id));
+
+      await deleteFile(group.imageId);
+    }),
 });
 
 export { aboutRouter };

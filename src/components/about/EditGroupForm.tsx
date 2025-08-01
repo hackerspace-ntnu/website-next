@@ -2,6 +2,8 @@
 
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
+import { Spinner } from '@/components/ui/Spinner';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
@@ -24,6 +26,12 @@ function EditGroupForm({
   const editGroup = api.about.editGroup.useMutation({
     onSuccess: (id) => {
       router.push({ pathname: '/about/group/[name]', params: { name: id } });
+    },
+  });
+  const deleteGroupImage = api.about.deleteGroupImage.useMutation({
+    onSuccess: () => {
+      toast.success(t('imageDeleted'));
+      router.refresh();
     },
   });
 
@@ -93,8 +101,16 @@ function EditGroupForm({
           )}
         </form.AppField>
         {group?.imageId && !newImageUploaded && (
-          <Button type='button' variant='destructive'>
-            {t('deleteGroupImage')}
+          <Button
+            type='button'
+            variant='destructive'
+            onClick={() => deleteGroupImage.mutate({ id: group.id })}
+          >
+            {deleteGroupImage.isPending ? (
+              <Spinner />
+            ) : (
+              <span>{t('deleteGroupImage')}</span>
+            )}
           </Button>
         )}
         <form.AppField name='nameNorwegian'>

@@ -328,7 +328,8 @@
       "createGroup": "Create group",
       "unauthorized": "Unauthorized to create new groups",
       "deleteGroupImage": "Delete group image",
-      "editGroup": "Edit group"
+      "editGroup": "Edit group",
+      "imageDeleted": "Group image deleted successfully"
     },
     "edit": {
       "title": "Edit Group",

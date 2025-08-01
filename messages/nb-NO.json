@@ -328,7 +328,8 @@
       "createGroup": "Opprett gruppe",
       "unauthorized": "Du har ikke rettigheter til å opprette nye grupper",
       "deleteGroupImage": "Slett gruppebilde",
-      "editGroup": "Rediger gruppe"
+      "editGroup": "Rediger gruppe",
+      "imageDeleted": "Gruppebilde slettet"
     },
     "edit": {
       "title": "Rediger gruppe",
