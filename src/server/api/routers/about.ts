@@ -224,7 +224,7 @@ const aboutRouter = createRouter({
         .update(groups)
         .set({
           identifier: input.identifier,
-          imageId: imageId,
+          imageId: input.image ? imageId : undefined,
           internal: input.internal,
         })
         .where(eq(groups.identifier, input.identifier));
