@@ -1,24 +1,35 @@
 import { format, isSameDay } from 'date-fns';
-import { CalendarIcon, MapPinIcon } from 'lucide-react';
+import { and, eq } from 'drizzle-orm';
+import { BookImage, CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
-// TODO: Must be replaced with actual events
-import { events } from '@/mock-data/events';
+import { api } from '@/lib/api/server';
+import { db } from '@/server/db';
+import { eventLocalizations, events } from '@/server/db/tables';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ eventId: string }>;
 }) {
-  const { id } = await params;
-  const event = events.find((event) => event.id === Number(id));
+  const { eventId } = await params;
+  const locale = await getLocale();
+  if (Number.isNaN(Number(eventId))) return;
+  const localization = await db.query.eventLocalizations.findFirst({
+    where: and(
+      eq(eventLocalizations.eventId, Number(eventId)),
+      eq(eventLocalizations.locale, locale),
+    ),
+  });
+
+  if (!localization?.name) return;
 
   return {
-    title: `${event?.title}`,
+    title: `${localization.name}`,
   };
 }
 
@@ -31,21 +42,33 @@ export default async function EventDetailsPage({
   setRequestLocale(locale);
 
   const tLayout = await getTranslations('layout');
-  const event = events.find((event) => event.id === Number(eventId));
+  if (Number.isNaN(Number(eventId))) return notFound();
 
-  if (!event) return notFound();
+  const event = await db.query.events.findFirst({
+    where: eq(events.id, Number(eventId)),
+    with: {
+      localizations: {
+        where: eq(eventLocalizations.locale, locale),
+      },
+    },
+  });
 
-  const startDate = new Date(event.startTime);
-  const endDate = new Date(event.endTime);
+  const localization = event?.localizations[0];
 
-  const formattedRange = isSameDay(startDate, endDate)
-    ? `${format(startDate, 'HH:mm')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`
-    : `${format(startDate, 'HH:mm, dd.MM.yyyy')} - ${format(endDate, 'HH:mm, dd.MM.yyyy')}`;
+  if (!event || !localization) return notFound();
+
+  const imageUrl = event.imageId
+    ? await api.utils.getFileUrl({ fileId: event.imageId })
+    : undefined;
+
+  const formattedRange = isSameDay(event.startTime, event.endTime)
+    ? `${format(event.startTime, 'HH:mm')} - ${format(event.endTime, 'HH:mm, dd.MM.yyyy')}`
+    : `${format(event.startTime, 'HH:mm, dd.MM.yyyy')} - ${format(event.endTime, 'HH:mm, dd.MM.yyyy')}`;
 
   return (
     <>
-      <h1 className='my-4'>{event.title}</h1>
-      <h2 className='border-b-0 text-2xl'>{event.subheader}</h2>
+      <h1 className='my-4'>{localization.name}</h1>
+      <h2 className='border-b-0 text-2xl'>{localization.summary}</h2>
       <div className='mt-4 space-y-4'>
         {event.internal && (
           <Badge className='rounded-full'>{tLayout('internal')}</Badge>
@@ -56,15 +79,18 @@ export default async function EventDetailsPage({
         </div>
         <div className='flex items-center gap-2'>
           <MapPinIcon className='h-8 w-8' />
-          {event.location}
+          {localization.location}
         </div>
         <Separator />
         <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>
-            <p>{event.description}</p>
+            <p>{localization.description}</p>
           </div>
           <Avatar className='h-48 w-48'>
-            <AvatarImage src='/event.webp' alt='' className='object-cover' />
+            <AvatarImage src={imageUrl} alt='' className='object-cover' />
+            <AvatarFallback>
+              <BookImage />
+            </AvatarFallback>
           </Avatar>
         </div>
       </div>

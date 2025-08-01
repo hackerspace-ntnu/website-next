@@ -14,10 +14,10 @@ import {
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
-import type { events } from '@/mock-data/events';
+import type { SelectEvent, SelectEventLocalization } from '@/server/db/tables';
 
 type EventCardProps = {
-  event: (typeof events)[number];
+  event: SelectEvent & { localizations: SelectEventLocalization[] };
   wrapperClassName?: string;
   cardClassName?: string;
   _active?: boolean;
@@ -43,6 +43,9 @@ function EventCard({
   t,
   _active,
 }: EventCardProps) {
+  const localization = event.localizations[0];
+  if (!localization) return;
+
   const formattedStartDate = format(event.startTime, 'HH:mm, dd.MM.yyyy');
   const formattedEndDate = format(event.endTime, 'HH:mm, dd.MM.yyyy');
 
@@ -64,8 +67,8 @@ function EventCard({
         })}
       >
         <CardHeader>
-          <CardTitle>{event.title}</CardTitle>
-          <CardDescription>{event.subheader}</CardDescription>
+          <CardTitle>{localization.name}</CardTitle>
+          <CardDescription>{localization.summary}</CardDescription>
           {event.internal && (
             <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
               {t.internal}
@@ -73,7 +76,7 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='max-w-96'>{event.description}</p>
+          <p className='max-w-96'>{localization.description}</p>
           <Avatar className='h-48 w-48 shrink-0'>
             <AvatarImage
               src='/event.webp'
