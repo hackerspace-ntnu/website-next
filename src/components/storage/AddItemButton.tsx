@@ -1,5 +1,6 @@
 'use client';
 
+import { PlusIcon } from 'lucide-react';
 import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
@@ -7,7 +8,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { PlusIcon } from 'lucide-react';
 
 function AddItemButton({ label }: { label: string }) {
   return (

@@ -1,10 +1,10 @@
 'use client';
 
-import { Combobox } from '@/components/ui/Combobox';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { useQueryState } from 'nuqs';
 import { parseAsInteger } from 'nuqs/server';
 import { useTransition } from 'react';
+import { Combobox } from '@/components/ui/Combobox';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 type CategorySelectorProps = {
   categories: {

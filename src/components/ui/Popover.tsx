@@ -1,7 +1,7 @@
 'use client';
 
-import { cx } from '@/lib/utils';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { cx } from '@/lib/utils';
 
 function Popover(
   props: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root>,

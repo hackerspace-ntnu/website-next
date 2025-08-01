@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server';
+import { and, eq, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -10,8 +12,6 @@ import { editGroupSchema } from '@/validations/about/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/about/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/about/fetchGroupSchema';
 import { groupSchema } from '@/validations/about/groupSchema';
-import { TRPCError } from '@trpc/server';
-import { type SQL, and, eq } from 'drizzle-orm';
 
 const groupsRouter = createRouter({
   fetchGroup: publicProcedure

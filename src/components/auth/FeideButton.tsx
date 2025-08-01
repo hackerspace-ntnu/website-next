@@ -1,10 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { FeideLogo } from '@/components/assets/logos';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
-import { useRouter } from 'next/navigation';
 
 function FeideButton() {
   const router = useRouter();

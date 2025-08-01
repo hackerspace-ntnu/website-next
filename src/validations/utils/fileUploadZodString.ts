@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { type ZodNullable, type ZodString, z } from 'zod';
 
 type FileUploadParams = {
   maxFileSize: number;
@@ -35,13 +35,13 @@ function fileUploadZodString(
     | (Omit<FileUploadParams, 'optional'> & {
         optional: false;
       }),
-): Zod.ZodString;
+): ZodString;
 // Overload if the string is optional
 function fileUploadZodString(
   params: Omit<FileUploadParams, 'optional'> & {
     optional: true;
   },
-): Zod.ZodNullable<Zod.ZodString>;
+): ZodNullable<ZodString>;
 function fileUploadZodString({
   maxFileSize,
   allowedMediaType,

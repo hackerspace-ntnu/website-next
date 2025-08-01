@@ -1,5 +1,7 @@
 'use client';
 
+import { useStore } from '@tanstack/react-form';
+import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -19,8 +21,6 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { groupSchema } from '@/validations/about/groupSchema';
-import { useStore } from '@tanstack/react-form';
-import { useTranslations } from 'next-intl';
 
 function EditGroupForm({
   group,

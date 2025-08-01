@@ -1,3 +1,5 @@
+import { UserIcon, UsersIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { ResponsiveDialogTrigger } from '@/components/composites/ResponsiveDialog';
 import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
 import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
@@ -7,8 +9,6 @@ import { TableCell } from '@/components/ui/Table';
 import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import type { RouterOutputs } from '@/server/api';
-import { UserIcon, UsersIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 type ScheduleCellProps = {
   formattedShift: {
@@ -52,8 +52,9 @@ function ScheduleCell({
           >
             {/* Icon displaying amount of members on shift */}
             {members.length > 0 && (
-              <div
+              <span
                 className='flex flex-col items-center justify-between gap-1'
+                role='status'
                 aria-label={t('onShift', { count: members.length })}
               >
                 {members.length > 1 ? (
@@ -64,7 +65,7 @@ function ScheduleCell({
                 <span className='font-semibold' aria-hidden='true'>
                   {members.length}
                 </span>
-              </div>
+              </span>
             )}
 
             {/* Closed / Skill icons */}

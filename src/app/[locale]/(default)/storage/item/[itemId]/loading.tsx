@@ -1,9 +1,9 @@
+import { BlocksIcon, MapPinIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { Separator } from '@/components/ui/Separator';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { BlocksIcon, MapPinIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
 export default async function StorageItemLoading() {
   const t = await getTranslations('storage');

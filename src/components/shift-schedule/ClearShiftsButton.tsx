@@ -1,5 +1,9 @@
 'use client';
 
+import { Trash2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -14,10 +18,6 @@ import {
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
-import { Trash2Icon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { toast } from 'sonner';
 
 function ClearShiftsButton() {
   const t = useTranslations('shiftSchedule.clearShifts');

@@ -1,4 +1,4 @@
-import { LogoLink } from '@/components/layout/LogoLink';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { DesktopNavMenu } from '@/components/layout/header/DesktopNavMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
@@ -6,9 +6,9 @@ import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
+import { LogoLink } from '@/components/layout/LogoLink';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
 
 async function Header() {
   const locale = await getLocale();

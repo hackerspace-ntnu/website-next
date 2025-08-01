@@ -1,7 +1,7 @@
-import { Link } from '@/components/ui/Link';
-import { type VariantProps, cva } from '@/lib/utils';
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { Link } from '@/components/ui/Link';
+import { cva, type VariantProps } from '@/lib/utils';
 
 const backToStorageButtonVariants = cva({
   base: 'flex gap-2',

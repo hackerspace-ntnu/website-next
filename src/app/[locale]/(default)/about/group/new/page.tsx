@@ -1,9 +1,9 @@
-import { EditGroupForm } from '@/components/about/EditGroupForm';
-import { Link } from '@/components/ui/Link';
-import { api } from '@/lib/api/server';
 import { ArrowLeftIcon } from 'lucide-react';
 import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
+import { EditGroupForm } from '@/components/about/EditGroupForm';
+import { Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('groups.new');

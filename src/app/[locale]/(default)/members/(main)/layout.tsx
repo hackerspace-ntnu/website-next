@@ -1,6 +1,6 @@
-import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 
 type MemberHeaderLayoutProps = {
   children: React.ReactNode;

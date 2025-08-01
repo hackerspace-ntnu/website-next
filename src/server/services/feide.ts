@@ -1,11 +1,11 @@
-import { env } from '@/env';
 import { cookies } from 'next/headers';
 import {
-  OAuth2Client,
-  OAuth2RequestError,
   generateCodeVerifier,
   generateState,
+  OAuth2Client,
+  OAuth2RequestError,
 } from 'oslo/oauth2';
+import { env } from '@/env';
 
 const feideOAuthClient = new OAuth2Client(
   env.FEIDE_CLIENT_ID ?? '',

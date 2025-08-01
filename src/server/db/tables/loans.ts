@@ -1,18 +1,17 @@
-import { storageItems } from '@/server/db/tables/storage';
-import { users } from '@/server/db/tables/users';
 import {
   type InferInsertModel,
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
 import {
-  boolean,
   integer,
   pgTable,
   serial,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { storageItems } from '@/server/db/tables/storage';
+import { users } from '@/server/db/tables/users';
 
 const itemLoans = pgTable('item_loans', {
   id: serial('id').primaryKey(),

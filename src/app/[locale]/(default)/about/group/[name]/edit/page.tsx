@@ -1,10 +1,10 @@
+import { ArrowLeftIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { type Messages, NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { EditGroupForm } from '@/components/about/EditGroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
-import { ArrowLeftIcon } from 'lucide-react';
-import { type Messages, NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages, getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 export default async function EditGroupPage({
   params,

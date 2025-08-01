@@ -1,7 +1,5 @@
-import { skillIdentifiers } from '@/lib/constants';
-import { users } from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
   index,
   integer,
@@ -10,6 +8,8 @@ import {
   primaryKey,
   serial,
 } from 'drizzle-orm/pg-core';
+import { skillIdentifiers } from '@/lib/constants';
+import { users } from '@/server/db/tables';
 
 const skillIdentifiersEnum = pgEnum('skill_identifiers', skillIdentifiers);
 

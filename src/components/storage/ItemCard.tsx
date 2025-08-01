@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import {
   Card,
@@ -8,8 +10,6 @@ import {
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
 import type { RouterOutput } from '@/server/api';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 function ItemCard({
   item,

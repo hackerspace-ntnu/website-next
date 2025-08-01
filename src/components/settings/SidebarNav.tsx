@@ -1,16 +1,19 @@
+import { useTranslations } from 'next-intl';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
 import { ScrollArea } from '@/components/ui/ScrollArea';
-import { useTranslations } from 'next-intl';
 
 import { cx } from '@/lib/utils';
 
 function SidebarNav({
   className,
   showAdministratorMenu,
-}: { className?: string; showAdministratorMenu: boolean }) {
+}: {
+  className?: string;
+  showAdministratorMenu: boolean;
+}) {
   const t = useTranslations('settings');
   const tLayout = useTranslations('layout');
 

@@ -1,3 +1,6 @@
+import { UserCircle2Icon } from 'lucide-react';
+import Image from 'next/image';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { InternalBadge } from '@/components/members/InternalBadge';
 import {
   Card,
@@ -11,9 +14,6 @@ import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
-import { UserCircle2Icon } from 'lucide-react';
-import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 
 type MemberItemCardProps = {
   user: RouterOutput['users']['fetchUsers'][number];

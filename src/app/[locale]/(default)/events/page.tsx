@@ -1,9 +1,9 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { EventCard } from '@/components/events/EventCard';
 import { ExternalLink } from '@/components/ui/Link';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');

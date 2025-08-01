@@ -1,5 +1,8 @@
 'use client';
 
+import { Globe2Icon } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -9,9 +12,6 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { localeIcons, routing } from '@/lib/locale';
 import { usePathname, useRouter } from '@/lib/locale/navigation';
-import { Globe2Icon } from 'lucide-react';
-import type { Locale } from 'next-intl';
-import { useParams } from 'next/navigation';
 
 type LocaleMenuProps = {
   t: {

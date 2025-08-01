@@ -1,3 +1,12 @@
+import { format } from 'date-fns';
+import {
+  CalendarIcon,
+  CheckIcon,
+  CircleUserIcon,
+  ShoppingBasketIcon,
+  XIcon,
+} from 'lucide-react';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { ApproveLoanButton } from '@/components/storage/ApproveLoanButton';
 import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
 import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
@@ -10,15 +19,6 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import type { RouterOutput } from '@/server/api';
-import { format } from 'date-fns';
-import {
-  CalendarIcon,
-  CheckIcon,
-  CircleUserIcon,
-  ShoppingBasketIcon,
-  XIcon,
-} from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
 
 async function LoanCard({
   loan,

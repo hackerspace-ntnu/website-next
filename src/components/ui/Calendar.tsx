@@ -6,8 +6,7 @@ import {
   ChevronRightIcon,
   ChevronUpIcon,
 } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useFormatter, useLocale, useTranslations } from 'next-intl';
 import {
   DayPicker,
   type DayPickerProps,

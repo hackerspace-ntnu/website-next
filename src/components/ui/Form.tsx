@@ -1,7 +1,5 @@
 'use client';
 
-import { FileUpload } from '@/components/composites/FileUpload';
-import { fileToBase64String } from '@/lib/utils/files';
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
@@ -14,11 +12,13 @@ import {
   useRef,
   useState,
 } from 'react';
+import type { DateRange } from 'react-day-picker';
 import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
-
+import type { ZodError } from 'zod';
 import { BaseMap } from '@/components/composites/BaseMap';
 import { DatePicker } from '@/components/composites/DatePicker';
+import { FileUpload } from '@/components/composites/FileUpload';
 import { PasswordInput } from '@/components/composites/PasswordInput';
 import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
@@ -42,10 +42,8 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
-
-import { type VariantProps, cx } from '@/lib/utils';
-import type { DateRange } from 'react-day-picker';
-import type { ZodError } from 'zod';
+import { cx, type VariantProps } from '@/lib/utils';
+import { fileToBase64String } from '@/lib/utils/files';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();

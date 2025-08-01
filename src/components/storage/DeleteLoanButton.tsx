@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -17,7 +18,6 @@ import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
-import { useTranslations } from 'next-intl';
 
 type DeleteLoanButtonProps = {
   loan: RouterOutput['storage']['fetchLoans'][number];

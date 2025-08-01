@@ -1,14 +1,13 @@
 import { format, isSameDay } from 'date-fns';
 import { CalendarIcon, MapPinIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
-import type { Locale } from 'next-intl';
 
 export async function generateMetadata({
   params,
