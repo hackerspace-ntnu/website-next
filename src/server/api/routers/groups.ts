@@ -8,10 +8,10 @@ import {
 import { createRouter } from '@/server/api/trpc';
 import { groupLocalizations, groups, userGroups } from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
-import { editGroupSchema } from '@/validations/about/editGroupSchema';
-import { fetchGroupMembersSchema } from '@/validations/about/fetchGroupMembersSchema';
-import { fetchGroupSchema } from '@/validations/about/fetchGroupSchema';
-import { groupSchema } from '@/validations/about/groupSchema';
+import { editGroupSchema } from '@/validations/groups/editGroupSchema';
+import { fetchGroupMembersSchema } from '@/validations/groups/fetchGroupMembersSchema';
+import { fetchGroupSchema } from '@/validations/groups/fetchGroupSchema';
+import { groupSchema } from '@/validations/groups/groupSchema';
 
 const groupsRouter = createRouter({
   fetchGroup: publicProcedure

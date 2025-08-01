@@ -20,7 +20,7 @@ import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
-import { groupSchema } from '@/validations/about/groupSchema';
+import { groupSchema } from '@/validations/groups/groupSchema';
 
 function EditGroupForm({
   group,

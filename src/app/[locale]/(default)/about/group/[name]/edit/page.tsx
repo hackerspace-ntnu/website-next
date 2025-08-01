@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
-import { EditGroupForm } from '@/components/about/EditGroupForm';
+import { EditGroupForm } from '@/components/groups/EditGroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
