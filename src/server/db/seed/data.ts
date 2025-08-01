@@ -1,6 +1,8 @@
 import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
+  InsertEvent,
+  InsertEventLocalization,
   InsertGroup,
   InsertGroupLocalization,
   InsertItemCategory,
@@ -663,6 +665,195 @@ const shiftsData: InsertShift[] = [
   },
 ];
 
+const eventsData: InsertEvent[] = [
+  {
+    startTime: new Date('2025-01-12T17:00:00+02:00'),
+    endTime: new Date('2025-01-12T19:00:00+02:00'),
+    internal: true,
+    locationMapLink:
+      'https://use.mazemap.com/?v=1&campusid=1&sharepoitype=identifier&sharepoi=360-A2-116',
+  },
+  {
+    startTime: new Date('2025-01-14T18:00:00+02:00'),
+    endTime: new Date('2025-01-14T20:30:00+02:00'),
+    internal: false,
+  },
+  {
+    startTime: new Date('2025-01-16T16:00:00+02:00'),
+    endTime: new Date('2025-01-16T17:30:00+02:00'),
+    internal: false,
+  },
+
+  {
+    startTime: new Date('2025-01-20T10:00:00+02:00'),
+    endTime: new Date('2025-01-22T21:00:00+02:00'),
+    internal: false,
+  },
+
+  {
+    startTime: new Date('2025-01-22T17:30:00+02:00'),
+    endTime: new Date('2025-01-22T19:30:00+02:00'),
+    internal: false,
+  },
+
+  {
+    startTime: new Date('2024-10-09T15:00:00+02:00'),
+    endTime: new Date('2024-10-09T17:30:00+02:00'),
+    internal: true,
+  },
+
+  {
+    startTime: new Date('2024-10-11T17:00:00+02:00'),
+    endTime: new Date('2024-10-11T19:00:00+02:00'),
+    internal: true,
+  },
+
+  {
+    startTime: new Date('2024-10-14T18:30:00+02:00'),
+    endTime: new Date('2024-10-14T20:00:00+02:00'),
+    internal: false,
+  },
+];
+
+const eventLocalizationsData: InsertEventLocalization[] = [
+  {
+    eventId: 1,
+    name: 'Intro to 3D Printing Workshop',
+    summary: 'A beginner-friendly workshop on the basics of 3D printing.',
+    description:
+      "Join us for an introductory workshop on 3D printing! Learn about the various types of 3D printers, materials, and software needed to design and print your own projects. By the end of the session, you'll be able to print your first 3D object!",
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 1,
+    name: 'Introduksjon til 3D-utskrift',
+    summary: 'En nybegynnervennlig workshop om grunnleggende 3D-utskrift.',
+    description:
+      'Bli med på en introduksjonsworkshop om 3D-utskrift! Lær om ulike typer 3D-skrivere, materialer og programvare som trengs for å designe og skrive ut dine egne prosjekter. Ved slutten av økten vil du være i stand til å skrive ut ditt første 3D-objekt!',
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 2,
+    name: 'Build Your First Circuit',
+    summary:
+      'Hands-on workshop to design and build a simple electronic circuit.',
+    description:
+      "Ever wanted to create your own electronics? In this workshop, we'll guide you through building your first circuit! You'll learn about the basics of circuit components and practice your soldering skills to create a simple LED light setup.",
+    location: 'R50',
+  },
+  {
+    eventId: 2,
+    name: 'Bygg Din Første Krets',
+    summary:
+      'Praktisk workshop for å designe og bygge en enkel elektronisk krets.',
+    description:
+      'Har du alltid ønsket å lage din egen elektronikk? I denne workshopen guider vi deg gjennom byggingen av din første krets! Du lærer om grunnleggende kretskomponenter og får øve på loddeferdighetene dine for å lage et enkelt LED-lys oppsett.',
+    location: 'R50',
+  },
+  {
+    eventId: 3,
+    name: 'AI in Robotics: Applications and Future Trends',
+    summary: 'A talk on the role of AI in robotics and its future.',
+    description:
+      "This session explores the impact of artificial intelligence in the field of robotics. We'll discuss recent advancements, applications in industry and academia, and potential future directions. A Q&A session will follow.",
+    location: 'Smia',
+  },
+  {
+    eventId: 3,
+    name: 'AI i robotikk: Anvendelser og fremtidige trender',
+    summary:
+      'En samtale om rollen til kunstig intelligens i robotikk og dens fremtid.',
+    description:
+      'Denne sesjonen utforsker påvirkningen av kunstig intelligens innen robotikkfeltet. Vi diskuterer nylige fremskritt, anvendelser i industri og akademia, samt potensielle fremtidige retninger. En spørsmål-og-svar-sesjon vil følge.',
+    location: 'Smia',
+  },
+  {
+    eventId: 4,
+    name: 'Hackathon NTNU 2024 Kickoff',
+    summary:
+      'Kickoff meeting for Hackathon NTNU 2024 with information on teams, rules, and prizes.',
+    description:
+      "Get ready for the biggest Hackathon of the year! Join us for the Hackathon NTNU 2024 kickoff event where you'll learn about the competition structure, form teams, and get all the essential details for the event. Don't miss out on a chance to showcase your skills and win prizes!",
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 4,
+    name: 'Hackathon NTNU 2024 Oppstart',
+    summary:
+      'Oppstartsmøte for Hackathon NTNU 2024 med informasjon om lag, regler og premier.',
+    description:
+      'Gjør deg klar for årets største Hackathon! Bli med på Hackathon NTNU 2024 oppstartsarrangement hvor du vil lære om konkurransestrukturen, danne lag, og få alle viktige detaljer for arrangementet. Ikke gå glipp av muligheten til å vise frem ferdighetene dine og vinne premier!',
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 5,
+    name: 'Basics of Python for Data Science',
+    summary: 'An introductory workshop on Python programming for data science.',
+    description:
+      "Learn Python fundamentals with a focus on data science! In this beginner-friendly session, we'll cover essential Python libraries and data manipulation techniques using pandas, NumPy, and matplotlib. Perfect for anyone interested in getting started with data analysis!",
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 5,
+    name: 'Grunnleggende Python for datanalyse',
+    summary: 'En introduksjonsworkshop om Python-programmering for datanalyse.',
+    description:
+      'Lær Python-grunnlag med fokus på datanalyse! I denne nybegynnervennlige økten vil vi gå gjennom essensielle Python-biblioteker og datateknikker ved hjelp av pandas, NumPy og matplotlib. Perfekt for alle som er interessert i å komme i gang med dataanalyse!',
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 6,
+    name: 'Soldering 101: Building Your Own Sensor Kit',
+    summary: 'Learn the basics of soldering and create a custom sensor kit.',
+    description:
+      "In this hands-on workshop, we'll cover the basics of soldering and guide you through creating your own temperature and humidity sensor kit. You'll walk away with valuable soldering skills and a working sensor to use in future projects!",
+    location: 'R51',
+  },
+  {
+    eventId: 6,
+    name: 'Lodding 101: Bygg ditt eget sensorkit',
+    summary:
+      'Lær det grunnleggende om lodding og lag et egendefinert sensorkit.',
+    description:
+      'I denne praktiske workshopen vil vi gå gjennom grunnleggende loddingsteknikker og guide deg gjennom å lage ditt eget temperatur- og fuktighetssensorkit. Du går hjem med verdifulle loddingsferdigheter og en fungerende sensor til bruk i fremtidige prosjekter!',
+    location: 'R51',
+  },
+  {
+    eventId: 7,
+    name: 'Advanced 3D Modeling in Fusion 360',
+    summary: 'A session on advanced 3D modeling techniques using Fusion 360.',
+    description:
+      "Take your 3D modeling skills to the next level with our advanced workshop in Fusion 360! We'll cover complex shapes, custom design features, and optimization tips. Ideal for those with some prior experience in 3D modeling who want to enhance their capabilities.",
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 7,
+    name: 'Avansert 3D-modellering i Fusion 360',
+    summary: 'En økt om avanserte 3D-modelleringsteknikker med Fusion 360.',
+    description:
+      'Ta dine 3D-modelleringsferdigheter til neste nivå med vår avanserte workshop i Fusion 360! Vi vil dekke komplekse former, tilpassede designfunksjoner og optimaliseringstips. Ideelt for de med noe tidligere erfaring innen 3D-modellering som ønsker å forbedre sine ferdigheter.',
+    location: 'Hackerspace verkstedet',
+  },
+  {
+    eventId: 8,
+    name: 'Cybersecurity Basics: Protecting Your Digital Life',
+    summary:
+      'Learn the basics of cybersecurity and best practices for online safety.',
+    description:
+      "In this workshop, we'll go over the essential cybersecurity concepts and teach you how to protect yourself online. Topics will include password security, recognizing phishing attempts, and maintaining secure communications. A must-attend for anyone wanting to safeguard their digital presence.",
+    location: 'R50',
+  },
+  {
+    eventId: 8,
+    name: 'Grunnleggende cybersikkerhet: Beskytt ditt digitale liv',
+    summary:
+      'Lær det grunnleggende om cybersikkerhet og beste praksis for nettsikkerhet.',
+    description:
+      'I denne workshopen går vi gjennom grunnleggende cybersikkerhetskonsepter og lærer deg hvordan du beskytter deg på nett. Emner vil inkludere passord-sikkerhet, gjenkjenning av phishing-forsøk og opprettholdelse av sikker kommunikasjon. Et must for alle som ønsker å beskytte sin digitale tilstedeværelse.',
+    location: 'R50',
+  },
+];
+
 export {
   usersData,
   groupsData,
@@ -674,4 +865,6 @@ export {
   storageItemsData,
   storageItemLocalizations,
   shiftsData,
+  eventsData,
+  eventLocalizationsData,
 };

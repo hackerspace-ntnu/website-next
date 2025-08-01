@@ -3,6 +3,8 @@ import { reset } from 'drizzle-seed';
 import { routing } from '@/lib/locale';
 import { db } from '@/server/db';
 import {
+  eventLocalizationsData,
+  eventsData,
   groupLocalizationsData,
   groupsData,
   shiftsData,
@@ -16,6 +18,8 @@ import {
 } from '@/server/db/seed/data';
 import * as schema from '@/server/db/tables';
 import {
+  eventLocalizations,
+  events,
   groupLocalizations,
   groups,
   itemCategories,
@@ -96,6 +100,14 @@ async function main() {
   console.log('Inserting shifts...');
   await db.insert(shifts).values(shiftsData);
   console.log('Shifts inserted');
+
+  console.log('Inserting events...');
+  await db.insert(events).values(eventsData);
+  console.log('Events inserted');
+
+  console.log('Inserting event localizations...');
+  await db.insert(eventLocalizations).values(eventLocalizationsData);
+  console.log('Event localizations inserted');
 }
 
 await main();
