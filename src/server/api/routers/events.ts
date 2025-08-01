@@ -1,5 +1,15 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, desc, eq, gte, lte, notInArray } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gte,
+  lte,
+  notInArray,
+  or,
+} from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -92,6 +102,26 @@ const eventsRouter = createRouter({
         },
       },
     });
+  }),
+  nonActiveEventsTotal: publicProcedure.query(async ({ ctx }) => {
+    const { user } = await ctx.auth();
+    const where = or(
+      gte(events.startTime, new Date()),
+      lte(events.endTime, new Date()),
+    );
+
+    const counts = await ctx.db
+      .select({ count: count() })
+      .from(events)
+      .where(
+        user && user.groups.length > 0
+          ? where
+          : and(where, eq(events.internal, false)),
+      );
+
+    if (!counts[0]) return Number.NaN;
+
+    return counts[0].count;
   }),
   fetchEventParticipants: protectedProcedure
     .input((input) =>

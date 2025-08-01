@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { db } from '@/server/db';
-import { eventLocalizations, events } from '@/server/db/tables';
+import { eventLocalizations } from '@/server/db/tables';
 
 export async function generateMetadata({
   params,
@@ -44,14 +44,7 @@ export default async function EventDetailsPage({
   const tLayout = await getTranslations('layout');
   if (Number.isNaN(Number(eventId))) return notFound();
 
-  const event = await db.query.events.findFirst({
-    where: eq(events.id, Number(eventId)),
-    with: {
-      localizations: {
-        where: eq(eventLocalizations.locale, locale),
-      },
-    },
-  });
+  const event = await api.events.fetchEvent(Number(eventId));
 
   const localization = event?.localizations[0];
 

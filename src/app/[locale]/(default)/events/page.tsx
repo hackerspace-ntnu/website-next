@@ -5,6 +5,7 @@ import {
   parseAsInteger,
   type SearchParams,
 } from 'nuqs/server';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { EventCard } from '@/components/events/EventCard';
 import { ExternalLink } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -45,6 +46,7 @@ export default async function EventsPage({
     offset: ((page as number) - 1) * ITEMS_PER_PAGE,
     excludeIds: activeEvents.map((event) => event.id),
   });
+  const totalResults = await api.events.nonActiveEventsTotal();
 
   const upcomingEvents = events.filter((event) => event.startTime > new Date());
   const pastEvents = events.filter((event) => event.endTime < new Date());
@@ -148,6 +150,10 @@ export default async function EventsPage({
           );
         })}
       </div>
+      <PaginationCarousel
+        className='my-6'
+        totalPages={Math.ceil(totalResults / ITEMS_PER_PAGE)}
+      />
     </>
   );
 }
