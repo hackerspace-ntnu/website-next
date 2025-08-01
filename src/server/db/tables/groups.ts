@@ -15,7 +15,9 @@ import {
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
   identifier: varchar('identifier', { length: 50 }).notNull().unique(),
-  imageId: integer('image_id').references(() => files.id),
+  imageId: integer('image_id').references(() => files.id, {
+    onDelete: 'set null',
+  }),
   internal: boolean().default(false),
 });
 

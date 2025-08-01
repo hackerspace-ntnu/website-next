@@ -67,7 +67,7 @@ function EditGroupForm({
     },
     defaultValues: {
       image: null as string | null,
-      nameNorwegian: english?.name ?? '',
+      nameNorwegian: norwegian?.name ?? '',
       nameEnglish: english?.name ?? '',
       summaryNorwegian: norwegian?.summary ?? '',
       summaryEnglish: english?.summary ?? '',

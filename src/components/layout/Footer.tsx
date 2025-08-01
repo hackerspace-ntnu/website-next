@@ -205,7 +205,7 @@ function Footer() {
         </ul>
       </nav>
       <p className='text-center'>
-        {t('copyright')} &copy; {year}, Hackerspace NTNU.{' '}
+        {t('copyright')} &copy; {year} Hackerspace NTNU.{' '}
         {t('allRightsReserved')}.
       </p>
     </footer>
