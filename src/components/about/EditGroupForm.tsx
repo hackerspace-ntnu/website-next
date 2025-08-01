@@ -83,7 +83,7 @@ function EditGroupForm({
       descriptionNorwegian: norwegian?.description ?? '',
       descriptionEnglish: english?.description ?? '',
       identifier: group?.identifier ?? '',
-      internal: false,
+      internal: group?.internal ?? false,
     },
     onSubmit: ({ value }) => {
       if (group) {
