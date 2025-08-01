@@ -722,7 +722,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'A beginner-friendly workshop on the basics of 3D printing.',
     description:
       "Join us for an introductory workshop on 3D printing! Learn about the various types of 3D printers, materials, and software needed to design and print your own projects. By the end of the session, you'll be able to print your first 3D object!",
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace workshop',
+    locale: 'en-GB',
   },
   {
     eventId: 1,
@@ -730,7 +731,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'En nybegynnervennlig workshop om grunnleggende 3D-utskrift.',
     description:
       'Bli med på en introduksjonsworkshop om 3D-utskrift! Lær om ulike typer 3D-skrivere, materialer og programvare som trengs for å designe og skrive ut dine egne prosjekter. Ved slutten av økten vil du være i stand til å skrive ut ditt første 3D-objekt!',
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace-verkstedet',
+    locale: 'nb-NO',
   },
   {
     eventId: 2,
@@ -740,15 +742,17 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       "Ever wanted to create your own electronics? In this workshop, we'll guide you through building your first circuit! You'll learn about the basics of circuit components and practice your soldering skills to create a simple LED light setup.",
     location: 'R50',
+    locale: 'en-GB',
   },
   {
     eventId: 2,
-    name: 'Bygg Din Første Krets',
+    name: 'Bygg din første krets',
     summary:
       'Praktisk workshop for å designe og bygge en enkel elektronisk krets.',
     description:
       'Har du alltid ønsket å lage din egen elektronikk? I denne workshopen guider vi deg gjennom byggingen av din første krets! Du lærer om grunnleggende kretskomponenter og får øve på loddeferdighetene dine for å lage et enkelt LED-lys oppsett.',
     location: 'R50',
+    locale: 'nb-NO',
   },
   {
     eventId: 3,
@@ -757,6 +761,7 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       "This session explores the impact of artificial intelligence in the field of robotics. We'll discuss recent advancements, applications in industry and academia, and potential future directions. A Q&A session will follow.",
     location: 'Smia',
+    locale: 'en-GB',
   },
   {
     eventId: 3,
@@ -766,6 +771,7 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       'Denne sesjonen utforsker påvirkningen av kunstig intelligens innen robotikkfeltet. Vi diskuterer nylige fremskritt, anvendelser i industri og akademia, samt potensielle fremtidige retninger. En spørsmål-og-svar-sesjon vil følge.',
     location: 'Smia',
+    locale: 'nb-NO',
   },
   {
     eventId: 4,
@@ -774,7 +780,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
       'Kickoff meeting for Hackathon NTNU 2024 with information on teams, rules, and prizes.',
     description:
       "Get ready for the biggest Hackathon of the year! Join us for the Hackathon NTNU 2024 kickoff event where you'll learn about the competition structure, form teams, and get all the essential details for the event. Don't miss out on a chance to showcase your skills and win prizes!",
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace workshop',
+    locale: 'en-GB',
   },
   {
     eventId: 4,
@@ -783,7 +790,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
       'Oppstartsmøte for Hackathon NTNU 2024 med informasjon om lag, regler og premier.',
     description:
       'Gjør deg klar for årets største Hackathon! Bli med på Hackathon NTNU 2024 oppstartsarrangement hvor du vil lære om konkurransestrukturen, danne lag, og få alle viktige detaljer for arrangementet. Ikke gå glipp av muligheten til å vise frem ferdighetene dine og vinne premier!',
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace-verkstedet',
+    locale: 'nb-NO',
   },
   {
     eventId: 5,
@@ -791,7 +799,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'An introductory workshop on Python programming for data science.',
     description:
       "Learn Python fundamentals with a focus on data science! In this beginner-friendly session, we'll cover essential Python libraries and data manipulation techniques using pandas, NumPy, and matplotlib. Perfect for anyone interested in getting started with data analysis!",
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace workshop',
+    locale: 'en-GB',
   },
   {
     eventId: 5,
@@ -799,7 +808,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'En introduksjonsworkshop om Python-programmering for datanalyse.',
     description:
       'Lær Python-grunnlag med fokus på datanalyse! I denne nybegynnervennlige økten vil vi gå gjennom essensielle Python-biblioteker og datateknikker ved hjelp av pandas, NumPy og matplotlib. Perfekt for alle som er interessert i å komme i gang med dataanalyse!',
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace-verkstedet',
+    locale: 'nb-NO',
   },
   {
     eventId: 6,
@@ -808,15 +818,17 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       "In this hands-on workshop, we'll cover the basics of soldering and guide you through creating your own temperature and humidity sensor kit. You'll walk away with valuable soldering skills and a working sensor to use in future projects!",
     location: 'R51',
+    locale: 'en-GB',
   },
   {
     eventId: 6,
-    name: 'Lodding 101: Bygg ditt eget sensorkit',
+    name: 'Lodding 101: Bygg din egen sensorkit',
     summary:
       'Lær det grunnleggende om lodding og lag et egendefinert sensorkit.',
     description:
       'I denne praktiske workshopen vil vi gå gjennom grunnleggende loddingsteknikker og guide deg gjennom å lage ditt eget temperatur- og fuktighetssensorkit. Du går hjem med verdifulle loddingsferdigheter og en fungerende sensor til bruk i fremtidige prosjekter!',
     location: 'R51',
+    locale: 'nb-NO',
   },
   {
     eventId: 7,
@@ -824,7 +836,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'A session on advanced 3D modeling techniques using Fusion 360.',
     description:
       "Take your 3D modeling skills to the next level with our advanced workshop in Fusion 360! We'll cover complex shapes, custom design features, and optimization tips. Ideal for those with some prior experience in 3D modeling who want to enhance their capabilities.",
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace workshop',
+    locale: 'en-GB',
   },
   {
     eventId: 7,
@@ -832,7 +845,8 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     summary: 'En økt om avanserte 3D-modelleringsteknikker med Fusion 360.',
     description:
       'Ta dine 3D-modelleringsferdigheter til neste nivå med vår avanserte workshop i Fusion 360! Vi vil dekke komplekse former, tilpassede designfunksjoner og optimaliseringstips. Ideelt for de med noe tidligere erfaring innen 3D-modellering som ønsker å forbedre sine ferdigheter.',
-    location: 'Hackerspace verkstedet',
+    location: 'Hackerspace-verkstedet',
+    locale: 'nb-NO',
   },
   {
     eventId: 8,
@@ -842,6 +856,7 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       "In this workshop, we'll go over the essential cybersecurity concepts and teach you how to protect yourself online. Topics will include password security, recognizing phishing attempts, and maintaining secure communications. A must-attend for anyone wanting to safeguard their digital presence.",
     location: 'R50',
+    locale: 'en-GB',
   },
   {
     eventId: 8,
@@ -851,6 +866,7 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     description:
       'I denne workshopen går vi gjennom grunnleggende cybersikkerhetskonsepter og lærer deg hvordan du beskytter deg på nett. Emner vil inkludere passord-sikkerhet, gjenkjenning av phishing-forsøk og opprettholdelse av sikker kommunikasjon. Et must for alle som ønsker å beskytte sin digitale tilstedeværelse.',
     location: 'R50',
+    locale: 'nb-NO',
   },
 ];
 

@@ -12,6 +12,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { files, users } from '@/server/db/tables';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const events = pgTable('events', {
   id: serial('id').primaryKey(),
@@ -41,6 +42,7 @@ const eventLocalizations = pgTable('event_localizations', {
   summary: varchar('summary', { length: 255 }).notNull(),
   description: text('description').notNull(),
   location: varchar('location', { length: 255 }).notNull(),
+  locale: localesEnum().notNull(),
 });
 
 const eventLocalizationsRelations = relations(
