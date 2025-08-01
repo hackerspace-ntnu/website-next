@@ -27,9 +27,10 @@ function EditGroupForm({
 }: {
   group?: RouterOutput['about']['fetchGroup'];
 }) {
-  const t = useTranslations('about.new');
-  const tUi = useTranslations('ui');
+  const t = useTranslations('about.form');
+  const tNew = useTranslations('about.new');
   const tEdit = useTranslations('about.edit');
+  const tUi = useTranslations('ui');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
   const newGroup = api.about.newGroup.useMutation({
@@ -127,10 +128,10 @@ function EditGroupForm({
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  {tEdit('deleteGroupImageTitle')}
+                  {t('deleteGroupImageTitle')}
                 </AlertDialogTitle>
                 <AlertDialogDescription>
-                  <span>{tEdit('deleteGroupImageDescription')}</span>
+                  <span>{t('deleteGroupImageDescription')}</span>
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -204,7 +205,7 @@ function EditGroupForm({
           )}
         </form.AppField>
         <form.SubmitButton loading={newGroup.isPending}>
-          {group ? t('editGroup') : t('createGroup')}
+          {group ? tEdit('editGroup') : tNew('createGroup')}
         </form.SubmitButton>
       </form.AppForm>
     </form>
