@@ -44,6 +44,8 @@ export default async function GroupPage({
     profilePictureUrl?: string;
   })[];
 
+  const { user } = await api.auth.state();
+
   if (!groupLocalization) {
     return notFound();
   }
@@ -61,17 +63,21 @@ export default async function GroupPage({
       </Link>
       <div className='relative'>
         <h1 className='mb-4 text-center'>{groupLocalization.name}</h1>
-        <Link
-          className='absolute top-0 right-0'
-          href={{
-            pathname: '/about/group/[name]/edit',
-            params: { name: group.identifier },
-          }}
-          variant='default'
-          size='icon'
-        >
-          <EditIcon />
-        </Link>
+        {user?.groups.some((g) =>
+          ['labops', 'leadership', 'admin'].includes(g),
+        ) && (
+          <Link
+            className='absolute top-0 right-0'
+            href={{
+              pathname: '/about/group/[name]/edit',
+              params: { name: group.identifier },
+            }}
+            variant='default'
+            size='icon'
+          >
+            <EditIcon />
+          </Link>
+        )}
       </div>
       <div className='flex flex-col items-center justify-center gap-4 p-4'>
         <h3>{groupLocalization.summary}</h3>
