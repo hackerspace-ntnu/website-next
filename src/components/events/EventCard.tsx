@@ -1,7 +1,6 @@
 'use client';
 
-import { format } from 'date-fns';
-
+import { useFormatter } from 'next-intl';
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import {
@@ -13,11 +12,14 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/client';
 import { cx } from '@/lib/utils';
 import type { SelectEvent, SelectEventLocalization } from '@/server/db/tables';
 
 type EventCardProps = {
-  event: SelectEvent & { localizations: SelectEventLocalization[] };
+  event: SelectEvent & { localizations: SelectEventLocalization[] } & {
+    imageUrl?: string;
+  };
   wrapperClassName?: string;
   cardClassName?: string;
   _active?: boolean;
@@ -43,6 +45,7 @@ function EventCard({
   t,
   _active,
 }: EventCardProps) {
+  const formatter = useFormatter();
   const localization = event.localizations[0];
   const imageUrlQuery = api.utils.getFileUrl.useQuery(
     { fileId: event.imageId ?? 0 },
@@ -52,9 +55,6 @@ function EventCard({
   const imageUrl = event.imageId ? imageUrlQuery.data : undefined;
 
   if (!localization) return;
-
-  const formattedStartDate = format(event.startTime, 'HH:mm, dd.MM.yyyy');
-  const formattedEndDate = format(event.endTime, 'HH:mm, dd.MM.yyyy');
 
   const started = event.startTime < new Date() || _active;
   const ended = event.endTime < new Date();
@@ -97,10 +97,17 @@ function EventCard({
         <CardFooter className='mt-auto flex-col'>
           <p>
             <strong>{started ? t.startedAt : t.startsAt}</strong>{' '}
-            {formattedStartDate}
+            {formatter.dateTime(event.startTime, {
+              dateStyle: 'short',
+              timeStyle: 'short',
+            })}
           </p>
           <p className='[&:not(:first-child)]:mt-2'>
-            <strong>{ended ? t.endedAt : t.endsAt}</strong> {formattedEndDate}
+            <strong>{ended ? t.endedAt : t.endsAt}</strong>{' '}
+            {formatter.dateTime(event.endTime, {
+              dateStyle: 'short',
+              timeStyle: 'short',
+            })}
           </p>
         </CardFooter>
       </Card>

@@ -1,9 +1,13 @@
-import { format, isSameDay } from 'date-fns';
 import { and, eq } from 'drizzle-orm';
-import { BookImage, CalendarIcon, MapPinIcon } from 'lucide-react';
+import { BookImageIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
-import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  getFormatter,
+  getLocale,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Separator } from '@/components/ui/Separator';
@@ -41,6 +45,7 @@ export default async function EventDetailsPage({
   const { locale, eventId } = await params;
   setRequestLocale(locale);
 
+  const formatter = await getFormatter();
   const tLayout = await getTranslations('layout');
   if (Number.isNaN(Number(eventId))) return notFound();
 
@@ -54,10 +59,6 @@ export default async function EventDetailsPage({
     ? await api.utils.getFileUrl({ fileId: event.imageId })
     : undefined;
 
-  const formattedRange = isSameDay(event.startTime, event.endTime)
-    ? `${format(event.startTime, 'HH:mm')} - ${format(event.endTime, 'HH:mm, dd.MM.yyyy')}`
-    : `${format(event.startTime, 'HH:mm, dd.MM.yyyy')} - ${format(event.endTime, 'HH:mm, dd.MM.yyyy')}`;
-
   return (
     <>
       <h1 className='my-4'>{localization.name}</h1>
@@ -68,7 +69,10 @@ export default async function EventDetailsPage({
         )}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />
-          {formattedRange}
+          {formatter.dateTimeRange(event.startTime, event.endTime, {
+            dateStyle: 'short',
+            timeStyle: 'short',
+          })}
         </div>
         <div className='flex items-center gap-2'>
           <MapPinIcon className='h-8 w-8' />
@@ -82,7 +86,7 @@ export default async function EventDetailsPage({
           <Avatar className='h-48 w-48'>
             <AvatarImage src={imageUrl} alt='' className='object-cover' />
             <AvatarFallback>
-              <BookImage />
+              <BookImageIcon />
             </AvatarFallback>
           </Avatar>
         </div>
