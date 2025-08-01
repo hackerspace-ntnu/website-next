@@ -44,6 +44,13 @@ function EventCard({
   _active,
 }: EventCardProps) {
   const localization = event.localizations[0];
+  const imageUrlQuery = api.utils.getFileUrl.useQuery(
+    { fileId: event.imageId ?? 0 },
+    { enabled: !!event.imageId },
+  );
+
+  const imageUrl = event.imageId ? imageUrlQuery.data : undefined;
+
   if (!localization) return;
 
   const formattedStartDate = format(event.startTime, 'HH:mm, dd.MM.yyyy');
@@ -77,13 +84,15 @@ function EventCard({
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
           <p className='max-w-96'>{localization.description}</p>
-          <Avatar className='h-48 w-48 shrink-0'>
-            <AvatarImage
-              src='/event.webp'
-              alt={t.photoOf}
-              className='object-cover'
-            />
-          </Avatar>
+          {imageUrl && (
+            <Avatar className='h-48 w-48 shrink-0'>
+              <AvatarImage
+                src={imageUrl}
+                alt={t.photoOf}
+                className='object-cover'
+              />
+            </Avatar>
+          )}
         </CardContent>
         <CardFooter className='mt-auto flex-col'>
           <p>
