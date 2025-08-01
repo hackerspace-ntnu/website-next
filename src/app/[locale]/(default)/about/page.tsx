@@ -27,7 +27,7 @@ export default async function AboutPage({
   const tFAQ = await getTranslations('about.FAQ');
 
   const { user } = await api.auth.state();
-  const groups = await api.about.fetchGroups();
+  const groups = await api.groups.fetchGroups();
 
   const faqs: FAQ[] = [
     {

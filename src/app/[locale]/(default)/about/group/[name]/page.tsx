@@ -17,8 +17,9 @@ export default async function GroupPage({
   params: Promise<{ name: string }>;
 }) {
   const { name } = await params;
-  const group = await api.about.fetchGroup(name);
-  const t = await getTranslations('about');
+  const group = await api.groups.fetchGroup(name);
+  const t = await getTranslations('groups');
+  const tAbout = await getTranslations('about');
 
   if (!group) {
     return notFound();
@@ -96,7 +97,7 @@ export default async function GroupPage({
         {members.length === 0 && (
           <div className='flex w-full items-center justify-center gap-2'>
             <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
-            <p className='text-center'>{t('noMembers')}</p>
+            <p className='text-center'>{tAbout('noMembers')}</p>
           </div>
         )}
         <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>

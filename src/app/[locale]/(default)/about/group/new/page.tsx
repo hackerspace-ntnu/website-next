@@ -6,7 +6,7 @@ import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
-  const t = await getTranslations('about.new');
+  const t = await getTranslations('groups.new');
 
   return {
     title: `${t('title')}`,
@@ -15,7 +15,7 @@ export async function generateMetadata() {
 
 export default async function NewGroupPage() {
   const { user } = await api.auth.state();
-  const t = await getTranslations('about');
+  const t = await getTranslations('groups');
   const { about, ui } = await getMessages();
 
   if (

@@ -8,37 +8,39 @@ function groupSchema(t: Translations) {
       allowedMediaType: 'image',
       allowedFileTypes: ['jpeg', 'png'],
       maxFileSize: 5,
-      sizeLimitError: t('about.form.image.sizeLimitError', { size: 50 }),
-      wrongFileTypeError: t('about.form.image.wrongFileTypeError'),
-      fileNotImageError: t('about.form.image.fileNotImageError'),
+      sizeLimitError: t('groups.form.image.sizeLimitError', { size: 50 }),
+      wrongFileTypeError: t('groups.form.image.wrongFileTypeError'),
+      fileNotImageError: t('groups.form.image.fileNotImageError'),
       optional: true,
     }),
     nameNorwegian: z
       .string()
-      .min(1, t('about.form.name.required'))
-      .max(100, t('about.form.name.maxLength', { count: 100 })),
+      .min(1, t('groups.form.name.required'))
+      .max(100, t('groups.form.name.maxLength', { count: 100 })),
     nameEnglish: z
       .string()
-      .min(1, t('about.form.name.required'))
-      .max(100, t('about.form.name.maxLength', { count: 100 })),
+      .min(1, t('groups.form.name.required'))
+      .max(100, t('groups.form.name.maxLength', { count: 100 })),
     summaryNorwegian: z
       .string()
-      .min(1, t('about.form.summary.required'))
-      .max(255, t('about.form.summary.maxLength', { count: 255 })),
+      .min(1, t('groups.form.summary.required'))
+      .max(255, t('groups.form.summary.maxLength', { count: 255 })),
     summaryEnglish: z
       .string()
-      .min(1, t('about.form.summary.required'))
-      .max(255, t('about.form.summary.maxLength', { count: 255 })),
+      .min(1, t('groups.form.summary.required'))
+      .max(255, t('groups.form.summary.maxLength', { count: 255 })),
     descriptionNorwegian: z
       .string()
-      .min(1, t('about.form.description.required')),
-    descriptionEnglish: z.string().min(1, t('about.form.description.required')),
+      .min(1, t('groups.form.description.required')),
+    descriptionEnglish: z
+      .string()
+      .min(1, t('groups.form.description.required')),
     identifier: z
       .string()
-      .min(1, t('about.form.identifier.required'))
+      .min(1, t('groups.form.identifier.required'))
       .refine(
         (value) => value !== 'new',
-        t('about.form.identifier.isReserved'),
+        t('groups.form.identifier.isReserved'),
       ),
     internal: z.boolean(),
   });

@@ -12,7 +12,7 @@ export default async function EditGroupPage({
   params: Promise<{ name: string }>;
 }) {
   const { user } = await api.auth.state();
-  const t = await getTranslations('about.edit');
+  const t = await getTranslations('groups.edit');
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -22,7 +22,7 @@ export default async function EditGroupPage({
   }
 
   const { name } = await params;
-  const group = await api.about.fetchGroup(name);
+  const group = await api.groups.fetchGroup(name);
 
   if (!group) {
     return notFound();

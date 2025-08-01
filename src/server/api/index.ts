@@ -1,6 +1,6 @@
 import {
-  aboutRouter,
   authRouter,
+  groupsRouter,
   settingsRouter,
   shiftScheduleRouter,
   storageRouter,
@@ -13,8 +13,8 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 const router = createRouter({
   test: testRouter,
-  about: aboutRouter,
   auth: authRouter,
+  groups: groupsRouter,
   storage: storageRouter,
   shiftSchedule: shiftScheduleRouter,
   settings: settingsRouter,

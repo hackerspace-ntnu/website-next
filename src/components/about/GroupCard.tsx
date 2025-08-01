@@ -7,7 +7,7 @@ import { getLocale } from 'next-intl/server';
 import Image from 'next/image';
 
 type GroupCardProps = {
-  group: RouterOutput['about']['fetchGroups'][number];
+  group: RouterOutput['groups']['fetchGroups'][number];
   className?: string;
 };
 

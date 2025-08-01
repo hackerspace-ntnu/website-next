@@ -25,24 +25,24 @@ import { useTranslations } from 'next-intl';
 function EditGroupForm({
   group,
 }: {
-  group?: RouterOutput['about']['fetchGroup'];
+  group?: RouterOutput['groups']['fetchGroup'];
 }) {
-  const t = useTranslations('about.form');
-  const tNew = useTranslations('about.new');
-  const tEdit = useTranslations('about.edit');
+  const t = useTranslations('groups.form');
+  const tNew = useTranslations('groups.new');
+  const tEdit = useTranslations('groups.edit');
   const tUi = useTranslations('ui');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
-  const newGroup = api.about.newGroup.useMutation({
+  const newGroup = api.groups.newGroup.useMutation({
     onSuccess: (id) =>
       router.push({ pathname: '/about/group/[name]', params: { name: id } }),
   });
-  const editGroup = api.about.editGroup.useMutation({
+  const editGroup = api.groups.editGroup.useMutation({
     onSuccess: (id) => {
       router.push({ pathname: '/about/group/[name]', params: { name: id } });
     },
   });
-  const deleteGroupImage = api.about.deleteGroupImage.useMutation({
+  const deleteGroupImage = api.groups.deleteGroupImage.useMutation({
     onSuccess: () => {
       toast.success(t('imageDeleted'));
       router.refresh();

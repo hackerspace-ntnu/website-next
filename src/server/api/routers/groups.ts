@@ -13,7 +13,7 @@ import { groupSchema } from '@/validations/about/groupSchema';
 import { TRPCError } from '@trpc/server';
 import { type SQL, and, eq } from 'drizzle-orm';
 
-const aboutRouter = createRouter({
+const groupsRouter = createRouter({
   fetchGroup: publicProcedure
     .input((input) =>
       fetchGroupSchema(useTranslationsFromContext()).parse(input),
@@ -41,7 +41,7 @@ const aboutRouter = createRouter({
         .catch((error) => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('about.api.fetchGroupsFailed', {
+            message: ctx.t('groups.api.fetchGroupsFailed', {
               error: error.message,
             }),
             cause: { toast: 'error' },
@@ -76,7 +76,7 @@ const aboutRouter = createRouter({
       .catch((error) => {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('about.api.fetchGroupsFailed', {
+          message: ctx.t('groups.api.fetchGroupsFailed', {
             error: error.message,
           }),
           cause: { toast: 'error' },
@@ -115,7 +115,7 @@ const aboutRouter = createRouter({
         .catch((error) => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('about.api.fetchGroupsFailed', {
+            message: ctx.t('groups.api.fetchGroupsFailed', {
               error: error.message,
             }),
             cause: { toast: 'error' },
@@ -134,7 +134,7 @@ const aboutRouter = createRouter({
       if (existingGroup) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: ctx.t('about.api.groupWithIdExists', {
+          message: ctx.t('groups.api.groupWithIdExists', {
             identifier: input.identifier,
           }),
           cause: { toast: 'error' },
@@ -165,7 +165,7 @@ const aboutRouter = createRouter({
       if (!group)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('about.api.insertFailed'),
+          message: ctx.t('groups.api.insertFailed'),
           cause: { toast: 'error' },
         });
 
@@ -199,7 +199,7 @@ const aboutRouter = createRouter({
       if (!existingGroup) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('about.api.groupNotFound'),
+          message: ctx.t('groups.api.groupNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -275,7 +275,7 @@ const aboutRouter = createRouter({
       if (!group || !group.imageId) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('about.api.groupNotFound'),
+          message: ctx.t('groups.api.groupNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -289,4 +289,4 @@ const aboutRouter = createRouter({
     }),
 });
 
-export { aboutRouter };
+export { groupsRouter };
