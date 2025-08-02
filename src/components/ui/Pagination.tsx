@@ -17,15 +17,11 @@ function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
 }
 
 function PaginationContent({
-  ref,
   className,
   ...props
-}: React.ComponentProps<'ul'> & {
-  ref?: React.RefObject<HTMLUListElement>;
-}) {
+}: React.ComponentPropsWithRef<'ul'>) {
   return (
     <ul
-      ref={ref}
       className={cx('flex flex-row items-center gap-1', className)}
       {...props}
     />
@@ -33,13 +29,10 @@ function PaginationContent({
 }
 
 function PaginationItem({
-  ref,
   className,
   ...props
-}: React.ComponentProps<'li'> & {
-  ref?: React.RefObject<HTMLLIElement>;
-}) {
-  return <li ref={ref} className={cx('', className)} {...props} />;
+}: React.ComponentPropsWithRef<'li'>) {
+  return <li className={cx('', className)} {...props} />;
 }
 
 type PaginationLinkProps = {

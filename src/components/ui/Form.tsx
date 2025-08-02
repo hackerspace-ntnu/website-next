@@ -873,7 +873,7 @@ function CurrencyField({
   return (
     <BaseField label={label} className={className} labelVisible={labelVisible}>
       <Input
-        ref={inputRef as React.RefObject<HTMLInputElement>}
+        ref={inputRef}
         type='text'
         inputMode='decimal'
         value={inputValue}
