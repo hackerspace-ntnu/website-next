@@ -1,12 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
-import { useState } from 'react';
 
 type AddToCartButtonProps = {
   className?: string;

@@ -1,6 +1,6 @@
-import type { TRPCContext } from '@/server/api/context';
 import type { TRPCError } from '@trpc/server';
 import { ZodError } from 'zod';
+import type { TRPCContext } from '@/server/api/context';
 
 type ToastType = 'info' | 'error' | 'warning' | 'success';
 

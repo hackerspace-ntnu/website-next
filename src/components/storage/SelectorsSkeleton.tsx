@@ -1,5 +1,5 @@
-import { Skeleton } from '@/components/ui/Skeleton';
 import { useId } from 'react';
+import { Skeleton } from '@/components/ui/Skeleton';
 
 function SelectorsSkeleton() {
   return (

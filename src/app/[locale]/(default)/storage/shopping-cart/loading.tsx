@@ -1,6 +1,6 @@
+import { useTranslations } from 'next-intl';
 import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { useTranslations } from 'next-intl';
 
 export default function ShoppingCartLoading() {
   const t = useTranslations('storage.shoppingCart');

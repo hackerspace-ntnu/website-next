@@ -1,9 +1,9 @@
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardTitle } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 type RuleCardProps = {
   className?: string;

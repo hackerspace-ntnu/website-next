@@ -3,15 +3,15 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/components/ui/Link';
-import { Button } from '@react-email/components';
 
 type SecondaryNavProps = {
   asDropDown?: boolean;
   onClick?: () => void;
   t: {
-    rules: string;
     storage: string;
     shiftSchedule: string;
+    members: string;
+    rules: string;
   };
 };
 
@@ -23,7 +23,10 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
     <Link key={1} variant='nav' onClick={onClick} href='/shift-schedule'>
       {t.shiftSchedule}
     </Link>,
-    <Link key={2} variant='nav' onClick={onClick} href='/rules'>
+    <Link key={2} variant='nav' onClick={onClick} href='/members'>
+      {t.members}
+    </Link>,
+    <Link key={3} variant='nav' onClick={onClick} href='/rules'>
       {t.rules}
     </Link>,
   ];

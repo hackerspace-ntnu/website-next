@@ -1,7 +1,7 @@
 'use client';
 
-import { routing } from '@/lib/locale';
 import NextError from 'next/error';
+import { routing } from '@/lib/locale';
 
 export default function NotFoundPage() {
   return (

@@ -1,16 +1,12 @@
+import { EditIcon, UploadIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Label } from '@/components/ui/Label';
 import { Link } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { EditIcon, UploadIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
-function EditItemFormSkeleton({
-  editing,
-}: {
-  editing: boolean;
-}) {
+function EditItemFormSkeleton({ editing }: { editing: boolean }) {
   const t = useTranslations('storage.edit');
 
   return (

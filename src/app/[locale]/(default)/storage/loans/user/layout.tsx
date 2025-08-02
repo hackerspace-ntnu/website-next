@@ -1,9 +1,10 @@
-import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
 type LoansLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default async function UserLoansLayout({

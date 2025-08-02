@@ -1,14 +1,12 @@
 'use client';
 
-import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 import { useTranslations } from 'next-intl';
-
-import { api } from '@/lib/api/client';
-import { useRouter } from '@/lib/locale/navigation';
 import { z } from 'zod';
-
 import { usePending } from '@/components/auth/PendingBar';
 import { useAppForm } from '@/components/ui/Form';
+import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
+import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 
 function AccountSignUpForm() {
   const router = useRouter();

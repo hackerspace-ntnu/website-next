@@ -1,5 +1,5 @@
-import createMiddleware from 'next-intl/middleware';
 import { type NextRequest, NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
 
 import { routing } from '@/lib/locale';
 

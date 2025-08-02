@@ -118,6 +118,7 @@
     "storage": "Lager",
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
+    "members": "Medlemmer",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
@@ -141,7 +142,9 @@
     "visitSlack": "Besøk Slack",
     "visitFacebook": "Besøk Facebook",
     "visitGithub": "Besøk Github",
+    "visitLinkedin": "Besøk Linkedin",
     "visitInstagram": "Besøk Instagram",
+    "discordTag": "Kopier Discord-taggen",
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
@@ -149,6 +152,28 @@
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
     "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>."
+  },
+  "news": {
+    "title": "Nyheter",
+    "internalArticle": "Dette er en intern artikkel",
+    "newArticle": "Ny artikkel",
+    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
+    "views": "Visninger"
+  },
+  "members": {
+    "title": "Medlemmer",
+    "internalMember": "Dette er et internt medlem",
+    "backToMember": "Tilbake til medlemmer",
+    "searchPlaceholder": "Søk etter et medlem...",
+    "memberSince": "Medlem siden {date}",
+    "guest": "Gjest",
+    "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "api": {
+      "idOrNameRequired": "Enten ID eller navn må oppgis",
+      "errorFetchingMember": "Kunne ikke hente medlem",
+      "errorFetchingMembers": "Kunne ikke hente medlemmer",
+      "pageNumberRequired": "Sidetall må oppgis"
+    }
   },
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
@@ -244,12 +269,26 @@
       "title": "Administrator"
     }
   },
-  "news": {
-    "title": "Nyheter",
-    "internalArticle": "Dette er en intern artikkel",
-    "newArticle": "Ny artikkel",
-    "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
+  "about": {
+    "whatIsHackerspace": "Hva er Hackerspace?",
+    "aboutDescription": "<p1> Hackerspace NTNU er et studentdrevet prosjekt åpent for alle studenter uansett studieretning eller Hackerspace-medlemsskap. Vi tilbyr en kreativ arena der studenter fra forskjellige linjer kan få hjelp til å realisere idéene sine i et engasjert og inkluderende miljø. Hos oss finner du ny teknologi til din disposisjon, blant annet droner, 3D-printere og Virtual Reality-utstyr. </p1> <p2> Om du er en førsteklassing som trenger hjelp med ditt første Arduino-prosjekt eller en fjerdeklassing som ønsker å lage en 3D-modell av Trondheim, kan vi stille med både utstyr og kompetanse. Vi holder også regelmessig kurs for både nybegynnere og viderekomne innen mange spennende emner. </p2> <p3> Kom innom for å se hva vi driver med og slå av en prat. </p3> Du finner oss i andre etasje i A-blokka på Realfagbygget, NTNU Gløshaugen. ",
+    "showMap": "Vis kart!",
+    "FAQ": {
+      "title": "Ofte stilte spørsmål",
+      "canIUseThe3dPrinter": "Kan jeg bruke 3D-printer?",
+      "answerCanIUseThe3dPrinter": "<p1> Alle studenter kan benytte 3D-printere og resten av verkstedet uavhengig av om de er medlem av Hackerspace eller ikke. Vi har et reservasjonssystem tilgjengelig for alle studenter med FEIDE-pålogging fra nettsidens navigasjonsbar. </p1> <p2> Kom innom i åpningstiden og få hjelp av en av våre medlemmer.</p2>",
+      "canITryVRGames-Equipment": "Kan jeg prøve VR spill/utstyr?",
+      "answerCanITryVRGames-Equipment": "VR utstyret vårt kan lånes og prøves ut av alle studenter uavhengig av medlemskap i Hackerspace. Vi har eget VR-rom der man kan komme og spille så lenge et Hackerspace-medlem er tilgjengelig ved oppsett og avslutning. Utstyret kan lånes ut på vanlig måte gjennom lagersystemet. Kom innom i våre åpningstider om dette interesserer deg.",
+      "howDoIBecomeAMember": "Hvordan blir jeg medlem?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace har løpende opptak. Du kan altså søke når du vil. Vi svarer som regel i løpet av 3 arbeidsuker. </p1> <p2> Merk at du ikke trenger medlemsskap for å låne utstyr eller prøve noe kult. Kom innom for en prat i våre åpningstider for å finne ut mer om vårt tilbud og hvordan det er å være medlem. </p2>"
+    },
+    "activeGroup": "Våre aktive grupper",
+    "backToAbout": "Tilbake til Om oss",
+    "api": {
+      "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
+      "invalidId": "Ugyldig ID",
+      "invalidGroupIdentifier": "Ugyldig gruppe-ID"
+    }
   },
   "storage": {
     "title": "Lager",
@@ -480,6 +519,7 @@
     "internal": "Interne regler"
   },
   "skills": {
+    "skills": "Ferdigheter",
     "printing": "3D-printing",
     "soldering": "Lodding",
     "raspberry": "Raspberry Pi",
@@ -495,5 +535,68 @@
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet",
     "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+  },
+  "privacy": {
+    "title": "Personvernerklæring",
+    "lastUpdated": "Sist oppdatert: 9. juli 2025",
+    "intro": {
+      "part1": "På Hackerspace er vi forpliktet til å beskytte personvernet ditt og være transparente om databehandling. Vi ønsker å sikre at dine personopplysninger behandles i samsvar med gjeldende lover, inkludert EUs generelle personvernforordning (GDPR).",
+      "part2": "Vår organisasjon har som mål å være åpen om behandlingen av personopplysninger og IT-sikkerhetstiltak. Det finnes alltid prosedyrer på Hackerspace for å sikre riktig behandling av personopplysninger.",
+      "part3": "Denne personvernerklæringen forklarer hvordan vi samler inn, bruker og beskytter dine personopplysninger når du besøker, bruker eller interagerer med nettsiden vår. Den inneholder også informasjon om dine rettigheter angående personopplysningene dine."
+    },
+    "dataResponsibility": {
+      "title": "Hvem er ansvarlig for dine data?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, Norge",
+      "email": "hackerspace-dev@idi.ntnu.no",
+      "comment": "Vi er enheten som er ansvarlig for behandlingen av dine personopplysninger."
+    },
+    "collect": {
+      "title": "Hvilke data samler vi inn?",
+      "intro1": "For at Hackerspace skal kunne levere tjenestene som er tilgjengelige på denne nettsiden, samt opprettholde et oppdatert medlemsregister, må vi samle inn personopplysninger som er spesifisert i denne personvernerklæringen.",
+      "intro2": "Personopplysningene er primært ment for å opprette en komplett profil for å knytte brukerkontoen til en person. Ved å ha et fullt navn kan vi få en god oversikt over våre medlemmer og brukere, og det gjør det mulig for oss å tilby tjenester som deltakelse på arrangementer, utlån av gjenstander og mer.",
+      "weCollectTheFollowing": "Vi samler inn følgende personopplysninger:",
+      "weCollect1": "Kontaktinformasjon: Hvis du bestemmer deg for å registrere en konto på Hackerspace, vil vi samle inn ditt navn og e-postadresse. I tillegg, hvis du velger å gi det til oss, vil vi samle inn telefonnummeret ditt for kontaktformål.",
+      "weCollect2": "Bruksdata: Informasjon om hvordan du bruker nettsiden vår, for eksempel interaksjonene dine, informasjon om enheten din, nettlesertype og besøkstidspunkt.",
+      "weCollect3": "Informasjonskapsler: Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden. Dette kan inkludere preferanser, besøkshistorikk og annen teknisk informasjon.",
+      "weCollect4": "Andre data: Vi kan samle inn data som du frivillig gir oss, for eksempel ved å fylle ut skjemaer eller sende e-poster."
+    },
+    "dataPurpose": {
+      "title": "Hvordan bruker vi dataene dine?",
+      "intro": "Vi bruker personopplysningene dine for følgende formål:",
+      "purpose11": "For å tilby tjenester:",
+      "purpose12": "Behandle bestillinger, svare på henvendelser, håndtere arrangementer, administrere utlån av gjenstander, gi støtte og mer.",
+      "purpose21": "For å forbedre brukeropplevelsen:",
+      "purpose22": "Forstå hvordan nettsiden brukes, forbedre innhold og funksjonalitet.",
+      "purpose31": "Sikkerhet:",
+      "purpose32": "Beskytte nettsiden og brukere mot svindel eller uautorisert tilgang."
+    },
+    "protection": {
+      "title": "Hvordan beskytter vi dataene dine?",
+      "content": "Vi bruker moderne sikkerhetstiltak for å beskytte personopplysningene dine mot tap, misbruk eller uautorisert tilgang. Dette inkluderer kryptering, brannmurer og tilgangskontroller. Ved ytterligere spørsmål om våre sikkerhetstiltak, vennligst kontakt DevOps-teamet på Hackerspace."
+    },
+    "rights": {
+      "title": "Dine rettigheter",
+      "gdprIntro": "I henhold til norsk lovgivning og GDPR har du følgende rettigheter:",
+      "gdpr11": "Rett til innsyn:",
+      "gdpr12": "Du har rett til å be om hvilken informasjon vi har om deg.",
+      "gdpr21": "Rett til korrigering:",
+      "gdpr22": "Du har rett til å be om korrigering av unøyaktige personopplysninger om deg.",
+      "gdpr31": "Rett til sletting:",
+      "gdpr32": "Du har rett til å be om sletting av dine personopplysninger.",
+      "gdpr41": "Rett til å trekke tilbake samtykke:",
+      "gdpr42": "Du har rett til å be om at vi slutter å behandle dataene dine.",
+      "consentComment": "Vær oppmerksom på at det er frivillig å samtykke til databehandlingen og at du kan trekke ditt samtykke når som helst. Hvis samtykket trekkes tilbake, vil brukerkontoen din bli slettet og du kan miste tilgang til våre interne tjenester som er avhengige av informasjonen du gir, samt fysisk tilgang til organisasjonens lokaler.",
+      "exercise": "For å utøve dine rettigheter kan du kontakte oss på: hackerspace-dev@idi.ntnu.no",
+      "responseTime": "Vi svarer på alle forespørsler etter beste evne, og vi vil gjøre dette innen én måned etter at vi har mottatt forespørselen din."
+    },
+    "cookies": {
+      "title": "Informasjonskapsler",
+      "content": "Vi bruker informasjonskapsler for å forbedre brukeropplevelsen på nettsiden vår. En informasjonskapsel er en liten tekstfil som lagres på enheten din. Du kan administrere informasjonskapsler i nettleseren din. Vi bruker både nødvendige og funksjonelle informasjonskapsler, samt tredjepartsinformasjon for analyse."
+    },
+    "policyChange": {
+      "title": "Endringer i denne personvernerklæringen",
+      "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
+    }
   }
 }

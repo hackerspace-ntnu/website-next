@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
-import { cx } from '@/lib/utils';
 import { Trash2Icon, UploadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { Button } from '@/components/ui/Button';
+import { cx } from '@/lib/utils';
 
 type FileUploadProps = {
   onFilesUploaded: (files: File | File[] | null) => void;

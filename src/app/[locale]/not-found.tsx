@@ -1,7 +1,7 @@
-import { Main } from '@/components/layout/Main';
-import { Link } from '@/components/ui/Link';
 import { HardDriveIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Main } from '@/components/layout/Main';
+import { Link } from '@/components/ui/Link';
 
 export default function NotFoundPage() {
   const t = useTranslations('error');

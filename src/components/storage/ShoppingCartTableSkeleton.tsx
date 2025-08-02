@@ -1,3 +1,4 @@
+import { XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -9,8 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { XIcon } from 'lucide-react';
-import { useId } from 'react';
 
 type ShoppingCartTableSkeletonProps = {
   t: {
@@ -36,8 +35,9 @@ function ShoppingCartTableSkeleton({ t }: ShoppingCartTableSkeletonProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Array.from({ length: 3 }).map(() => (
-          <TableRow key={useId()}>
+        {Array.from({ length: 3 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
+          <TableRow key={index}>
             <TableCell>
               <Input type='number' disabled className='w-20' />
             </TableCell>

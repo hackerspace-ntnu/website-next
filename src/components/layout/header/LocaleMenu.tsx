@@ -1,5 +1,8 @@
 'use client';
 
+import { Globe2Icon } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import type { Locale } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -9,14 +12,17 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { localeIcons, routing } from '@/lib/locale';
 import { usePathname, useRouter } from '@/lib/locale/navigation';
-import { Globe2Icon } from 'lucide-react';
-import { useParams } from 'next/navigation';
 
 type LocaleMenuProps = {
   t: {
     changeLocale: string;
   };
   classname?: string;
+};
+
+const localeDisplayNameShort: Record<Locale, string> = {
+  'en-GB': 'EN',
+  'nb-NO': 'NO',
 };
 
 function LocaleMenu({ t, classname }: LocaleMenuProps) {
@@ -59,7 +65,7 @@ function LocaleMenu({ t, classname }: LocaleMenuProps) {
                   className='mr-1 h-4 w-4 overflow-hidden rounded-full'
                   aria-hidden='true'
                 />
-                {locale.toUpperCase()}
+                {localeDisplayNameShort[locale].toUpperCase()}
               </Button>
             </DropdownMenuItem>
           );

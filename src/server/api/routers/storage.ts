@@ -1,3 +1,17 @@
+import { TRPCError } from '@trpc/server';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  getTableColumns,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  or,
+} from 'drizzle-orm';
 import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
@@ -8,10 +22,10 @@ import {
 import { createRouter } from '@/server/api/trpc';
 import {
   type InsertStorageItem,
-  type SelectItemLocalization,
-  type SelectStorageItem,
   itemCategories,
   itemLocalizations,
+  type SelectItemLocalization,
+  type SelectStorageItem,
   storageItems,
 } from '@/server/db/tables';
 import { itemLoans } from '@/server/db/tables/loans';
@@ -29,20 +43,6 @@ import {
   itemsTotalSchema,
   updateLoanSchema,
 } from '@/validations/storage';
-import { TRPCError } from '@trpc/server';
-import {
-  and,
-  asc,
-  count,
-  desc,
-  eq,
-  getTableColumns,
-  ilike,
-  inArray,
-  isNotNull,
-  isNull,
-  or,
-} from 'drizzle-orm';
 
 const storageRouter = createRouter({
   fetchOne: publicProcedure
@@ -88,9 +88,9 @@ const storageRouter = createRouter({
       return {
         ...item,
         category: rawSelect[0].category,
-        english: rawSelect.find((s) => s.localization.locale === 'en')
+        english: rawSelect.find((s) => s.localization.locale === 'en-GB')
           ?.localization,
-        norwegian: rawSelect.find((s) => s.localization.locale === 'no')
+        norwegian: rawSelect.find((s) => s.localization.locale === 'nb-NO')
           ?.localization,
         availableUnits: item.quantity - unitsBorrowed,
       };
@@ -130,7 +130,7 @@ const storageRouter = createRouter({
             .reduce((a, b) => a + b, 0);
 
           const { item, ...localizationOnly } = localization;
-          const { itemLoans, ...itemWithoutLoans } = item;
+          const { itemLoans: _, ...itemWithoutLoans } = item;
 
           items.push({
             ...itemWithoutLoans,
@@ -303,14 +303,14 @@ const storageRouter = createRouter({
             description: input.descriptionEnglish,
             location: input.locationEnglish,
             itemId,
-            locale: 'en',
+            locale: 'en-GB',
           },
           {
             name: input.nameNorwegian,
             description: input.descriptionNorwegian,
             location: input.locationNorwegian,
             itemId,
-            locale: 'no',
+            locale: 'nb-NO',
           },
         ])
         .catch(() => {
@@ -369,7 +369,7 @@ const storageRouter = createRouter({
         .where(
           and(
             eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'en'),
+            eq(itemLocalizations.locale, 'en-GB'),
           ),
         );
       await ctx.db
@@ -382,7 +382,7 @@ const storageRouter = createRouter({
         .where(
           and(
             eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'no'),
+            eq(itemLocalizations.locale, 'nb-NO'),
           ),
         );
     }),
@@ -417,7 +417,7 @@ const storageRouter = createRouter({
     const categories = await ctx.db
       .select({
         name:
-          ctx.locale === 'en'
+          ctx.locale === 'en-GB'
             ? itemCategories.nameEnglish
             : itemCategories.nameNorwegian,
       })

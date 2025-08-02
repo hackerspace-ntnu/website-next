@@ -1,5 +1,6 @@
 'use client';
 
+import { XIcon } from 'lucide-react';
 import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
 import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
@@ -14,7 +15,6 @@ import {
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import { XIcon } from 'lucide-react';
 
 type ShoppingCartTableProps = {
   t: {

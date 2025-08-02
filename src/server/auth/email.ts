@@ -1,16 +1,15 @@
-import VerificationCodeEmail from '@/emails/VerificationCodeEmail';
-import { env } from '@/env';
-import type { routing } from '@/lib/locale';
-import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
-import { generateRandomOTP } from '@/server/auth/code';
-import { db } from '@/server/db';
 import { encodeBase32 } from '@oslojs/encoding';
 import { and, eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
-
+import type { Locale } from 'next-intl';
+import VerificationCodeEmail from '@/emails/VerificationCodeEmail';
+import { env } from '@/env';
+import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
+import { generateRandomOTP } from '@/server/auth/code';
+import { db } from '@/server/db';
 import {
-  type SelectEmailVerificationRequest,
   emailVerificationRequests,
+  type SelectEmailVerificationRequest,
   users,
 } from '@/server/db/tables';
 import { sendEmail } from '@/server/services/emails';
@@ -113,7 +112,7 @@ async function updateUserEmailAndSetEmailAsVerified(
 async function sendVerificationEmail(
   email: string,
   code: string,
-  locale: (typeof routing.locales)[number],
+  locale: Locale,
   theme: 'dark' | 'light',
 ) {
   await sendEmail(
@@ -124,7 +123,7 @@ async function sendVerificationEmail(
       publicSiteUrl: env.NEXT_PUBLIC_SITE_URL,
       validationCode: code,
     },
-    locale === 'no'
+    locale === 'nb-NO'
       ? `Din Hackerspace NTNU bekreftelseskode er ${code}`
       : `Your Hackerspace NTNU confirmation code is ${code}`,
     email,

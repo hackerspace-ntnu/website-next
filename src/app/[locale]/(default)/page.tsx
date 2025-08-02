@@ -1,11 +1,12 @@
+import type { Locale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import { HelloWorld } from '@/components/home/HelloWorld';
 import { api } from '@/lib/api/server';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
