@@ -11,7 +11,7 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { files, users } from '@/server/db/tables';
+import { files, skills, users } from '@/server/db/tables';
 import { localesEnum } from '@/server/db/tables/locales';
 
 const events = pgTable('events', {
@@ -23,6 +23,9 @@ const events = pgTable('events', {
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
+  skillId: integer('skill_id').references(() => skills.id, {
+    onDelete: 'set null',
+  }),
 });
 
 const eventsRelations = relations(events, ({ one, many }) => ({
@@ -32,6 +35,10 @@ const eventsRelations = relations(events, ({ one, many }) => ({
   }),
   localizations: many(eventLocalizations),
   usersEvents: many(userEvents),
+  skills: one(skills, {
+    fields: [events.skillId],
+    references: [skills.id],
+  }),
 }));
 
 const eventLocalizations = pgTable('event_localizations', {
