@@ -123,7 +123,7 @@ export default async function GroupPage({
                     <CircleUserRoundIcon className='h-full w-full duration-200 group-hover:scale-105' />
                   )}
                 </div>
-                <p className='duration-200 group-hover:text-primary'>
+                <p className='mt-2 duration-200 group-hover:text-primary'>
                   {member.firstName} {member.lastName}
                 </p>
               </Link>

@@ -7,6 +7,7 @@ import { type FileRejection, useDropzone } from 'react-dropzone';
 import type { ZodError } from 'zod';
 import { Button } from '@/components/ui/Button';
 import { cx } from '@/lib/utils';
+import { fileToBase64String } from '@/lib/utils/files';
 
 type FileUploadProps = {
   onFilesUploaded: (files: File | File[] | null) => void;

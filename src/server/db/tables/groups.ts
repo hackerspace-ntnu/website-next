@@ -10,7 +10,8 @@ import {
   text,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { files, localesEnum, users } from '@/server/db/tables';
+import { files, users } from '@/server/db/tables';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
