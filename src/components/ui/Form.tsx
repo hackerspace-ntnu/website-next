@@ -23,6 +23,7 @@ import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { DateTimePicker } from '@/components/ui/DateTimePicker';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -41,7 +42,6 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
-
 import { cx, type VariantProps } from '@/lib/utils';
 import { fileToBase64String } from '@/lib/utils/files';
 
@@ -561,8 +561,44 @@ function DateField({
     >
       <DatePicker
         date={field.state.value}
-        setDate={(date: Date) => field.handleChange(date)}
+        setDate={(date) => field.handleChange(date)}
         onBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
+type DateTimeFieldProps = Omit<
+  React.ComponentProps<typeof DateTimePicker>,
+  'onChange'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
+function DateTimeField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: DateTimeFieldProps) {
+  const field = useFieldContext<Date>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <DateTimePicker
+        onChange={(date) => date && field.handleChange(date)}
         {...props}
       />
     </BaseField>
@@ -986,6 +1022,7 @@ const { useAppForm } = createFormHook({
     PhoneField,
     PasswordField,
     DateField,
+    DateTimeField,
     OTPField,
     RadioGroupField,
     FileUploadField,
