@@ -1,5 +1,7 @@
 'use client';
 
+import { CookieIcon } from 'lucide-react';
+import { type JSX, useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Card,
@@ -11,8 +13,6 @@ import {
 } from '@/components/ui/Card';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
-import { CookieIcon } from 'lucide-react';
-import { type JSX, useCallback, useEffect, useState } from 'react';
 
 type CookieConsentProps = JSX.IntrinsicElements['div'] & {
   description: React.ReactNode;
@@ -40,6 +40,8 @@ function CookieConsent({
 
   const handleAccept = useCallback(() => {
     setIsOpen(false);
+    /* biome-ignore lint/suspicious/noDocumentCookie: CookieStore isn't supported everywhere yet. 
+    There's also no need to install another library just to set the cookies client-side once. */
     document.cookie =
       'cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT';
     setTimeout(() => {
