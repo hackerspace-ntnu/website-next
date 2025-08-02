@@ -511,6 +511,73 @@
     "endsAt": "Slutter",
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
+    "new": {
+      "title": "Nytt arrangement"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "Navn (norsk)",
+        "placeholder": "Navn",
+        "required": "Navn er påkrevd"
+      },
+      "nameEnglish": {
+        "label": "Navn (engelsk)",
+        "placeholder": "Event name",
+        "required": "Navn er påkrevd"
+      },
+      "summaryNorwegian": {
+        "label": "Sammendrag (norsk)",
+        "placeholder": "Kort beskrivelse av arrangementet"
+      },
+      "summaryEnglish": {
+        "label": "Sammendrag (engelsk)",
+        "placeholder": "Short description of the event"
+      },
+      "descriptionNorwegian": {
+        "label": "Beskrivelse (norsk)",
+        "placeholder": "Beskrivelse av arrangementet"
+      },
+      "descriptionEnglish": {
+        "label": "Beskrivelse (engelsk)",
+        "placeholder": "Description of the event"
+      },
+      "locationNorwegian": {
+        "label": "Sted (norsk)",
+        "placeholder": "Sted for arrangementet"
+      },
+      "locationEnglish": {
+        "label": "Sted (engelsk)",
+        "placeholder": "Location of the event"
+      },
+      "startTime": {
+        "label": "Starttidspunkt",
+        "required": "Starttidspunkt er påkrevd",
+        "timeInPast": "Starttidspunktet må være i fremtiden"
+      },
+      "endTime": {
+        "label": "Sluttidspunkt",
+        "required": "Sluttidspunkt er påkrevd",
+        "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
+      },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
+      "internal": {
+        "label": "Internt arrangement",
+        "description": "Hvis avkrysset, vil arrangementet kun være synlig for Hackerspace-medlemmer"
+      },
+      "image": {
+        "label": "Arrangementsbilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Arrangementsbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Arrangementsbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "submit": "Opprett arrangement"
+    },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
       "fetchEventFailed": "Kunne ikke hente arrangement",

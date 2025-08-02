@@ -511,6 +511,73 @@
     "endsAt": "Ends at",
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
+    "new": {
+      "title": "New Event"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "Event name (Norwegian)",
+        "placeholder": "Arrangementsnavn",
+        "required": "Event name is required"
+      },
+      "nameEnglish": {
+        "label": "Event name (English)",
+        "placeholder": "Event name",
+        "required": "Event name is required"
+      },
+      "summaryNorwegian": {
+        "label": "Summary (Norwegian)",
+        "placeholder": "Kort beskrivelse av arrangementet"
+      },
+      "summaryEnglish": {
+        "label": "Summary (English)",
+        "placeholder": "Short description of the event"
+      },
+      "descriptionNorwegian": {
+        "label": "Description (Norwegian)",
+        "placeholder": "Beskrivelse av arrangementet"
+      },
+      "descriptionEnglish": {
+        "label": "Description (English)",
+        "placeholder": "Description of the event"
+      },
+      "locationNorwegian": {
+        "label": "Location (Norwegian)",
+        "placeholder": "Sted for arrangementet"
+      },
+      "locationEnglish": {
+        "label": "Location (English)",
+        "placeholder": "Location of the event"
+      },
+      "startTime": {
+        "label": "Start time",
+        "required": "Start time is required",
+        "timeInPast": "The start time must be in the future"
+      },
+      "endTime": {
+        "label": "End time",
+        "required": "End time is required",
+        "dateBeforeStart": "The end time must be after the start time"
+      },
+      "locationMapLink": {
+        "label": "Location map link",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Link to a map showing the event location",
+        "invalid": "Invalid map link format. Must be a URL"
+      },
+      "internal": {
+        "label": "Internal event",
+        "description": "If checked, the event will only be visible to Hackerspace members"
+      },
+      "image": {
+        "label": "Event image",
+        "upload": "Upload an image...",
+        "sizeLimitError": "Event image must be less than {size} MB",
+        "wrongFileTypeError": "Event image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "submit": "Create event"
+    },
     "api": {
       "invalidId": "Invalid event ID",
       "fetchEventFailed": "Failed to fetch event",
