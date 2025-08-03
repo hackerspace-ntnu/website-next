@@ -6,15 +6,29 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { SkillIcon } from '@/components/skills/SkillIcon';
+import {
+  AlertDialog,
+  AlertDialogActionDestructive,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/AlertDialog';
 import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
-import { editEventSchema } from '@/validations/events/editEventSchema';
+import { createEventSchema } from '@/validations/events/createEventSchema';
+import { editEventWithoutIdSchema } from '@/validations/events/editEventWithoutIdSchema';
 
 function EditEventForm({
   event,
@@ -25,9 +39,15 @@ function EditEventForm({
   skills: RouterOutput['skills']['fetchAllSkills'];
   imageUrl?: string;
 }) {
-  const schema = editEventSchema(useTranslations());
+  const translations = useTranslations();
+  const schema = event
+    ? editEventWithoutIdSchema(translations)
+    : createEventSchema(translations);
+
   const t = useTranslations('events.form');
+  const tUi = useTranslations('ui');
   const tNew = useTranslations('events.new');
+  const tEdit = useTranslations('events.edit');
   const locale = useLocale();
   const router = useRouter();
 
@@ -47,6 +67,23 @@ function EditEventForm({
         pathname: '/events/[eventId]',
         params: { eventId: event.id },
       });
+    },
+  });
+
+  const editEvent = api.events.editEvent.useMutation({
+    onSuccess: (event) => {
+      toast.success(tEdit('successEdit'));
+      router.push({
+        pathname: '/events/[eventId]',
+        params: { eventId: event.id },
+      });
+    },
+  });
+
+  const deleteEvent = api.events.deleteEvent.useMutation({
+    onSuccess: () => {
+      toast.success(tEdit('successDelete'));
+      router.push('/events');
     },
   });
 
@@ -71,6 +108,9 @@ function EditEventForm({
       skill: event?.skill?.identifier ?? '',
     },
     onSubmit: ({ value }) => {
+      if (event) {
+        return editEvent.mutate({ id: event.id, ...value });
+      }
       createEvent.mutate(value);
     },
   });
@@ -250,8 +290,41 @@ function EditEventForm({
       </form.AppField>
       <div className='flex w-full justify-between'>
         <form.AppForm>
-          <form.SubmitButton>{t('submit')}</form.SubmitButton>
+          <form.SubmitButton>
+            {createEvent.isPending || editEvent.isPending ? (
+              <Spinner className='text-primary-foreground' />
+            ) : event ? (
+              t('editSubmit')
+            ) : (
+              t('createSubmit')
+            )}
+          </form.SubmitButton>
         </form.AppForm>
+        {event && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant='destructive'>{tEdit('delete')}</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {tEdit('deleteConfirmTitle')}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {tEdit('deleteConfirmDescription')}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
+                <AlertDialogActionDestructive
+                  onClick={() => deleteEvent.mutate(event.id)}
+                >
+                  {tUi('confirm')}
+                </AlertDialogActionDestructive>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </div>
     </form>
   );

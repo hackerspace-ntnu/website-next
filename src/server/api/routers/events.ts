@@ -18,7 +18,8 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { eventLocalizations, events, skills } from '@/server/db/tables';
-import { insertFile } from '@/server/services/files';
+import { deleteFile, insertFile } from '@/server/services/files';
+import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventSchema } from '@/validations/events/editEventSchema';
 import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
 import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
@@ -166,7 +167,7 @@ const eventsRouter = createRouter({
     }),
   createEvent: protectedEditProcedure
     .input((input) =>
-      editEventSchema(useTranslationsFromContext()).parse(input),
+      createEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
       let imageId: number | null = null;
@@ -227,6 +228,113 @@ const eventsRouter = createRouter({
       });
 
       return event[0];
+    }),
+  editEvent: protectedEditProcedure
+    .input((input) =>
+      editEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input.id),
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      let imageId: number | null = null;
+
+      if (input.image && input.image.length > 0) {
+        if (event.imageId) {
+          await deleteFile(event.imageId);
+        }
+
+        const image = await insertFile(
+          input.image,
+          'events',
+          ctx.user.id,
+          false,
+        );
+        imageId = image.id;
+      }
+
+      const skill =
+        input.skill.length > 0
+          ? await ctx.db.query.skills.findFirst({
+              where: eq(skills.identifier, input.skill),
+            })
+          : null;
+
+      await ctx.db
+        .update(events)
+        .set({
+          startTime: input.startTime,
+          endTime: input.endTime,
+          locationMapLink: input.locationMapLink,
+          internal: input.internal,
+          imageId: imageId,
+          skillId: skill?.id,
+        })
+        .where(eq(events.id, input.id));
+
+      await ctx.db
+        .update(eventLocalizations)
+        .set({
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          location: input.locationEnglish,
+        })
+        .where(
+          and(
+            eq(eventLocalizations.eventId, input.id),
+            eq(eventLocalizations.locale, 'en-GB'),
+          ),
+        );
+
+      await ctx.db
+        .update(eventLocalizations)
+        .set({
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          location: input.locationNorwegian,
+        })
+        .where(
+          and(
+            eq(eventLocalizations.eventId, input.id),
+            eq(eventLocalizations.locale, 'nb-NO'),
+          ),
+        );
+
+      return event;
+    }),
+  deleteEvent: protectedEditProcedure
+    .input((input) =>
+      fetchEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input),
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.invalidId'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.delete(events).where(eq(events.id, input));
+
+      if (event.imageId) {
+        await deleteFile(event.imageId);
+      }
     }),
 });
 

@@ -101,6 +101,10 @@ const routing = defineRouting({
       'en-GB': '/events/[eventId]',
       'nb-NO': '/arrangementer/[eventId]',
     },
+    '/events/[eventId]/edit': {
+      'en-GB': '/events/[eventId]/edit',
+      'nb-NO': '/arrangementer/[eventId]/rediger',
+    },
     '/news': {
       'en-GB': '/news',
       'nb-NO': '/nyheter',

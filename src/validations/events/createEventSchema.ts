@@ -1,8 +1,22 @@
+import z from 'zod';
 import type { Translations } from '@/lib/locale';
-import { editEventSchema } from '@/validations/events/editEventSchema';
+import { eventSchema } from '@/validations/events/eventSchema';
 
 function createEventSchema(t: Translations) {
-  return editEventSchema(t, true);
+  return eventSchema(t)
+    .extend({
+      // If we're creating a new event, the start time must be in the future
+      // When editing, the start time can be in the past
+      startTime: z
+        .date({ message: t('events.form.startTime.required') })
+        .refine((date) => date > new Date(), {
+          message: t('events.form.startTime.timeInPast'),
+        }),
+    })
+    .refine((data) => data.endTime > data.startTime, {
+      message: t('events.form.endTime.dateBeforeStart'),
+      path: ['endTime'],
+    });
 }
 
 export { createEventSchema };

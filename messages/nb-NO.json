@@ -516,6 +516,15 @@
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",
       "success": "Arrangementet ble opprettet! Videresender deg til arrangementet..."
     },
+    "edit": {
+      "title": "Rediger arrangement",
+      "unauthorized": "Du har ikke rettigheter til å redigere arrangementer",
+      "delete": "Slett arrangement",
+      "deleteConfirmTitle": "Er du sikker på at du vil slette dette arrangementet?",
+      "deleteConfirmDescription": "Alle påmeldinger for dette arrangementet vil også bli slettet. Denne handlingen kan ikke angres.",
+      "successEdit": "Arrangementet ble oppdatert! Videresender deg til arrangementet...",
+      "successDelete": "Arrangementet ble slettet! Videresender deg til arrangementer..."
+    },
     "form": {
       "nameNorwegian": {
         "label": "Navn (norsk)",
@@ -589,14 +598,17 @@
         "wrongFileTypeError": "Arrangementsbilde må være en PNG eller JPG",
         "fileNotImageError": "Filen er ikke et bilde"
       },
-      "submit": "Opprett arrangement"
+      "createSubmit": "Opprett arrangement",
+      "editSubmit": "Oppdater arrangement"
     },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
       "fetchEventFailed": "Kunne ikke hente arrangement",
       "unauthorized": "Du har ikke rettigheter til å se dette arrangementet",
       "invalidOffset": "Ugyldig offset",
-      "invalidLimit": "Ugyldig limit"
+      "invalidLimit": "Ugyldig limit",
+      "insertFailed": "Kunne ikke opprette arrangement",
+      "notFound": "Kunne ikke finne arrangementet"
     }
   },
   "rules": {
