@@ -5,6 +5,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { EditEventForm } from '@/components/events/EditEventForm';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -14,7 +15,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function EventsPage({
+export default async function NewEventPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
@@ -24,6 +25,15 @@ export default async function EventsPage({
 
   const t = await getTranslations('events.new');
   const { ui, events } = await getMessages();
+  const skills = await api.skills.fetchAllSkills();
+  const { user } = await api.auth.state();
+
+  if (
+    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
+  ) {
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
+    throw new Error(t('unauthorized'));
+  }
 
   return (
     <>
@@ -32,7 +42,7 @@ export default async function EventsPage({
         messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
       >
         <div className='mx-auto w-full max-w-2xl'>
-          <EditEventForm />
+          <EditEventForm skills={skills} />
         </div>
       </NextIntlClientProvider>
     </>

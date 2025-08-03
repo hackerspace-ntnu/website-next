@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm';
-import { BookImageIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
+import { BookImageIcon, CalendarIcon, MapIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import {
@@ -10,6 +10,7 @@ import {
 } from 'next-intl/server';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
+import { ExternalLink } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { db } from '@/server/db';
@@ -51,7 +52,9 @@ export default async function EventDetailsPage({
 
   const event = await api.events.fetchEvent(Number(eventId));
 
-  const localization = event?.localizations[0];
+  const localization = event?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
 
   if (!event || !localization) return notFound();
 
@@ -74,10 +77,21 @@ export default async function EventDetailsPage({
             timeStyle: 'short',
           })}
         </div>
-        <div className='flex items-center gap-2'>
-          <MapPinIcon className='h-8 w-8' />
-          {localization.location}
-        </div>
+        {event.locationMapLink ? (
+          <ExternalLink
+            className='group flex w-fit items-center gap-2'
+            variant='link'
+            href={event.locationMapLink}
+          >
+            <MapPinIcon className='h-8 w-8 text-black group-hover:text-primary dark:text-white' />
+            <span>{localization.location}</span>
+          </ExternalLink>
+        ) : (
+          <div className='flex items-center gap-2'>
+            <MapPinIcon className='h-8 w-8' />
+            <span>{localization.location}</span>
+          </div>
+        )}
         <Separator />
         <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>

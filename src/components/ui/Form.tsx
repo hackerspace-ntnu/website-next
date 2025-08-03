@@ -3,6 +3,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import type React from 'react';
 import {
   Fragment,
   useCallback,
@@ -253,7 +254,7 @@ type CheckboxFieldProps = Omit<
 function CheckboxField({
   className,
   label,
-  labelVisible,
+  labelVisible = true,
   description,
   ...props
 }: CheckboxFieldProps) {
@@ -388,7 +389,7 @@ function MapField({
 }
 
 type SelectOption = {
-  label: string;
+  label: React.ReactNode;
   value: string;
 };
 

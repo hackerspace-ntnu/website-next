@@ -1,3 +1,4 @@
+import { PlusIcon } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
@@ -7,7 +8,7 @@ import {
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { EventCard } from '@/components/events/EventCard';
-import { ExternalLink } from '@/components/ui/Link';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
@@ -59,9 +60,22 @@ export default async function EventsPage({
     endedAt: t('endedAt'),
   };
 
+  const { user } = await api.auth.state();
+
   return (
     <>
-      <h1 className='my-4'>{t('title')}</h1>
+      <div className='relative'>
+        <h1 className='my-4 text-center'>{t('title')}</h1>
+        <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
+          {user?.groups.some((group) =>
+            ['labops', 'leadership', 'admin'].includes(group),
+          ) && (
+            <Link variant='default' size='icon' href='/events/new'>
+              <PlusIcon />
+            </Link>
+          )}
+        </div>
+      </div>
       {activeEvents.length > 0 && (
         <>
           <ExternalLink

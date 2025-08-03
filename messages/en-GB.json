@@ -512,7 +512,9 @@
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
     "new": {
-      "title": "New Event"
+      "title": "New Event",
+      "unauthorized": "Unauthorized to create events",
+      "success": "Event created successfully! Redirecting to event..."
     },
     "form": {
       "nameNorwegian": {
@@ -569,6 +571,11 @@
         "label": "Internal event",
         "description": "If checked, the event will only be visible to Hackerspace members"
       },
+      "skill": {
+        "label": "Select skill",
+        "description": "Select the skill that can be acquired by attending this event",
+        "placeholder": "Select a skill"
+      },
       "image": {
         "label": "Event image",
         "upload": "Upload an image...",
@@ -583,7 +590,8 @@
       "fetchEventFailed": "Failed to fetch event",
       "unauthorized": "Unauthorized to view this event",
       "invalidOffset": "Invalid offset",
-      "invalidLimit": "Invalid limit"
+      "invalidLimit": "Invalid limit",
+      "insertFailed": "Failed to create event"
     }
   },
   "rules": {

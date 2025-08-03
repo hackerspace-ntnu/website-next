@@ -9,7 +9,7 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
-import { getLocale } from 'next-intl/server';
+import { useLocale } from 'next-intl';
 import {
   Tooltip,
   TooltipContent,
@@ -83,9 +83,9 @@ type SkillIconProps = {
   size?: 'small' | 'medium' | 'large';
 };
 
-async function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
+function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
   const config = skillIconsConfig[skill.identifier];
-  const locale = await getLocale();
+  const locale = useLocale();
 
   const { icon: Icon, className } = config ?? {};
 

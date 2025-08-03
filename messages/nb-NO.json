@@ -512,7 +512,9 @@
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
     "new": {
-      "title": "Nytt arrangement"
+      "title": "Nytt arrangement",
+      "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",
+      "success": "Arrangementet ble opprettet! Videresender deg til arrangementet..."
     },
     "form": {
       "nameNorwegian": {
@@ -568,6 +570,11 @@
       "internal": {
         "label": "Internt arrangement",
         "description": "Hvis avkrysset, vil arrangementet kun være synlig for Hackerspace-medlemmer"
+      },
+      "skill": {
+        "label": "Velg ferdighet",
+        "description": "Velg ferdigheten som kan tilegnes ved å delta på dette arrangementet",
+        "placeholder": "Velg en ferdighet"
       },
       "image": {
         "label": "Arrangementsbilde",

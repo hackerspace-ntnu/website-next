@@ -17,7 +17,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { eventLocalizations, events } from '@/server/db/tables';
+import { eventLocalizations, events, skills } from '@/server/db/tables';
 import { insertFile } from '@/server/services/files';
 import { editEventSchema } from '@/validations/events/editEventSchema';
 import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
@@ -163,6 +163,70 @@ const eventsRouter = createRouter({
       }
 
       return event.usersEvents;
+    }),
+  createEvent: protectedEditProcedure
+    .input((input) =>
+      editEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      let imageId: number | null = null;
+
+      if (input.image) {
+        const image = await insertFile(
+          input.image,
+          'events',
+          ctx.user.id,
+          false,
+        );
+        imageId = image.id;
+      }
+
+      const skill =
+        input.skill.length > 0
+          ? await ctx.db.query.skills.findFirst({
+              where: eq(skills.identifier, input.skill),
+            })
+          : null;
+
+      const event = await ctx.db
+        .insert(events)
+        .values({
+          startTime: input.startTime,
+          endTime: input.endTime,
+          locationMapLink: input.locationMapLink,
+          internal: input.internal,
+          imageId: imageId,
+          skillId: skill?.id,
+        })
+        .returning({ id: events.id });
+
+      if (!event[0]?.id) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('events.api.insertFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.insert(eventLocalizations).values({
+        eventId: event[0].id,
+        name: input.nameEnglish,
+        summary: input.summaryEnglish,
+        description: input.descriptionEnglish,
+        location: input.locationEnglish,
+        locale: 'en-GB',
+      });
+
+      await ctx.db.insert(eventLocalizations).values({
+        eventId: event[0].id,
+        name: input.nameNorwegian,
+        summary: input.summaryNorwegian,
+        description: input.descriptionNorwegian,
+        location: input.locationNorwegian,
+        locale: 'nb-NO',
+      });
+
+      return event[0];
     }),
 });
 

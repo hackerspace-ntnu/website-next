@@ -5,23 +5,31 @@ import { ImageIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Badge } from '@/components/ui/Badge';
 import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
+import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
 import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { editEventSchema } from '@/validations/events/editEventSchema';
 
 function EditEventForm({
   event,
+  skills,
   imageUrl,
 }: {
   event?: RouterOutput['events']['fetchEvent'];
+  skills: RouterOutput['skills']['fetchAllSkills'];
   imageUrl?: string;
 }) {
   const schema = editEventSchema(useTranslations());
   const t = useTranslations('events.form');
+  const tNew = useTranslations('events.new');
   const locale = useLocale();
+  const router = useRouter();
 
   const [previewImage, setPreviewImage] = useState(imageUrl);
 
@@ -31,6 +39,16 @@ function EditEventForm({
   const norwegian = event?.localizations.find(
     (localization) => localization.locale === 'nb-NO',
   );
+
+  const createEvent = api.events.createEvent.useMutation({
+    onSuccess: (event) => {
+      toast.success(tNew('success'));
+      router.push({
+        pathname: '/events/[eventId]',
+        params: { eventId: event.id },
+      });
+    },
+  });
 
   const form = useAppForm({
     validators: {
@@ -46,13 +64,14 @@ function EditEventForm({
       descriptionEnglish: english?.description ?? '',
       locationEnglish: english?.location ?? '',
       locationNorwegian: norwegian?.location ?? '',
-      startTime: event?.startTime ?? null,
-      endTime: event?.endTime ?? null,
+      startTime: event?.startTime ?? new Date(),
+      endTime: event?.endTime ?? new Date(),
       locationMapLink: event?.locationMapLink ?? '',
       internal: event?.internal ?? false,
+      skill: event?.skill?.identifier ?? '',
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      createEvent.mutate(value);
     },
   });
 
@@ -195,6 +214,37 @@ function EditEventForm({
             label={t('endTime.label')}
             granularity='minute'
             locale={locale === 'en-GB' ? enGB : nb}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='internal'>
+        {(field) => (
+          <field.CheckboxField
+            label={t('internal.label')}
+            description={t('internal.description')}
+          />
+        )}
+      </form.AppField>
+      <form.AppField name='skill'>
+        {(field) => (
+          <field.SelectField
+            label={t('skill.label')}
+            description={t('skill.description')}
+            placeholder={t('skill.placeholder')}
+            required={false}
+            options={skills.map((skill) => ({
+              value: skill.identifier,
+              label: (
+                <div className='flex items-center gap-2'>
+                  <SkillIcon skill={skill} size='small' />
+                  <span>
+                    {locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian}
+                  </span>
+                </div>
+              ),
+            }))}
           />
         )}
       </form.AppField>
