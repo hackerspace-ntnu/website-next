@@ -600,6 +600,7 @@ function DateTimeField({
     >
       <DateTimePicker
         onChange={(date) => date && field.handleChange(date)}
+        value={field.state.value}
         {...props}
       />
     </BaseField>
