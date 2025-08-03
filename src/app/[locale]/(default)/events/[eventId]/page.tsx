@@ -13,6 +13,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { SignUpButton } from '@/components/events/SignUpButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
@@ -52,10 +53,12 @@ export default async function EventDetailsPage({
   setRequestLocale(locale);
 
   const formatter = await getFormatter();
+  const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   if (Number.isNaN(Number(eventId))) return notFound();
 
   const event = await api.events.fetchEvent(Number(eventId));
+  const participants = await api.events.fetchEventParticipants(Number(eventId));
 
   const localization = event?.localizations.find(
     (localization) => localization.locale === locale,
@@ -64,6 +67,10 @@ export default async function EventDetailsPage({
   if (!event || !localization) return notFound();
 
   const { user } = await api.auth.state();
+  const signedUp = Boolean(
+    user?.id &&
+      participants.some((participant) => participant.userId === user.id),
+  );
 
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })
@@ -118,6 +125,16 @@ export default async function EventDetailsPage({
         <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
           <div className='max-w-prose'>
             <p>{localization.description}</p>
+            <SignUpButton
+              eventId={event.id}
+              signedUp={signedUp}
+              t={{
+                signUp: t('signUp'),
+                cancelSignUp: t('cancelSignUp'),
+                signUpSuccess: t('signUpSuccess'),
+                cancelSignUpSuccess: t('cancelSignUpSuccess'),
+              }}
+            />
           </div>
           <Avatar className='h-48 w-48'>
             <AvatarImage src={imageUrl} alt='' className='object-cover' />

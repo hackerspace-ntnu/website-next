@@ -512,6 +512,10 @@
     "endsAt": "Ends at",
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
+    "signUp": "Sign up",
+    "cancelSignUp": "Cancel sign-up",
+    "signUpSuccess": "Successfully signed up for the event!",
+    "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",

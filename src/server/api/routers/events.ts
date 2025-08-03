@@ -17,7 +17,12 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { eventLocalizations, events, skills } from '@/server/db/tables';
+import {
+  eventLocalizations,
+  events,
+  skills,
+  userEvents,
+} from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
 import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventSchema } from '@/validations/events/editEventSchema';
@@ -362,6 +367,48 @@ const eventsRouter = createRouter({
       }
 
       await deleteFile(event.imageId);
+    }),
+  toggleEventSignUp: protectedProcedure
+    .input((input) =>
+      fetchEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input),
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const existingParticipant = await ctx.db.query.userEvents.findFirst({
+        where: and(
+          eq(userEvents.eventId, input),
+          eq(userEvents.userId, ctx.user.id),
+        ),
+      });
+
+      if (existingParticipant) {
+        await ctx.db
+          .delete(userEvents)
+          .where(
+            and(
+              eq(userEvents.eventId, input),
+              eq(userEvents.userId, ctx.user.id),
+            ),
+          );
+        return false;
+      }
+
+      await ctx.db.insert(userEvents).values({
+        eventId: input,
+        userId: ctx.user.id,
+      });
+      return true;
     }),
 });
 

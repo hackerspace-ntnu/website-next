@@ -512,6 +512,10 @@
     "endsAt": "Slutter",
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
+    "signUp": "Meld meg på",
+    "cancelSignUp": "Meld meg av",
+    "signUpSuccess": "Du har blitt meldt på arrangementet!",
+    "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
     "new": {
       "title": "Nytt arrangement",
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",

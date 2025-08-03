@@ -83,7 +83,7 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='max-w-96'>{localization.description}</p>
+          <p className='line-clamp-5 max-w-96'>{localization.description}</p>
           {imageUrl && (
             <Avatar className='h-48 w-48 shrink-0'>
               <AvatarImage
