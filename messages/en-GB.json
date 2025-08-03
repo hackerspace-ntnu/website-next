@@ -512,11 +512,6 @@
     "endsAt": "Ends at",
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
-    "signUp": "Sign up",
-    "cancelSignUp": "Cancel sign-up",
-    "signUpSuccess": "Successfully signed up for the event!",
-    "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
-    "mustBeLoggedIn": "You must be logged in to sign up",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",
@@ -611,14 +606,34 @@
       "createSubmit": "Create event",
       "editSubmit": "Update event"
     },
+    "attendance": {
+      "signUp": "Sign up",
+      "cancelSignUp": "Cancel sign-up",
+      "signUpSuccess": "Successfully signed up for the event!",
+      "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
+      "mustBeLoggedIn": "You must be logged in to sign up",
+      "attendance": "Attendance",
+      "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
+      "attendeesList": "Attendees list",
+      "member": "Member",
+      "present": "Present",
+      "absent": "Absent",
+      "noParticipants": "No members signed up for this event",
+      "notStartedYet": "Cannot change attendance: The event has not started yet",
+      "updating": "Updating attendance for {name}...",
+      "success": "Attendance updated for {name}!",
+      "error": "Failed to update attendance for {name}"
+    },
     "api": {
       "invalidId": "Invalid event ID",
+      "invalidUserId": "Invalid user ID",
       "fetchEventFailed": "Failed to fetch event",
       "unauthorized": "Unauthorized to view this event",
       "invalidOffset": "Invalid offset",
       "invalidLimit": "Invalid limit",
       "insertFailed": "Failed to create event",
       "notFound": "Event not found",
+      "participantNotFound": "Participant not found",
       "noImage": "There is no image for this event"
     }
   },

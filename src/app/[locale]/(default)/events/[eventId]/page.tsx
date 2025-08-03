@@ -6,13 +6,15 @@ import {
   MapPinIcon,
 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import type { Locale } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getFormatter,
   getLocale,
+  getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
@@ -53,8 +55,9 @@ export default async function EventDetailsPage({
   setRequestLocale(locale);
 
   const formatter = await getFormatter();
-  const t = await getTranslations('events');
+  const t = await getTranslations('events.attendance');
   const tLayout = await getTranslations('layout');
+  const { ui, events } = await getMessages();
   if (Number.isNaN(Number(eventId))) return notFound();
 
   const event = await api.events.fetchEvent(Number(eventId));
@@ -73,6 +76,9 @@ export default async function EventDetailsPage({
     user?.id &&
       participants.some((participant) => participant.userId === user.id),
   );
+  const canEdit = user?.groups.some((group) =>
+    ['labops', 'leadership', 'admin'].includes(group),
+  );
 
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })
@@ -83,9 +89,7 @@ export default async function EventDetailsPage({
       <div className='relative'>
         <h1 className='my-4'>{localization.name}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
-          {user?.groups.some((group) =>
-            ['labops', 'leadership', 'admin'].includes(group),
-          ) && (
+          {canEdit && (
             <Link
               variant='default'
               size='icon'
@@ -124,29 +128,36 @@ export default async function EventDetailsPage({
           </div>
         )}
         <Separator />
-        <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
-          <div className='max-w-prose'>
-            <p>{localization.description}</p>
-            <SignUpButton
-              eventId={event.id}
-              signedUp={signedUp}
-              disabled={!user}
-              t={{
-                signUp: t('signUp'),
-                cancelSignUp: t('cancelSignUp'),
-                signUpSuccess: t('signUpSuccess'),
-                cancelSignUpSuccess: t('cancelSignUpSuccess'),
-                mustBeLoggedIn: t('mustBeLoggedIn'),
-              }}
-            />
+        <NextIntlClientProvider
+          messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
+        >
+          <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
+            <div className='max-w-prose'>
+              <p>{localization.description}</p>
+              <SignUpButton
+                eventId={event.id}
+                signedUp={signedUp}
+                disabled={!user}
+              />
+            </div>
+            <Avatar className='h-48 w-48'>
+              <AvatarImage src={imageUrl} alt='' className='object-cover' />
+              <AvatarFallback>
+                <BookImageIcon />
+              </AvatarFallback>
+            </Avatar>
           </div>
-          <Avatar className='h-48 w-48'>
-            <AvatarImage src={imageUrl} alt='' className='object-cover' />
-            <AvatarFallback>
-              <BookImageIcon />
-            </AvatarFallback>
-          </Avatar>
-        </div>
+          {canEdit && (
+            <>
+              <Separator />
+              <h2>{t('attendance')}</h2>
+              <p className='text-muted-foreground text-sm'>
+                {t('attendanceDescription')}
+              </p>
+              <ParticipantsTable participants={participants} event={event} />
+            </>
+          )}
+        </NextIntlClientProvider>
       </div>
     </>
   );

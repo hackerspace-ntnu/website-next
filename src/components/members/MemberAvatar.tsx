@@ -1,11 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { cva, cx, type VariantProps } from '@/lib/utils';
-import type { SelectUser } from '@/server/db/tables';
 
 const memberAvatarVariants = cva({
   variants: {
     size: {
-      sm: 'h-6 w-6',
+      sm: 'h-8 w-8',
       md: 'h-12 w-12',
       lg: 'h-24 w-24',
       xl: 'h-48 w-48',
@@ -19,7 +18,10 @@ function MemberAvatar({
   className,
   size = 'md',
 }: {
-  user: SelectUser;
+  user: {
+    firstName: string;
+    lastName: string;
+  };
   profilePictureUrl?: string;
   className?: string;
   size?: VariantProps<typeof memberAvatarVariants>['size'];

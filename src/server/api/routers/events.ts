@@ -23,11 +23,12 @@ import {
   skills,
   usersEvents,
 } from '@/server/db/tables';
-import { deleteFile, insertFile } from '@/server/services/files';
+import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventSchema } from '@/validations/events/editEventSchema';
 import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
 import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
+import { participantAttendanceSchema } from '@/validations/events/participantAttendanceSchema';
 
 const eventsRouter = createRouter({
   fetchEvent: publicProcedure
@@ -153,6 +154,7 @@ const eventsRouter = createRouter({
                   id: true,
                   firstName: true,
                   lastName: true,
+                  profilePictureId: true,
                 },
               },
             },
@@ -168,7 +170,17 @@ const eventsRouter = createRouter({
         });
       }
 
-      return event.usersEvents;
+      const participants = event.usersEvents.map(async (userEvent) => ({
+        ...userEvent,
+        user: {
+          ...userEvent.user,
+          profilePictureUrl: userEvent.user.profilePictureId
+            ? await getFileUrl(userEvent.user.profilePictureId)
+            : null,
+        },
+      }));
+
+      return Promise.all(participants);
     }),
   createEvent: protectedEditProcedure
     .input((input) =>
@@ -409,6 +421,50 @@ const eventsRouter = createRouter({
         userId: ctx.user.id,
       });
       return true;
+    }),
+  setParticipantAttendance: protectedEditProcedure
+    .input((input) =>
+      participantAttendanceSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input.eventId),
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const participant = await ctx.db.query.usersEvents.findFirst({
+        where: and(
+          eq(usersEvents.eventId, input.eventId),
+          eq(usersEvents.userId, input.userId),
+        ),
+      });
+
+      if (!participant) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.participantNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(usersEvents)
+        .set({
+          attended: input.attended,
+        })
+        .where(
+          and(
+            eq(usersEvents.eventId, input.eventId),
+            eq(usersEvents.userId, ctx.user.id),
+          ),
+        );
     }),
 });
 

@@ -512,11 +512,6 @@
     "endsAt": "Slutter",
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
-    "signUp": "Meld meg på",
-    "cancelSignUp": "Meld meg av",
-    "signUpSuccess": "Du har blitt meldt på arrangementet!",
-    "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
-    "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
     "new": {
       "title": "Nytt arrangement",
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",
@@ -611,14 +606,34 @@
       "createSubmit": "Opprett arrangement",
       "editSubmit": "Oppdater arrangement"
     },
+    "attendance": {
+      "signUp": "Meld meg på",
+      "cancelSignUp": "Meld meg av",
+      "signUpSuccess": "Du har blitt meldt på arrangementet!",
+      "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
+      "attendance": "Oppmøte",
+      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendeesList": "Deltakerliste",
+      "member": "Medlem",
+      "present": "Til stede",
+      "absent": "Fraværende",
+      "noParticipants": "Ingen medlemmer har meldt seg på dette arrangementet",
+      "notStartedYet": "Kan ikke endre oppmøte: Arrangementet har ikke startet enda",
+      "updating": "Oppdaterer oppmøte for {name}...",
+      "success": "Oppmøte oppdatert for {name}!",
+      "error": "Kunne ikke oppdatere oppmøte for {name}"
+    },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
+      "invalidUserId": "Ugyldig bruker-ID",
       "fetchEventFailed": "Kunne ikke hente arrangement",
       "unauthorized": "Du har ikke rettigheter til å se dette arrangementet",
       "invalidOffset": "Ugyldig offset",
       "invalidLimit": "Ugyldig limit",
       "insertFailed": "Kunne ikke opprette arrangement",
       "notFound": "Kunne ikke finne arrangementet",
+      "participantNotFound": "Kunne ikke finne deltakeren",
       "noImage": "Det finnes ikke noe bilde for dette arrangementet"
     }
   },
