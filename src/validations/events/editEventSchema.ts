@@ -6,12 +6,22 @@ function editEventSchema(t: Translations, withId = false) {
   const fields = {
     nameNorwegian: z.string().min(1, t('events.form.nameNorwegian.required')),
     nameEnglish: z.string().min(1, t('events.form.nameEnglish.required')),
-    summaryNorwegian: z.string(),
-    summaryEnglish: z.string(),
-    descriptionNorwegian: z.string(),
-    descriptionEnglish: z.string(),
-    locationNorwegian: z.string(),
-    locationEnglish: z.string(),
+    summaryNorwegian: z
+      .string()
+      .min(1, t('events.form.summaryNorwegian.required')),
+    summaryEnglish: z.string().min(1, t('events.form.summaryEnglish.required')),
+    descriptionNorwegian: z
+      .string()
+      .min(1, t('events.form.descriptionNorwegian.required')),
+    descriptionEnglish: z
+      .string()
+      .min(1, t('events.form.descriptionEnglish.required')),
+    locationNorwegian: z
+      .string()
+      .min(1, t('events.form.locationNorwegian.required')),
+    locationEnglish: z
+      .string()
+      .min(1, t('events.form.locationEnglish.required')),
     startTime: z
       .date({ message: t('events.form.startTime.required') })
       .refine((date) => date > new Date(), {

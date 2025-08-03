@@ -529,27 +529,33 @@
       },
       "summaryNorwegian": {
         "label": "Summary (Norwegian)",
-        "placeholder": "Kort beskrivelse av arrangementet"
+        "placeholder": "Kort beskrivelse av arrangementet",
+        "required": "Event summary is required"
       },
       "summaryEnglish": {
         "label": "Summary (English)",
-        "placeholder": "Short description of the event"
+        "placeholder": "Short description of the event",
+        "required": "Event summary is required"
       },
       "descriptionNorwegian": {
         "label": "Description (Norwegian)",
-        "placeholder": "Beskrivelse av arrangementet"
+        "placeholder": "Beskrivelse av arrangementet",
+        "required": "Event description is required"
       },
       "descriptionEnglish": {
         "label": "Description (English)",
-        "placeholder": "Description of the event"
+        "placeholder": "Description of the event",
+        "required": "Event description is required"
       },
       "locationNorwegian": {
         "label": "Location (Norwegian)",
-        "placeholder": "Sted for arrangementet"
+        "placeholder": "Sted for arrangementet",
+        "required": "Event location is required"
       },
       "locationEnglish": {
         "label": "Location (English)",
-        "placeholder": "Location of the event"
+        "placeholder": "Location of the event",
+        "required": "Event location is required"
       },
       "startTime": {
         "label": "Start time",

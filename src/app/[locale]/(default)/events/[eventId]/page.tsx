@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm';
-import { BookImageIcon, CalendarIcon, MapIcon, MapPinIcon } from 'lucide-react';
+import { BookImageIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import {
