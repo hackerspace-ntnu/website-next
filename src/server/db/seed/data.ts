@@ -251,8 +251,8 @@ const skillsData: InsertSkill[] = [
   },
   {
     identifier: 'unix',
-    nameEnglish: 'Unix',
-    nameNorwegian: 'Unix',
+    nameEnglish: 'Unix/Linux',
+    nameNorwegian: 'Unix/Linux',
   },
   {
     identifier: 'laser',

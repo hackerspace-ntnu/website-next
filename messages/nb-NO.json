@@ -15,6 +15,7 @@
     "category": "kategori",
     "sort": "sortering",
     "photoOf": "Bilde av {name}",
+    "skills": "Ferdigheter",
     "today": "I dag",
     "selected": "Valgt",
     "week": "Uke",
@@ -620,17 +621,6 @@
     "title": "Regler",
     "forEveryone": "For alle",
     "internal": "Interne regler"
-  },
-  "skills": {
-    "skills": "Ferdigheter",
-    "printing": "3D-printing",
-    "soldering": "Lodding",
-    "raspberry": "Raspberry Pi",
-    "unix": "Unix/Linux",
-    "laser": "Laserkutting",
-    "workshop": "Verkstedsverktøy",
-    "microcontroller": "Mikrokontroller-programmering",
-    "webdevelopment": "Webutvikling"
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",

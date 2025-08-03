@@ -6,7 +6,7 @@ import { api } from '@/lib/api/server';
 import type { SelectSkill } from '@/server/db/tables';
 
 async function SkillCard({ userSkills }: { userSkills: SelectSkill[] }) {
-  const t = await getTranslations('skills');
+  const t = await getTranslations('ui');
   const allSkills = await api.skills.fetchAllSkills();
   const locale = await getLocale();
 

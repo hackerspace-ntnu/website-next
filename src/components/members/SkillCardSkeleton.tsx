@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { api } from '@/lib/api/server';
 
 async function SkillCardSkeleton() {
-  const t = await getTranslations('skills');
+  const t = await getTranslations('ui');
   const skills = await api.skills.fetchAllSkills();
   const locale = await getLocale();
 
