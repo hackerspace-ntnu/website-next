@@ -1,5 +1,4 @@
-import { MailIcon, UserCircle2Icon } from 'lucide-react';
-import Image from 'next/image';
+import { MailIcon } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import {
   GitHubIcon,
@@ -8,6 +7,7 @@ import {
 } from '@/components/assets/icons';
 import { DiscordMemberTag } from '@/components/members/DiscordMemberTag';
 import { InternalBadge } from '@/components/members/InternalBadge';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { Card } from '@/components/ui/Card';
 import { ExternalLink } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -25,7 +25,7 @@ async function MemberInfoCard({
     ? await api.utils.getFileUrl({
         fileId: user.profilePictureId,
       })
-    : null;
+    : undefined;
 
   const groupNames = user.usersGroups
     .map(
@@ -42,16 +42,11 @@ async function MemberInfoCard({
       {user.private && <InternalBadge />}
       <div className='flex w-full flex-col items-center justify-center'>
         <div className='relative my-2 size-48 lg:size-64'>
-          {profilePictureUrl ? (
-            <Image
-              className='rounded-full object-cover'
-              src={profilePictureUrl}
-              alt={`${user.firstName} ${user.lastName}`}
-              fill
-            />
-          ) : (
-            <UserCircle2Icon className='h-full w-full object-cover' />
-          )}
+          <MemberAvatar
+            size='xl'
+            user={user}
+            profilePictureUrl={profilePictureUrl}
+          />
         </div>
         <h3 className='mt-4 text-center'>
           {user.firstName} {user.lastName}
