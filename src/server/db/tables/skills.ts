@@ -3,19 +3,18 @@ import { relations } from 'drizzle-orm';
 import {
   index,
   integer,
-  pgEnum,
   pgTable,
   primaryKey,
   serial,
+  text,
 } from 'drizzle-orm/pg-core';
-import { skillIdentifiers } from '@/lib/constants';
 import { users } from '@/server/db/tables';
-
-const skillIdentifiersEnum = pgEnum('skill_identifiers', skillIdentifiers);
 
 const skills = pgTable('skills', {
   id: serial('id').primaryKey(),
-  identifier: skillIdentifiersEnum('identifier').unique().notNull(),
+  identifier: text('identifier').unique().notNull(),
+  nameEnglish: text('name_english').notNull(),
+  nameNorwegian: text('name_norwegian').notNull(),
 });
 
 const userSkills = pgTable(
@@ -58,7 +57,6 @@ type SelectUserSkill = InferSelectModel<typeof userSkills>;
 type InsertUserSkill = InferInsertModel<typeof userSkills>;
 
 export {
-  skillIdentifiersEnum,
   skills,
   skillsRelations,
   userSkills,

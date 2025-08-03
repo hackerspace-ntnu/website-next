@@ -9,6 +9,7 @@ import {
   testRouter,
   utilsRouter,
 } from '@/server/api/routers';
+import { skillsRouter } from '@/server/api/routers/skills';
 import { usersRouter } from '@/server/api/routers/users';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
@@ -18,6 +19,7 @@ const router = createRouter({
   events: eventsRouter,
   settings: settingsRouter,
   shiftSchedule: shiftScheduleRouter,
+  skills: skillsRouter,
   storage: storageRouter,
   test: testRouter,
   users: usersRouter,

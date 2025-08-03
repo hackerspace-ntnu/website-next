@@ -11,9 +11,15 @@ import {
   or,
 } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
+import {
+  protectedEditProcedure,
+  protectedProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { eventLocalizations, events } from '@/server/db/tables';
+import { insertFile } from '@/server/services/files';
+import { editEventSchema } from '@/validations/events/editEventSchema';
 import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
 import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
 
@@ -28,6 +34,7 @@ const eventsRouter = createRouter({
           where: eq(events.id, input),
           with: {
             localizations: true,
+            skill: true,
           },
         })
         .catch((error) => {
@@ -77,6 +84,7 @@ const eventsRouter = createRouter({
           localizations: {
             where: eq(eventLocalizations.locale, ctx.locale),
           },
+          skill: true,
         },
         limit: input.limit,
         offset: input.offset,
@@ -100,6 +108,7 @@ const eventsRouter = createRouter({
         localizations: {
           where: eq(eventLocalizations.locale, ctx.locale),
         },
+        skill: true,
       },
     });
   }),

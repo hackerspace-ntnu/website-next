@@ -8,15 +8,15 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import type { skillIdentifiers } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import type { SelectSkill } from '@/server/db/tables';
 
 function SkillIconTooltipTemplate({
   children,
@@ -39,7 +39,10 @@ function SkillIconTooltipTemplate({
   );
 }
 
-const skillIconsConfig = {
+const skillIconsConfig: Record<
+  string,
+  { icon: React.ElementType; className: string }
+> = {
   printing: {
     icon: BoxIcon,
     className: 'bg-green-100 text-green-600',
@@ -75,21 +78,22 @@ const skillIconsConfig = {
 };
 
 type SkillIconProps = {
-  identifier: (typeof skillIdentifiers)[number];
+  skill: SelectSkill;
   size?: 'small' | 'medium' | 'large';
 };
 
-function SkillIcon({ identifier, size = 'medium' }: SkillIconProps) {
-  const t = useTranslations('skills');
-
-  const config = skillIconsConfig[identifier];
+async function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
+  const config = skillIconsConfig[skill.identifier];
+  const locale = await getLocale();
 
   if (!config) return null;
 
   const { icon: Icon, className } = config;
 
   return (
-    <SkillIconTooltipTemplate tooltip={t(identifier)}>
+    <SkillIconTooltipTemplate
+      tooltip={locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+    >
       <span
         className={cx(
           'rounded-full opacity-75',

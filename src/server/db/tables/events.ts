@@ -35,7 +35,7 @@ const eventsRelations = relations(events, ({ one, many }) => ({
   }),
   localizations: many(eventLocalizations),
   usersEvents: many(userEvents),
-  skills: one(skills, {
+  skill: one(skills, {
     fields: [events.skillId],
     references: [skills.id],
   }),

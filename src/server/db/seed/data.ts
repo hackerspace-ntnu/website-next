@@ -1,4 +1,4 @@
-import { groupIdentifiers, skillIdentifiers } from '@/lib/constants';
+import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
   InsertEvent,
@@ -233,9 +233,48 @@ const userGroupsData: InsertUserGroup[] = [
   },
 ];
 
-const skillsData: InsertSkill[] = skillIdentifiers.map((identifier) => ({
-  identifier,
-}));
+const skillsData: InsertSkill[] = [
+  {
+    identifier: 'printing',
+    nameEnglish: '3D Printing',
+    nameNorwegian: '3D-printing',
+  },
+  {
+    identifier: 'soldering',
+    nameEnglish: 'Soldering',
+    nameNorwegian: 'Lodding',
+  },
+  {
+    identifier: 'raspberry',
+    nameEnglish: 'Raspberry Pi',
+    nameNorwegian: 'Raspberry Pi',
+  },
+  {
+    identifier: 'unix',
+    nameEnglish: 'Unix',
+    nameNorwegian: 'Unix',
+  },
+  {
+    identifier: 'laser',
+    nameEnglish: 'Laser Cutting',
+    nameNorwegian: 'Laserkutting',
+  },
+  {
+    identifier: 'workshop',
+    nameEnglish: 'Workshop',
+    nameNorwegian: 'Verksted',
+  },
+  {
+    identifier: 'microcontroller',
+    nameEnglish: 'Microcontrollers',
+    nameNorwegian: 'Mikrokontrollere',
+  },
+  {
+    identifier: 'webdevelopment',
+    nameEnglish: 'Web Development',
+    nameNorwegian: 'Webutvikling',
+  },
+] as const;
 
 const userSkillsData: InsertUserSkill[] = [
   ...Array.from({ length: skillsData.length }).map((_, index) => ({
