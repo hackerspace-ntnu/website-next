@@ -336,6 +336,33 @@ const eventsRouter = createRouter({
         await deleteFile(event.imageId);
       }
     }),
+  deleteEventImage: protectedEditProcedure
+    .input((input) =>
+      fetchEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input),
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (!event.imageId) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.noImage'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await deleteFile(event.imageId);
+    }),
 });
 
 export { eventsRouter };

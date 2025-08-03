@@ -7,6 +7,7 @@ import {
 } from 'next-intl/server';
 import { EditEventForm } from '@/components/events/EditEventForm';
 import { api } from '@/lib/api/server';
+import { getFileUrl } from '@/server/services/files';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -40,6 +41,8 @@ export default async function EditEventPage({
 
   if (!event) return notFound();
 
+  const imageUrl = event.imageId ? await getFileUrl(event.imageId) : undefined;
+
   return (
     <>
       <h1 className='my-4 text-center'>{t('title')}</h1>
@@ -47,7 +50,7 @@ export default async function EditEventPage({
         messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
       >
         <div className='mx-auto w-full max-w-2xl'>
-          <EditEventForm skills={skills} event={event} />
+          <EditEventForm skills={skills} event={event} imageUrl={imageUrl} />
         </div>
       </NextIntlClientProvider>
     </>

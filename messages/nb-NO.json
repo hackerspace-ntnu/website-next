@@ -520,10 +520,14 @@
       "title": "Rediger arrangement",
       "unauthorized": "Du har ikke rettigheter til å redigere arrangementer",
       "delete": "Slett arrangement",
+      "deleteImage": "Slett arrangementsbilde",
       "deleteConfirmTitle": "Er du sikker på at du vil slette dette arrangementet?",
       "deleteConfirmDescription": "Alle påmeldinger for dette arrangementet vil også bli slettet. Denne handlingen kan ikke angres.",
+      "deleteImageConfirmTitle": "Er du sikker på at du vil slette arrangementsbildet?",
+      "deleteImageConfirmDescription": "Denne handlingen kan ikke angres.",
       "successEdit": "Arrangementet ble oppdatert! Videresender deg til arrangementet...",
-      "successDelete": "Arrangementet ble slettet! Videresender deg til arrangementer..."
+      "successDelete": "Arrangementet ble slettet! Videresender deg til arrangementer...",
+      "successDeleteImage": "Arrangementsbildet ble slettet!"
     },
     "form": {
       "nameNorwegian": {
@@ -608,7 +612,8 @@
       "invalidOffset": "Ugyldig offset",
       "invalidLimit": "Ugyldig limit",
       "insertFailed": "Kunne ikke opprette arrangement",
-      "notFound": "Kunne ikke finne arrangementet"
+      "notFound": "Kunne ikke finne arrangementet",
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
     }
   },
   "rules": {

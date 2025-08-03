@@ -80,6 +80,14 @@ function EditEventForm({
     },
   });
 
+  const deleteEventImage = api.events.deleteEventImage.useMutation({
+    onSuccess: () => {
+      toast.success(tEdit('successDeleteImage'));
+      setPreviewImage(undefined);
+      router.refresh();
+    },
+  });
+
   const deleteEvent = api.events.deleteEvent.useMutation({
     onSuccess: () => {
       toast.success(tEdit('successDelete'));
@@ -166,6 +174,31 @@ function EditEventForm({
           </div>
         )}
       </form.AppField>
+      {event?.imageId && (
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant='destructive'>{tEdit('deleteImage')}</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {tEdit('deleteImageConfirmTitle')}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {tEdit('deleteImageConfirmDescription')}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
+              <AlertDialogActionDestructive
+                onClick={() => deleteEventImage.mutate(event.id)}
+              >
+                {tUi('confirm')}
+              </AlertDialogActionDestructive>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
       <form.AppField name='nameNorwegian'>
         {(field) => (
           <field.TextField
