@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from 'lucide-react';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
@@ -5,6 +6,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { EditEventForm } from '@/components/events/EditEventForm';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
@@ -24,6 +26,7 @@ export default async function NewEventPage({
   setRequestLocale(locale);
 
   const t = await getTranslations('events.new');
+  const tEvents = await getTranslations('events');
   const { ui, events } = await getMessages();
   const skills = await api.skills.fetchAllSkills();
   const { user } = await api.auth.state();
@@ -37,6 +40,16 @@ export default async function NewEventPage({
 
   return (
     <>
+      <Link
+        className='flex w-fit gap-2'
+        href='/events'
+        aria-label={tEvents('backToEvents')}
+        variant='secondary'
+        size='default'
+      >
+        <ArrowLeftIcon aria-hidden='true' />
+        <span className='hidden sm:inline'>{tEvents('backToEvents')}</span>
+      </Link>
       <h1 className='my-4 text-center'>{t('title')}</h1>
       <NextIntlClientProvider
         messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}

@@ -1,5 +1,10 @@
 import { and, eq } from 'drizzle-orm';
-import { BookImageIcon, CalendarIcon, MapPinIcon } from 'lucide-react';
+import {
+  BookImageIcon,
+  CalendarIcon,
+  EditIcon,
+  MapPinIcon,
+} from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import {
@@ -10,7 +15,7 @@ import {
 } from 'next-intl/server';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
-import { ExternalLink } from '@/components/ui/Link';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { db } from '@/server/db';
@@ -58,13 +63,30 @@ export default async function EventDetailsPage({
 
   if (!event || !localization) return notFound();
 
+  const { user } = await api.auth.state();
+
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })
     : undefined;
 
   return (
     <>
-      <h1 className='my-4'>{localization.name}</h1>
+      <div className='relative'>
+        <h1 className='my-4'>{localization.name}</h1>
+        <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
+          {user?.groups.some((group) =>
+            ['labops', 'leadership', 'admin'].includes(group),
+          ) && (
+            <Link
+              variant='default'
+              size='icon'
+              href={{ pathname: '/events/[eventId]/edit', params: { eventId } }}
+            >
+              <EditIcon />
+            </Link>
+          )}
+        </div>
+      </div>
       <h2 className='border-b-0 text-2xl'>{localization.summary}</h2>
       <div className='mt-4 space-y-4'>
         {event.internal && (
