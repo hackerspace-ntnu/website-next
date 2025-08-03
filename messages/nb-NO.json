@@ -516,6 +516,7 @@
     "cancelSignUp": "Meld meg av",
     "signUpSuccess": "Du har blitt meldt på arrangementet!",
     "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+    "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
     "new": {
       "title": "Nytt arrangement",
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",

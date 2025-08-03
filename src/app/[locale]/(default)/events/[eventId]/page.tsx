@@ -58,7 +58,6 @@ export default async function EventDetailsPage({
   if (Number.isNaN(Number(eventId))) return notFound();
 
   const event = await api.events.fetchEvent(Number(eventId));
-  const participants = await api.events.fetchEventParticipants(Number(eventId));
 
   const localization = event?.localizations.find(
     (localization) => localization.locale === locale,
@@ -67,6 +66,9 @@ export default async function EventDetailsPage({
   if (!event || !localization) return notFound();
 
   const { user } = await api.auth.state();
+  const participants = user
+    ? await api.events.fetchEventParticipants(Number(eventId))
+    : [];
   const signedUp = Boolean(
     user?.id &&
       participants.some((participant) => participant.userId === user.id),
@@ -128,11 +130,13 @@ export default async function EventDetailsPage({
             <SignUpButton
               eventId={event.id}
               signedUp={signedUp}
+              disabled={!user}
               t={{
                 signUp: t('signUp'),
                 cancelSignUp: t('cancelSignUp'),
                 signUpSuccess: t('signUpSuccess'),
                 cancelSignUpSuccess: t('cancelSignUpSuccess'),
+                mustBeLoggedIn: t('mustBeLoggedIn'),
               }}
             />
           </div>

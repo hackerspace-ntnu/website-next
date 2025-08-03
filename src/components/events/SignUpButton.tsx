@@ -8,15 +8,18 @@ import { useRouter } from '@/lib/locale/navigation';
 function SignUpButton({
   eventId,
   signedUp,
+  disabled,
   t,
 }: {
   eventId: number;
   signedUp: boolean;
+  disabled?: boolean;
   t: {
     signUp: string;
     cancelSignUp: string;
     signUpSuccess: string;
     cancelSignUpSuccess: string;
+    mustBeLoggedIn: string;
   };
 }) {
   const router = useRouter();
@@ -36,8 +39,9 @@ function SignUpButton({
       className='my-4'
       variant={signedUp ? 'destructive' : 'default'}
       onClick={async () => toggleEventSignUp.mutate(eventId)}
+      disabled={disabled}
     >
-      {signedUp ? t.cancelSignUp : t.signUp}
+      {disabled ? t.mustBeLoggedIn : signedUp ? t.cancelSignUp : t.signUp}
     </Button>
   );
 }

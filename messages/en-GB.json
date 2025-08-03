@@ -516,6 +516,7 @@
     "cancelSignUp": "Cancel sign-up",
     "signUpSuccess": "Successfully signed up for the event!",
     "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
+    "mustBeLoggedIn": "You must be logged in to sign up",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",

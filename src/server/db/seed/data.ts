@@ -167,6 +167,14 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     locale: 'en-GB',
   },
   {
+    groupId: 6,
+    name: 'TTRPG',
+    summary: 'TTRPG-gruppa er fokusert på bordrollespill.',
+    description:
+      'TTRPG-gruppa er dedikert til bordrollespill. De organiserer spillsesjoner, lager kampanjer og fremmer et fellesskap av spillere.',
+    locale: 'nb-NO',
+  },
+  {
     groupId: 7,
     name: 'Breadboard',
     summary: 'Breadboard group focused on electronics prototyping.',
@@ -210,6 +218,10 @@ const usersGroupsData: InsertUserGroup[] = [
   {
     userId: 1,
     groupId: 4,
+  },
+  {
+    userId: 1,
+    groupId: 1,
   },
   {
     userId: 2,
