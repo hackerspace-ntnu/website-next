@@ -34,7 +34,7 @@ const eventsRelations = relations(events, ({ one, many }) => ({
     references: [files.id],
   }),
   localizations: many(eventLocalizations),
-  usersEvents: many(userEvents),
+  usersEvents: many(usersEvents),
   skill: one(skills, {
     fields: [events.skillId],
     references: [skills.id],
@@ -62,8 +62,8 @@ const eventLocalizationsRelations = relations(
   }),
 );
 
-const userEvents = pgTable(
-  'user_events',
+const usersEvents = pgTable(
+  'users_events',
   {
     userId: integer('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
@@ -82,13 +82,13 @@ const userEvents = pgTable(
   },
 );
 
-const userEventsRelations = relations(userEvents, ({ one }) => ({
+const usersEventsRelations = relations(usersEvents, ({ one }) => ({
   user: one(users, {
-    fields: [userEvents.userId],
+    fields: [usersEvents.userId],
     references: [users.id],
   }),
   event: one(events, {
-    fields: [userEvents.eventId],
+    fields: [usersEvents.eventId],
     references: [events.id],
   }),
 }));
@@ -97,16 +97,16 @@ type SelectEvent = InferSelectModel<typeof events>;
 type InsertEvent = InferInsertModel<typeof events>;
 type SelectEventLocalization = InferSelectModel<typeof eventLocalizations>;
 type InsertEventLocalization = InferInsertModel<typeof eventLocalizations>;
-type SelectUserEvent = InferSelectModel<typeof userEvents>;
-type InsertUserEvent = InferInsertModel<typeof userEvents>;
+type SelectUserEvent = InferSelectModel<typeof usersEvents>;
+type InsertUserEvent = InferInsertModel<typeof usersEvents>;
 
 export {
   events,
   eventsRelations,
   eventLocalizations,
   eventLocalizationsRelations,
-  userEvents,
-  userEventsRelations,
+  usersEvents,
+  usersEventsRelations,
   type SelectEvent,
   type InsertEvent,
   type SelectEventLocalization,

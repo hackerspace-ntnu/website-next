@@ -21,7 +21,7 @@ import {
   eventLocalizations,
   events,
   skills,
-  userEvents,
+  usersEvents,
 } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
 import { createEventSchema } from '@/validations/events/createEventSchema';
@@ -385,26 +385,26 @@ const eventsRouter = createRouter({
         });
       }
 
-      const existingParticipant = await ctx.db.query.userEvents.findFirst({
+      const existingParticipant = await ctx.db.query.usersEvents.findFirst({
         where: and(
-          eq(userEvents.eventId, input),
-          eq(userEvents.userId, ctx.user.id),
+          eq(usersEvents.eventId, input),
+          eq(usersEvents.userId, ctx.user.id),
         ),
       });
 
       if (existingParticipant) {
         await ctx.db
-          .delete(userEvents)
+          .delete(usersEvents)
           .where(
             and(
-              eq(userEvents.eventId, input),
-              eq(userEvents.userId, ctx.user.id),
+              eq(usersEvents.eventId, input),
+              eq(usersEvents.userId, ctx.user.id),
             ),
           );
         return false;
       }
 
-      await ctx.db.insert(userEvents).values({
+      await ctx.db.insert(usersEvents).values({
         eventId: input,
         userId: ctx.user.id,
       });

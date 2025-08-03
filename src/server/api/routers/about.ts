@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { groups, userGroups } from '@/server/db/tables';
+import { groups, usersGroups } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
 import { fetchGroupMembersSchema } from '@/validations/about/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/about/fetchGroupSchema';
@@ -90,9 +90,9 @@ const aboutRouter = createRouter({
     .query(async ({ ctx, input }) => {
       const groupId = input;
 
-      const results = await ctx.db.query.userGroups
+      const results = await ctx.db.query.usersGroups
         .findMany({
-          where: eq(userGroups.groupId, groupId),
+          where: eq(usersGroups.groupId, groupId),
           with: {
             user: true,
           },
@@ -107,7 +107,7 @@ const aboutRouter = createRouter({
           });
         });
 
-      return results.map((userGroup) => userGroup.user);
+      return results.map((usersGroup) => usersGroup.user);
     }),
 });
 

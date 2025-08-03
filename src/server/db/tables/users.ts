@@ -16,10 +16,10 @@ import {
   files,
   sessions,
   shifts,
-  userGroups,
-  userSkills,
+  usersGroups,
+  usersSkills,
 } from '@/server/db/tables';
-import { userEvents } from '@/server/db/tables/events';
+import { usersEvents } from '@/server/db/tables/events';
 
 const users = pgTable(
   'users',
@@ -74,9 +74,9 @@ const users = pgTable(
 
 const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
-  usersGroups: many(userGroups),
-  usersSkills: many(userSkills),
-  usersEvents: many(userEvents),
+  usersGroups: many(usersGroups),
+  usersSkills: many(usersSkills),
+  usersEvents: many(usersEvents),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
   shifts: many(shifts),

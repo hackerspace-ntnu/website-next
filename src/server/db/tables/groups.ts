@@ -42,8 +42,8 @@ const groupLocalizations = pgTable(
   },
 );
 
-const userGroups = pgTable(
-  'user_groups',
+const usersGroups = pgTable(
+  'users_groups',
   {
     userId: integer('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
@@ -62,7 +62,7 @@ const userGroups = pgTable(
 );
 
 const groupsRelations = relations(groups, ({ one, many }) => ({
-  usersGroups: many(userGroups),
+  usersGroups: many(usersGroups),
   localizations: many(groupLocalizations),
   image: one(files, {
     fields: [groups.imageId],
@@ -80,13 +80,13 @@ const groupLocalizationsRelations = relations(
   }),
 );
 
-const userGroupsRelations = relations(userGroups, ({ one }) => ({
+const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
   group: one(groups, {
-    fields: [userGroups.groupId],
+    fields: [usersGroups.groupId],
     references: [groups.id],
   }),
   user: one(users, {
-    fields: [userGroups.userId],
+    fields: [usersGroups.userId],
     references: [users.id],
   }),
 }));
@@ -95,16 +95,16 @@ type SelectGroupLocalization = InferSelectModel<typeof groupLocalizations>;
 type InsertGroupLocalization = InferInsertModel<typeof groupLocalizations>;
 type SelectGroup = InferSelectModel<typeof groups>;
 type InsertGroup = InferInsertModel<typeof groups>;
-type SelectUserGroup = InferSelectModel<typeof userGroups>;
-type InsertUserGroup = InferInsertModel<typeof userGroups>;
+type SelectUserGroup = InferSelectModel<typeof usersGroups>;
+type InsertUserGroup = InferInsertModel<typeof usersGroups>;
 
 export {
   groups,
   groupLocalizations,
-  userGroups,
+  usersGroups,
   groupsRelations,
   groupLocalizationsRelations,
-  userGroupsRelations,
+  usersGroupsRelations,
   type SelectGroup,
   type InsertGroup,
   type SelectGroupLocalization,

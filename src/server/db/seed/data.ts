@@ -202,7 +202,7 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
   },
 ];
 
-const userGroupsData: InsertUserGroup[] = [
+const usersGroupsData: InsertUserGroup[] = [
   {
     userId: 1,
     groupId: 9,
@@ -276,7 +276,7 @@ const skillsData: InsertSkill[] = [
   },
 ] as const;
 
-const userSkillsData: InsertUserSkill[] = [
+const usersSkillsData: InsertUserSkill[] = [
   ...Array.from({ length: skillsData.length }).map((_, index) => ({
     userId: 1,
     skillId: index + 1,
@@ -913,9 +913,9 @@ export {
   usersData,
   groupsData,
   groupLocalizationsData,
-  userGroupsData,
+  usersGroupsData,
   skillsData,
-  userSkillsData,
+  usersSkillsData,
   storageItemCategories,
   storageItemsData,
   storageItemLocalizations,

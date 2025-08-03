@@ -12,9 +12,9 @@ import {
   storageItemCategories,
   storageItemLocalizations,
   storageItemsData,
-  userGroupsData,
-  userSkillsData,
   usersData,
+  usersGroupsData,
+  usersSkillsData,
 } from '@/server/db/seed/data';
 import * as schema from '@/server/db/tables';
 import {
@@ -27,9 +27,9 @@ import {
   shifts,
   skills,
   storageItems,
-  userGroups,
-  userSkills,
   users,
+  usersGroups,
+  usersSkills,
 } from '@/server/db/tables';
 
 // To generate fake data use these helpers
@@ -67,9 +67,9 @@ async function main() {
   }
   console.log('Groups inserted');
 
-  console.log('Inserting usergroups...');
-  await db.insert(userGroups).values(userGroupsData);
-  console.log('Usergroups inserted');
+  console.log('Inserting usersGroups...');
+  await db.insert(usersGroups).values(usersGroupsData);
+  console.log('UsersGroups inserted');
 
   console.log('Inserting skills...');
 
@@ -82,7 +82,7 @@ async function main() {
   console.log('Skills inserted');
 
   console.log('Inserting user skills...');
-  await db.insert(userSkills).values(userSkillsData);
+  await db.insert(usersSkills).values(usersSkillsData);
   console.log('User skills inserted');
 
   console.log('Inserting storage item categories...');

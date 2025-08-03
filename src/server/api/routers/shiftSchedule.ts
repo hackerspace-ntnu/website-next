@@ -13,8 +13,8 @@ import {
   type SelectSkill,
   shifts,
   skills,
-  userSkills,
   users,
+  usersSkills,
 } from '@/server/db/tables';
 import {
   registerShiftSchema,
@@ -50,8 +50,8 @@ const shiftScheduleRouter = createRouter({
       })
       .from(shifts)
       .innerJoin(users, eq(shifts.userId, users.id))
-      .leftJoin(userSkills, eq(users.id, userSkills.userId))
-      .leftJoin(skills, eq(userSkills.skillId, skills.id))
+      .leftJoin(usersSkills, eq(users.id, usersSkills.userId))
+      .leftJoin(skills, eq(usersSkills.skillId, skills.id))
       .where(or(isNull(shifts.endDate), gte(shifts.endDate, new Date())))
       .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id)
       .catch(() => {
