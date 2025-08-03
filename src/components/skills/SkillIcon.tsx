@@ -1,5 +1,6 @@
 import {
   BoxIcon,
+  CheckCheckIcon,
   CircuitBoardIcon,
   CodeIcon,
   CoffeeIcon,
@@ -86,9 +87,7 @@ async function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
   const config = skillIconsConfig[skill.identifier];
   const locale = await getLocale();
 
-  if (!config) return null;
-
-  const { icon: Icon, className } = config;
+  const { icon: Icon, className } = config ?? {};
 
   return (
     <SkillIconTooltipTemplate
@@ -102,16 +101,26 @@ async function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
             'max-h-5 min-h-5 min-w-5 max-w-5 p-[3px]': size === 'medium',
             'max-h-6 min-h-6 min-w-6 max-w-6 p-1': size === 'large',
           },
-          className,
+          className ?? 'bg-gray-100 text-black',
         )}
       >
-        <Icon
-          className={cx({
-            'h-3 w-3': size === 'small',
-            'h-3.5 w-3.5': size === 'medium',
-            'h-4 w-4': size === 'large',
-          })}
-        />
+        {Icon ? (
+          <Icon
+            className={cx({
+              'h-3 w-3': size === 'small',
+              'h-3.5 w-3.5': size === 'medium',
+              'h-4 w-4': size === 'large',
+            })}
+          />
+        ) : (
+          <CheckCheckIcon
+            className={cx({
+              'h-3 w-3': size === 'small',
+              'h-3.5 w-3.5': size === 'medium',
+              'h-4 w-4': size === 'large',
+            })}
+          />
+        )}
       </span>
     </SkillIconTooltipTemplate>
   );
