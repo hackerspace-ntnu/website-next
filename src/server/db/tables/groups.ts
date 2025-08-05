@@ -28,7 +28,7 @@ const groupLocalizations = pgTable(
     name: varchar('name', { length: 100 }).notNull(),
     summary: varchar('summary', { length: 255 }).notNull(),
     description: text('description').notNull(),
-    locale: localesEnum().notNull(),
+    locale: localesEnum('locale').notNull(),
   },
   (table) => {
     return [
