@@ -1,6 +1,6 @@
+import { CalendarIcon, MapPinIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/Separator';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { CalendarIcon, MapPinIcon } from 'lucide-react';
 
 export default function EventDetailsLoading() {
   return (

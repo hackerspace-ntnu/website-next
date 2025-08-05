@@ -1,11 +1,11 @@
-import { EditItemForm } from '@/components/storage/EditItemForm';
-import { api } from '@/lib/api/server';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { EditItemForm } from '@/components/storage/EditItemForm';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');
@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default async function NewStorageItemPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);

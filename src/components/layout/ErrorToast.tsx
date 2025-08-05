@@ -1,14 +1,17 @@
 'use client';
 
+import { useEffect } from 'react';
 import { toast } from '@/components/ui/Toaster';
 import { useMounted } from '@/lib/hooks/useMounted';
 import { useRouter } from '@/lib/locale/navigation';
-import { useEffect } from 'react';
 
 function ErrorToast({
   error,
   cleanPath,
-}: { error?: string; cleanPath?: string }) {
+}: {
+  error?: string;
+  cleanPath?: string;
+}) {
   const isMounted = useMounted();
   const router = useRouter();
 

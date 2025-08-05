@@ -1,7 +1,7 @@
 'use client';
 
-import { cx } from '@/lib/utils';
 import { Drawer as DrawerPrimitive } from 'vaul';
+import { cx } from '@/lib/utils';
 
 function Drawer({
   shouldScaleBackground = true,

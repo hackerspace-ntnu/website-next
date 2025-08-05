@@ -1,12 +1,4 @@
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/Tooltip';
-import type { skillIdentifiers } from '@/lib/constants';
-import { cx } from '@/lib/utils';
-import {
   BoxIcon,
   CircuitBoardIcon,
   CodeIcon,
@@ -17,11 +9,22 @@ import {
   ZapIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
+import type { skillIdentifiers } from '@/lib/constants';
+import { cx } from '@/lib/utils';
 
 function SkillIconTooltipTemplate({
   children,
   tooltip,
-}: { children: React.ReactNode; tooltip: string }) {
+}: {
+  children: React.ReactNode;
+  tooltip: string;
+}) {
   return (
     <TooltipProvider>
       <Tooltip>

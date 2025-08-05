@@ -1,10 +1,6 @@
 'use client';
 
 import type * as React from 'react';
-
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { cx } from '@/lib/utils';
-
 import {
   Dialog,
   DialogClose,
@@ -25,6 +21,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/Drawer';
+import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { cx } from '@/lib/utils';
 
 interface BaseProps {
   children: React.ReactNode;

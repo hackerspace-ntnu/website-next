@@ -6,8 +6,7 @@ import {
   ChevronRightIcon,
   ChevronUpIcon,
 } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useFormatter, useLocale, useTranslations } from 'next-intl';
 import {
   DayPicker,
   type DayPickerProps,
@@ -25,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/Select';
 
-import { dayPickerLocales, type routing } from '@/lib/locale';
+import { dayPickerLocales } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 
 type CalendarProps = DayPickerProps;
@@ -36,7 +35,6 @@ type CalendarProps = DayPickerProps;
  * Our version supports a dropdown for the month and year if enabled via the captionLayout prop.
  * Also it uses the correct locale labels for everything based on the current locale.
  */
-
 function Dropdown({
   value,
   onChange,
@@ -89,7 +87,7 @@ function Calendar({
     <DayPicker
       className={cx('p-3', className)}
       classNames={{
-        root: 'p-2-6-clamp',
+        root: 'clamp-[p-2-6-clamp]',
         months: 'relative',
         month: 'space-y-4',
         nav: 'flex items-center justify-between absolute w-full z-10 px-1',
@@ -186,7 +184,7 @@ function Calendar({
       }}
       showOutsideDays={showOutsideDays}
       fixedWeeks
-      locale={dayPickerLocales[locale as (typeof routing.locales)[number]]}
+      locale={dayPickerLocales[locale]}
       labels={{
         labelDayButton: (date, { today, selected }) => {
           let label = format.dateTime(date, {

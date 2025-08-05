@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { parseAsInteger, useQueryState } from 'nuqs';
 import {
   Pagination,
   PaginationContent,
@@ -10,8 +12,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/Pagination';
 import { cx } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
-import { parseAsInteger, useQueryState } from 'nuqs';
 
 type PaginationCarouselProps = {
   className?: string;

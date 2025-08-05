@@ -1,12 +1,11 @@
 'use client';
 
-import { useAppForm } from '@/components/ui/Form';
-import { toast } from '@/components/ui/Toaster';
-import type { TRPCClientError } from '@/lib/api/types';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
-
+import { useAppForm } from '@/components/ui/Form';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import type { TRPCClientError } from '@/lib/api/types';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 
 function PasswordForm() {

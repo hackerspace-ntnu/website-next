@@ -1,6 +1,6 @@
-import { env } from '@/env';
 import { hmac } from '@oslojs/crypto/hmac';
 import { SHA1 } from '@oslojs/crypto/sha1';
+import { env } from '@/env';
 
 function isMatrixConfigured() {
   return (

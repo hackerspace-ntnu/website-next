@@ -1,6 +1,6 @@
+import { SearchIcon } from 'lucide-react';
 import { Input, type InputProps } from '@/components/ui/Input';
 import { cx } from '@/lib/utils';
-import { SearchIcon } from 'lucide-react';
 
 function SearchBar({
   ref,

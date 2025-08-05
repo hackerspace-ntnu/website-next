@@ -1,4 +1,4 @@
-import { type VariantProps, cva, cx } from '@/lib/utils';
+import { cva, cx, type VariantProps } from '@/lib/utils';
 
 const badgeVariants = cva({
   base: 'inline-flex items-center rounded-md border px-2.5 py-0.5 font-semibold text-xs transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2',

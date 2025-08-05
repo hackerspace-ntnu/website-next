@@ -1,8 +1,8 @@
 import {
+  defaultShouldDehydrateQuery,
   MutationCache,
   QueryCache,
   QueryClient,
-  defaultShouldDehydrateQuery,
 } from '@tanstack/react-query';
 import SuperJSON from 'superjson';
 

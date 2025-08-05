@@ -1,14 +1,13 @@
 'use client';
 
-import { useAppForm } from '@/components/ui/Form';
-import { toast } from '@/components/ui/Toaster';
-import { useRouter } from '@/lib/locale/navigation';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { z } from 'zod';
-
 import { DeleteAccountDialog } from '@/components/settings/DeleteAccountDialog';
+import { useAppForm } from '@/components/ui/Form';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
 import { accountSchema } from '@/validations/settings/accountSchema';
 
 type AccountFormProps = {

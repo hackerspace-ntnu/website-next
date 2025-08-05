@@ -1,3 +1,5 @@
+import { BugIcon, MailIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import {
   FacebookIcon,
   GitHubIcon,
@@ -5,11 +7,9 @@ import {
   SlackIcon,
 } from '@/components/assets/icons';
 import { IDILogo, NexusLogo } from '@/components/assets/logos';
-import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/header/Nav';
+import { LogoLink } from '@/components/layout/LogoLink';
 import { ExternalLink, Link } from '@/components/ui/Link';
-import { BugIcon, MailIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 function Footer() {
   const t = useTranslations('layout');

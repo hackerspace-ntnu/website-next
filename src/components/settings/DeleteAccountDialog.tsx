@@ -1,5 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Dialog,
@@ -13,9 +16,6 @@ import {
 } from '@/components/ui/Dialog';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
-import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 function DeleteAccountDialog() {
   const t = useTranslations('settings.account');

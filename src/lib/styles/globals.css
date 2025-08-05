@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "tw-clamp-css";
 @import "./map";
+@plugin "tw-clamp-css/dynamic";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -78,11 +78,12 @@
   --radius-xl: calc(var(--radius) + 4px);
 
   /* Fonts */
-  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+  --font-inter:
+    var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-montserrat:
+    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-montserrat: var(--font-montserrat), ui-sans-serif, system-ui,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
 
   /* Breakpoints */
   --breakpoint-2xs: 24rem;
@@ -95,6 +96,22 @@
   --spacing-160: 40rem;
   --spacing-176: 44rem;
   --spacing-192: 48rem;
+
+  /* Meteor effect */
+  --animate-meteor-effect: meteor 5s linear infinite;
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {
@@ -110,7 +127,7 @@
 
   /* Typography */
   h1 {
-    @apply scroll-m-20 font-montserrat text-4xl-5xl-clamp font-extrabold tracking-tight;
+    @apply scroll-m-20 font-montserrat clamp-[text-4xl-5xl-clamp] font-extrabold tracking-tight;
   }
   h2 {
     @apply scroll-m-20 font-montserrat text-3xl font-semibold tracking-tight;
@@ -120,5 +137,24 @@
   }
   h4 {
     @apply scroll-m-20 font-montserrat text-xl font-semibold tracking-tight;
+  }
+}
+@layer utilities {
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 0;
+    }
+    25% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 1;
+    }
+  }
+
+  .animate-meteor {
+    animation: meteor 5s linear infinite;
   }
 }

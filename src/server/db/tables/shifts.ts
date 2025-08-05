@@ -1,5 +1,3 @@
-import { days, timeslots } from '@/lib/constants';
-import { users } from '@/server/db/tables';
 import {
   type InferInsertModel,
   type InferSelectModel,
@@ -12,6 +10,8 @@ import {
   primaryKey,
   timestamp,
 } from 'drizzle-orm/pg-core';
+import { days, timeslots } from '@/lib/constants';
+import { users } from '@/server/db/tables';
 
 const daysEnum = pgEnum('days', days);
 const timeslotsEnum = pgEnum('timeslots', timeslots);

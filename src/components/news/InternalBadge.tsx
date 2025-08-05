@@ -1,3 +1,5 @@
+import { ShieldAlertIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -6,8 +8,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils';
-import { ShieldAlertIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 type InternalBadgeProps = {
   className?: string;

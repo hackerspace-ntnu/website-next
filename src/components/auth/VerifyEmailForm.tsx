@@ -1,18 +1,16 @@
 'use client';
 
-import type { TRPCClientError } from '@/lib/api/types';
-import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-
-import { api } from '@/lib/api/client';
-import { useRouter } from '@/lib/locale/navigation';
-
 import { CountdownButton } from '@/components/auth/CountdownButton';
 import { usePending } from '@/components/auth/PendingBar';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import type { TRPCClientError } from '@/lib/api/types';
+import { useRouter } from '@/lib/locale/navigation';
+import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 
 function VerifyEmailForm() {
   const router = useRouter();
