@@ -41,7 +41,7 @@ export default async function NewEventPage({
   return (
     <>
       <Link
-        className='flex w-fit gap-2'
+        className='my-4 flex w-fit gap-2'
         href='/events'
         aria-label={tEvents('backToEvents')}
         variant='secondary'

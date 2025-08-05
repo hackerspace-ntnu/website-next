@@ -25,7 +25,7 @@ function ParticipantsTable({
   const t = useTranslations('events.attendance');
 
   return (
-    <Table>
+    <Table className='my-4'>
       <TableCaption>{t('attendeesList')}</TableCaption>
       <TableHeader>
         <TableRow>
@@ -65,7 +65,7 @@ function ParticipantsTable({
         ))}
         {participants.length === 0 && (
           <TableRow>
-            <TableCell colSpan={2} className='text-center'>
+            <TableCell colSpan={3} className='text-center'>
               {t('noParticipants')}
             </TableCell>
           </TableRow>

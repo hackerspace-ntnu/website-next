@@ -131,7 +131,7 @@ function EditEventForm({
         e.preventDefault();
         form.handleSubmit();
       }}
-      className='max-w-prose space-y-8'
+      className='my-4 max-w-prose space-y-8'
     >
       <form.AppField name='image'>
         {(field) => (
