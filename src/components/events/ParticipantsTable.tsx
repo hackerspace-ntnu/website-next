@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { AttendanceCheckbox } from '@/components/events/AttendanceCheckbox';
+import { GiveSkillButton } from '@/components/events/GiveSkillButton';
 import { MemberAvatar } from '@/components/members/MemberAvatar';
-import { Checkbox } from '@/components/ui/Checkbox';
-import { Label } from '@/components/ui/Label';
 import {
   Table,
   TableBody,
@@ -13,9 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { toast } from '@/components/ui/Toaster';
-import { api } from '@/lib/api/client';
-import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 
 function ParticipantsTable({
@@ -25,14 +22,7 @@ function ParticipantsTable({
   participants: RouterOutput['events']['fetchEventParticipants'];
   event: NonNullable<RouterOutput['events']['fetchEvent']>;
 }) {
-  const router = useRouter();
   const t = useTranslations('events.attendance');
-  const setParticipantAttendance =
-    api.events.setParticipantAttendance.useMutation({
-      onSuccess: () => {
-        router.refresh();
-      },
-    });
 
   return (
     <Table>
@@ -41,6 +31,7 @@ function ParticipantsTable({
         <TableRow>
           <TableHead className='w-full'>{t('member')}</TableHead>
           <TableHead>{t('attendance')}</TableHead>
+          <TableHead>{t('actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -62,37 +53,13 @@ function ParticipantsTable({
             </TableCell>
             <TableCell>
               <div className='flex items-center gap-2'>
-                <Checkbox
-                  checked={participant.attended}
-                  className='cursor-pointer'
-                  onClick={() => {
-                    if (event.startTime > new Date()) {
-                      return toast.error(t('notStartedYet'));
-                    }
-                    toast.promise(
-                      setParticipantAttendance.mutateAsync({
-                        eventId: event.id,
-                        userId: participant.userId,
-                        attended: !participant.attended,
-                      }),
-                      {
-                        loading: t('updating', {
-                          name: `${participant.user.firstName} ${participant.user.lastName}`,
-                        }),
-                        success: t('success', {
-                          name: `${participant.user.firstName} ${participant.user.lastName}`,
-                        }),
-                        error: t('error', {
-                          name: `${participant.user.firstName} ${participant.user.lastName}`,
-                        }),
-                      },
-                    );
-                  }}
-                />
-                <Label>
-                  {participant.attended ? t('present') : t('absent')}
-                </Label>
+                <AttendanceCheckbox participant={participant} event={event} />
               </div>
+            </TableCell>
+            <TableCell>
+              {participant.attended && event.skill && (
+                <GiveSkillButton event={event} participant={participant} />
+              )}
             </TableCell>
           </TableRow>
         ))}

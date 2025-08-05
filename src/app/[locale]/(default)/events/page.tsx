@@ -85,25 +85,27 @@ export default async function EventsPage({
           >
             <h2 id='active'>{t('activeEvents')}</h2>
           </ExternalLink>
-          {activeEvents.map((event) => {
-            if (!event.localizations[0]) return;
-            return (
-              <EventCard
-                key={event.id}
-                wrapperClassName='block'
-                event={event}
-                t={{
-                  detailsAboutEvent: t('detailsAboutEvent', {
-                    eventName: event.localizations[0].name,
-                  }),
-                  photoOf: tUi('photoOf', {
-                    name: event.localizations[0].name,
-                  }),
-                  ...translations,
-                }}
-              />
-            );
-          })}
+          <div className='space-y-2'>
+            {activeEvents.map((event) => {
+              if (!event.localizations[0]) return;
+              return (
+                <EventCard
+                  key={event.id}
+                  wrapperClassName='block'
+                  event={event}
+                  t={{
+                    detailsAboutEvent: t('detailsAboutEvent', {
+                      eventName: event.localizations[0].name,
+                    }),
+                    photoOf: tUi('photoOf', {
+                      name: event.localizations[0].name,
+                    }),
+                    ...translations,
+                  }}
+                />
+              );
+            })}
+          </div>
         </>
       )}
       {upcomingEvents.length > 0 && (

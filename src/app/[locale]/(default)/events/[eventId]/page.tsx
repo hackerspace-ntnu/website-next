@@ -73,16 +73,15 @@ export default async function EventDetailsPage({
   if (!event || !localization) return notFound();
 
   const { user } = await api.auth.state();
-  const participants = user
-    ? await api.events.fetchEventParticipants(Number(eventId))
-    : [];
-  const signedUp = Boolean(
-    user?.id &&
-      participants.some((participant) => participant.userId === user.id),
-  );
+
+  const signedUp = user ? await api.events.isSignedUpToEvent(event.id) : false;
+
   const canEdit = user?.groups.some((group) =>
     ['labops', 'leadership', 'admin'].includes(group),
   );
+  const participants = canEdit
+    ? await api.events.fetchEventParticipants(Number(eventId))
+    : [];
 
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })

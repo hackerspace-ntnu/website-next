@@ -12,8 +12,8 @@ import {
 } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
+  authenticatedProcedure,
   protectedEditProcedure,
-  protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -21,13 +21,16 @@ import {
   eventLocalizations,
   events,
   skills,
+  users,
   usersEvents,
+  usersSkills,
 } from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventSchema } from '@/validations/events/editEventSchema';
 import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
 import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
+import { giveParticipantSkillSchema } from '@/validations/events/giveParticipantSkillSchema';
 import { participantAttendanceSchema } from '@/validations/events/participantAttendanceSchema';
 
 const eventsRouter = createRouter({
@@ -139,7 +142,7 @@ const eventsRouter = createRouter({
 
     return counts[0].count;
   }),
-  fetchEventParticipants: protectedProcedure
+  fetchEventParticipants: protectedEditProcedure
     .input((input) =>
       fetchEventSchema(useTranslationsFromContext()).parse(input),
     )
@@ -155,6 +158,9 @@ const eventsRouter = createRouter({
                   firstName: true,
                   lastName: true,
                   profilePictureId: true,
+                },
+                with: {
+                  usersSkills: true,
                 },
               },
             },
@@ -382,7 +388,27 @@ const eventsRouter = createRouter({
 
       await deleteFile(event.imageId);
     }),
-  toggleEventSignUp: protectedProcedure
+  isSignedUpToEvent: authenticatedProcedure
+    .input((input) =>
+      fetchEventSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const { user } = await ctx.auth();
+
+      if (!user) {
+        return false;
+      }
+
+      const participant = await ctx.db.query.usersEvents.findFirst({
+        where: and(
+          eq(usersEvents.eventId, input),
+          eq(usersEvents.userId, user.id),
+        ),
+      });
+
+      return !!participant;
+    }),
+  toggleEventSignUp: authenticatedProcedure
     .input((input) =>
       fetchEventSchema(useTranslationsFromContext()).parse(input),
     )
@@ -464,9 +490,60 @@ const eventsRouter = createRouter({
         .where(
           and(
             eq(usersEvents.eventId, input.eventId),
-            eq(usersEvents.userId, ctx.user.id),
+            eq(usersEvents.userId, input.userId),
           ),
         );
+    }),
+  giveParticipantSkill: protectedEditProcedure
+    .input((input) =>
+      giveParticipantSkillSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const skill = await ctx.db.query.skills.findFirst({
+        where: eq(skills.id, input.skillId),
+      });
+
+      if (!skill) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.skillNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+        with: {
+          usersSkills: true,
+        },
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.userNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (
+        user.usersSkills.some((userSkill) => userSkill.skillId === skill.id)
+      ) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('events.api.alreadyHasSkill', {
+            user: `${user.firstName} ${user.lastName}`,
+            skill:
+              ctx.locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian,
+          }),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.insert(usersSkills).values({
+        userId: input.userId,
+        skillId: input.skillId,
+      });
     }),
 });
 
