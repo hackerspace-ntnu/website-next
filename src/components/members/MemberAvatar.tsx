@@ -8,6 +8,7 @@ const memberAvatarVariants = cva({
       md: 'h-12 w-12',
       lg: 'h-24 w-24',
       xl: 'h-48 w-48',
+      '2xl': 'h-64 w-64',
     },
   },
 });

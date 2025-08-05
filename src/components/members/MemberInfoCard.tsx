@@ -41,13 +41,12 @@ async function MemberInfoCard({
     <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit lg:min-w-96'>
       {user.private && <InternalBadge />}
       <div className='flex w-full flex-col items-center justify-center'>
-        <div className='relative my-2 size-48 lg:size-64'>
-          <MemberAvatar
-            size='xl'
-            user={user}
-            profilePictureUrl={profilePictureUrl}
-          />
-        </div>
+        <MemberAvatar
+          size='2xl'
+          user={user}
+          profilePictureUrl={profilePictureUrl}
+          className='relative my-2'
+        />
         <h3 className='mt-4 text-center'>
           {user.firstName} {user.lastName}
         </h3>
