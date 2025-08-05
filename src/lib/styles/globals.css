@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "tw-clamp-css";
 @import "./map";
+@plugin "tw-clamp-css/dynamic";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -127,7 +127,7 @@
 
   /* Typography */
   h1 {
-    @apply scroll-m-20 font-montserrat text-4xl-5xl-clamp font-extrabold tracking-tight;
+    @apply scroll-m-20 font-montserrat clamp-[text-4xl-5xl-clamp] font-extrabold tracking-tight;
   }
   h2 {
     @apply scroll-m-20 font-montserrat text-3xl font-semibold tracking-tight;

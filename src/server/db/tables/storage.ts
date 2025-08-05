@@ -43,7 +43,7 @@ const itemLocalizations = pgTable(
     name: varchar('name', { length: 128 }).notNull(),
     description: varchar('description', { length: 512 }),
     location: varchar('location', { length: 256 }),
-    locale: localesEnum().notNull(),
+    locale: localesEnum('locale').notNull(),
   },
   (table) => [primaryKey({ columns: [table.itemId, table.locale] })],
 );

@@ -9,7 +9,8 @@ import {
   text,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { files, localesEnum, users } from '@/server/db/tables';
+import { files, users } from '@/server/db/tables';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
@@ -28,7 +29,7 @@ const groupLocalizations = pgTable(
     name: varchar('name', { length: 100 }).notNull(),
     summary: varchar('summary', { length: 255 }).notNull(),
     description: text('description').notNull(),
-    locale: localesEnum().notNull(),
+    locale: localesEnum('locale').notNull(),
   },
   (table) => {
     return [

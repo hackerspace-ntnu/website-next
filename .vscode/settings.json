@@ -11,5 +11,11 @@
     "source.organizeImports.biome": "explicit"
   },
   "prettier.enable": false,
-  "eslint.enable": false
+  "eslint.enable": false,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
 }
