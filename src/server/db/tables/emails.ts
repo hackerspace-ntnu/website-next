@@ -20,7 +20,7 @@ const emailVerificationRequests = pgTable(
     id: text('id').primaryKey(),
     userId: integer('user_id')
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: 'cascade' }),
     code: text('code').notNull(),
     email: varchar('email', { length: 254 }).notNull(),
     expiresAt: timestamp('expires_at', {

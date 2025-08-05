@@ -236,6 +236,12 @@
         "format": "Phone number is formatted incorrectly",
         "inUse": "Phone number is already in use"
       },
+      "delete": {
+        "buttonLabel": "Delete account",
+        "dialogTitle": "Are you sure want to delete your account?",
+        "dialogDescription": "All data related to you, including all your contact information, profile picture, item loans, event registrations, linked groups, reservations, settings and more will be deleted. <bold>This action cannot be undone</bold>. If you change your mind later, recovering this data will be impossible - however, you're still welcome to make a new account.",
+        "failedToDelete": "Failed to delete account"
+      },
       "password": {
         "currentLabel": "Current password",
         "newLabel": "New password",
