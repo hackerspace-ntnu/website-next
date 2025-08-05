@@ -20,6 +20,7 @@ const events = pgTable('events', {
   endTime: timestamp('end_time').notNull(),
   locationMapLink: text('location_map_link'),
   internal: boolean('internal').notNull().default(false),
+  signUpDeadline: timestamp('sign_up_deadline'),
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),

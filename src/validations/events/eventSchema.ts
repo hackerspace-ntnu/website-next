@@ -23,6 +23,8 @@ function eventSchema(t: Translations) {
       .string()
       .min(1, t('events.form.locationEnglish.required')),
     startTime: z.date({ message: t('events.form.startTime.required') }),
+    setSignUpDeadline: z.boolean(),
+    signUpDeadline: z.date().nullable(),
     endTime: z.date({ message: t('events.form.endTime.required') }),
     locationMapLink: z
       .string()

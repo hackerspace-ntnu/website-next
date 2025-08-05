@@ -55,6 +55,10 @@ export default async function EventDetailsPage({
   setRequestLocale(locale);
 
   const formatter = await getFormatter();
+  const formatterOptions = {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  } as const;
   const t = await getTranslations('events.attendance');
   const tLayout = await getTranslations('layout');
   const { ui, events } = await getMessages();
@@ -107,10 +111,11 @@ export default async function EventDetailsPage({
         )}
         <div className='flex items-center gap-2'>
           <CalendarIcon className='h-8 w-8' />
-          {formatter.dateTimeRange(event.startTime, event.endTime, {
-            dateStyle: 'short',
-            timeStyle: 'short',
-          })}
+          {formatter.dateTimeRange(
+            event.startTime,
+            event.endTime,
+            formatterOptions,
+          )}
         </div>
         {event.locationMapLink ? (
           <ExternalLink
@@ -135,10 +140,17 @@ export default async function EventDetailsPage({
             <div className='max-w-prose'>
               <p>{localization.description}</p>
               <SignUpButton
-                eventId={event.id}
+                event={event}
                 signedUp={signedUp}
                 disabled={!user}
               />
+              <p>
+                {t('signUpDeadline', {
+                  date: event.signUpDeadline
+                    ? formatter.dateTime(event.signUpDeadline, formatterOptions)
+                    : formatter.dateTime(event.startTime, formatterOptions),
+                })}
+              </p>
             </div>
             <Avatar className='h-48 w-48'>
               <AvatarImage src={imageUrl} alt='' className='object-cover' />

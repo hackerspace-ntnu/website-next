@@ -213,6 +213,7 @@ const eventsRouter = createRouter({
           endTime: input.endTime,
           locationMapLink: input.locationMapLink,
           internal: input.internal,
+          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
           imageId: imageId,
           skillId: skill?.id,
         })
@@ -293,6 +294,7 @@ const eventsRouter = createRouter({
           endTime: input.endTime,
           locationMapLink: input.locationMapLink,
           internal: input.internal,
+          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
           imageId: imageId,
           skillId: skill?.id,
         })

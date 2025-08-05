@@ -110,6 +110,8 @@ function EditEventForm({
       locationEnglish: english?.location ?? '',
       locationNorwegian: norwegian?.location ?? '',
       startTime: event?.startTime ?? new Date(),
+      setSignUpDeadline: !!event?.signUpDeadline,
+      signUpDeadline: event?.signUpDeadline ?? null,
       endTime: event?.endTime ?? new Date(),
       locationMapLink: event?.locationMapLink ?? '',
       internal: event?.internal ?? false,
@@ -281,6 +283,29 @@ function EditEventForm({
           />
         )}
       </form.AppField>
+      <form.AppField name='setSignUpDeadline'>
+        {(field) => (
+          <field.CheckboxField
+            label={t('setSignUpDeadline.label')}
+            description={t('setSignUpDeadline.description')}
+          />
+        )}
+      </form.AppField>
+      <form.Subscribe selector={(state) => state.values.setSignUpDeadline}>
+        {(setSignUpDeadline) =>
+          setSignUpDeadline && (
+            <form.AppField name='signUpDeadline'>
+              {(field) => (
+                <field.DateTimeField
+                  label={t('signUpDeadline.label')}
+                  granularity='minute'
+                  locale={locale === 'en-GB' ? enGB : nb}
+                />
+              )}
+            </form.AppField>
+          )
+        }
+      </form.Subscribe>
       <form.AppField name='endTime'>
         {(field) => (
           <field.DateTimeField

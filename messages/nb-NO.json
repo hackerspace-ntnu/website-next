@@ -576,6 +576,15 @@
         "required": "Starttidspunkt er påkrevd",
         "timeInPast": "Starttidspunktet må være i fremtiden"
       },
+      "setSignUpDeadline": {
+        "label": "Sett påmeldingsfrist",
+        "description": "Du kan du sette en påmeldingsfrist. Etter dette tidspunktet vil ingen nye påmeldinger bli akseptert"
+      },
+      "signUpDeadline": {
+        "label": "Påmeldingsfrist",
+        "timeInPast": "Påmeldingsfristen må være i fremtiden",
+        "beforeStartTime": "Påmeldingsfristen må være før arrangementets starttidspunkt"
+      },
       "endTime": {
         "label": "Sluttidspunkt",
         "required": "Sluttidspunkt er påkrevd",
@@ -612,6 +621,10 @@
       "signUpSuccess": "Du har blitt meldt på arrangementet!",
       "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
       "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
+      "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
+      "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
+      "eventStartedAlready": "Arrangementet har allerede startet",
+      "signUpDeadline": "Påmeldingsfrist: {date}",
       "attendance": "Oppmøte",
       "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
