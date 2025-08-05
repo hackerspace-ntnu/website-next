@@ -120,7 +120,7 @@
     "server-only": "^0.0.1",
     "tailwindcss": "^4.1.6",
     "tw-animate-css": "^1.2.9",
-    "tw-clamp-css": "^1.1.1",
+    "tw-clamp-css": "^2.0.0",
     "typescript": "^5.8.3"
   },
   "packageManager": "bun@1.2.0"
