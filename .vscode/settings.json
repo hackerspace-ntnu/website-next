@@ -11,5 +11,6 @@
     "source.organizeImports.biome": "explicit"
   },
   "prettier.enable": false,
-  "eslint.enable": false
+  "eslint.enable": false,
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
