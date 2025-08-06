@@ -22,7 +22,7 @@ const files = pgTable('files', {
   byteSize: integer('byte_size').notNull(),
   uploadedBy: integer('uploaded_by')
     .notNull()
-    .references((): AnyPgColumn => users.id),
+    .references((): AnyPgColumn => users.id, { onDelete: 'cascade' }),
   createdAt: timestamp('created_at', {
     withTimezone: true,
     mode: 'date',

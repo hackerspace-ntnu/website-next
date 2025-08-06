@@ -83,7 +83,7 @@ const routing = defineRouting({
     },
     '/settings': {
       'en-GB': '/settings',
-      'nb-NO': '/instillinger',
+      'nb-NO': '/innstillinger',
     },
     '/settings/account': {
       'en-GB': '/settings/account',

@@ -99,11 +99,14 @@ async function getNonce() {
   };
 
   try {
-    const response = await fetch(`${env.MATRIX_ENDPOINT}/v1/register`, {
-      method: 'GET',
-      headers,
-      signal: controller.signal,
-    });
+    const response = await fetch(
+      `${env.MATRIX_ENDPOINT}/_synapse/admin/v1/register`,
+      {
+        method: 'GET',
+        headers,
+        signal: controller.signal,
+      },
+    );
 
     if (!response.ok) {
       const error = `Matrix nonce request failed: ${response.status} ${response.statusText}`;
@@ -154,6 +157,53 @@ function generateHMAC(
     .join('');
 }
 
+async function matrixReactivateUser(
+  username: string,
+  firstName: string,
+  lastName: string,
+  password: string,
+  admin = false,
+) {
+  if (!isMatrixConfigured()) {
+    return console.log(
+      'Matrix user will not be reactivated since the Matrix environment variables are not set.',
+    );
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  const accessToken = await getMatrixAccessToken();
+
+  const requestContent = {
+    deactivated: false,
+    displayname: `${firstName} ${lastName}`,
+    password,
+    admin,
+  };
+
+  const response = await fetch(
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
+    {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(requestContent),
+      signal: controller.signal,
+    },
+  );
+
+  if (!response.ok) {
+    const error = `Matrix user reactivation failed: ${response.status} ${response.statusText}`;
+    console.error(error);
+    throw new Error(error);
+  }
+
+  console.log(`Matrix user ${username} reactivated successfully`);
+  clearTimeout(timeout);
+}
+
 async function matrixRegisterUser(
   username: string,
   firstName: string,
@@ -170,13 +220,48 @@ async function matrixRegisterUser(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
 
+  const accessToken = await getMatrixAccessToken();
+  const headers = {
+    'content-type': 'application/json',
+    Authorization: `Bearer ${accessToken}`,
+  };
+
+  // First check if there's a deactivated user with the same username
+  const userResponse = await fetch(
+    `${env.MATRIX_ENDPOINT}/_synapse/admin/v2/users/${getMatrixUsername(username)}`,
+    {
+      method: 'GET',
+      headers,
+      signal: controller.signal,
+    },
+  );
+
+  if (!userResponse.ok) {
+    // If the response is a 404 Not Found, it means the user does not exist.
+    // In that case, we're fine to move on
+    if (userResponse.status !== 404) {
+      const error = `Matrix user check while signing up failed: ${userResponse.status} ${userResponse.statusText}`;
+      console.error(error);
+      throw new Error(error);
+    }
+  } else {
+    const userData = await userResponse.json();
+
+    if (userData.deactivated) {
+      clearTimeout(timeout);
+      return await matrixReactivateUser(
+        username,
+        firstName,
+        lastName,
+        password,
+        admin,
+      );
+    }
+  }
+
   try {
     const nonce = await getNonce();
     const hmac = generateHMAC(nonce, username, password);
-
-    const headers = {
-      'content-type': 'application/json',
-    };
 
     const body = {
       nonce,

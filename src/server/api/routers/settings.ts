@@ -15,6 +15,7 @@ import {
   verifyPasswordStrength,
 } from '@/server/auth/password';
 import { checkPhoneAvailability } from '@/server/auth/phone';
+import { deleteSessionTokenCookie } from '@/server/auth/session';
 import { updateUserPassword } from '@/server/auth/user';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
@@ -23,6 +24,7 @@ import {
   matrixChangeDisplayname,
   matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
+  matrixEraseUser,
 } from '@/server/services/matrix';
 import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
@@ -230,6 +232,29 @@ const settingsRouter = createRouter({
   updateNotifications: authenticatedProcedure
     .input((input) => notificationsSchema().parse(input))
     .mutation(async () => {}),
+  deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {
+    const userFiles = await ctx.db.query.files.findMany({
+      where: eq(files.uploadedBy, ctx.user.id),
+    });
+
+    for (const file of userFiles) {
+      await ctx.s3.deleteFile(file.directory, String(file.id));
+    }
+
+    await matrixEraseUser(ctx.user.username);
+
+    await ctx.db
+      .delete(users)
+      .where(eq(users.id, ctx.user.id))
+      .catch(() => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.account.delete.failedToDelete'),
+        });
+      });
+
+    await deleteSessionTokenCookie();
+  }),
 });
 
 export { settingsRouter };
