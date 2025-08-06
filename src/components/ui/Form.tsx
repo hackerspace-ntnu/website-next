@@ -958,7 +958,7 @@ function SubmitButton({
         <Button
           className={cx('min-w-28', className)}
           type='submit'
-          disabled={isSubmitting ?? isPristine ?? isValidating ?? loading}
+          disabled={isSubmitting || isPristine || isValidating || loading}
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
