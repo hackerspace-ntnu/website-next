@@ -16,8 +16,8 @@ import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
+  protectedEditProcedure,
   publicProcedure,
-  storageProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
@@ -220,7 +220,7 @@ const storageRouter = createRouter({
 
       return counts[0].count;
     }),
-  newItem: storageProcedure
+  newItem: protectedEditProcedure
     .input(async (input) =>
       itemSchema(
         useTranslationsFromContext(),
@@ -321,7 +321,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  editItem: storageProcedure
+  editItem: protectedEditProcedure
     .input(async (input) =>
       editItemSchema(
         useTranslationsFromContext(),
@@ -386,7 +386,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  deleteItem: storageProcedure
+  deleteItem: protectedEditProcedure
     .input((input) => deleteItemSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const loansOfThisItem = await ctx.db
@@ -407,7 +407,7 @@ const storageRouter = createRouter({
         .delete(itemLocalizations)
         .where(eq(itemLocalizations.itemId, input.id));
     }),
-  fetchItemCategories: storageProcedure.query(async ({ ctx }) => {
+  fetchItemCategories: protectedEditProcedure.query(async ({ ctx }) => {
     return await ctx.db
       .select()
       .from(itemCategories)
@@ -424,7 +424,7 @@ const storageRouter = createRouter({
       .from(itemCategories);
     return categories.map((c) => c.name);
   }),
-  addItemCategory: storageProcedure
+  addItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategoryFormSchema(useTranslationsFromContext()).parse(input),
     )
@@ -456,7 +456,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  editItemCategory: storageProcedure
+  editItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
@@ -473,7 +473,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  deleteItemCategory: storageProcedure
+  deleteItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
@@ -539,7 +539,7 @@ const storageRouter = createRouter({
         });
       }
     }),
-  fetchLoans: storageProcedure
+  fetchLoans: protectedEditProcedure
     .input((input) =>
       fetchLoansSchema(useTranslationsFromContext()).parse(input),
     )
@@ -561,7 +561,7 @@ const storageRouter = createRouter({
         },
       });
     }),
-  approvedLoansTotal: storageProcedure.query(async ({ ctx }) => {
+  approvedLoansTotal: protectedEditProcedure.query(async ({ ctx }) => {
     const counts = await ctx.db
       .select({ count: count() })
       .from(itemLoans)
@@ -571,7 +571,7 @@ const storageRouter = createRouter({
 
     return counts[0].count;
   }),
-  approveLoan: storageProcedure
+  approveLoan: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -587,7 +587,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  deleteLoan: storageProcedure
+  deleteLoan: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -600,7 +600,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  confirmLoanReturned: storageProcedure
+  confirmLoanReturned: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db

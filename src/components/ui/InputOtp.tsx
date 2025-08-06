@@ -5,16 +5,12 @@ import { useContext } from 'react';
 import { cx } from '@/lib/utils';
 
 function InputOtp({
-  ref,
   className,
   containerClassName,
   ...props
-}: React.ComponentPropsWithoutRef<typeof OTPInput> & {
-  ref?: React.RefObject<React.ComponentRef<typeof OTPInput>>;
-}) {
+}: React.ComponentPropsWithRef<typeof OTPInput>) {
   return (
     <OTPInput
-      ref={ref}
       containerClassName={cx(
         'flex items-center gap-2 has-[:disabled]:opacity-50',
         containerClassName,
@@ -26,24 +22,17 @@ function InputOtp({
 }
 
 function InputOtpGroup({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-  ref?: React.RefObject<React.ComponentRef<'div'>>;
-}) {
-  return (
-    <div ref={ref} className={cx('flex items-center', className)} {...props} />
-  );
+}: React.ComponentPropsWithRef<'div'>) {
+  return <div className={cx('flex items-center', className)} {...props} />;
 }
 
 function InputOtpSlot({
-  ref,
   index,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-  ref?: React.RefObject<React.ComponentRef<'div'>>;
+}: React.ComponentPropsWithRef<'div'> & {
   index: number;
 }) {
   const inputOTPContext = useContext(OTPInputContext);
@@ -57,7 +46,6 @@ function InputOtpSlot({
 
   return (
     <div
-      ref={ref}
       className={cx(
         'relative flex h-10 w-10 items-center justify-center border-input border-y border-r text-base shadow-xs transition-all first:rounded-l-md first:border-l last:rounded-r-md',
         isActive && 'z-10 ring-1 ring-ring',
@@ -75,14 +63,9 @@ function InputOtpSlot({
   );
 }
 
-function InputOtpSeparator({
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-  ref?: React.RefObject<React.ComponentRef<'div'>>;
-}) {
+function InputOtpSeparator(props: React.ComponentPropsWithRef<'div'>) {
   return (
-    <div ref={ref} aria-hidden='true' {...props}>
+    <div aria-hidden='true' {...props}>
       <MinusIcon />
     </div>
   );

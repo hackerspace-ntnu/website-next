@@ -98,7 +98,12 @@ class S3Service {
   }
 }
 
-const directories = ['profile-pictures', 'news', 'storage-items'] as const;
+const directories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'events',
+] as const;
 
 const s3 = new S3Service();
 

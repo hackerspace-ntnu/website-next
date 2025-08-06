@@ -19,7 +19,7 @@ const scrollBarThumbVariants = cva({
   },
 });
 
-type ScrollBarProps = React.ComponentPropsWithoutRef<
+type ScrollBarProps = React.ComponentPropsWithRef<
   typeof ScrollAreaPrimitive.Root
 > &
   VariantProps<typeof scrollBarThumbVariants> & {
@@ -30,7 +30,6 @@ type ScrollBarProps = React.ComponentPropsWithoutRef<
   };
 
 function ScrollArea({
-  ref,
   className,
   viewPortClassName,
   scrollBarClassName,
@@ -39,12 +38,9 @@ function ScrollArea({
   variant,
   children,
   ...props
-}: ScrollBarProps & {
-  ref?: React.RefObject<React.ComponentRef<typeof ScrollAreaPrimitive.Root>>;
-}) {
+}: ScrollBarProps) {
   return (
     <ScrollAreaPrimitive.Root
-      ref={ref}
       className={cx('relative overflow-hidden', className)}
       {...props}
     >
@@ -71,24 +67,19 @@ function ScrollArea({
 }
 
 function ScrollBar({
-  ref,
   className,
   thumbClassName,
   variant,
   orientation = 'vertical',
   ...props
-}: React.ComponentPropsWithoutRef<
+}: React.ComponentPropsWithRef<
   typeof ScrollAreaPrimitive.ScrollAreaScrollbar
 > & {
-  ref?: React.RefObject<
-    React.ComponentRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
-  >;
   thumbClassName?: string;
   variant?: VariantProps<typeof scrollBarThumbVariants>['variant'];
 }) {
   return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
-      ref={ref}
       orientation={orientation}
       className={cx(
         'flex touch-none select-none transition-colors',

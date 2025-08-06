@@ -127,10 +127,10 @@ const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
 });
 
 /**
- * Checks if the user should be allowed to edit the storage.
+ * Checks if the user is allowed to edit the website.
  * Limited to labops, leadership, and admin groups.
  */
-const storageProcedure = protectedProcedure.use(async ({ next, ctx }) => {
+const protectedEditProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
     !ctx.user.groups.some(
       (group) =>
@@ -153,5 +153,5 @@ export {
   protectedProcedure,
   managementProcedure,
   leadershipProcedure,
-  storageProcedure,
+  protectedEditProcedure,
 };
