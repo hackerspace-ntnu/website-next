@@ -298,12 +298,12 @@
       "unauthorized": "Du har ikke rettigheter til å opprette nye grupper",
       "groupCreated": "Gruppen ble opprettet"
     },
-    "edit": {
-      "title": "Rediger gruppe",
+    "update": {
+      "title": "Oppdater gruppe",
       "backToGroup": "Tilbake til gruppe",
-      "unauthorized": "Du har ikke rettigheter til å redigere grupper",
-      "editGroup": "Rediger gruppe",
-      "groupEdited": "Gruppen ble redigert",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere grupper",
+      "updateGroup": "Oppdater gruppe",
+      "groupUpdated": "Gruppen ble oppdatert",
       "deleteGroup": "Slett gruppe",
       "imageDeleted": "Gruppebilde slettet",
       "groupDeleted": "Gruppen ble slettet",
@@ -347,7 +347,8 @@
         "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
         "placeholder": "devops",
         "isReserved": "Beklager, denne identifikatoren er reservert av interne systemer",
-        "required": "Gruppe-identifikator er påkrevd"
+        "required": "Gruppe-identifikator er påkrevd",
+        "regex": "Gruppe-identifikatoren kan ikke brukes i en URL. Tillatte tegn: a-z, A-Z, 0-9, -, _, ., og ~"
       },
       "internal": {
         "label": "Intern gruppe",

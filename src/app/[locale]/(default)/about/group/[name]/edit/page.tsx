@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { type Messages, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
-import { EditGroupForm } from '@/components/groups/EditGroupForm';
+import { GroupForm } from '@/components/groups/GroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
@@ -12,7 +12,7 @@ export default async function EditGroupPage({
   params: Promise<{ name: string }>;
 }) {
   const { user } = await api.auth.state();
-  const t = await getTranslations('groups.edit');
+  const t = await getTranslations('groups.update');
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -40,7 +40,7 @@ export default async function EditGroupPage({
   const { about, groups, ui } = await getMessages();
 
   return (
-    <main>
+    <>
       <div className='relative flex w-full justify-center'>
         <Link
           className='-translate-y-1/2 absolute top-1/2 left-0 flex w-fit items-center gap-2 p-2'
@@ -59,9 +59,9 @@ export default async function EditGroupPage({
         }
       >
         <div className='mx-auto lg:max-w-2xl'>
-          <EditGroupForm group={group} />
+          <GroupForm group={group} />
         </div>
       </NextIntlClientProvider>
-    </main>
+    </>
   );
 }

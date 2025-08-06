@@ -22,14 +22,14 @@ import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { groupSchema } from '@/validations/groups/groupSchema';
 
-function EditGroupForm({
+function GroupForm({
   group,
 }: {
   group?: RouterOutput['groups']['fetchGroup'];
 }) {
   const t = useTranslations('groups.form');
   const tNew = useTranslations('groups.new');
-  const tEdit = useTranslations('groups.edit');
+  const tEdit = useTranslations('groups.update');
   const tUi = useTranslations('ui');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
@@ -41,7 +41,7 @@ function EditGroupForm({
   });
   const editGroup = api.groups.editGroup.useMutation({
     onSuccess: (id) => {
-      toast.success(tEdit('groupEdited'));
+      toast.success(tEdit('groupUpdated'));
       router.push({ pathname: '/about/group/[name]', params: { name: id } });
     },
   });
@@ -214,9 +214,6 @@ function EditGroupForm({
           )}
         </form.AppField>
         <div className='flex justify-between'>
-          <form.SubmitButton loading={newGroup.isPending}>
-            {group ? tEdit('editGroup') : tNew('createGroup')}
-          </form.SubmitButton>
           {group && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -248,10 +245,13 @@ function EditGroupForm({
               </AlertDialogContent>
             </AlertDialog>
           )}
+          <form.SubmitButton loading={newGroup.isPending}>
+            {group ? tEdit('updateGroup') : tNew('createGroup')}
+          </form.SubmitButton>
         </div>
       </form.AppForm>
     </form>
   );
 }
 
-export { EditGroupForm };
+export { GroupForm };

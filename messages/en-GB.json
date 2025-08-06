@@ -298,12 +298,12 @@
       "unauthorized": "Unauthorized to create new groups",
       "groupCreated": "Group created successfully"
     },
-    "edit": {
-      "title": "Edit Group",
+    "update": {
+      "title": "Update Group",
       "backToGroup": "Back to group",
-      "unauthorized": "Unauthorized to edit groups",
-      "editGroup": "Edit group",
-      "groupEdited": "Group edited successfully",
+      "unauthorized": "Unauthorized to update groups",
+      "updateGroup": "Update group",
+      "groupUpdated": "Group updated successfully",
       "deleteGroup": "Delete group",
       "imageDeleted": "Group image deleted successfully",
       "groupDeleted": "Group deleted successfully",
@@ -347,7 +347,8 @@
         "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
         "placeholder": "devops",
         "isReserved": "Sorry, this identifier is reserved by internal systems",
-        "required": "Group identifier is required"
+        "required": "Group identifier is required",
+        "regex": "The identifier can't be used in a URL. Allowed character: a-z, A-Z, 0-9, -, _, ., and ~"
       },
       "internal": {
         "label": "Internal group",

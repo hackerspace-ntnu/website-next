@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Label } from '@/components/ui/Label';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-async function EditGroupFormSkeleton() {
+async function GroupFormSkeleton() {
   const t = await getTranslations('groups.form');
 
   return (
@@ -44,9 +44,10 @@ async function EditGroupFormSkeleton() {
       </div>
       <div className='flex justify-between'>
         <Skeleton className='h-10 w-32 rounded-lg' />
+        <Skeleton className='h-10 w-32 rounded-lg' />
       </div>
     </form>
   );
 }
 
-export { EditGroupFormSkeleton };
+export { GroupFormSkeleton };
