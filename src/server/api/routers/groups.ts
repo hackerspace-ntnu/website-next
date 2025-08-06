@@ -227,7 +227,7 @@ const groupsRouter = createRouter({
           imageId: input.image ? imageId : undefined,
           internal: input.internal,
         })
-        .where(eq(groups.identifier, input.identifier));
+        .where(eq(groups.identifier, input.previousIdentifier));
 
       await ctx.db
         .update(groupLocalizations)

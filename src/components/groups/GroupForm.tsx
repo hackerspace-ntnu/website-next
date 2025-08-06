@@ -89,6 +89,7 @@ function GroupForm({
       if (group) {
         return editGroup.mutate({
           ...value,
+          previousIdentifier: group.identifier,
           id: group.id,
         });
       }
