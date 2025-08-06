@@ -237,6 +237,12 @@
         "format": "Telefonnummeret er feil formatert",
         "inUse": "Telefonnummeret er allerede i bruk"
       },
+      "delete": {
+        "buttonLabel": "Slett konto",
+        "dialogTitle": "Er du sikker på at du ønsker å slette kontoen din?",
+        "dialogDescription": "All data relatert til deg, inkludert all kontaktinformasjon, profilbilde, lån via lagersystemet, arrangementsregistreringer, tilknyttede grupper, reservasjoner, innstillinger og mer vil bli slettet. <bold>Dette valget kan ikke angres</bold>. Hvis du endrer meningen din senere, vil gjenopprettelsen av denne dataen være umulig, men du er likevel velkommen til å lage en ny konto.",
+        "failedToDelete": "Kunne ikke slette konto"
+      },
       "password": {
         "currentLabel": "Nåværende passord",
         "newLabel": "Nytt passord",
