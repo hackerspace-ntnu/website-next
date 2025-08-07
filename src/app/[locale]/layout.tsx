@@ -1,7 +1,9 @@
 import { Inter, Montserrat } from 'next/font/google';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
 import { RootProviders } from '@/components/providers/RootProviders';
+import { Link } from '@/components/ui/Link';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
@@ -71,6 +73,8 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('layout');
+
   return (
     <html
       className={cx(
@@ -88,6 +92,15 @@ export default async function LocaleLayout({
             <div className='flex h-full w-full flex-col'>
               {children}
               <Toaster />
+              <AppCookieConsent
+                description={t.rich('cookieConsent', {
+                  link: (chunks) => (
+                    <Link href='/privacy-policy' variant='link'>
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              />
             </div>
           </ScrollArea>
         </RootProviders>
