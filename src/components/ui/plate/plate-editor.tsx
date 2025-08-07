@@ -1,33 +1,15 @@
 'use client';
 
-import { Plate, usePlateEditor } from 'platejs/react';
+import type { AnyPluginConfig, Value } from 'platejs';
+import {
+  type CreatePlateEditorOptions,
+  Plate,
+  usePlateEditor,
+} from 'platejs/react';
 import { Editor, EditorContainer } from '@/components/ui/plate/editor';
 import { EditorKit } from '@/components/ui/plate/kits/editor-kit';
 
-/**
- * A server component must provide Plate UI messages using <NextIntlClientProvider> like so:
- * ```
- * <NextIntlClientProvider messages={{ plate, ui }}>
- *   <PlateEditor />
- * </NextIntlClientProvider>
- * ```
- */
-export function PlateEditor() {
-  const editor = usePlateEditor({
-    plugins: EditorKit,
-    value,
-  });
-
-  return (
-    <Plate editor={editor}>
-      <EditorContainer>
-        <Editor variant='fullWidth' placeholder='Type...' />
-      </EditorContainer>
-    </Plate>
-  );
-}
-
-const value = [
+const defaultValue = [
   {
     children: [{ text: 'Basic Editor' }],
     type: 'h1',
@@ -59,3 +41,42 @@ const value = [
     type: 'p',
   },
 ];
+
+/**
+ * A server component must provide Plate UI messages using <NextIntlClientProvider> like so:
+ * ```
+ * <NextIntlClientProvider messages={{ plate, ui }}>
+ *   <PlateEditor />
+ * </NextIntlClientProvider>
+ * ```
+ */
+export function PlateEditor({
+  value,
+  variant,
+  initOptions,
+  editorOptions,
+}: {
+  value?: Value;
+  variant?: React.ComponentProps<typeof Editor>['variant'];
+  initOptions?: Omit<
+    CreatePlateEditorOptions<Value, AnyPluginConfig> & {
+      enabled?: boolean;
+    },
+    'value'
+  >;
+  editorOptions?: Omit<React.ComponentProps<typeof Editor>, 'variant'>;
+}) {
+  const editor = usePlateEditor({
+    plugins: initOptions?.plugins ?? EditorKit,
+    value: value ?? defaultValue,
+    ...initOptions,
+  });
+
+  return (
+    <Plate editor={editor}>
+      <EditorContainer>
+        <Editor variant={variant} {...editorOptions} />
+      </EditorContainer>
+    </Plate>
+  );
+}
