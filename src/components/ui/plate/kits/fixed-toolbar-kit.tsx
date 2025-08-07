@@ -4,15 +4,18 @@ import { createPlatePlugin } from 'platejs/react';
 
 import { FixedToolbar } from '@/components/ui/plate/fixed-toolbar';
 import { FixedToolbarButtons } from '@/components/ui/plate/fixed-toolbar-buttons';
+import { ScrollArea } from '@/components/ui/ScrollArea';
 
 export const FixedToolbarKit = [
   createPlatePlugin({
     key: 'fixed-toolbar',
     render: {
       beforeEditable: () => (
-        <FixedToolbar className='pb-4'>
-          <FixedToolbarButtons />
-        </FixedToolbar>
+        <ScrollArea orientation='horizontal' scrollBarClassName='z-20'>
+          <FixedToolbar className='pb-4'>
+            <FixedToolbarButtons />
+          </FixedToolbar>
+        </ScrollArea>
       ),
     },
   }),
