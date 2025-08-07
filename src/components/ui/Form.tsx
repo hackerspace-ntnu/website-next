@@ -15,6 +15,7 @@ import {
 import type { DateRange } from 'react-day-picker';
 import type { MarkerDragEvent } from 'react-map-gl/maplibre';
 import { Marker } from 'react-map-gl/maplibre';
+import type { ZodError } from 'zod';
 import { BaseMap } from '@/components/composites/BaseMap';
 import { DatePicker } from '@/components/composites/DatePicker';
 import { FileUpload } from '@/components/composites/FileUpload';
@@ -41,7 +42,6 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
-
 import { cx, type VariantProps } from '@/lib/utils';
 import { fileToBase64String } from '@/lib/utils/files';
 
@@ -253,7 +253,7 @@ type CheckboxFieldProps = Omit<
 function CheckboxField({
   className,
   label,
-  labelVisible,
+  labelVisible = true,
   description,
   ...props
 }: CheckboxFieldProps) {
@@ -702,6 +702,7 @@ type FileUploadFieldProps = Omit<
   labelSibling?: React.ReactNode;
   description?: string;
   className?: string;
+  validator?: (value: string) => { success: boolean; error?: ZodError };
 };
 
 function FileUploadField({
@@ -712,11 +713,11 @@ function FileUploadField({
   description,
   ...props
 }: FileUploadFieldProps) {
-  const field = useFieldContext<string>();
+  const field = useFieldContext<string | null>();
 
   const handleFilesUploaded = async (files: File | File[] | null) => {
-    if (!files) {
-      field.handleChange('');
+    if (!files || (Array.isArray(files) && files.length === 0)) {
+      field.handleChange(null);
       return;
     }
 
@@ -957,7 +958,7 @@ function SubmitButton({
         <Button
           className={cx('min-w-28', className)}
           type='submit'
-          disabled={isSubmitting ?? isPristine ?? isValidating ?? loading}
+          disabled={isSubmitting || isPristine || isValidating || loading}
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
