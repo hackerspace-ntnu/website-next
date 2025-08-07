@@ -11,10 +11,8 @@ import { BlockPlaceholderKit } from './block-placeholder-kit';
 import { CalloutKit } from './callout-kit';
 import { CodeBlockKit } from './code-block-kit';
 import { ColumnKit } from './column-kit';
-import { CommentKit } from './comment-kit';
 import { CursorOverlayKit } from './cursor-overlay-kit';
 import { DateKit } from './date-kit';
-import { DiscussionKit } from './discussion-kit';
 import { DndKit } from './dnd-kit';
 import { DocxKit } from './docx-kit';
 import { EmojiKit } from './emoji-kit';
@@ -30,10 +28,18 @@ import { MathKit } from './math-kit';
 // import { MediaKit } from './media-kit';
 import { MentionKit } from './mention-kit';
 import { SlashKit } from './slash-kit';
-import { SuggestionKit } from './suggestion-kit';
 import { TableKit } from './table-kit';
 import { TocKit } from './toc-kit';
 import { ToggleKit } from './toggle-kit';
+
+// These kits and their related components have been removed:
+// - AI
+// - Discussion
+// - Comment
+// - Suggestion
+// If any of these should be added in the future,
+// remember to add all required components, base kits, kits and
+// update the fixed and floating toolbar buttons.
 
 export const EditorKit = [
   ...BlockMenuKit,
@@ -62,9 +68,6 @@ export const EditorKit = [
   ...LineHeightKit,
 
   // Collaboration
-  ...DiscussionKit,
-  ...CommentKit,
-  ...SuggestionKit,
 
   // Editing
   ...SlashKit,

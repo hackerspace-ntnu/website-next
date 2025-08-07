@@ -16,14 +16,6 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import { useFilePicker } from 'use-file-picker';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/DropdownMenu';
-import { Input } from '@/components/ui/Input';
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -32,7 +24,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/plate/alert-dialog';
+} from '@/components/ui/AlertDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import { Input } from '@/components/ui/Input';
 import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
