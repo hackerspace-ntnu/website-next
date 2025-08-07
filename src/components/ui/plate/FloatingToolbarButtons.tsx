@@ -1,0 +1,62 @@
+'use client';
+
+import {
+  BoldIcon,
+  Code2Icon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+} from 'lucide-react';
+import { KEYS } from 'platejs';
+import { useEditorReadOnly } from 'platejs/react';
+import { InlineEquationToolbarButton } from './EquationToolbarButton';
+import { LinkToolbarButton } from './LinkToolbarButton';
+import { MarkToolbarButton } from './MarkToolbarButton';
+import { MoreToolbarButton } from './MoreToolbarButton';
+import { ToolbarGroup } from './Toolbar';
+import { TurnIntoToolbarButton } from './TurnIntoToolbarButton';
+
+export function FloatingToolbarButtons() {
+  const readOnly = useEditorReadOnly();
+
+  return (
+    <>
+      {!readOnly && (
+        <ToolbarGroup>
+          <TurnIntoToolbarButton />
+
+          <MarkToolbarButton nodeType={KEYS.bold} tooltip='Bold (⌘+B)'>
+            <BoldIcon />
+          </MarkToolbarButton>
+
+          <MarkToolbarButton nodeType={KEYS.italic} tooltip='Italic (⌘+I)'>
+            <ItalicIcon />
+          </MarkToolbarButton>
+
+          <MarkToolbarButton
+            nodeType={KEYS.underline}
+            tooltip='Underline (⌘+U)'
+          >
+            <UnderlineIcon />
+          </MarkToolbarButton>
+
+          <MarkToolbarButton
+            nodeType={KEYS.strikethrough}
+            tooltip='Strikethrough (⌘+⇧+M)'
+          >
+            <StrikethroughIcon />
+          </MarkToolbarButton>
+
+          <MarkToolbarButton nodeType={KEYS.code} tooltip='Code (⌘+E)'>
+            <Code2Icon />
+          </MarkToolbarButton>
+
+          <InlineEquationToolbarButton />
+
+          <LinkToolbarButton />
+        </ToolbarGroup>
+      )}
+      <ToolbarGroup>{!readOnly && <MoreToolbarButton />}</ToolbarGroup>
+    </>
+  );
+}
