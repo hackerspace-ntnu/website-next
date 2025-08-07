@@ -809,5 +809,11 @@
       "title": "Endringer i denne personvernerklæringen",
       "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
     }
+  },
+  "plate": {
+    "api": {
+      "failedToExportPDF": "Kunne ikke eksportere PDF",
+      "failedToExportImage": "Kunne ikke eksportere bilde"
+    }
   }
 }

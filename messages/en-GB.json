@@ -809,5 +809,11 @@
       "title": "Changes to this Privacy Policy",
       "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
     }
+  },
+  "plate": {
+    "api": {
+      "failedToExportPDF": "Failed to export PDF",
+      "failedToExportImage": "Failed to export image"
+    }
   }
 }
