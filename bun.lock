@@ -35,6 +35,7 @@
         "@platejs/mention": "^49.0.0",
         "@platejs/resizable": "^49.0.0",
         "@platejs/selection": "^49.2.4",
+        "@platejs/slash-command": "^49.0.0",
         "@platejs/suggestion": "^49.0.0",
         "@platejs/table": "^49.1.13",
         "@platejs/toc": "^49.0.0",
@@ -606,6 +607,8 @@
     "@platejs/resizable": ["@platejs/resizable@49.0.0", "", { "peerDependencies": { "platejs": ">=49.0.0", "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-oNqot0Ssd+kjWNbw2e5rlBVnt49CvzmYXauDYXJO+UmmO29sCl6ZgblqExlELuxpk4g0A5FHBT/GA7+4hOfitA=="],
 
     "@platejs/selection": ["@platejs/selection@49.2.4", "", { "dependencies": { "copy-to-clipboard": "^3.3.3" }, "peerDependencies": { "platejs": ">=49.2.4", "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-dn8gcTcXOsGa7d90bBlCdp54ycGxrp22xrkqXwqBglg1dO/KJzgSR3hUhOuoj04i2/eiK04Km45Dyk6dSs5U9A=="],
+
+    "@platejs/slash-command": ["@platejs/slash-command@49.0.0", "", { "dependencies": { "@platejs/combobox": "49.0.0" }, "peerDependencies": { "platejs": ">=49.0.0", "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-ObAYoyFEXj+eUxWQD8JiZOCBPEOLQTVsfEJsWHmn61yNCRDmr0OrCyGFtdWpvw6bC72It4HSh8e/1DgzO2BnBg=="],
 
     "@platejs/slate": ["@platejs/slate@49.2.4", "", { "dependencies": { "@udecode/utils": "47.2.7", "is-plain-object": "^5.0.0", "lodash": "^4.17.21", "slate": "0.117.0", "slate-dom": "0.116.0" } }, "sha512-eFPcs50p+TWoGyzQZhFqt8Fhxfi9lLKb5gqLaULhCSx5p5t4nM2zWPxhdGroB07ZXY9fuW13OtO2mRZokvjgVA=="],
 

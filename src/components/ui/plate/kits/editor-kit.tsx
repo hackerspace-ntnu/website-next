@@ -29,7 +29,7 @@ import { MarkdownKit } from './markdown-kit';
 import { MathKit } from './math-kit';
 // import { MediaKit } from './media-kit';
 import { MentionKit } from './mention-kit';
-// import { SlashKit } from './slash-kit';
+import { SlashKit } from './slash-kit';
 import { SuggestionKit } from './suggestion-kit';
 import { TableKit } from './table-kit';
 import { TocKit } from './toc-kit';
@@ -67,7 +67,7 @@ export const EditorKit = [
   ...SuggestionKit,
 
   // Editing
-  // ...SlashKit,
+  ...SlashKit,
   ...AutoformatKit,
   ...CursorOverlayKit,
   ...DndKit,
