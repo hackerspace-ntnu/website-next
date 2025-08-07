@@ -32,15 +32,15 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
 
   const item: Record<string, { icon: React.ReactNode; label: string }> = {
     editing: {
-      icon: <PenIcon />,
+      icon: <PenIcon className='h-5 w-5' />,
       label: 'Editing',
     },
     suggestion: {
-      icon: <PencilLineIcon />,
+      icon: <PencilLineIcon className='h-5 w-5' />,
       label: 'Suggestion',
     },
     viewing: {
-      icon: <EyeIcon />,
+      icon: <EyeIcon className='h-5 w-5' />,
       label: 'Viewing',
     },
   };
@@ -80,7 +80,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
           }}
         >
           <DropdownMenuRadioItem
-            className='pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
+            className='flex gap-2 pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
             value='editing'
           >
             <Indicator />
@@ -89,7 +89,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
           </DropdownMenuRadioItem>
 
           <DropdownMenuRadioItem
-            className='pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
+            className='flex gap-2 pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
             value='viewing'
           >
             <Indicator />
@@ -97,14 +97,14 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
             {item.viewing?.label}
           </DropdownMenuRadioItem>
 
-          <DropdownMenuRadioItem
-            className='pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
+          {/* <DropdownMenuRadioItem
+            className='flex gap-2 pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground'
             value='suggestion'
           >
             <Indicator />
             {item.suggestion?.icon}
             {item.suggestion?.label}
-          </DropdownMenuRadioItem>
+          </DropdownMenuRadioItem> */}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
