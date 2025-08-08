@@ -15,6 +15,7 @@ import {
   Resizable,
   ResizeHandle,
 } from '@/components/ui/plate/ResizeHandle';
+import { api } from '@/lib/api/client';
 import { cx } from '@/lib/utils/index';
 
 const VideoElement = withHOC(
@@ -38,11 +39,15 @@ const VideoElement = withHOC(
 
     const isTweet = true;
 
-    const { isDragging, handleRef } = useDraggable({
-      element: props.element,
-    });
+    // Elements with a custom fileId need to fetch their S3 URL
+    const url = api.utils.getFileUrl.useQuery(
+      { fileId: Number(props.element.fileId as string) },
+      { enabled: !!props.element.fileId },
+    );
 
-    if (!embed?.id) return null;
+    const { isDragging, handleRef } = useDraggable({
+      element: url.data ? { ...props.element, url: url.data } : props.element,
+    });
 
     return (
       <PlateElement className='py-2.5' {...props}>
@@ -68,7 +73,7 @@ const VideoElement = withHOC(
                 options={{ direction: 'right' }}
               />
 
-              {!isUpload && isYoutube && (
+              {!isUpload && isYoutube && embed?.id && (
                 <div ref={handleRef}>
                   <LiteYouTubeEmbed
                     id={embed.id}
@@ -97,7 +102,7 @@ const VideoElement = withHOC(
                 <div ref={handleRef}>
                   <ReactPlayer
                     height='100%'
-                    src={unsafeUrl}
+                    src={url.data ?? unsafeUrl}
                     width='100%'
                     controls
                   />

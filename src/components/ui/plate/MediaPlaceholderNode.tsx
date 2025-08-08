@@ -121,7 +121,7 @@ const PlaceholderElement = withHOC(
           name: element.mediaType === KEYS.file ? uploadedFile.name : '',
           placeholderId: element.id as string,
           type: element.mediaType,
-          url: uploadedFile.url,
+          fileId: uploadedFile.key,
         };
 
         editor.tf.insertNodes(node, { at: path });

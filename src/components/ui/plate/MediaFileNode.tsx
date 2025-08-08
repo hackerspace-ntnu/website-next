@@ -7,6 +7,7 @@ import type { TFileElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useReadOnly, withHOC } from 'platejs/react';
 import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
+import { api } from '@/lib/api/client';
 
 const FileElement = withHOC(
   ResizableProvider,
@@ -14,13 +15,23 @@ const FileElement = withHOC(
     const readOnly = useReadOnly();
     const { name, unsafeUrl } = useMediaState();
 
+    // Elements with a custom fileId need to fetch their S3 URL
+    const url = api.utils.getFileUrl.useQuery(
+      {
+        fileId: Number(props.element.fileId as string),
+      },
+      {
+        enabled: !!props.element.fileId,
+      },
+    );
+
     return (
       <PlateElement className='my-px rounded-sm' {...props}>
         <a
           className='group relative m-0 flex cursor-pointer items-center rounded px-0.5 py-[3px] hover:bg-muted'
           contentEditable={false}
           download={name}
-          href={unsafeUrl}
+          href={url.data ?? unsafeUrl}
           rel='noopener noreferrer'
           role='button'
           target='_blank'

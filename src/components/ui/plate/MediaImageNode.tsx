@@ -13,6 +13,7 @@ import {
   Resizable,
   ResizeHandle,
 } from '@/components/ui/plate/ResizeHandle';
+import { api } from '@/lib/api/client';
 import { cx } from '@/lib/utils/index';
 
 const ImageElement = withHOC(
@@ -21,8 +22,18 @@ const ImageElement = withHOC(
     const { align = 'center', focused, readOnly, selected } = useMediaState();
     const width = useResizableValue('width');
 
+    // Elements with a custom fileId need to fetch their S3 URL
+    const url = api.utils.getFileUrl.useQuery(
+      {
+        fileId: Number(props.element.fileId as string),
+      },
+      {
+        enabled: !!props.element.fileId,
+      },
+    );
+
     const { isDragging, handleRef } = useDraggable({
-      element: props.element,
+      element: url ? { ...props.element, url: url.data } : props.element,
     });
 
     return (
@@ -49,6 +60,7 @@ const ImageElement = withHOC(
                   isDragging && 'opacity-50',
                 )}
                 alt={props.attributes.alt as string | undefined}
+                src={props.element.fileId ? url.data : props.element.url}
               />
               <ResizeHandle
                 className={mediaResizeHandleVariants({

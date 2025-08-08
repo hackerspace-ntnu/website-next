@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
-import { EditorViewStatic } from '@/components/ui/plate/EditorViewStatic';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
 
@@ -94,7 +94,7 @@ export default async function GroupPage({
             />
           </div>
         )}
-        <EditorViewStatic value={groupLocalization.description} />
+        <PlateEditorView value={groupLocalization.description} />
         {members.length === 0 && (
           <div className='flex w-full items-center justify-center gap-2'>
             <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />

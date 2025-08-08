@@ -90,11 +90,14 @@ function MediaToolbar({
           </div>
         ) : (
           <div className='box-content flex items-center'>
-            <FloatingMediaPrimitive.EditButton
-              className={buttonVariants({ size: 'sm', variant: 'ghost' })}
-            >
-              Edit link
-            </FloatingMediaPrimitive.EditButton>
+            {/* Media with fileId is uploaded to S3 and should not have an explicit URL set */}
+            {!element?.fileId && (
+              <FloatingMediaPrimitive.EditButton
+                className={buttonVariants({ size: 'sm', variant: 'ghost' })}
+              >
+                Edit link
+              </FloatingMediaPrimitive.EditButton>
+            )}
 
             <CaptionButton size='sm' variant='ghost'>
               Caption
