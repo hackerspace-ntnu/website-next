@@ -6,6 +6,7 @@ import {
   useIndentTodoToolBarButtonState,
 } from '@platejs/list/react';
 import { List, ListOrdered, ListTodoIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEditorRef, useEditorSelector } from 'platejs/react';
 import * as React from 'react';
 import {
@@ -25,6 +26,7 @@ import {
 function BulletedListToolbarButton() {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations('ui.plate');
 
   const pressed = useEditorSelector(
     (editor) =>
@@ -66,7 +68,7 @@ function BulletedListToolbarButton() {
             >
               <div className='flex items-center gap-2'>
                 <div className='size-2 rounded-full border border-current bg-current' />
-                Default
+                {t('default')}
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -78,7 +80,7 @@ function BulletedListToolbarButton() {
             >
               <div className='flex items-center gap-2'>
                 <div className='size-2 rounded-full border border-current' />
-                Circle
+                {t('circle')}
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -90,7 +92,7 @@ function BulletedListToolbarButton() {
             >
               <div className='flex items-center gap-2'>
                 <div className='size-2 border border-current bg-current' />
-                Square
+                {t('square')}
               </div>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -103,6 +105,7 @@ function BulletedListToolbarButton() {
 function NumberedListToolbarButton() {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations('ui.plate');
 
   const pressed = useEditorSelector(
     (editor) =>
@@ -144,7 +147,7 @@ function NumberedListToolbarButton() {
                 })
               }
             >
-              Decimal (1, 2, 3)
+              {t('decimal')} (1, 2, 3)
             </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() =>
@@ -153,7 +156,7 @@ function NumberedListToolbarButton() {
                 })
               }
             >
-              Lower Alpha (a, b, c)
+              {t('lowerAlpha')} (a, b, c)
             </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() =>
@@ -162,7 +165,7 @@ function NumberedListToolbarButton() {
                 })
               }
             >
-              Upper Alpha (A, B, C)
+              {t('upperAlpha')} (A, B, C)
             </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() =>
@@ -171,7 +174,7 @@ function NumberedListToolbarButton() {
                 })
               }
             >
-              Lower Roman (i, ii, iii)
+              {t('lowerRoman')} (i, ii, iii)
             </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() =>
@@ -180,7 +183,7 @@ function NumberedListToolbarButton() {
                 })
               }
             >
-              Upper Roman (I, II, III)
+              {t('upperRoman')} (I, II, III)
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
@@ -194,9 +197,10 @@ function TodoListToolbarButton(
 ) {
   const state = useIndentTodoToolBarButtonState({ nodeType: 'todo' });
   const { props: buttonProps } = useIndentTodoToolBarButton(state);
+  const t = useTranslations('ui.plate');
 
   return (
-    <ToolbarButton {...props} {...buttonProps} tooltip='Todo'>
+    <ToolbarButton {...props} {...buttonProps} tooltip={t('todo')}>
       <ListTodoIcon />
     </ToolbarButton>
   );

@@ -2,6 +2,7 @@
 
 import { EmojiInlineIndexSearch, insertEmoji } from '@platejs/emoji';
 import { EmojiPlugin } from '@platejs/emoji/react';
+import { useTranslations } from 'next-intl';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, usePluginOption } from 'platejs/react';
 import * as React from 'react';
@@ -21,6 +22,7 @@ function EmojiInputElement(props: PlateElementProps) {
   const [value, setValue] = React.useState('');
   const debouncedValue = useDebounce(value, 100);
   const isPending = value !== debouncedValue;
+  const t = useTranslations('ui');
 
   const filteredEmojis = React.useMemo(() => {
     if (debouncedValue.trim().length === 0) return [];
@@ -43,7 +45,9 @@ function EmojiInputElement(props: PlateElementProps) {
         <InlineComboboxInput />
 
         <InlineComboboxContent>
-          {!isPending && <InlineComboboxEmpty>No results</InlineComboboxEmpty>}
+          {!isPending && (
+            <InlineComboboxEmpty>{t('noResults')}</InlineComboboxEmpty>
+          )}
 
           <InlineComboboxGroup>
             {filteredEmojis.map((emoji) => (

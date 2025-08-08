@@ -16,6 +16,7 @@ import {
 } from '@platejs/link/react';
 import { cva } from 'cva';
 import { ExternalLink, Link, Text, Unlink } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TLinkElement } from 'platejs';
 import { KEYS } from 'platejs';
 import {
@@ -88,6 +89,8 @@ function LinkFloatingToolbar({ state }: { state?: LinkFloatingToolbarState }) {
     preventDefaultOnEnterKeydown: true,
   });
 
+  const t = useTranslations('ui.plate');
+
   if (hidden) return null;
 
   const input = (
@@ -99,7 +102,7 @@ function LinkFloatingToolbar({ state }: { state?: LinkFloatingToolbarState }) {
 
         <FloatingLinkUrlInput
           className={inputVariants()}
-          placeholder='Paste link'
+          placeholder={t('pasteLink')}
           data-plate-focus
         />
       </div>
@@ -110,7 +113,7 @@ function LinkFloatingToolbar({ state }: { state?: LinkFloatingToolbarState }) {
         </div>
         <input
           className={inputVariants()}
-          placeholder='Text to display'
+          placeholder={t('textToDisplay')}
           data-plate-focus
           {...textInputProps}
         />
@@ -127,7 +130,7 @@ function LinkFloatingToolbar({ state }: { state?: LinkFloatingToolbarState }) {
         type='button'
         {...editButtonProps}
       >
-        Edit link
+        {t('editLink')}
       </button>
 
       <Separator orientation='vertical' />

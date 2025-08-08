@@ -3,6 +3,7 @@
 import { useDraggable } from '@platejs/dnd';
 import { Image, ImagePlugin, useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
+import { useTranslations } from 'next-intl';
 import type { TImageElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
@@ -21,6 +22,7 @@ const ImageElement = withHOC(
   function ImageElement(props: PlateElementProps<TImageElement>) {
     const { align = 'center', focused, readOnly, selected } = useMediaState();
     const width = useResizableValue('width');
+    const t = useTranslations('ui.plate');
 
     // Elements with a custom fileId need to fetch their S3 URL
     const url = api.utils.getFileUrl.useQuery(
@@ -76,7 +78,7 @@ const ImageElement = withHOC(
                 onFocus={(e) => {
                   e.preventDefault();
                 }}
-                placeholder='Write a caption...'
+                placeholder={t('writeACaption')}
               />
             </Caption>
           </figure>

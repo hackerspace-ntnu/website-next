@@ -6,6 +6,7 @@ import { ResizableProvider } from '@platejs/resizable';
 import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { useComposedRef } from '@udecode/cn';
 import { GripHorizontal, type LucideProps, Trash2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TColumnElement } from 'platejs';
 import { PathApi } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
@@ -96,6 +97,8 @@ const ColumnElement = withHOC(
 );
 
 const ColumnDragHandle = React.memo(function ColumnDragHandle() {
+  const t = useTranslations('ui.plate');
+
   return (
     <TooltipProvider>
       <Tooltip>
@@ -111,7 +114,7 @@ const ColumnDragHandle = React.memo(function ColumnDragHandle() {
           </Button>
         </TooltipTrigger>
 
-        <TooltipContent>Drag to move column</TooltipContent>
+        <TooltipContent>{t('dragToMoveColumn')}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
@@ -180,43 +183,43 @@ function ColumnFloatingToolbar({ children }: React.PropsWithChildren) {
         <div className='box-content flex h-8 items-center'>
           <Button
             variant='ghost'
-            className='size-8'
+            size='icon'
             onClick={() => onColumnChange(['50%', '50%'])}
           >
-            <DoubleColumnOutlined />
+            <DoubleColumnOutlined className='size-6' />
           </Button>
           <Button
             variant='ghost'
-            className='size-8'
+            size='icon'
             onClick={() => onColumnChange(['33%', '33%', '33%'])}
           >
-            <ThreeColumnOutlined />
+            <ThreeColumnOutlined className='size-6' />
           </Button>
           <Button
             variant='ghost'
-            className='size-8'
+            size='icon'
             onClick={() => onColumnChange(['70%', '30%'])}
           >
-            <RightSideDoubleColumnOutlined />
+            <RightSideDoubleColumnOutlined className='size-6' />
           </Button>
           <Button
             variant='ghost'
-            className='size-8'
+            size='icon'
             onClick={() => onColumnChange(['30%', '70%'])}
           >
-            <LeftSideDoubleColumnOutlined />
+            <LeftSideDoubleColumnOutlined className='size-6' />
           </Button>
           <Button
             variant='ghost'
-            className='size-8'
+            size='icon'
             onClick={() => onColumnChange(['25%', '50%', '25%'])}
           >
-            <DoubleSideDoubleColumnOutlined />
+            <DoubleSideDoubleColumnOutlined className='size-6' />
           </Button>
 
           <Separator orientation='vertical' className='mx-1 h-6' />
-          <Button variant='ghost' className='size-8' {...buttonProps}>
-            <Trash2Icon />
+          <Button variant='ghost' size='icon' {...buttonProps}>
+            <Trash2Icon className='size-5' />
           </Button>
         </div>
       </PopoverContent>

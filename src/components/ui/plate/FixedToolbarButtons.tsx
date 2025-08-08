@@ -10,6 +10,7 @@ import {
   StrikethroughIcon,
   UnderlineIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { useEditorReadOnly } from 'platejs/react';
 import { AlignToolbarButton } from '@/components/ui/plate/AlignToolbarButton';
@@ -45,6 +46,7 @@ import { TurnIntoToolbarButton } from '@/components/ui/plate/TurnIntoToolbarButt
 
 function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly();
+  const t = useTranslations('ui.plate');
 
   return (
     <div className='flex w-full'>
@@ -70,39 +72,42 @@ function FixedToolbarButtons() {
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <MarkToolbarButton nodeType={KEYS.bold} tooltip='Bold (⌘+B)'>
+            <MarkToolbarButton nodeType={KEYS.bold} tooltip={t('bold')}>
               <BoldIcon />
             </MarkToolbarButton>
 
-            <MarkToolbarButton nodeType={KEYS.italic} tooltip='Italic (⌘+I)'>
+            <MarkToolbarButton nodeType={KEYS.italic} tooltip={t('italic')}>
               <ItalicIcon />
             </MarkToolbarButton>
 
             <MarkToolbarButton
               nodeType={KEYS.underline}
-              tooltip='Underline (⌘+U)'
+              tooltip={t('underline')}
             >
               <UnderlineIcon />
             </MarkToolbarButton>
 
             <MarkToolbarButton
               nodeType={KEYS.strikethrough}
-              tooltip='Strikethrough (⌘+⇧+M)'
+              tooltip={t('strikethrough')}
             >
               <StrikethroughIcon />
             </MarkToolbarButton>
 
-            <MarkToolbarButton nodeType={KEYS.code} tooltip='Code (⌘+E)'>
+            <MarkToolbarButton nodeType={KEYS.code} tooltip={t('code')}>
               <Code2Icon />
             </MarkToolbarButton>
 
-            <FontColorToolbarButton nodeType={KEYS.color} tooltip='Text color'>
+            <FontColorToolbarButton
+              nodeType={KEYS.color}
+              tooltip={t('textColor')}
+            >
               <BaselineIcon />
             </FontColorToolbarButton>
 
             <FontColorToolbarButton
               nodeType={KEYS.backgroundColor}
-              tooltip='Background color'
+              tooltip={t('backgroundColor')}
             >
               <PaintBucketIcon />
             </FontColorToolbarButton>

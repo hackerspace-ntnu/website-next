@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import type { AnyPluginConfig, Value } from 'platejs';
 import {
   type CreatePlateEditorOptions,
@@ -65,8 +66,9 @@ function PlateEditor({
   containerOptions?: React.ComponentProps<typeof EditorContainer>;
   editorOptions?: Omit<React.ComponentProps<typeof Editor>, 'variant'>;
 }) {
+  const t = useTranslations();
   const editor = usePlateEditor({
-    plugins: initOptions?.plugins ?? EditorKit,
+    plugins: initOptions?.plugins ?? EditorKit(t),
     value: value ?? defaultValue,
     ...initOptions,
   });

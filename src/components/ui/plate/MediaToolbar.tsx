@@ -8,6 +8,7 @@ import {
 } from '@platejs/media/react';
 import { cva } from 'cva';
 import { Link, Trash2Icon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { WithRequiredKey } from 'platejs';
 import {
   useEditorRef,
@@ -55,6 +56,7 @@ function MediaToolbar({
     selectionCollapsed &&
     !isImagePreviewOpen;
   const isEditing = useFloatingMediaValue('isEditing');
+  const t = useTranslations('ui.plate');
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
   React.useEffect(() => {
@@ -83,7 +85,7 @@ function MediaToolbar({
 
               <FloatingMediaPrimitive.UrlInput
                 className={inputVariants()}
-                placeholder='Paste the embed link...'
+                placeholder={t('pasteEmbedLink')}
                 options={{ plugin }}
               />
             </div>
@@ -95,12 +97,12 @@ function MediaToolbar({
               <FloatingMediaPrimitive.EditButton
                 className={buttonVariants({ size: 'sm', variant: 'ghost' })}
               >
-                Edit link
+                {t('editLink')}
               </FloatingMediaPrimitive.EditButton>
             )}
 
             <CaptionButton size='sm' variant='ghost'>
-              Caption
+              {t('caption')}
             </CaptionButton>
 
             <Separator orientation='vertical' className='mx-1 h-6' />

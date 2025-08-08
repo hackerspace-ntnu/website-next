@@ -2,6 +2,7 @@
 
 import { formatCodeBlock, isLangSupported } from '@platejs/code-block';
 import { BracesIcon, Check, CheckIcon, CopyIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { NodeApi, type TCodeBlockElement, type TCodeSyntaxLeaf } from 'platejs';
 import {
   PlateElement,
@@ -79,6 +80,7 @@ function CodeBlockCombobox() {
   const element = useElement<TCodeBlockElement>();
   const value = element.lang || 'plaintext';
   const [searchValue, setSearchValue] = React.useState('');
+  const t = useTranslations('ui.plate');
 
   const items = React.useMemo(
     () =>
@@ -115,9 +117,9 @@ function CodeBlockCombobox() {
             className='h-9'
             value={searchValue}
             onValueChange={(value) => setSearchValue(value)}
-            placeholder='Search language...'
+            placeholder={t('searchLanguages')}
           />
-          <CommandEmpty>No language found.</CommandEmpty>
+          <CommandEmpty>{t('noLanguageFound')}</CommandEmpty>
 
           <CommandList className='h-[344px] overflow-y-auto'>
             <CommandGroup>
@@ -159,6 +161,7 @@ function CopyButton({
   'value'
 >) {
   const [hasCopied, setHasCopied] = React.useState(false);
+  const t = useTranslations('ui');
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
   React.useEffect(() => {
@@ -177,7 +180,7 @@ function CopyButton({
       }}
       {...props}
     >
-      <span className='sr-only'>Copy</span>
+      <span className='sr-only'>{t('copy')}</span>
       {hasCopied ? (
         <CheckIcon className='!size-3' />
       ) : (

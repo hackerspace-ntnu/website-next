@@ -3,6 +3,7 @@
 import { MarkdownPlugin } from '@platejs/markdown';
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { ArrowUpToLineIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { getEditorDOMFromHtmlString } from 'platejs';
 import { useEditorRef } from 'platejs/react';
 import * as React from 'react';
@@ -21,6 +22,7 @@ type ImportType = 'html' | 'markdown';
 function ImportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations('ui.plate');
 
   const getFileNodes = (text: string, type: ImportType) => {
     if (type === 'html') {
@@ -66,7 +68,7 @@ function ImportToolbarButton(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Import' isDropdown>
+        <ToolbarButton pressed={open} tooltip={t('import')} isDropdown>
           <ArrowUpToLineIcon className='size-4' />
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -78,7 +80,7 @@ function ImportToolbarButton(props: DropdownMenuProps) {
               openHtmlFilePicker();
             }}
           >
-            Import from HTML
+            {t('importFromHtml')}
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -86,7 +88,7 @@ function ImportToolbarButton(props: DropdownMenuProps) {
               openMdFilePicker();
             }}
           >
-            Import from Markdown
+            {t('importFromMarkdown')}
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

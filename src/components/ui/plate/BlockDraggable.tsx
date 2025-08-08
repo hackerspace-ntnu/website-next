@@ -4,6 +4,7 @@ import { DndPlugin, useDraggable, useDropLine } from '@platejs/dnd';
 import { expandListItemsWithChildren } from '@platejs/list';
 import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { GripVertical } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { getPluginByType, isType, KEYS, type TElement } from 'platejs';
 import {
   MemoizedChildren,
@@ -16,7 +17,6 @@ import {
   useSelected,
 } from 'platejs/react';
 import * as React from 'react';
-
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -236,6 +236,7 @@ const DragHandle = React.memo(function DragHandle({
 }) {
   const editor = useEditorRef();
   const element = useElement();
+  const t = useTranslations('ui.plate');
 
   return (
     <Tooltip>
@@ -338,7 +339,7 @@ const DragHandle = React.memo(function DragHandle({
           <GripVertical className='text-muted-foreground' />
         </div>
       </TooltipTrigger>
-      <TooltipContent>Drag to move</TooltipContent>
+      <TooltipContent>{t('dragToMove')}</TooltipContent>
     </Tooltip>
   );
 });

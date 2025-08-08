@@ -2,6 +2,7 @@
 
 import { useMediaState } from '@platejs/media/react';
 import { ResizableProvider } from '@platejs/resizable';
+import { useTranslations } from 'next-intl';
 import type { TAudioElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
@@ -12,6 +13,7 @@ const AudioElement = withHOC(
   ResizableProvider,
   function AudioElement(props: PlateElementProps<TAudioElement>) {
     const { align = 'center', readOnly, unsafeUrl } = useMediaState();
+    const t = useTranslations('ui.plate');
 
     const url = api.utils.getFileUrl.useQuery(
       { fileId: Number(props.element.fileId as string) },
@@ -33,7 +35,7 @@ const AudioElement = withHOC(
             <CaptionTextarea
               className='h-20'
               readOnly={readOnly}
-              placeholder='Write a caption...'
+              placeholder={t('writeACaption')}
             />
           </Caption>
         </figure>

@@ -2,6 +2,7 @@
 
 import { useTocElement, useTocElementState } from '@platejs/toc/react';
 import { cva } from 'cva';
+import { useTranslations } from 'next-intl';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement } from 'platejs/react';
 import { Button } from '@/components/ui/Button';
@@ -21,6 +22,7 @@ function TocElement(props: PlateElementProps) {
   const state = useTocElementState();
   const { props: btnProps } = useTocElement(state);
   const { headingList } = state;
+  const t = useTranslations('ui.plate');
 
   return (
     <PlateElement {...props} className='mb-1 p-0'>
@@ -40,9 +42,7 @@ function TocElement(props: PlateElementProps) {
             </Button>
           ))
         ) : (
-          <div className='text-gray-500 text-sm'>
-            Create a heading to display the table of contents.
-          </div>
+          <div className='text-gray-500 text-sm'>{t('createAHeading')}</div>
         )}
       </div>
       {props.children}

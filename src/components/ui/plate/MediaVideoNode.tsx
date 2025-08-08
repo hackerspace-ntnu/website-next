@@ -4,6 +4,7 @@ import { useDraggable } from '@platejs/dnd';
 import { parseTwitterUrl, parseVideoUrl } from '@platejs/media';
 import { useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
+import { useTranslations } from 'next-intl';
 import type { TResizableProps, TVideoElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useEditorMounted, withHOC } from 'platejs/react';
@@ -34,6 +35,7 @@ const VideoElement = withHOC(
       urlParsers: [parseTwitterUrl, parseVideoUrl],
     });
     const width = useResizableValue('width');
+    const t = useTranslations('ui.plate');
 
     const isEditorMounted = useEditorMounted();
 
@@ -114,7 +116,7 @@ const VideoElement = withHOC(
           <Caption style={{ width }} align={align}>
             <CaptionTextarea
               readOnly={readOnly}
-              placeholder='Write a caption...'
+              placeholder={t('writeACaption')}
             />
           </Caption>
         </figure>

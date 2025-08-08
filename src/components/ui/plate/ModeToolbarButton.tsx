@@ -5,6 +5,7 @@ import {
   type DropdownMenuProps,
 } from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, EyeIcon, PencilLineIcon, PenIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEditorRef, usePlateState } from 'platejs/react';
 import * as React from 'react';
 import {
@@ -20,6 +21,7 @@ function ModeToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [readOnly, setReadOnly] = usePlateState('readOnly');
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations('ui.plate');
 
   // const isSuggesting = usePluginOption(SuggestionPlugin, 'isSuggesting');
   const isSuggesting = false;
@@ -33,22 +35,22 @@ function ModeToolbarButton(props: DropdownMenuProps) {
   const item: Record<string, { icon: React.ReactNode; label: string }> = {
     editing: {
       icon: <PenIcon className='h-5 w-5' />,
-      label: 'Editing',
+      label: t('editing'),
     },
     suggestion: {
       icon: <PencilLineIcon className='h-5 w-5' />,
-      label: 'Suggestion',
+      label: t('suggestion'),
     },
     viewing: {
       icon: <EyeIcon className='h-5 w-5' />,
-      label: 'Viewing',
+      label: t('viewing'),
     },
   };
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Editing mode' isDropdown>
+        <ToolbarButton pressed={open} tooltip={t('editingMode')} isDropdown>
           {item[value]?.icon}
           <span className='hidden lg:inline'>{item[value]?.label}</span>
         </ToolbarButton>

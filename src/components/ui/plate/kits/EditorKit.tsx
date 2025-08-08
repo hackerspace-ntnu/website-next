@@ -31,6 +31,7 @@ import { SlashKit } from '@/components/ui/plate/kits/SlashKit';
 import { TableKit } from '@/components/ui/plate/kits/TableKit';
 import { TocKit } from '@/components/ui/plate/kits/TocKit';
 import { ToggleKit } from '@/components/ui/plate/kits/ToggleKit';
+import type { Translations } from '@/lib/locale';
 
 // These kits and their related components have been removed:
 // - AI
@@ -41,54 +42,56 @@ import { ToggleKit } from '@/components/ui/plate/kits/ToggleKit';
 // remember to add all required components, base kits, kits and
 // update the fixed and floating toolbar buttons.
 
-const EditorKit = [
-  ...BlockMenuKit,
+function EditorKit(t: Translations) {
+  return [
+    ...BlockMenuKit,
 
-  // Elements
-  ...BasicBlocksKit,
-  ...CodeBlockKit,
-  ...TableKit,
-  ...ToggleKit,
-  ...TocKit,
-  ...MediaKit,
-  ...CalloutKit,
-  ...ColumnKit,
-  ...MathKit,
-  ...DateKit,
-  ...LinkKit,
-  ...MentionKit,
+    // Elements
+    ...BasicBlocksKit,
+    ...CodeBlockKit,
+    ...TableKit,
+    ...ToggleKit,
+    ...TocKit,
+    ...MediaKit,
+    ...CalloutKit,
+    ...ColumnKit,
+    ...MathKit,
+    ...DateKit,
+    ...LinkKit,
+    ...MentionKit,
 
-  // Marks
-  ...BasicMarksKit,
-  ...FontKit,
+    // Marks
+    ...BasicMarksKit,
+    ...FontKit,
 
-  // Block Style
-  ...ListKit,
-  ...AlignKit,
-  ...LineHeightKit,
+    // Block Style
+    ...ListKit,
+    ...AlignKit,
+    ...LineHeightKit,
 
-  // Collaboration
+    // Collaboration
 
-  // Editing
-  ...SlashKit,
-  ...AutoformatKit,
-  ...CursorOverlayKit,
-  ...DndKit,
-  ...EmojiKit,
-  ...ExitBreakKit,
-  TrailingBlockPlugin,
+    // Editing
+    ...SlashKit,
+    ...AutoformatKit,
+    ...CursorOverlayKit,
+    ...DndKit,
+    ...EmojiKit,
+    ...ExitBreakKit,
+    TrailingBlockPlugin,
 
-  // Parsers
-  ...DocxKit,
-  ...MarkdownKit,
+    // Parsers
+    ...DocxKit,
+    ...MarkdownKit,
 
-  // UI
-  ...BlockPlaceholderKit,
-  ...FixedToolbarKit,
-  ...FloatingToolbarKit,
-];
+    // UI
+    ...BlockPlaceholderKit(t),
+    ...FixedToolbarKit,
+    ...FloatingToolbarKit,
+  ];
+}
 
-type MyEditor = TPlateEditor<Value, (typeof EditorKit)[number]>;
+type MyEditor = TPlateEditor<Value, ReturnType<typeof EditorKit>[number]>;
 
 const useEditor = () => useEditorRef<MyEditor>();
 

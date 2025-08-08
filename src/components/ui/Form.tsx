@@ -3,6 +3,7 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { Value } from 'platejs';
 import { Plate, usePlateEditor } from 'platejs/react';
 import type React from 'react';
@@ -986,7 +987,7 @@ function EditorField({
 }: EditorFieldProps) {
   const field = useFieldContext<Value>();
   const editor = usePlateEditor({
-    plugins: EditorKit,
+    plugins: EditorKit(useTranslations()),
     value: field.state.value,
     ...props.initOptions,
   });

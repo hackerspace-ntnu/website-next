@@ -7,6 +7,7 @@ import type {
 import { useComposedRef } from '@udecode/cn';
 import debounce from 'lodash/debounce.js';
 import { EraserIcon, PlusIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEditorRef, useEditorSelector } from 'platejs/react';
 import React from 'react';
 import { buttonVariants } from '@/components/ui/Button';
@@ -142,9 +143,10 @@ function PureColorPicker({
   updateCustomColor: (color: string) => void;
   color?: string;
 }) {
+  const t = useTranslations('ui.plate');
   return (
     <div className={cx('flex flex-col', className)} {...props}>
-      <ToolbarMenuGroup label='Custom Colors'>
+      <ToolbarMenuGroup label={t('customColors')}>
         <ColorCustom
           color={color}
           className='px-2'
@@ -154,7 +156,7 @@ function PureColorPicker({
           updateCustomColor={updateCustomColor}
         />
       </ToolbarMenuGroup>
-      <ToolbarMenuGroup label='Default Colors'>
+      <ToolbarMenuGroup label={t('defaultColors')}>
         <ColorDropdownMenuItems
           color={color}
           className='px-2'
@@ -199,6 +201,7 @@ function ColorCustom({
 } & React.ComponentPropsWithoutRef<'div'>) {
   const [customColor, setCustomColor] = React.useState<string>();
   const [value, setValue] = React.useState<string>(color || '#000000');
+  const t = useTranslations('ui');
 
   React.useEffect(() => {
     if (
@@ -259,7 +262,7 @@ function ColorCustom({
               e.preventDefault();
             }}
           >
-            <span className='sr-only'>Custom</span>
+            <span className='sr-only'>{t('custom')}</span>
             <PlusIcon />
           </DropdownMenuItem>
         </ColorInput>

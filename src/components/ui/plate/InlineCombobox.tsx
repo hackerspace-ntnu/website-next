@@ -169,7 +169,7 @@ const InlineCombobox = ({
     setValue: (newValue) => React.startTransition(() => setValue(newValue)),
   });
 
-  const items = store.useState('items');
+  const items = useStoreState(store, 'items');
 
   /**
    * If there is no active ID and the list of items changes, select the first

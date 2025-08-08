@@ -26,6 +26,7 @@ import {
   StarIcon,
   XIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { Button } from '@/components/ui/Button';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
@@ -360,6 +361,7 @@ function EmojiPickerSearchBar({
 }: {
   children: React.ReactNode;
 } & Pick<UseEmojiPickerType, 'i18n' | 'searchValue' | 'setSearch'>) {
+  const t = useTranslations('ui');
   return (
     <div className='flex items-center px-2'>
       <div className='relative flex grow items-center'>
@@ -368,7 +370,7 @@ function EmojiPickerSearchBar({
           value={searchValue}
           onChange={(event) => setSearch(event.target.value)}
           placeholder={i18n.search}
-          aria-label='Search'
+          aria-label={t('search')}
           autoComplete='off'
           type='text'
           // biome-ignore lint/a11y/noAutofocus: *Obviously* expected to interact immediately
@@ -385,6 +387,8 @@ function EmojiPickerSearchAndClear({
   i18n,
   searchValue,
 }: Pick<UseEmojiPickerType, 'clearSearch' | 'i18n' | 'searchValue'>) {
+  const t = useTranslations('ui');
+
   return (
     <div className='flex items-center text-foreground'>
       <div
@@ -403,7 +407,7 @@ function EmojiPickerSearchAndClear({
           )}
           onClick={clearSearch}
           title={i18n.clear}
-          aria-label='Clear'
+          aria-label={t('clear')}
           type='button'
         >
           {emojiSearchIcons.delete}

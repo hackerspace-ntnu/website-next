@@ -1,10 +1,9 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import type { TDateElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
-
 import { PlateElement, useReadOnly } from 'platejs/react';
-
 import { Calendar } from '@/components/ui/Calendar';
 import {
   Popover,
@@ -17,6 +16,7 @@ function DateElement(props: PlateElementProps<TDateElement>) {
   const { editor, element } = props;
 
   const readOnly = useReadOnly();
+  const t = useTranslations('ui');
 
   const trigger = (
     <span
@@ -42,9 +42,9 @@ function DateElement(props: PlateElementProps<TDateElement>) {
             new Date(today.setDate(today.getDate() + 2)).toDateString() ===
             elementDate.toDateString();
 
-          if (isToday) return 'Today';
-          if (isYesterday) return 'Yesterday';
-          if (isTomorrow) return 'Tomorrow';
+          if (isToday) return t('today');
+          if (isYesterday) return t('yesterday');
+          if (isTomorrow) return t('tomorrow');
 
           return elementDate.toLocaleDateString(undefined, {
             day: 'numeric',
@@ -53,7 +53,7 @@ function DateElement(props: PlateElementProps<TDateElement>) {
           });
         })()
       ) : (
-        <span>Pick a date</span>
+        <span>{t('pickDate')}</span>
       )}
     </span>
   );
@@ -85,7 +85,7 @@ function DateElement(props: PlateElementProps<TDateElement>) {
               );
             }}
             mode='single'
-            initialFocus
+            autoFocus
           />
         </PopoverContent>
       </Popover>

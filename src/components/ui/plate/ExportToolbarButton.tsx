@@ -24,7 +24,8 @@ const siteUrl = 'https://platejs.org';
 
 function ExportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const t = useTranslations('error');
+  const tError = useTranslations('error');
+  const t = useTranslations('ui.plate');
   const [open, setOpen] = React.useState(false);
 
   const getCanvas = async () => {
@@ -78,7 +79,7 @@ function ExportToolbarButton(props: DropdownMenuProps) {
   const exportToPdf = async () => {
     const canvas = await getCanvas();
 
-    if (!canvas) return toast.error(t('failedToExportPDF'));
+    if (!canvas) return toast.error(tError('failedToExportPDF'));
 
     const PDFLib = await import('pdf-lib');
     const pdfDoc = await PDFLib.PDFDocument.create();
@@ -99,7 +100,7 @@ function ExportToolbarButton(props: DropdownMenuProps) {
   const exportToImage = async () => {
     const canvas = await getCanvas();
 
-    if (!canvas) return toast.error(t('failedToExportImage'));
+    if (!canvas) return toast.error(tError('failedToExportImage'));
 
     await downloadFile(canvas.toDataURL('image/png'), 'plate.png');
   };
@@ -158,7 +159,7 @@ function ExportToolbarButton(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Export' isDropdown>
+        <ToolbarButton pressed={open} tooltip={t('export')} isDropdown>
           <ArrowDownToLineIcon className='size-4' />
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -166,16 +167,16 @@ function ExportToolbarButton(props: DropdownMenuProps) {
       <DropdownMenuContent align='start'>
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={exportToHtml}>
-            Export as HTML
+            {t('exportAsHtml')}
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToPdf}>
-            Export as PDF
+            {t('exportAsPdf')}
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToImage}>
-            Export as Image
+            {t('exportAsImage')}
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToMarkdown}>
-            Export as Markdown
+            {t('exportAsMarkdown')}
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -9,9 +9,9 @@ import {
   AlignLeftIcon,
   AlignRightIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEditorPlugin, useSelectionFragmentProp } from 'platejs/react';
 import * as React from 'react';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +19,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
-
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 const items = [
@@ -48,6 +47,7 @@ function AlignToolbarButton(props: DropdownMenuProps) {
       defaultValue: 'start',
       getProp: (node) => node.align,
     }) ?? 'left';
+  const t = useTranslations('ui.plate');
 
   const [open, setOpen] = React.useState(false);
   const IconValue =
@@ -56,7 +56,7 @@ function AlignToolbarButton(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Align' isDropdown>
+        <ToolbarButton pressed={open} tooltip={t('align')} isDropdown>
           <IconValue />
         </ToolbarButton>
       </DropdownMenuTrigger>

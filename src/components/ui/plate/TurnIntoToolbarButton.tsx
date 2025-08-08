@@ -19,6 +19,7 @@ import {
   QuoteIcon,
   SquareIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TElement } from 'platejs';
 import { KEYS } from 'platejs';
 import { useEditorRef, useSelectionFragmentProp } from 'platejs/react';
@@ -33,98 +34,102 @@ import {
   getBlockType,
   setBlockType,
 } from '@/components/ui/plate/kits/transforms';
-
 import { ToolbarButton, ToolbarMenuGroup } from '@/components/ui/plate/Toolbar';
+import type { Translations } from '@/lib/locale';
 
-const turnIntoItems = [
-  {
-    icon: <PilcrowIcon className='size-4' />,
-    keywords: ['paragraph'],
-    label: 'Text',
-    value: KEYS.p,
-  },
-  {
-    icon: <Heading1Icon className='size-4' />,
-    keywords: ['title', 'h1'],
-    label: 'Heading 1',
-    value: 'h1',
-  },
-  {
-    icon: <Heading2Icon className='size-4' />,
-    keywords: ['subtitle', 'h2'],
-    label: 'Heading 2',
-    value: 'h2',
-  },
-  {
-    icon: <Heading3Icon className='size-4' />,
-    keywords: ['subtitle', 'h3'],
-    label: 'Heading 3',
-    value: 'h3',
-  },
-  {
-    icon: <Heading4Icon className='size-4' />,
-    keywords: ['subtitle', 'h4'],
-    label: 'Heading 4',
-    value: 'h4',
-  },
-  {
-    icon: <Heading5Icon className='size-4' />,
-    keywords: ['subtitle', 'h5'],
-    label: 'Heading 5',
-    value: 'h5',
-  },
-  {
-    icon: <Heading6Icon className='size-4' />,
-    keywords: ['subtitle', 'h6'],
-    label: 'Heading 6',
-    value: 'h6',
-  },
-  {
-    icon: <ListIcon className='size-4' />,
-    keywords: ['unordered', 'ul', '-'],
-    label: 'Bulleted list',
-    value: KEYS.ul,
-  },
-  {
-    icon: <ListOrderedIcon className='size-4' />,
-    keywords: ['ordered', 'ol', '1'],
-    label: 'Numbered list',
-    value: KEYS.ol,
-  },
-  {
-    icon: <SquareIcon className='size-4' />,
-    keywords: ['checklist', 'task', 'checkbox', '[]'],
-    label: 'To-do list',
-    value: KEYS.listTodo,
-  },
-  {
-    icon: <ChevronRightIcon className='size-4' />,
-    keywords: ['collapsible', 'expandable'],
-    label: 'Toggle list',
-    value: KEYS.toggle,
-  },
-  {
-    icon: <FileCodeIcon className='size-4' />,
-    keywords: ['```'],
-    label: 'Code',
-    value: KEYS.codeBlock,
-  },
-  {
-    icon: <QuoteIcon className='size-4' />,
-    keywords: ['citation', 'blockquote', '>'],
-    label: 'Quote',
-    value: KEYS.blockquote,
-  },
-  {
-    icon: <Columns3Icon className='size-4' />,
-    label: '3 columns',
-    value: 'action_three_columns',
-  },
-];
+function getTurnIntoItems(t: Translations) {
+  return [
+    {
+      icon: <PilcrowIcon className='size-4' />,
+      keywords: ['paragraph'],
+      label: t('ui.plate.text'),
+      value: KEYS.p,
+    },
+    {
+      icon: <Heading1Icon className='size-4' />,
+      keywords: ['title', 'h1'],
+      label: t('ui.plate.heading1'),
+      value: 'h1',
+    },
+    {
+      icon: <Heading2Icon className='size-4' />,
+      keywords: ['subtitle', 'h2'],
+      label: t('ui.plate.heading2'),
+      value: 'h2',
+    },
+    {
+      icon: <Heading3Icon className='size-4' />,
+      keywords: ['subtitle', 'h3'],
+      label: t('ui.plate.heading3'),
+      value: 'h3',
+    },
+    {
+      icon: <Heading4Icon className='size-4' />,
+      keywords: ['subtitle', 'h4'],
+      label: t('ui.plate.heading4'),
+      value: 'h4',
+    },
+    {
+      icon: <Heading5Icon className='size-4' />,
+      keywords: ['subtitle', 'h5'],
+      label: t('ui.plate.heading5'),
+      value: 'h5',
+    },
+    {
+      icon: <Heading6Icon className='size-4' />,
+      keywords: ['subtitle', 'h6'],
+      label: t('ui.plate.heading6'),
+      value: 'h6',
+    },
+    {
+      icon: <ListIcon className='size-4' />,
+      keywords: ['unordered', 'ul', '-'],
+      label: t('ui.plate.bulletedList'),
+      value: KEYS.ul,
+    },
+    {
+      icon: <ListOrderedIcon className='size-4' />,
+      keywords: ['ordered', 'ol', '1'],
+      label: t('ui.plate.numberedList'),
+      value: KEYS.ol,
+    },
+    {
+      icon: <SquareIcon className='size-4' />,
+      keywords: ['checklist', 'task', 'checkbox', '[]'],
+      label: t('ui.plate.todoList'),
+      value: KEYS.listTodo,
+    },
+    {
+      icon: <ChevronRightIcon className='size-4' />,
+      keywords: ['collapsible', 'expandable'],
+      label: t('ui.plate.expandableList'),
+      value: KEYS.toggle,
+    },
+    {
+      icon: <FileCodeIcon className='size-4' />,
+      keywords: ['```'],
+      label: t('ui.plate.code'),
+      value: KEYS.codeBlock,
+    },
+    {
+      icon: <QuoteIcon className='size-4' />,
+      keywords: ['citation', 'blockquote', '>'],
+      label: t('ui.plate.blockquote'),
+      value: KEYS.blockquote,
+    },
+    {
+      icon: <Columns3Icon className='size-4' />,
+      label: t('ui.plate.threeColumns'),
+      value: 'action_three_columns',
+    },
+  ];
+}
 
 function TurnIntoToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations();
+  const turnIntoItems = getTurnIntoItems(t);
 
   const value = useSelectionFragmentProp({
     defaultValue: KEYS.p,
@@ -134,7 +139,7 @@ function TurnIntoToolbarButton(props: DropdownMenuProps) {
     () =>
       turnIntoItems.find((item) => item.value === (value ?? KEYS.p)) ??
       turnIntoItems[0],
-    [value],
+    [value, turnIntoItems],
   );
 
   return (
@@ -143,7 +148,7 @@ function TurnIntoToolbarButton(props: DropdownMenuProps) {
         <ToolbarButton
           className='min-w-[125px]'
           pressed={open}
-          tooltip='Turn into'
+          tooltip={t('ui.plate.turnInto')}
           isDropdown
         >
           {selectedItem?.label}
@@ -163,7 +168,7 @@ function TurnIntoToolbarButton(props: DropdownMenuProps) {
           onValueChange={(type) => {
             setBlockType(editor, type);
           }}
-          label='Turn into'
+          label={t('ui.plate.turnInto')}
         >
           {turnIntoItems.map(({ icon, label, value: itemValue }) => (
             <DropdownMenuRadioItem
@@ -186,4 +191,4 @@ function TurnIntoToolbarButton(props: DropdownMenuProps) {
   );
 }
 
-export { turnIntoItems, TurnIntoToolbarButton };
+export { getTurnIntoItems, TurnIntoToolbarButton };

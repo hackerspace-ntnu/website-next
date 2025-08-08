@@ -3,6 +3,7 @@
 import { useMediaState } from '@platejs/media/react';
 import { ResizableProvider } from '@platejs/resizable';
 import { FileUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TFileElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useReadOnly, withHOC } from 'platejs/react';
@@ -14,6 +15,7 @@ const FileElement = withHOC(
   function FileElement(props: PlateElementProps<TFileElement>) {
     const readOnly = useReadOnly();
     const { name, unsafeUrl } = useMediaState();
+    const t = useTranslations('ui.plate');
 
     // Elements with a custom fileId need to fetch their S3 URL
     const url = api.utils.getFileUrl.useQuery(
@@ -45,7 +47,7 @@ const FileElement = withHOC(
             <CaptionTextarea
               className='text-left'
               readOnly={readOnly}
-              placeholder='Write a caption...'
+              placeholder={t('writeACaption')}
             />
           </Caption>
         </a>

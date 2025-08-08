@@ -3,6 +3,7 @@
 import { useEquationElement, useEquationInput } from '@platejs/math/react';
 import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { CornerDownLeftIcon, RadicalIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { TEquationElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import {
@@ -30,6 +31,7 @@ function EquationElement(props: PlateElementProps<TEquationElement>) {
   const selected = useSelected();
   const [open, setOpen] = React.useState(selected);
   const katexRef = React.useRef<HTMLDivElement | null>(null);
+  const t = useTranslations('ui.plate');
 
   useEquationElement({
     element: props.element,
@@ -66,7 +68,7 @@ function EquationElement(props: PlateElementProps<TEquationElement>) {
             ) : (
               <div className='flex h-7 w-full items-center gap-2 whitespace-nowrap text-muted-foreground text-sm'>
                 <RadicalIcon className='size-6 text-muted-foreground/80' />
-                <div>Add a Tex equation</div>
+                <div>{t('addEquation')}</div>
               </div>
             )}
           </div>
@@ -96,6 +98,7 @@ function InlineEquationElement(props: PlateElementProps<TEquationElement>) {
     [],
   );
   const [open, setOpen] = React.useState(selected && isCollapsed);
+  const t = useTranslations('ui.plate');
 
   React.useEffect(() => {
     if (selected && isCollapsed) {
@@ -149,7 +152,7 @@ function InlineEquationElement(props: PlateElementProps<TEquationElement>) {
             {element.texExpression.length === 0 && (
               <span>
                 <RadicalIcon className='mr-1 inline-block h-[19px] w-4 py-[1.5px] align-text-bottom' />
-                New equation
+                {t('newEquation')}
               </span>
             )}
           </div>
@@ -187,6 +190,7 @@ const EquationPopoverContent = ({
   const editor = useEditorRef();
   const readOnly = useReadOnly();
   const element = useElement<TEquationElement>();
+  const t = useTranslations('ui');
 
   React.useEffect(() => {
     if (isInline && open) {
@@ -224,7 +228,7 @@ const EquationPopoverContent = ({
       />
 
       <Button variant='secondary' className='px-3' onClick={onClose}>
-        Done <CornerDownLeftIcon className='size-3.5' />
+        {t('done')} <CornerDownLeftIcon className='size-3.5' />
       </Button>
     </PopoverContent>
   );

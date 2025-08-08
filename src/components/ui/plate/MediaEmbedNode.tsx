@@ -3,6 +3,7 @@
 import { parseTwitterUrl, parseVideoUrl } from '@platejs/media';
 import { MediaEmbedPlugin, useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
+import { useTranslations } from 'next-intl';
 import type { TMediaEmbedElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
@@ -34,6 +35,7 @@ const MediaEmbedElement = withHOC(
     });
     const width = useResizableValue('width');
     const provider = embed?.provider;
+    const t = useTranslations('ui.plate');
 
     if (!embed?.id) return null;
 
@@ -123,7 +125,7 @@ const MediaEmbedElement = withHOC(
             </Resizable>
 
             <Caption style={{ width }} align={align}>
-              <CaptionTextarea placeholder='Write a caption...' />
+              <CaptionTextarea placeholder={t('writeACaption')} />
             </Caption>
           </figure>
 

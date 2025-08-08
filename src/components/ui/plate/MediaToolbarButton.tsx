@@ -9,6 +9,7 @@ import {
   ImageIcon,
   LinkIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { isUrl, KEYS } from 'platejs';
 import { useEditorRef } from 'platejs/react';
 import * as React from 'react';
@@ -37,8 +38,9 @@ import {
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
 } from '@/components/ui/plate/Toolbar';
+import type { Translations } from '@/lib/locale';
 
-const MEDIA_CONFIG: Record<
+function getMediaConfig(t: Translations): Record<
   string,
   {
     accept: string[];
@@ -46,38 +48,41 @@ const MEDIA_CONFIG: Record<
     title: string;
     tooltip: string;
   }
-> = {
-  [KEYS.audio]: {
-    accept: ['audio/*'],
-    icon: <AudioLinesIcon className='size-4' />,
-    title: 'Insert Audio',
-    tooltip: 'Audio',
-  },
-  [KEYS.file]: {
-    accept: ['*'],
-    icon: <FileUpIcon className='size-4' />,
-    title: 'Insert File',
-    tooltip: 'File',
-  },
-  [KEYS.img]: {
-    accept: ['image/*'],
-    icon: <ImageIcon className='size-4' />,
-    title: 'Insert Image',
-    tooltip: 'Image',
-  },
-  [KEYS.video]: {
-    accept: ['video/*'],
-    icon: <FilmIcon className='size-4' />,
-    title: 'Insert Video',
-    tooltip: 'Video',
-  },
-};
+> {
+  return {
+    [KEYS.audio]: {
+      accept: ['audio/*'],
+      icon: <AudioLinesIcon className='size-4' />,
+      title: t('ui.plate.insertAudio'),
+      tooltip: t('ui.plate.audio'),
+    },
+    [KEYS.file]: {
+      accept: ['*'],
+      icon: <FileUpIcon className='size-4' />,
+      title: t('ui.plate.insertFile'),
+      tooltip: t('ui.plate.file'),
+    },
+    [KEYS.img]: {
+      accept: ['image/*'],
+      icon: <ImageIcon className='size-4' />,
+      title: t('ui.plate.insertImage'),
+      tooltip: t('ui.plate.image'),
+    },
+    [KEYS.video]: {
+      accept: ['video/*'],
+      icon: <FilmIcon className='size-4' />,
+      title: t('ui.plate.insertVideo'),
+      tooltip: t('ui.plate.video'),
+    },
+  };
+}
 
 function MediaToolbarButton({
   nodeType,
   ...props
 }: DropdownMenuProps & { nodeType: string }) {
-  const currentConfig = MEDIA_CONFIG[nodeType];
+  const t = useTranslations();
+  const currentConfig = getMediaConfig(t)[nodeType];
 
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
@@ -127,11 +132,11 @@ function MediaToolbarButton({
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => openFilePicker()}>
                 {currentConfig?.icon}
-                Upload from computer
+                {t('ui.plate.uploadFromComputer')}
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setDialogOpen(true)}>
                 <LinkIcon />
-                Insert via URL
+                {t('ui.plate.insertViaUrl')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
@@ -163,15 +168,16 @@ function MediaUrlDialogContent({
   nodeType,
   setOpen,
 }: {
-  currentConfig: (typeof MEDIA_CONFIG)[string];
+  currentConfig: ReturnType<typeof getMediaConfig>[string];
   nodeType: string;
   setOpen: (value: boolean) => void;
 }) {
   const editor = useEditorRef();
   const [url, setUrl] = React.useState('');
+  const t = useTranslations('ui');
 
   const embedMedia = React.useCallback(() => {
-    if (!isUrl(url)) return toast.error('Invalid URL');
+    if (!isUrl(url)) return toast.error(t('plate.invalidUrl'));
 
     setOpen(false);
     editor.tf.insertNodes({
@@ -180,7 +186,7 @@ function MediaUrlDialogContent({
       type: nodeType,
       url,
     });
-  }, [url, editor, nodeType, setOpen]);
+  }, [url, editor, nodeType, setOpen, t]);
 
   return (
     <>
@@ -210,14 +216,14 @@ function MediaUrlDialogContent({
       </AlertDialogDescription>
 
       <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
         <AlertDialogAction
           onClick={(e) => {
             e.preventDefault();
             embedMedia();
           }}
         >
-          Accept
+          {t('accept')}
         </AlertDialogAction>
       </AlertDialogFooter>
     </>

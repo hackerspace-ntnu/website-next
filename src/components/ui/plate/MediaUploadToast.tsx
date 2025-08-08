@@ -1,6 +1,7 @@
 'use client';
 
 import { PlaceholderPlugin, UploadErrorCode } from '@platejs/media/react';
+import { useTranslations } from 'next-intl';
 import { usePluginOption } from 'platejs/react';
 import * as React from 'react';
 import { toast } from 'sonner';
@@ -13,6 +14,7 @@ function MediaUploadToast() {
 
 const useUploadErrorToast = () => {
   const uploadError = usePluginOption(PlaceholderPlugin, 'error');
+  const t = useTranslations('ui.plate');
 
   React.useEffect(() => {
     if (!uploadError) return;
@@ -22,49 +24,54 @@ const useUploadErrorToast = () => {
     switch (code) {
       case UploadErrorCode.INVALID_FILE_SIZE: {
         toast.error(
-          `The size of files ${data.files
-            .map((f) => f.name)
-            .join(', ')} is invalid`,
+          t('invalidFileSize', {
+            files: data.files.map((f) => f.name).join(', '),
+          }),
         );
 
         break;
       }
       case UploadErrorCode.INVALID_FILE_TYPE: {
         toast.error(
-          `The type of files ${data.files
-            .map((f) => f.name)
-            .join(', ')} is invalid`,
+          t('invalidFileType', {
+            files: data.files.map((f) => f.name).join(', '),
+          }),
         );
 
         break;
       }
       case UploadErrorCode.TOO_LARGE: {
         toast.error(
-          `The size of files ${data.files
-            .map((f) => f.name)
-            .join(', ')} is too large than ${data.maxFileSize}`,
+          t('tooLargeFiles', {
+            files: data.files.map((f) => f.name).join(', '),
+            max: data.maxFileSize,
+          }),
         );
 
         break;
       }
       case UploadErrorCode.TOO_LESS_FILES: {
         toast.error(
-          `The mini um number of files is ${data.minFileCount} for ${data.fileType}`,
+          t('tooFewFiles', {
+            min: data.minFileCount,
+            type: data.fileType,
+          }),
         );
 
         break;
       }
       case UploadErrorCode.TOO_MANY_FILES: {
         toast.error(
-          `The maximum number of files is ${data.maxFileCount} ${
-            data.fileType ? `for ${data.fileType}` : ''
-          }`,
+          t('tooManyFiles', {
+            max: data.maxFileCount,
+            type: data.fileType ?? '',
+          }),
         );
 
         break;
       }
     }
-  }, [uploadError]);
+  }, [uploadError, t]);
 };
 
 export { MediaUploadToast };

@@ -7,6 +7,7 @@ import {
   SubscriptIcon,
   SuperscriptIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { useEditorRef } from 'platejs/react';
 import * as React from 'react';
@@ -22,11 +23,12 @@ import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 function MoreToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations('ui.plate');
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Insert'>
+        <ToolbarButton pressed={open} tooltip={t('insert')}>
           <MoreHorizontalIcon />
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -44,7 +46,7 @@ function MoreToolbarButton(props: DropdownMenuProps) {
             }}
           >
             <KeyboardIcon />
-            Keyboard input
+            {t('keyboardInput')}
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -56,7 +58,7 @@ function MoreToolbarButton(props: DropdownMenuProps) {
             }}
           >
             <SuperscriptIcon />
-            Superscript
+            {t('superscript')}
             {/* (⌘+,) */}
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -68,7 +70,7 @@ function MoreToolbarButton(props: DropdownMenuProps) {
             }}
           >
             <SubscriptIcon />
-            Subscript
+            {t('subscript')}
             {/* (⌘+.) */}
           </DropdownMenuItem>
         </DropdownMenuGroup>

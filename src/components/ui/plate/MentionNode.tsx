@@ -1,6 +1,7 @@
 'use client';
 
 import { getMentionOnSelectItem } from '@platejs/mention';
+import { useTranslations } from 'next-intl';
 import type { TComboboxInputElement, TMentionElement } from 'platejs';
 import { IS_APPLE, KEYS } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
@@ -77,6 +78,7 @@ const onSelectItem = getMentionOnSelectItem();
 function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const { editor, element } = props;
   const [search, setSearch] = React.useState('');
+  const t = useTranslations('ui');
   const user = api.auth.state.useQuery().data?.user;
   const users = api.users.fetchAllUsers.useQuery(undefined, {
     enabled: !!user?.groups.some((group) =>
@@ -98,7 +100,7 @@ function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
         </span>
 
         <InlineComboboxContent className='my-1.5'>
-          <InlineComboboxEmpty>No results</InlineComboboxEmpty>
+          <InlineComboboxEmpty>{t('noResults')}</InlineComboboxEmpty>
 
           <InlineComboboxGroup>
             {users.data

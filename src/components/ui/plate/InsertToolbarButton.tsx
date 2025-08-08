@@ -23,6 +23,7 @@ import {
   TableIcon,
   TableOfContentsIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { type PlateEditor, useEditorRef } from 'platejs/react';
 import * as React from 'react';
@@ -37,6 +38,7 @@ import {
   insertInlineElement,
 } from '@/components/ui/plate/kits/transforms';
 import { ToolbarButton, ToolbarMenuGroup } from '@/components/ui/plate/Toolbar';
+import type { Translations } from '@/lib/locale';
 
 type Group = {
   group: string;
@@ -51,170 +53,174 @@ interface Item {
   label?: string;
 }
 
-const groups: Group[] = [
-  {
-    group: 'Basic blocks',
-    items: [
-      {
-        icon: <PilcrowIcon />,
-        label: 'Paragraph',
-        value: KEYS.p,
-      },
-      {
-        icon: <Heading1Icon />,
-        label: 'Heading 1',
-        value: 'h1',
-      },
-      {
-        icon: <Heading2Icon />,
-        label: 'Heading 2',
-        value: 'h2',
-      },
-      {
-        icon: <Heading3Icon />,
-        label: 'Heading 3',
-        value: 'h3',
-      },
-      {
-        icon: <TableIcon />,
-        label: 'Table',
-        value: KEYS.table,
-      },
-      {
-        icon: <FileCodeIcon />,
-        label: 'Code',
-        value: KEYS.codeBlock,
-      },
-      {
-        icon: <QuoteIcon />,
-        label: 'Quote',
-        value: KEYS.blockquote,
-      },
-      {
-        icon: <MinusIcon />,
-        label: 'Divider',
-        value: KEYS.hr,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Lists',
-    items: [
-      {
-        icon: <ListIcon />,
-        label: 'Bulleted list',
-        value: KEYS.ul,
-      },
-      {
-        icon: <ListOrderedIcon />,
-        label: 'Numbered list',
-        value: KEYS.ol,
-      },
-      {
-        icon: <SquareIcon />,
-        label: 'To-do list',
-        value: KEYS.listTodo,
-      },
-      {
-        icon: <ChevronRightIcon />,
-        label: 'Toggle list',
-        value: KEYS.toggle,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Media',
-    items: [
-      {
-        icon: <ImageIcon />,
-        label: 'Image',
-        value: KEYS.img,
-      },
-      {
-        icon: <FilmIcon />,
-        label: 'Embed',
-        value: KEYS.mediaEmbed,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Advanced blocks',
-    items: [
-      {
-        icon: <TableOfContentsIcon />,
-        label: 'Table of contents',
-        value: KEYS.toc,
-      },
-      {
-        icon: <Columns3Icon />,
-        label: '3 columns',
-        value: 'action_three_columns',
-      },
-      {
-        focusEditor: false,
-        icon: <RadicalIcon />,
-        label: 'Equation',
-        value: KEYS.equation,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertBlock(editor, value);
-      },
-    })),
-  },
-  {
-    group: 'Inline',
-    items: [
-      {
-        icon: <Link2Icon />,
-        label: 'Link',
-        value: KEYS.link,
-      },
-      {
-        focusEditor: true,
-        icon: <CalendarIcon />,
-        label: 'Date',
-        value: KEYS.date,
-      },
-      {
-        focusEditor: false,
-        icon: <RadicalIcon />,
-        label: 'Inline Equation',
-        value: KEYS.inlineEquation,
-      },
-    ].map((item) => ({
-      ...item,
-      onSelect: (editor, value) => {
-        insertInlineElement(editor, value);
-      },
-    })),
-  },
-];
+function getGroups(t: Translations): Group[] {
+  return [
+    {
+      group: t('ui.plate.basicBlocks'),
+      items: [
+        {
+          icon: <PilcrowIcon />,
+          label: t('ui.plate.paragraph'),
+          value: KEYS.p,
+        },
+        {
+          icon: <Heading1Icon />,
+          label: t('ui.plate.heading1'),
+          value: 'h1',
+        },
+        {
+          icon: <Heading2Icon />,
+          label: t('ui.plate.heading2'),
+          value: 'h2',
+        },
+        {
+          icon: <Heading3Icon />,
+          label: t('ui.plate.heading3'),
+          value: 'h3',
+        },
+        {
+          icon: <TableIcon />,
+          label: t('ui.plate.table'),
+          value: KEYS.table,
+        },
+        {
+          icon: <FileCodeIcon />,
+          label: t('ui.plate.code'),
+          value: KEYS.codeBlock,
+        },
+        {
+          icon: <QuoteIcon />,
+          label: t('ui.plate.quote'),
+          value: KEYS.blockquote,
+        },
+        {
+          icon: <MinusIcon />,
+          label: t('ui.plate.divider'),
+          value: KEYS.hr,
+        },
+      ].map((item) => ({
+        ...item,
+        onSelect: (editor, value) => {
+          insertBlock(editor, value);
+        },
+      })),
+    },
+    {
+      group: t('ui.plate.lists'),
+      items: [
+        {
+          icon: <ListIcon />,
+          label: t('ui.plate.bulletedList'),
+          value: KEYS.ul,
+        },
+        {
+          icon: <ListOrderedIcon />,
+          label: t('ui.plate.numberedList'),
+          value: KEYS.ol,
+        },
+        {
+          icon: <SquareIcon />,
+          label: t('ui.plate.todoList'),
+          value: KEYS.listTodo,
+        },
+        {
+          icon: <ChevronRightIcon />,
+          label: t('ui.plate.expandableList'),
+          value: KEYS.toggle,
+        },
+      ].map((item) => ({
+        ...item,
+        onSelect: (editor, value) => {
+          insertBlock(editor, value);
+        },
+      })),
+    },
+    {
+      group: t('ui.plate.media'),
+      items: [
+        {
+          icon: <ImageIcon />,
+          label: t('ui.plate.image'),
+          value: KEYS.img,
+        },
+        {
+          icon: <FilmIcon />,
+          label: t('ui.plate.embed'),
+          value: KEYS.mediaEmbed,
+        },
+      ].map((item) => ({
+        ...item,
+        onSelect: (editor, value) => {
+          insertBlock(editor, value);
+        },
+      })),
+    },
+    {
+      group: t('ui.plate.advancedBlocks'),
+      items: [
+        {
+          icon: <TableOfContentsIcon />,
+          label: t('ui.plate.tableOfContents'),
+          value: KEYS.toc,
+        },
+        {
+          icon: <Columns3Icon />,
+          label: t('ui.plate.threeColumns'),
+          value: 'action_three_columns',
+        },
+        {
+          focusEditor: false,
+          icon: <RadicalIcon />,
+          label: t('ui.plate.equation'),
+          value: KEYS.equation,
+        },
+      ].map((item) => ({
+        ...item,
+        onSelect: (editor, value) => {
+          insertBlock(editor, value);
+        },
+      })),
+    },
+    {
+      group: t('ui.plate.inline'),
+      items: [
+        {
+          icon: <Link2Icon />,
+          label: t('ui.plate.link'),
+          value: KEYS.link,
+        },
+        {
+          focusEditor: true,
+          icon: <CalendarIcon />,
+          label: t('ui.plate.date'),
+          value: KEYS.date,
+        },
+        {
+          focusEditor: false,
+          icon: <RadicalIcon />,
+          label: t('ui.plate.inlineEquation'),
+          value: KEYS.inlineEquation,
+        },
+      ].map((item) => ({
+        ...item,
+        onSelect: (editor, value) => {
+          insertInlineElement(editor, value);
+        },
+      })),
+    },
+  ];
+}
 
 function InsertToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
+  const t = useTranslations();
+  const groups = getGroups(t);
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip='Insert' isDropdown>
+        <ToolbarButton pressed={open} tooltip={t('ui.plate.insert')} isDropdown>
           <PlusIcon />
         </ToolbarButton>
       </DropdownMenuTrigger>
