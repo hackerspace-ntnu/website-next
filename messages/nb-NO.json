@@ -746,6 +746,7 @@
     "notAuthenticated": "Ikke autentisert",
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet",
+    "fileUploadFailed": "Kunne ikke laste opp filen",
     "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
   },
   "privacy": {
@@ -814,7 +815,8 @@
   "plate": {
     "api": {
       "failedToExportPDF": "Kunne ikke eksportere PDF",
-      "failedToExportImage": "Kunne ikke eksportere bilde"
+      "failedToExportImage": "Kunne ikke eksportere bilde",
+      "uploadFailed": "Kunne ikke laste opp fil"
     }
   }
 }

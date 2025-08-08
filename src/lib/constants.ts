@@ -1,3 +1,12 @@
+const fileDirectories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'events',
+  'groups',
+  'rich-input',
+] as const;
+
 const groupIdentifiers = [
   'devops',
   'labops',
@@ -14,4 +23,4 @@ const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
 
 const timeslots = ['1', '2', '3', '4'] as const;
 
-export { groupIdentifiers, days, timeslots };
+export { fileDirectories, groupIdentifiers, days, timeslots };

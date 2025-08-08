@@ -25,7 +25,7 @@ import { LinkKit } from './LinkKit';
 import { ListKit } from './ListKit';
 import { MarkdownKit } from './MarkdownKit';
 import { MathKit } from './MathKit';
-// import { MediaKit } from './MediaKit';
+import { MediaKit } from './MediaKit';
 import { MentionKit } from './MentionKit';
 import { SlashKit } from './SlashKit';
 import { TableKit } from './TableKit';
@@ -50,7 +50,7 @@ export const EditorKit = [
   ...TableKit,
   ...ToggleKit,
   ...TocKit,
-  // ...MediaKit,
+  ...MediaKit,
   ...CalloutKit,
   ...ColumnKit,
   ...MathKit,

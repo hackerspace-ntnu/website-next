@@ -746,6 +746,7 @@
     "notAuthenticated": "Not authenticated",
     "notAuthorized": "Not authorized",
     "noFileFound": "No file found",
+    "fileUploadFailed": "Failed to upload file",
     "unableToUpdateMatrix": "Unable to update on Matrix"
   },
   "privacy": {
@@ -814,7 +815,8 @@
   "plate": {
     "api": {
       "failedToExportPDF": "Failed to export PDF",
-      "failedToExportImage": "Failed to export image"
+      "failedToExportImage": "Failed to export image",
+      "uploadFailed": "Failed to upload file"
     }
   }
 }

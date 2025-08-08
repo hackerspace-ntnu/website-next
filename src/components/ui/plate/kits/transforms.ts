@@ -12,7 +12,6 @@ import {
   insertMedia,
   insertVideoPlaceholder,
 } from '@platejs/media';
-import { SuggestionPlugin } from '@platejs/suggestion/react';
 import { TablePlugin } from '@platejs/table/react';
 import { insertToc } from '@platejs/toc';
 import {
@@ -89,11 +88,11 @@ export const insertBlock = (editor: PlateEditor, type: string) => {
         select: true,
       });
     }
-    if (getBlockType(block[0]) !== type) {
-      editor.getApi(SuggestionPlugin).suggestion.withoutSuggestions(() => {
-        editor.tf.removeNodes({ previousEmptyBlock: true });
-      });
-    }
+    // if (getBlockType(block[0]) !== type) {
+    //   editor.getApi(SuggestionPlugin).suggestion.withoutSuggestions(() => {
+    //     editor.tf.removeNodes({ previousEmptyBlock: true });
+    //   });
+    // }
   });
 };
 
