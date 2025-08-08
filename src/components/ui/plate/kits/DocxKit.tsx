@@ -3,4 +3,6 @@
 import { DocxPlugin } from '@platejs/docx';
 import { JuicePlugin } from '@platejs/juice';
 
-export const DocxKit = [DocxPlugin, JuicePlugin];
+const DocxKit = [DocxPlugin, JuicePlugin];
+
+export { DocxKit };

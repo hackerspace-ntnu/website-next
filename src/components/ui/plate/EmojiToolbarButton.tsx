@@ -37,7 +37,7 @@ import {
 } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';
 
-export function EmojiToolbarButton({
+function EmojiToolbarButton({
   options,
   ...props
 }: {
@@ -66,7 +66,7 @@ export function EmojiToolbarButton({
   );
 }
 
-export function EmojiPopover({
+function EmojiPopover({
   children,
   control,
   isOpen,
@@ -88,7 +88,7 @@ export function EmojiPopover({
   );
 }
 
-export function EmojiPicker({
+function EmojiPicker({
   clearSearch,
   emoji,
   emojiLibrary,
@@ -623,3 +623,5 @@ const emojiSearchIcons = {
   delete: <XIcon className='size-4 text-current' />,
   loupe: <SearchIcon className='size-4 text-current' />,
 };
+
+export { EmojiToolbarButton, EmojiPopover, EmojiPicker };

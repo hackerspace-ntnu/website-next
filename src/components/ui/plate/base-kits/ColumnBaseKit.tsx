@@ -5,7 +5,9 @@ import {
   ColumnGroupElementStatic,
 } from '@/components/ui/plate/ColumnNodeStatic';
 
-export const BaseColumnKit = [
+const BaseColumnKit = [
   BaseColumnPlugin.withComponent(ColumnGroupElementStatic),
   BaseColumnItemPlugin.withComponent(ColumnElementStatic),
 ];
+
+export { BaseColumnKit };

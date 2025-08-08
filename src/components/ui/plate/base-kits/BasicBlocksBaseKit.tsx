@@ -21,7 +21,7 @@ import {
 import { HrElementStatic } from '@/components/ui/plate/HrNodeStatic';
 import { ParagraphElementStatic } from '@/components/ui/plate/ParagraphNodeStatic';
 
-export const BaseBasicBlocksKit = [
+const BaseBasicBlocksKit = [
   BaseParagraphPlugin.withComponent(ParagraphElementStatic),
   BaseH1Plugin.withComponent(H1ElementStatic),
   BaseH2Plugin.withComponent(H2ElementStatic),
@@ -32,3 +32,5 @@ export const BaseBasicBlocksKit = [
   BaseBlockquotePlugin.withComponent(BlockquoteElementStatic),
   BaseHorizontalRulePlugin.withComponent(HrElementStatic),
 ];
+
+export { BaseBasicBlocksKit };

@@ -75,7 +75,7 @@ const insertInlineMap: Record<
   [KEYS.link]: (editor) => triggerFloatingLink(editor, { focused: true }),
 };
 
-export const insertBlock = (editor: PlateEditor, type: string) => {
+const insertBlock = (editor: PlateEditor, type: string) => {
   editor.tf.withoutNormalizing(() => {
     const block = editor.api.block();
 
@@ -96,7 +96,7 @@ export const insertBlock = (editor: PlateEditor, type: string) => {
   });
 };
 
-export const insertInlineElement = (editor: PlateEditor, type: string) => {
+const insertInlineElement = (editor: PlateEditor, type: string) => {
   if (insertInlineMap[type]) {
     insertInlineMap[type](editor, type);
   }
@@ -129,7 +129,7 @@ const setBlockMap: Record<
   [KEYS.codeBlock]: (editor) => toggleCodeBlock(editor),
 };
 
-export const setBlockType = (
+const setBlockType = (
   editor: PlateEditor,
   type: string,
   { at }: { at?: Path } = {},
@@ -165,7 +165,7 @@ export const setBlockType = (
   });
 };
 
-export const getBlockType = (block: TElement) => {
+const getBlockType = (block: TElement) => {
   if (block[KEYS.listType]) {
     if (block[KEYS.listType] === KEYS.ol) {
       return KEYS.ol;
@@ -178,3 +178,5 @@ export const getBlockType = (block: TElement) => {
 
   return block.type;
 };
+
+export { insertBlock, insertInlineElement, setBlockType, getBlockType };

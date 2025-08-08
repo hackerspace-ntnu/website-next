@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { ToolbarButton } from './Toolbar';
 
-export function LineHeightToolbarButton(props: DropdownMenuProps) {
+function LineHeightToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const { defaultNodeValue, validNodeValues: values = [] } =
     editor.getInjectProps(LineHeightPlugin);
@@ -64,3 +64,5 @@ export function LineHeightToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { LineHeightToolbarButton };

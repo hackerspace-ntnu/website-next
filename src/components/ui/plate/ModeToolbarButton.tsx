@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { ToolbarButton } from './Toolbar';
 
-export function ModeToolbarButton(props: DropdownMenuProps) {
+function ModeToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [readOnly, setReadOnly] = usePlateState('readOnly');
   const [open, setOpen] = React.useState(false);
@@ -120,3 +120,5 @@ function Indicator() {
     </span>
   );
 }
+
+export { ModeToolbarButton };

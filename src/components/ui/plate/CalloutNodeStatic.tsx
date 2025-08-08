@@ -3,7 +3,7 @@ import type { SlateElementProps } from 'platejs';
 import { SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
-export function CalloutElementStatic({
+function CalloutElementStatic({
   children,
   className,
   ...props
@@ -38,3 +38,5 @@ export function CalloutElementStatic({
     </SlateElement>
   );
 }
+
+export { CalloutElementStatic };

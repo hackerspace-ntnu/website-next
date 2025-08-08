@@ -1,7 +1,7 @@
 import type { SlateElementProps, TColumnElement } from 'platejs';
 import { SlateElement } from 'platejs';
 
-export function ColumnElementStatic(props: SlateElementProps<TColumnElement>) {
+function ColumnElementStatic(props: SlateElementProps<TColumnElement>) {
   const { width } = props.element;
 
   return (
@@ -18,10 +18,12 @@ export function ColumnElementStatic(props: SlateElementProps<TColumnElement>) {
   );
 }
 
-export function ColumnGroupElementStatic(props: SlateElementProps) {
+function ColumnGroupElementStatic(props: SlateElementProps) {
   return (
     <SlateElement className='mb-2' {...props}>
       <div className='flex size-full rounded'>{props.children}</div>
     </SlateElement>
   );
 }
+
+export { ColumnElementStatic, ColumnGroupElementStatic };

@@ -25,7 +25,7 @@ import {
 import { cx } from '@/lib/utils/index';
 import { ToolbarButton, ToolbarMenuGroup } from './Toolbar';
 
-export function FontColorToolbarButton({
+function FontColorToolbarButton({
   children,
   nodeType,
   tooltip,
@@ -353,7 +353,7 @@ function ColorDropdownMenuItem({
   );
 }
 
-export function ColorDropdownMenuItems({
+function ColorDropdownMenuItems({
   className,
   color,
   colors,
@@ -389,7 +389,7 @@ export function ColorDropdownMenuItems({
   );
 }
 
-export const DEFAULT_COLORS = [
+const DEFAULT_COLORS = [
   {
     isBrightColor: false,
     name: 'black',
@@ -825,3 +825,5 @@ const DEFAULT_CUSTOM_COLORS = [
     value: '#4C1130',
   },
 ];
+
+export { FontColorToolbarButton, ColorDropdownMenuItems, DEFAULT_COLORS };

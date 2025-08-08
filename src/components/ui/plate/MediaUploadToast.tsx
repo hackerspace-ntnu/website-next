@@ -5,7 +5,7 @@ import { usePluginOption } from 'platejs/react';
 import * as React from 'react';
 import { toast } from 'sonner';
 
-export function MediaUploadToast() {
+function MediaUploadToast() {
   useUploadErrorToast();
 
   return null;
@@ -66,3 +66,5 @@ const useUploadErrorToast = () => {
     }
   }, [uploadError]);
 };
+
+export { MediaUploadToast };

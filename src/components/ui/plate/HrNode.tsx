@@ -9,7 +9,7 @@ import {
 } from 'platejs/react';
 import { cx } from '@/lib/utils/index';
 
-export function HrElement(props: PlateElementProps) {
+function HrElement(props: PlateElementProps) {
   const readOnly = useReadOnly();
   const selected = useSelected();
   const focused = useFocused();
@@ -29,3 +29,5 @@ export function HrElement(props: PlateElementProps) {
     </PlateElement>
   );
 }
+
+export { HrElement };

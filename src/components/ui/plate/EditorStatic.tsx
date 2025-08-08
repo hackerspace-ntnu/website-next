@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'cva';
 import { PlateStatic, type PlateStaticProps } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
-export const editorVariants = cva({
+const editorVariants = cva({
   base: cx(
     'group/editor',
     'relative w-full cursor-text select-text overflow-x-hidden whitespace-pre-wrap break-words',
@@ -34,7 +34,7 @@ export const editorVariants = cva({
   },
 });
 
-export function EditorStatic({
+function EditorStatic({
   className,
   variant,
   ...props
@@ -46,3 +46,5 @@ export function EditorStatic({
     />
   );
 }
+
+export { editorVariants, EditorStatic };

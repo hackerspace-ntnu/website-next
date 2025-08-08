@@ -11,9 +11,11 @@ const options = {
   inject: { targetPlugins: [KEYS.p] },
 } satisfies SlatePluginConfig;
 
-export const BaseFontKit = [
+const BaseFontKit = [
   BaseFontColorPlugin.configure(options),
   BaseFontBackgroundColorPlugin.configure(options),
   BaseFontSizePlugin.configure(options),
   BaseFontFamilyPlugin.configure(options),
 ];
+
+export { BaseFontKit };

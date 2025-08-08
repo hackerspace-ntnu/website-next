@@ -19,7 +19,7 @@ import { MediaPreviewDialog } from '@/components/ui/plate/MediaPreviewDialog';
 import { MediaUploadToast } from '@/components/ui/plate/MediaUploadToast';
 import { VideoElement } from '@/components/ui/plate/MediaVideoNode';
 
-export const MediaKit = [
+const MediaKit = [
   ImagePlugin.configure({
     options: { disableUploadInsert: true },
     render: { afterEditable: MediaPreviewDialog, node: ImageElement },
@@ -40,3 +40,5 @@ export const MediaKit = [
     },
   }),
 ];
+
+export { MediaKit };

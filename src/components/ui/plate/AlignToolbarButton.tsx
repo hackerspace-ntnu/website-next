@@ -41,7 +41,7 @@ const items = [
   },
 ];
 
-export function AlignToolbarButton(props: DropdownMenuProps) {
+function AlignToolbarButton(props: DropdownMenuProps) {
   const { editor, tf } = useEditorPlugin(TextAlignPlugin);
   const value =
     useSelectionFragmentProp({
@@ -83,3 +83,5 @@ export function AlignToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { AlignToolbarButton };

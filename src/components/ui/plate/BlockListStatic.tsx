@@ -22,7 +22,7 @@ const config: Record<
   },
 };
 
-export const BlockListStatic: RenderStaticNodeWrapper = (props) => {
+const BlockListStatic: RenderStaticNodeWrapper = (props) => {
   if (!props.element.listStyleType) return;
 
   return (props) => <List {...props} />;
@@ -79,3 +79,5 @@ function TodoLiStatic(props: SlateRenderElementProps) {
     </li>
   );
 }
+
+export { BlockListStatic };

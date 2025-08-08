@@ -42,7 +42,7 @@ const defaultValue = [
   },
 ];
 
-export function PlateEditor({
+function PlateEditor({
   value,
   variant,
   initOptions,
@@ -79,3 +79,5 @@ export function PlateEditor({
     </Plate>
   );
 }
+
+export { PlateEditor };

@@ -1,7 +1,7 @@
 import type { SlateLeafProps } from 'platejs';
 import { SlateLeaf } from 'platejs';
 
-export function KbdLeafStatic(props: SlateLeafProps) {
+function KbdLeafStatic(props: SlateLeafProps) {
   return (
     <SlateLeaf
       {...props}
@@ -12,3 +12,5 @@ export function KbdLeafStatic(props: SlateLeafProps) {
     </SlateLeaf>
   );
 }
+
+export { KbdLeafStatic };

@@ -207,7 +207,7 @@ const groups: Group[] = [
   },
 ];
 
-export function InsertToolbarButton(props: DropdownMenuProps) {
+function InsertToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
 
@@ -244,3 +244,5 @@ export function InsertToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { InsertToolbarButton };

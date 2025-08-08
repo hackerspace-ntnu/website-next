@@ -3,7 +3,7 @@ import { KEYS, SlateElement } from 'platejs';
 import * as React from 'react';
 import { cx } from '@/lib/utils/index';
 
-export function MentionElementStatic(
+function MentionElementStatic(
   props: SlateElementProps<TMentionElement> & {
     prefix?: string;
   },
@@ -33,3 +33,5 @@ export function MentionElementStatic(
     </SlateElement>
   );
 }
+
+export { MentionElementStatic };

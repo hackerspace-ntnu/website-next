@@ -3,7 +3,7 @@
 import { TextAlignPlugin } from '@platejs/basic-styles/react';
 import { KEYS } from 'platejs';
 
-export const AlignKit = [
+const AlignKit = [
   TextAlignPlugin.configure({
     inject: {
       nodeProps: {
@@ -16,3 +16,5 @@ export const AlignKit = [
     },
   }),
 ];
+
+export { AlignKit };

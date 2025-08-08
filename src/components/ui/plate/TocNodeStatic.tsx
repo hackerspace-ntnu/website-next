@@ -15,7 +15,7 @@ const headingItemVariants = cva({
   },
 });
 
-export function TocElementStatic(props: SlateElementProps) {
+function TocElementStatic(props: SlateElementProps) {
   const { editor } = props;
   const headingList = getHeadingList(editor);
 
@@ -85,3 +85,5 @@ const getHeadingList = (editor?: SlateEditor) => {
 
   return headingList;
 };
+
+export { TocElementStatic };

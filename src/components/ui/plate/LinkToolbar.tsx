@@ -36,11 +36,7 @@ const inputVariants = cva({
   base: 'flex h-[28px] w-full rounded-md border-none bg-transparent px-1.5 py-1 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-transparent md:text-sm',
 });
 
-export function LinkFloatingToolbar({
-  state,
-}: {
-  state?: LinkFloatingToolbarState;
-}) {
+function LinkFloatingToolbar({ state }: { state?: LinkFloatingToolbarState }) {
   const activeCommentId = usePluginOption({ key: KEYS.comment }, 'activeId');
   const activeSuggestionId = usePluginOption(
     { key: KEYS.suggestion },
@@ -200,3 +196,5 @@ function LinkOpenButton() {
     </a>
   );
 }
+
+export { LinkFloatingToolbar };

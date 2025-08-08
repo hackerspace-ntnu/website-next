@@ -42,7 +42,7 @@ const FONT_SIZES = [
   '96',
 ] as const;
 
-export function FontSizeToolbarButton() {
+function FontSizeToolbarButton() {
   const [inputValue, setInputValue] = React.useState(DEFAULT_FONT_SIZE);
   const [isFocused, setIsFocused] = React.useState(false);
   const { editor, tf } = useEditorPlugin(FontSizePlugin);
@@ -147,3 +147,5 @@ export function FontSizeToolbarButton() {
     </div>
   );
 }
+
+export { FontSizeToolbarButton };

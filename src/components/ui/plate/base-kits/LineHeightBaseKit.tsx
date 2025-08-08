@@ -1,7 +1,7 @@
 import { BaseLineHeightPlugin } from '@platejs/basic-styles';
 import { KEYS } from 'platejs';
 
-export const BaseLineHeightKit = [
+const BaseLineHeightKit = [
   BaseLineHeightPlugin.configure({
     inject: {
       nodeProps: {
@@ -12,3 +12,5 @@ export const BaseLineHeightKit = [
     },
   }),
 ];
+
+export { BaseLineHeightKit };

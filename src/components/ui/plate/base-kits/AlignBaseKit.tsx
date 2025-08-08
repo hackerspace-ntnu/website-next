@@ -1,7 +1,7 @@
 import { BaseTextAlignPlugin } from '@platejs/basic-styles';
 import { KEYS } from 'platejs';
 
-export const BaseAlignKit = [
+const BaseAlignKit = [
   BaseTextAlignPlugin.configure({
     inject: {
       nodeProps: {
@@ -14,3 +14,5 @@ export const BaseAlignKit = [
     },
   }),
 ];
+
+export { BaseAlignKit };

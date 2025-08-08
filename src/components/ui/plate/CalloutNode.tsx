@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { cx } from '@/lib/utils/index';
 import { EmojiPicker, EmojiPopover } from './EmojiToolbarButton';
 
-export function CalloutElement({
+function CalloutElement({
   attributes,
   children,
   className,
@@ -66,3 +66,5 @@ export function CalloutElement({
     </PlateElement>
   );
 }
+
+export { CalloutElement };

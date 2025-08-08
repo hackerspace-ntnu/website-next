@@ -4,9 +4,7 @@ import type { SlateElementProps, TEquationElement } from 'platejs';
 import { SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
-export function EquationElementStatic(
-  props: SlateElementProps<TEquationElement>,
-) {
+function EquationElementStatic(props: SlateElementProps<TEquationElement>) {
   const { element } = props;
 
   const html = getEquationHtml({
@@ -53,7 +51,7 @@ export function EquationElementStatic(
   );
 }
 
-export function InlineEquationElementStatic(
+function InlineEquationElementStatic(
   props: SlateElementProps<TEquationElement>,
 ) {
   const html = getEquationHtml({
@@ -97,3 +95,5 @@ export function InlineEquationElementStatic(
     </SlateElement>
   );
 }
+
+export { EquationElementStatic, InlineEquationElementStatic };

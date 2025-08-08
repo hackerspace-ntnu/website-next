@@ -13,7 +13,7 @@ import { FileElementStatic } from '@/components/ui/plate/MediaFileNodeStatic';
 import { ImageElementStatic } from '@/components/ui/plate/MediaImageNodeStatic';
 import { VideoElementStatic } from '@/components/ui/plate/MediaVideoNodeStatic';
 
-export const BaseMediaKit = [
+const BaseMediaKit = [
   BaseImagePlugin.withComponent(ImageElementStatic),
   BaseVideoPlugin.withComponent(VideoElementStatic),
   BaseAudioPlugin.withComponent(AudioElementStatic),
@@ -28,3 +28,5 @@ export const BaseMediaKit = [
   BaseMediaEmbedPlugin,
   BasePlaceholderPlugin,
 ];
+
+export { BaseMediaKit };

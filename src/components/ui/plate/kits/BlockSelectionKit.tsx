@@ -5,7 +5,7 @@ import { getPluginTypes, KEYS } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { BlockSelection } from '@/components/ui/plate/BlockSelection';
 
-export const BlockSelectionKit = [
+const BlockSelectionKit = [
   BlockSelectionPlugin.configure(({ editor }) => ({
     options: {
       enableContextMenu: true,
@@ -27,3 +27,5 @@ export const BlockSelectionKit = [
     },
   })),
 ];
+
+export { BlockSelectionKit };

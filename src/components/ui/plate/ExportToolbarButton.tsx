@@ -22,7 +22,7 @@ import { ToolbarButton } from './Toolbar';
 
 const siteUrl = 'https://platejs.org';
 
-export function ExportToolbarButton(props: DropdownMenuProps) {
+function ExportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const t = useTranslations('error');
   const [open, setOpen] = React.useState(false);
@@ -182,3 +182,5 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { ExportToolbarButton };

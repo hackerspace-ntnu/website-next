@@ -3,7 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import type { SlateElementProps } from 'platejs';
 import { SlateElement } from 'platejs';
 
-export function ToggleElementStatic(props: SlateElementProps) {
+function ToggleElementStatic(props: SlateElementProps) {
   return (
     <SlateElement {...props} className='pl-6'>
       <div
@@ -16,3 +16,5 @@ export function ToggleElementStatic(props: SlateElementProps) {
     </SlateElement>
   );
 }
+
+export { ToggleElementStatic };

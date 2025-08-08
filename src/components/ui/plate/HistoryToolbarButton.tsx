@@ -5,9 +5,7 @@ import { useEditorRef, useEditorSelector } from 'platejs/react';
 import type * as React from 'react';
 import { ToolbarButton } from './Toolbar';
 
-export function RedoToolbarButton(
-  props: React.ComponentProps<typeof ToolbarButton>,
-) {
+function RedoToolbarButton(props: React.ComponentProps<typeof ToolbarButton>) {
   const editor = useEditorRef();
   const disabled = useEditorSelector(
     (editor) => editor.history.redos.length === 0,
@@ -27,9 +25,7 @@ export function RedoToolbarButton(
   );
 }
 
-export function UndoToolbarButton(
-  props: React.ComponentProps<typeof ToolbarButton>,
-) {
+function UndoToolbarButton(props: React.ComponentProps<typeof ToolbarButton>) {
   const editor = useEditorRef();
   const disabled = useEditorSelector(
     (editor) => editor.history.undos.length === 0,
@@ -48,3 +44,5 @@ export function UndoToolbarButton(
     </ToolbarButton>
   );
 }
+
+export { RedoToolbarButton, UndoToolbarButton };

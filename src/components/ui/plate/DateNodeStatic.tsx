@@ -1,7 +1,7 @@
 import type { SlateElementProps, TDateElement } from 'platejs';
 import { SlateElement } from 'platejs';
 
-export function DateElementStatic(props: SlateElementProps<TDateElement>) {
+function DateElementStatic(props: SlateElementProps<TDateElement>) {
   const { element } = props;
 
   return (
@@ -41,3 +41,5 @@ export function DateElementStatic(props: SlateElementProps<TDateElement>) {
     </SlateElement>
   );
 }
+
+export { DateElementStatic };

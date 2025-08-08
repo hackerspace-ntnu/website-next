@@ -10,7 +10,7 @@ import { cva, type VariantProps } from 'cva';
 import type * as React from 'react';
 import { cx } from '@/lib/utils/index';
 
-export const mediaResizeHandleVariants = cva({
+const mediaResizeHandleVariants = cva({
   base: cx(
     'top-0 flex w-6 select-none flex-col justify-center',
     "after:flex after:h-16 after:w-[3px] after:rounded-[6px] after:bg-ring after:opacity-0 after:content-['_'] group-hover:after:opacity-100",
@@ -35,7 +35,7 @@ const resizeHandleVariants = cva({
   },
 });
 
-export function ResizeHandle({
+function ResizeHandle({
   className,
   options,
   ...props
@@ -69,7 +69,7 @@ const resizableVariants = cva({
   },
 });
 
-export function Resizable({
+function Resizable({
   align,
   className,
   ...props
@@ -82,3 +82,5 @@ export function Resizable({
     />
   );
 }
+
+export { mediaResizeHandleVariants, ResizeHandle, Resizable };

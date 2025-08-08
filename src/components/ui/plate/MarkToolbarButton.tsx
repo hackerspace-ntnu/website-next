@@ -4,7 +4,7 @@ import { useMarkToolbarButton, useMarkToolbarButtonState } from 'platejs/react';
 import type * as React from 'react';
 import { ToolbarButton } from './Toolbar';
 
-export function MarkToolbarButton({
+function MarkToolbarButton({
   clear,
   nodeType,
   ...props
@@ -17,3 +17,5 @@ export function MarkToolbarButton({
 
   return <ToolbarButton {...props} {...buttonProps} />;
 }
+
+export { MarkToolbarButton };

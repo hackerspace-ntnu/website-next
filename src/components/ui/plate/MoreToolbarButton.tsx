@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { ToolbarButton } from './Toolbar';
 
-export function MoreToolbarButton(props: DropdownMenuProps) {
+function MoreToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
 
@@ -76,3 +76,5 @@ export function MoreToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { MoreToolbarButton };

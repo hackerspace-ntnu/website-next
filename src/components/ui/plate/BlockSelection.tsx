@@ -5,7 +5,7 @@ import { useBlockSelected } from '@platejs/selection/react';
 import { cva } from 'cva';
 import { type PlateElementProps, usePluginOption } from 'platejs/react';
 
-export const blockSelectionVariants = cva({
+const blockSelectionVariants = cva({
   base: 'pointer-events-none absolute inset-0 z-1 bg-brand/[.13] transition-opacity',
   defaultVariants: {
     active: true,
@@ -18,7 +18,7 @@ export const blockSelectionVariants = cva({
   },
 });
 
-export function BlockSelection(props: PlateElementProps) {
+function BlockSelection(props: PlateElementProps) {
   const isBlockSelected = useBlockSelected();
   const isDragging = usePluginOption(DndPlugin, 'isDragging');
 
@@ -38,3 +38,5 @@ export function BlockSelection(props: PlateElementProps) {
     />
   );
 }
+
+export { blockSelectionVariants, BlockSelection };

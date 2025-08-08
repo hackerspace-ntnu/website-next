@@ -17,7 +17,7 @@ const headingVariants = cva({
   },
 });
 
-export function HeadingElementStatic({
+function HeadingElementStatic({
   variant = 'h1',
   ...props
 }: SlateElementProps & VariantProps<typeof headingVariants>) {
@@ -32,36 +32,46 @@ export function HeadingElementStatic({
   );
 }
 
-export function H1ElementStatic(props: SlateElementProps) {
+function H1ElementStatic(props: SlateElementProps) {
   return <HeadingElementStatic variant='h1' {...props} />;
 }
 
-export function H2ElementStatic(
+function H2ElementStatic(
   props: React.ComponentProps<typeof HeadingElementStatic>,
 ) {
   return <HeadingElementStatic variant='h2' {...props} />;
 }
 
-export function H3ElementStatic(
+function H3ElementStatic(
   props: React.ComponentProps<typeof HeadingElementStatic>,
 ) {
   return <HeadingElementStatic variant='h3' {...props} />;
 }
 
-export function H4ElementStatic(
+function H4ElementStatic(
   props: React.ComponentProps<typeof HeadingElementStatic>,
 ) {
   return <HeadingElementStatic variant='h4' {...props} />;
 }
 
-export function H5ElementStatic(
+function H5ElementStatic(
   props: React.ComponentProps<typeof HeadingElementStatic>,
 ) {
   return <HeadingElementStatic variant='h5' {...props} />;
 }
 
-export function H6ElementStatic(
+function H6ElementStatic(
   props: React.ComponentProps<typeof HeadingElementStatic>,
 ) {
   return <HeadingElementStatic variant='h6' {...props} />;
 }
+
+export {
+  HeadingElementStatic,
+  H1ElementStatic,
+  H2ElementStatic,
+  H3ElementStatic,
+  H4ElementStatic,
+  H5ElementStatic,
+  H6ElementStatic,
+};

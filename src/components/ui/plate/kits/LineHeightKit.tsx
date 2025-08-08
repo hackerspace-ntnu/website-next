@@ -3,7 +3,7 @@
 import { LineHeightPlugin } from '@platejs/basic-styles/react';
 import { KEYS } from 'platejs';
 
-export const LineHeightKit = [
+const LineHeightKit = [
   LineHeightPlugin.configure({
     inject: {
       nodeProps: {
@@ -14,3 +14,5 @@ export const LineHeightKit = [
     },
   }),
 ];
+
+export { LineHeightKit };

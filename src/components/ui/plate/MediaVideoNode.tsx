@@ -17,7 +17,7 @@ import {
   ResizeHandle,
 } from './ResizeHandle';
 
-export const VideoElement = withHOC(
+const VideoElement = withHOC(
   ResizableProvider,
   function VideoElement(
     props: PlateElementProps<TVideoElement & TResizableProps>,
@@ -118,3 +118,5 @@ export const VideoElement = withHOC(
     );
   },
 );
+
+export { VideoElement };

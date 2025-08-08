@@ -3,7 +3,7 @@
 import { IndentPlugin } from '@platejs/indent/react';
 import { KEYS } from 'platejs';
 
-export const IndentKit = [
+const IndentKit = [
   IndentPlugin.configure({
     inject: {
       targetPlugins: [
@@ -20,3 +20,5 @@ export const IndentKit = [
     },
   }),
 ];
+
+export { IndentKit };

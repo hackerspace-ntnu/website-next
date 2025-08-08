@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils/index';
 
-export function DateElement(props: PlateElementProps<TDateElement>) {
+function DateElement(props: PlateElementProps<TDateElement>) {
   const { editor, element } = props;
 
   const readOnly = useReadOnly();
@@ -93,3 +93,5 @@ export function DateElement(props: PlateElementProps<TDateElement>) {
     </PlateElement>
   );
 }
+
+export { DateElement };

@@ -40,7 +40,7 @@ import { ToggleToolbarButton } from './ToggleToolbarButton';
 import { ToolbarGroup } from './Toolbar';
 import { TurnIntoToolbarButton } from './TurnIntoToolbarButton';
 
-export function FixedToolbarButtons() {
+function FixedToolbarButtons() {
   const readOnly = useEditorReadOnly();
 
   return (
@@ -147,3 +147,5 @@ export function FixedToolbarButtons() {
     </div>
   );
 }
+
+export { FixedToolbarButtons };

@@ -15,7 +15,7 @@ import { CodeLeaf } from '@/components/ui/plate/CodeNode';
 import { HighlightLeaf } from '@/components/ui/plate/HighlightNode';
 import { KbdLeaf } from '@/components/ui/plate/KbdNode';
 
-export const BasicMarksKit = [
+const BasicMarksKit = [
   BoldPlugin,
   ItalicPlugin,
   UnderlinePlugin,
@@ -38,3 +38,5 @@ export const BasicMarksKit = [
   }),
   KbdPlugin.withComponent(KbdLeaf),
 ];
+
+export { BasicMarksKit };

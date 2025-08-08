@@ -41,7 +41,7 @@ import { ToggleKit } from './ToggleKit';
 // remember to add all required components, base kits, kits and
 // update the fixed and floating toolbar buttons.
 
-export const EditorKit = [
+const EditorKit = [
   ...BlockMenuKit,
 
   // Elements
@@ -88,6 +88,8 @@ export const EditorKit = [
   ...FloatingToolbarKit,
 ];
 
-export type MyEditor = TPlateEditor<Value, (typeof EditorKit)[number]>;
+type MyEditor = TPlateEditor<Value, (typeof EditorKit)[number]>;
 
-export const useEditor = () => useEditorRef<MyEditor>();
+const useEditor = () => useEditorRef<MyEditor>();
+
+export { EditorKit, type MyEditor, useEditor };

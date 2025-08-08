@@ -14,7 +14,7 @@ import {
 
 const lowlight = createLowlight(all);
 
-export const CodeBlockKit = [
+const CodeBlockKit = [
   CodeBlockPlugin.configure({
     node: { component: CodeBlockElement },
     options: { lowlight },
@@ -23,3 +23,5 @@ export const CodeBlockKit = [
   CodeLinePlugin.withComponent(CodeLineElement),
   CodeSyntaxPlugin.withComponent(CodeSyntaxLeaf),
 ];
+
+export { CodeBlockKit };

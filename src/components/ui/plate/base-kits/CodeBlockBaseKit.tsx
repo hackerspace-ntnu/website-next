@@ -13,7 +13,7 @@ import {
 
 const lowlight = createLowlight(all);
 
-export const BaseCodeBlockKit = [
+const BaseCodeBlockKit = [
   BaseCodeBlockPlugin.configure({
     node: { component: CodeBlockElementStatic },
     options: { lowlight },
@@ -21,3 +21,5 @@ export const BaseCodeBlockKit = [
   BaseCodeLinePlugin.withComponent(CodeLineElementStatic),
   BaseCodeSyntaxPlugin.withComponent(CodeSyntaxLeafStatic),
 ];
+
+export { BaseCodeBlockKit };

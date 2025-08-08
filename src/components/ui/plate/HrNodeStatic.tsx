@@ -2,7 +2,7 @@ import type { SlateElementProps } from 'platejs';
 import { SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
-export function HrElementStatic(props: SlateElementProps) {
+function HrElementStatic(props: SlateElementProps) {
   return (
     <SlateElement {...props}>
       <div className='cursor-text py-6' contentEditable={false}>
@@ -16,3 +16,5 @@ export function HrElementStatic(props: SlateElementProps) {
     </SlateElement>
   );
 }
+
+export { HrElementStatic };

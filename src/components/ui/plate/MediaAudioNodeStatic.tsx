@@ -1,7 +1,7 @@
 import type { SlateElementProps, TAudioElement } from 'platejs';
 import { SlateElement } from 'platejs';
 
-export function AudioElementStatic(props: SlateElementProps<TAudioElement>) {
+function AudioElementStatic(props: SlateElementProps<TAudioElement>) {
   return (
     <SlateElement {...props} className='mb-1'>
       <figure className='group relative cursor-default'>
@@ -14,3 +14,5 @@ export function AudioElementStatic(props: SlateElementProps<TAudioElement>) {
     </SlateElement>
   );
 }
+
+export { AudioElementStatic };

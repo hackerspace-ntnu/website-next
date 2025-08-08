@@ -90,7 +90,7 @@ import {
   ToolbarMenuGroup,
 } from './Toolbar';
 
-export const TableElement = withHOC(
+const TableElement = withHOC(
   TableProvider,
   function TableElement({
     children,
@@ -420,7 +420,7 @@ function ColorDropdownMenu({
   );
 }
 
-export function TableRowElement(props: PlateElementProps<TTableRowElement>) {
+function TableRowElement(props: PlateElementProps<TTableRowElement>) {
   const { element } = props;
   const readOnly = useReadOnly();
   const selected = useSelected();
@@ -508,7 +508,7 @@ function RowDropLine() {
   );
 }
 
-export function TableCellElement({
+function TableCellElement({
   isHeader,
   ...props
 }: PlateElementProps<TTableCellElement> & {
@@ -640,7 +640,7 @@ export function TableCellElement({
   );
 }
 
-export function TableCellHeaderElement(
+function TableCellHeaderElement(
   props: React.ComponentProps<typeof TableCellElement>,
 ) {
   return <TableCellElement {...props} isHeader />;
@@ -664,3 +664,10 @@ const columnResizeVariants = cva({
     },
   },
 });
+
+export {
+  TableElement,
+  TableRowElement,
+  TableCellElement,
+  TableCellHeaderElement,
+};

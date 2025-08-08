@@ -3,7 +3,7 @@ import { FileUp } from 'lucide-react';
 import type { SlateElementProps, TFileElement } from 'platejs';
 import { SlateElement } from 'platejs';
 
-export function FileElementStatic(props: SlateElementProps<TFileElement>) {
+function FileElementStatic(props: SlateElementProps<TFileElement>) {
   const { name, url } = props.element;
 
   return (
@@ -26,3 +26,5 @@ export function FileElementStatic(props: SlateElementProps<TFileElement>) {
     </SlateElement>
   );
 }
+
+export { FileElementStatic };

@@ -17,7 +17,7 @@ import { BaseTableKit } from './TableBaseKit';
 import { BaseTocKit } from './TocBaseKit';
 import { BaseToggleKit } from './ToggleBaseKit';
 
-export const BaseEditorKit = [
+const BaseEditorKit = [
   ...BaseBasicBlocksKit,
   ...BaseCodeBlockKit,
   ...BaseTableKit,
@@ -37,3 +37,5 @@ export const BaseEditorKit = [
   ...BaseLineHeightKit,
   ...MarkdownKit,
 ];
+
+export { BaseEditorKit };

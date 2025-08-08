@@ -13,7 +13,7 @@ import { CodeLeafStatic } from '@/components/ui/plate/CodeNodeStatic';
 import { HighlightLeafStatic } from '@/components/ui/plate/HighlightNodeStatic';
 import { KbdLeafStatic } from '@/components/ui/plate/KbdNodeStatic';
 
-export const BaseBasicMarksKit = [
+const BaseBasicMarksKit = [
   BaseBoldPlugin,
   BaseItalicPlugin,
   BaseUnderlinePlugin,
@@ -24,3 +24,5 @@ export const BaseBasicMarksKit = [
   BaseHighlightPlugin.withComponent(HighlightLeafStatic),
   BaseKbdPlugin.withComponent(KbdLeafStatic),
 ];
+
+export { BaseBasicMarksKit };

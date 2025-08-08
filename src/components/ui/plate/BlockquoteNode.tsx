@@ -2,7 +2,7 @@
 
 import { PlateElement, type PlateElementProps } from 'platejs/react';
 
-export function BlockquoteElement(props: PlateElementProps) {
+function BlockquoteElement(props: PlateElementProps) {
   return (
     <PlateElement
       as='blockquote'
@@ -11,3 +11,5 @@ export function BlockquoteElement(props: PlateElementProps) {
     />
   );
 }
+
+export { BlockquoteElement };

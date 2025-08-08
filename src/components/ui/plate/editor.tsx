@@ -30,7 +30,7 @@ const editorContainerVariants = cva({
   },
 });
 
-export function EditorContainer({
+function EditorContainer({
   className,
   variant,
   ...props
@@ -80,10 +80,9 @@ const editorVariants = cva({
   },
 });
 
-export type EditorProps = PlateContentProps &
-  VariantProps<typeof editorVariants>;
+type EditorProps = PlateContentProps & VariantProps<typeof editorVariants>;
 
-export const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
+const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
   ({ className, disabled, focused, variant, ...props }, ref) => {
     return (
       <TooltipProvider>
@@ -108,7 +107,7 @@ export const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
 
 Editor.displayName = 'Editor';
 
-export function EditorView({
+function EditorView({
   className,
   variant,
   ...props
@@ -122,3 +121,5 @@ export function EditorView({
 }
 
 EditorView.displayName = 'EditorView';
+
+export { EditorContainer, Editor, EditorView, type EditorProps };

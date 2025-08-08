@@ -17,7 +17,7 @@ import {
   InlineComboboxItem,
 } from './InlineCombobox';
 
-export function EmojiInputElement(props: PlateElementProps) {
+function EmojiInputElement(props: PlateElementProps) {
   const { children, editor, element } = props;
   const data = usePluginOption(EmojiPlugin, 'data');
   const [value, setValue] = React.useState('');
@@ -65,3 +65,5 @@ export function EmojiInputElement(props: PlateElementProps) {
     </PlateElement>
   );
 }
+
+export { EmojiInputElement };

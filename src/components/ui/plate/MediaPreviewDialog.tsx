@@ -25,7 +25,7 @@ const buttonVariants = cva('rounded bg-[rgba(0,0,0,0.5)] px-1', {
 
 const SCROLL_SPEED = 4;
 
-export function MediaPreviewDialog() {
+function MediaPreviewDialog() {
   const editor = useEditorRef();
   const isOpen = useImagePreviewValue('isOpen', editor.id);
   const scale = useImagePreviewValue('scale');
@@ -152,3 +152,5 @@ function ScaleInput(props: React.ComponentProps<'input'>) {
 
   return <input {...scaleInputProps} {...props} ref={ref} />;
 }
+
+export { MediaPreviewDialog };

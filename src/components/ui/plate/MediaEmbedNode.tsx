@@ -17,7 +17,7 @@ import {
   ResizeHandle,
 } from './ResizeHandle';
 
-export const MediaEmbedElement = withHOC(
+const MediaEmbedElement = withHOC(
   ResizableProvider,
   function MediaEmbedElement(props: PlateElementProps<TMediaEmbedElement>) {
     const {
@@ -133,3 +133,5 @@ export const MediaEmbedElement = withHOC(
     );
   },
 );
+
+export { MediaEmbedElement };

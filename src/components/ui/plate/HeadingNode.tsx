@@ -18,7 +18,7 @@ const headingVariants = cva({
   },
 });
 
-export function HeadingElement({
+function HeadingElement({
   variant = 'h1',
   ...props
 }: PlateElementProps & VariantProps<typeof headingVariants>) {
@@ -33,26 +33,36 @@ export function HeadingElement({
   );
 }
 
-export function H1Element(props: PlateElementProps) {
+function H1Element(props: PlateElementProps) {
   return <HeadingElement variant='h1' {...props} />;
 }
 
-export function H2Element(props: PlateElementProps) {
+function H2Element(props: PlateElementProps) {
   return <HeadingElement variant='h2' {...props} />;
 }
 
-export function H3Element(props: PlateElementProps) {
+function H3Element(props: PlateElementProps) {
   return <HeadingElement variant='h3' {...props} />;
 }
 
-export function H4Element(props: PlateElementProps) {
+function H4Element(props: PlateElementProps) {
   return <HeadingElement variant='h4' {...props} />;
 }
 
-export function H5Element(props: PlateElementProps) {
+function H5Element(props: PlateElementProps) {
   return <HeadingElement variant='h5' {...props} />;
 }
 
-export function H6Element(props: PlateElementProps) {
+function H6Element(props: PlateElementProps) {
   return <HeadingElement variant='h6' {...props} />;
 }
+
+export {
+  HeadingElement,
+  H1Element,
+  H2Element,
+  H3Element,
+  H4Element,
+  H5Element,
+  H6Element,
+};

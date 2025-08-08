@@ -8,9 +8,7 @@ import { Link } from 'lucide-react';
 import type * as React from 'react';
 import { ToolbarButton } from './Toolbar';
 
-export function LinkToolbarButton(
-  props: React.ComponentProps<typeof ToolbarButton>,
-) {
+function LinkToolbarButton(props: React.ComponentProps<typeof ToolbarButton>) {
   const state = useLinkToolbarButtonState();
   const { props: buttonProps } = useLinkToolbarButton(state);
 
@@ -20,3 +18,5 @@ export function LinkToolbarButton(
     </ToolbarButton>
   );
 }
+
+export { LinkToolbarButton };

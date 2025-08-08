@@ -13,7 +13,7 @@ const options = {
   inject: { targetPlugins: [KEYS.p] },
 } satisfies PlatePluginConfig;
 
-export const FontKit = [
+const FontKit = [
   FontColorPlugin.configure({
     inject: {
       ...options.inject,
@@ -26,3 +26,5 @@ export const FontKit = [
   FontSizePlugin.configure(options),
   FontFamilyPlugin.configure(options),
 ];
+
+export { FontKit };

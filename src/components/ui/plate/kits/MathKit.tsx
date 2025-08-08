@@ -7,7 +7,9 @@ import {
   InlineEquationElement,
 } from '@/components/ui/plate/EquationNode';
 
-export const MathKit = [
+const MathKit = [
   InlineEquationPlugin.withComponent(InlineEquationElement),
   EquationPlugin.withComponent(EquationElement),
 ];
+
+export { MathKit };

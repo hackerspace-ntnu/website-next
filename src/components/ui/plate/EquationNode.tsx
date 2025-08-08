@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils/index';
 
-export function EquationElement(props: PlateElementProps<TEquationElement>) {
+function EquationElement(props: PlateElementProps<TEquationElement>) {
   const selected = useSelected();
   const [open, setOpen] = React.useState(selected);
   const katexRef = React.useRef<HTMLDivElement | null>(null);
@@ -87,9 +87,7 @@ export function EquationElement(props: PlateElementProps<TEquationElement>) {
   );
 }
 
-export function InlineEquationElement(
-  props: PlateElementProps<TEquationElement>,
-) {
+function InlineEquationElement(props: PlateElementProps<TEquationElement>) {
   const element = props.element;
   const katexRef = React.useRef<HTMLDivElement | null>(null);
   const selected = useSelected();
@@ -231,3 +229,5 @@ const EquationPopoverContent = ({
     </PopoverContent>
   );
 };
+
+export { EquationElement, InlineEquationElement };

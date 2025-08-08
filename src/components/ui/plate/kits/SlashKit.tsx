@@ -5,7 +5,7 @@ import { KEYS } from 'platejs';
 
 import { SlashInputElement } from '@/components/ui/plate/SlashNode';
 
-export const SlashKit = [
+const SlashKit = [
   SlashPlugin.configure({
     options: {
       triggerQuery: (editor) =>
@@ -16,3 +16,5 @@ export const SlashKit = [
   }),
   SlashInputPlugin.withComponent(SlashInputElement),
 ];
+
+export { SlashKit };

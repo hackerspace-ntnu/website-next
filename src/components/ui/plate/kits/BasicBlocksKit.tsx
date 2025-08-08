@@ -23,7 +23,7 @@ import {
 import { HrElement } from '@/components/ui/plate/HrNode';
 import { ParagraphElement } from '@/components/ui/plate/ParagraphNode';
 
-export const BasicBlocksKit = [
+const BasicBlocksKit = [
   ParagraphPlugin.withComponent(ParagraphElement),
   H1Plugin.configure({
     node: {
@@ -85,3 +85,5 @@ export const BasicBlocksKit = [
   }),
   HorizontalRulePlugin.withComponent(HrElement),
 ];
+
+export { BasicBlocksKit };

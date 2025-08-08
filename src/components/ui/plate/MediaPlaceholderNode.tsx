@@ -49,7 +49,7 @@ const CONTENT: Record<
   },
 };
 
-export const PlaceholderElement = withHOC(
+const PlaceholderElement = withHOC(
   PlaceholderProvider,
   function PlaceholderElement(props: PlateElementProps<TPlaceholderElement>) {
     const { editor, element } = props;
@@ -198,7 +198,7 @@ export const PlaceholderElement = withHOC(
   },
 );
 
-export function ImageProgress({
+function ImageProgress({
   className,
   file,
   imageRef,
@@ -267,3 +267,5 @@ function formatBytes(
       : (sizes[i] ?? 'Bytes')
   }`;
 }
+
+export { PlaceholderElement, ImageProgress };

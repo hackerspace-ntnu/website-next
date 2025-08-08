@@ -22,7 +22,7 @@ import {
   InlineComboboxItem,
 } from './InlineCombobox';
 
-export function MentionElement(
+function MentionElement(
   props: PlateElementProps<TMentionElement> & {
     prefix?: string;
   },
@@ -73,9 +73,7 @@ export function MentionElement(
 
 const onSelectItem = getMentionOnSelectItem();
 
-export function MentionInputElement(
-  props: PlateElementProps<TComboboxInputElement>,
-) {
+function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const { editor, element } = props;
   const [search, setSearch] = React.useState('');
 
@@ -190,3 +188,5 @@ const MENTIONABLES = [
   { key: '48', text: 'Brendol Hux' },
   { key: '49', text: 'BT-1' },
 ];
+
+export { MentionElement, MentionInputElement };

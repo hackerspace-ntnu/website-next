@@ -3,7 +3,7 @@
 import { cx } from '@/lib/utils/index';
 import { Toolbar } from './Toolbar';
 
-export function FixedToolbar(props: React.ComponentProps<typeof Toolbar>) {
+function FixedToolbar(props: React.ComponentProps<typeof Toolbar>) {
   return (
     <Toolbar
       {...props}
@@ -14,3 +14,5 @@ export function FixedToolbar(props: React.ComponentProps<typeof Toolbar>) {
     />
   );
 }
+
+export { FixedToolbar };

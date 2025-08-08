@@ -3,7 +3,7 @@
 import { KEYS } from 'platejs';
 import { BlockPlaceholderPlugin } from 'platejs/react';
 
-export const BlockPlaceholderKit = [
+const BlockPlaceholderKit = [
   BlockPlaceholderPlugin.configure({
     options: {
       className:
@@ -17,3 +17,5 @@ export const BlockPlaceholderKit = [
     },
   }),
 ];
+
+export { BlockPlaceholderKit };

@@ -29,7 +29,7 @@ const config: Record<
   },
 };
 
-export const BlockList: RenderNodeWrapper = (props) => {
+const BlockList: RenderNodeWrapper = (props) => {
   if (!props.element.listStyleType) return;
 
   return (props) => <List {...props} />;
@@ -83,3 +83,5 @@ function TodoLi(props: PlateElementProps) {
     </li>
   );
 }
+
+export { BlockList };

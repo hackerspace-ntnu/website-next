@@ -2,7 +2,7 @@
 
 import type { LucideProps } from 'lucide-react';
 
-export function BorderAllIcon(props: LucideProps) {
+function BorderAllIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -32,7 +32,7 @@ export function BorderAllIcon(props: LucideProps) {
   );
 }
 
-export function BorderBottomIcon(props: LucideProps) {
+function BorderBottomIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -79,7 +79,7 @@ export function BorderBottomIcon(props: LucideProps) {
   );
 }
 
-export function BorderLeftIcon(props: LucideProps) {
+function BorderLeftIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -334,7 +334,7 @@ export function BorderLeftIcon(props: LucideProps) {
   );
 }
 
-export function BorderNoneIcon(props: LucideProps) {
+function BorderNoneIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -403,7 +403,7 @@ export function BorderNoneIcon(props: LucideProps) {
   );
 }
 
-export function BorderRightIcon(props: LucideProps) {
+function BorderRightIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -606,7 +606,7 @@ export function BorderRightIcon(props: LucideProps) {
   );
 }
 
-export function BorderTopIcon(props: LucideProps) {
+function BorderTopIcon(props: LucideProps) {
   return (
     <svg
       fill='none'
@@ -860,3 +860,12 @@ export function BorderTopIcon(props: LucideProps) {
     </svg>
   );
 }
+
+export {
+  BorderAllIcon,
+  BorderBottomIcon,
+  BorderLeftIcon,
+  BorderNoneIcon,
+  BorderRightIcon,
+  BorderTopIcon,
+};

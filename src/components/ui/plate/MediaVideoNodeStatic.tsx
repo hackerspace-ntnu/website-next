@@ -6,7 +6,7 @@ import type {
 } from 'platejs';
 import { NodeApi, SlateElement } from 'platejs';
 
-export function VideoElementStatic(
+function VideoElementStatic(
   props: SlateElementProps<TVideoElement & TCaptionElement & TResizableProps>,
 ) {
   const { align = 'center', caption, url, width } = props.element;
@@ -33,3 +33,5 @@ export function VideoElementStatic(
     </SlateElement>
   );
 }
+
+export { VideoElementStatic };

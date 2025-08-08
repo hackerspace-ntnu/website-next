@@ -3,7 +3,7 @@ import { KEYS } from 'platejs';
 import { BlockListStatic } from '@/components/ui/plate/BlockListStatic';
 import { BaseIndentKit } from '@/components/ui/plate/base-kits/IndentBaseKit';
 
-export const BaseListKit = [
+const BaseListKit = [
   ...BaseIndentKit,
   BaseListPlugin.configure({
     inject: {
@@ -20,3 +20,5 @@ export const BaseListKit = [
     },
   }),
 ];
+
+export { BaseListKit };

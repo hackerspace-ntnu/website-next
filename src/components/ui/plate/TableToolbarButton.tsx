@@ -31,7 +31,7 @@ import {
 import { cx } from '@/lib/utils/index';
 import { ToolbarButton } from './Toolbar';
 
-export function TableToolbarButton(props: DropdownMenuProps) {
+function TableToolbarButton(props: DropdownMenuProps) {
   const tableSelected = useEditorSelector(
     (editor) => editor.api.some({ match: { type: KEYS.table } }),
     [],
@@ -269,3 +269,5 @@ function TablePicker() {
     </div>
   );
 }
+
+export { TableToolbarButton };

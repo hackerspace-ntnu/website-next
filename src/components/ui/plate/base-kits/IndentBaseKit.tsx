@@ -1,7 +1,7 @@
 import { BaseIndentPlugin } from '@platejs/indent';
 import { KEYS } from 'platejs';
 
-export const BaseIndentKit = [
+const BaseIndentKit = [
   BaseIndentPlugin.configure({
     inject: {
       targetPlugins: [
@@ -17,3 +17,5 @@ export const BaseIndentKit = [
     },
   }),
 ];
+
+export { BaseIndentKit };

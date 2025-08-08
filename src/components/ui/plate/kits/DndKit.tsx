@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { BlockDraggable } from '@/components/ui/plate/BlockDraggable';
 
-export const DndKit = [
+const DndKit = [
   DndPlugin.configure({
     options: {
       enableScroller: true,
@@ -25,3 +25,5 @@ export const DndKit = [
     },
   }),
 ];
+
+export { DndKit };

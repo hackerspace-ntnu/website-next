@@ -37,7 +37,7 @@ import {
 } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';
 
-export const ColumnElement = withHOC(
+const ColumnElement = withHOC(
   ResizableProvider,
   function ColumnElement(props: PlateElementProps<TColumnElement>) {
     const { width } = props.element;
@@ -136,7 +136,7 @@ function DropLine() {
   );
 }
 
-export function ColumnGroupElement(props: PlateElementProps) {
+function ColumnGroupElement(props: PlateElementProps) {
   return (
     <PlateElement className='mb-2' {...props}>
       <ColumnFloatingToolbar>
@@ -318,3 +318,5 @@ const DoubleSideDoubleColumnOutlined = (props: LucideProps) => (
     />
   </svg>
 );
+
+export { ColumnElement, ColumnGroupElement };

@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/ContextMenu';
 import { useIsTouchDevice } from '@/lib/hooks/useIsTouchDevice';
 
-export function BlockContextMenu({ children }: { children: React.ReactNode }) {
+function BlockContextMenu({ children }: { children: React.ReactNode }) {
   const { api, editor } = useEditorPlugin(BlockMenuPlugin);
   const isTouch = useIsTouchDevice();
   const [readOnly] = usePlateState('readOnly');
@@ -176,3 +176,5 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
     </ContextMenu>
   );
 }
+
+export { BlockContextMenu };

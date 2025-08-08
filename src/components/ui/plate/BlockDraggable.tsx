@@ -27,7 +27,7 @@ import { cx } from '@/lib/utils';
 
 const UNDRAGGABLE_KEYS = [KEYS.column, KEYS.tr, KEYS.td];
 
-export const BlockDraggable: RenderNodeWrapper = (props) => {
+const BlockDraggable: RenderNodeWrapper = (props) => {
   const { editor, element, path } = props;
 
   const enabled = React.useMemo(() => {
@@ -533,3 +533,5 @@ const calcDragButtonTop = (
 
   return currentMarginTop;
 };
+
+export { BlockDraggable };

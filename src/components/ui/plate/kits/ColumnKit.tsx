@@ -6,7 +6,9 @@ import {
   ColumnGroupElement,
 } from '@/components/ui/plate/ColumnNode';
 
-export const ColumnKit = [
+const ColumnKit = [
   ColumnPlugin.withComponent(ColumnGroupElement),
   ColumnItemPlugin.withComponent(ColumnElement),
 ];
+
+export { ColumnKit };

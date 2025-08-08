@@ -4,7 +4,9 @@ import {
   InlineEquationElementStatic,
 } from '@/components/ui/plate/EquationNodeStatic';
 
-export const BaseMathKit = [
+const BaseMathKit = [
   BaseInlineEquationPlugin.withComponent(InlineEquationElementStatic),
   BaseEquationPlugin.withComponent(EquationElementStatic),
 ];
+
+export { BaseMathKit };

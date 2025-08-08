@@ -9,7 +9,7 @@ import { SlateElement } from 'platejs';
 import type * as React from 'react';
 import { cx } from '@/lib/utils/index';
 
-export function TableElementStatic({
+function TableElementStatic({
   children,
   ...props
 }: SlateElementProps<TTableElement>) {
@@ -31,7 +31,7 @@ export function TableElementStatic({
   );
 }
 
-export function TableRowElementStatic(props: SlateElementProps) {
+function TableRowElementStatic(props: SlateElementProps) {
   return (
     <SlateElement {...props} as='tr' className='h-full'>
       {props.children}
@@ -39,7 +39,7 @@ export function TableRowElementStatic(props: SlateElementProps) {
   );
 }
 
-export function TableCellElementStatic({
+function TableCellElementStatic({
   isHeader,
   ...props
 }: SlateElementProps<TTableCellElement> & {
@@ -92,8 +92,15 @@ export function TableCellElementStatic({
   );
 }
 
-export function TableCellHeaderElementStatic(
+function TableCellHeaderElementStatic(
   props: SlateElementProps<TTableCellElement>,
 ) {
   return <TableCellElementStatic {...props} isHeader />;
 }
+
+export {
+  TableElementStatic,
+  TableRowElementStatic,
+  TableCellElementStatic,
+  TableCellHeaderElementStatic,
+};

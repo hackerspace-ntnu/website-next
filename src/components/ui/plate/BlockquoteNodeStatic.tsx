@@ -1,6 +1,6 @@
 import { SlateElement, type SlateElementProps } from 'platejs';
 
-export function BlockquoteElementStatic(props: SlateElementProps) {
+function BlockquoteElementStatic(props: SlateElementProps) {
   return (
     <SlateElement
       as='blockquote'
@@ -9,3 +9,5 @@ export function BlockquoteElementStatic(props: SlateElementProps) {
     />
   );
 }
+
+export { BlockquoteElementStatic };

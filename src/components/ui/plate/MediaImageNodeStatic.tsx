@@ -7,7 +7,7 @@ import type {
 import { NodeApi, SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
-export function ImageElementStatic(
+function ImageElementStatic(
   props: SlateElementProps<TImageElement & TCaptionProps & TResizableProps>,
 ) {
   const { align = 'center', caption, url, width } = props.element;
@@ -39,3 +39,5 @@ export function ImageElementStatic(
     </SlateElement>
   );
 }
+
+export { ImageElementStatic };

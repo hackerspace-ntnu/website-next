@@ -73,7 +73,7 @@ const MEDIA_CONFIG: Record<
   },
 };
 
-export function MediaToolbarButton({
+function MediaToolbarButton({
   nodeType,
   ...props
 }: DropdownMenuProps & { nodeType: string }) {
@@ -223,3 +223,5 @@ function MediaUrlDialogContent({
     </>
   );
 }
+
+export { MediaToolbarButton };

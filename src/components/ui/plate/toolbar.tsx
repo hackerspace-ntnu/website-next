@@ -14,7 +14,7 @@ import { Separator } from '@/components/ui/Separator';
 import { Tooltip, TooltipTrigger } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils';
 
-export function Toolbar({
+function Toolbar({
   className,
   ...props
 }: React.ComponentProps<typeof ToolbarPrimitive.Root>) {
@@ -26,7 +26,7 @@ export function Toolbar({
   );
 }
 
-export function ToolbarToggleGroup({
+function ToolbarToggleGroup({
   className,
   ...props
 }: React.ComponentProps<typeof ToolbarPrimitive.ToolbarToggleGroup>) {
@@ -38,7 +38,7 @@ export function ToolbarToggleGroup({
   );
 }
 
-export function ToolbarLink({
+function ToolbarLink({
   className,
   ...props
 }: React.ComponentProps<typeof ToolbarPrimitive.Link>) {
@@ -50,7 +50,7 @@ export function ToolbarLink({
   );
 }
 
-export function ToolbarSeparator({
+function ToolbarSeparator({
   className,
   ...props
 }: React.ComponentProps<typeof ToolbarPrimitive.Separator>) {
@@ -115,7 +115,7 @@ type ToolbarButtonProps = {
 > &
   VariantProps<typeof toolbarButtonVariants>;
 
-export const ToolbarButton = withTooltip(function ToolbarButton({
+const ToolbarButton = withTooltip(function ToolbarButton({
   children,
   className,
   isDropdown,
@@ -172,7 +172,7 @@ export const ToolbarButton = withTooltip(function ToolbarButton({
   );
 });
 
-export function ToolbarSplitButton({
+function ToolbarSplitButton({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof ToolbarButton>) {
@@ -190,7 +190,7 @@ type ToolbarSplitButtonPrimaryProps = Omit<
 > &
   VariantProps<typeof toolbarButtonVariants>;
 
-export function ToolbarSplitButtonPrimary({
+function ToolbarSplitButtonPrimary({
   children,
   className,
   size = 'sm',
@@ -215,7 +215,7 @@ export function ToolbarSplitButtonPrimary({
   );
 }
 
-export function ToolbarSplitButtonSecondary({
+function ToolbarSplitButtonSecondary({
   className,
   size,
   variant,
@@ -242,7 +242,7 @@ export function ToolbarSplitButtonSecondary({
   );
 }
 
-export function ToolbarToggleItem({
+function ToolbarToggleItem({
   className,
   size = 'sm',
   variant,
@@ -257,10 +257,7 @@ export function ToolbarToggleItem({
   );
 }
 
-export function ToolbarGroup({
-  children,
-  className,
-}: React.ComponentProps<'div'>) {
+function ToolbarGroup({ children, className }: React.ComponentProps<'div'>) {
   return (
     <div
       className={cx(
@@ -349,7 +346,7 @@ function TooltipContent({
   );
 }
 
-export function ToolbarMenuGroup({
+function ToolbarMenuGroup({
   children,
   className,
   label,
@@ -382,3 +379,16 @@ export function ToolbarMenuGroup({
     </>
   );
 }
+
+export {
+  Toolbar,
+  ToolbarButton,
+  ToolbarLink,
+  ToolbarSeparator,
+  ToolbarSplitButton,
+  ToolbarSplitButtonPrimary,
+  ToolbarSplitButtonSecondary,
+  ToolbarToggleItem,
+  ToolbarGroup,
+  ToolbarMenuGroup,
+};

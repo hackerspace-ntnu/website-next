@@ -208,7 +208,7 @@ const autoformatLists: AutoformatRule[] = [
   },
 ];
 
-export const AutoformatKit = [
+const AutoformatKit = [
   AutoformatPlugin.configure({
     options: {
       enableUndoOnDelete: true,
@@ -234,3 +234,5 @@ export const AutoformatKit = [
     },
   }),
 ];
+
+export { AutoformatKit };

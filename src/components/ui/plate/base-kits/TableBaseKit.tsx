@@ -12,9 +12,11 @@ import {
   TableRowElementStatic,
 } from '@/components/ui/plate/TableNodeStatic';
 
-export const BaseTableKit = [
+const BaseTableKit = [
   BaseTablePlugin.withComponent(TableElementStatic),
   BaseTableRowPlugin.withComponent(TableRowElementStatic),
   BaseTableCellPlugin.withComponent(TableCellElementStatic),
   BaseTableCellHeaderPlugin.withComponent(TableCellHeaderElementStatic),
 ];
+
+export { BaseTableKit };

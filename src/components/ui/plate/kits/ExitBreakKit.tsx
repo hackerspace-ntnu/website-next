@@ -2,7 +2,7 @@
 
 import { ExitBreakPlugin } from 'platejs';
 
-export const ExitBreakKit = [
+const ExitBreakKit = [
   ExitBreakPlugin.configure({
     shortcuts: {
       insert: { keys: 'mod+enter' },
@@ -10,3 +10,5 @@ export const ExitBreakKit = [
     },
   }),
 ];
+
+export { ExitBreakKit };

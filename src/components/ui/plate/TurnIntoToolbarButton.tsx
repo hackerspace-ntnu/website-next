@@ -36,7 +36,7 @@ import {
 
 import { ToolbarButton, ToolbarMenuGroup } from './Toolbar';
 
-export const turnIntoItems = [
+const turnIntoItems = [
   {
     icon: <PilcrowIcon className='size-4' />,
     keywords: ['paragraph'],
@@ -122,7 +122,7 @@ export const turnIntoItems = [
   },
 ];
 
-export function TurnIntoToolbarButton(props: DropdownMenuProps) {
+function TurnIntoToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [open, setOpen] = React.useState(false);
 
@@ -185,3 +185,5 @@ export function TurnIntoToolbarButton(props: DropdownMenuProps) {
     </DropdownMenu>
   );
 }
+
+export { turnIntoItems, TurnIntoToolbarButton };

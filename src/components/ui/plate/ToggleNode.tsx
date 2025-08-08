@@ -6,7 +6,7 @@ import type { PlateElementProps } from 'platejs/react';
 import { PlateElement } from 'platejs/react';
 import { Button } from '@/components/ui/Button';
 
-export function ToggleElement(props: PlateElementProps) {
+function ToggleElement(props: PlateElementProps) {
   const element = props.element;
   const state = useToggleButtonState(element.id as string);
   const { buttonProps, open } = useToggleButton(state);
@@ -32,3 +32,5 @@ export function ToggleElement(props: PlateElementProps) {
     </PlateElement>
   );
 }
+
+export { ToggleElement };

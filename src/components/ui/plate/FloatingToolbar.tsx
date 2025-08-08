@@ -18,7 +18,7 @@ import type * as React from 'react';
 import { cx } from '@/lib/utils/index';
 import { Toolbar } from './Toolbar';
 
-export function FloatingToolbar({
+function FloatingToolbar({
   children,
   className,
   state,
@@ -82,3 +82,5 @@ export function FloatingToolbar({
     </div>
   );
 }
+
+export { FloatingToolbar };

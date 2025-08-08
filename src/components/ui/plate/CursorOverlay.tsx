@@ -8,7 +8,7 @@ import {
 import { RangeApi } from 'platejs';
 import { cx } from '@/lib/utils';
 
-export function CursorOverlay() {
+function CursorOverlay() {
   const { cursors } = useCursorOverlay();
 
   return (
@@ -65,3 +65,5 @@ function Cursor({
     </>
   );
 }
+
+export { CursorOverlay };

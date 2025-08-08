@@ -5,7 +5,7 @@ import { KEYS } from 'platejs';
 import { BlockList } from '@/components/ui/plate/BlockList';
 import { IndentKit } from './IndentKit';
 
-export const ListKit = [
+const ListKit = [
   ...IndentKit,
   ListPlugin.configure({
     inject: {
@@ -23,3 +23,5 @@ export const ListKit = [
     },
   }),
 ];
+
+export { ListKit };

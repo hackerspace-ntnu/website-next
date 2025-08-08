@@ -26,7 +26,7 @@ const captionVariants = cva({
   },
 });
 
-export function Caption({
+function Caption({
   align,
   className,
   ...props
@@ -40,7 +40,7 @@ export function Caption({
   );
 }
 
-export function CaptionTextarea(
+function CaptionTextarea(
   props: React.ComponentProps<typeof CaptionTextareaPrimitive>,
 ) {
   return (
@@ -56,7 +56,9 @@ export function CaptionTextarea(
   );
 }
 
-export const CaptionButton = createPrimitiveComponent(Button)({
+const CaptionButton = createPrimitiveComponent(Button)({
   propsHook: useCaptionButton,
   stateHook: useCaptionButtonState,
 });
+
+export { Caption, CaptionTextarea, CaptionButton };

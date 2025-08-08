@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils/index';
 
-export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
+function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
   const { editor, element } = props;
 
   return (
@@ -187,11 +187,11 @@ function CopyButton({
   );
 }
 
-export function CodeLineElement(props: PlateElementProps) {
+function CodeLineElement(props: PlateElementProps) {
   return <PlateElement {...props} />;
 }
 
-export function CodeSyntaxLeaf(props: PlateLeafProps<TCodeSyntaxLeaf>) {
+function CodeSyntaxLeaf(props: PlateLeafProps<TCodeSyntaxLeaf>) {
   const tokenClassName = props.leaf.className as string;
 
   return <PlateLeaf className={tokenClassName} {...props} />;
@@ -288,3 +288,5 @@ const languages: { label: string; value: string }[] = [
   { label: 'XML', value: 'xml' },
   { label: 'YAML', value: 'yaml' },
 ];
+
+export { CodeBlockElement, CodeLineElement, CodeSyntaxLeaf };

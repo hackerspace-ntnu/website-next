@@ -3,7 +3,7 @@
 import type { PlateLeafProps } from 'platejs/react';
 import { PlateLeaf } from 'platejs/react';
 
-export function KbdLeaf(props: PlateLeafProps) {
+function KbdLeaf(props: PlateLeafProps) {
   return (
     <PlateLeaf
       {...props}
@@ -14,3 +14,5 @@ export function KbdLeaf(props: PlateLeafProps) {
     </PlateLeaf>
   );
 }
+
+export { KbdLeaf };

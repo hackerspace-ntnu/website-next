@@ -5,7 +5,7 @@ import { LinkPlugin } from '@platejs/link/react';
 import { LinkElement } from '@/components/ui/plate/LinkNode';
 import { LinkFloatingToolbar } from '@/components/ui/plate/LinkToolbar';
 
-export const LinkKit = [
+const LinkKit = [
   LinkPlugin.configure({
     render: {
       node: LinkElement,
@@ -13,3 +13,5 @@ export const LinkKit = [
     },
   }),
 ];
+
+export { LinkKit };

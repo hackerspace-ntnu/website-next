@@ -6,7 +6,7 @@ import { FixedToolbar } from '@/components/ui/plate/FixedToolbar';
 import { FixedToolbarButtons } from '@/components/ui/plate/FixedToolbarButtons';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 
-export const FixedToolbarKit = [
+const FixedToolbarKit = [
   createPlatePlugin({
     key: 'fixed-toolbar',
     render: {
@@ -20,3 +20,5 @@ export const FixedToolbarKit = [
     },
   }),
 ];
+
+export { FixedToolbarKit };
