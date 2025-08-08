@@ -632,12 +632,10 @@
       },
       "descriptionNorwegian": {
         "label": "Description (Norwegian)",
-        "placeholder": "Beskrivelse av arrangementet",
         "required": "Event description is required"
       },
       "descriptionEnglish": {
         "label": "Description (English)",
-        "placeholder": "Description of the event",
         "required": "Event description is required"
       },
       "locationNorwegian": {

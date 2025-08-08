@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
+import { plateValueSchema } from '@/validations/plate';
 import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 
 function eventSchema(t: Translations) {
@@ -10,12 +11,8 @@ function eventSchema(t: Translations) {
       .string()
       .min(1, t('events.form.summaryNorwegian.required')),
     summaryEnglish: z.string().min(1, t('events.form.summaryEnglish.required')),
-    descriptionNorwegian: z
-      .string()
-      .min(1, t('events.form.descriptionNorwegian.required')),
-    descriptionEnglish: z
-      .string()
-      .min(1, t('events.form.descriptionEnglish.required')),
+    descriptionNorwegian: plateValueSchema,
+    descriptionEnglish: plateValueSchema,
     locationNorwegian: z
       .string()
       .min(1, t('events.form.locationNorwegian.required')),

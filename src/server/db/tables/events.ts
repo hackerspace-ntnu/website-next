@@ -4,6 +4,7 @@ import {
   boolean,
   index,
   integer,
+  json,
   pgTable,
   primaryKey,
   serial,
@@ -11,6 +12,7 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import type { Value } from 'platejs';
 import { files, skills, users } from '@/server/db/tables';
 import { localesEnum } from '@/server/db/tables/locales';
 
@@ -48,7 +50,7 @@ const eventLocalizations = pgTable('event_localizations', {
     .notNull(),
   name: text('name').notNull(),
   summary: varchar('summary', { length: 255 }).notNull(),
-  description: text('description').notNull(),
+  description: json('description').$type<Value>().notNull(),
   location: varchar('location', { length: 255 }).notNull(),
   locale: localesEnum().notNull(),
 });

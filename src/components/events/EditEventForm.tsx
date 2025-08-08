@@ -105,8 +105,8 @@ function EditEventForm({
       nameEnglish: english?.name ?? '',
       summaryNorwegian: norwegian?.summary ?? '',
       summaryEnglish: english?.summary ?? '',
-      descriptionNorwegian: norwegian?.description ?? '',
-      descriptionEnglish: english?.description ?? '',
+      descriptionNorwegian: norwegian?.description ?? [],
+      descriptionEnglish: english?.description ?? [],
       locationEnglish: english?.location ?? '',
       locationNorwegian: norwegian?.location ?? '',
       startTime: event?.startTime ?? new Date(),
@@ -235,19 +235,11 @@ function EditEventForm({
       </form.AppField>
       <form.AppField name='descriptionNorwegian'>
         {(field) => (
-          <field.TextAreaField
-            label={t('descriptionNorwegian.label')}
-            placeholder={t('descriptionNorwegian.placeholder')}
-          />
+          <field.EditorField label={t('descriptionNorwegian.label')} />
         )}
       </form.AppField>
       <form.AppField name='descriptionEnglish'>
-        {(field) => (
-          <field.TextAreaField
-            label={t('descriptionEnglish.label')}
-            placeholder={t('descriptionEnglish.placeholder')}
-          />
-        )}
+        {(field) => <field.EditorField label={t('descriptionEnglish.label')} />}
       </form.AppField>
       <form.AppField name='locationNorwegian'>
         {(field) => (

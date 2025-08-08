@@ -26,7 +26,7 @@ export default async function EditEventPage({
   setRequestLocale(locale);
 
   const t = await getTranslations('events.edit');
-  const { ui, events } = await getMessages();
+  const { ui, error, events } = await getMessages();
   const skills = await api.skills.fetchAllSkills();
   const { user } = await api.auth.state();
 
@@ -47,7 +47,9 @@ export default async function EditEventPage({
     <>
       <h1 className='my-4 text-center'>{t('title')}</h1>
       <NextIntlClientProvider
-        messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
+        messages={
+          { ui, error, events } as Pick<Messages, 'ui' | 'error' | 'events'>
+        }
       >
         <div className='mx-auto w-full max-w-2xl'>
           <EditEventForm skills={skills} event={event} imageUrl={imageUrl} />

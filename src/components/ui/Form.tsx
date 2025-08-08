@@ -976,6 +976,51 @@ function CalendarField({
   );
 }
 
+function EditorField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: EditorFieldProps) {
+  const field = useFieldContext<Value>();
+  const editor = usePlateEditor({
+    plugins: EditorKit,
+    value: field.state.value,
+    ...props.initOptions,
+  });
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Plate editor={editor} {...props.plateOptions}>
+        <EditorContainer
+          className={cx(
+            'rounded-lg border p-1',
+            props.containerOptions?.className,
+          )}
+          {...props.containerOptions}
+        >
+          <Editor
+            variant={props.variant}
+            onBlur={() => {
+              editor?.children && field.handleChange(editor.children);
+              field.handleBlur();
+            }}
+            {...props.editorOptions}
+          />
+        </EditorContainer>
+      </Plate>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
@@ -1029,51 +1074,6 @@ type EditorFieldProps = Omit<
   labelSibling?: React.ReactNode;
   description?: string;
 };
-
-function EditorField({
-  className,
-  label,
-  labelVisible,
-  labelSibling,
-  description,
-  ...props
-}: EditorFieldProps) {
-  const field = useFieldContext<Value>();
-  const editor = usePlateEditor({
-    plugins: EditorKit,
-    value: field.state.value,
-    ...props.initOptions,
-  });
-
-  return (
-    <BaseField
-      label={label}
-      labelVisible={labelVisible}
-      labelSibling={labelSibling}
-      className={className}
-      description={description}
-    >
-      <Plate editor={editor} {...props.plateOptions}>
-        <EditorContainer
-          className={cx(
-            'rounded-lg border p-1',
-            props.containerOptions?.className,
-          )}
-          {...props.containerOptions}
-        >
-          <Editor
-            variant={props.variant}
-            onBlur={() => {
-              editor?.children && field.handleChange(editor.children);
-              field.handleBlur();
-            }}
-            {...props.editorOptions}
-          />
-        </EditorContainer>
-      </Plate>
-    </BaseField>
-  );
-}
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
