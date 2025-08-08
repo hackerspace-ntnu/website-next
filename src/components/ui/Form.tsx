@@ -1028,7 +1028,6 @@ type EditorFieldProps = Omit<
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: string;
-  initialValue?: Value;
 };
 
 function EditorField({
@@ -1037,13 +1036,12 @@ function EditorField({
   labelVisible,
   labelSibling,
   description,
-  initialValue,
   ...props
 }: EditorFieldProps) {
   const field = useFieldContext<Value>();
   const editor = usePlateEditor({
     plugins: EditorKit,
-    value: initialValue ?? [],
+    value: field.state.value,
     ...props.initOptions,
   });
 
@@ -1067,6 +1065,7 @@ function EditorField({
             variant={props.variant}
             onBlur={() => {
               editor?.children && field.handleChange(editor.children);
+              field.handleBlur();
             }}
             {...props.editorOptions}
           />

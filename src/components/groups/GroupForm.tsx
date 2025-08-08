@@ -80,8 +80,8 @@ function GroupForm({
       nameEnglish: english?.name ?? '',
       summaryNorwegian: norwegian?.summary ?? '',
       summaryEnglish: english?.summary ?? '',
-      descriptionNorwegian: norwegian?.description ?? '',
-      descriptionEnglish: english?.description ?? '',
+      descriptionNorwegian: norwegian?.description ?? [],
+      descriptionEnglish: english?.description ?? [],
       identifier: group?.identifier ?? '',
       internal: group?.internal ?? false,
     },
@@ -189,12 +189,12 @@ function GroupForm({
         </form.AppField>
         <form.AppField name='descriptionNorwegian'>
           {(field) => (
-            <field.TextAreaField label={t('description.labelNorwegian')} />
+            <field.EditorField label={t('description.labelNorwegian')} />
           )}
         </form.AppField>
         <form.AppField name='descriptionEnglish'>
           {(field) => (
-            <field.TextAreaField label={t('description.labelEnglish')} />
+            <field.EditorField label={t('description.labelEnglish')} />
           )}
         </form.AppField>
         <form.AppField name='identifier'>
