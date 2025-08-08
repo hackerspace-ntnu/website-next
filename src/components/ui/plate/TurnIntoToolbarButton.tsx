@@ -38,85 +38,85 @@ import { ToolbarButton, ToolbarMenuGroup } from './Toolbar';
 
 export const turnIntoItems = [
   {
-    icon: <PilcrowIcon />,
+    icon: <PilcrowIcon className='size-4' />,
     keywords: ['paragraph'],
     label: 'Text',
     value: KEYS.p,
   },
   {
-    icon: <Heading1Icon />,
+    icon: <Heading1Icon className='size-4' />,
     keywords: ['title', 'h1'],
     label: 'Heading 1',
     value: 'h1',
   },
   {
-    icon: <Heading2Icon />,
+    icon: <Heading2Icon className='size-4' />,
     keywords: ['subtitle', 'h2'],
     label: 'Heading 2',
     value: 'h2',
   },
   {
-    icon: <Heading3Icon />,
+    icon: <Heading3Icon className='size-4' />,
     keywords: ['subtitle', 'h3'],
     label: 'Heading 3',
     value: 'h3',
   },
   {
-    icon: <Heading4Icon />,
+    icon: <Heading4Icon className='size-4' />,
     keywords: ['subtitle', 'h4'],
     label: 'Heading 4',
     value: 'h4',
   },
   {
-    icon: <Heading5Icon />,
+    icon: <Heading5Icon className='size-4' />,
     keywords: ['subtitle', 'h5'],
     label: 'Heading 5',
     value: 'h5',
   },
   {
-    icon: <Heading6Icon />,
+    icon: <Heading6Icon className='size-4' />,
     keywords: ['subtitle', 'h6'],
     label: 'Heading 6',
     value: 'h6',
   },
   {
-    icon: <ListIcon />,
+    icon: <ListIcon className='size-4' />,
     keywords: ['unordered', 'ul', '-'],
     label: 'Bulleted list',
     value: KEYS.ul,
   },
   {
-    icon: <ListOrderedIcon />,
+    icon: <ListOrderedIcon className='size-4' />,
     keywords: ['ordered', 'ol', '1'],
     label: 'Numbered list',
     value: KEYS.ol,
   },
   {
-    icon: <SquareIcon />,
+    icon: <SquareIcon className='size-4' />,
     keywords: ['checklist', 'task', 'checkbox', '[]'],
     label: 'To-do list',
     value: KEYS.listTodo,
   },
   {
-    icon: <ChevronRightIcon />,
+    icon: <ChevronRightIcon className='size-4' />,
     keywords: ['collapsible', 'expandable'],
     label: 'Toggle list',
     value: KEYS.toggle,
   },
   {
-    icon: <FileCodeIcon />,
+    icon: <FileCodeIcon className='size-4' />,
     keywords: ['```'],
     label: 'Code',
     value: KEYS.codeBlock,
   },
   {
-    icon: <QuoteIcon />,
+    icon: <QuoteIcon className='size-4' />,
     keywords: ['citation', 'blockquote', '>'],
     label: 'Quote',
     value: KEYS.blockquote,
   },
   {
-    icon: <Columns3Icon />,
+    icon: <Columns3Icon className='size-4' />,
     label: '3 columns',
     value: 'action_three_columns',
   },
@@ -168,12 +168,12 @@ export function TurnIntoToolbarButton(props: DropdownMenuProps) {
           {turnIntoItems.map(({ icon, label, value: itemValue }) => (
             <DropdownMenuRadioItem
               key={itemValue}
-              className='min-w-[180px] pl-2 *:first:[span]:hidden'
+              className='flex min-w-[180px] gap-2 pl-2 *:first:[span]:hidden'
               value={itemValue}
             >
               <span className='pointer-events-none absolute right-2 flex size-3.5 items-center justify-center'>
                 <DropdownMenuItemIndicator>
-                  <CheckIcon />
+                  <CheckIcon className='size-4' />
                 </DropdownMenuItemIndicator>
               </span>
               {icon}
