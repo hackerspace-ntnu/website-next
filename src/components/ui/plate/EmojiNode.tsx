@@ -5,9 +5,6 @@ import { EmojiPlugin } from '@platejs/emoji/react';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, usePluginOption } from 'platejs/react';
 import * as React from 'react';
-
-import { useDebounce } from '@/lib/hooks/useDebounce';
-
 import {
   InlineCombobox,
   InlineComboboxContent,
@@ -15,7 +12,8 @@ import {
   InlineComboboxGroup,
   InlineComboboxInput,
   InlineComboboxItem,
-} from './InlineCombobox';
+} from '@/components/ui/plate/InlineCombobox';
+import { useDebounce } from '@/lib/hooks/useDebounce';
 
 function EmojiInputElement(props: PlateElementProps) {
   const { children, editor, element } = props;

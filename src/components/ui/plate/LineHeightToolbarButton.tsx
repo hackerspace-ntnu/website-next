@@ -13,7 +13,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
-import { ToolbarButton } from './Toolbar';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function LineHeightToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();

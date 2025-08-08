@@ -36,7 +36,7 @@ import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
-} from './Toolbar';
+} from '@/components/ui/plate/Toolbar';
 
 const MEDIA_CONFIG: Record<
   string,

@@ -3,7 +3,7 @@
 import { ListPlugin } from '@platejs/list/react';
 import { KEYS } from 'platejs';
 import { BlockList } from '@/components/ui/plate/BlockList';
-import { IndentKit } from './IndentKit';
+import { IndentKit } from '@/components/ui/plate/kits/IndentKit';
 
 const ListKit = [
   ...IndentKit,

@@ -1,7 +1,7 @@
 'use client';
 
+import { Toolbar } from '@/components/ui/plate/Toolbar';
 import { cx } from '@/lib/utils/index';
-import { Toolbar } from './Toolbar';
 
 function FixedToolbar(props: React.ComponentProps<typeof Toolbar>) {
   return (

@@ -16,9 +16,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { BaseEditorKit } from '@/components/ui/plate/base-kits/EditorBaseKit';
+import { EditorStatic } from '@/components/ui/plate/EditorStatic';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 import { toast } from '@/components/ui/Toaster';
-import { EditorStatic } from './EditorStatic';
-import { ToolbarButton } from './Toolbar';
 
 const siteUrl = 'https://platejs.org';
 

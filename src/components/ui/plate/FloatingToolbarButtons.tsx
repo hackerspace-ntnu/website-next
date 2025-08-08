@@ -9,12 +9,12 @@ import {
 } from 'lucide-react';
 import { KEYS } from 'platejs';
 import { useEditorReadOnly } from 'platejs/react';
-import { InlineEquationToolbarButton } from './EquationToolbarButton';
-import { LinkToolbarButton } from './LinkToolbarButton';
-import { MarkToolbarButton } from './MarkToolbarButton';
-import { MoreToolbarButton } from './MoreToolbarButton';
-import { ToolbarGroup } from './Toolbar';
-import { TurnIntoToolbarButton } from './TurnIntoToolbarButton';
+import { InlineEquationToolbarButton } from '@/components/ui/plate/EquationToolbarButton';
+import { LinkToolbarButton } from '@/components/ui/plate/LinkToolbarButton';
+import { MarkToolbarButton } from '@/components/ui/plate/MarkToolbarButton';
+import { MoreToolbarButton } from '@/components/ui/plate/MoreToolbarButton';
+import { ToolbarGroup } from '@/components/ui/plate/Toolbar';
+import { TurnIntoToolbarButton } from '@/components/ui/plate/TurnIntoToolbarButton';
 
 function FloatingToolbarButtons() {
   const readOnly = useEditorReadOnly();

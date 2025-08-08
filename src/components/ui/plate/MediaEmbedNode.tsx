@@ -8,14 +8,14 @@ import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import { Tweet } from 'react-tweet';
-import { cx } from '@/lib/utils';
-import { Caption, CaptionTextarea } from './Caption';
-import { MediaToolbar } from './MediaToolbar';
+import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
+import { MediaToolbar } from '@/components/ui/plate/MediaToolbar';
 import {
   mediaResizeHandleVariants,
   Resizable,
   ResizeHandle,
-} from './ResizeHandle';
+} from '@/components/ui/plate/ResizeHandle';
+import { cx } from '@/lib/utils';
 
 const MediaEmbedElement = withHOC(
   ResizableProvider,

@@ -9,13 +9,13 @@ import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useEditorMounted, withHOC } from 'platejs/react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import ReactPlayer from 'react-player';
-import { cx } from '@/lib/utils/index';
-import { Caption, CaptionTextarea } from './Caption';
+import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
 import {
   mediaResizeHandleVariants,
   Resizable,
   ResizeHandle,
-} from './ResizeHandle';
+} from '@/components/ui/plate/ResizeHandle';
+import { cx } from '@/lib/utils/index';
 
 const VideoElement = withHOC(
   ResizableProvider,

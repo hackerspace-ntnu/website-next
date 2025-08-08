@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { ToolbarButton, ToolbarMenuGroup } from '@/components/ui/plate/Toolbar';
 import {
   Tooltip,
   TooltipContent,
@@ -23,7 +24,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';
-import { ToolbarButton, ToolbarMenuGroup } from './Toolbar';
 
 function FontColorToolbarButton({
   children,

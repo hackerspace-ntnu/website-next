@@ -6,7 +6,7 @@ import {
 } from '@platejs/link/react';
 import { Link } from 'lucide-react';
 import type * as React from 'react';
-import { ToolbarButton } from './Toolbar';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function LinkToolbarButton(props: React.ComponentProps<typeof ToolbarButton>) {
   const state = useLinkToolbarButtonState();

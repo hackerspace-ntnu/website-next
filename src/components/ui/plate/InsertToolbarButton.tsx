@@ -36,7 +36,7 @@ import {
   insertBlock,
   insertInlineElement,
 } from '@/components/ui/plate/kits/transforms';
-import { ToolbarButton, ToolbarMenuGroup } from './Toolbar';
+import { ToolbarButton, ToolbarMenuGroup } from '@/components/ui/plate/Toolbar';
 
 type Group = {
   group: string;

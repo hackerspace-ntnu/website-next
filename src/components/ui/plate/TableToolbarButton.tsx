@@ -28,8 +28,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 import { cx } from '@/lib/utils/index';
-import { ToolbarButton } from './Toolbar';
 
 function TableToolbarButton(props: DropdownMenuProps) {
   const tableSelected = useEditorSelector(

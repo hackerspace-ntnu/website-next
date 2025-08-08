@@ -25,8 +25,8 @@ import {
   PopoverAnchor,
   PopoverContent,
 } from '@/components/ui/Popover';
+import { CaptionButton } from '@/components/ui/plate/Caption';
 import { Separator } from '@/components/ui/Separator';
-import { CaptionButton } from './Caption';
 
 const inputVariants = cva({
   base: 'flex h-[28px] w-full rounded-md border-none bg-transparent px-1.5 py-1 text-base placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-transparent md:text-sm',

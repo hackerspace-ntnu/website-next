@@ -68,13 +68,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { Popover, PopoverContent } from '@/components/ui/Popover';
-import { cx } from '@/lib/utils/index';
-import { blockSelectionVariants } from './BlockSelection';
+import { blockSelectionVariants } from '@/components/ui/plate/BlockSelection';
 import {
   ColorDropdownMenuItems,
   DEFAULT_COLORS,
-} from './FontColorToolbarButton';
-import { ResizeHandle } from './ResizeHandle';
+} from '@/components/ui/plate/FontColorToolbarButton';
+import { ResizeHandle } from '@/components/ui/plate/ResizeHandle';
 import {
   BorderAllIcon,
   BorderBottomIcon,
@@ -82,13 +81,14 @@ import {
   BorderNoneIcon,
   BorderRightIcon,
   BorderTopIcon,
-} from './TableIcons';
+} from '@/components/ui/plate/TableIcons';
 import {
   Toolbar,
   ToolbarButton,
   ToolbarGroup,
   ToolbarMenuGroup,
-} from './Toolbar';
+} from '@/components/ui/plate/Toolbar';
+import { cx } from '@/lib/utils/index';
 
 const TableElement = withHOC(
   TableProvider,

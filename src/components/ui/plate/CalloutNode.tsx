@@ -6,8 +6,11 @@ import type * as CSS from 'csstype';
 import { PlateElement } from 'platejs/react';
 import type * as React from 'react';
 import { Button } from '@/components/ui/Button';
+import {
+  EmojiPicker,
+  EmojiPopover,
+} from '@/components/ui/plate/EmojiToolbarButton';
 import { cx } from '@/lib/utils/index';
-import { EmojiPicker, EmojiPopover } from './EmojiToolbarButton';
 
 function CalloutElement({
   attributes,

@@ -11,8 +11,6 @@ import {
   useSelected,
 } from 'platejs/react';
 import * as React from 'react';
-import { useMounted } from '@/lib/hooks/useMounted';
-import { cx } from '@/lib/utils/index';
 import {
   InlineCombobox,
   InlineComboboxContent,
@@ -20,7 +18,9 @@ import {
   InlineComboboxGroup,
   InlineComboboxInput,
   InlineComboboxItem,
-} from './InlineCombobox';
+} from '@/components/ui/plate/InlineCombobox';
+import { useMounted } from '@/lib/hooks/useMounted';
+import { cx } from '@/lib/utils/index';
 
 function MentionElement(
   props: PlateElementProps<TMentionElement> & {

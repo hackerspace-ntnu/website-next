@@ -13,9 +13,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/Popover';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 import { cx } from '@/lib/utils/index';
-
-import { ToolbarButton } from './Toolbar';
 
 const DEFAULT_FONT_SIZE = '16';
 

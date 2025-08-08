@@ -5,7 +5,7 @@ import { ResizableProvider } from '@platejs/resizable';
 import type { TAudioElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
-import { Caption, CaptionTextarea } from './Caption';
+import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
 
 const AudioElement = withHOC(
   ResizableProvider,

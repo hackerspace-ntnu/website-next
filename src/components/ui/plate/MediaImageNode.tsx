@@ -6,14 +6,14 @@ import { ResizableProvider, useResizableValue } from '@platejs/resizable';
 import type { TImageElement } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, withHOC } from 'platejs/react';
-import { cx } from '@/lib/utils/index';
-import { Caption, CaptionTextarea } from './Caption';
-import { MediaToolbar } from './MediaToolbar';
+import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
+import { MediaToolbar } from '@/components/ui/plate/MediaToolbar';
 import {
   mediaResizeHandleVariants,
   Resizable,
   ResizeHandle,
-} from './ResizeHandle';
+} from '@/components/ui/plate/ResizeHandle';
+import { cx } from '@/lib/utils/index';
 
 const ImageElement = withHOC(
   ResizableProvider,
