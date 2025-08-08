@@ -24,7 +24,7 @@ const siteUrl = 'https://platejs.org';
 
 export function ExportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const t = useTranslations('plate.api');
+  const t = useTranslations('error');
   const [open, setOpen] = React.useState(false);
 
   const getCanvas = async () => {

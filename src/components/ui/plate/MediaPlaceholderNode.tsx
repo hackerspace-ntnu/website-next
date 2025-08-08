@@ -56,7 +56,7 @@ export const PlaceholderElement = withHOC(
     const { editor, element } = props;
 
     const { api } = useEditorPlugin(PlaceholderPlugin);
-    const t = useTranslations('plate.api');
+    const t = useTranslations('error');
     const pathname = usePathname();
 
     const getDirectoryFromPathname = (

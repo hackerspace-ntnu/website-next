@@ -42,18 +42,12 @@ const defaultValue = [
   },
 ];
 
-/**
- * A server component must provide Plate UI messages using <NextIntlClientProvider> like so:
- * ```
- * <NextIntlClientProvider messages={{ plate, ui }}>
- *   <PlateEditor />
- * </NextIntlClientProvider>
- * ```
- */
 export function PlateEditor({
   value,
   variant,
   initOptions,
+  plateOptions,
+  containerOptions,
   editorOptions,
 }: {
   value?: Value;
@@ -64,6 +58,11 @@ export function PlateEditor({
     },
     'value'
   >;
+  plateOptions?: Omit<
+    React.ComponentProps<typeof Plate>,
+    'editor' | 'children'
+  >;
+  containerOptions?: React.ComponentProps<typeof EditorContainer>;
   editorOptions?: Omit<React.ComponentProps<typeof Editor>, 'variant'>;
 }) {
   const editor = usePlateEditor({
@@ -73,8 +72,8 @@ export function PlateEditor({
   });
 
   return (
-    <Plate editor={editor}>
-      <EditorContainer>
+    <Plate editor={editor} {...plateOptions}>
+      <EditorContainer {...containerOptions}>
         <Editor variant={variant} {...editorOptions} />
       </EditorContainer>
     </Plate>

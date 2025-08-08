@@ -3,6 +3,8 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import type { Value } from 'platejs';
+import { Plate, usePlateEditor } from 'platejs/react';
 import type React from 'react';
 import {
   Fragment,
@@ -34,6 +36,9 @@ import {
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
+import { Editor, EditorContainer } from '@/components/ui/plate/Editor';
+import { EditorKit } from '@/components/ui/plate/kits/EditorKit';
+import type { PlateEditor } from '@/components/ui/plate/PlateEditor';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import {
   Select,
@@ -1014,6 +1019,63 @@ function SubmitButton({
   );
 }
 
+type EditorFieldProps = Omit<
+  React.ComponentProps<typeof PlateEditor>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  className?: string;
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+  initialValue?: Value;
+};
+
+function EditorField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  initialValue,
+  ...props
+}: EditorFieldProps) {
+  const field = useFieldContext<Value>();
+  const editor = usePlateEditor({
+    plugins: EditorKit,
+    value: initialValue ?? [],
+    ...props.initOptions,
+  });
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Plate editor={editor} {...props.plateOptions}>
+        <EditorContainer
+          className={cx(
+            'rounded-lg border p-1',
+            props.containerOptions?.className,
+          )}
+          {...props.containerOptions}
+        >
+          <Editor
+            variant={props.variant}
+            onBlur={() => {
+              editor?.children && field.handleChange(editor.children);
+            }}
+            {...props.editorOptions}
+          />
+        </EditorContainer>
+      </Plate>
+    </BaseField>
+  );
+}
+
 const { useAppForm } = createFormHook({
   fieldComponents: {
     BaseField,
@@ -1032,6 +1094,7 @@ const { useAppForm } = createFormHook({
     FileUploadField,
     CurrencyField,
     CalendarField,
+    EditorField,
   },
   formComponents: {
     SubmitButton,
