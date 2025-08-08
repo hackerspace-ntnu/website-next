@@ -1,13 +1,11 @@
 'use client';
 
-import { AIChatPlugin } from '@platejs/ai/react';
 import {
   type CursorData,
   type CursorOverlayState,
   useCursorOverlay,
 } from '@platejs/selection/react';
 import { RangeApi } from 'platejs';
-import { usePluginOption } from 'platejs/react';
 import { cx } from '@/lib/utils';
 
 export function CursorOverlay() {
@@ -29,7 +27,8 @@ function Cursor({
   selection,
   selectionRects,
 }: CursorOverlayState<CursorData>) {
-  const streaming = usePluginOption(AIChatPlugin, 'streaming');
+  // const streaming = usePluginOption(AIChatPlugin, 'streaming');
+  const streaming = false;
   const { style, selectionStyle = style } = data ?? ({} as CursorData);
   const isCursor = RangeApi.isCollapsed(selection);
 

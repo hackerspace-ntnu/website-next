@@ -1,12 +1,11 @@
 'use client';
 
-import { SuggestionPlugin } from '@platejs/suggestion/react';
 import {
   DropdownMenuItemIndicator,
   type DropdownMenuProps,
 } from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, EyeIcon, PencilLineIcon, PenIcon } from 'lucide-react';
-import { useEditorRef, usePlateState, usePluginOption } from 'platejs/react';
+import { useEditorRef, usePlateState } from 'platejs/react';
 import * as React from 'react';
 import {
   DropdownMenu,
@@ -22,7 +21,8 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
   const [readOnly, setReadOnly] = usePlateState('readOnly');
   const [open, setOpen] = React.useState(false);
 
-  const isSuggesting = usePluginOption(SuggestionPlugin, 'isSuggesting');
+  // const isSuggesting = usePluginOption(SuggestionPlugin, 'isSuggesting');
+  const isSuggesting = false;
 
   let value = 'editing';
 
@@ -66,11 +66,11 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
             setReadOnly(false);
 
             if (newValue === 'suggestion') {
-              editor.setOption(SuggestionPlugin, 'isSuggesting', true);
+              // editor.setOption(SuggestionPlugin, 'isSuggesting', true);
 
               return;
             }
-            editor.setOption(SuggestionPlugin, 'isSuggesting', false);
+            // editor.setOption(SuggestionPlugin, 'isSuggesting', false);
 
             if (newValue === 'editing') {
               editor.tf.focus();
