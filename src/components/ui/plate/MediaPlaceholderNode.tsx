@@ -6,7 +6,6 @@ import {
   updateUploadHistory,
 } from '@platejs/media/react';
 import { AudioLines, FileUp, Film, ImageIcon, Loader2Icon } from 'lucide-react';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import type { TPlaceholderElement } from 'platejs';
@@ -227,7 +226,8 @@ export function ImageProgress({
 
   return (
     <div className={cx('relative', className)} contentEditable={false}>
-      <Image
+      {/** biome-ignore lint/performance/noImgElement: Dynamic image */}
+      <img
         ref={imageRef}
         className='h-auto w-full rounded-sm object-cover'
         alt={file.name}

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type {
   SlateElementProps,
   TCaptionProps,
@@ -20,12 +19,13 @@ export function ImageElementStatic(
           className='relative min-w-[92px] max-w-full'
           style={{ textAlign: align }}
         >
-          <Image
+          {/** biome-ignore lint/performance/noImgElement: Dynamic image */}
+          <img
             className={cx(
               'w-full max-w-full cursor-default object-cover px-0',
               'rounded-sm',
             )}
-            alt={props.attributes.alt as string}
+            alt={(props.attributes.alt as string | undefined) ?? ''}
             src={url}
           />
           {caption && (
