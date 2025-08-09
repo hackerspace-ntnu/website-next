@@ -671,6 +671,7 @@
   "quotes": {
     "title": "Inspirerende sitater",
     "backToQuotes": "Tilbake til sitater",
+    "heardByUser": "Heard by: {user}",
     "new": {
       "title": "Nytt sitat",
       "createQuote": "Opprett sitat",
@@ -678,18 +679,19 @@
       "unauthorized": "Du har ikke rettigheter til å opprette nye sitater"
     },
     "form": {
-      "content": {
-        "label": "Sitat",
-        "placeholder": "Mitt hjerte gråter fordi jeg ikke har en 3D-printer",
-        "required": "Sitat er påkrevd",
-        "minLength": "Sitat må være minst {count} tegn",
-        "maxLength": "Sitat må være mindre enn {count} tegn"
+      "userId": {
+        "label": "Bruker",
+        "required": "Bruker er påkrevd",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en bruker"
       },
-      "username": {
-        "label": "Brukernavn",
-        "required": "Brukernavn er påkrevd",
-        "minLength": "Brukernavn må være minst {count} tegn",
-        "maxLength": "Brukernavn må være mindre enn {count} tegn"
+      "content": {
+        "labelEnglish": "Sitat (engelsk)",
+        "labelNorwegian": "Sitat (norsk)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Sitat er påkrevd",
+        "minLength": "Sitat må være minst {count} tegn"
       },
       "internal": {
         "label": "Internt sitat",
@@ -697,6 +699,7 @@
       }
     },
     "api": {
+      "invalidId": "Ugyldig ID",
       "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
       "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet"
     }

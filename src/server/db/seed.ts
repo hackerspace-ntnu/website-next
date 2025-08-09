@@ -743,13 +743,15 @@ async function main() {
     {
       saidBy: insertedUsers[0]?.id ?? 0,
       heardBy: insertedUsers[1]?.id ?? 0,
-      content: 'How can mirrors be real?',
+      contentNorwegian: 'Hvordan kan speil være ekte?',
+      contentEnglish: 'How can mirrors be real?',
       internal: false,
     },
     {
       saidBy: insertedUsers[4]?.id ?? 0,
       heardBy: insertedUsers[1]?.id ?? 0,
-      content: 'I have a dream',
+      contentNorwegian: 'Jeg har en drøm',
+      contentEnglish: 'I have a dream',
       internal: false,
     },
   ];
@@ -759,7 +761,8 @@ async function main() {
     quotesData.push({
       heardBy: insertedUsers[i % 5]?.id ?? 0,
       saidBy: insertedUsers[i % 5]?.id ?? 0,
-      content: faker[locale].lorem.sentence(),
+      contentNorwegian: faker[locale].lorem.sentence(),
+      contentEnglish: faker[locale].lorem.sentence(),
       internal: i > 50,
     });
   }

@@ -8,14 +8,15 @@ import {
   integer,
   pgTable,
   serial,
+  text,
   timestamp,
-  varchar,
 } from 'drizzle-orm/pg-core';
 import { users } from '@/server/db/tables';
 
 const quotes = pgTable('quotes', {
   id: serial('id').primaryKey(),
-  content: varchar('content', { length: 420 }).notNull(),
+  contentEnglish: text('content_english').notNull(),
+  contentNorwegian: text('content_norwegian').notNull(),
   internal: boolean('internal').notNull(),
   heardBy: integer('heard_by')
     .references(() => users.id)

@@ -671,6 +671,7 @@
   "quotes": {
     "title": "Inspirational Quotes",
     "backToQuotes": "Back to quotes",
+    "heardByUser": "Heard by: {user}",
     "new": {
       "title": "New Quote",
       "createQuote": "Create quote",
@@ -678,18 +679,19 @@
       "unauthorized": "Unauthorized to create new quotes"
     },
     "form": {
-      "content": {
-        "label": "Quote",
-        "placeholder": "My heart cries because I do not own a 3D printer",
-        "required": "Quote is required",
-        "minLength": "Quote must be at least {count} characters",
-        "maxLength": "Quote must be less than {count} characters"
+      "userId": {
+        "label": "User",
+        "required": "User is required",
+        "placeholder": "Search for a user...",
+        "description": "Select a user"
       },
-      "username": {
-        "label": "Username",
-        "required": "Username is required",
-        "minLength": "Username must be at least {count} characters",
-        "maxLength": "Username must be less than {count} characters"
+      "content": {
+        "labelEnglish": "Quote (English)",
+        "labelNorwegian": "Quote (Norwegian)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Quote is required",
+        "minLength": "Quote must be at least {count} characters"
       },
       "internal": {
         "label": "Internal quote",
@@ -697,6 +699,7 @@
       }
     },
     "api": {
+      "invalidId": "Invalid ID",
       "failedToGetQuotes": "The server failed to get quotes",
       "noUserWithUsername": "No user with provided username found"
     }

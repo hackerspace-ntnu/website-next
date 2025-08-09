@@ -1,13 +1,19 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import type { RouterOutput } from '@/server/api';
 import { quoteSchema } from '@/validations/quotes/quoteSchema';
 
-function QuoteForm() {
+function QuoteForm({
+  users,
+}: {
+  users: RouterOutput['users']['fetchAllUsers'];
+}) {
   const t = useTranslations('quotes.form');
   const tNew = useTranslations('quotes.new');
   const router = useRouter();
@@ -25,14 +31,40 @@ function QuoteForm() {
       onChange: formSchema,
     },
     defaultValues: {
-      content: '',
       username: '',
+      contentNorwegian: '',
+      contentEnglish: '',
       internal: false,
     },
     onSubmit: ({ value }) => {
-      createQuoteMutation.mutate(value);
+      const user = users.find(
+        (user) => `${user.firstName} ${user.lastName}` === value.username,
+      );
+
+      createQuoteMutation.mutate({
+        ...value,
+        userId: user?.id ?? 0,
+      });
     },
   });
+
+  const userChoices = users.map((user) => ({
+    value: `${user.firstName} ${user.lastName}`,
+    label: (
+      <div className='flex items-center gap-2'>
+        <Avatar className='h-8 w-8'>
+          <AvatarImage src={user.profilePictureUrl ?? undefined} />
+          <AvatarFallback>
+            {user.firstName.charAt(0)}
+            {user.lastName.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
+        <span>
+          {user.firstName} {user.lastName}
+        </span>
+      </div>
+    ),
+  }));
 
   return (
     <form
@@ -45,18 +77,29 @@ function QuoteForm() {
       <form.AppForm>
         <form.AppField name='username'>
           {(field) => (
-            <field.TextField
-              label={t('username.label')}
-              placeholder='jimmy'
-              max={8}
+            <field.ComboboxField
+              label={t('userId.label')}
+              placeholder={t('userId.placeholder')}
+              comboboxDescription={t('userId.description')}
+              choices={userChoices}
+              buttonClassName='w-64'
+              contentClassName='w-64'
             />
           )}
         </form.AppField>
-        <form.AppField name='content'>
+        <form.AppField name='contentNorwegian'>
           {(field) => (
             <field.TextField
-              label={t('content.label')}
-              placeholder={t('content.placeholder')}
+              label={t('content.labelNorwegian')}
+              placeholder={t('content.placeholderNorwegian')}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='contentEnglish'>
+          {(field) => (
+            <field.TextField
+              label={t('content.labelEnglish')}
+              placeholder={t('content.placeholderEnglish')}
             />
           )}
         </form.AppField>
