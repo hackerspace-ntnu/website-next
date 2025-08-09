@@ -1,38 +1,40 @@
-import { users } from '@/server/db/tables';
 import {
   type InferInsertModel,
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
 import {
+  boolean,
   integer,
   pgTable,
   serial,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { users } from '@/server/db/tables';
 
 const quotes = pgTable('quotes', {
   id: serial('id').primaryKey(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
   content: varchar('content', { length: 420 }).notNull(),
-  createdBy: integer('created_by')
+  internal: boolean('internal').notNull(),
+  heardBy: integer('heard_by')
     .references(() => users.id)
     .notNull(),
-  author: integer('author')
+  saidBy: integer('said_by')
     .references(() => users.id)
     .notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 const quotesRelations = relations(quotes, ({ one }) => ({
-  createdBy: one(users, {
-    relationName: 'createdBy',
-    fields: [quotes.createdBy],
+  heardBy: one(users, {
+    relationName: 'heardBy',
+    fields: [quotes.heardBy],
     references: [users.id],
   }),
-  author: one(users, {
-    relationName: 'author',
-    fields: [quotes.author],
+  saidBy: one(users, {
+    relationName: 'saidBy',
+    fields: [quotes.saidBy],
     references: [users.id],
   }),
 }));

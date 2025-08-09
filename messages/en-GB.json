@@ -669,10 +669,14 @@
     }
   },
   "quotes": {
-    "failedToGetQuotes": "The server failed to get quotes",
-    "noUserWithUsername": "No user with provided username found",
-    "createQuoteSuccess": "Quote created",
-    "createQuote": "Create quote",
+    "title": "Inspirational Quotes",
+    "backToQuotes": "Back to quotes",
+    "new": {
+      "title": "New Quote",
+      "createQuote": "Create quote",
+      "createQuoteSuccess": "Quote created",
+      "unauthorized": "Unauthorized to create new quotes"
+    },
     "form": {
       "content": {
         "label": "Quote",
@@ -686,7 +690,15 @@
         "required": "Username is required",
         "minLength": "Username must be at least {count} characters",
         "maxLength": "Username must be less than {count} characters"
+      },
+      "internal": {
+        "label": "Internal quote",
+        "description": "If selected, this quote will only be visible to Hackerspace members."
       }
+    },
+    "api": {
+      "failedToGetQuotes": "The server failed to get quotes",
+      "noUserWithUsername": "No user with provided username found"
     }
   },
   "api": {

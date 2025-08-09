@@ -669,10 +669,14 @@
     }
   },
   "quotes": {
-    "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
-    "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
-    "createQuoteSuccess": "Sitat opprettet",
-    "createQuote": "Lag sitat",
+    "title": "Inspirerende sitater",
+    "backToQuotes": "Tilbake til sitater",
+    "new": {
+      "title": "Nytt sitat",
+      "createQuote": "Opprett sitat",
+      "createQuoteSuccess": "Sitat opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette nye sitater"
+    },
     "form": {
       "content": {
         "label": "Sitat",
@@ -686,7 +690,15 @@
         "required": "Brukernavn er påkrevd",
         "minLength": "Brukernavn må være minst {count} tegn",
         "maxLength": "Brukernavn må være mindre enn {count} tegn"
+      },
+      "internal": {
+        "label": "Internt sitat",
+        "description": "Hvis valgt, vil dette sitatet kun være synlig for Hackerspace-medlemmer."
       }
+    },
+    "api": {
+      "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
+      "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet"
     }
   },
   "api": {

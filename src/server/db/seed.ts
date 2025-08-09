@@ -741,23 +741,26 @@ async function main() {
   console.log('Inserting quotes...');
   const quotesData: InsertQuotes[] = [
     {
-      author: insertedUsers[0]?.id ?? 0,
-      createdBy: insertedUsers[1]?.id ?? 0,
+      saidBy: insertedUsers[0]?.id ?? 0,
+      heardBy: insertedUsers[1]?.id ?? 0,
       content: 'How can mirrors be real?',
+      internal: false,
     },
     {
-      author: insertedUsers[4]?.id ?? 0,
-      createdBy: insertedUsers[1]?.id ?? 0,
+      saidBy: insertedUsers[4]?.id ?? 0,
+      heardBy: insertedUsers[1]?.id ?? 0,
       content: 'I have a dream',
+      internal: false,
     },
   ];
 
   for (let i = 0; i < 100; i++) {
     const locale = Math.random() > 0.5 ? locales[0] : locales[1];
     quotesData.push({
-      createdBy: insertedUsers[i % 5]?.id ?? 0,
-      author: insertedUsers[i % 5]?.id ?? 0,
+      heardBy: insertedUsers[i % 5]?.id ?? 0,
+      saidBy: insertedUsers[i % 5]?.id ?? 0,
       content: faker[locale].lorem.sentence(),
+      internal: i > 50,
     });
   }
 

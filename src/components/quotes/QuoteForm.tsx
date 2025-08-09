@@ -8,13 +8,14 @@ import { useRouter } from '@/lib/locale/navigation';
 import { quoteSchema } from '@/validations/quotes/quoteSchema';
 
 function QuoteForm() {
-  const t = useTranslations('quotes');
+  const t = useTranslations('quotes.form');
+  const tNew = useTranslations('quotes.new');
   const router = useRouter();
   const formSchema = quoteSchema(useTranslations());
 
   const createQuoteMutation = api.quotes.createQuote.useMutation({
     onSuccess: () => {
-      toast.success(t('createQuoteSuccess'));
+      toast.success(tNew('createQuoteSuccess'));
       router.push('/quotes');
     },
   });
@@ -26,6 +27,7 @@ function QuoteForm() {
     defaultValues: {
       content: '',
       username: '',
+      internal: false,
     },
     onSubmit: ({ value }) => {
       createQuoteMutation.mutate(value);
@@ -38,13 +40,13 @@ function QuoteForm() {
         e.preventDefault();
         form.handleSubmit();
       }}
-      className='space-y-8'
+      className='mx-auto max-w-2xl space-y-8'
     >
       <form.AppForm>
         <form.AppField name='username'>
           {(field) => (
             <field.TextField
-              label={t('form.username.label')}
+              label={t('username.label')}
               placeholder='jimmy'
               max={8}
             />
@@ -53,13 +55,21 @@ function QuoteForm() {
         <form.AppField name='content'>
           {(field) => (
             <field.TextField
-              label={t('form.content.label')}
-              placeholder={t('form.content.placeholder')}
+              label={t('content.label')}
+              placeholder={t('content.placeholder')}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='internal'>
+          {(field) => (
+            <field.CheckboxField
+              label={t('internal.label')}
+              description={t('internal.description')}
             />
           )}
         </form.AppField>
         <form.SubmitButton loading={createQuoteMutation.isPending}>
-          {t('createQuote')}
+          {tNew('createQuote')}
         </form.SubmitButton>
       </form.AppForm>
     </form>

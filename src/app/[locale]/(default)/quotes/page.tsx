@@ -1,6 +1,9 @@
-import { format } from 'date-fns';
 import type { Locale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import {
+  getFormatter,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
@@ -14,14 +17,13 @@ export default async function QuotesPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations('quotes');
+  const formatter = await getFormatter();
   const quotes = await api.quotes.getQuotes();
 
   return (
     <div className='container space-y-8 py-10'>
-      <h1 className='font-bold text-3xl tracking-tight'>
-        Inspirational Quotes
-      </h1>
-
+      <h1 className='font-bold text-3xl tracking-tight'>{t('title')}</h1>
       <div className='grid gap-6'>
         {quotes.map(async (quote) => {
           const profileImageUrl = quote?.profilePictureId
@@ -55,7 +57,7 @@ export default async function QuotesPage({
                     </div>
                   </div>
                   <Badge variant='outline'>
-                    {format(new Date(quote.createdAt), 'MMM d, yyyy')}
+                    {formatter.dateTime(new Date(quote.createdAt))}
                   </Badge>
                 </div>
               </CardHeader>
