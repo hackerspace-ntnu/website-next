@@ -33,6 +33,7 @@ async function Header() {
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
             rules: t('rules'),
+            quotes: t('quotes'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
@@ -67,6 +68,7 @@ async function Header() {
               shiftSchedule: t('shiftSchedule'),
               members: t('members'),
               rules: t('rules'),
+              quotes: t('quotes'),
             }}
           />
         </div>

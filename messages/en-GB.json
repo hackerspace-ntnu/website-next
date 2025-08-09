@@ -119,6 +119,7 @@
     "about": "About",
     "shiftSchedule": "Shift Schedule",
     "members": "Members",
+    "quotes": "Quotes",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
