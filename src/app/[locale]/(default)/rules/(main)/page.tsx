@@ -53,7 +53,7 @@ export default async function RulesPage({
       <div className='flex shrink flex-wrap justify-center p-4 md:flex-nowrap md:space-x-5'>
         <div className='mt-2 w-full md:size-full md:w-1/2'>
           {isMember && (
-            <h2 className='border-b-0 p-4 text-center'>{t('public')}</h2>
+            <h2 className='border-b-0 p-4 text-center'>{t('publicRules')}</h2>
           )}
           {rules
             .filter((rule) => !rule.internal)
@@ -66,8 +66,8 @@ export default async function RulesPage({
             ))}
         </div>
         {isMember && (
-          <div className='w-full md:w-1/2'>
-            <h2 className='border-b-0 p-4 text-center'>{t('internal')}</h2>
+          <div className='mt-2 w-full md:w-1/2'>
+            <h2 className='border-b-0 p-4 text-center'>{t('internalRules')}</h2>
             {rules
               .filter((rule) => rule.internal)
               .map((rule) => (

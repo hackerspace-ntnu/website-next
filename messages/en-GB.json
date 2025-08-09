@@ -590,8 +590,8 @@
   },
   "rules": {
     "title": "Rules",
-    "public": "Public",
-    "internal": "Internal rules",
+    "publicRules": "Public rules",
+    "internalRules": "Internal rules",
     "backToRules": "Back to Rules",
     "new": {
       "title": "New Rule",
@@ -609,7 +609,8 @@
       "deleteRuleImageDescription": "The rule image will be permanently deleted. This action cannot be undone.",
       "ruleUpdated": "Rule updated successfully",
       "ruleDeleted": "Rule deleted successfully",
-      "imageDeleted": "Rule image deleted successfully"
+      "imageDeleted": "Rule image deleted successfully",
+      "unauthorized": "Unauthorized to update rules"
     },
     "form": {
       "image": {

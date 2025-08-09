@@ -827,11 +827,11 @@ async function main() {
     {
       internal: false,
       nameNorwegian: 'Regler for VR briller',
-      nameEnglish: 'Rules for VR glasses',
+      nameEnglish: 'Rules for VR',
       contentNorwegian:
         'Disse reglene gjelder for alle som bruker VR-briller. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
       contentEnglish:
-        'These rules apply to everyone using VR glasses. • Follow instructions from supervisors. • Wear protective equipment when required.',
+        'These rules apply to everyone using VR. • Follow instructions from supervisors. • Wear protective equipment when required.',
     },
     {
       internal: false,

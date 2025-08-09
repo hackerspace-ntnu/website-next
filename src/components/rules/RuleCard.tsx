@@ -13,7 +13,7 @@ type RuleCardProps = {
 };
 
 async function RuleCard({ className, rule }: RuleCardProps) {
-  const t = await getTranslations('rules');
+  const tLayout = await getTranslations('layout');
   const locale = await getLocale();
 
   const photoUrl = rule.imageId ? await getFileUrl(rule.imageId) : null;
@@ -40,7 +40,7 @@ async function RuleCard({ className, rule }: RuleCardProps) {
         )}
         {rule.internal && !photoUrl && (
           <Badge className='clamp-[text-lg-xl-clamp]! flex w-1/3 items-center justify-center rounded-none hover:bg-primary'>
-            {t('internal')}
+            {tLayout('internal')}
           </Badge>
         )}
         {!rule.internal && !photoUrl && (

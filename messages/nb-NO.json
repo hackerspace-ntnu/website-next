@@ -590,8 +590,8 @@
   },
   "rules": {
     "title": "Regler",
-    "public": "Offentlig",
-    "internal": "Interne regler",
+    "publicRules": "Offentlige regler",
+    "internalRules": "Interne regler",
     "backToRules": "Tilbake til regler",
     "new": {
       "title": "Ny regel",
@@ -609,7 +609,8 @@
       "deleteRuleImageDescription": "Regelbildet vil bli permanent slettet. Denne handlingen kan ikke angres.",
       "ruleUpdated": "Regel oppdatert",
       "ruleDeleted": "Regel slettet",
-      "imageDeleted": "Regelbilde slettet"
+      "imageDeleted": "Regelbilde slettet",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere regler"
     },
     "form": {
       "image": {

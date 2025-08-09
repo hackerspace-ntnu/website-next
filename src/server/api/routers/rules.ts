@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, or, type SQL } from 'drizzle-orm';
+import { and, asc, eq, or, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -48,6 +48,7 @@ const rulesRouter = createRouter({
     return await ctx.db.query.rules
       .findMany({
         where: !session || !isMember ? eq(rules.internal, false) : undefined,
+        orderBy: asc(rules.createdAt),
       })
       .catch((error) => {
         throw new TRPCError({
@@ -157,11 +158,6 @@ const rulesRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
-
-      // await ctx.db
-      //   .update(rules)
-      //   .set({ imageId: null })
-      //   .where(eq(rules.id, input.id));
 
       await deleteFile(rule.imageId);
     }),

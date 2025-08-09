@@ -182,7 +182,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
               <AlertDialogTrigger asChild>
                 <Button type='button' variant='destructive'>
                   {deleteRule.isPending ? (
-                    <Spinner />
+                    <Spinner size='sm' />
                   ) : (
                     <span>{tUpdate('deleteRule')}</span>
                   )}
@@ -208,7 +208,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
               </AlertDialogContent>
             </AlertDialog>
           )}
-          <form.SubmitButton loading={newRule.isPending}>
+          <form.SubmitButton loading={newRule.isPending || editRule.isPending}>
             {rule ? tUpdate('updateRule') : tNew('createRule')}
           </form.SubmitButton>
         </div>

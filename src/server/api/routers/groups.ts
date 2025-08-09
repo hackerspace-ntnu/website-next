@@ -280,11 +280,6 @@ const groupsRouter = createRouter({
         });
       }
 
-      await ctx.db
-        .update(groups)
-        .set({ imageId: null })
-        .where(eq(groups.id, input.id));
-
       await deleteFile(group.imageId);
     }),
   deleteGroup: protectedEditProcedure
