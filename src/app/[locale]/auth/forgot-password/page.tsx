@@ -1,5 +1,13 @@
 import type { Locale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+export async function generateMetadata() {
+  const t = await getTranslations('auth');
+
+  return {
+    title: t('forgotPassword'),
+  };
+}
 
 export default async function ForgotPasswordPage({
   params,

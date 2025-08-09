@@ -5,6 +5,24 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; subsetId: string }>;
+}) {
+  const { locale, subsetId } = await params;
+
+  if (Number.isNaN(Number(subsetId))) return;
+
+  const rule = await api.rules.fetchRule(Number(subsetId));
+
+  if (!rule) return;
+
+  return {
+    title: locale === 'en-GB' ? rule.nameEnglish : rule.nameNorwegian,
+  };
+}
+
 export default async function RuleSubsetPage({
   params,
 }: {

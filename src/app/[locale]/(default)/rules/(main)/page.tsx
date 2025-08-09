@@ -5,14 +5,8 @@ import { RuleCard } from '@/components/rules/RuleCard';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
-
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('rules'),

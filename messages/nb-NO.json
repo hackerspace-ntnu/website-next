@@ -600,6 +600,7 @@
       "unauthorized": "Du har ikke rettigheter til å opprette regler"
     },
     "update": {
+      "title": "Oppdater regel",
       "updateRule": "Oppdater regel",
       "deleteRule": "Slett regel",
       "deleteRuleTitle": "Er du sikker på at du vil slette denne regelen?",

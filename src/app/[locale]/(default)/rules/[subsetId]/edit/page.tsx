@@ -10,6 +10,14 @@ import { RuleForm } from '@/components/rules/RuleForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
+export async function generateMetadata() {
+  const t = await getTranslations('rules.update');
+
+  return {
+    title: t('title'),
+  };
+}
+
 export default async function EditRulePage({
   params,
 }: {
@@ -53,7 +61,7 @@ export default async function EditRulePage({
           <ArrowLeftIcon />
           <span className='hidden md:inline'>{t('backToRules')}</span>
         </Link>
-        <h1>{t('title')}</h1>
+        <h1>{t('update.title')}</h1>
       </div>
       <NextIntlClientProvider
         messages={

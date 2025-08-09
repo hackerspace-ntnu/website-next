@@ -12,6 +12,25 @@ import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; name: string }>;
+}) {
+  const { locale, name } = await params;
+
+  const group = await api.groups.fetchGroup(name);
+  const groupLocalization = group?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!group || !groupLocalization) return;
+
+  return {
+    title: groupLocalization.name,
+  };
+}
+
 export default async function GroupPage({
   params,
 }: {
