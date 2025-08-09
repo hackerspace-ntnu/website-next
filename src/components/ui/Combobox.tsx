@@ -21,7 +21,7 @@ import { cx } from '@/lib/utils';
 type ComboboxProps = {
   choices: {
     value: string;
-    label: string;
+    label: React.ReactNode;
   }[];
   defaultDescription: string;
   defaultPlaceholder: string;
@@ -40,7 +40,6 @@ function Combobox({
   contentClassName,
   valueCallback,
   initialValue,
-  ariaLabel,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(initialValue ?? '');
@@ -52,7 +51,7 @@ function Combobox({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          aria-label={ariaLabel}
+          aria-label={defaultDescription}
           className={cx('w-[200px] justify-between', buttonClassName)}
         >
           {value
