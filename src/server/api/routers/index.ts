@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './groups';
+export * from './quotes';
 export * from './settings';
 export * from './shiftSchedule';
 export * from './storage';

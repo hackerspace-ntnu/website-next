@@ -12,6 +12,7 @@ import {
   type InsertGroupLocalization,
   type InsertItemCategory,
   type InsertItemLocalization,
+  type InsertQuotes,
   type InsertShift,
   type InsertSkill,
   type InsertStorageItem,
@@ -20,6 +21,7 @@ import {
   type InsertUserSkill,
   itemCategories,
   itemLocalizations,
+  quotes,
   shifts,
   skills,
   storageItems,
@@ -29,14 +31,11 @@ import {
 } from '@/server/db/tables';
 
 // To generate fake data use these helpers
-// biome-ignore-start lint/correctness/noUnusedVariables: These may be used in the future
 const locales = routing.locales;
 const faker = {
-  en: fakerEN,
-  no: fakerNB_NO,
+  'en-GB': fakerEN,
+  'nb-NO': fakerNB_NO,
 };
-// biome-ignore-end lint/correctness/noUnusedVariables: These may be used in the future
-
 async function main() {
   console.log('Resetting database...');
   await reset(db, schema);
@@ -738,6 +737,38 @@ async function main() {
   ];
   await db.insert(shifts).values(shiftsData);
   console.log('Shifts inserted');
+
+  console.log('Inserting quotes...');
+  const quotesData: InsertQuotes[] = [
+    {
+      saidBy: insertedUsers[0]?.id ?? 0,
+      heardBy: insertedUsers[1]?.id ?? 0,
+      contentNorwegian: 'Hvordan kan speil være ekte?',
+      contentEnglish: 'How can mirrors be real?',
+      internal: false,
+    },
+    {
+      saidBy: insertedUsers[4]?.id ?? 0,
+      heardBy: insertedUsers[1]?.id ?? 0,
+      contentNorwegian: 'Jeg har en drøm',
+      contentEnglish: 'I have a dream',
+      internal: false,
+    },
+  ];
+
+  for (let i = 0; i < 100; i++) {
+    const locale = Math.random() > 0.5 ? locales[0] : locales[1];
+    quotesData.push({
+      heardBy: insertedUsers[i % 5]?.id ?? 0,
+      saidBy: insertedUsers[i % 5]?.id ?? 0,
+      contentNorwegian: faker[locale].lorem.sentence(),
+      contentEnglish: faker[locale].lorem.sentence(),
+      internal: i > 50,
+    });
+  }
+
+  await db.insert(quotes).values(quotesData);
+  console.log('Quotes inserted');
 }
 
 await main();

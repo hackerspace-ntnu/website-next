@@ -1,7 +1,9 @@
 import { createInsertSchema } from 'drizzle-zod';
 
-import { users } from '@/server/db/tables';
+import { quotes, users } from '@/server/db/tables';
 
 const insertUserSchema = createInsertSchema(users);
 
-export { insertUserSchema };
+const insertQuoteSchema = createInsertSchema(quotes);
+
+export { insertUserSchema, insertQuoteSchema };

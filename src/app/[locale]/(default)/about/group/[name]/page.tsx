@@ -68,7 +68,7 @@ export default async function GroupPage({
           ['labops', 'leadership', 'admin'].includes(g),
         ) && (
           <Link
-            className='absolute top-0 right-0'
+            className='-translate-y-1/2 absolute top-1/2 right-0'
             href={{
               pathname: '/about/group/[name]/edit',
               params: { name: group.identifier },
