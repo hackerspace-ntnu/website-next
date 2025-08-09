@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export default async function RuleSubSetPage({
+export default async function RuleSubsetPage({
   params,
 }: {
   params: Promise<{ locale: Locale; subsetId: string }>;

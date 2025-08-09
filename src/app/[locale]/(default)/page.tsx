@@ -10,7 +10,9 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const hello = await api.test.helloWorld();
+
   return (
     <div className='min-h-screen'>
       <p className='clamp-[text-lg-5xl-clamp--md]'>{hello}</p>

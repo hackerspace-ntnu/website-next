@@ -6,7 +6,8 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
@@ -14,9 +15,11 @@ import type { SelectUser } from '@/server/db/tables';
 export default async function GroupPage({
   params,
 }: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ locale: Locale; name: string }>;
 }) {
-  const { name } = await params;
+  const { locale, name } = await params;
+  setRequestLocale(locale);
+
   const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
   const tAbout = await getTranslations('about');
@@ -25,7 +28,6 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const locale = await getLocale();
   const groupLocalization = group.localizations.find(
     (localization) => localization.locale === locale,
   );

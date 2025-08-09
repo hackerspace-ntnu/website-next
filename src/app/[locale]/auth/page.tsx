@@ -18,8 +18,8 @@ export default async function SignInPage({
   const { locale } = await params;
   let { error } = await searchParams;
   setRequestLocale(locale);
-  const t = await getTranslations('auth');
 
+  const t = await getTranslations('auth');
   const { user } = await api.auth.state();
 
   if (user) {

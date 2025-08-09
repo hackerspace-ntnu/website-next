@@ -1,6 +1,10 @@
 import { ArrowLeftIcon } from 'lucide-react';
-import { type Messages, NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { RuleForm } from '@/components/rules/RuleForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -13,7 +17,14 @@ export async function generateMetadata() {
   };
 }
 
-export default async function NewRulePage() {
+export default async function NewRulePage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const { user } = await api.auth.state();
   const t = await getTranslations('rules');
   const { rules, ui } = await getMessages();
