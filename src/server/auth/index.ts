@@ -1,10 +1,10 @@
-import { db } from '@/server/db';
-import { groups, sessions, userGroups, users } from '@/server/db/tables';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { encodeHexLowerCase } from '@oslojs/encoding';
 import { eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
+import { db } from '@/server/db';
+import { groups, sessions, userGroups, users } from '@/server/db/tables';
 
 async function validateSessionToken(token: string) {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));

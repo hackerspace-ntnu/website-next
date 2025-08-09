@@ -1,5 +1,3 @@
-import { env } from '@/env';
-import { db } from '@/server/db';
 import { sha256 } from '@oslojs/crypto/sha2';
 import {
   encodeBase32LowerCaseNoPadding,
@@ -7,6 +5,8 @@ import {
 } from '@oslojs/encoding';
 import { eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
+import { env } from '@/env';
+import { db } from '@/server/db';
 
 import { type InsertSession, sessions } from '@/server/db/tables';
 

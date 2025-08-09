@@ -1,11 +1,4 @@
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/Tooltip';
-import type { skillIdentifiers } from '@/lib/constants';
-import {
   BoxIcon,
   CircuitBoardIcon,
   CodeIcon,
@@ -16,11 +9,22 @@ import {
   ZapIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/Tooltip';
+import type { skillIdentifiers } from '@/lib/constants';
+import { cx } from '@/lib/utils';
 
 function SkillIconTooltipTemplate({
   children,
   tooltip,
-}: { children: React.ReactNode; tooltip: string }) {
+}: {
+  children: React.ReactNode;
+  tooltip: string;
+}) {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -70,9 +74,12 @@ const skillIconsConfig = {
   },
 };
 
-function SkillIcon({
-  identifier,
-}: { identifier: (typeof skillIdentifiers)[number] }) {
+type SkillIconProps = {
+  identifier: (typeof skillIdentifiers)[number];
+  size?: 'small' | 'medium' | 'large';
+};
+
+function SkillIcon({ identifier, size = 'medium' }: SkillIconProps) {
   const t = useTranslations('skills');
 
   const config = skillIconsConfig[identifier];
@@ -83,7 +90,25 @@ function SkillIcon({
 
   return (
     <SkillIconTooltipTemplate tooltip={t(identifier)}>
-      <Icon className={`h-4 w-4 ${className}`} />
+      <span
+        className={cx(
+          'rounded-full opacity-75',
+          {
+            'max-h-4 min-h-4 min-w-4 max-w-4 p-0.5': size === 'small',
+            'max-h-5 min-h-5 min-w-5 max-w-5 p-[3px]': size === 'medium',
+            'max-h-6 min-h-6 min-w-6 max-w-6 p-1': size === 'large',
+          },
+          className,
+        )}
+      >
+        <Icon
+          className={cx({
+            'h-3 w-3': size === 'small',
+            'h-3.5 w-3.5': size === 'medium',
+            'h-4 w-4': size === 'large',
+          })}
+        />
+      </span>
     </SkillIconTooltipTemplate>
   );
 }

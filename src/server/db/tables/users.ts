@@ -1,14 +1,7 @@
-import {
-  emailVerificationRequests,
-  files,
-  quotes,
-  sessions,
-  userGroups,
-  userSkills,
-} from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
+  boolean,
   foreignKey,
   index,
   integer,
@@ -18,6 +11,15 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import {
+  emailVerificationRequests,
+  files,
+  quotes,
+  sessions,
+  shifts,
+  userGroups,
+  userSkills,
+} from '@/server/db/tables';
 
 const users = pgTable(
   'users',
@@ -44,6 +46,17 @@ const users = pgTable(
     }).notNull(),
     phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
     passwordHash: text('password_hash'),
+    memberSince: timestamp('member_since', {
+      withTimezone: true,
+      mode: 'date',
+    }),
+    bio: text('bio'),
+    fieldOfStudy: text('field_of_study'),
+    gitHubUsername: varchar('github_username', { length: 52 }),
+    discordUsername: varchar('discord_username', { length: 52 }),
+    instagramUsername: varchar('instagram_username', { length: 52 }),
+    linkedInUsername: varchar('linkedin_username', { length: 52 }),
+    private: boolean('private').notNull().default(false),
   },
   (table) => [
     index('users_email_idx').on(table.email),
@@ -65,6 +78,7 @@ const usersRelations = relations(users, ({ many }) => ({
   usersSkills: many(userSkills),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
+  shifts: many(shifts),
   createdQuotes: many(quotes, { relationName: 'createdBy' }),
   authoredQuotes: many(quotes, { relationName: 'author' }),
 }));

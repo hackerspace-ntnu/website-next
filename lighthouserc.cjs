@@ -1,5 +1,12 @@
 // A list of pages which have custom rules.
-const PAGES_NONSTANDARD_RULES = ['news', 'storage', 'events', 'auth', 'rules'];
+const PAGES_NONSTANDARD_RULES = [
+  'news',
+  'storage',
+  'events',
+  'auth',
+  'rules',
+  'shift-schedule',
+];
 
 // Do not convert into an ES6 export.
 // lighthouse-ci (as of 0.14.0) uses require() to import, and this is not supported with ES6 modules.
@@ -19,6 +26,12 @@ const config = {
         'http://localhost:3000/en/news/1',
         'http://localhost:3000/en/storage',
         'http://localhost:3000/en/storage/shopping-cart',
+        'http://localhost:3000/en/storage/item/new',
+        'http://localhost:3000/en/storage/item/1',
+        'http://localhost:3000/en/storage/item/1/edit',
+        'http://localhost:3000/en/storage/loans',
+        'http://localhost:3000/en/storage/loans/user',
+        'http://localhost:3000/en/storage/categories',
         'http://localhost:3000/en/shift-schedule',
         'http://localhost:3000/en/rules',
         'http://localhost:3000/en/rules/1',
@@ -144,6 +157,24 @@ const config = {
             'bootup-time': 'off',
             'image-redundant-alt': 'off',
             'label-content-name-mismatch': 'off',
+          },
+        },
+        {
+          matchingUrlPattern: 'http://.*/en/shift-schedule.*',
+          preset: 'lighthouse:recommended',
+          assertions: {
+            'bf-cache': 'off',
+            'color-contrast': 'off',
+            'heading-order': 'off',
+            'largest-contentful-paint': 'off',
+            'render-blocking-resources': 'off',
+            'target-size': 'off',
+            'unused-javascript': 'off',
+            interactive: 'off',
+            'mainthread-work-breakdown': 'off',
+            'max-potential-fid': 'off',
+            'bootup-time': 'off',
+            'errors-in-console': 'off', // Preloading fonts causes errors in console
           },
         },
       ],

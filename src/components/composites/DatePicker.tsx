@@ -2,13 +2,9 @@
 
 import { isValid, parse } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useFormatter } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { DayPickerProps } from 'react-day-picker';
-
-import { cx } from '@/lib/utils';
-
 import { Button } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import { Input } from '@/components/ui/Input';
@@ -17,6 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/Popover';
+import { cx } from '@/lib/utils';
 
 type DatePickerProps = {
   className?: string;
@@ -114,7 +111,7 @@ function DatePicker({
             aria-label={t('pickDate')}
             variant={'secondary'}
             className={cx(
-              '-translate-y-1/2 absolute top-1/2 right-1.5 h-7 rounded-sm border px-2 font-normal',
+              '-translate-y-1/2 absolute top-1/2 right-1.5 h-7 rounded-xs border px-2 font-normal',
               !date && 'text-muted-foreground',
             )}
             disabled={disabled}

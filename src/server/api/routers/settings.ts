@@ -1,8 +1,10 @@
+import { TRPCError } from '@trpc/server';
+import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { checkEmailAvailability } from '@/server/auth/email';
 import {
+  checkEmailAvailability,
   createEmailVerificationRequest,
   sendVerificationEmail,
   setEmailVerificationRequestCookie,
@@ -13,6 +15,7 @@ import {
   verifyPasswordStrength,
 } from '@/server/auth/password';
 import { checkPhoneAvailability } from '@/server/auth/phone';
+import { deleteSessionTokenCookie } from '@/server/auth/session';
 import { updateUserPassword } from '@/server/auth/user';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
@@ -21,6 +24,7 @@ import {
   matrixChangeDisplayname,
   matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
+  matrixEraseUser,
 } from '@/server/services/matrix';
 import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
@@ -29,8 +33,6 @@ import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
-import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
 
 const PROFILE_PICTURE_DIRECTORY = 'profile-pictures';
 
@@ -85,7 +87,7 @@ const settingsRouter = createRouter({
         }
 
         const file = await insertFile(
-          input.profilePicture,
+          input.profilePicture as string,
           PROFILE_PICTURE_DIRECTORY,
           ctx.user.id,
           true,
@@ -104,7 +106,7 @@ const settingsRouter = createRouter({
           PROFILE_PICTURE_DIRECTORY,
           String(file.id),
         );
-      } catch (error) {
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.profile.updateProfilePictureFailed'),
@@ -228,10 +230,31 @@ const settingsRouter = createRouter({
       }
     }),
   updateNotifications: authenticatedProcedure
-    .input((input) =>
-      notificationsSchema(useTranslationsFromContext()).parse(input),
-    )
-    .mutation(async ({ input, ctx }) => {}),
+    .input((input) => notificationsSchema().parse(input))
+    .mutation(async () => {}),
+  deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {
+    const userFiles = await ctx.db.query.files.findMany({
+      where: eq(files.uploadedBy, ctx.user.id),
+    });
+
+    for (const file of userFiles) {
+      await ctx.s3.deleteFile(file.directory, String(file.id));
+    }
+
+    await matrixEraseUser(ctx.user.username);
+
+    await ctx.db
+      .delete(users)
+      .where(eq(users.id, ctx.user.id))
+      .catch(() => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.account.delete.failedToDelete'),
+        });
+      });
+
+    await deleteSessionTokenCookie();
+  }),
 });
 
 export { settingsRouter };

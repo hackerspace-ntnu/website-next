@@ -1,5 +1,7 @@
 'use client';
 
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -7,8 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
-import { MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
 
 type DarkModeMenuProps = {
   t: {
@@ -46,14 +46,35 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          {t.light}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('light')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.light}
+          </Button>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          {t.dark}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('dark')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.dark}
+          </Button>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          {t.system}
+        <DropdownMenuItem asChild>
+          <Button
+            onClick={() => setTheme('system')}
+            variant='none'
+            size='none'
+            className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+          >
+            {t.system}
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

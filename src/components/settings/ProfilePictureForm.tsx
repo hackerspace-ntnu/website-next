@@ -1,17 +1,11 @@
 'use client';
 
+import { CameraIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
+import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
-import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import {
   Tooltip,
@@ -22,9 +16,6 @@ import {
 import { api } from '@/lib/api/client';
 import { fileToBase64String } from '@/lib/utils/files';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
-import { CameraIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 type ProfilePictureFormProps = {
   profilePictureUrl?: string;
@@ -41,13 +32,15 @@ function ProfilePictureForm({
 
   const updateProfilePictureMutation =
     api.settings.updateProfilePicture.useMutation({
-      onSuccess: (data) => {
-        setPreviewImage(data);
+      onSuccess: () => {
         toast.success(t('updateProfilePictureSuccess'));
       },
     });
 
-  const form = useForm(formSchema, {
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       profilePicture: '',
     },
@@ -57,16 +50,21 @@ function ProfilePictureForm({
   });
 
   return (
-    <Form onSubmit={form.handleSubmit} className='space-y-8'>
-      <form.Field name='profilePicture'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('profilePicture.label')}</FormLabel>
-            <div className='relative h-24 w-24'>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <FormControl>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className='relative space-y-12'
+    >
+      <form.AppForm>
+        <form.AppField name='profilePicture'>
+          {(field) => (
+            <TooltipProvider>
+              <Tooltip>
+                <div className='relative h-24 w-24'>
+                  <field.BaseField label={t('profilePicture.label')}>
+                    <TooltipTrigger asChild>
                       <Input
                         className='peer h-24 w-24 cursor-pointer rounded-full'
                         type='file'
@@ -80,10 +78,10 @@ function ProfilePictureForm({
                           }
                         }}
                       />
-                    </FormControl>
-                  </TooltipTrigger>
-                  <div className='pointer-events-none absolute inset-0 h-24 w-24 rounded-full bg-background' />
-                  <Avatar className='pointer-events-none absolute inset-0 h-24 w-24 transition-opacity peer-hover:opacity-80'>
+                    </TooltipTrigger>
+                  </field.BaseField>
+                  <div className='pointer-events-none absolute inset-0 h-24 w-24 translate-y-[22px] rounded-full bg-background' />
+                  <Avatar className='pointer-events-none absolute inset-0 h-24 w-24 translate-y-[22px] transition-opacity peer-hover:opacity-80'>
                     <AvatarImage
                       className='object-cover'
                       src={previewImage ?? profilePictureUrl}
@@ -91,37 +89,25 @@ function ProfilePictureForm({
                     />
                     <AvatarFallback>{userInitials}</AvatarFallback>
                   </Avatar>
-                  <div className='pointer-events-none absolute right-0 bottom-0 rounded-full bg-primary p-1.5 text-primary-foreground shadow-sm'>
+                  <div className='pointer-events-none absolute right-0 bottom-0 translate-y-[22px] rounded-full bg-primary p-1.5 text-primary-foreground shadow-xs'>
                     <CameraIcon className='h-4 w-4' aria-hidden='true' />
                   </div>
                   <TooltipContent side='right'>
                     <p>{t('updateProfilePictureTooltip')}</p>
                   </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
-        {([canSubmit, isPristine]) => (
-          <Button
-            className='min-w-40'
-            type='submit'
-            disabled={
-              !canSubmit || isPristine || updateProfilePictureMutation.isPending
-            }
-          >
-            {updateProfilePictureMutation.isPending ? (
-              <Spinner className='text-primary-foreground' />
-            ) : (
-              t('updateProfilePicture')
-            )}
-          </Button>
-        )}
-      </form.Subscribe>
-    </Form>
+                </div>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </form.AppField>
+        <form.SubmitButton
+          loading={updateProfilePictureMutation.isPending}
+          className='min-w-40'
+        >
+          {t('updateProfilePicture')}
+        </form.SubmitButton>
+      </form.AppForm>
+    </form>
   );
 }
 

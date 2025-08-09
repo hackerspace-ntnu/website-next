@@ -1,24 +1,27 @@
+import { useTranslations } from 'next-intl';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
-import { useTranslations } from 'next-intl';
+import { ScrollArea } from '@/components/ui/ScrollArea';
 
 import { cx } from '@/lib/utils';
 
 function SidebarNav({
   className,
   showAdministratorMenu,
-}: { className?: string; showAdministratorMenu: boolean }) {
+}: {
+  className?: string;
+  showAdministratorMenu: boolean;
+}) {
   const t = useTranslations('settings');
   const tLayout = useTranslations('layout');
 
   return (
-    <div
-      className={cx(
-        'scrollbar-hide flex h-full flex-col overflow-x-auto',
-        className,
-      )}
+    <ScrollArea
+      className={cx('flex h-full w-[80vw] flex-col lg:w-full', className)}
+      scrollBarClassName='h-2 b-0'
+      orientation='horizontal'
     >
       <div className='flex h-full w-max p-2 lg:block lg:w-auto'>
         <nav className='mb-auto flex lg:flex-col'>
@@ -35,7 +38,7 @@ function SidebarNav({
             </SidebarNavLink>
           )}
         </nav>
-        <div className='flex min-w-fit flex-shrink-0 px-2 lg:px-0 lg:py-2'>
+        <div className='flex min-w-fit shrink-0 px-2 lg:px-0 lg:py-2'>
           <MatrixLink t={{ title: tLayout('goToMatrix') }} />
           <LocaleMenu
             t={{
@@ -52,7 +55,7 @@ function SidebarNav({
           />
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }
 

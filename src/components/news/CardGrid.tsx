@@ -1,6 +1,6 @@
 import { ArticleCard } from '@/components/news/ArticleCard';
-import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
+
 type CardGridProps = {
   topArticles: {
     id: number;
@@ -12,7 +12,6 @@ type CardGridProps = {
 };
 
 async function CardGrid({ topArticles }: CardGridProps) {
-  const hello = await api.test.helloWorld();
   return (
     <div className='grid h-192 xs:h-96 xs:grid-cols-3 grid-rows-4 xs:grid-rows-2 gap-4 md:grid-cols-4 lg:h-112'>
       {topArticles.map((data, index) => (

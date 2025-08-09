@@ -1,18 +1,26 @@
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { BorrowDialog } from '@/components/storage/BorrowDialog';
 import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearDialog';
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { api } from '@/lib/api/server';
 
 export default async function StorageShoppingCartPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 
   setRequestLocale(locale);
   const t = await getTranslations('storage.shoppingCart');
+  const tUi = await getTranslations('ui');
   const tLoanForm = await getTranslations('storage.loanForm');
+  const { storage, ui } = await getMessages();
 
   const tableMessages = {
     tableDescription: t('tableDescription'),
@@ -21,33 +29,42 @@ export default async function StorageShoppingCartPage({
     location: t('location'),
     unitsAvailable: t('unitsAvailable'),
     cartEmpty: t('cartEmpty'),
-    amountOfItemARIA: t('amountOfItemARIA'),
+    amountOfItemAria: t('amountOfItemAria'),
   };
 
-  const borrowNowMessages = {
-    borrowNow: t('borrowNow'),
-    name: tLoanForm('name'),
-    email: tLoanForm('email'),
-    phoneNumber: tLoanForm('phoneNumber'),
-    phoneNumberDescription: tLoanForm('phoneNumberDescription'),
-    returnBy: tLoanForm('returnBy'),
-    returnByDescription: tLoanForm('returnByDescription'),
+  const requestLoanMessages = {
+    title: t('requestLoan'),
+    loanPeriod: tLoanForm('loanPeriod'),
+    loanPeriodDescription: tLoanForm('loanPeriodDescription'),
+    autoapprove: tLoanForm('autoapprove'),
+    autoapproveDescription: tLoanForm('autoapproveDescription'),
     submit: tLoanForm('submit'),
+    mustbeLoggedIn: t('mustBeLoggedIn'),
+    success: tLoanForm('success'),
   };
+
+  const { user } = await api.auth.state();
 
   return (
     <>
       <ShoppingCartTable t={tableMessages} />
       <div className='relative flex flex-col gap-4'>
-        <BorrowDialog t={borrowNowMessages} className='sm:mx-auto' />
+        <NextIntlClientProvider
+          messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
+        >
+          <BorrowDialog
+            t={requestLoanMessages}
+            className='sm:mx-auto'
+            isLoggedIn={!!user}
+          />
+        </NextIntlClientProvider>
         <ShoppingCartClearDialog
           t={{
             clearCart: t('clearCart'),
-            cancel: t('cancel'),
+            cancel: tUi('cancel'),
             clearCartDescription: t('clearCartDescription'),
             clear: t('clear'),
           }}
-          className='sm:-translate-y-1/2 sm:absolute sm:top-1/2 sm:right-0'
         />
       </div>
     </>

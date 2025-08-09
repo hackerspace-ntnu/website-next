@@ -1,4 +1,11 @@
+import { Gamepad2, PlusIcon, Printer, SquareUserRound } from 'lucide-react';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { type FAQ, FAQAccordion } from '@/components/about/FAQAccordion';
+import { GroupCard } from '@/components/about/GroupCard';
+import { HackerspaceLogo } from '@/components/assets/logos';
+import { Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -11,9 +18,77 @@ export async function generateMetadata() {
 export default async function AboutPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <div>this should be about page</div>;
+  const t = await getTranslations('about');
+  const tFAQ = await getTranslations('about.FAQ');
+
+  const { user } = await api.auth.state();
+  const groups = await api.groups.fetchGroups();
+
+  const faqs: FAQ[] = [
+    {
+      id: 'item-1',
+      icon: <Printer />,
+      question: tFAQ('canIUseThe3dPrinter'),
+      answer: tFAQ.rich('answerCanIUseThe3dPrinter', {
+        p1: (chunks) => <p className='p1'>{chunks}</p>,
+        p2: (chunks) => <p className='p2'>{chunks}</p>,
+      }),
+    },
+    {
+      id: 'item-2',
+      icon: <Gamepad2 />,
+      question: tFAQ('canITryVRGames-Equipment'),
+      answer: tFAQ('answerCanITryVRGames-Equipment'),
+    },
+    {
+      id: 'item-3',
+      icon: <SquareUserRound />,
+      question: tFAQ('howDoIBecomeAMember'),
+      answer: tFAQ.rich('answerHowDoIBecomeAMember', {
+        p1: (chunks) => <p className='p1'>{chunks}</p>,
+        p2: (chunks) => <p className='p2'>{chunks}</p>,
+      }),
+    },
+  ];
+
+  return (
+    <div>
+      <HackerspaceLogo className='mx-auto mt-7 mb-5 h-36 w-36' />
+      <h1 className='mt-8 mb-4 text-center'>{t('whatIsHackerspace')}</h1>
+      <div className='mx-auto mb-6 max-w-prose text-base'>
+        {t.rich('aboutDescription', {
+          p1: (chunks) => <p className='p1'>{chunks}</p>,
+          p2: (chunks) => <p className='p2'>{chunks}</p>,
+          p3: (chunks) => <p className='p3'>{chunks}</p>,
+        })}
+      </div>
+      <div className='mx-auto w-fit items-center justify-center gap-2'>
+        <div className='relative'>
+          <h2 className='my-4 md:text-center'>{t('activeGroup')}</h2>
+          {user?.groups.some((g) =>
+            ['labops', 'leadership', 'admin'].includes(g),
+          ) && (
+            <Link
+              className='-translate-y-1/2 absolute top-1/2 right-0'
+              href='/about/group/new'
+              variant='default'
+              size='icon'
+            >
+              <PlusIcon />
+            </Link>
+          )}
+        </div>
+        <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3'>
+          {groups.map((group) => (
+            <GroupCard key={group.id} group={group} />
+          ))}
+        </div>
+      </div>
+      <FAQAccordion faqs={faqs} />
+    </div>
+  );
 }

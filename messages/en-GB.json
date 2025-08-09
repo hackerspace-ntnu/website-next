@@ -1,0 +1,699 @@
+{
+  "meta": {
+    "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
+  },
+  "ui": {
+    "open": "Open",
+    "close": "Close",
+    "previous": "Previous",
+    "goToPreviousPage": "Go to previous page",
+    "next": "Next",
+    "goToNextPage": "Go to next page",
+    "morePages": "More pages",
+    "name": "name",
+    "page": "page",
+    "category": "category",
+    "sort": "sort",
+    "photoOf": "Photo of {name}",
+    "today": "Today",
+    "selected": "Selected",
+    "week": "Week",
+    "nextMonth": "Next month",
+    "previousMonth": "Previous month",
+    "selectMonth": "Select month",
+    "selectYear": "Select year",
+    "pickDate": "Pick a date",
+    "dateFormat": "dd/MM/yyyy",
+    "searchCountry": "Search country...",
+    "noCountryFound": "No country found",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "save": "Save",
+    "uploadText": "Drop files here or click to upload",
+    "noValidFiles": "No valid files were dropped"
+  },
+  "error": {
+    "notFound": "404 - Page not found",
+    "notFoundDescription": "Oops! Looks like this page got lost in cyberspace.",
+    "error": "Oops! Something went wrong",
+    "errorDescription": "Don't worry, our best hackers are on it!",
+    "tooManyRequests": "Too Many Requests",
+    "tooManyRequestsDescription": "Please wait a moment before trying again.",
+    "goToHomepage": "Return to homepage",
+    "tryAgain": "Try again",
+    "invalidLocale": "Invalid locale: {locale}"
+  },
+  "auth": {
+    "welcome": "Welcome!",
+    "description": "Is it your first time here? Use Feide",
+    "signInWith": "Sign in with",
+    "hackerspaceAccount": "Hackerspace Account",
+    "success": "Success!",
+    "successDescription": "Congratulations, you are now a member of Hackerspace NTNU!",
+    "home": "Home",
+    "signIn": "Sign in",
+    "useYourAccount": "Use your account",
+    "forgotPassword": "Forgot password",
+    "submit": "Submit",
+    "invalidCredentials": "Invalid credentials",
+    "matrixRegistrationFailed": "Matrix user registration failed",
+    "createPassword": "Create password",
+    "passwordDescription": "The password will be used for signing into Matrix and your Hackerspace Account",
+    "createAccount": "Create Account",
+    "feideNotConfigured": "Feide is not configured",
+    "verifyEmail": "Verify your email address",
+    "verifyEmailDescription": "Enter the confirmation code sent to your new email. If you don't see it, check your spam folder.",
+    "getNewCode": "Get new code {seconds, plural, =0 {} =1 {(# second)} other {(# seconds)}}",
+    "newCodeSent": "A new code was sent to your inbox",
+    "confirmEmail": "Confirm email",
+    "unableToCreateVerificationRequest": "Unable to create email verification request",
+    "noVerificationRequest": "No verification request found",
+    "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
+    "emailUpdateSuccess": "Email updated successfully",
+    "form": {
+      "username": {
+        "label": "Username",
+        "required": "Username is required",
+        "minLength": "Username must be at least {count} characters",
+        "maxLength": "Username must be less than {count} characters",
+        "invalid": "Username must contain only letters"
+      },
+      "password": {
+        "label": "Password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "confirmLabel": "Confirm password",
+        "mismatch": "Passwords do not match",
+        "weak": "Password is too weak"
+      },
+      "otp": {
+        "label": "One-time password",
+        "required": "One-time password is required",
+        "length": "One-time password must be {count} characters long",
+        "invalid": "One-time password must only contain digits and characters",
+        "incorrect": "Incorrect one-time password"
+      }
+    },
+    "error": {
+      "authenticationFailed": "Authentication failed",
+      "userInfoFailed": "Failed to get user info",
+      "userInfoMissing": "User info is missing",
+      "phoneInUse": "Phone number is already in use",
+      "emailInUse": "Email is already in use",
+      "invalidUserData": "Invalid user data",
+      "userCreationFailed": "Failed to create user"
+    }
+  },
+  "layout": {
+    "hackerspaceHome": "Hackerspace homepage",
+    "navigationMenu": "Navigation menu",
+    "news": "News",
+    "events": "Events",
+    "storage": "Storage",
+    "about": "About",
+    "shiftSchedule": "Shift Schedule",
+    "members": "Members",
+    "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
+    "goToMatrix": "Go to Matrix",
+    "rules": "Rules",
+    "changeLocale": "Change language",
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "profile": "Profile",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "settings": "Settings",
+    "links": "Links",
+    "utilities": "Utilities",
+    "haveYouFoundA": "Have you found a",
+    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
+    "openingHours": "Opening hours",
+    "allWeekdays": "Monday-Friday",
+    "socialMedia": "Social media",
+    "sendAnEmail": "Send an email",
+    "visitSlack": "Visit Slack",
+    "visitFacebook": "Visit Facebook",
+    "visitGithub": "Visit Github",
+    "visitLinkedin": "Visit Linkedin",
+    "visitInstagram": "Visit our Instagram",
+    "discordTag": "Copy the Discord tag",
+    "NTNUIDI": "NTNU Department of Computer Science",
+    "NTNUIDIURL": "https://www.ntnu.edu/idi",
+    "NTNUNexus": "The working life network Nexus",
+    "internal": "Internal",
+    "copyright": "Copyright",
+    "allRightsReserved": "All rights reserved",
+    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+  },
+  "news": {
+    "title": "News",
+    "internalArticle": "This is an internal article",
+    "newArticle": "New article",
+    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
+    "views": "Views"
+  },
+  "members": {
+    "title": "Members",
+    "internalMember": "This is an internal member",
+    "backToMember": "Back to members",
+    "searchPlaceholder": "Search for a member...",
+    "memberSince": "Member since {date}",
+    "guest": "Guest",
+    "usernameCopied": "Username copied to clipboard!",
+    "api": {
+      "idOrNameRequired": "Either ID or name must be provided",
+      "errorFetchingMember": "Error fetching member",
+      "errorFetchingMembers": "Error fetching members",
+      "pageNumberRequired": "Page number required"
+    }
+  },
+  "settings": {
+    "manageAccountSettings": "Manage your account settings and set preferences.",
+    "profile": {
+      "title": "Profile",
+      "username": "Username",
+      "updateProfile": "Update profile",
+      "updateProfileFailed": "Failed to update profile",
+      "updateProfileSuccess": "Profile updated successfully",
+      "updateProfilePicture": "Update profile picture",
+      "updateProfilePictureFailed": "Failed to update profile picture",
+      "updateProfilePictureSuccess": "Profile picture updated successfully",
+      "updateProfilePictureTooltip": "Click to change profile picture",
+      "profilePicture": {
+        "label": "Profile picture",
+        "mustBeImage": "Profile picture must be an image",
+        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "sizeLimit": "Profile picture must be less than {size} MB"
+      },
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "minLength": "First name must be at least {count} characters",
+        "maxLength": "First name must be less than {count} characters",
+        "general": "Is your first name correct?"
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "minLength": "Last name must be at least {count} characters",
+        "maxLength": "Last name must be less than {count} characters",
+        "general": "Is your last name correct?"
+      },
+      "birthDate": {
+        "label": "Birth date",
+        "required": "Birth date is required",
+        "invalid": "Birth date is invalid",
+        "minAge": "You must be at least {age} years old",
+        "maxAge": "You must be less than {age} years old"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "updateAccount": "Update account",
+      "updateAccountFailed": "Failed to update account",
+      "updateAccountSuccess": "Account updated successfully",
+      "email": {
+        "label": "Email",
+        "description": "If you change your email, you will recieve a verification email to confirm your new address.",
+        "required": "Email is required",
+        "invalid": "Invalid email address format",
+        "confirmLabel": "Confirm email",
+        "mismatch": "Emails do not match",
+        "inUse": "Email is already in use"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "description": "Your phone number will be visible when reserving 3D printers or borrowing items, allowing us to contact you if any issues arise.",
+        "required": "Phone number is required",
+        "invalid": "Invalid phone number",
+        "format": "Phone number is formatted incorrectly",
+        "inUse": "Phone number is already in use"
+      },
+      "delete": {
+        "buttonLabel": "Delete account",
+        "dialogTitle": "Are you sure want to delete your account?",
+        "dialogDescription": "All data related to you, including all your contact information, profile picture, item loans, event registrations, linked groups, reservations, settings and more will be deleted. <bold>This action cannot be undone</bold>. If you change your mind later, recovering this data will be impossible - however, you're still welcome to make a new account.",
+        "failedToDelete": "Failed to delete account"
+      },
+      "password": {
+        "currentLabel": "Current password",
+        "newLabel": "New password",
+        "confirmLabel": "Confirm password",
+        "required": "Password is required",
+        "minLength": "Password must be at least {count} characters",
+        "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "specialChar": "Password must contain at least one special character",
+        "weak": "Password is too weak",
+        "mismatch": "Passwords do not match",
+        "update": "Update password",
+        "updateSuccess": "Password updated successfully",
+        "updateFailed": "Failed to update password",
+        "incorrectPassword": "Incorrect password"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "updateNotifications": "Update notifications",
+      "updateNotificationsFailed": "Failed to update notifications",
+      "updateNotificationsSuccess": "Notifications updated successfully",
+      "notifyMeAbout": "Notify me about via email",
+      "all": "Finished prints, borrowed item deadlines, coffee cups filled and account updates",
+      "useful": "Finished prints, borrowed item deadlines and account updates",
+      "essential": "Account updates"
+    },
+    "administrator": {
+      "title": "Administrator"
+    }
+  },
+  "about": {
+    "whatIsHackerspace": "What is Hackerspace?",
+    "aboutDescription": "<p1> Hackerspace NTNU is a student-driven project open to all students, regardless of study direction or Hackerspace membership. We offer a creative arena where students from different disciplines can get help realizing their ideas in an engaged and inclusive environment. Here, you will find new technology at your disposal, including drones, 3D printers, and Virtual Reality equipment. </p1> <p2> Whether you are a first-year student needing help with your first Arduino project or a fourth-year student wanting to create a 3D model of Trondheim, we can provide both equipment and expertise. We also regularly hold courses for both beginners and advanced students in many exciting subjects. </p2> <p3> Come by to see what we're doing and have a chat. </p3> You can find us on the second floor of the A-block in the Realfagbygget at NTNU Gløshaugen.",
+    "showMap": "Show map",
+    "FAQ": {
+      "title": "Frequently Asked Questions",
+      "canIUseThe3dPrinter": "Can I use the 3D printer?",
+      "answerCanIUseThe3dPrinter": "<p1> All students can use the 3D printers and the rest of the workshop, regardless of whether they are members of Hackerspace or not. We have a reservation system available for all students with FEIDE login from the website's navigation bar. </p1> <p2> Come by during opening hours and get help from one of our members.</p2>",
+      "canITryVRGames-Equipment": "Can I try VR games/equipment?",
+      "answerCanITryVRGames-Equipment": "Our VR equipment can be borrowed and tried out by all students, regardless of Hackerspace membership. We have a dedicated VR room where you can come and play as long as a Hackerspace member is available for setup and teardown. The equipment can be borrowed through the usual inventory system. Come by during our opening hours if you're interested.",
+      "howDoIBecomeAMember": "How do I become a member?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace has ongoing admissions. You can apply whenever you want. We usually respond within 3 working weeks. </p1> <p2> Note that you do not need membership to borrow equipment or try something cool. Come by for a chat during our opening hours to learn more about our offerings and what it's like to be a member. </p2>"
+    },
+    "activeGroup": "Our Active Groups",
+    "noMembers": "No members are a part of this group yet."
+  },
+  "groups": {
+    "backToAbout": "Back to About",
+    "new": {
+      "title": "New Group",
+      "createGroup": "Create group",
+      "unauthorized": "Unauthorized to create new groups",
+      "groupCreated": "Group created successfully"
+    },
+    "update": {
+      "title": "Update Group",
+      "backToGroup": "Back to group",
+      "unauthorized": "Unauthorized to update groups",
+      "updateGroup": "Update group",
+      "groupUpdated": "Group updated successfully",
+      "deleteGroup": "Delete group",
+      "imageDeleted": "Group image deleted successfully",
+      "groupDeleted": "Group deleted successfully",
+      "deleteGroupTitle": "Are you sure you want to delete this group?",
+      "deleteGroupDescription": "The group will be permanently deleted. This action cannot be undone.",
+      "deleteGroupImage": "Delete group image",
+      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
+      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
+    },
+    "form": {
+      "image": {
+        "label": "Group image",
+        "description": "Upload an image...",
+        "required": "Group image is required",
+        "sizeLimitError": "Group image must be less than {size} MB",
+        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Group name (Norwegian)",
+        "labelEnglish": "Group name (English)",
+        "placeholder": "DevOps",
+        "required": "Group name is required",
+        "maxLength": "Group name must be less than {count} characters"
+      },
+      "summary": {
+        "labelNorwegian": "Summary (Norwegian)",
+        "labelEnglish": "Summary (English)",
+        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "required": "Group summary is required",
+        "maxLength": "Group summary must be less than {count} characters"
+      },
+      "description": {
+        "labelNorwegian": "Description (Norwegian)",
+        "labelEnglish": "Description (English)",
+        "required": "Group description is required"
+      },
+      "identifier": {
+        "label": "Group identifier",
+        "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
+        "placeholder": "devops",
+        "isReserved": "Sorry, this identifier is reserved by internal systems",
+        "required": "Group identifier is required",
+        "regex": "The identifier can't be used in a URL. Allowed character: a-z, A-Z, 0-9, -, _, ., and ~"
+      },
+      "internal": {
+        "label": "Internal group",
+        "description": "If selected, this group will only be visible to Hackerspace members."
+      }
+    },
+    "api": {
+      "fetchGroupsFailed": "Failed to fetch active groups",
+      "invalidId": "Invalid ID",
+      "invalidGroupIdentifier": "Invalid group identifier",
+      "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
+      "insertFailed": "Failed to add group",
+      "groupNotFound": "The group could not be found"
+    }
+  },
+  "storage": {
+    "title": "Storage",
+    "searchPlaceholder": "Search for product...",
+    "addNewItem": "Add new item",
+    "viewLoans": "View your loans",
+    "backToStorage": "Back to storage",
+    "noItemsFound": "No items found. Please check your filter criteria.",
+    "card": {
+      "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
+      "addToCart": "Add to cart",
+      "removeFromCart": "Remove from cart"
+    },
+    "select": {
+      "ariaLabel": "Select how to filter the storage items",
+      "filters": "Filters",
+      "name": "Name (in alphabetical order)",
+      "sortDescending": "Inventory (descending)",
+      "sortAscending": "Inventory (ascending)"
+    },
+    "combobox": {
+      "defaultDescription": "Choose category...",
+      "defaultPlaceholder": "Search category...",
+      "cables": "Cables",
+      "sensors": "Sensors",
+      "peripherals": "PC peripherals",
+      "miniPC": "Mini PC"
+    },
+    "searchParams": {
+      "name": "name",
+      "descending": "descending",
+      "ascending": "ascending",
+      "cables": "cables",
+      "sensors": "sensors",
+      "peripherals": "peripherals",
+      "miniPC": "minipc"
+    },
+    "tooltips": {
+      "viewShoppingCart": "View shopping cart"
+    },
+    "item": {
+      "noDescription": "No description has been provided for this item.",
+      "noLocation": "No location specified",
+      "noCategory": "No category specified",
+      "invalidId": "The provided storage item ID was invalid.",
+      "edit": "Edit item",
+      "api": {
+        "insertFailed": "Failed to add storage item",
+        "insertLocalizationsFailed": "Failed to add storage item translations. Please contact Hackerspace DevOps about this issue!"
+      }
+    },
+    "shoppingCart": {
+      "title": "Shopping Cart",
+      "productId": "Product ID",
+      "productName": "Product Name",
+      "location": "Location",
+      "unitsAvailable": "Units available",
+      "tableDescription": "A list of your shopping cart items.",
+      "cartEmpty": "Your shopping cart is empty.",
+      "clearCart": "Empty shopping cart",
+      "clear": "Clear",
+      "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
+      "requestLoan": "Request loan",
+      "amountOfItemAria": "Select number of this item",
+      "mustBeLoggedIn": "You must be logged in to borrow items"
+    },
+    "loanForm": {
+      "loanPeriod": "Select loan period",
+      "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "autoapprove": "Approve immediately",
+      "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
+      "submit": "Submit",
+      "dateInFuture": "The return date must be in the future",
+      "success": "Loan request sent! Redirecting to loans..."
+    },
+    "categories": {
+      "title": "Categories",
+      "categoryName": "Category name (norwegian & english)",
+      "categoryTableDescription": "Table listing categories",
+      "actions": "Actions",
+      "unauthorized": "Unauthorized to manage storage item categories",
+      "successAddMessage": "Item category added successfully!",
+      "successEditMessage": "Item category edited successfully!",
+      "successDeleteMessage": "Item category deleted successfully!",
+      "invalidName": "Invalid category name",
+      "api": {
+        "insertFailed": "Failed to add category",
+        "updateFailed": "Failed to update category",
+        "deleteFailed": "Failed to delete category",
+        "duplicateCategory": "Cannot add another category with the same name"
+      }
+    },
+    "edit": {
+      "titleNew": "New Item",
+      "titleEdit": "Edit Item",
+      "image": {
+        "label": "Item image",
+        "upload": "Upload an image...",
+        "sizeLimitError": "Item image must be less than {size} MB",
+        "wrongFileTypeError": "Item image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelEnglish": "Item name (English)",
+        "labelNorwegian": "Item name (Norwegian)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "Item name is required."
+      },
+      "description": {
+        "labelEnglish": "Description (English)",
+        "labelNorwegian": "Description (Norwegian)",
+        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
+      },
+      "location": {
+        "labelEnglish": "Location (English)",
+        "labelNorwegian": "Location (Norwegian)",
+        "placeholder": "Box 2A",
+        "required": "Item location is required.",
+        "invalid": "Please provide a short and concise location."
+      },
+      "quantity": {
+        "label": "Quantity",
+        "placeholder": "4",
+        "negative": "Quantity cannot be negative."
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Hardware"
+      },
+      "submit": "Submit",
+      "deleteItem": "Delete item",
+      "deleteItemDescription": "Are you sure you want to delete this item? All loans of this item will also be deleted. This action cannot be undone!",
+      "successNew": "New storage item added successfully! Redirecting to storage...",
+      "successEdit": "Storage item edited successfully! Redirecting to storage...",
+      "successDelete": "Storage item deleted successfully! Redirecting to storage...",
+      "unauthorized": "Unauthorized to manage storage items"
+    },
+    "loans": {
+      "view": "View loans",
+      "title": "Loans",
+      "titlePending": "Pending loans",
+      "titleApproved": "Approved loans",
+      "pendingLoan": "Pending loan",
+      "notReturned": "Not returned yet",
+      "returned": "Returned {date}",
+      "loanSubheader": "This loan is waiting for approval",
+      "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",
+      "askForApproval": "Do you wish to approve this loan request?",
+      "approve": "Approve",
+      "confirmLoanReturn": "Confirm item return",
+      "deleteLoan": "Delete loan",
+      "deleteDescription": "Do you really wish to delete the loan from {person}?",
+      "loan": "Loan",
+      "loanApproveSuccess": "Loan has been approved successfully!",
+      "loanDeleteSuccess": "Loan has been deleted successfully!",
+      "loanReturnSuccess": "Loan has been registered as returned!",
+      "loanApproved": "This loan has been approved",
+      "borrowTimeline": "Borrowing from {from} until {until}",
+      "requestedAt": "Requested at {date}",
+      "noPendingLoans": "No pending loans 🎉",
+      "noLoansFound": "No loans found",
+      "unauthorized": "Unauthorized to manage storage item loan requests"
+    },
+    "api": {
+      "duplicateItem": "Cannot create storage items with the same name. Edit the already existing item instead.",
+      "notFound": "The selected storage item was not found.",
+      "categoryNotFound": "The selected category was not found.",
+      "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
+      "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
+      "borrowPositiveAmount": "Must borrow a positive amount.",
+      "limitNotInRange": "limit must be between 1 and 50."
+    }
+  },
+  "shiftSchedule": {
+    "title": "Shift Schedule",
+    "clearShifts": {
+      "clear": "Clear shift schedule",
+      "warning": "Warning",
+      "confirmationPrompt": "Are you sure you want to clear the shift schedule?",
+      "confirm": "Clear",
+      "cancel": "Cancel",
+      "clearSuccess": "Cleared shifts successfully"
+    },
+    "table": {
+      "time": "Time",
+      "day": "{day, select, monday {Monday} tuesday {Tuesday} wednesday {Wednesday} thursday {Thursday} other {Friday}}",
+      "cell": {
+        "onShift": "{count, plural, =1 {1 person on shift} other {# people on shift}}",
+        "closed": "Closed",
+        "dialog": {
+          "description": "See members on the selected shift or register yourself",
+          "empty": "No one on shift",
+          "recurring": "Recurring",
+          "register": "Register",
+          "update": "Update",
+          "unregister": "Unregister",
+          "signIn": "Sign in",
+          "signInDescription": "Sign in to register for shifts",
+          "registerSuccess": "Registered shift successfully",
+          "updateSuccess": "Updated shift successfully",
+          "unregisterSuccess": "Unregistered from shift successfully"
+        }
+      }
+    },
+    "api": {
+      "day": "Invalid day",
+      "timeslot": "Invalid timeslot",
+      "recurring": "Invalid value for recurring",
+      "fetchShiftsFailed": "Failed to fetch shifts"
+    }
+  },
+  "events": {
+    "title": "Events",
+    "activeEvents": "Active events",
+    "upcomingEvents": "Upcoming events",
+    "pastEvents": "Past events",
+    "detailsAboutEvent": "Read more about {eventName}",
+    "startsAt": "Starts at",
+    "startedAt": "Started at",
+    "endsAt": "Ends at",
+    "endedAt": "Ended at",
+    "backToEvents": "Back to Events"
+  },
+  "rules": {
+    "title": "Rules",
+    "forEveryone": "For everyone",
+    "internal": "Internal rules"
+  },
+  "skills": {
+    "skills": "Skills",
+    "printing": "3D Printing",
+    "soldering": "Soldering",
+    "raspberry": "Raspberry Pi",
+    "unix": "Unix/Linux",
+    "laser": "Laser Cutting",
+    "workshop": "Workshop Tools",
+    "microcontroller": "Microcontroller Programming",
+    "webdevelopment": "Web Development"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: 9th July 2025",
+    "intro": {
+      "part1": "At Hackerspace, we are committed to protecting your privacy and being transparent about data processing. We want to ensure that your personal data is processed in accordance with applicable laws, including the EU General Data Protection Regulation (GDPR).",
+      "part2": "Our organization aims to be transparent about the processing of personal information and IT security measures. There are always procedures in place at Hackerspace to ensure proper processing of personal data.",
+      "part3": "This Privacy Policy explains how we collect, use and protect your personal data when you visit, use or interact with our website. It also contains information about your rights regarding your personal data."
+    },
+    "dataResponsibility": {
+      "title": "Who is responsible for your data?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, Norway",
+      "email": "hackerspace-dev@idi.ntnu.no",
+      "comment": "We are the entity responsible for the processing of your personal data."
+    },
+    "collect": {
+      "title": "What data do we collect?",
+      "intro1": "To make Hackerspace able to provide the services available on this website, as well as to maintain an updated membership register, we need to collect personal data specified in this Privacy Policy.",
+      "intro2": "The personal data is primarily intended to create a complete profile to link the user account to an individual. By having a full name, we can get a good overview of our members and users, and it enables us to offer services such as participation in events, providing item loans and more.",
+      "weCollectTheFollowing": "We collect the following personal data:",
+      "weCollect1": "Contact information: If you decide to register an account at Hackerspace, we will collect your name and email address. Optionally, if you choose to provide it to us, we will collect your telephone number for contact purposes.",
+      "weCollect2": "Usage data: Information about how you use our website, such as your interactions, device type, browser type, and time of visit.",
+      "weCollect3": "Cookies: We use cookies to improve your user experience on the website. This may include preferences, visit history and other technical information.",
+      "weCollect4": "Other data: We may collect data that you voluntarily provide to us, for example by filling in forms or sending emails."
+    },
+    "dataPurpose": {
+      "title": "How do we use your data?",
+      "intro": "We use your personal data for the following purposes:",
+      "purpose11": "To provide services:",
+      "purpose12": "Process orders, respond to inquiries, handle events, manage item loans, provide support and more.",
+      "purpose21": "To improve the user experience:",
+      "purpose22": "Understand how the website is used, improve content and functionality.",
+      "purpose31": "Security:",
+      "purpose32": "Protecting the website and users against fraud or unauthorized access."
+    },
+    "protection": {
+      "title": "How do we protect your data?",
+      "content": "We use modern security measures to protect your personal information from loss, misuse or unauthorized access. This includes encryption, firewalls and access controls. In case of additional questions regarding our security measures, please contact the DevOps Team at Hackerspace."
+    },
+    "rights": {
+      "title": "Your rights",
+      "gdprIntro": "According to the Norwegian laws and the GDPR, you have the following rights:",
+      "gdpr11": "Right to access:",
+      "gdpr12": "You have the right to request what information we have about you.",
+      "gdpr21": "Right to retrification:",
+      "gdpr22": "You have the right to request the correction of inaccurate personal data about you.",
+      "gdpr31": "Right to deletion:",
+      "gdpr32": "You have the right to request the deletion of your personal data.",
+      "gdpr41": "Right to object to data processing:",
+      "gdpr42": "You have the right to request that we stop processing your data.",
+      "consentComment": "Please be aware that it is voluntary to consent to the data processing and that you can withdraw your consent at any time. If the consent is withdrawn, your user account will be deleted and you may lose access to our internal services that depend on the information you provide, as well as physical access to the organization's premises.",
+      "exercise": "To exercise your rights, you can contact us at: hackerspace-dev@idi.ntnu.no",
+      "responseTime": "We respond to all requests to the best of our ability, and we will do so within one month of receiving your request."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "content": "We use cookies to improve the user experience on our website. A cookie is a small text file that is stored on your device. You can manage cookies in your browser. We use both necessary and functional cookies, as well as third-party information for analysis."
+    },
+    "policyChange": {
+      "title": "Changes to this Privacy Policy",
+      "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
+    }
+  },
+  "quotes": {
+    "failedToGetQuotes": "The server failed to get quotes",
+    "noUserWithUsername": "No user with provided username found",
+    "createQuoteSuccess": "Quote created",
+    "createQuote": "Create quote",
+    "form": {
+      "content": {
+        "label": "Quote",
+        "placeholder": "My heart cries because I do not own a 3D printer",
+        "required": "Quote is required",
+        "minLength": "Quote must be at least {count} characters",
+        "maxLength": "Quote must be less than {count} characters"
+      },
+      "username": {
+        "label": "Username",
+        "required": "Username is required",
+        "minLength": "Username must be at least {count} characters",
+        "maxLength": "Username must be less than {count} characters"
+      }
+    }
+  },
+  "api": {
+    "internalServerError": "Internal server error",
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
+  }
+}

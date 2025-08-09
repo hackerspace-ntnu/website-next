@@ -1,26 +1,25 @@
 'use client';
 
-import {
-  CircleCheckIcon,
-  CircleXIcon,
-  InfoIcon,
-  LoaderIcon,
-  TriangleAlertIcon,
-} from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Toaster as Sonner, toast } from 'sonner';
+import * as ToasterPrimitive from 'sonner';
 
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>;
+const toast = ToasterPrimitive.toast;
 
-const Toaster = ({ ...props }: ToasterProps) => {
+function Toaster({
+  ref,
+  ...props
+}: React.ComponentProps<typeof ToasterPrimitive.Toaster> & {
+  ref?: React.RefObject<React.ComponentRef<typeof ToasterPrimitive.Toaster>>;
+}) {
   const { theme = 'system' } = useTheme();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
-    <Sonner
-      theme={theme as ToasterProps['theme']}
+    <ToasterPrimitive.Toaster
+      ref={ref}
+      theme={theme as ToasterPrimitive.ToasterProps['theme']}
       className='toaster group'
       position={isDesktop ? 'bottom-right' : 'top-center'}
       toastOptions={{
@@ -34,16 +33,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
             'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
         },
       }}
-      icons={{
-        success: <CircleCheckIcon />,
-        info: <InfoIcon />,
-        warning: <TriangleAlertIcon />,
-        error: <CircleXIcon />,
-        loading: <LoaderIcon />,
-      }}
       {...props}
     />
   );
-};
+}
 
 export { Toaster, toast };

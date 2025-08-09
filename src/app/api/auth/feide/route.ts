@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+import { type NextRequest, NextResponse } from 'next/server';
 import { env } from '@/env';
 import { checkEmailAvailability } from '@/server/auth/email';
 import { checkPhoneAvailability } from '@/server/auth/phone';
@@ -13,8 +15,6 @@ import {
   validateFeideAuthorization,
 } from '@/server/services/feide';
 import { insertUserSchema } from '@/validations/db';
-import { cookies } from 'next/headers';
-import { type NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);

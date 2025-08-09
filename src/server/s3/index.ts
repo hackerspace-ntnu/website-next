@@ -1,4 +1,3 @@
-import { env } from '@/env';
 import {
   DeleteObjectCommand,
   GetObjectCommand,
@@ -6,6 +5,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { env } from '@/env';
 
 class S3Service {
   private readonly client: S3Client;
@@ -98,7 +98,12 @@ class S3Service {
   }
 }
 
-const directories = ['profile-pictures', 'news'] as const;
+const directories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'groups',
+] as const;
 
 const s3 = new S3Service();
 
