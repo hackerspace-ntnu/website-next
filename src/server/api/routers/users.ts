@@ -2,10 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import {
-  protectedEditProcedure,
-  publicProcedure,
-} from '@/server/api/procedures';
+import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { userGroups, users } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
@@ -121,7 +118,7 @@ const usersRouter = createRouter({
           });
         });
     }),
-  fetchAllUsers: protectedEditProcedure.query(async ({ ctx }) => {
+  fetchAllUsers: protectedProcedure.query(async ({ ctx }) => {
     const users = await ctx.db.query.users
       .findMany({
         columns: {

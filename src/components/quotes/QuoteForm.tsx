@@ -11,17 +11,27 @@ import { quoteSchema } from '@/validations/quotes/quoteSchema';
 
 function QuoteForm({
   users,
+  quote,
 }: {
   users: RouterOutput['users']['fetchAllUsers'];
+  quote?: RouterOutput['quotes']['getQuote'];
 }) {
   const t = useTranslations('quotes.form');
   const tNew = useTranslations('quotes.new');
+  const tUpdate = useTranslations('quotes.update');
   const router = useRouter();
   const formSchema = quoteSchema(useTranslations());
 
-  const createQuoteMutation = api.quotes.createQuote.useMutation({
+  const createQuote = api.quotes.createQuote.useMutation({
     onSuccess: () => {
-      toast.success(tNew('createQuoteSuccess'));
+      toast.success(tNew('success'));
+      router.push('/quotes');
+    },
+  });
+
+  const updateQuote = api.quotes.updateQuote.useMutation({
+    onSuccess: () => {
+      toast.success(tUpdate('success'));
       router.push('/quotes');
     },
   });
@@ -31,17 +41,26 @@ function QuoteForm({
       onChange: formSchema,
     },
     defaultValues: {
-      username: '',
-      contentNorwegian: '',
-      contentEnglish: '',
-      internal: false,
+      username:
+        (quote && `${quote.saidBy.firstName} ${quote.saidBy.lastName}`) ?? '',
+      contentNorwegian: quote?.contentNorwegian ?? '',
+      contentEnglish: quote?.contentEnglish ?? '',
+      internal: quote?.internal ?? false,
     },
     onSubmit: ({ value }) => {
       const user = users.find(
         (user) => `${user.firstName} ${user.lastName}` === value.username,
       );
 
-      createQuoteMutation.mutate({
+      if (quote) {
+        return updateQuote.mutate({
+          ...value,
+          userId: user?.id ?? 0,
+          quoteId: quote.id,
+        });
+      }
+
+      createQuote.mutate({
         ...value,
         userId: user?.id ?? 0,
       });
@@ -84,6 +103,11 @@ function QuoteForm({
               choices={userChoices}
               buttonClassName='w-64'
               contentClassName='w-64'
+              initialValue={
+                quote
+                  ? `${quote.saidBy.firstName} ${quote.saidBy.lastName}`
+                  : ''
+              }
             />
           )}
         </form.AppField>
@@ -111,8 +135,10 @@ function QuoteForm({
             />
           )}
         </form.AppField>
-        <form.SubmitButton loading={createQuoteMutation.isPending}>
-          {tNew('createQuote')}
+        <form.SubmitButton
+          loading={createQuote.isPending || updateQuote.isPending}
+        >
+          {quote ? tUpdate('updateQuote') : tNew('createQuote')}
         </form.SubmitButton>
       </form.AppForm>
     </form>

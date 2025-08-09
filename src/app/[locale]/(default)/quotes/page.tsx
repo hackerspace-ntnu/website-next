@@ -35,8 +35,8 @@ export default async function QuotesPage({
         )}
       </div>
       <div className='grid gap-6'>
-        {quotes.map(async (quote) => (
-          <QuoteCard key={quote.id} quote={quote} />
+        {quotes.map((quote) => (
+          <QuoteCard key={quote.id} currentUser={user} quote={quote} />
         ))}
       </div>
     </div>

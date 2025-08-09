@@ -33,7 +33,8 @@
     "cancel": "Avbryt",
     "save": "Lagre",
     "uploadText": "Slipp filer her eller klikk for å laste opp",
-    "noValidFiles": "Ingen gyldige filer ble sluppet"
+    "noValidFiles": "Ingen gyldige filer ble sluppet",
+    "noChoicesFound": "Ingen valg funnet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -675,8 +676,20 @@
     "new": {
       "title": "Nytt sitat",
       "createQuote": "Opprett sitat",
-      "createQuoteSuccess": "Sitat opprettet",
+      "success": "Sitat opprettet",
       "unauthorized": "Du har ikke rettigheter til å opprette nye sitater"
+    },
+    "update": {
+      "title": "Oppdater sitat",
+      "updateQuote": "Oppdater sitat",
+      "success": "Sitat oppdatert",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere sitater"
+    },
+    "delete": {
+      "title": "Er du sikker på at du vil slette dette sitatet?",
+      "description": "Denne handlingen kan ikke angres.",
+      "success": "Sitat slettet",
+      "unauthorized": "Du har ikke rettigheter til å slette sitater"
     },
     "form": {
       "userId": {
@@ -701,7 +714,8 @@
     "api": {
       "invalidId": "Ugyldig ID",
       "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
-      "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet"
+      "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
+      "quoteNotFound": "Sitat ikke funnet"
     }
   },
   "api": {

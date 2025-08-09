@@ -177,6 +177,10 @@ const routing = defineRouting({
       'en-GB': '/quotes/new',
       'nb-NO': '/sitater/ny',
     },
+    '/quotes/[quoteId]/edit': {
+      'en-GB': '/quotes/[quoteId]/edit',
+      'nb-NO': '/sitater/[quoteId]/rediger',
+    },
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',

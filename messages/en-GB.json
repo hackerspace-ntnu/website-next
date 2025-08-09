@@ -33,7 +33,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "uploadText": "Drop files here or click to upload",
-    "noValidFiles": "No valid files were dropped"
+    "noValidFiles": "No valid files were dropped",
+    "noChoicesFound": "No choices found"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -675,8 +676,20 @@
     "new": {
       "title": "New Quote",
       "createQuote": "Create quote",
-      "createQuoteSuccess": "Quote created",
+      "success": "Quote created",
       "unauthorized": "Unauthorized to create new quotes"
+    },
+    "update": {
+      "title": "Update Quote",
+      "updateQuote": "Update quote",
+      "success": "Quote updated",
+      "unauthorized": "Unauthorized to update quotes"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete this quote?",
+      "description": "This action cannot be undone.",
+      "success": "Quote deleted successfully",
+      "unauthorized": "Unauthorized to delete quotes"
     },
     "form": {
       "userId": {
@@ -701,7 +714,8 @@
     "api": {
       "invalidId": "Invalid ID",
       "failedToGetQuotes": "The server failed to get quotes",
-      "noUserWithUsername": "No user with provided username found"
+      "noUserWithUsername": "No user with provided username found",
+      "quoteNotFound": "Quote not found"
     }
   },
   "api": {

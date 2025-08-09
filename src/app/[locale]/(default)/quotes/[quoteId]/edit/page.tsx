@@ -1,4 +1,5 @@
 import { ArrowLeftIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
@@ -12,20 +13,28 @@ import { api } from '@/lib/api/server';
 export default async function NewQuotePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale; quoteId: string }>;
 }) {
-  const { locale } = await params;
+  const { locale, quoteId } = await params;
   setRequestLocale(locale);
 
   const { user } = await api.auth.state();
   const t = await getTranslations('quotes');
-  const tNew = await getTranslations('quotes.new');
+  const tUpdate = await getTranslations('quotes.update');
+
+  if (Number.isNaN(quoteId)) return notFound();
+
+  const quote = await api.quotes.getQuote(Number(quoteId));
+
+  if (!quote) return notFound();
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
+    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g)) &&
+    quote.saidBy.id !== user?.id &&
+    quote.heardBy.id !== user?.id
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(tNew('unauthorized'));
+    throw new Error(tUpdate('unauthorized'));
   }
 
   const { quotes, ui } = await getMessages();
@@ -42,11 +51,11 @@ export default async function NewQuotePage({
         <ArrowLeftIcon />
         <span>{t('backToQuotes')}</span>
       </Link>
-      <h1 className='text-center'>{tNew('title')}</h1>
+      <h1 className='text-center'>{tUpdate('title')}</h1>
       <NextIntlClientProvider
         messages={{ quotes, ui } as Pick<Messages, 'quotes' | 'ui'>}
       >
-        <QuoteForm users={users} />
+        <QuoteForm users={users} quote={quote} />
       </NextIntlClientProvider>
     </>
   );

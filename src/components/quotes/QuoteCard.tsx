@@ -1,19 +1,26 @@
+import { EditIcon } from 'lucide-react';
 import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
+import { DeleteQuoteButton } from '@/components/quotes/DeleteQuoteButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import type { RouterOutput } from '@/server/api';
 
 async function QuoteCard({
+  currentUser,
   quote,
 }: {
+  currentUser: RouterOutput['auth']['state']['user'];
   quote: RouterOutput['quotes']['getQuotes'][number];
 }) {
   const locale = await getLocale();
   const formatter = await getFormatter();
   const tLayout = await getTranslations('layout');
+  const tUi = await getTranslations('ui');
   const t = await getTranslations('quotes');
+
   const profileImageUrl = quote?.saidBy.profilePictureId
     ? await api.utils.getFileUrl({ fileId: quote.saidBy.profilePictureId })
     : null;
@@ -21,8 +28,14 @@ async function QuoteCard({
   const saidByName = `${quote.saidBy.firstName} ${quote.saidBy.lastName}`;
   const heardByName = `${quote.heardBy.firstName} ${quote.heardBy.lastName}`;
 
+  const canEdit =
+    quote.saidBy.id === currentUser?.id || quote.heardBy.id === currentUser?.id;
+  const isAdmin = currentUser?.groups.some((g) =>
+    ['labops', 'leadership', 'admin'].includes(g),
+  );
+
   return (
-    <Card key={`quote-${quote.id}`} className='overflow-hidden'>
+    <Card key={quote.id} className='overflow-hidden'>
       <CardHeader className='bg-muted/50 p-4'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -41,24 +54,50 @@ async function QuoteCard({
               <p className='font-medium'>{saidByName}</p>
             </div>
           </div>
-          <div className='flex flex-col gap-2'>
-            <Badge variant='outline'>
-              {formatter.dateTime(new Date(quote.createdAt))}
-            </Badge>
-            {quote.internal && (
-              <Badge className='justify-center rounded-full'>
-                {tLayout('internal')}
-              </Badge>
+          <div className='flex items-center gap-2'>
+            {(canEdit || isAdmin) && (
+              <>
+                <Link
+                  href={{
+                    pathname: '/quotes/[quoteId]/edit',
+                    params: { quoteId: quote.id },
+                  }}
+                  variant='default'
+                  size='sm-icon'
+                >
+                  <EditIcon />
+                </Link>
+                <DeleteQuoteButton
+                  quote={quote}
+                  t={{
+                    title: t('delete.title'),
+                    description: t('delete.description'),
+                    cancel: tUi('cancel'),
+                    confirm: tUi('confirm'),
+                    success: t('delete.success'),
+                  }}
+                />
+              </>
             )}
+            <div className='flex flex-col gap-2'>
+              <Badge variant='outline'>
+                {formatter.dateTime(new Date(quote.createdAt))}
+              </Badge>
+              {quote.internal && (
+                <Badge className='justify-center rounded-full'>
+                  {tLayout('internal')}
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
       </CardHeader>
-      <CardContent className='pt-4'>
+      <CardContent className='flex flex-col gap-4 p-6'>
         <blockquote className='border-primary/30 border-l-4 pl-4 text-lg italic'>
           {locale === 'en-GB' ? quote.contentEnglish : quote.contentNorwegian}
         </blockquote>
         {heardByName !== saidByName && (
-          <span className='mt-4 text-muted-foreground'>
+          <span className='text-muted-foreground'>
             {t('heardByUser', { user: heardByName })}
           </span>
         )}

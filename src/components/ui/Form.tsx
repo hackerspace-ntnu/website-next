@@ -458,11 +458,7 @@ function SelectField({
 
 type ComboboxFieldProps = Omit<
   React.ComponentProps<typeof Combobox>,
-  | 'defaultDescription'
-  | 'defaultPlaceholder'
-  | 'valueCallback'
-  | 'ariaLabel'
-  | 'initialValue'
+  'defaultDescription' | 'defaultPlaceholder' | 'valueCallback'
 > & {
   label: string;
   labelVisible?: boolean;
@@ -496,7 +492,7 @@ function ComboboxField({
       <Combobox
         defaultDescription={comboboxDescription}
         defaultPlaceholder={placeholder}
-        valueCallback={(value) => value && field.handleChange(value)}
+        valueCallback={field.handleChange}
         {...props}
       />
     </BaseField>
