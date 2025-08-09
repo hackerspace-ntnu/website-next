@@ -165,6 +165,10 @@ const routing = defineRouting({
       'en-GB': '/rules/[subsetId]',
       'nb-NO': '/regler/[subsetId]',
     },
+    '/rules/new': {
+      'en-GB': '/rules/new',
+      'nb-NO': '/regler/ny',
+    },
     '/shift-schedule': {
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',

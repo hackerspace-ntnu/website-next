@@ -591,7 +591,60 @@
   "rules": {
     "title": "Regler",
     "public": "Offentlig",
-    "internal": "Interne regler"
+    "internal": "Interne regler",
+    "backToRules": "Tilbake til regler",
+    "new": {
+      "title": "Ny regel",
+      "createRule": "Opprett regel",
+      "ruleCreated": "Regel opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette regler"
+    },
+    "update": {
+      "updateRule": "Oppdater regel",
+      "deleteRule": "Slett regel",
+      "deleteRuleTitle": "Er du sikker på at du vil slette denne regelen?",
+      "deleteRuleDescription": "Regelen vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "deleteRuleImage": "Slett regelbilde",
+      "deleteRuleImageTitle": "Er du sikker på at du vil slette dette regelbildet?",
+      "deleteRuleImageDescription": "Regelbildet vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "ruleUpdated": "Regel oppdatert",
+      "ruleDeleted": "Regel slettet",
+      "imageDeleted": "Regelbilde slettet"
+    },
+    "form": {
+      "image": {
+        "label": "Regelbilde",
+        "description": "Last opp et bilde...",
+        "sizeLimitError": "Regelbildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Regelbildet må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelNorwegian": "Navn (norsk)",
+        "labelEnglish": "Navn (engelsk)",
+        "placeholderNorwegian": "Regler for verkstedet",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "Navn er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Regelinnhold (norsk)",
+        "labelEnglish": "Regelinnhold (engelsk)",
+        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
+        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
+        "required": "Regelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern regel",
+        "description": "Hvis valgt, vil denne regelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidRuleId": "Ugyldig regel-ID",
+      "fetchRulesFailed": "Kunne ikke hente regler",
+      "ruleWithNameExists": "En regel med navnet {name} eksisterer allerede",
+      "ruleNotFound": "Regel ikke funnet",
+      "insertFailed": "Kunne ikke legge til regel"
+    }
   },
   "skills": {
     "skills": "Ferdigheter",
