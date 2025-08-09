@@ -26,6 +26,8 @@ jobs:
   script:
     name: Script
     runs-on: self-hosted
+    permissions:
+      contents: read
     environment: ${{ inputs.environment }}
     steps:
       - uses: appleboy/ssh-action@v1.0.3
