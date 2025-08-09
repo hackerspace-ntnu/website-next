@@ -590,7 +590,7 @@
   },
   "rules": {
     "title": "Regler",
-    "forEveryone": "For alle",
+    "public": "Offentlig",
     "internal": "Interne regler"
   },
   "skills": {

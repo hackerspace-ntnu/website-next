@@ -4,6 +4,7 @@ export * from './groups';
 export * from './loans';
 export * from './locales';
 export * from './office';
+export * from './rules';
 export * from './sessions';
 export * from './shifts';
 export * from './skills';

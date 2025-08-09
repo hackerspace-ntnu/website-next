@@ -590,8 +590,34 @@
   },
   "rules": {
     "title": "Rules",
-    "forEveryone": "For everyone",
-    "internal": "Internal rules"
+    "public": "Public",
+    "internal": "Internal rules",
+    "backToRules": "Back to Rules",
+    "form": {
+      "image": {
+        "label": "Rule image",
+        "sizeLimitError": "Rule image must be less than {size} MB",
+        "wrongFileTypeError": "Rule image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Rule name (Norwegian)",
+        "labelEnglish": "Rule name (English)",
+        "required": "Rule name is required"
+      },
+      "content": {
+        "labelNorwegian": "Rule content (Norwegian)",
+        "labelEnglish": "Rule content (English)",
+        "required": "Rule content is required"
+      }
+    },
+    "api": {
+      "invalidRuleId": "Invalid rule ID",
+      "fetchRulesFailed": "Failed to fetch rules",
+      "ruleWithNameExists": "A rule with the name {name} already exists",
+      "ruleNotFound": "Rule not found",
+      "insertFailed": "Failed to add rule"
+    }
   },
   "skills": {
     "skills": "Skills",
