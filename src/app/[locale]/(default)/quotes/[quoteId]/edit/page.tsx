@@ -10,6 +10,14 @@ import { QuoteForm } from '@/components/quotes/QuoteForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
+export async function generateMetadata() {
+  const t = await getTranslations('quotes.update');
+
+  return {
+    title: t('title'),
+  };
+}
+
 export default async function NewQuotePage({
   params,
 }: {
