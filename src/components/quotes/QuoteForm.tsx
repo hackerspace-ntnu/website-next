@@ -1,22 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-
-import { Button } from '@/components/ui/Button';
-import {
-  Form,
-  FormControl,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  useForm,
-} from '@/components/ui/Form';
-import { Input } from '@/components/ui/Input';
-import { Spinner } from '@/components/ui/Spinner';
+import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
-import { useRouter } from '@/lib/locale/navigation';
-
 import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
 import { quoteSchema } from '@/validations/quotes/quoteSchema';
 
 function QuoteForm() {
@@ -31,7 +19,10 @@ function QuoteForm() {
     },
   });
 
-  const form = useForm(formSchema, {
+  const form = useAppForm({
+    validators: {
+      onChange: formSchema,
+    },
     defaultValues: {
       content: '',
       username: '',
@@ -42,56 +33,36 @@ function QuoteForm() {
   });
 
   return (
-    <Form onSubmit={form.handleSubmit} className='space-y-8'>
-      <form.Field name='username'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('form.username.label')}</FormLabel>
-            <FormControl>
-              <Input
-                max={8}
-                placeholder='jimmy'
-                onChange={(event) => field.handleChange(event.target.value)}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Field name='content'>
-        {(field) => (
-          <FormItem errors={field.state.meta.errors}>
-            <FormLabel>{t('form.content.label')}</FormLabel>
-            <FormControl>
-              <Input
-                placeholder={t('form.content.placeholder')}
-                onChange={(event) => field.handleChange(event.target.value)}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      </form.Field>
-      <form.Subscribe selector={(state) => [state.canSubmit, state.isPristine]}>
-        {([canSubmit, isPristine]) => (
-          <Button
-            className='min-w-40'
-            type='submit'
-            disabled={!canSubmit || isPristine || createQuoteMutation.isPending}
-          >
-            {createQuoteMutation.isPending ? (
-              <Spinner className='text-primary-foreground' />
-            ) : (
-              t('createQuote')
-            )}
-          </Button>
-        )}
-      </form.Subscribe>
-    </Form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className='space-y-8'
+    >
+      <form.AppForm>
+        <form.AppField name='username'>
+          {(field) => (
+            <field.TextField
+              label={t('form.username.label')}
+              placeholder='jimmy'
+              max={8}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='content'>
+          {(field) => (
+            <field.TextField
+              label={t('form.content.label')}
+              placeholder={t('form.content.placeholder')}
+            />
+          )}
+        </form.AppField>
+        <form.SubmitButton loading={createQuoteMutation.isPending}>
+          {t('createQuote')}
+        </form.SubmitButton>
+      </form.AppForm>
+    </form>
   );
 }
 

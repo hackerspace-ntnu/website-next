@@ -1,17 +1,19 @@
+import { format } from 'date-fns';
+import type { Locale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { api } from '@/lib/api/server';
-import { format } from 'date-fns';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function QuotesPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const quotes = await api.quotes.getQuotes();
 
   return (

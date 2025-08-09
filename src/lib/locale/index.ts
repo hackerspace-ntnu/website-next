@@ -170,12 +170,16 @@ const routing = defineRouting({
       'nb-NO': '/vaktliste',
     },
     '/quotes': {
-      en: '/quotes',
-      no: '/sitater',
+      'en-GB': '/quotes',
+      'nb-NO': '/sitater',
     },
     '/quotes/new': {
-      en: '/quotes/new',
-      no: '/sitater/ny',
+      'en-GB': '/quotes/new',
+      'nb-NO': '/sitater/ny',
+    },
+    '/privacy-policy': {
+      'en-GB': '/privacy-policy',
+      'nb-NO': '/personvern',
     },
   },
 });

@@ -13,15 +13,15 @@ import { usersRouter } from '@/server/api/routers/users';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
-  test: testRouter,
   auth: authRouter,
   groups: groupsRouter,
-  storage: storageRouter,
-  shiftSchedule: shiftScheduleRouter,
+  quotes: quotesRouter,
   settings: settingsRouter,
+  shiftSchedule: shiftScheduleRouter,
+  storage: storageRouter,
+  test: testRouter,
   users: usersRouter,
   utils: utilsRouter,
-  quotes: quotesRouter,
 });
 
 const createCaller = createCallerFactory(router);
