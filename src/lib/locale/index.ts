@@ -169,6 +169,10 @@ const routing = defineRouting({
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/applications/apply': {
+      'en-GB': '/applications/apply',
+      'nb-NO': '/opptak/sok',
+    },
   },
 });
 

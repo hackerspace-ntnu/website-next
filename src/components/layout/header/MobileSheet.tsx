@@ -27,6 +27,7 @@ type MobileSheetProps = {
     news: string;
     events: string;
     about: string;
+    applyNow: string;
     storage: string;
     shiftSchedule: string;
     members: string;
@@ -82,6 +83,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
             news: t.news,
             events: t.events,
             about: t.about,
+            applyNow: t.applyNow,
           }}
         />
         <Separator />

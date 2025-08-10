@@ -117,6 +117,7 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
+    "applyNow": "Apply now!",
     "shiftSchedule": "Shift Schedule",
     "members": "Members",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
@@ -603,6 +604,68 @@
     "workshop": "Workshop Tools",
     "microcontroller": "Microcontroller Programming",
     "webdevelopment": "Web Development"
+  },
+  "applications": {
+    "apply": {
+      "title": "Apply to Hackerspace NTNU",
+      "pageDescription": "Thank you very much for your interest in joining us! You're in for a great amount of fun, learning and growth. Please fill out the form below to apply, and we'll take contact you as soon as possible (but no later than two weeks).",
+      "dataNote": "Note: All your data will be deleted as soon as the application process is completed.",
+      "sendApplication": "Send application",
+      "applicationSubmitted": "Your application has been submitted successfully!",
+      "noGroupsAvailable": "We are sorry, but all Hackerspace groups are full at the moment. Please try again later, send us a message or ask a member at our workshop.",
+      "name": {
+        "label": "Full name",
+        "required": "Name is required"
+      },
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Invalid email address"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "required": "Phone number is required"
+      },
+      "studyProgram": {
+        "label": "Study program",
+        "description": "E.g. Computer Science, Applied Physics and Mathematics or Cybernetics and Robotics",
+        "required": "Study program is required"
+      },
+      "studyYear": {
+        "label": "Study year",
+        "required": "Study year is required",
+        "invalidYear": "Invalid study year"
+      },
+      "learnedAboutUsHow": {
+        "label": "How did you learn about Hackerspace?",
+        "required": "This field is required"
+      },
+      "about": {
+        "label": "A little bit about you",
+        "description": "We'd love to know more about you! How would you describe yourself? What do you like doing in your free time? How would others describe you? Etc.",
+        "required": "This field is required"
+      },
+      "motivation": {
+        "label": "Why are you applying to Hackerspace?",
+        "description": "You may describe what you'd like to do in the group, or describe your motivation for joining.",
+        "required": "This field is required"
+      },
+      "groupIdentifier": {
+        "label": "Group",
+        "description": "If there are multiple groups that interest you, please pick your first priority. You can specify other groups you'd like to join in \"Other projects\" below - in case the group you picked is full.",
+        "required": "Group is required"
+      },
+      "otherProjects": {
+        "label": "Are there any other projects you might be interested in?",
+        "description": "Let us know if there are any other projects you might be interested in. Any Hackerspace member can start a new project!",
+        "required": "This field is required"
+      }
+    },
+    "api": {
+      "fetchGroupFailed": "Failed to retrieve group",
+      "groupNotFound": "Group not found",
+      "insertAppFailed": "Failed to submit application"
+    }
   },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",

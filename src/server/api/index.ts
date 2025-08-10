@@ -8,11 +8,13 @@ import {
   testRouter,
   utilsRouter,
 } from '@/server/api/routers';
+import { applicationsRouter } from '@/server/api/routers/applications';
 import { usersRouter } from '@/server/api/routers/users';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
   test: testRouter,
+  applications: applicationsRouter,
   auth: authRouter,
   groups: groupsRouter,
   storage: storageRouter,

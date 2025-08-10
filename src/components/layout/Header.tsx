@@ -29,6 +29,7 @@ async function Header() {
             news: t('news'),
             events: t('events'),
             about: t('about'),
+            applyNow: t('applyNow'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
@@ -57,6 +58,7 @@ async function Header() {
               news: t('news'),
               events: t('events'),
               about: t('about'),
+              applyNow: t('applyNow'),
             }}
           />
           <DesktopNavMenu

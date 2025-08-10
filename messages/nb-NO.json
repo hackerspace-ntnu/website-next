@@ -117,6 +117,7 @@
     "events": "Arrangementer",
     "storage": "Lager",
     "about": "Om oss",
+    "applyNow": "Søk nå!",
     "shiftSchedule": "Vaktliste",
     "members": "Medlemmer",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
@@ -603,6 +604,68 @@
     "workshop": "Verkstedsverktøy",
     "microcontroller": "Mikrokontroller-programmering",
     "webdevelopment": "Webutvikling"
+  },
+  "applications": {
+    "apply": {
+      "title": "Søk Hackerspace NTNU",
+      "pageDescription": "Takk for din interesse for å bli med oss! Du kan forvente mye moro, læring og utvikling. Vennligst fyll ut skjemaet nedenfor for å søke, så tar vi kontakt med deg så snart som mulig (men senest innen to uker).",
+      "dataNote": "Merk: Alle dataene dine vil bli slettet så snart søknadsprosessen er fullført.",
+      "sendApplication": "Send søknad",
+      "applicationSubmitted": "Søknaden din har blitt sendt inn!",
+      "noGroupsAvailable": "Vi beklager, men alle Hackerspace-grupper er fulle for øyeblikket. Vennligst prøv igjen senere, send oss en melding eller spør et medlem på verkstedet vårt.",
+      "name": {
+        "label": "Fullt navn",
+        "required": "Navn er påkrevd"
+      },
+      "email": {
+        "label": "E-post",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresse"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "required": "Telefonnummer er påkrevd"
+      },
+      "studyProgram": {
+        "label": "Studieprogram",
+        "description": "F.eks. datateknologi, fysikk og matematikk eller kybernetikk og robotikk",
+        "required": "Studieprogram er påkrevd"
+      },
+      "studyYear": {
+        "label": "Studieår",
+        "required": "Studieår er påkrevd",
+        "invalidYear": "Ugyldig studieår"
+      },
+      "learnedAboutUsHow": {
+        "label": "Hvordan fikk du vite om Hackerspace?",
+        "required": "Dette feltet er påkrevd"
+      },
+      "about": {
+        "label": "Litt om deg",
+        "description": "Vi vil gjerne vite mer om deg! Hvordan vil du beskrive deg selv? Hva liker du å gjøre på fritiden? Hvordan ville andre beskrive deg? Osv.",
+        "required": "Dette feltet er påkrevd"
+      },
+      "motivation": {
+        "label": "Hvorfor søker du til Hackerspace?",
+        "description": "Du kan beskrive hva du ønsker å gjøre i gruppen, eller beskrive motivasjonen din for å bli med.",
+        "required": "Dette feltet er påkrevd"
+      },
+      "groupIdentifier": {
+        "label": "Gruppe",
+        "description": "Hvis det er flere grupper som interesserer deg, vennligst velg din førsteprioritet. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
+        "required": "Gruppe er påkrevd"
+      },
+      "otherProjects": {
+        "label": "Er det noen andre prosjekter du kan være interessert i?",
+        "description": "Gi oss beskjed hvis det er noen andre prosjekter du kan være interessert i. Alle Hackerspace-medlemmer kan starte et nytt prosjekt!",
+        "required": "Dette feltet er påkrevd"
+      }
+    },
+    "api": {
+      "fetchGroupFailed": "Kunne ikke hente gruppe",
+      "groupNotFound": "Gruppe ikke funnet",
+      "insertAppFailed": "Kunne ikke sende inn søknad"
+    }
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
