@@ -182,6 +182,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .returning({ id: groups.id });
 
@@ -249,6 +250,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 

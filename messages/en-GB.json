@@ -356,6 +356,10 @@
       "internal": {
         "label": "Internal group",
         "description": "If selected, this group will only be visible to Hackerspace members."
+      },
+      "openForApplications": {
+        "label": "Open for applications",
+        "description": "If selected, anyone will be able to send an application to join this group."
       }
     },
     "api": {

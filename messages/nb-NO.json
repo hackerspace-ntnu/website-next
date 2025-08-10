@@ -356,6 +356,10 @@
       "internal": {
         "label": "Intern gruppe",
         "description": "Hvis valgt, vil denne gruppen kun være synlig for Hackerspace-medlemmer."
+      },
+      "openForApplications": {
+        "label": "Åpen for søknader",
+        "description": "Hvis valgt, vil alle kunne sende en søknad om å bli med i denne gruppen."
       }
     },
     "api": {
