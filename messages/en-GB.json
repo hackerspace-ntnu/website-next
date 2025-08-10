@@ -157,6 +157,7 @@
     "title": "News",
     "internalArticle": "This is an internal article",
     "newArticle": "New article",
+    "editArticle": "Edit article",
     "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
     "views": "Views",
     "backToNews": "Back to news",

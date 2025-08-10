@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from 'lucide-react';
+import { ArrowLeftIcon, SquarePenIcon } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
@@ -50,6 +50,8 @@ export default async function ArticlePage({
     locale === 'en-GB' ? article.contentEnglish : article.contentNorwegian,
   );
 
+  const { user } = await api.auth.state();
+
   const title =
     locale === 'en-GB' ? article.titleEnglish : article.titleNorwegian;
   const authorName = `${article.author?.firstName} ${article.author?.lastName}`;
@@ -89,7 +91,22 @@ export default async function ArticlePage({
             </div>
           )}
         </div>
-        <h2 className='my-4'>{title}</h2>
+        <div className='my-4 flex justify-between'>
+          <h2>{title}</h2>
+          {user?.groups && user.groups.length > 0 && (
+            <Link
+              variant='default'
+              size='sm'
+              href={{
+                pathname: '/news/[articleId]/edit',
+                params: { articleId },
+              }}
+            >
+              <SquarePenIcon className='mr-2 h-4 w-4' />
+              {t('editArticle')}
+            </Link>
+          )}
+        </div>
       </header>
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
