@@ -653,7 +653,7 @@
       },
       "groupIdentifier": {
         "label": "Group",
-        "description": "If there are multiple groups that interest you, please pick your first priority. You can specify other groups you'd like to join in \"Other projects\" below - in case the group you picked is full.",
+        "description": "If there are multiple groups that interest you, please pick your top choice. You can specify other groups you'd like to join in \"Other projects\" below - in case the group you picked is full.",
         "required": "Group is required"
       },
       "otherProjects": {
@@ -673,12 +673,20 @@
       "noPending": "No pending applications ✅",
       "noPendingDescription": "Note: There may be pending applications that you do not have access to view.",
       "backToHome": "Back to home",
-      "submittedBy": "Submitted by: {name}"
+      "backToApplications": "Back to applications",
+      "submittedBy": "Submitted by: {name}",
+      "submittedAt": "Submitted: {date}",
+      "userInfo": "User Information",
+      "email": "Email: <link>{email}</link>",
+      "phoneNumber": "Phone number: <link>{phone}</link>",
+      "studyProgram": "Study program: {program}",
+      "studyYear": "Study year: {year}"
     },
     "api": {
       "fetchGroupFailed": "Failed to retrieve group",
       "groupNotFound": "Group not found",
-      "insertAppFailed": "Failed to submit application"
+      "insertAppFailed": "Failed to submit application",
+      "invalidId": "Invalid ID"
     }
   },
   "api": {

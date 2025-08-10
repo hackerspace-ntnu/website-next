@@ -13,12 +13,12 @@ const applications = pgTable('applications', {
   phoneNumber: text('phone_number').notNull(),
   studyProgram: text('study_program').notNull(),
   studyYear: integer('study_year').notNull(),
-  learnedAboutUsHow: text('learned_about_us_how').notNull(),
-  about: text('about').notNull(),
-  motivation: text('motivation').notNull(),
   groupId: integer('group_id')
     .references(() => groups.id)
     .notNull(),
+  learnedAboutUsHow: text('learned_about_us_how').notNull(),
+  about: text('about').notNull(),
+  motivation: text('motivation').notNull(),
   otherProjects: text('other_projects').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

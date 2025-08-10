@@ -68,6 +68,7 @@ async function Header() {
             }}
           />
           <DesktopNavMenu
+            viewApplications={viewApplications}
             t={{
               open: t('desktopNavMenu', { open: 'true' }),
               close: t('desktopNavMenu', { open: 'false' }),

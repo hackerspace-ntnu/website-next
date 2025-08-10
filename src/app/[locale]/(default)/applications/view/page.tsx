@@ -59,7 +59,7 @@ export default async function ApplicationsViewPage({
           </p>
         </>
       )}
-      <div className='grid md:grid-cols-2'>
+      <div className='grid gap-4 md:grid-cols-2'>
         {applications.map((application) => (
           <Link
             key={application.id}

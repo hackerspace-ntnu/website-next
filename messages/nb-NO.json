@@ -653,7 +653,7 @@
       },
       "groupIdentifier": {
         "label": "Gruppe",
-        "description": "Hvis det er flere grupper som interesserer deg, vennligst velg din førsteprioritet. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
+        "description": "Hvis det er flere grupper som interesserer deg, vennligst legg inn ditt førstevalg. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
         "required": "Gruppe er påkrevd"
       },
       "otherProjects": {
@@ -673,12 +673,20 @@
       "noPending": "Ingen ventende søknader ✅",
       "noPendingDescription": "Merk: Det kan være ventende søknader som du ikke har tilgang til å se.",
       "backToHome": "Tilbake til hjem",
-      "submittedBy": "Innsendt av: {name}"
+      "backToApplications": "Tilbake til søknader",
+      "submittedBy": "Sendt inn av: {name}",
+      "submittedAt": "Innsendt: {date}",
+      "userInfo": "Brukerinformasjon",
+      "email": "E-post: <link>{email}</link>",
+      "phoneNumber": "Telefonnummer: <link>{phone}</link>",
+      "studyProgram": "Studieprogram: {program}",
+      "studyYear": "Studieår: {year}"
     },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",
       "groupNotFound": "Gruppe ikke funnet",
-      "insertAppFailed": "Kunne ikke sende inn søknad"
+      "insertAppFailed": "Kunne ikke sende inn søknad",
+      "invalidId": "Ugyldig ID"
     }
   },
   "api": {

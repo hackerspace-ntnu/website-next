@@ -94,6 +94,15 @@ function ApplyForm({
             />
           )}
         </form.AppField>
+        <form.AppField name='groupIdentifier'>
+          {(field) => (
+            <field.SelectField
+              label={t('groupIdentifier.label')}
+              description={t('groupIdentifier.description')}
+              options={groups}
+            />
+          )}
+        </form.AppField>
         <form.AppField name='learnedAboutUsHow'>
           {(field) => <field.TextField label={t('learnedAboutUsHow.label')} />}
         </form.AppField>
@@ -110,15 +119,6 @@ function ApplyForm({
             <field.TextAreaField
               label={t('motivation.label')}
               description={t('motivation.description')}
-            />
-          )}
-        </form.AppField>
-        <form.AppField name='groupIdentifier'>
-          {(field) => (
-            <field.SelectField
-              label={t('groupIdentifier.label')}
-              description={t('groupIdentifier.description')}
-              options={groups}
             />
           )}
         </form.AppField>
