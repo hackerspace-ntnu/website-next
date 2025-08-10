@@ -1,27 +1,26 @@
+import { getLocale } from 'next-intl/server';
 import { ArticleItem } from '@/components/news/ArticleItem';
-import { articleMockData as articleData } from '@/mock-data/article';
+import type { RouterOutput } from '@/server/api';
 
 type ItemGridProps = {
-  page: number;
+  articles: RouterOutput['news']['fetchNewsArticles'];
 };
 
-async function ItemGrid({ page }: ItemGridProps) {
-  const itemsDisplayedAsCards = 4;
-  const itemsPerPage = 6;
+async function ItemGrid({ articles }: ItemGridProps) {
+  const locale = await getLocale();
 
-  const start = (page - 1) * itemsPerPage + itemsDisplayedAsCards;
-  const end = start + itemsPerPage;
-  const currentData = articleData.slice(start, end);
   return (
     <div className='grid min-h-[752px] grid-cols-1 gap-4 sm:min-h-[368px] sm:grid-cols-2 lg:min-h-[240px] lg:grid-cols-3'>
-      {currentData.map((data) => (
+      {articles.map((article) => (
         <ArticleItem
-          key={data.id}
-          id={data.id}
-          internal={data.internal}
-          title={data.title}
-          date={data.date}
-          photoUrl={data.photoUrl}
+          key={article.id}
+          id={article.id}
+          internal={article.internal}
+          title={
+            locale === 'en-GB' ? article.titleEnglish : article.titleNorwegian
+          }
+          date={article.createdAt}
+          imageId={article.imageId}
         />
       ))}
     </div>
