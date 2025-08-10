@@ -91,7 +91,7 @@ export default async function ArticlePage({
             </div>
           )}
         </div>
-        <div className='my-4 flex justify-between'>
+        <div className='my-4 flex flex-col items-center justify-between gap-4 md:flex-row'>
           <h2>{title}</h2>
           {user?.groups && user.groups.length > 0 && (
             <Link
