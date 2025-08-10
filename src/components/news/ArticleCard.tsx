@@ -40,7 +40,7 @@ async function ArticleCard({
         params: { articleId: id },
       }}
     >
-      <Card className='relative flex h-full min-h-32 w-full items-center justify-center overflow-hidden'>
+      <Card className='relative flex h-full min-h-32 w-full overflow-hidden'>
         <InternalBadge internal={internal} />
         {imageUrl ? (
           <Image
