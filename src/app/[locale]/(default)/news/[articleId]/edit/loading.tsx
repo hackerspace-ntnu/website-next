@@ -16,7 +16,7 @@ export default async function EditArticleLoading() {
           <ArrowLeftIcon />
           <span className='hidden md:inline'>{t('backToArticle')}</span>
         </Button>
-        <h1>{t('editArticle')}</h1>
+        <h1>{t('updateArticle')}</h1>
       </div>
       <div className='mx-auto lg:max-w-2xl'>
         <ArticleFormSkeleton />

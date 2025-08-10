@@ -103,7 +103,7 @@ export default async function ArticlePage({
               }}
             >
               <SquarePenIcon className='mr-2 h-4 w-4' />
-              {t('editArticle')}
+              {t('updateArticle')}
             </Link>
           )}
         </div>

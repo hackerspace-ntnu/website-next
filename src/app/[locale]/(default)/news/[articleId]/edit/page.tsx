@@ -14,7 +14,7 @@ export async function generateMetadata() {
   const t = await getTranslations('news');
 
   return {
-    title: `${t('editArticle')}`,
+    title: `${t('updateArticle')}`,
   };
 }
 
@@ -36,7 +36,7 @@ export default async function EditArticlePage({
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('editArticlesUnauthorized'));
+    throw new Error(t('updateArticlesUnauthorized'));
   }
 
   const article = await api.news.fetchArticle(Number(articleId));
@@ -55,7 +55,7 @@ export default async function EditArticlePage({
           <ArrowLeftIcon />
           <span className='hidden md:inline'>{t('backToArticle')}</span>
         </Link>
-        <h1>{t('editArticle')}</h1>
+        <h1>{t('updateArticle')}</h1>
       </div>
       <NextIntlClientProvider
         messages={
