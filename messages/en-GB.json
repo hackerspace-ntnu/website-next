@@ -123,6 +123,7 @@
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
+    "applications": "Applications",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -663,8 +664,16 @@
     },
     "thankYou": {
       "title": "Thank you",
-      "description1": "Thank you for applying to Hackerspace NTNU!",
-      "description2": "We appreciate your interest and will get back to you soon."
+      "description1": "We appreciate your interest in Hackerspace NTNU!",
+      "description2": "We will take a look at your application and get back to you soon."
+    },
+    "view": {
+      "title": "Applications",
+      "application": "Application",
+      "noPending": "No pending applications ✅",
+      "noPendingDescription": "Note: There may be pending applications that you do not have access to view.",
+      "backToHome": "Back to home",
+      "submittedBy": "Submitted by: {name}"
     },
     "api": {
       "fetchGroupFailed": "Failed to retrieve group",

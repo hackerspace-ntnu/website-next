@@ -177,6 +177,14 @@ const routing = defineRouting({
       'en-GB': '/applications/thank-you',
       'nb-NO': '/opptak/takk',
     },
+    '/applications/view': {
+      'en-GB': '/applications/view',
+      'nb-NO': '/opptak/vis',
+    },
+    '/applications/view/[appId]': {
+      'en-GB': '/applications/view/[appId]',
+      'nb-NO': '/opptak/vis/[appId]',
+    },
   },
 });
 

@@ -1,9 +1,9 @@
 import { TRPCError } from '@trpc/server';
-import { eq } from 'drizzle-orm';
+import { eq, inArray, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { publicProcedure } from '@/server/api/procedures';
+import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { applications, groups } from '@/server/db/tables';
+import { applications, groupLocalizations, groups } from '@/server/db/tables';
 import { sendAppSchema } from '@/validations/applications/sendAppSchema';
 
 const applicationsRouter = createRouter({
@@ -40,6 +40,47 @@ const applicationsRouter = createRouter({
           });
         });
     }),
+  fetchApplications: protectedProcedure.query(async ({ ctx }) => {
+    const canView = ctx.user.groups.some((g) =>
+      ['admin', 'management', 'leadership'].includes(g),
+    );
+
+    if (!canView) return null;
+
+    const canViewAll =
+      ctx.user.groups.includes('admin') ||
+      ctx.user.groups.includes('leadership');
+
+    let where: SQL | undefined;
+
+    // If the user is not an admin or a part of leadership,
+    // they should only see applications that went to
+    // their own group (e.g. DevOps or LabOps)
+    if (!canViewAll) {
+      const normalGroups = ctx.user.groups.filter(
+        (g) => !['admin', 'management', 'leadership'].includes(g),
+      );
+      const normalGroupIds = ctx.db
+        .select({ id: groups.id })
+        .from(groups)
+        .where(inArray(groups.identifier, normalGroups));
+
+      where = inArray(applications.groupId, normalGroupIds);
+    }
+
+    return await ctx.db.query.applications.findMany({
+      where,
+      with: {
+        group: {
+          with: {
+            localizations: {
+              where: eq(groupLocalizations.locale, ctx.locale),
+            },
+          },
+        },
+      },
+    });
+  }),
 });
 
 export { applicationsRouter };

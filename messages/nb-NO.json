@@ -123,6 +123,7 @@
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
+    "applications": "Søknader",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -663,8 +664,16 @@
     },
     "thankYou": {
       "title": "Takk",
-      "description1": "Takk for at du søkte Hackerspace NTNU!",
-      "description2": "Vi setter pris på interessen din og vil kontakte deg snart."
+      "description1": "Vi setter pris på interessen din for Hackerspace NTNU!",
+      "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart."
+    },
+    "view": {
+      "title": "Søknader",
+      "application": "Søknad",
+      "noPending": "Ingen ventende søknader ✅",
+      "noPendingDescription": "Merk: Det kan være ventende søknader som du ikke har tilgang til å se.",
+      "backToHome": "Tilbake til hjem",
+      "submittedBy": "Innsendt av: {name}"
     },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",

@@ -1,5 +1,9 @@
-import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import { integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import {
+  type InferInsertModel,
+  type InferSelectModel,
+  relations,
+} from 'drizzle-orm';
+import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 import { groups } from '@/server/db/tables/groups';
 
 const applications = pgTable('applications', {
@@ -16,9 +20,22 @@ const applications = pgTable('applications', {
     .references(() => groups.id)
     .notNull(),
   otherProjects: text('other_projects').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
+
+const applicationsRelations = relations(applications, ({ one }) => ({
+  group: one(groups, {
+    fields: [applications.groupId],
+    references: [groups.id],
+  }),
+}));
 
 type SelectApplication = InferSelectModel<typeof applications>;
 type InsertApplication = InferInsertModel<typeof applications>;
 
-export { applications, type SelectApplication, type InsertApplication };
+export {
+  applications,
+  applicationsRelations,
+  type SelectApplication,
+  type InsertApplication,
+};
