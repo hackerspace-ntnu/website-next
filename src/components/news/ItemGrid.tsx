@@ -3,7 +3,7 @@ import { ArticleItem } from '@/components/news/ArticleItem';
 import type { RouterOutput } from '@/server/api';
 
 type ItemGridProps = {
-  articles: RouterOutput['news']['fetchNewsArticles'];
+  articles: RouterOutput['news']['fetchArticles'];
 };
 
 async function ItemGrid({ articles }: ItemGridProps) {

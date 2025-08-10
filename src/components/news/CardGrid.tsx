@@ -4,7 +4,7 @@ import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
 
 type CardGridProps = {
-  topArticles: RouterOutput['news']['fetchNewsArticles'];
+  topArticles: RouterOutput['news']['fetchArticles'];
 };
 
 async function CardGrid({ topArticles }: CardGridProps) {

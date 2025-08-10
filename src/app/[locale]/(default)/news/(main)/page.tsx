@@ -40,7 +40,7 @@ export default async function NewsPage({
 
   const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
 
-  const articles = await api.news.fetchNewsArticles({
+  const articles = await api.news.fetchArticles({
     limit: TOP_ARTICLES + GRID_ARTICLES,
     offset: (page - 1) * (TOP_ARTICLES + GRID_ARTICLES),
   });

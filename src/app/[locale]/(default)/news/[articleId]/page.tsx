@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; articleId: string }>;
 }) {
   const { locale, articleId } = await params;
-  const article = await api.news.fetchNewsArticle(Number(articleId));
+  const article = await api.news.fetchArticle(Number(articleId));
 
   return {
     title: locale === 'en-GB' ? article?.titleEnglish : article?.titleNorwegian,
@@ -40,7 +40,7 @@ export default async function ArticlePage({
 
   const t = await getTranslations('news');
   const formatter = await getFormatter();
-  const article = await api.news.fetchNewsArticle(Number(articleId));
+  const article = await api.news.fetchArticle(Number(articleId));
 
   if (!article) {
     return notFound();
