@@ -127,6 +127,49 @@ const applicationsRouter = createRouter({
         },
       });
     }),
+  deleteApplication: protectedProcedure
+    .input((input) =>
+      fetchApplicationSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      const canView = ctx.user.groups.some((g) =>
+        ['admin', 'management', 'leadership'].includes(g),
+      );
+
+      if (!canView) return null;
+
+      const canViewAll =
+        ctx.user.groups.includes('admin') ||
+        ctx.user.groups.includes('leadership');
+
+      let where: SQL | undefined;
+
+      // If the user is not an admin or a part of leadership,
+      // they should only see applications that went to
+      // their own group (e.g. DevOps or LabOps)
+      if (!canViewAll) {
+        const normalGroups = ctx.user.groups.filter(
+          (g) => !['admin', 'management', 'leadership'].includes(g),
+        );
+        const normalGroupIds = ctx.db
+          .select({ id: groups.id })
+          .from(groups)
+          .where(inArray(groups.identifier, normalGroups));
+
+        where = inArray(applications.groupId, normalGroupIds);
+      }
+
+      await ctx.db
+        .delete(applications)
+        .where(and(where, eq(applications.id, input.applicationId)))
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('applications.api.deleteAppFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+    }),
 });
 
 export { applicationsRouter };

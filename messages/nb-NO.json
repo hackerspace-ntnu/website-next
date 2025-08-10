@@ -680,13 +680,18 @@
       "email": "E-post: <link>{email}</link>",
       "phoneNumber": "Telefonnummer: <link>{phone}</link>",
       "studyProgram": "Studieprogram: {program}",
-      "studyYear": "Studieår: {year}"
+      "studyYear": "Studieår: {year}",
+      "deleteApplication": "Slett søknad",
+      "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
+      "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
+      "applicationDeleted": "Søknad slettet"
     },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",
       "groupNotFound": "Gruppe ikke funnet",
       "insertAppFailed": "Kunne ikke sende inn søknad",
-      "invalidId": "Ugyldig ID"
+      "invalidId": "Ugyldig ID",
+      "deleteAppFailed": "Kunne ikke slette søknad"
     }
   },
   "api": {

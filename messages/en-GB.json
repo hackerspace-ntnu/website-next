@@ -680,13 +680,18 @@
       "email": "Email: <link>{email}</link>",
       "phoneNumber": "Phone number: <link>{phone}</link>",
       "studyProgram": "Study program: {program}",
-      "studyYear": "Study year: {year}"
+      "studyYear": "Study year: {year}",
+      "deleteApplication": "Delete application",
+      "deleteApplicationTitle": "Are you sure you want to delete this application?",
+      "deleteApplicationDescription": "This action cannot be undone.",
+      "applicationDeleted": "Application deleted successfully"
     },
     "api": {
       "fetchGroupFailed": "Failed to retrieve group",
       "groupNotFound": "Group not found",
       "insertAppFailed": "Failed to submit application",
-      "invalidId": "Invalid ID"
+      "invalidId": "Invalid ID",
+      "deleteAppFailed": "Failed to delete application"
     }
   },
   "api": {

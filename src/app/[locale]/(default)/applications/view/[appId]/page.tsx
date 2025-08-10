@@ -6,14 +6,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
+import { DeleteApplicationButton } from '@/components/applications/DeleteApplicationButton';
 import { ExternalLink, Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
@@ -21,11 +14,11 @@ export async function generateMetadata() {
   const t = await getTranslations('applications.view');
 
   return {
-    title: t('title'),
+    title: t('application'),
   };
 }
 
-export default async function ApplicationsViewPage({
+export default async function ApplicationPage({
   params,
 }: {
   params: Promise<{ locale: Locale; appId: string }>;
@@ -36,6 +29,7 @@ export default async function ApplicationsViewPage({
   if (Number.isNaN(Number(appId))) return notFound();
 
   const t = await getTranslations('applications.view');
+  const tUi = await getTranslations('ui');
   const tApply = await getTranslations('applications.apply');
   const formatter = await getFormatter();
 
@@ -105,6 +99,17 @@ export default async function ApplicationsViewPage({
       <p>{application.motivation}</p>
       <h2>{tApply('otherProjects.label')}</h2>
       <p>{application.otherProjects}</p>
+      <DeleteApplicationButton
+        applicationId={application.id}
+        t={{
+          label: t('deleteApplication'),
+          dialogTitle: t('deleteApplicationTitle'),
+          dialogDescription: t('deleteApplicationDescription'),
+          cancel: tUi('cancel'),
+          delete: tUi('delete'),
+          success: t('applicationDeleted'),
+        }}
+      />
     </div>
   );
 }

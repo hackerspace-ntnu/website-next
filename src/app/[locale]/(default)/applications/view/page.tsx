@@ -25,7 +25,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function ApplicationsViewPage({
+export default async function ApplicationsPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
