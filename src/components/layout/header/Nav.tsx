@@ -7,6 +7,7 @@ type NavProps = {
     news: string;
     events: string;
     about: string;
+    applyNow: string;
   };
 };
 
@@ -27,6 +28,11 @@ function Nav({ className, onClick, t }: NavProps) {
         <li>
           <Link variant='nav' onClick={onClick} href='/about'>
             {t.about}
+          </Link>
+        </li>
+        <li>
+          <Link variant='nav' onClick={onClick} href='/applications/apply'>
+            {t.applyNow}
           </Link>
         </li>
       </ul>

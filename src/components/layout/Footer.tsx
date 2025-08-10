@@ -121,6 +121,7 @@ function Footer() {
               news: t('news'),
               events: t('events'),
               about: t('about'),
+              applyNow: t('applyNow'),
             }}
           />
         </div>

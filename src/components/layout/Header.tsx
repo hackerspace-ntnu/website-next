@@ -19,20 +19,27 @@ async function Header() {
     return redirect({ href: '/auth/create-account', locale });
   }
 
+  const viewApplications = !!user?.groups.some((g) =>
+    ['admin', 'leadership', 'management'].includes(g),
+  );
+
   return (
     <header className='clamp-[px-1-24-clamp] sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
+          viewApplications={viewApplications}
           t={{
             navigationMenu: t('navigationMenu'),
             news: t('news'),
             events: t('events'),
             about: t('about'),
+            applyNow: t('applyNow'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
             rules: t('rules'),
+            applications: t('applications'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
@@ -57,9 +64,11 @@ async function Header() {
               news: t('news'),
               events: t('events'),
               about: t('about'),
+              applyNow: t('applyNow'),
             }}
           />
           <DesktopNavMenu
+            viewApplications={viewApplications}
             t={{
               open: t('desktopNavMenu', { open: 'true' }),
               close: t('desktopNavMenu', { open: 'false' }),
@@ -67,6 +76,7 @@ async function Header() {
               shiftSchedule: t('shiftSchedule'),
               members: t('members'),
               rules: t('rules'),
+              applications: t('applications'),
             }}
           />
         </div>

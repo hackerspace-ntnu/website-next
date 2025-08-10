@@ -124,6 +124,29 @@ const groupsRouter = createRouter({
 
       return results.map((userGroup) => userGroup.user);
     }),
+  fetchGroupsOpenToApps: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.query.groups
+      .findMany({
+        where: eq(groups.openForApplications, true),
+        with: {
+          localizations: {
+            columns: {
+              name: true,
+              locale: true,
+            },
+          },
+        },
+      })
+      .catch((error) => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('groups.api.fetchGroupsFailed', {
+            error: error.message,
+          }),
+          cause: { toast: 'error' },
+        });
+      });
+  }),
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
@@ -159,6 +182,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .returning({ id: groups.id });
 
@@ -226,6 +250,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 
