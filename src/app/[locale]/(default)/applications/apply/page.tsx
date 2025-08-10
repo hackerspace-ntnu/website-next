@@ -22,6 +22,7 @@ export default async function ApplyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('applications.apply');
   const { applications, settings, ui } = await getMessages();
 

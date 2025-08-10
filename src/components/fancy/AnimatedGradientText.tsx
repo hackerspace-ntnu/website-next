@@ -7,7 +7,8 @@ function AnimatedGradientText({
   return (
     <div
       className={cx(
-        'animate-text-gradient bg-[length:200%_auto] bg-gradient-to-r bg-size from-30% from-primary via-50% via-sky-500 to-80% to-emerald-400 bg-clip-text text-transparent',
+        // biome-ignore lint/nursery/useSortedClasses: Biome breaks the effect
+        'animate-text-gradient bg-size bg-[length:200%_auto] bg-gradient-to-r from-30% from-primary via-50% via-sky-500 to-80% to-emerald-400 bg-clip-text text-transparent',
         className,
       )}
     >

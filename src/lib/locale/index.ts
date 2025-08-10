@@ -173,6 +173,10 @@ const routing = defineRouting({
       'en-GB': '/applications/apply',
       'nb-NO': '/opptak/sok',
     },
+    '/applications/thank-you': {
+      'en-GB': '/applications/thank-you',
+      'nb-NO': '/opptak/takk',
+    },
   },
 });
 

@@ -661,6 +661,11 @@
         "required": "Dette feltet er påkrevd"
       }
     },
+    "thankYou": {
+      "title": "Takk",
+      "description1": "Takk for at du søkte Hackerspace NTNU!",
+      "description2": "Vi setter pris på interessen din og vil kontakte deg snart."
+    },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",
       "groupNotFound": "Gruppe ikke funnet",
