@@ -14,7 +14,8 @@ const utilsRouter = createRouter({
     .query(async ({ input, ctx }) => {
       try {
         return await getFileUrl(input.fileId);
-      } catch {
+      } catch (error) {
+        console.error('Error fetching file URL:', error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.noFileFound'),
