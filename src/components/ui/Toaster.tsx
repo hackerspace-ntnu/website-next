@@ -8,17 +8,13 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 const toast = ToasterPrimitive.toast;
 
 function Toaster({
-  ref,
   ...props
-}: React.ComponentProps<typeof ToasterPrimitive.Toaster> & {
-  ref?: React.RefObject<React.ComponentRef<typeof ToasterPrimitive.Toaster>>;
-}) {
+}: React.ComponentPropsWithRef<typeof ToasterPrimitive.Toaster>) {
   const { theme = 'system' } = useTheme();
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
     <ToasterPrimitive.Toaster
-      ref={ref}
       theme={theme as ToasterPrimitive.ToasterProps['theme']}
       className='toaster group'
       position={isDesktop ? 'bottom-right' : 'top-center'}

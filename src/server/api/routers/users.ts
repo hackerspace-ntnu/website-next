@@ -2,9 +2,12 @@ import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { publicProcedure } from '@/server/api/procedures';
+import {
+  protectedEditProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { userGroups, users } from '@/server/db/tables';
+import { users, usersGroups } from '@/server/db/tables';
 import { fetchUserSchema } from '@/validations/users/fetchUserSchema';
 import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
 
@@ -29,8 +32,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           ),
           with: {
@@ -75,8 +78,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           )
         : and(
@@ -84,8 +87,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           );
 
@@ -117,6 +120,24 @@ const usersRouter = createRouter({
           });
         });
     }),
+  fetchAllUsers: protectedEditProcedure.query(async ({ ctx }) => {
+    return await ctx.db.query.users
+      .findMany({
+        columns: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      })
+      .catch((error) => {
+        console.error('Error fetching users:', error);
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMembers'),
+          cause: { toast: 'error' },
+        });
+      });
+  }),
   totalResultsForUsersQuery: publicProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
@@ -132,8 +153,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           )
         : and(
@@ -141,8 +162,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           );
 

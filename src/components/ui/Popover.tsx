@@ -16,18 +16,14 @@ function PopoverTrigger(
 }
 
 function PopoverContent({
-  ref,
   className,
   align = 'center',
   sideOffset = 4,
   ...props
-}: React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
-  ref?: React.RefObject<React.ComponentRef<typeof PopoverPrimitive.Content>>;
-}) {
+}: React.ComponentPropsWithRef<typeof PopoverPrimitive.Content>) {
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
-        ref={ref}
         align={align}
         sideOffset={sideOffset}
         className={cx(
@@ -40,4 +36,10 @@ function PopoverContent({
   );
 }
 
-export { Popover, PopoverTrigger, PopoverContent };
+function PopoverAnchor({
+  ...props
+}: React.ComponentPropsWithRef<typeof PopoverPrimitive.Anchor>) {
+  return <PopoverPrimitive.Anchor data-slot='popover-anchor' {...props} />;
+}
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };

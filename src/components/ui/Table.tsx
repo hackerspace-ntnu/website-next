@@ -1,16 +1,9 @@
 import { cx } from '@/lib/utils';
 
-function Table({
-  ref,
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLTableElement> & {
-  ref?: React.RefObject<HTMLTableElement>;
-}) {
+function Table({ className, ...props }: React.ComponentPropsWithRef<'table'>) {
   return (
     <div className='relative w-full overflow-auto'>
       <table
-        ref={ref}
         className={cx('w-full caption-bottom text-sm', className)}
         {...props}
       />
@@ -19,43 +12,27 @@ function Table({
 }
 
 function TableHeader({
-  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLTableSectionElement> & {
-  ref?: React.RefObject<HTMLTableSectionElement>;
-}) {
-  return (
-    <thead ref={ref} className={cx('[&_tr]:border-b', className)} {...props} />
-  );
+}: React.ComponentPropsWithRef<'thead'>) {
+  return <thead className={cx('[&_tr]:border-b', className)} {...props} />;
 }
 
 function TableBody({
-  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLTableSectionElement> & {
-  ref?: React.RefObject<HTMLTableSectionElement>;
-}) {
+}: React.ComponentPropsWithRef<'tbody'>) {
   return (
-    <tbody
-      ref={ref}
-      className={cx('[&_tr:last-child]:border-0', className)}
-      {...props}
-    />
+    <tbody className={cx('[&_tr:last-child]:border-0', className)} {...props} />
   );
 }
 
 function TableFooter({
-  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLTableSectionElement> & {
-  ref?: React.RefObject<HTMLTableSectionElement>;
-}) {
+}: React.ComponentPropsWithRef<'tfoot'>) {
   return (
     <tfoot
-      ref={ref}
       className={cx(
         'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0',
         className,
@@ -65,16 +42,9 @@ function TableFooter({
   );
 }
 
-function TableRow({
-  ref,
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLTableRowElement> & {
-  ref?: React.RefObject<HTMLTableRowElement>;
-}) {
+function TableRow({ className, ...props }: React.ComponentPropsWithRef<'tr'>) {
   return (
     <tr
-      ref={ref}
       className={cx(
         'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
         className,
@@ -84,16 +54,9 @@ function TableRow({
   );
 }
 
-function TableHead({
-  ref,
-  className,
-  ...props
-}: React.ThHTMLAttributes<HTMLTableCellElement> & {
-  ref?: React.RefObject<HTMLTableCellElement>;
-}) {
+function TableHead({ className, ...props }: React.ComponentPropsWithRef<'th'>) {
   return (
     <th
-      ref={ref}
       className={cx(
         'h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0',
         className,
@@ -103,16 +66,9 @@ function TableHead({
   );
 }
 
-function TableCell({
-  ref,
-  className,
-  ...props
-}: React.TdHTMLAttributes<HTMLTableCellElement> & {
-  ref?: React.RefObject<HTMLTableCellElement>;
-}) {
+function TableCell({ className, ...props }: React.ComponentPropsWithRef<'td'>) {
   return (
     <td
-      ref={ref}
       className={cx(
         'p-4 align-middle [&:has([role=checkbox])]:pr-0',
         className,
@@ -123,15 +79,11 @@ function TableCell({
 }
 
 function TableCaption({
-  ref,
   className,
   ...props
-}: React.HTMLAttributes<HTMLTableCaptionElement> & {
-  ref?: React.RefObject<HTMLTableCaptionElement>;
-}) {
+}: React.ComponentPropsWithRef<'caption'>) {
   return (
     <caption
-      ref={ref}
       className={cx('mt-4 text-muted-foreground text-sm', className)}
       {...props}
     />

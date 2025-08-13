@@ -3,6 +3,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { Value } from 'platejs';
+import { Plate, usePlateEditor } from 'platejs/react';
+import type React from 'react';
 import {
   Fragment,
   useCallback,
@@ -24,6 +28,7 @@ import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { DateTimePicker } from '@/components/ui/DateTimePicker';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -32,6 +37,9 @@ import {
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
+import { Editor, EditorContainer } from '@/components/ui/plate/Editor';
+import { EditorKit } from '@/components/ui/plate/kits/EditorKit';
+import type { PlateEditor } from '@/components/ui/plate/PlateEditor';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import {
   Select,
@@ -388,7 +396,7 @@ function MapField({
 }
 
 type SelectOption = {
-  label: string;
+  label: React.ReactNode;
   value: string;
 };
 
@@ -561,8 +569,45 @@ function DateField({
     >
       <DatePicker
         date={field.state.value}
-        setDate={(date: Date) => field.handleChange(date)}
+        setDate={(date) => field.handleChange(date)}
         onBlur={field.handleBlur}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
+type DateTimeFieldProps = Omit<
+  React.ComponentProps<typeof DateTimePicker>,
+  'onChange'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
+function DateTimeField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: DateTimeFieldProps) {
+  const field = useFieldContext<Date>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <DateTimePicker
+        onChange={(date) => date && field.handleChange(date)}
+        value={field.state.value}
         {...props}
       />
     </BaseField>
@@ -874,7 +919,7 @@ function CurrencyField({
   return (
     <BaseField label={label} className={className} labelVisible={labelVisible}>
       <Input
-        ref={inputRef as React.RefObject<HTMLInputElement>}
+        ref={inputRef}
         type='text'
         inputMode='decimal'
         value={inputValue}
@@ -932,6 +977,51 @@ function CalendarField({
   );
 }
 
+function EditorField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: EditorFieldProps) {
+  const field = useFieldContext<Value>();
+  const editor = usePlateEditor({
+    plugins: EditorKit(useTranslations()),
+    value: field.state.value,
+    ...props.initOptions,
+  });
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Plate editor={editor} {...props.plateOptions}>
+        <EditorContainer
+          className={cx(
+            'rounded-lg border p-1',
+            props.containerOptions?.className,
+          )}
+          {...props.containerOptions}
+        >
+          <Editor
+            variant={props.variant}
+            onBlur={() => {
+              editor?.children && field.handleChange(editor.children);
+              field.handleBlur();
+            }}
+            {...props.editorOptions}
+          />
+        </EditorContainer>
+      </Plate>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
@@ -975,6 +1065,17 @@ function SubmitButton({
   );
 }
 
+type EditorFieldProps = Omit<
+  React.ComponentProps<typeof PlateEditor>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  className?: string;
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
 const { useAppForm } = createFormHook({
   fieldComponents: {
     BaseField,
@@ -987,11 +1088,13 @@ const { useAppForm } = createFormHook({
     PhoneField,
     PasswordField,
     DateField,
+    DateTimeField,
     OTPField,
     RadioGroupField,
     FileUploadField,
     CurrencyField,
     CalendarField,
+    EditorField,
   },
   formComponents: {
     SubmitButton,

@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './events';
 export * from './groups';
 export * from './settings';
 export * from './shiftSchedule';
