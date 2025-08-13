@@ -1,14 +1,15 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SuccessParticles } from '@/components/auth/SuccessParticles';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SuccessPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -16,12 +17,12 @@ export default async function SuccessPage({
 
   const { user } = await api.auth.state();
 
-  if (user) {
-    if (!user.isAccountComplete) {
-      redirect({ href: '/auth/create-account', locale });
-    }
-  } else {
-    redirect({ href: '/auth', locale });
+  if (!user) {
+    return redirect({ href: '/auth', locale });
+  }
+
+  if (!user.isAccountComplete) {
+    return redirect({ href: '/auth/create-account', locale });
   }
 
   return (

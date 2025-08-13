@@ -1,3 +1,5 @@
+import { BugIcon, MailIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import {
   FacebookIcon,
   GitHubIcon,
@@ -5,11 +7,9 @@ import {
   SlackIcon,
 } from '@/components/assets/icons';
 import { IDILogo, NexusLogo } from '@/components/assets/logos';
-import { LogoLink } from '@/components/layout/LogoLink';
 import { Nav } from '@/components/layout/header/Nav';
+import { LogoLink } from '@/components/layout/LogoLink';
 import { ExternalLink, Link } from '@/components/ui/Link';
-import { BugIcon, MailIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 
 function Footer() {
   const t = useTranslations('layout');
@@ -48,7 +48,7 @@ function Footer() {
         </div>
         <div>
           <h4>{t('socialMedia')}</h4>
-          <ul className='grid grid-flow-row grid-cols-2-auto justify-start text-foreground/80 sm:grid-cols-3-auto xl:grid-flow-col xl:grid-cols-none'>
+          <ul className='grid grid-flow-row grid-cols-[repeat(2,auto)] justify-start text-foreground/80 sm:grid-cols-[repeat(3,auto)] xl:grid-flow-col xl:grid-cols-none'>
             <li>
               <ExternalLink
                 variant='ghost'
@@ -178,7 +178,7 @@ function Footer() {
         <ul className='flex flex-col justify-center gap-6 sm:flex-row md:gap-10 lg:gap-20 xl:gap-40'>
           <li>
             <ExternalLink
-              variant='none'
+              variant='ring-only'
               href={t('NTNUIDIURL')}
               prefetch={false}
               target='_blank'
@@ -191,7 +191,7 @@ function Footer() {
           </li>
           <li>
             <ExternalLink
-              variant='none'
+              variant='ring-only'
               href='https://www.ntnu.no/ie/nexus/'
               prefetch={false}
               target='_blank'
@@ -205,7 +205,7 @@ function Footer() {
         </ul>
       </nav>
       <p className='text-center'>
-        {t('copyright')} &copy; {year}, Hackerspace NTNU.{' '}
+        {t('copyright')} &copy; {year} Hackerspace NTNU.{' '}
         {t('allRightsReserved')}.
       </p>
     </footer>

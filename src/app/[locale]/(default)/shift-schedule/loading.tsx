@@ -1,3 +1,5 @@
+import { useFormatter, useTranslations } from 'next-intl';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
   Table,
@@ -8,20 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { useFormatter, useTranslations } from 'next-intl';
+import { days, skillIdentifiers, timeslots } from '@/lib/constants';
 
 export default function ShiftScheduleLayout() {
-  const t = useTranslations('shiftSchedule.scheduleTable');
+  const t = useTranslations('shiftSchedule');
+  const tSkills = useTranslations('skills');
   const format = useFormatter();
-
-  const days = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-  ] as const;
-  const timeslots = ['first', 'second', 'third', 'fourth'] as const;
 
   function getDateTimeRange(timeslot: string) {
     let firstDate: Date;
@@ -30,21 +24,21 @@ export default function ShiftScheduleLayout() {
     switch (timeslot) {
       case timeslots[0]:
         firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
-        secondDate = new Date(0, 0, 0, 12, 7, 0, 0);
+        secondDate = new Date(0, 0, 0, 12, 0, 0, 0);
         break;
 
       case timeslots[1]:
-        firstDate = new Date(0, 0, 0, 12, 7, 0, 0);
-        secondDate = new Date(0, 0, 0, 14, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 12, 0, 0, 0);
+        secondDate = new Date(0, 0, 0, 14, 0, 0, 0);
         break;
 
       case timeslots[2]:
-        firstDate = new Date(0, 0, 0, 14, 7, 0, 0);
-        secondDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 14, 0, 0, 0);
+        secondDate = new Date(0, 0, 0, 16, 0, 0, 0);
         break;
 
       case timeslots[3]:
-        firstDate = new Date(0, 0, 0, 16, 7, 0, 0);
+        firstDate = new Date(0, 0, 0, 16, 0, 0, 0);
         secondDate = new Date(0, 0, 0, 18, 0, 0, 0);
         break;
 
@@ -62,64 +56,94 @@ export default function ShiftScheduleLayout() {
 
   return (
     <>
+      <h1 className='text-center'>{t('title')}</h1>
       {/* Table shown on small screens */}
-      <div className='sm:hidden [&>div]:mt-8'>
-        {days.map((day) => (
-          <Table key={day}>
-            <TableHeader>
-              <TableRow>
-                <TableHead className='w-2/5'>{t('time')}</TableHead>
-                <TableHead className='w-3/5 border-x'>
-                  {t('day', { day: day })}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {timeslots.map((timeslot) => (
-                <TableRow key={timeslot}>
-                  <TableCell className='border-y'>
-                    {getDateTimeRange(timeslot)}
-                  </TableCell>
-                  <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
-                    <Skeleton className='size-full' />
-                  </TableCell>
+      <div className='mt-8 flex flex-col gap-2 sm:hidden'>
+        <div className='flex flex-col gap-8'>
+          {days.map((day) => (
+            <Table key={day}>
+              <TableHeader>
+                <TableRow className='hover:bg-inherit'>
+                  <TableHead className='w-2/5'>{t('table.time')}</TableHead>
+                  <TableHead className='w-3/5 border-x'>
+                    {t('table.day', { day: day })}
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        ))}
+              </TableHeader>
+              <TableBody>
+                {timeslots.map((timeslot) => (
+                  <TableRow key={timeslot} className='hover:bg-inherit'>
+                    <TableCell className='border-y'>
+                      {getDateTimeRange(timeslot)}
+                    </TableCell>
+                    <TableCell
+                      key={day}
+                      className='h-20 min-w-[206px] max-w-[206px] border p-1.5'
+                    >
+                      <Skeleton className='size-full' />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ))}
+        </div>
         <Table>
-          <TableCaption>[skill icons legend]</TableCaption>
+          <TableCaption>
+            <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
+              {skillIdentifiers.map((identifier) => (
+                <div
+                  key={identifier}
+                  className='flex items-center gap-3 text-left'
+                >
+                  <SkillIcon identifier={identifier} size='large' />
+                  <span className='text-xs'>{tSkills(identifier)}</span>
+                </div>
+              ))}
+            </div>
+          </TableCaption>
         </Table>
       </div>
 
       {/* Table shown on all other screens */}
       <Table className='mt-8 hidden sm:table'>
         <TableHeader>
-          <TableRow>
-            <TableHead className='w-1/6'>{t('time')}</TableHead>
+          <TableRow className='hover:bg-inherit'>
+            <TableHead className='w-1/6'>{t('table.time')}</TableHead>
             {days.map((day) => (
               <TableHead key={day} className='w-1/6 border-x'>
-                {t('day', { day: day })}
+                {t('table.day', { day: day })}
               </TableHead>
             ))}
           </TableRow>
         </TableHeader>
         <TableBody>
           {timeslots.map((timeslot) => (
-            <TableRow key={timeslot}>
+            <TableRow key={timeslot} className='hover:bg-inherit'>
               <TableCell className='min-w-32 border-y'>
                 {getDateTimeRange(timeslot)}
               </TableCell>
               {days.map((day) => (
-                <TableCell key={day} className='h-20 min-w-52 border p-1.5'>
+                <TableCell
+                  key={day}
+                  className='h-20 min-w-[206px] max-w-[206px] border p-1.5'
+                >
                   <Skeleton className='size-full' />
                 </TableCell>
               ))}
             </TableRow>
           ))}
         </TableBody>
-        <TableCaption className='h-12'>[skill icons legend]</TableCaption>
+        <TableCaption className='h-fit min-h-12 pb-4'>
+          <div className='flex flex-wrap justify-center gap-8'>
+            {skillIdentifiers.map((identifier) => (
+              <div key={identifier} className='flex items-center gap-3'>
+                <SkillIcon identifier={identifier} size='large' />
+                <span className='text-xs'>{tSkills(identifier)}</span>
+              </div>
+            ))}
+          </div>
+        </TableCaption>
       </Table>
     </>
   );

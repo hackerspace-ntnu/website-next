@@ -1,9 +1,9 @@
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+import type { NextRequest } from 'next/server';
 import { env } from '@/env';
 import { router } from '@/server/api';
 import { createContext } from '@/server/api/context';
 import { getLocaleFromRequest } from '@/server/api/locale';
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import type { NextRequest } from 'next/server';
 
 function handleRequest(req: NextRequest) {
   return fetchRequestHandler({
@@ -26,4 +26,11 @@ export {
   handleRequest as GET,
   handleRequest as POST,
   handleRequest as OPTIONS,
+};
+
+export const config = {
+  api: {
+    bodyParser: false,
+    responseLimit: '100mb',
+  },
 };

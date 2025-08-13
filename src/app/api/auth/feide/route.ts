@@ -1,10 +1,7 @@
+import { cookies } from 'next/headers';
+import { type NextRequest, NextResponse } from 'next/server';
 import { env } from '@/env';
 import { checkEmailAvailability } from '@/server/auth/email';
-import {
-  type ExtendedFeideUserInfo,
-  type FeideUserInfo,
-  validateFeideAuthorization,
-} from '@/server/auth/feide';
 import { checkPhoneAvailability } from '@/server/auth/phone';
 import {
   createSession,
@@ -12,9 +9,12 @@ import {
   setSessionTokenCookie,
 } from '@/server/auth/session';
 import { createUser, getUserFromUsername } from '@/server/auth/user';
+import {
+  type ExtendedFeideUserInfo,
+  type FeideUserInfo,
+  validateFeideAuthorization,
+} from '@/server/services/feide';
 import { insertUserSchema } from '@/validations/db';
-import { cookies } from 'next/headers';
-import { type NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
@@ -125,17 +125,17 @@ export async function GET(request: NextRequest) {
     );
 
     if (!isPhoneNumberAvailable) {
-      console.error('Feide: Phone number taken');
+      console.error('Feide: Phone number in use');
       return NextResponse.redirect(
-        new URL('/auth?error=phoneTaken', env.NEXT_PUBLIC_SITE_URL),
+        new URL('/auth?error=phoneInUse', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 
     const isEmailAvailable = await checkEmailAvailability(userInfo.email);
     if (!isEmailAvailable) {
-      console.error('Feide: Email taken');
+      console.error('Feide: Email in use');
       return NextResponse.redirect(
-        new URL('/auth?error=emailTaken', env.NEXT_PUBLIC_SITE_URL),
+        new URL('/auth?error=emailInUse', env.NEXT_PUBLIC_SITE_URL),
       );
     }
 

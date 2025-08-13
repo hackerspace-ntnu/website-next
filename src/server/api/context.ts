@@ -1,28 +1,25 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
+import type { Locale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import type { Translations } from '@/lib/locale';
 import { routing } from '@/lib/locale';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
+import { itemCategories } from '@/server/db/tables';
 import { s3 } from '@/server/s3';
-import type { NestedKeyOf } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-// HACK: This is a workaround for the type of `getTranslations` not being exported
-type Translations = Awaited<ReturnType<typeof getTranslations>> &
-  ((keys: NestedKeyOf<Messages>) => string);
 
 type TRPCContext = {
-  locale: (typeof routing.locales)[number];
+  locale: Locale;
   db: typeof db;
   auth: typeof auth;
   s3: typeof s3;
   t: Translations;
 };
 
-async function createContext(
-  locale: (typeof routing.locales)[number],
-): Promise<TRPCContext> {
-  const t = (await getTranslations({
+async function createContext(locale: Locale): Promise<TRPCContext> {
+  const t = await getTranslations({
     locale: locale ?? routing.defaultLocale,
-  })) as Translations;
+  });
   return {
     locale,
     auth,
@@ -32,4 +29,27 @@ async function createContext(
   };
 }
 
-export { createContext, type TRPCContext };
+const contextStorage = new AsyncLocalStorage<TRPCContext>();
+
+function getContext() {
+  const ctx = contextStorage.getStore();
+  if (!ctx) {
+    throw new Error('No TRPC context found');
+  }
+  return ctx;
+}
+
+async function getItemCategoriesFromContext() {
+  const ctx = getContext();
+  return (await ctx.db.select().from(itemCategories)).map((c) =>
+    ctx.locale === 'en-GB' ? c.nameEnglish : c.nameNorwegian,
+  );
+}
+
+export {
+  createContext,
+  contextStorage,
+  getContext,
+  getItemCategoriesFromContext,
+  type TRPCContext,
+};

@@ -1,7 +1,8 @@
-import { emailVerificationRequests, usersSkills } from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
+  boolean,
+  foreignKey,
   index,
   integer,
   pgTable,
@@ -10,6 +11,14 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import {
+  emailVerificationRequests,
+  files,
+  sessions,
+  shifts,
+  userGroups,
+  userSkills,
+} from '@/server/db/tables';
 
 const users = pgTable(
   'users',
@@ -24,6 +33,7 @@ const users = pgTable(
     username: varchar('username', { length: 8 }).unique().notNull(),
     firstName: varchar('first_name', { length: 30 }).notNull(),
     lastName: varchar('last_name', { length: 30 }).notNull(),
+    profilePictureId: integer('profile_picture_id'),
     email: varchar('email', { length: 254 }).unique().notNull(),
     emailVerifiedAt: timestamp('email_verified_at', {
       withTimezone: true,
@@ -35,54 +45,42 @@ const users = pgTable(
     }).notNull(),
     phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
     passwordHash: text('password_hash'),
+    memberSince: timestamp('member_since', {
+      withTimezone: true,
+      mode: 'date',
+    }),
+    bio: text('bio'),
+    fieldOfStudy: text('field_of_study'),
+    gitHubUsername: varchar('github_username', { length: 52 }),
+    discordUsername: varchar('discord_username', { length: 52 }),
+    instagramUsername: varchar('instagram_username', { length: 52 }),
+    linkedInUsername: varchar('linkedin_username', { length: 52 }),
+    private: boolean('private').notNull().default(false),
   },
   (table) => [
     index('users_email_idx').on(table.email),
     index('users_username_idx').on(table.username),
     index('users_phone_number_idx').on(table.phoneNumber),
+    index('users_profile_picture_id_idx').on(table.profilePictureId),
+    foreignKey({
+      columns: [table.profilePictureId],
+      foreignColumns: [files.id],
+    })
+      .onUpdate('restrict')
+      .onDelete('set null'),
   ],
 );
 
 const usersRelations = relations(users, ({ many }) => ({
-  usersSkills: many(usersSkills),
   sessions: many(sessions),
+  usersGroups: many(userGroups),
+  usersSkills: many(userSkills),
   emailVerificationRequests: many(emailVerificationRequests),
-}));
-
-const sessions = pgTable(
-  'session',
-  {
-    id: text('id').primaryKey(),
-    userId: integer('user_id')
-      .references(() => users.id)
-      .notNull(),
-    expiresAt: timestamp('expires_at', {
-      withTimezone: true,
-      mode: 'date',
-    }).notNull(),
-  },
-  (table) => [index('sessions_user_id_idx').on(table.userId)],
-);
-
-const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, {
-    fields: [sessions.userId],
-    references: [users.id],
-  }),
+  files: many(files),
+  shifts: many(shifts),
 }));
 
 type SelectUser = InferSelectModel<typeof users>;
 type InsertUser = InferInsertModel<typeof users>;
-type SelectSession = InferSelectModel<typeof sessions>;
-type InsertSession = InferInsertModel<typeof sessions>;
 
-export {
-  users,
-  usersRelations,
-  sessions,
-  sessionsRelations,
-  type SelectUser,
-  type InsertUser,
-  type SelectSession,
-  type InsertSession,
-};
+export { users, usersRelations, type SelectUser, type InsertUser };

@@ -16,6 +16,8 @@ function MatrixLink({ className, t }: MatrixLinkProps) {
       variant='ghost'
       size='icon'
       href={env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#'}
+      target='_blank'
+      rel='noopener noreferrer'
       title={t.title}
       aria-label={t.title}
     >

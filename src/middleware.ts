@@ -1,5 +1,5 @@
-import createMiddleware from 'next-intl/middleware';
 import { type NextRequest, NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
 
 import { routing } from '@/lib/locale';
 
@@ -8,19 +8,30 @@ import {
   globalPOSTRateLimit,
 } from '@/server/api/rate-limit';
 
+const BYPASS_PATHS = ['/s3/', '/api/'] as const;
+
 const handleI18nRouting = createMiddleware(routing);
 
-function handleI18nResponse(request: NextRequest): NextResponse {
-  if (request.nextUrl.pathname.startsWith('/api')) {
+function shouldBypassI18n(pathname: string): boolean {
+  return BYPASS_PATHS.some((path) => pathname.startsWith(path));
+}
+
+function handleI18nResponse(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (shouldBypassI18n(pathname)) {
     return NextResponse.next();
   }
+
   return handleI18nRouting(request);
 }
 
-export async function middleware(request: NextRequest): Promise<NextResponse> {
+export async function middleware(request: NextRequest) {
   if (request.method === 'GET') {
     if (!(await globalGETRateLimit())) {
-      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+      return NextResponse.redirect(
+        new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
+      );
     }
     const response = handleI18nResponse(request);
     const token = request.cookies.get('session')?.value ?? null;
@@ -36,7 +47,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     return response;
   }
   if (!(await globalPOSTRateLimit())) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.redirect(
+      new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
+    );
   }
   const originHeader = request.headers.get('Origin');
   const hostHeader = request.headers.get('Host');

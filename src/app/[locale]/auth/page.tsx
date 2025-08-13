@@ -1,17 +1,18 @@
+import { FingerprintIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FeideButton } from '@/components/auth/FeideButton';
 import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { FingerprintIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function SignInPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ error?: string }>;
 }) {
   const { locale } = await params;
@@ -23,9 +24,9 @@ export default async function SignInPage({
 
   if (user) {
     if (!user.isAccountComplete) {
-      redirect({ href: '/auth/create-account', locale });
+      return redirect({ href: '/auth/create-account', locale });
     }
-    redirect({ href: '/', locale });
+    return redirect({ href: '/', locale });
   }
 
   // @ts-expect-error: Unknown if error is a valid translation key

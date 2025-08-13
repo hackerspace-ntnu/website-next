@@ -1,18 +1,19 @@
+import type { Locale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import { HelloWorld } from '@/components/home/HelloWorld';
 import { api } from '@/lib/api/server';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const hello = await api.test.helloWorld();
   return (
     <div className='min-h-screen'>
-      <h2>{hello}</h2>
+      <p className='clamp-[text-lg-5xl-clamp--md]'>{hello}</p>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
         cupiditate debitis! Fuga minus quod ea eligendi exercitationem. Sequi

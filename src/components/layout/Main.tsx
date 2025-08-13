@@ -7,7 +7,7 @@ function Main({
   return (
     <main
       className={cx(
-        '~px-4/24 mx-auto w-full max-w-screen-2xl flex-grow py-6',
+        'clamp-[px-4-24-clamp] mx-auto w-screen max-w-screen-2xl grow py-6',
         className,
       )}
       {...props}

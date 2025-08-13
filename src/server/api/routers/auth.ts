@@ -1,41 +1,54 @@
-import { env } from '@/env';
+import { TRPCError } from '@trpc/server';
+import { headers } from 'next/headers';
+import { z } from 'zod';
+import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
   publicProcedure,
+  registrationProcedure,
 } from '@/server/api/procedures';
+import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 import { Throttler } from '@/server/api/rate-limit/throttler';
 import { createRouter } from '@/server/api/trpc';
+import { sanitizeAuth } from '@/server/auth';
 import {
-  createFeideAuthorization,
-  setFeideAuthorizationCookies,
-} from '@/server/auth/feide';
+  createEmailVerificationRequest,
+  deleteEmailVerificationRequestCookie,
+  deleteUserEmailVerificationRequest,
+  getUserEmailVerificationRequestFromRequest,
+  sendVerificationEmail,
+  setEmailVerificationRequestCookie,
+  updateUserEmailAndSetEmailAsVerified,
+} from '@/server/auth/email';
 import {
   hashPassword,
   verifyPasswordHash,
   verifyPasswordStrength,
 } from '@/server/auth/password';
 import {
-  deleteSessionTokenCookie,
-  invalidateSession,
-} from '@/server/auth/session';
-import {
   createSession,
+  deleteSessionTokenCookie,
   generateSessionToken,
+  invalidateSession,
   setSessionTokenCookie,
 } from '@/server/auth/session';
 import { getUserFromUsername, updateUserPassword } from '@/server/auth/user';
+import {
+  createFeideAuthorization,
+  setFeideAuthorizationCookies,
+} from '@/server/services/feide';
+import {
+  matrixChangeEmailAndPhoneNumber,
+  matrixRegisterUser,
+} from '@/server/services/matrix';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
-
-import { TRPCError } from '@trpc/server';
-import { headers } from 'next/headers';
-
-import { sanitizeAuth } from '@/server/auth';
-import { registerMatrixUser } from '@/server/auth/matrix';
+import { verifyEmailSchema } from '@/validations/auth/verifyEmailSchema';
 
 const ipBucket = new RefillingTokenBucket<string>(5, 60);
 const throttler = new Throttler<number>([1, 2, 4, 8, 16, 30, 60, 180, 300]);
+const emailVerificationBucket = new ExpiringTokenBucket<number>(5, 180);
 
 const authRouter = createRouter({
   state: publicProcedure.query(async ({ ctx }) => {
@@ -62,29 +75,26 @@ const authRouter = createRouter({
       });
     }
 
-    if (
-      !(
-        env.FEIDE_CLIENT_ID &&
-        env.FEIDE_CLIENT_SECRET &&
-        env.FEIDE_AUTHORIZATION_ENDPOINT &&
-        env.FEIDE_TOKEN_ENDPOINT &&
-        env.FEIDE_USERINFO_ENDPOINT &&
-        env.FEIDE_EXTENDED_USERINFO_ENDPOINT
-      )
-    ) {
+    const feideAuthorization = await createFeideAuthorization();
+
+    if (!feideAuthorization) {
       throw new TRPCError({
         code: 'SERVICE_UNAVAILABLE',
         message: ctx.t('auth.feideNotConfigured'),
       });
     }
 
-    const { state, codeVerifier, url } = await createFeideAuthorization();
-    await setFeideAuthorizationCookies(state, codeVerifier);
+    await setFeideAuthorizationCookies(
+      feideAuthorization.state,
+      feideAuthorization.codeVerifier,
+    );
 
-    return url.href;
+    return feideAuthorization.url.href;
   }),
   signIn: publicProcedure
-    .input(accountSignInSchema())
+    .input((input) =>
+      accountSignInSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -128,8 +138,10 @@ const authRouter = createRouter({
       const session = await createSession(sessionToken, user.id);
       await setSessionTokenCookie(sessionToken, session.expiresAt);
     }),
-  signUp: authenticatedProcedure
-    .input(accountSignUpSchema())
+  signUp: registrationProcedure
+    .input((input) =>
+      accountSignUpSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const headerStore = await headers();
       const clientIP = headerStore.get('X-Forwarded-For');
@@ -151,25 +163,19 @@ const authRouter = createRouter({
         });
       }
 
-      if (env.MATRIX_SERVER_NAME && env.MATRIX_ENDPOINT && env.MATRIX_SECRET) {
-        try {
-          const displayname = `${ctx.user.firstName} ${ctx.user.lastName}`;
-          await registerMatrixUser(
-            ctx.user.username,
-            displayname,
-            input.password,
-          );
-        } catch (error) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('auth.matrixRegistrationFailed'),
-            cause: { toast: 'error' },
-          });
-        }
-      } else {
-        console.log(
-          'Matrix account will not be created since the Matrix environment variables are not set.',
+      try {
+        await matrixRegisterUser(
+          ctx.user.username,
+          ctx.user.firstName,
+          ctx.user.lastName,
+          input.password,
         );
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.matrixRegistrationFailed'),
+          cause: { toast: 'error' },
+        });
       }
 
       const hashedPassword = await hashPassword(input.password);
@@ -179,6 +185,143 @@ const authRouter = createRouter({
     await invalidateSession(ctx.session.id);
     await deleteSessionTokenCookie();
   }),
+  verifyEmail: authenticatedProcedure
+    .input((input) =>
+      verifyEmailSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!emailVerificationBucket.check(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      let emailVerificationRequest =
+        await getUserEmailVerificationRequestFromRequest(ctx.user.id);
+
+      if (!emailVerificationRequest) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.noVerificationRequest'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (!emailVerificationBucket.consume(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      if (Date.now() >= emailVerificationRequest.expiresAt.getTime()) {
+        emailVerificationRequest = await createEmailVerificationRequest(
+          emailVerificationRequest.userId,
+          emailVerificationRequest.email,
+        );
+        if (!emailVerificationRequest) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('auth.unableToCreateVerificationRequest'),
+            cause: { toast: 'error' },
+          });
+        }
+        await sendVerificationEmail(
+          ctx.user.email,
+          emailVerificationRequest.code,
+          ctx.locale,
+          input.theme,
+        );
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.verificationCodeExpired'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      if (input.otp !== emailVerificationRequest.code) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.form.otp.incorrect'),
+        });
+      }
+
+      await deleteUserEmailVerificationRequest(ctx.user.id);
+      await updateUserEmailAndSetEmailAsVerified(
+        ctx.user.id,
+        emailVerificationRequest.email,
+      );
+      await deleteEmailVerificationRequestCookie();
+
+      try {
+        await matrixChangeEmailAndPhoneNumber(
+          ctx.user.username,
+          emailVerificationRequest.email,
+          ctx.user.phoneNumber,
+        );
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.unableToUpdateMatrix'),
+          cause: { toast: 'error' },
+        });
+      }
+    }),
+  resendVerificationEmail: authenticatedProcedure
+    .input(
+      z.object({
+        theme: z.enum(['dark', 'light']),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!emailVerificationBucket.check(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+
+      let emailVerificationRequest =
+        await getUserEmailVerificationRequestFromRequest(ctx.user.id);
+
+      if (!emailVerificationRequest) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.noVerificationRequest'),
+          cause: { toast: 'error' },
+        });
+      }
+      if (!emailVerificationBucket.consume(ctx.user.id, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'warning' },
+        });
+      }
+      emailVerificationRequest = await createEmailVerificationRequest(
+        ctx.user.id,
+        emailVerificationRequest.email,
+      );
+
+      if (!emailVerificationRequest) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.unableToCreateVerificationRequest'),
+          cause: { toast: 'error' },
+        });
+      }
+      await sendVerificationEmail(
+        emailVerificationRequest.email,
+        emailVerificationRequest.code,
+        ctx.locale,
+        input.theme,
+      );
+      await setEmailVerificationRequestCookie(emailVerificationRequest);
+    }),
 });
 
 export { authRouter };

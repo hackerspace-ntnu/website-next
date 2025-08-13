@@ -1,9 +1,9 @@
-import type { createContext } from '@/server/api/context';
-import { errorFormatter } from '@/server/api/errorFormatter';
 import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
+import type { TRPCContext } from '@/server/api/context';
+import { errorFormatter } from '@/server/api/errorFormatter';
 
-const trpc = initTRPC.context<typeof createContext>().create({
+const trpc = initTRPC.context<TRPCContext>().create({
   transformer: superjson,
   errorFormatter,
 });

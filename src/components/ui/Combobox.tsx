@@ -1,5 +1,7 @@
 'use client';
 
+import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Command,
@@ -15,8 +17,6 @@ import {
   PopoverTrigger,
 } from '@/components/ui/Popover';
 import { cx } from '@/lib/utils';
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { useState } from 'react';
 
 type ComboboxProps = {
   choices: {
@@ -62,7 +62,7 @@ function Combobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
-        <Command>
+        <Command className='bg-popover dark:bg-popover'>
           <CommandInput placeholder={defaultPlaceholder} />
           <CommandList>
             <CommandEmpty>Ingen valg funnet.</CommandEmpty>
@@ -99,4 +99,4 @@ function Combobox({
   );
 }
 
-export { Combobox };
+export { Combobox, type ComboboxProps };

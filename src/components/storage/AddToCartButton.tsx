@@ -1,28 +1,18 @@
 'use client';
 
+import { useState } from 'react';
+import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import { cx } from 'cva';
-
-// TODO: Type must be replaced by the type provided from database ORM.
-export type StorageItem = {
-  id: number;
-  name: string;
-  photo_url: string;
-  status: string;
-  quantity: number;
-  location: string;
-};
-
-export type CartItem = {
-  id: number;
-  amount: number;
-};
+import { cx } from '@/lib/utils';
+import type { RouterOutput } from '@/server/api';
 
 type AddToCartButtonProps = {
   className?: string;
-  item: StorageItem;
+  item:
+    | RouterOutput['storage']['fetchOne']
+    | RouterOutput['storage']['fetchMany'][number];
   t: {
     addToCart: string;
     removeFromCart: string;
@@ -35,6 +25,10 @@ function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
     [],
   );
 
+  const [isInCart, setIsInCart] = useState(
+    cart?.some((cartItem) => cartItem.id === item.id),
+  );
+
   if (isLoading) {
     return <Spinner className='mx-[41px] my-2' />;
   }
@@ -42,30 +36,25 @@ function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
   function updateCart() {
     if (!cart) return;
 
-    const isInCart = cart.some((cartItem) => cartItem.id === item.id);
-
-    if (isInCart) {
+    if (cart.some((cartItem) => cartItem.id === item.id)) {
       const newCart = cart.filter((cartItem) => cartItem.id !== item.id);
       setCart(newCart);
+      setIsInCart(false);
     } else {
       const newCart = [...cart, { id: item.id, amount: 1 }];
       setCart(newCart);
+      setIsInCart(true);
     }
   }
 
   return (
     <Button
       className={cx('whitespace-break-spaces', className)}
-      variant={
-        cart?.some((cartItem) => cartItem.id === item.id)
-          ? 'destructive'
-          : 'default'
-      }
+      variant={isInCart ? 'destructive' : 'default'}
       onClick={updateCart}
+      disabled={item.availableUnits <= 0}
     >
-      {cart?.some((cartItem) => cartItem.id === item.id)
-        ? t.removeFromCart
-        : t.addToCart}
+      {isInCart ? t.removeFromCart : t.addToCart}
     </Button>
   );
 }

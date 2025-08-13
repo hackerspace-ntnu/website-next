@@ -1,7 +1,5 @@
-import { skillIdentifiers } from '@/lib/constants';
-import { users } from '@/server/db/tables';
-import { relations } from 'drizzle-orm';
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
+import { relations } from 'drizzle-orm';
 import {
   index,
   integer,
@@ -10,6 +8,8 @@ import {
   primaryKey,
   serial,
 } from 'drizzle-orm/pg-core';
+import { skillIdentifiers } from '@/lib/constants';
+import { users } from '@/server/db/tables';
 
 const skillIdentifiersEnum = pgEnum('skill_identifiers', skillIdentifiers);
 
@@ -18,8 +18,8 @@ const skills = pgTable('skills', {
   identifier: skillIdentifiersEnum('identifier').unique().notNull(),
 });
 
-const usersSkills = pgTable(
-  'users_skills',
+const userSkills = pgTable(
+  'user_skills',
   {
     userId: integer('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
@@ -31,38 +31,38 @@ const usersSkills = pgTable(
   (table) => {
     return [
       primaryKey({ columns: [table.userId, table.skillId] }),
-      index('users_skills_user_id_idx').on(table.userId),
-      index('users_skills_skill_id_idx').on(table.skillId),
+      index('user_skills_user_id_idx').on(table.userId),
+      index('user_skills_skill_id_idx').on(table.skillId),
     ];
   },
 );
 
 const skillsRelations = relations(skills, ({ many }) => ({
-  usersSkills: many(usersSkills),
+  usersSkills: many(userSkills),
 }));
 
-const usersSkillsRelations = relations(usersSkills, ({ one }) => ({
+const userSkillsRelations = relations(userSkills, ({ one }) => ({
   skill: one(skills, {
-    fields: [usersSkills.skillId],
+    fields: [userSkills.skillId],
     references: [skills.id],
   }),
   user: one(users, {
-    fields: [usersSkills.userId],
+    fields: [userSkills.userId],
     references: [users.id],
   }),
 }));
 
 type SelectSkill = InferSelectModel<typeof skills>;
 type InsertSkill = InferInsertModel<typeof skills>;
-type SelectUserSkill = InferSelectModel<typeof usersSkills>;
-type InsertUserSkill = InferInsertModel<typeof usersSkills>;
+type SelectUserSkill = InferSelectModel<typeof userSkills>;
+type InsertUserSkill = InferInsertModel<typeof userSkills>;
 
 export {
   skillIdentifiersEnum,
   skills,
   skillsRelations,
-  usersSkills,
-  usersSkillsRelations,
+  userSkills,
+  userSkillsRelations,
   type SelectSkill,
   type InsertSkill,
   type SelectUserSkill,

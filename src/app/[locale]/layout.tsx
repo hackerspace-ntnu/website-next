@@ -1,14 +1,17 @@
+import { Inter, Montserrat } from 'next/font/google';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
 import { RootProviders } from '@/components/providers/RootProviders';
+import { Link } from '@/components/ui/Link';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Inter, Montserrat } from 'next/font/google';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 const inter = Inter({
@@ -27,11 +30,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Omit<LocaleLayoutProps, 'children'>) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
+export async function generateMetadata() {
+  const t = await getTranslations('meta');
 
   return {
     title: {
@@ -73,6 +73,8 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('layout');
+
   return (
     <html
       className={cx(
@@ -84,12 +86,21 @@ export default async function LocaleLayout({
       dir='ltr'
       suppressHydrationWarning
     >
-      <body className='h-full w-full bg-background font-inter text-foreground antialiased'>
+      <body className='h-full w-full font-inter antialiased'>
         <RootProviders locale={locale}>
           <ScrollArea className='h-full w-full' variant='primary'>
             <div className='flex h-full w-full flex-col'>
               {children}
               <Toaster />
+              <AppCookieConsent
+                description={t.rich('cookieConsent', {
+                  link: (chunks) => (
+                    <Link href='/privacy-policy' variant='link'>
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              />
             </div>
           </ScrollArea>
         </RootProviders>

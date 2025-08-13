@@ -6,6 +6,7 @@ type LogoLinkProps = {
   className?: string;
   logoClassName?: string;
   titleClassName?: string;
+  logoOnly?: boolean;
   onClick?: () => void;
   t: {
     hackerspaceHome: string;
@@ -16,6 +17,7 @@ function LogoLink({
   className,
   logoClassName,
   titleClassName,
+  logoOnly = false,
   onClick,
   t,
 }: LogoLinkProps) {
@@ -27,12 +29,22 @@ function LogoLink({
       title={t.hackerspaceHome}
       onClick={onClick}
     >
-      <HackerspaceLogo className={cx('~w-7/11 ~h-7/11', logoClassName)} />
-      <span
-        className={cx('~text-lg/2xl font-bold font-montserrat', titleClassName)}
-      >
-        HACKERSPACE
-      </span>
+      <HackerspaceLogo
+        className={cx(
+          'clamp-[h-7-11-clamp] clamp-[w-7-11-clamp]',
+          logoClassName,
+        )}
+      />
+      {!logoOnly && (
+        <span
+          className={cx(
+            'clamp-[text-lg-2xl-clamp] font-bold font-montserrat',
+            titleClassName,
+          )}
+        >
+          HACKERSPACE
+        </span>
+      )}
     </Link>
   );
 }
