@@ -2,6 +2,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import {
   authRouter,
   groupsRouter,
+  newsRouter,
   settingsRouter,
   shiftScheduleRouter,
   storageRouter,
@@ -20,6 +21,7 @@ const router = createRouter({
   settings: settingsRouter,
   users: usersRouter,
   utils: utilsRouter,
+  news: newsRouter,
 });
 
 const createCaller = createCallerFactory(router);
