@@ -1,10 +1,16 @@
 import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
+import { GroupManagementTable } from '@/components/members/GroupManagementTable';
 import { MemberInfoCard } from '@/components/members/MemberInfoCard';
 import { SkillCard } from '@/components/members/SkillCard';
 import { Link } from '@/components/ui/Link';
+import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
 export async function generateMetadata({
@@ -53,6 +59,10 @@ export default async function MemberPage({
 
   if (!user) return notFound();
 
+  const auth = await api.auth.state();
+  const groups = await api.groups.fetchGroups();
+  const { about, members, ui } = await getMessages();
+
   return (
     <>
       <div className='relative'>
@@ -70,11 +80,28 @@ export default async function MemberPage({
           <span className='hidden sm:inline'>{t('backToMember')}</span>
         </Link>
       </div>
-
       <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
         <MemberInfoCard user={user} />
         <SkillCard skills={user.usersSkills.map((row) => row.skill)} />
       </div>
+      {auth.user?.groups.some((g) =>
+        ['admin', 'leadership', 'management'].includes(g),
+      ) && (
+        <>
+          <Separator />
+          <h3 className='my-4 text-center'>{t('groupManagement.title')}</h3>
+          <NextIntlClientProvider
+            messages={
+              { about, members, ui } as Pick<
+                Messages,
+                'about' | 'members' | 'ui'
+              >
+            }
+          >
+            <GroupManagementTable user={user} groups={groups} />
+          </NextIntlClientProvider>
+        </>
+      )}
     </>
   );
 }

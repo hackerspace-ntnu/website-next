@@ -176,6 +176,22 @@ async function main() {
       locale: 'nb-NO',
     },
     {
+      groupId: 4,
+      name: 'Management',
+      summary: 'Management group focused on organizational oversight.',
+      description:
+        'The Management group is consists of all leaders from the different groups in Hackerspace.',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 4,
+      name: 'Styret',
+      summary: 'Styret er fokusert på organisatorisk tilsyn.',
+      description:
+        'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
+      locale: 'nb-NO',
+    },
+    {
       groupId: 5,
       name: 'Trusted Representative',
       summary:
@@ -199,6 +215,14 @@ async function main() {
       description:
         'The TTRPG group is dedicated to tabletop role-playing games. They organize game sessions, create campaigns, and foster a community of gamers.',
       locale: 'en-GB',
+    },
+    {
+      groupId: 6,
+      name: 'TTRPG',
+      summary: 'TTRPG-gruppa er fokusert på bordrollespill.',
+      description:
+        'TTRPG-gruppa er dedikert til bordrollespill. De organiserer spillsesjoner, lager kampanjer og fremmer et fellesskap av spillere.',
+      locale: 'nb-NO',
     },
     {
       groupId: 7,
@@ -232,6 +256,20 @@ async function main() {
         'Medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace.',
       description:
         'Pang-gruppen består av medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace. De anerkjennes for sine bidrag og fortsetter å være en del av fellesskapet.',
+      locale: 'nb-NO',
+    },
+    {
+      groupId: 9,
+      name: 'Admin',
+      summary: 'Internal group',
+      description: 'Internal group',
+      locale: 'en-GB',
+    },
+    {
+      groupId: 9,
+      name: 'Admin',
+      summary: 'Intern gruppe',
+      description: 'Intern gruppe',
       locale: 'nb-NO',
     },
   ];

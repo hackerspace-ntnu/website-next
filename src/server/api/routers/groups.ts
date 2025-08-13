@@ -2,16 +2,23 @@ import { TRPCError } from '@trpc/server';
 import { and, eq, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
+  managementProcedure,
   protectedEditProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { groupLocalizations, groups, userGroups } from '@/server/db/tables';
+import {
+  groupLocalizations,
+  groups,
+  userGroups,
+  users,
+} from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { editGroupSchema } from '@/validations/groups/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/groups/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/groups/fetchGroupSchema';
 import { groupSchema } from '@/validations/groups/groupSchema';
+import { modifyUserToGroupSchema } from '@/validations/groups/modifyUserToGroupSchema';
 
 const groupsRouter = createRouter({
   fetchGroup: publicProcedure
@@ -311,6 +318,115 @@ const groupsRouter = createRouter({
       }
 
       await ctx.db.delete(groups).where(eq(groups.id, input.id));
+    }),
+  addUserToGroup: managementProcedure
+    .input((input) =>
+      modifyUserToGroupSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.groupId),
+      });
+
+      if (!group) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (group.identifier === 'admin' && !ctx.user.groups.includes('admin'))
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('members.api.adminGroupRequired'),
+          cause: { toast: 'error' },
+        });
+
+      const existingUserGroup = await ctx.db.query.userGroups.findFirst({
+        where: and(
+          eq(userGroups.groupId, input.groupId),
+          eq(userGroups.userId, input.userId),
+        ),
+      });
+
+      if (existingUserGroup) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('groups.api.userAlreadyInGroup'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.insert(userGroups).values({
+        groupId: input.groupId,
+        userId: input.userId,
+      });
+    }),
+  removeUserFromGroup: managementProcedure
+    .input((input) =>
+      modifyUserToGroupSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.groupId),
+      });
+
+      if (!group) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const existingUserGroup = await ctx.db.query.userGroups.findFirst({
+        where: and(
+          eq(userGroups.groupId, input.groupId),
+          eq(userGroups.userId, input.userId),
+        ),
+      });
+
+      if (!existingUserGroup) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('groups.api.userNotInGroup'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .delete(userGroups)
+        .where(
+          and(
+            eq(userGroups.groupId, input.groupId),
+            eq(userGroups.userId, input.userId),
+          ),
+        );
     }),
 });
 

@@ -168,11 +168,25 @@
     "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "groupManagement": {
+      "title": "Gruppeadministrasjon",
+      "group": "Gruppe",
+      "actions": "Handlinger",
+      "addToGroup": "Legg til i gruppe",
+      "addingToGroup": "Legger til i gruppe...",
+      "addingToGroupFailed": "Kunne ikke legge til bruker i gruppe",
+      "removeFromGroup": "Fjern fra gruppe",
+      "removingFromGroup": "Fjerner fra gruppe...",
+      "removingFromGroupFailed": "Kunne ikke fjerne bruker fra gruppe",
+      "userAddedToGroup": "Bruker lagt til gruppe",
+      "userRemovedFromGroup": "Bruker fjernet fra gruppe"
+    },
     "api": {
       "idOrNameRequired": "Enten ID eller navn må oppgis",
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
-      "pageNumberRequired": "Sidetall må oppgis"
+      "pageNumberRequired": "Sidetall må oppgis",
+      "adminGroupRequired": "Du må være administrator selv for å redigere administratorbrukere"
     }
   },
   "settings": {
@@ -362,7 +376,9 @@
       "invalidGroupIdentifier": "Ugyldig gruppe-identifikator",
       "groupWithIdExists": "En gruppe med identifikatoren \"{identifier}\" finnes allerede",
       "insertFailed": "Kunne ikke legge til gruppe",
-      "groupNotFound": "Gruppen kunne ikke bli funnet"
+      "groupNotFound": "Gruppen kunne ikke bli funnet",
+      "userAlreadyInGroup": "Bruker er allerede medlem av gruppen",
+      "userNotInGroup": "Bruker er ikke medlem av gruppen"
     }
   },
   "storage": {

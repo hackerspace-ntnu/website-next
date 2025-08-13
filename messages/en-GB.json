@@ -168,11 +168,25 @@
     "memberSince": "Member since {date}",
     "guest": "Guest",
     "usernameCopied": "Username copied to clipboard!",
+    "groupManagement": {
+      "title": "Group management",
+      "group": "Group",
+      "actions": "Actions",
+      "addToGroup": "Add to group",
+      "addingToGroup": "Adding to group...",
+      "addingToGroupFailed": "Failed to add user to group",
+      "removeFromGroup": "Remove from group",
+      "removingFromGroup": "Removing from group...",
+      "removingFromGroupFailed": "Failed to remove user from group",
+      "userAddedToGroup": "User added to group successfully",
+      "userRemovedFromGroup": "User removed from group successfully"
+    },
     "api": {
       "idOrNameRequired": "Either ID or name must be provided",
       "errorFetchingMember": "Error fetching member",
       "errorFetchingMembers": "Error fetching members",
-      "pageNumberRequired": "Page number required"
+      "pageNumberRequired": "Page number required",
+      "adminGroupRequired": "You must be an admin yourself to edit admin users"
     }
   },
   "settings": {
@@ -362,7 +376,9 @@
       "invalidGroupIdentifier": "Invalid group identifier",
       "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
       "insertFailed": "Failed to add group",
-      "groupNotFound": "The group could not be found"
+      "groupNotFound": "The group could not be found",
+      "userAlreadyInGroup": "User is already a member of the group",
+      "userNotInGroup": "User is not a member of the group"
     }
   },
   "storage": {
