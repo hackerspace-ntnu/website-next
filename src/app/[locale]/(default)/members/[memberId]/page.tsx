@@ -61,6 +61,10 @@ export default async function MemberPage({
 
   const auth = await api.auth.state();
   const groups = await api.groups.fetchGroups();
+  const skills = await api.skills.fetchAllSkills();
+  const canEdit = auth.user?.groups.some((g) =>
+    ['admin', 'leadership', 'management'].includes(g),
+  );
   const { about, members, ui } = await getMessages();
 
   return (
@@ -82,11 +86,14 @@ export default async function MemberPage({
       </div>
       <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
         <MemberInfoCard user={user} />
-        <SkillCard skills={user.usersSkills.map((row) => row.skill)} />
+        <SkillCard
+          user={user}
+          userSkills={user.usersSkills}
+          allSkills={skills}
+          editable={!!canEdit}
+        />
       </div>
-      {auth.user?.groups.some((g) =>
-        ['admin', 'leadership', 'management'].includes(g),
-      ) && (
+      {canEdit && (
         <>
           <Separator />
           <h3 className='my-4 text-center'>{t('groupManagement.title')}</h3>

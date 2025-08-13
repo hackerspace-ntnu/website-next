@@ -18,7 +18,7 @@ import { editGroupSchema } from '@/validations/groups/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/groups/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/groups/fetchGroupSchema';
 import { groupSchema } from '@/validations/groups/groupSchema';
-import { modifyUserToGroupSchema } from '@/validations/groups/modifyUserToGroupSchema';
+import { userToGroupSchema } from '@/validations/groups/userToGroupSchema';
 
 const groupsRouter = createRouter({
   fetchGroup: publicProcedure
@@ -321,7 +321,7 @@ const groupsRouter = createRouter({
     }),
   addUserToGroup: managementProcedure
     .input((input) =>
-      modifyUserToGroupSchema(useTranslationsFromContext()).parse(input),
+      userToGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
       const group = await ctx.db.query.groups.findFirst({
@@ -377,7 +377,7 @@ const groupsRouter = createRouter({
     }),
   removeUserFromGroup: managementProcedure
     .input((input) =>
-      modifyUserToGroupSchema(useTranslationsFromContext()).parse(input),
+      userToGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
       const group = await ctx.db.query.groups.findFirst({

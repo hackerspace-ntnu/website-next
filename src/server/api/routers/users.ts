@@ -33,6 +33,20 @@ const usersRouter = createRouter({
                 .where(eq(userGroups.userId, users.id)),
             ),
           ),
+          columns: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            gitHubUsername: true,
+            discordUsername: true,
+            linkedInUsername: true,
+            instagramUsername: true,
+            private: true,
+            profilePictureId: true,
+            email: true,
+            memberSince: true,
+          },
           with: {
             usersGroups: {
               with: {
@@ -96,6 +110,20 @@ const usersRouter = createRouter({
           where,
           offset,
           limit: itemsPerPage,
+          columns: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            gitHubUsername: true,
+            discordUsername: true,
+            linkedInUsername: true,
+            instagramUsername: true,
+            private: true,
+            profilePictureId: true,
+            email: true,
+            memberSince: true,
+          },
           with: {
             usersGroups: {
               with: {

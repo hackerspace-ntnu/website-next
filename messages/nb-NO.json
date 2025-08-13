@@ -168,6 +168,20 @@
     "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "skillManagement": {
+      "addDialogTitle": "Er du sikker på at du vil gi ferdigheten {skill} til {user}?",
+      "removeDialogTitle": "Er du sikker på at du vil fjerne ferdigheten {skill} fra {user}?",
+      "dialogDescription": "Denne endringen vil bli vist i profilen deres.",
+      "addSkill": "Legg til ferdighet",
+      "addingSkill": "Legger til ferdighet...",
+      "addedSkill": "Ferdighet lagt til",
+      "addingSkillFailed": "Kunne ikke legge til ferdighet",
+      "removeSkill": "Fjern ferdighet",
+      "removingSkill": "Fjerner ferdighet...",
+      "removedSkill": "Ferdighet fjernet",
+      "removingSkillFailed": "Kunne ikke fjerne ferdighet",
+      "cancel": "Avbryt"
+    },
     "groupManagement": {
       "title": "Gruppeadministrasjon",
       "group": "Gruppe",
@@ -618,7 +632,13 @@
     "laser": "Laserkutting",
     "workshop": "Verkstedsverktøy",
     "microcontroller": "Mikrokontroller-programmering",
-    "webdevelopment": "Webutvikling"
+    "webdevelopment": "Webutvikling",
+    "api": {
+      "skillNotFound": "Ferdighet ikke funnet",
+      "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
+      "userDoesNotHaveSkill": "Brukeren har ikke denne ferdigheten",
+      "invalidId": "Ugyldig ID"
+    }
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
