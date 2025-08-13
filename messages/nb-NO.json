@@ -168,11 +168,39 @@
     "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "skillManagement": {
+      "addDialogTitle": "Er du sikker på at du vil gi ferdigheten {skill} til {user}?",
+      "removeDialogTitle": "Er du sikker på at du vil fjerne ferdigheten {skill} fra {user}?",
+      "dialogDescription": "Denne endringen vil bli vist i profilen deres.",
+      "addSkill": "Legg til ferdighet",
+      "addingSkill": "Legger til ferdighet...",
+      "addedSkill": "Ferdighet lagt til",
+      "addingSkillFailed": "Kunne ikke legge til ferdighet",
+      "removeSkill": "Fjern ferdighet",
+      "removingSkill": "Fjerner ferdighet...",
+      "removedSkill": "Ferdighet fjernet",
+      "removingSkillFailed": "Kunne ikke fjerne ferdighet",
+      "cancel": "Avbryt"
+    },
+    "groupManagement": {
+      "title": "Gruppeadministrasjon",
+      "group": "Gruppe",
+      "actions": "Handlinger",
+      "addToGroup": "Legg til i gruppe",
+      "addingToGroup": "Legger til i gruppe...",
+      "addingToGroupFailed": "Kunne ikke legge til bruker i gruppe",
+      "removeFromGroup": "Fjern fra gruppe",
+      "removingFromGroup": "Fjerner fra gruppe...",
+      "removingFromGroupFailed": "Kunne ikke fjerne bruker fra gruppe",
+      "userAddedToGroup": "Bruker lagt til gruppe",
+      "userRemovedFromGroup": "Bruker fjernet fra gruppe"
+    },
     "api": {
       "idOrNameRequired": "Enten ID eller navn må oppgis",
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
-      "pageNumberRequired": "Sidetall må oppgis"
+      "pageNumberRequired": "Sidetall må oppgis",
+      "adminGroupRequired": "Du må være administrator selv for å redigere administratorbrukere"
     }
   },
   "settings": {
@@ -362,7 +390,9 @@
       "invalidGroupIdentifier": "Ugyldig gruppe-identifikator",
       "groupWithIdExists": "En gruppe med identifikatoren \"{identifier}\" finnes allerede",
       "insertFailed": "Kunne ikke legge til gruppe",
-      "groupNotFound": "Gruppen kunne ikke bli funnet"
+      "groupNotFound": "Gruppen kunne ikke bli funnet",
+      "userAlreadyInGroup": "Bruker er allerede medlem av gruppen",
+      "userNotInGroup": "Bruker er ikke medlem av gruppen"
     }
   },
   "storage": {
@@ -602,7 +632,13 @@
     "laser": "Laserkutting",
     "workshop": "Verkstedsverktøy",
     "microcontroller": "Mikrokontroller-programmering",
-    "webdevelopment": "Webutvikling"
+    "webdevelopment": "Webutvikling",
+    "api": {
+      "skillNotFound": "Ferdighet ikke funnet",
+      "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
+      "userDoesNotHaveSkill": "Brukeren har ikke denne ferdigheten",
+      "invalidId": "Ugyldig ID"
+    }
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
