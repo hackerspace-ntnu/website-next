@@ -30,8 +30,8 @@ export default async function ArticlePage({
 }) {
   const { locale, articleId } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('news');
 
+  const t = await getTranslations('news');
   const data = articleData.find((a) => a.id === Number(articleId));
   if (!data) {
     return notFound();

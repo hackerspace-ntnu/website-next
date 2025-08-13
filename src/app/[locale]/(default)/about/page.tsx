@@ -22,6 +22,7 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('about');
   const tFAQ = await getTranslations('about.FAQ');
 

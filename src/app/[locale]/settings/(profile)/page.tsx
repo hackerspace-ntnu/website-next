@@ -22,8 +22,8 @@ export default async function ProfilePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('settings.profile');
 
+  const t = await getTranslations('settings.profile');
   const { user } = await api.auth.state();
 
   if (!user) {

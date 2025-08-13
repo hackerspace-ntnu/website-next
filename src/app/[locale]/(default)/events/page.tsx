@@ -20,6 +20,7 @@ export default async function EventsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   const tUi = await getTranslations('ui');
