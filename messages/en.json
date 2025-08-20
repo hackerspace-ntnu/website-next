@@ -245,14 +245,13 @@
   },
   "home": {
     "whoAreWe": "Who are we?",
-    "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Viverra id convallis taciti ex; egestas duis varius mus praesent. Augue orci scelerisque habitant aenean elit varius sociosqu et libero. Tempus magnis penatibus elementum integer pretium parturient fringilla massa. Felis tristique molestie facilisis sagittis eros hendrerit. Gravida himenaeos est sodales metus rhoncus hendrerit massa. Nostra vehicula quis molestie integer fringilla interdum. Congue tempor ligula proin ornare fermentum bibendum nisi dis.",
+    "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
     "stopBy": "Stop by!",
-    "stopByDescription": "Porttitor porttitor cubilia facilisi semper mauris pulvinar augue. Convallis ultrices elit; facilisi in potenti maximus consequat integer. Fames quam magnis ac erat ad; per enim cras. Dui maecenas feugiat metus ridiculus turpis. Varius per leo mus netus vivamus porttitor rhoncus nisl. Nisi cubilia ultricies iaculis semper curae; ultrices justo torquent. Commodo proin bibendum; class convallis consectetur natoque. Consequat penatibus blandit fusce justo, feugiat sed molestie. Ex eros mollis ultrices nec purus commodo ligula amet.",
-    "onShift": "Currently on shift:",
-    "events": "What's happening?",
-    "eventsDescription": "text mhm yes very text text text",
-    "news": "\"New\"s",
-    "newsDescription": "See what we've been up to lately!"
+    "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
+    "events": "Events",
+    "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on some social activities.",
+    "news": "News",
+    "newsDescription": "See the latest updates from Hackerspace."
   },
   "news": {
     "title": "News",

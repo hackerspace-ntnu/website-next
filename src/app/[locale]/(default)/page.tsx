@@ -1,13 +1,13 @@
 import { EventTable } from '@/components/home/EventTable';
-import { HelloWorld } from '@/components/home/HelloWorld';
 import { IntroBanner } from '@/components/home/IntroBanner';
 import { NewsTable } from '@/components/home/NewsTable';
 import { TextBlock } from '@/components/home/TextBlock';
+import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
-import { Skeleton } from '@/components/ui/Skeleton';
 import { api } from '@/lib/api/server';
 import { articleMockData } from '@/mock-data/article';
 import { events } from '@/mock-data/events';
+import { CornerUpRightIcon } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
@@ -19,8 +19,10 @@ export default async function HomePage({
 
   setRequestLocale(locale);
   const t = await getTranslations('home');
+  const tLayout = await getTranslations('layout');
 
-  const hello = await api.test.helloWorld();
+  const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
+
   return (
     <div className='space-y-8'>
       <IntroBanner />
@@ -31,19 +33,26 @@ export default async function HomePage({
       <Separator />
       <TextBlock imgSrc='/unknown.png' imgAlt='...' imgSide='left'>
         <h2>{t('stopBy')}</h2>
-        <p>{t('stopByDescription')}</p>
-        <div className='flex gap-3'>
-          <span className='my-auto'>{t('onShift')}</span>
-          <Skeleton className='size-12' />
-          <Skeleton className='size-12' />
-          <Skeleton className='size-12' />
-        </div>
+        <p>{t('stopByDescription', { membersOnShift })}</p>
+        <Link
+          variant='link'
+          href='/shift-schedule'
+          className='flex w-fit gap-3'
+        >
+          {tLayout('shiftSchedule')}
+          <CornerUpRightIcon size={16} />
+        </Link>
       </TextBlock>
       <Separator />
       <TextBlock imgSrc='/event.webp' imgAlt='...' imgSide='right'>
         <h2>{t('events')}</h2>
         <div className='flex gap-3'>
-          <p>{t('eventsDescription')}</p>
+          <div className='flex flex-col gap-3'>
+            <p>{t('eventsDescription')}</p>
+            <Link variant='link' href='/events' className='flex w-fit gap-3'>
+              {tLayout('events')} <CornerUpRightIcon size={16} />
+            </Link>
+          </div>
           <EventTable events={events.slice(0, 3)} />
         </div>
       </TextBlock>
@@ -51,15 +60,15 @@ export default async function HomePage({
       <TextBlock imgSrc='/mock.jpg' imgAlt='...' imgSide='left'>
         <h2>{t('news')}</h2>
         <div className='flex gap-3 '>
-          <p>{t('newsDescription')}</p>
+          <div className='flex flex-col gap-3'>
+            <p>{t('newsDescription')}</p>
+            <Link variant='link' href='/news' className='flex w-fit gap-3'>
+              {tLayout('news')} <CornerUpRightIcon size={16} />
+            </Link>
+          </div>
           <NewsTable articles={articleMockData.slice(0, 3)} />
         </div>
       </TextBlock>
-      <div>
-        <p className='pt-10'>Testing stuff:</p>
-        <HelloWorld />
-        <h2>{hello}</h2>
-      </div>
     </div>
   );
 }

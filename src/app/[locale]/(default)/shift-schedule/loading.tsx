@@ -9,7 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import {
+  days,
+  skillIdentifiers,
+  timeslotTimes,
+  timeslots,
+} from '@/lib/constants';
 import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
@@ -17,41 +22,16 @@ export default function ShiftScheduleLayout() {
   const tSkills = useTranslations('skills');
   const format = useFormatter();
 
-  function getDateTimeRange(timeslot: string) {
-    let firstDate: Date;
-    let secondDate: Date;
-
-    switch (timeslot) {
-      case timeslots[0]:
-        firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
-        secondDate = new Date(0, 0, 0, 12, 0, 0, 0);
-        break;
-
-      case timeslots[1]:
-        firstDate = new Date(0, 0, 0, 12, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 14, 0, 0, 0);
-        break;
-
-      case timeslots[2]:
-        firstDate = new Date(0, 0, 0, 14, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 16, 0, 0, 0);
-        break;
-
-      case timeslots[3]:
-        firstDate = new Date(0, 0, 0, 16, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 18, 0, 0, 0);
-        break;
-
-      default:
-        firstDate = new Date();
-        secondDate = new Date();
-    }
-
-    return format.dateTimeRange(firstDate, secondDate, {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    });
+  function getDateTimeRange(timeslot: (typeof timeslots)[number]) {
+    return format.dateTimeRange(
+      timeslotTimes[timeslot].start,
+      timeslotTimes[timeslot].end,
+      {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      },
+    );
   }
 
   return (

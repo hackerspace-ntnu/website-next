@@ -245,14 +245,13 @@
   },
   "home": {
     "whoAreWe": "Hvem er vi?",
-    "whoAreWeDescription": "Lorem ipsum odor amet, consectetuer adipiscing elit. Viverra id convallis taciti ex; egestas duis varius mus praesent. Augue orci scelerisque habitant aenean elit varius sociosqu et libero. Tempus magnis penatibus elementum integer pretium parturient fringilla massa. Felis tristique molestie facilisis sagittis eros hendrerit. Gravida himenaeos est sodales metus rhoncus hendrerit massa. Nostra vehicula quis molestie integer fringilla interdum. Congue tempor ligula proin ornare fermentum bibendum nisi dis.",
+    "whoAreWeDescription": "Hackerspace NTNU er et studentdrevet prosjekt fra IDI og er åpent for alle studenter uavhengig av studieretning. Hos oss finner du ny teknologi til din disposisjon, blant annet 3D-printere og Virtual Reality-utstyr. Enten du ønsker å få en LED-lampe til å blinke eller lage en 3D-modell av Trondheim, kan medlemmene i Hackerspace tilby variert og god kompetanse og hjelpe deg med det, uavhengig av ditt medlemsskap i Hackerspace.",
     "stopBy": "Kom innom!",
-    "stopByDescription": "Porttitor porttitor cubilia facilisi semper mauris pulvinar augue. Convallis ultrices elit; facilisi in potenti maximus consequat integer. Fames quam magnis ac erat ad; per enim cras. Dui maecenas feugiat metus ridiculus turpis. Varius per leo mus netus vivamus porttitor rhoncus nisl. Nisi cubilia ultricies iaculis semper curae; ultrices justo torquent. Commodo proin bibendum; class convallis consectetur natoque. Consequat penatibus blandit fusce justo, feugiat sed molestie. Ex eros mollis ultrices nec purus commodo ligula amet.",
-    "onShift": "På vakt nå:",
-    "events": "Hva skjer?",
-    "eventsDescription": "text mhm yes very text text text",
-    "news": "\"Ny\"heter",
-    "newsDescription": "Massa luctus eu ultrices fermentum luctus velit vel. Orci mauris felis, nibh inceptos blandit hac. Curae maecenas eros quis sollicitudin leo ex. Libero hendrerit libero libero, mattis a urna metus orci diam. Nisi quisque ullamcorper faucibus ornare tristique mus. Lectus varius vulputate; est scelerisque feugiat bibendum lectus varius posuere. Egestas semper eget egestas conubia iaculis mauris dapibus fames. Duis nam litora arcu convallis sem sem justo. Praesent hac consequat sagittis in orci massa."
+    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkuratt nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
+    "events": "Arrangementer",
+    "eventsDescription": "Meld deg på noen av våre oppkommende arrangementer for å lære deg nye ferdigheter eller bli med på noe sosialt.",
+    "news": "Nyheter",
+    "newsDescription": "Se de nyeste oppdateringene fra Hackerspace."
   },
   "news": {
     "title": "Nyheter",
