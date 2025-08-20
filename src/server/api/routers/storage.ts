@@ -1,17 +1,31 @@
+import { TRPCError } from '@trpc/server';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  getTableColumns,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  or,
+} from 'drizzle-orm';
 import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
+  protectedEditProcedure,
   publicProcedure,
-  storageProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
   type InsertStorageItem,
-  type SelectItemLocalization,
-  type SelectStorageItem,
   itemCategories,
   itemLocalizations,
+  type SelectItemLocalization,
+  type SelectStorageItem,
   storageItems,
 } from '@/server/db/tables';
 import { itemLoans } from '@/server/db/tables/loans';
@@ -29,20 +43,6 @@ import {
   itemsTotalSchema,
   updateLoanSchema,
 } from '@/validations/storage';
-import { TRPCError } from '@trpc/server';
-import {
-  and,
-  asc,
-  count,
-  desc,
-  eq,
-  getTableColumns,
-  ilike,
-  inArray,
-  isNotNull,
-  isNull,
-  or,
-} from 'drizzle-orm';
 
 const storageRouter = createRouter({
   fetchOne: publicProcedure
@@ -130,7 +130,7 @@ const storageRouter = createRouter({
             .reduce((a, b) => a + b, 0);
 
           const { item, ...localizationOnly } = localization;
-          const { itemLoans, ...itemWithoutLoans } = item;
+          const { itemLoans: _, ...itemWithoutLoans } = item;
 
           items.push({
             ...itemWithoutLoans,
@@ -220,7 +220,7 @@ const storageRouter = createRouter({
 
       return counts[0].count;
     }),
-  newItem: storageProcedure
+  newItem: protectedEditProcedure
     .input(async (input) =>
       itemSchema(
         useTranslationsFromContext(),
@@ -313,7 +313,8 @@ const storageRouter = createRouter({
             locale: 'nb-NO',
           },
         ])
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: ctx.t('storage.item.api.insertLocalizationsFailed'),
@@ -321,7 +322,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  editItem: storageProcedure
+  editItem: protectedEditProcedure
     .input(async (input) =>
       editItemSchema(
         useTranslationsFromContext(),
@@ -386,7 +387,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  deleteItem: storageProcedure
+  deleteItem: protectedEditProcedure
     .input((input) => deleteItemSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const loansOfThisItem = await ctx.db
@@ -407,7 +408,7 @@ const storageRouter = createRouter({
         .delete(itemLocalizations)
         .where(eq(itemLocalizations.itemId, input.id));
     }),
-  fetchItemCategories: storageProcedure.query(async ({ ctx }) => {
+  fetchItemCategories: protectedEditProcedure.query(async ({ ctx }) => {
     return await ctx.db
       .select()
       .from(itemCategories)
@@ -424,7 +425,7 @@ const storageRouter = createRouter({
       .from(itemCategories);
     return categories.map((c) => c.name);
   }),
-  addItemCategory: storageProcedure
+  addItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategoryFormSchema(useTranslationsFromContext()).parse(input),
     )
@@ -448,7 +449,8 @@ const storageRouter = createRouter({
       await ctx.db
         .insert(itemCategories)
         .values(input)
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.insertFailed'),
@@ -456,7 +458,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  editItemCategory: storageProcedure
+  editItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
@@ -465,7 +467,8 @@ const storageRouter = createRouter({
         .update(itemCategories)
         .set(input)
         .where(eq(itemCategories.id, input.id))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.updateFailed'),
@@ -473,7 +476,7 @@ const storageRouter = createRouter({
           });
         });
     }),
-  deleteItemCategory: storageProcedure
+  deleteItemCategory: protectedEditProcedure
     .input((input) =>
       itemCategorySchema(useTranslationsFromContext()).parse(input),
     )
@@ -481,7 +484,8 @@ const storageRouter = createRouter({
       await ctx.db
         .delete(itemCategories)
         .where(eq(itemCategories.id, input.id))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.deleteFailed'),
@@ -539,7 +543,7 @@ const storageRouter = createRouter({
         });
       }
     }),
-  fetchLoans: storageProcedure
+  fetchLoans: protectedEditProcedure
     .input((input) =>
       fetchLoansSchema(useTranslationsFromContext()).parse(input),
     )
@@ -561,7 +565,7 @@ const storageRouter = createRouter({
         },
       });
     }),
-  approvedLoansTotal: storageProcedure.query(async ({ ctx }) => {
+  approvedLoansTotal: protectedEditProcedure.query(async ({ ctx }) => {
     const counts = await ctx.db
       .select({ count: count() })
       .from(itemLoans)
@@ -571,7 +575,7 @@ const storageRouter = createRouter({
 
     return counts[0].count;
   }),
-  approveLoan: storageProcedure
+  approveLoan: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -587,7 +591,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  deleteLoan: storageProcedure
+  deleteLoan: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db
@@ -600,7 +604,7 @@ const storageRouter = createRouter({
           ),
         );
     }),
-  confirmLoanReturned: storageProcedure
+  confirmLoanReturned: protectedEditProcedure
     .input((input) => updateLoanSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       await ctx.db

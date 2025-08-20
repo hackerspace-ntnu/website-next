@@ -1,5 +1,5 @@
-import type { Translations } from '@/lib/locale';
 import { z } from 'zod';
+import type { Translations } from '@/lib/locale';
 
 function fetchOneSchema(t: Translations) {
   return z.number({

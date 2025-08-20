@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server';
+import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
@@ -5,8 +7,6 @@ import { createRouter } from '@/server/api/trpc';
 import { userGroups, users } from '@/server/db/tables';
 import { fetchUserSchema } from '@/validations/users/fetchUserSchema';
 import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
-import { TRPCError } from '@trpc/server';
-import { type SQL, and, count, eq, exists, ilike, or } from 'drizzle-orm';
 
 const usersRouter = createRouter({
   fetchUser: publicProcedure

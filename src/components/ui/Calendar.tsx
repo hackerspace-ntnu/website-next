@@ -6,8 +6,7 @@ import {
   ChevronRightIcon,
   ChevronUpIcon,
 } from 'lucide-react';
-import { useLocale } from 'next-intl';
-import { useFormatter, useTranslations } from 'next-intl';
+import { useFormatter, useLocale, useTranslations } from 'next-intl';
 import {
   DayPicker,
   type DayPickerProps,
@@ -88,7 +87,7 @@ function Calendar({
     <DayPicker
       className={cx('p-3', className)}
       classNames={{
-        root: 'p-2-6-clamp',
+        root: 'clamp-[p-2-6-clamp]',
         months: 'relative',
         month: 'space-y-4',
         nav: 'flex items-center justify-between absolute w-full z-10 px-1',

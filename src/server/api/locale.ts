@@ -1,6 +1,6 @@
+import type { Locale } from 'next-intl';
 import { routing } from '@/lib/locale';
 import { getContext } from '@/server/api/context';
-import type { Locale } from 'next-intl';
 
 function getLocaleFromRequest(request: Request) {
   const acceptLanguage = request.headers.get('accept-language');

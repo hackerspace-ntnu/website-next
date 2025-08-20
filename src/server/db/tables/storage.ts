@@ -1,5 +1,3 @@
-import { files, localesEnum } from '@/server/db/tables';
-import { itemLoans } from '@/server/db/tables/loans';
 import {
   type InferInsertModel,
   type InferSelectModel,
@@ -12,6 +10,9 @@ import {
   serial,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { files } from '@/server/db/tables/files';
+import { itemLoans } from '@/server/db/tables/loans';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const storageItems = pgTable('storage_items', {
   id: serial('id').primaryKey(),
@@ -42,7 +43,7 @@ const itemLocalizations = pgTable(
     name: varchar('name', { length: 128 }).notNull(),
     description: varchar('description', { length: 512 }),
     location: varchar('location', { length: 256 }),
-    locale: localesEnum().notNull(),
+    locale: localesEnum('locale').notNull(),
   },
   (table) => [primaryKey({ columns: [table.itemId, table.locale] })],
 );

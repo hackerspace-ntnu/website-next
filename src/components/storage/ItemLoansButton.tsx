@@ -1,5 +1,6 @@
 'use client';
 
+import { ListCheckIcon } from 'lucide-react';
 import { Link } from '@/components/ui/Link';
 import {
   Tooltip,
@@ -7,7 +8,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import { ListCheckIcon } from 'lucide-react';
 
 function ItemLoansButton({ label }: { label: string }) {
   return (

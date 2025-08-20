@@ -1,10 +1,13 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  type SearchParams,
+} from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { parseAsInteger } from 'nuqs/server';
-import { type SearchParams, createSearchParamsCache } from 'nuqs/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');
@@ -34,7 +37,7 @@ export default async function StorageLoansPage({
       ['labops', 'leadership', 'admin'].includes(g),
     )
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }
 

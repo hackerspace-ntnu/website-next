@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import { InternalBadge } from '@/components/news/InternalBadge';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
-import Image from 'next/image';
 
 type ArticleItemProps = {
   className?: string;

@@ -1,7 +1,7 @@
-import { HelloWorld } from '@/components/home/HelloWorld';
-import { api } from '@/lib/api/server';
 import type { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { HelloWorld } from '@/components/home/HelloWorld';
+import { api } from '@/lib/api/server';
 
 export default async function HomePage({
   params,
@@ -13,7 +13,7 @@ export default async function HomePage({
   const hello = await api.test.helloWorld();
   return (
     <div className='min-h-screen'>
-      <p className='text-lg-5xl-clamp--md'>{hello}</p>
+      <p className='clamp-[text-lg-5xl-clamp--md]'>{hello}</p>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
         cupiditate debitis! Fuga minus quod ea eligendi exercitationem. Sequi

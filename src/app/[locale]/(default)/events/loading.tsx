@@ -1,6 +1,6 @@
+import { getTranslations } from 'next-intl/server';
 import { EventCardSkeleton } from '@/components/events/EventCardSkeleton';
 import { ExternalLink } from '@/components/ui/Link';
-import { getTranslations } from 'next-intl/server';
 
 export default async function EventsSkeleton() {
   const t = await getTranslations('events');

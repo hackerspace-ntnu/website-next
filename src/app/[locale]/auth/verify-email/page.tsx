@@ -1,8 +1,8 @@
+import type { Locale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import { VerifyEmailForm } from '@/components/auth/VerifyEmailForm';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import type { Locale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
 
 export default async function VerifyEmailPage({
   params,

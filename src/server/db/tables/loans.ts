@@ -1,18 +1,17 @@
-import { storageItems } from '@/server/db/tables/storage';
-import { users } from '@/server/db/tables/users';
 import {
   type InferInsertModel,
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
 import {
-  boolean,
   integer,
   pgTable,
   serial,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { storageItems } from '@/server/db/tables/storage';
+import { users } from '@/server/db/tables/users';
 
 const itemLoans = pgTable('item_loans', {
   id: serial('id').primaryKey(),
@@ -21,7 +20,7 @@ const itemLoans = pgTable('item_loans', {
     .references(() => storageItems.id, { onDelete: 'cascade' }),
   lenderId: integer('lender_id')
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: 'cascade' }),
   unitsBorrowed: integer('units_borrowed').notNull(),
   borrowFrom: timestamp('borrow_from').notNull(),
   borrowUntil: timestamp('borrow_until').notNull(),

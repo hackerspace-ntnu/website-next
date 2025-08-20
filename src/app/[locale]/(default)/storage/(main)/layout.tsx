@@ -1,5 +1,7 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 import { CategorySelector } from '@/components/composites/CategorySelector';
-import { SearchBar } from '@/components/composites/SearchBar';
 import { SortSelector } from '@/components/composites/SortSelector';
 import { AddItemButton } from '@/components/storage/AddItemButton';
 import { ItemLoansButton } from '@/components/storage/ItemLoansButton';
@@ -8,9 +10,6 @@ import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
 import { api } from '@/lib/api/server';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Suspense } from 'react';
 
 type StorageLayoutProps = {
   children: React.ReactNode;

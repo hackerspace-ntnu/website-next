@@ -1,5 +1,6 @@
 'use client';
 
+import { UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -11,7 +12,6 @@ import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { UserIcon } from 'lucide-react';
 
 type ProfileMenuProps = {
   hasUser: boolean;

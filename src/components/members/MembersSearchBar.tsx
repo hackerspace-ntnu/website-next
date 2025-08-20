@@ -1,8 +1,8 @@
 'use client';
 
+import { parseAsString, useQueryState } from 'nuqs';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
-import { parseAsString, useQueryState } from 'nuqs';
 
 function MembersSearchBar({
   placeholder,

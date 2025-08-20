@@ -1,10 +1,10 @@
+import { getTranslations } from 'next-intl/server';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/Accordion';
-import { getTranslations } from 'next-intl/server';
 
 type FAQ = {
   id: string;

@@ -45,7 +45,7 @@ export default async function SettingsLayout({
       <div className='h-full w-full gap-6 p-10 pb-16'>
         <div className='flex gap-3 space-y-0.5'>
           <LogoLink
-            logoClassName='h-12-16-clamp w-12-16-clamp min-w-fit'
+            logoClassName='clamp-[h-12-16-clamp] clamp-[w-12-16-clamp] min-w-fit'
             logoOnly
             t={{
               hackerspaceHome: tLayout('hackerspaceHome'),

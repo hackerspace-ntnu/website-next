@@ -1,8 +1,8 @@
+import { getTranslations } from 'next-intl/server';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Card } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { skillIdentifiers } from '@/lib/constants';
-import { getTranslations } from 'next-intl/server';
 
 async function SkillCardSkeleton() {
   const t = await getTranslations('skills');

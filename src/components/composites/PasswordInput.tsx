@@ -3,11 +3,9 @@
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-
-import { cx } from '@/lib/utils';
-
 import { Button } from '@/components/ui/Button';
 import { Input, type InputProps } from '@/components/ui/Input';
+import { cx } from '@/lib/utils';
 
 function PasswordInput({
   ref,

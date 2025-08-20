@@ -1,11 +1,11 @@
+import { ArrowLeftIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { MemberInfoCard } from '@/components/members/MemberInfoCard';
 import { SkillCard } from '@/components/members/SkillCard';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
-import { ArrowLeftIcon } from 'lucide-react';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,

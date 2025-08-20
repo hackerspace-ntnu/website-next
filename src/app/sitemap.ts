@@ -1,8 +1,8 @@
+import type { MetadataRoute } from 'next';
+import type { Locale } from 'next-intl';
 import { env } from '@/env';
 import { routing } from '@/lib/locale';
 import { getPathname } from '@/lib/locale/navigation';
-import type { MetadataRoute } from 'next';
-import type { Locale } from 'next-intl';
 
 type Href = Parameters<typeof getPathname>[0]['href'];
 

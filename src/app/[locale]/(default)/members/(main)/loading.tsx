@@ -1,7 +1,7 @@
+import { useId } from 'react';
 import { PaginationCarouselSkeleton } from '@/components/composites/PaginationCarouselSkeleton';
 import { MemberCardSkeleton } from '@/components/members/MemberCardSkeleton';
 import { Separator } from '@/components/ui/Separator';
-import { useId } from 'react';
 
 export default function MembersLoading() {
   const ids = [

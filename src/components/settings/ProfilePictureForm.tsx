@@ -1,5 +1,8 @@
 'use client';
 
+import { CameraIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { useAppForm } from '@/components/ui/Form';
 import { Input } from '@/components/ui/Input';
@@ -13,9 +16,6 @@ import {
 import { api } from '@/lib/api/client';
 import { fileToBase64String } from '@/lib/utils/files';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
-import { CameraIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 type ProfilePictureFormProps = {
   profilePictureUrl?: string;

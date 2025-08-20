@@ -1,13 +1,13 @@
 'use client';
 
-import { useAppForm } from '@/components/ui/Form';
-import { toast } from '@/components/ui/Toaster';
-import { useRouter } from '@/lib/locale/navigation';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { z } from 'zod';
-
+import { DeleteAccountDialog } from '@/components/settings/DeleteAccountDialog';
+import { useAppForm } from '@/components/ui/Form';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
 import { accountSchema } from '@/validations/settings/accountSchema';
 
 type AccountFormProps = {
@@ -136,10 +136,12 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
             />
           )}
         </form.AppField>
-
-        <form.SubmitButton loading={updateAccountMutation.isPending}>
-          {t('updateAccount')}
-        </form.SubmitButton>
+        <div className='flex justify-between'>
+          <form.SubmitButton loading={updateAccountMutation.isPending}>
+            {t('updateAccount')}
+          </form.SubmitButton>
+          <DeleteAccountDialog />
+        </div>
       </form.AppForm>
     </form>
   );

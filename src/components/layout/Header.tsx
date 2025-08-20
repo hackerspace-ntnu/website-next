@@ -1,4 +1,4 @@
-import { LogoLink } from '@/components/layout/LogoLink';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { DesktopNavMenu } from '@/components/layout/header/DesktopNavMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
@@ -6,9 +6,9 @@ import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { MobileSheet } from '@/components/layout/header/MobileSheet';
 import { Nav } from '@/components/layout/header/Nav';
 import { ProfileMenu } from '@/components/layout/header/ProfileMenu';
+import { LogoLink } from '@/components/layout/LogoLink';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
 
 async function Header() {
   const locale = await getLocale();
@@ -20,7 +20,7 @@ async function Header() {
   }
 
   return (
-    <header className='sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 px-1-24-clamp backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
+    <header className='clamp-[px-1-24-clamp] sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
@@ -43,7 +43,7 @@ async function Header() {
           }}
         />
         <LogoLink
-          className='md:ml-12-0-clamp-md'
+          className='md:clamp-[ml-12-0-clamp-md]'
           t={{
             hackerspaceHome: t('hackerspaceHome'),
           }}

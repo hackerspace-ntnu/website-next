@@ -1,4 +1,3 @@
-import type { routing } from '@/lib/locale';
 import {
   Body,
   Container,

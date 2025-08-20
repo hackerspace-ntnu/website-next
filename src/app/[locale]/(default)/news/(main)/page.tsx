@@ -1,18 +1,17 @@
-import { articleMockData as articleData } from '@/mock-data/article';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
-  type SearchParams,
   createSearchParamsCache,
   parseAsInteger,
+  type SearchParams,
 } from 'nuqs/server';
 import { Suspense } from 'react';
-
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { CardGrid } from '@/components/news/CardGrid';
 import { ItemGrid } from '@/components/news/ItemGrid';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
-import type { Locale } from 'next-intl';
+import { articleMockData as articleData } from '@/mock-data/article';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');

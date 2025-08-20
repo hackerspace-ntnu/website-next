@@ -1,5 +1,6 @@
 'use client';
 
+import { XIcon } from 'lucide-react';
 import type { CartItem } from '@/components/storage/types';
 import {
   AlertDialog,
@@ -15,8 +16,6 @@ import {
 import { Button } from '@/components/ui/Button';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
-import { XIcon } from 'lucide-react';
-import { useState } from 'react';
 
 type ShoppingCartClearDialogProps = {
   t: {

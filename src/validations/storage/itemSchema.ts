@@ -1,6 +1,6 @@
+import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
 import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
-import { z } from 'zod';
 
 function itemSchema(t: Translations, categories: string[]) {
   return z.object({

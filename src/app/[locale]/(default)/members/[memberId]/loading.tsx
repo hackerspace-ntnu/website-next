@@ -1,9 +1,9 @@
+import { ArrowLeftIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { MemberInfoCardSkeleton } from '@/components/members/MemberInfoCardSkeleton';
 import { SkillCardSkeleton } from '@/components/members/SkillCardSkeleton';
 import { Link } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { ArrowLeftIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
 export default async function MemberLoading() {
   const t = await getTranslations('members');

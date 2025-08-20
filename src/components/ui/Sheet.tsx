@@ -1,9 +1,9 @@
 'use client';
 
-import { type VariantProps, cva, cx } from '@/lib/utils';
 import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { cva, cx, type VariantProps } from '@/lib/utils';
 
 function Sheet(
   props: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Root>,
