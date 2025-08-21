@@ -118,6 +118,7 @@
     "storage": "Storage",
     "about": "About",
     "shiftSchedule": "Shift Schedule",
+    "members": "Members",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
@@ -141,13 +142,48 @@
     "visitSlack": "Visit Slack",
     "visitFacebook": "Visit Facebook",
     "visitGithub": "Visit Github",
+    "visitLinkedin": "Visit Linkedin",
     "visitInstagram": "Visit our Instagram",
+    "discordTag": "Copy the Discord tag",
     "NTNUIDI": "NTNU Department of Computer Science",
     "NTNUIDIURL": "https://www.ntnu.edu/idi",
     "NTNUNexus": "The working life network Nexus",
     "internal": "Internal",
     "copyright": "Copyright",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+  },
+  "home": {
+    "whoAreWe": "Who are we?",
+    "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
+    "stopBy": "Stop by!",
+    "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
+    "events": "Events",
+    "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on social activities.",
+    "news": "News",
+    "newsDescription": "See the latest updates from Hackerspace."
+  },
+  "news": {
+    "title": "News",
+    "internalArticle": "This is an internal article",
+    "newArticle": "New article",
+    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
+    "views": "Views"
+  },
+  "members": {
+    "title": "Members",
+    "internalMember": "This is an internal member",
+    "backToMember": "Back to members",
+    "searchPlaceholder": "Search for a member...",
+    "memberSince": "Member since {date}",
+    "guest": "Guest",
+    "usernameCopied": "Username copied to clipboard!",
+    "api": {
+      "idOrNameRequired": "Either ID or name must be provided",
+      "errorFetchingMember": "Error fetching member",
+      "errorFetchingMembers": "Error fetching members",
+      "pageNumberRequired": "Page number required"
+    }
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
@@ -211,6 +247,12 @@
         "format": "Phone number is formatted incorrectly",
         "inUse": "Phone number is already in use"
       },
+      "delete": {
+        "buttonLabel": "Delete account",
+        "dialogTitle": "Are you sure want to delete your account?",
+        "dialogDescription": "All data related to you, including all your contact information, profile picture, item loans, event registrations, linked groups, reservations, settings and more will be deleted. <bold>This action cannot be undone</bold>. If you change your mind later, recovering this data will be impossible - however, you're still welcome to make a new account.",
+        "failedToDelete": "Failed to delete account"
+      },
       "password": {
         "currentLabel": "Current password",
         "newLabel": "New password",
@@ -243,22 +285,95 @@
       "title": "Administrator"
     }
   },
-  "home": {
-    "whoAreWe": "Who are we?",
-    "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
-    "stopBy": "Stop by!",
-    "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
-    "events": "Events",
-    "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on some social activities.",
-    "news": "News",
-    "newsDescription": "See the latest updates from Hackerspace."
+  "about": {
+    "whatIsHackerspace": "What is Hackerspace?",
+    "aboutDescription": "<p1> Hackerspace NTNU is a student-driven project open to all students, regardless of study direction or Hackerspace membership. We offer a creative arena where students from different disciplines can get help realizing their ideas in an engaged and inclusive environment. Here, you will find new technology at your disposal, including drones, 3D printers, and Virtual Reality equipment. </p1> <p2> Whether you are a first-year student needing help with your first Arduino project or a fourth-year student wanting to create a 3D model of Trondheim, we can provide both equipment and expertise. We also regularly hold courses for both beginners and advanced students in many exciting subjects. </p2> <p3> Come by to see what we're doing and have a chat. </p3> You can find us on the second floor of the A-block in the Realfagbygget at NTNU Gløshaugen.",
+    "showMap": "Show map",
+    "FAQ": {
+      "title": "Frequently Asked Questions",
+      "canIUseThe3dPrinter": "Can I use the 3D printer?",
+      "answerCanIUseThe3dPrinter": "<p1> All students can use the 3D printers and the rest of the workshop, regardless of whether they are members of Hackerspace or not. We have a reservation system available for all students with FEIDE login from the website's navigation bar. </p1> <p2> Come by during opening hours and get help from one of our members.</p2>",
+      "canITryVRGames-Equipment": "Can I try VR games/equipment?",
+      "answerCanITryVRGames-Equipment": "Our VR equipment can be borrowed and tried out by all students, regardless of Hackerspace membership. We have a dedicated VR room where you can come and play as long as a Hackerspace member is available for setup and teardown. The equipment can be borrowed through the usual inventory system. Come by during our opening hours if you're interested.",
+      "howDoIBecomeAMember": "How do I become a member?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace has ongoing admissions. You can apply whenever you want. We usually respond within 3 working weeks. </p1> <p2> Note that you do not need membership to borrow equipment or try something cool. Come by for a chat during our opening hours to learn more about our offerings and what it's like to be a member. </p2>"
+    },
+    "activeGroup": "Our Active Groups",
+    "noMembers": "No members are a part of this group yet."
   },
-  "news": {
-    "title": "News",
-    "internalArticle": "This is an internal article",
-    "newArticle": "New article",
-    "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
-    "views": "Views"
+  "groups": {
+    "backToAbout": "Back to About",
+    "new": {
+      "title": "New Group",
+      "createGroup": "Create group",
+      "unauthorized": "Unauthorized to create new groups",
+      "groupCreated": "Group created successfully"
+    },
+    "update": {
+      "title": "Update Group",
+      "backToGroup": "Back to group",
+      "unauthorized": "Unauthorized to update groups",
+      "updateGroup": "Update group",
+      "groupUpdated": "Group updated successfully",
+      "deleteGroup": "Delete group",
+      "imageDeleted": "Group image deleted successfully",
+      "groupDeleted": "Group deleted successfully",
+      "deleteGroupTitle": "Are you sure you want to delete this group?",
+      "deleteGroupDescription": "The group will be permanently deleted. This action cannot be undone.",
+      "deleteGroupImage": "Delete group image",
+      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
+      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
+    },
+    "form": {
+      "image": {
+        "label": "Group image",
+        "description": "Upload an image...",
+        "required": "Group image is required",
+        "sizeLimitError": "Group image must be less than {size} MB",
+        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Group name (Norwegian)",
+        "labelEnglish": "Group name (English)",
+        "placeholder": "DevOps",
+        "required": "Group name is required",
+        "maxLength": "Group name must be less than {count} characters"
+      },
+      "summary": {
+        "labelNorwegian": "Summary (Norwegian)",
+        "labelEnglish": "Summary (English)",
+        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "required": "Group summary is required",
+        "maxLength": "Group summary must be less than {count} characters"
+      },
+      "description": {
+        "labelNorwegian": "Description (Norwegian)",
+        "labelEnglish": "Description (English)",
+        "required": "Group description is required"
+      },
+      "identifier": {
+        "label": "Group identifier",
+        "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
+        "placeholder": "devops",
+        "isReserved": "Sorry, this identifier is reserved by internal systems",
+        "required": "Group identifier is required",
+        "regex": "The identifier can't be used in a URL. Allowed character: a-z, A-Z, 0-9, -, _, ., and ~"
+      },
+      "internal": {
+        "label": "Internal group",
+        "description": "If selected, this group will only be visible to Hackerspace members."
+      }
+    },
+    "api": {
+      "fetchGroupsFailed": "Failed to fetch active groups",
+      "invalidId": "Invalid ID",
+      "invalidGroupIdentifier": "Invalid group identifier",
+      "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
+      "insertFailed": "Failed to add group",
+      "groupNotFound": "The group could not be found"
+    }
   },
   "storage": {
     "title": "Storage",
@@ -489,6 +604,7 @@
     "internal": "Internal rules"
   },
   "skills": {
+    "skills": "Skills",
     "printing": "3D Printing",
     "soldering": "Soldering",
     "raspberry": "Raspberry Pi",
@@ -504,5 +620,68 @@
     "notAuthorized": "Not authorized",
     "noFileFound": "No file found",
     "unableToUpdateMatrix": "Unable to update on Matrix"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: 9th July 2025",
+    "intro": {
+      "part1": "At Hackerspace, we are committed to protecting your privacy and being transparent about data processing. We want to ensure that your personal data is processed in accordance with applicable laws, including the EU General Data Protection Regulation (GDPR).",
+      "part2": "Our organization aims to be transparent about the processing of personal information and IT security measures. There are always procedures in place at Hackerspace to ensure proper processing of personal data.",
+      "part3": "This Privacy Policy explains how we collect, use and protect your personal data when you visit, use or interact with our website. It also contains information about your rights regarding your personal data."
+    },
+    "dataResponsibility": {
+      "title": "Who is responsible for your data?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, Norway",
+      "email": "hackerspace-dev@idi.ntnu.no",
+      "comment": "We are the entity responsible for the processing of your personal data."
+    },
+    "collect": {
+      "title": "What data do we collect?",
+      "intro1": "To make Hackerspace able to provide the services available on this website, as well as to maintain an updated membership register, we need to collect personal data specified in this Privacy Policy.",
+      "intro2": "The personal data is primarily intended to create a complete profile to link the user account to an individual. By having a full name, we can get a good overview of our members and users, and it enables us to offer services such as participation in events, providing item loans and more.",
+      "weCollectTheFollowing": "We collect the following personal data:",
+      "weCollect1": "Contact information: If you decide to register an account at Hackerspace, we will collect your name and email address. Optionally, if you choose to provide it to us, we will collect your telephone number for contact purposes.",
+      "weCollect2": "Usage data: Information about how you use our website, such as your interactions, device type, browser type, and time of visit.",
+      "weCollect3": "Cookies: We use cookies to improve your user experience on the website. This may include preferences, visit history and other technical information.",
+      "weCollect4": "Other data: We may collect data that you voluntarily provide to us, for example by filling in forms or sending emails."
+    },
+    "dataPurpose": {
+      "title": "How do we use your data?",
+      "intro": "We use your personal data for the following purposes:",
+      "purpose11": "To provide services:",
+      "purpose12": "Process orders, respond to inquiries, handle events, manage item loans, provide support and more.",
+      "purpose21": "To improve the user experience:",
+      "purpose22": "Understand how the website is used, improve content and functionality.",
+      "purpose31": "Security:",
+      "purpose32": "Protecting the website and users against fraud or unauthorized access."
+    },
+    "protection": {
+      "title": "How do we protect your data?",
+      "content": "We use modern security measures to protect your personal information from loss, misuse or unauthorized access. This includes encryption, firewalls and access controls. In case of additional questions regarding our security measures, please contact the DevOps Team at Hackerspace."
+    },
+    "rights": {
+      "title": "Your rights",
+      "gdprIntro": "According to the Norwegian laws and the GDPR, you have the following rights:",
+      "gdpr11": "Right to access:",
+      "gdpr12": "You have the right to request what information we have about you.",
+      "gdpr21": "Right to retrification:",
+      "gdpr22": "You have the right to request the correction of inaccurate personal data about you.",
+      "gdpr31": "Right to deletion:",
+      "gdpr32": "You have the right to request the deletion of your personal data.",
+      "gdpr41": "Right to object to data processing:",
+      "gdpr42": "You have the right to request that we stop processing your data.",
+      "consentComment": "Please be aware that it is voluntary to consent to the data processing and that you can withdraw your consent at any time. If the consent is withdrawn, your user account will be deleted and you may lose access to our internal services that depend on the information you provide, as well as physical access to the organization's premises.",
+      "exercise": "To exercise your rights, you can contact us at: hackerspace-dev@idi.ntnu.no",
+      "responseTime": "We respond to all requests to the best of our ability, and we will do so within one month of receiving your request."
+    },
+    "cookies": {
+      "title": "Cookies",
+      "content": "We use cookies to improve the user experience on our website. A cookie is a small text file that is stored on your device. You can manage cookies in your browser. We use both necessary and functional cookies, as well as third-party information for analysis."
+    },
+    "policyChange": {
+      "title": "Changes to this Privacy Policy",
+      "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
+    }
   }
 }

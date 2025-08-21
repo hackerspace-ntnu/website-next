@@ -1,12 +1,12 @@
-import { ClearShiftsButton } from '@/components/shift-schedule/ClearShiftsButton';
-import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
-import { api } from '@/lib/api/server';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ClearShiftsButton } from '@/components/shift-schedule/ClearShiftsButton';
+import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -19,7 +19,7 @@ export async function generateMetadata() {
 export default async function ShiftSchedulePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   const { user } = await api.auth.state();

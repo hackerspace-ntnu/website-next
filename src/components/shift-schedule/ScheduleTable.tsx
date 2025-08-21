@@ -1,3 +1,4 @@
+import { getFormatter, getTranslations } from 'next-intl/server';
 import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import {
@@ -13,11 +14,10 @@ import { api } from '@/lib/api/server';
 import {
   days,
   skillIdentifiers,
-  timeslotTimes,
   timeslots,
+  timeslotTimes,
 } from '@/lib/constants';
 import type { RouterOutputs } from '@/server/api';
-import { getFormatter, getTranslations } from 'next-intl/server';
 
 type ScheduleTableProps = {
   user: RouterOutputs['auth']['state']['user'];

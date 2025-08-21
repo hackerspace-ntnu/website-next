@@ -1,5 +1,7 @@
 'use client';
 
+import { EllipsisIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { SecondaryNav } from '@/components/layout/header/SecondaryNav';
 import { Button } from '@/components/ui/Button';
 import {
@@ -7,17 +9,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { EllipsisIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 type DesktopNavMenuProps = {
   className?: string;
   t: {
     open: string;
     close: string;
-    rules: string;
     storage: string;
     shiftSchedule: string;
+    members: string;
+    rules: string;
   };
 };
 
@@ -47,9 +48,10 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
         asDropDown
         onClick={() => setOpen(false)}
         t={{
-          rules: t.rules,
           storage: t.storage,
           shiftSchedule: t.shiftSchedule,
+          members: t.members,
+          rules: t.rules,
         }}
       />
     </DropdownMenu>

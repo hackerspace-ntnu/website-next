@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { InternalBadge } from '@/components/news/InternalBadge';
 import {
   Card,
@@ -7,7 +8,6 @@ import {
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
-import Image from 'next/image';
 
 type ArticleCardProps = {
   className?: string;

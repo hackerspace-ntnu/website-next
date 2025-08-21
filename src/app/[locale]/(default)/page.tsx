@@ -1,3 +1,6 @@
+import { CornerUpRightIcon } from 'lucide-react';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { EventTable } from '@/components/home/EventTable';
 import { IntroBanner } from '@/components/home/IntroBanner';
 import { NewsTable } from '@/components/home/NewsTable';
@@ -7,13 +10,11 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { articleMockData } from '@/mock-data/article';
 import { events } from '@/mock-data/events';
-import { CornerUpRightIcon } from 'lucide-react';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 

@@ -1,8 +1,8 @@
+import { TRPCError } from '@trpc/server';
+import { z } from 'zod';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { getFileUrl } from '@/server/services/files';
-import { TRPCError } from '@trpc/server';
-import { z } from 'zod';
 
 const utilsRouter = createRouter({
   getFileUrl: publicProcedure
@@ -15,6 +15,7 @@ const utilsRouter = createRouter({
       try {
         return await getFileUrl(input.fileId);
       } catch (error) {
+        console.error('Error fetching file URL:', error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.noFileFound'),

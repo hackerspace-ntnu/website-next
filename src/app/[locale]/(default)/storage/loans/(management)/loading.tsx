@@ -1,6 +1,6 @@
+import { getTranslations } from 'next-intl/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { LoanCardSkeleton } from '@/components/storage/LoanCardSkeleton';
-import { getTranslations } from 'next-intl/server';
 
 export default async function StorageLoansLoading() {
   const t = await getTranslations('storage.loans');

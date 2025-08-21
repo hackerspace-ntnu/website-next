@@ -1,4 +1,4 @@
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
@@ -15,7 +15,7 @@ import { redirect } from '@/lib/locale/navigation';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export const dynamic = 'force-dynamic';
@@ -45,7 +45,7 @@ export default async function SettingsLayout({
       <div className='h-full w-full gap-6 p-10 pb-16'>
         <div className='flex gap-3 space-y-0.5'>
           <LogoLink
-            logoClassName='h-12-16-clamp w-12-16-clamp min-w-fit'
+            logoClassName='clamp-[h-12-16-clamp] clamp-[w-12-16-clamp] min-w-fit'
             logoOnly
             t={{
               hackerspaceHome: tLayout('hackerspaceHome'),

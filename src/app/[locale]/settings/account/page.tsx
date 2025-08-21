@@ -1,9 +1,10 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AccountForm } from '@/components/settings/AccountForm';
 import { PasswordForm } from '@/components/settings/PasswordForm';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('settings.account');
@@ -16,7 +17,7 @@ export async function generateMetadata() {
 export default async function AccountPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);

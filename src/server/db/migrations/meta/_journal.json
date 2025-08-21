@@ -29,6 +29,34 @@
       "when": 1746809009259,
       "tag": "0003_furry_stick",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1746819078088,
+      "tag": "0004_skinny_mercury",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1752181013741,
+      "tag": "0005_massive_piledriver",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1752269685709,
+      "tag": "0006_heavy_rocket_raccoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1755107580246,
+      "tag": "0007_mysterious_sprite",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,6 @@
+import { z } from 'zod';
 import { days, timeslots } from '@/lib/constants';
 import type { Translations } from '@/lib/locale';
-import { z } from 'zod';
 
 function registerShiftSchema(t: Translations) {
   return z.object({

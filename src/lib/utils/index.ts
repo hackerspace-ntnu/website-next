@@ -1,6 +1,6 @@
-import { type VariantProps, defineConfig } from 'cva';
+import { defineConfig, type VariantProps } from 'cva';
 import { extendTailwindMerge } from 'tailwind-merge';
-import { withClamp } from 'tw-clamp-css/merge';
+import { withClamp } from 'tw-clamp-css/dynamic/merge';
 
 const twMerge = extendTailwindMerge(withClamp);
 

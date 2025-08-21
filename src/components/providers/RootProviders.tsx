@@ -1,13 +1,14 @@
+import type { Locale } from 'next-intl';
 import { IntlClientProvider } from '@/components/providers/IntlClientProvider';
 import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
 import { NuqsProvider } from '@/components/providers/NuqsProvider';
-// import { PostHogProvider } from '@/components/providers/PostHogProvider';
-import { TRPCProvider } from '@/components/providers/TRPCProvider';
+import { PostHogProvider } from '@/components/providers/PostHogProvider';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { TRPCProvider } from '@/components/providers/TRPCProvider';
 
 type RootProvidersProps = {
   children: React.ReactNode;
-  locale: string;
+  locale: Locale;
 };
 
 function RootProviders({ children, locale }: RootProvidersProps) {
@@ -17,10 +18,7 @@ function RootProviders({ children, locale }: RootProvidersProps) {
         <TRPCProvider>
           <NuqsProvider>
             <LazyMotionProvider>
-              {/* Commented out until api key and cookie banner is fixed */}
-              {/*<PostHogProvider>*/}
-              {children}
-              {/*</PostHogProvider>*/}
+              <PostHogProvider>{children}</PostHogProvider>
             </LazyMotionProvider>
           </NuqsProvider>
         </TRPCProvider>

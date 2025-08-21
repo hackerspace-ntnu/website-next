@@ -1,11 +1,12 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RuleCard } from '@/components/rules/RuleCard';
 import { rulesMockdata as rules } from '@/mock-data/rules';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 
@@ -19,7 +20,7 @@ export async function generateMetadata({
 export default async function RulesPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 

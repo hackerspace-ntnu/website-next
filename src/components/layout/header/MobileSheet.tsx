@@ -1,11 +1,13 @@
 'use client';
 
-import { LogoLink } from '@/components/layout/LogoLink';
+import { MenuIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { Nav } from '@/components/layout/header/Nav';
 import { SecondaryNav } from '@/components/layout/header/SecondaryNav';
+import { LogoLink } from '@/components/layout/LogoLink';
 import { Button } from '@/components/ui/Button';
 import { Separator } from '@/components/ui/Separator';
 import {
@@ -17,8 +19,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/Sheet';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { MenuIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 type MobileSheetProps = {
   className?: string;
@@ -29,6 +29,7 @@ type MobileSheetProps = {
     about: string;
     storage: string;
     shiftSchedule: string;
+    members: string;
     rules: string;
     hackerspaceHome: string;
     goToMatrix: string;
@@ -91,6 +92,7 @@ function MobileSheet({ className, t }: MobileSheetProps) {
             t={{
               rules: t.rules,
               storage: t.storage,
+              members: t.members,
               shiftSchedule: t.shiftSchedule,
             }}
           />

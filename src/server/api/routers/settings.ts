@@ -1,8 +1,10 @@
+import { TRPCError } from '@trpc/server';
+import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { authenticatedProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { checkEmailAvailability } from '@/server/auth/email';
 import {
+  checkEmailAvailability,
   createEmailVerificationRequest,
   sendVerificationEmail,
   setEmailVerificationRequestCookie,
@@ -13,6 +15,7 @@ import {
   verifyPasswordStrength,
 } from '@/server/auth/password';
 import { checkPhoneAvailability } from '@/server/auth/phone';
+import { deleteSessionTokenCookie } from '@/server/auth/session';
 import { updateUserPassword } from '@/server/auth/user';
 import { files, users } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
@@ -21,6 +24,7 @@ import {
   matrixChangeDisplayname,
   matrixChangeEmailAndPhoneNumber,
   matrixChangePassword,
+  matrixEraseUser,
 } from '@/server/services/matrix';
 import { accountSchema } from '@/validations/settings/accountSchema';
 import { emailSchema } from '@/validations/settings/emailSchema';
@@ -29,8 +33,6 @@ import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
-import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
 
 const PROFILE_PICTURE_DIRECTORY = 'profile-pictures';
 
@@ -46,7 +48,8 @@ const settingsRouter = createRouter({
           birthDate: input.birthDate,
         })
         .where(eq(users.id, ctx.user.id))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('settings.profile.updateProfileFailed'),
@@ -59,7 +62,8 @@ const settingsRouter = createRouter({
           input.firstName,
           input.lastName,
         );
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.unableToUpdateMatrix'),
@@ -105,6 +109,7 @@ const settingsRouter = createRouter({
           String(file.id),
         );
       } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.profile.updateProfilePictureFailed'),
@@ -140,7 +145,8 @@ const settingsRouter = createRouter({
       try {
         const hashedPassword = await hashPassword(input.newPassword);
         await updateUserPassword(ctx.user.id, hashedPassword);
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.account.password.updateFailed'),
@@ -149,7 +155,8 @@ const settingsRouter = createRouter({
       }
       try {
         await matrixChangePassword(ctx.user.username, input.newPassword);
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.unableToUpdateMatrix'),
@@ -204,7 +211,8 @@ const settingsRouter = createRouter({
           );
           await setEmailVerificationRequestCookie(emailVerificationRequest);
         }
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('settings.account.updateAccountFailed'),
@@ -218,7 +226,8 @@ const settingsRouter = createRouter({
             ctx.user.email,
             input.phoneNumber,
           );
-        } catch {
+        } catch (error) {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('api.unableToUpdateMatrix'),
@@ -228,10 +237,32 @@ const settingsRouter = createRouter({
       }
     }),
   updateNotifications: authenticatedProcedure
-    .input((input) =>
-      notificationsSchema(useTranslationsFromContext()).parse(input),
-    )
-    .mutation(async ({ input, ctx }) => {}),
+    .input((input) => notificationsSchema().parse(input))
+    .mutation(async () => {}),
+  deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {
+    const userFiles = await ctx.db.query.files.findMany({
+      where: eq(files.uploadedBy, ctx.user.id),
+    });
+
+    for (const file of userFiles) {
+      await ctx.s3.deleteFile(file.directory, String(file.id));
+    }
+
+    await matrixEraseUser(ctx.user.username);
+
+    await ctx.db
+      .delete(users)
+      .where(eq(users.id, ctx.user.id))
+      .catch((error) => {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('settings.account.delete.failedToDelete'),
+        });
+      });
+
+    await deleteSessionTokenCookie();
+  }),
 });
 
 export { settingsRouter };

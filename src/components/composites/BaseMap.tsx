@@ -1,11 +1,10 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import MapPrimitive, {
   type MapProps,
   NavigationControl,
 } from 'react-map-gl/maplibre';
-
-import { useTheme } from 'next-themes';
 
 interface BaseMapProps extends Omit<MapProps, 'mapStyle'> {
   children?: React.ReactNode;

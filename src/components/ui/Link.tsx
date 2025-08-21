@@ -1,7 +1,7 @@
+import ExternalLinkPrimitive from 'next/link';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Link as LinkPrimitive } from '@/lib/locale/navigation';
 import type { VariantProps } from '@/lib/utils';
-import ExternalLinkPrimitive from 'next/link';
 
 type LinkProps = React.ComponentPropsWithoutRef<typeof LinkPrimitive> &
   VariantProps<typeof buttonVariants>;

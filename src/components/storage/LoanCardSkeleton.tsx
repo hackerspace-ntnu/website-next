@@ -1,3 +1,5 @@
+import { CalendarIcon, CircleUserIcon, ShoppingBasketIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import {
   Card,
   CardContent,
@@ -7,8 +9,6 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { CalendarIcon, CircleUserIcon, ShoppingBasketIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
 
 async function LoanCardSkeleton({
   status,

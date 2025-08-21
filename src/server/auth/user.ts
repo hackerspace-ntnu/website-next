@@ -1,5 +1,5 @@
-import { db } from '@/server/db';
 import { eq } from 'drizzle-orm';
+import { db } from '@/server/db';
 
 import { type InsertUser, users } from '@/server/db/tables';
 

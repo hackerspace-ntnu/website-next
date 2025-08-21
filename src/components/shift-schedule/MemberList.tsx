@@ -1,6 +1,6 @@
+import { useTranslations } from 'next-intl';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import type { RouterOutputs } from '@/server/api';
-import { useTranslations } from 'next-intl';
 
 type MemberListProps = {
   members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];

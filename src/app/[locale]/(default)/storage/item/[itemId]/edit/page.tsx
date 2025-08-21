@@ -1,11 +1,11 @@
-import { EditItemForm } from '@/components/storage/EditItemForm';
-import { api } from '@/lib/api/server';
-import { NextIntlClientProvider } from 'next-intl';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { EditItemForm } from '@/components/storage/EditItemForm';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('storage');
@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default async function EditStorageItemPage({
   params,
 }: {
-  params: Promise<{ locale: string; itemId: string }>;
+  params: Promise<{ locale: Locale; itemId: string }>;
 }) {
   const { locale, itemId } = await params;
   setRequestLocale(locale);
@@ -41,7 +41,7 @@ export default async function EditStorageItemPage({
       ['labops', 'leadership', 'admin'].includes(g),
     )
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }
 

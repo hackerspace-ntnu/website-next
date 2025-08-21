@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import {
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
@@ -8,7 +9,6 @@ import { MemberList } from '@/components/shift-schedule/MemberList';
 import { RegisterShiftForm } from '@/components/shift-schedule/RegisterShiftForm';
 import type { days, timeslots } from '@/lib/constants';
 import type { RouterOutputs } from '@/server/api';
-import { useTranslations } from 'next-intl';
 
 type ScheduleCellDialogProps = {
   formattedShift: {
