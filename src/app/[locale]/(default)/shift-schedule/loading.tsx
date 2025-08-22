@@ -1,3 +1,4 @@
+import { useFormatter, useTranslations } from 'next-intl';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
@@ -12,10 +13,9 @@ import {
 import {
   days,
   skillIdentifiers,
-  timeslotTimes,
   timeslots,
+  timeslotTimes,
 } from '@/lib/constants';
-import { useFormatter, useTranslations } from 'next-intl';
 
 export default function ShiftScheduleLayout() {
   const t = useTranslations('shiftSchedule');

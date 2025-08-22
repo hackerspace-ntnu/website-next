@@ -9,11 +9,8 @@ import { api } from '@/lib/api/server';
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ memberId: string }>;
-}) {
+}: Pick<PageProps<'/[locale]/members/[memberId]'>, 'params'>) {
   const { memberId } = await params;
-
   const processedMemberId = Number(memberId);
   if (
     !memberId ||
@@ -35,11 +32,10 @@ export async function generateMetadata({
 
 export default async function MemberPage({
   params,
-}: {
-  params: Promise<{ locale: Locale; memberId: string }>;
-}) {
+}: PageProps<'/[locale]/members/[memberId]'>) {
   const { locale, memberId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('members');
 
   const processedMemberId = Number(memberId);

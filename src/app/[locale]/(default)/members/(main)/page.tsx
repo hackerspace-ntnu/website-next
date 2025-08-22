@@ -4,15 +4,20 @@ import {
   createSearchParamsCache,
   parseAsInteger,
   parseAsString,
-  type SearchParams,
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { MemberCard } from '@/components/members/MemberCard';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata() {
-  const t = await getTranslations('members');
+export async function generateMetadata({
+  params,
+}: Pick<PageProps<'/[locale]/members'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'members',
+  });
 
   return {
     title: t('title'),
@@ -24,12 +29,9 @@ export const itemsPerPage = 8;
 export default async function MembersPage({
   params,
   searchParams,
-}: {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<SearchParams>;
-}) {
+}: PageProps<'/[locale]/members'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({

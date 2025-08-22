@@ -1,13 +1,13 @@
 'use client';
 
+import Autoplay from 'embla-carousel-autoplay';
+import Image from 'next/image';
+import { useId } from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/Carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import Image from 'next/image';
-import { useId } from 'react';
 
 type Slide = {
   key: string;

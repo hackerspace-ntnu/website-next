@@ -11,18 +11,14 @@ import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
 import { api } from '@/lib/api/server';
 
-type StorageLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
-};
-
 export default async function StorageLayout({
   params,
   children,
-}: StorageLayoutProps) {
+}: LayoutProps<'/[locale]/storage'>) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
+
   const { user } = await api.auth.state();
-  setRequestLocale(locale);
 
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');

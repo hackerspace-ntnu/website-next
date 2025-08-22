@@ -3,19 +3,15 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 
-type NewsHeaderLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
-};
-
 export default async function NewsHeaderLayout({
   params,
   children,
-}: NewsHeaderLayoutProps) {
+}: LayoutProps<'/[locale]/news'>) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  setRequestLocale(locale);
   const t = await getTranslations('news');
+
   return (
     <>
       <div className='flex items-center justify-between'>

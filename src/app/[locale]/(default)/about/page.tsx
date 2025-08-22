@@ -7,8 +7,14 @@ import { HackerspaceLogo } from '@/components/assets/logos';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
+export async function generateMetadata({
+  params,
+}: Pick<PageProps<'/[locale]/about'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'layout',
+  });
 
   return {
     title: t('about'),
@@ -17,11 +23,10 @@ export async function generateMetadata() {
 
 export default async function AboutPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: PageProps<'/[locale]/about'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('about');
   const tFAQ = await getTranslations('about.FAQ');
 

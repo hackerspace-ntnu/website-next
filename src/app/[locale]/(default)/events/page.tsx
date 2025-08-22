@@ -5,8 +5,14 @@ import { ExternalLink } from '@/components/ui/Link';
 // TODO: Must be replaced with actual events
 import { events } from '@/mock-data/events';
 
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
+export async function generateMetadata({
+  params,
+}: Pick<PageProps<'/[locale]/events'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'layout',
+  });
 
   return {
     title: t('events'),
@@ -15,11 +21,10 @@ export async function generateMetadata() {
 
 export default async function EventsPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: PageProps<'/[locale]/events'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   const tUi = await getTranslations('ui');

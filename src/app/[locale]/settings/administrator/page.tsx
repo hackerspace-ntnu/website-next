@@ -3,8 +3,14 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata() {
-  const t = await getTranslations('settings.administrator');
+export async function generateMetadata({
+  params,
+}: Pick<PageProps<'/[locale]/settings/administrator'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'settings.administrator',
+  });
 
   return {
     title: t('title'),
@@ -13,11 +19,9 @@ export async function generateMetadata() {
 
 export default async function AdminPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: PageProps<'/[locale]/settings/administrator'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
 

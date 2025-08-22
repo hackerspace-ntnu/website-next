@@ -2,17 +2,12 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
-type EditItemLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
-};
-
 export default async function EditItemLayout({
   params,
   children,
-}: EditItemLayoutProps) {
+}: LayoutProps<'/[locale]/storage/item/[itemId]/edit'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tEdit = await getTranslations('storage.edit');

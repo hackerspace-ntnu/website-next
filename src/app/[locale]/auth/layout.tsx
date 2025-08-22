@@ -10,13 +10,14 @@ import { Main } from '@/components/layout/Main';
 import { AnimatePresenceProvider } from '@/components/providers/AnimatePresenceProvider';
 import { Card, CardHeader } from '@/components/ui/Card';
 
-type AuthLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
-};
-
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
+export async function generateMetadata({
+  params,
+}: Pick<LayoutProps<'/[locale]/auth'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'layout',
+  });
 
   return {
     title: t('signIn'),
@@ -28,9 +29,10 @@ export const dynamic = 'force-dynamic';
 export default async function AuthLayout({
   children,
   params,
-}: AuthLayoutProps) {
+}: LayoutProps<'/[locale]/auth'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('layout');
   const { auth, ui } = await getMessages();
 

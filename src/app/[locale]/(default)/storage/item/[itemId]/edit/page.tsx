@@ -7,8 +7,14 @@ import {
 import { EditItemForm } from '@/components/storage/EditItemForm';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata() {
-  const t = await getTranslations('storage');
+export async function generateMetadata({
+  params,
+}: Pick<PageProps<'/[locale]/storage/item/[itemId]/edit'>, 'params'>) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'storage',
+  });
 
   return {
     title: `${t('title')}: ${t('edit.titleEdit')}`,
@@ -17,11 +23,9 @@ export async function generateMetadata() {
 
 export default async function EditStorageItemPage({
   params,
-}: {
-  params: Promise<{ locale: Locale; itemId: string }>;
-}) {
+}: PageProps<'/[locale]/storage/item/[itemId]/edit'>) {
   const { locale, itemId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage.edit');
 

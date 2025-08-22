@@ -4,9 +4,7 @@ import { m } from 'motion/react';
 
 export default function AuthTemplate({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: LayoutProps<'/[locale]/auth'>) {
   return (
     <m.div
       className='flex h-full flex-col p-6'

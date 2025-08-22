@@ -11,11 +11,9 @@ import { events } from '@/mock-data/events';
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const event = events.find((event) => event.id === Number(id));
+}: Pick<PageProps<'/[locale]/events/[eventId]'>, 'params'>) {
+  const { eventId } = await params;
+  const event = events.find((event) => event.id === Number(eventId));
 
   return {
     title: `${event?.title}`,
@@ -24,11 +22,9 @@ export async function generateMetadata({
 
 export default async function EventDetailsPage({
   params,
-}: {
-  params: Promise<{ locale: Locale; eventId: string }>;
-}) {
+}: PageProps<'/[locale]/events/[eventId]'>) {
   const { locale, eventId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const tLayout = await getTranslations('layout');
   const event = events.find((event) => event.id === Number(eventId));

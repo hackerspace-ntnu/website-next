@@ -1,5 +1,5 @@
-import { cx } from '@/lib/utils';
 import Image from 'next/image';
+import { cx } from '@/lib/utils';
 
 type TextBlockProps = {
   imgSrc: string;

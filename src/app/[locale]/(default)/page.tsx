@@ -11,14 +11,10 @@ import { api } from '@/lib/api/server';
 import { articleMockData } from '@/mock-data/article';
 import { events } from '@/mock-data/events';
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  setRequestLocale(locale);
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 

@@ -5,12 +5,12 @@ import { rulesMockdata as rules } from '@/mock-data/rules';
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: Pick<PageProps<'/[locale]/rules'>, 'params'>) {
   const { locale } = await params;
-
-  const t = await getTranslations({ locale, namespace: 'layout' });
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'layout',
+  });
 
   return {
     title: t('rules'),
@@ -19,12 +19,10 @@ export async function generateMetadata({
 
 export default async function RulesPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: PageProps<'/[locale]/rules'>) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  setRequestLocale(locale);
   const internal = rules.filter((rule) => rule.internal);
   const notInternal = rules.filter((rule) => !rule.internal);
   const t = await getTranslations('rules');

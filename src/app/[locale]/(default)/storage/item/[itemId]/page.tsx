@@ -10,18 +10,15 @@ import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
-type StorageItemParams = Promise<{
-  locale: Locale;
-  itemId: string;
-}>;
-
 export async function generateMetadata({
   params,
-}: {
-  params: StorageItemParams;
-}) {
-  const t = await getTranslations('storage');
-  const { itemId, locale } = await params;
+}: Pick<PageProps<'/[locale]/storage/item/[itemId]'>, 'params'>) {
+  const { locale, itemId } = await params;
+  const t = await getTranslations({
+    locale: locale as Locale,
+    namespace: 'storage',
+  });
+
   const item = await api.storage.fetchOne(Number.parseInt(itemId));
   if (!item.english || !item.norwegian) return;
   const itemName = locale === 'en-GB' ? item.english.name : item.norwegian.name;
@@ -33,11 +30,9 @@ export async function generateMetadata({
 
 export default async function StorageItemPage({
   params,
-}: {
-  params: StorageItemParams;
-}) {
+}: PageProps<'/[locale]/storage/item/[itemId]'>) {
   const { locale, itemId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const item = await api.storage.fetchOne(Number.parseInt(itemId));

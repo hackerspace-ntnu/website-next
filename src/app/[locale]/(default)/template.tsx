@@ -4,9 +4,7 @@ import { m } from 'motion/react';
 
 export default function DefaultTemplate({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: LayoutProps<'/[locale]'>) {
   return (
     <m.div
       initial={{ opacity: 0 }}

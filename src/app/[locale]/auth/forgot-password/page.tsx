@@ -3,11 +3,10 @@ import { setRequestLocale } from 'next-intl/server';
 
 export default async function ForgotPasswordPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
+}: PageProps<'/[locale]/auth/forgot-password'>) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   return (
     <div className='flex h-full flex-col transition-opacity duration-500'>
       forgot password page

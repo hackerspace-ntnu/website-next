@@ -10,14 +10,6 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 
-export async function generateMetadata() {
-  const t = await getTranslations('storage');
-
-  return {
-    title: `${t('title')}: ${t('categories.title')}`,
-  };
-}
-
 export default async function StorageCategoriesLoading() {
   const t = await getTranslations('storage.categories');
 

@@ -12,11 +12,9 @@ import {
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ article: string }>;
-}) {
-  const { article } = await params;
-  const data = articleData.find((a) => a.id === Number(article));
+}: Pick<PageProps<'/[locale]/news/[articleId]'>, 'params'>) {
+  const { articleId } = await params;
+  const data = articleData.find((a) => a.id === Number(articleId));
 
   return {
     title: data?.title,
@@ -25,11 +23,10 @@ export async function generateMetadata({
 
 export default async function ArticlePage({
   params,
-}: {
-  params: Promise<{ locale: Locale; articleId: string }>;
-}) {
+}: PageProps<'/[locale]/news/[articleId]'>) {
   const { locale, articleId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('news');
 
   const data = articleData.find((a) => a.id === Number(articleId));
@@ -43,6 +40,7 @@ export default async function ArticlePage({
     photoUrl: string;
     initials: string;
   }; // same as above
+
   return (
     <article>
       <header>
