@@ -8,8 +8,12 @@ import * as schema from '@/server/db/tables';
 import {
   groupLocalizations,
   groups,
+  homeCarouselSlideLocalizations,
+  homeCarouselSlides,
   type InsertGroup,
   type InsertGroupLocalization,
+  type InsertHomeCarouselSlide,
+  type InsertHomeCarouselSlideLocalization,
   type InsertItemCategory,
   type InsertItemLocalization,
   type InsertShift,
@@ -124,6 +128,80 @@ async function main() {
     process.exit(1);
   }
   console.log('Users inserted');
+
+  console.log('Inserting home carousel slides...');
+  const homeCarouselSlidesData: InsertHomeCarouselSlide[] = [{}, {}, {}];
+
+  const insertedHomeCarouselSlides = await db
+    .insert(homeCarouselSlides)
+    .values(homeCarouselSlidesData)
+    .returning();
+
+  if (insertedHomeCarouselSlides.length !== 3) {
+    console.error('Error: Inserted home carousel slides data is incorrect.');
+    process.exit(1);
+  }
+  console.log('Home carousel slides inserted');
+
+  console.log('Inserting home carousel slide localizations...');
+  const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] =
+    [
+      {
+        slideId: 1,
+        heading: 'EN - Har du en skaper i magen?',
+        description:
+          'EN - Vi disponerer nødvendig utstyr, lokaler og ikke minst kunnskap for å bistå i ditt neste prosjekt.',
+        locale: 'en-GB',
+      },
+      {
+        slideId: 1,
+        heading: 'Har du en skaper i magen?',
+        description:
+          'Vi disponerer nødvendig utstyr, lokaler og ikke minst kunnskap for å bistå i ditt neste prosjekt.',
+        locale: 'nb-NO',
+      },
+      {
+        slideId: 2,
+        heading: 'EN - Nysgjerrig på VR?',
+        description:
+          'EN - Uansett om du bare har lyst til å teste det ut, eller er en veteran på VR-utvikling, har vi både utstyr og kompetanse innenfor Virtual Reality på Hackerspace.',
+        locale: 'en-GB',
+      },
+      {
+        slideId: 2,
+        heading: 'Nysgjerrig på VR?',
+        description:
+          'Uansett om du bare har lyst til å teste det ut, eller er en veteran på VR-utvikling, har vi både utstyr og kompetanse innenfor Virtual Reality på Hackerspace.',
+        locale: 'nb-NO',
+      },
+      {
+        slideId: 3,
+        heading: 'EN - Kreativt, innovativt og ikke minst sosialt',
+        description:
+          'EN - Hackerspace tilbyr en arena for prosjekter, enten det er IoT-dingser, programvare, 3D-printing, eller andre kule ting.',
+        locale: 'en-GB',
+      },
+      {
+        slideId: 3,
+        heading: 'Kreativt, innovativt og ikke minst sosialt',
+        description:
+          'Hackerspace tilbyr en arena for prosjekter, enten det er IoT-dingser, programvare, 3D-printing, eller andre kule ting.',
+        locale: 'nb-NO',
+      },
+    ];
+
+  const insertedHomeCarouselSlideLocalizations = await db
+    .insert(homeCarouselSlideLocalizations)
+    .values(homeCarouselSlideLocalizationsData)
+    .returning();
+
+  if (insertedHomeCarouselSlideLocalizations.length !== 6) {
+    console.error(
+      'Error: Inserted home carousel slide localizations data is incorrect',
+    );
+    process.exit(1);
+  }
+  console.log('Home carousel slide localizations inserted');
 
   console.log('Inserting groups...');
   const groupLocalizationsData: InsertGroupLocalization[] = [

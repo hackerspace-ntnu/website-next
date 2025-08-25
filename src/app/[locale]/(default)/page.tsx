@@ -18,11 +18,12 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 
+  const slides = await api.home.fetchSlides();
   const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
 
   return (
     <div className='space-y-8'>
-      <IntroBanner />
+      <IntroBanner slides={slides} locale={locale as Locale} />
       <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
         <p>{t('whoAreWeDescription')}</p>
