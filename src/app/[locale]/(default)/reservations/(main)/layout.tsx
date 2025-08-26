@@ -1,6 +1,9 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getMessages } from 'next-intl/server';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -12,7 +15,7 @@ export async function generateMetadata() {
 
 type ReservationsLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default async function ReservationsLayout({

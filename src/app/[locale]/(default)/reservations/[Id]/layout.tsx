@@ -1,10 +1,14 @@
+import { ArrowLeftIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import type { Locale, Messages } from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { tools } from '@/mock-data/reservations';
-import { ArrowLeftIcon } from 'lucide-react';
-import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
@@ -20,7 +24,7 @@ export async function generateMetadata({
 
 type ToolCalendarPageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string; id: string }>;
+  params: Promise<{ locale: Locale; id: string }>;
 };
 
 export default async function EventDetailsLayout({
