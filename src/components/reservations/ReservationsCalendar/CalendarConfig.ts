@@ -8,14 +8,9 @@ import type {
   EventInput,
   EventMountArg,
   FormatDateOptions,
-  NowIndicatorMountArg,
-  ViewMountArg,
   WeekNumberContentArg,
 } from '@fullcalendar/core';
 import type { EventResizeDoneArg } from '@fullcalendar/interaction/index.js';
-import { format } from 'date-fns';
-import { nb } from 'date-fns/locale';
-import { useTranslations } from 'next-intl';
 
 /**
  * Måtte lage egen config fil for statiske variabler fordi toolcalendar.tsx ble for lang..
@@ -64,7 +59,6 @@ const timeFormats: {
 };
 
 type CalendarConfigProps = {
-  date: Date;
   isLoggedIn: boolean;
   isMember: boolean;
   userId: string;
@@ -80,7 +74,6 @@ type CalendarConfigProps = {
 };
 
 export function createCalendarConfig({
-  date,
   isLoggedIn,
   isMember,
   userId,
@@ -102,7 +95,7 @@ export function createCalendarConfig({
     eventBackgroundColor: 'inherit',
     eventResizableFromStart: true,
     weekNumbers: true,
-    weekNumberFormat: () => format(date, 'w'),
+    weekNumberFormat: { week: 'numeric' as const },
     weekNumberContent: (info: WeekNumberContentArg) => `${t.week} ${info.num}`,
     slotMinTime: isMember ? '00:00:00' : '10:00:00',
     slotMaxTime: isMember ? '23:59:59' : '18:00:00',
