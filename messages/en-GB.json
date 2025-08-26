@@ -132,6 +132,7 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "settings": "Settings",
+    "management": "Management",
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
@@ -762,10 +763,15 @@
     },
     "users": {
       "title": "Users",
-      "description": "Manage admin users who can access this management interface.",
-      "add": "Add user",
-      "edit": "Edit user",
-      "delete": "Delete user"
+      "description": "Manage users on the website."
+    },
+    "files": {
+      "title": "Files & images",
+      "description": "Manage files and images uploaded by members."
+    },
+    "banners": {
+      "title": "Banners",
+      "description": "Manage banners displayed on the website."
     }
   },
   "api": {

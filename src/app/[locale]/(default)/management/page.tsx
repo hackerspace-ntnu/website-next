@@ -33,6 +33,7 @@ export default async function ManagementPage({
     name: string;
     description: string;
     href: React.ComponentProps<typeof Link>['href'];
+    className?: string;
   }[] = [
     {
       name: t('skills.title'),
@@ -42,23 +43,37 @@ export default async function ManagementPage({
     {
       name: t('users.title'),
       description: t('users.description'),
-      href: '/management',
+      href: '#' as React.ComponentProps<typeof Link>['href'],
+      className: 'pointer-events-auto cursor-not-allowed',
+    },
+    {
+      name: t('files.title'),
+      description: t('files.description'),
+      href: '#' as React.ComponentProps<typeof Link>['href'],
+      className: 'pointer-events-auto cursor-not-allowed',
+    },
+    {
+      name: t('banners.title'),
+      description: t('banners.description'),
+      href: '#' as React.ComponentProps<typeof Link>['href'],
+      className: 'pointer-events-auto cursor-not-allowed',
     },
   ];
 
   return (
-    <>
+    <div className='min-h-screen'>
       <h1>{t('title')}</h1>
       <div className='my-4 grid grid-cols-2 gap-4'>
-        {cards.map(({ name, description, href }) => (
+        {cards.map(({ name, description, href, className }) => (
           <CategoryCard
             key={name}
             name={name}
             description={description}
             href={href}
+            className={className}
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

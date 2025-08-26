@@ -10,13 +10,15 @@ function CategoryCard({
   name,
   description,
   href,
+  className,
 }: {
   name: string;
   description: string;
   href: React.ComponentProps<typeof Link>['href'];
+  className?: string;
 }) {
   return (
-    <Link href={href}>
+    <Link href={href} className={className}>
       <Card>
         <CardHeader>
           <CardTitle>{name}</CardTitle>

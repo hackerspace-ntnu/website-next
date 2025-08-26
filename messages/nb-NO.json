@@ -132,6 +132,7 @@
     "signIn": "Logg inn",
     "signOut": "Logg ut",
     "settings": "Innstillinger",
+    "management": "Administrasjon",
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
@@ -762,10 +763,15 @@
     },
     "users": {
       "title": "Brukere",
-      "description": "Administrer brukere som kan få tilgang til dette administrasjonsgrensesnittet.",
-      "add": "Legg til bruker",
-      "edit": "Rediger bruker",
-      "delete": "Slett bruker"
+      "description": "Administrer brukere på nettsiden."
+    },
+    "files": {
+      "title": "Filer og bilder",
+      "description": "Administrer filer og bilder lastet opp av medlemmer."
+    },
+    "banners": {
+      "title": "Bannere",
+      "description": "Administrer bannere som vises på nettsiden."
     }
   },
   "api": {
