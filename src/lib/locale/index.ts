@@ -174,12 +174,12 @@ const routing = defineRouting({
       'nb-NO': '/personvern',
     },
     '/reservations': {
-      en: '/reservations',
-      no: '/reservasjoner',
+      'en-GB': '/reservations',
+      'no-NO': '/reservasjoner',
     },
     '/reservations/[id]': {
-      en: '/reservations/[id]',
-      no: '/reservasjoner/[id]',
+      'en-GB': '/reservations/[id]',
+      'no-NO': '/reservasjoner/[id]',
     },
   },
 });

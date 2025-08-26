@@ -1,13 +1,12 @@
 'use client';
-import type { Tool } from '@/components/reservations/ToolCardGrid';
-import type { t } from '@/components/reservations/ToolCardGrid';
-import { Card } from '@/components/ui/Card';
-import { Link } from '@/lib/locale/navigation';
 import { Maximize2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { useId, useState } from 'react';
+import type { Tool, t } from '@/components/reservations/ToolCardGrid';
+import { Card } from '@/components/ui/Card';
+import { Link } from '@/lib/locale/navigation';
 import { Button } from '../ui/Button';
 
 type ToolCardProps = {
@@ -25,7 +24,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
     'filamentType',
     'slicer',
   ] as const;
-  const [hovered, setHovered] = useState(false);
+
   const id = useId();
 
   return (
@@ -34,11 +33,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
         layoutId={`${tool.type}-${tool.title}-${id}`}
         className='z-0 flex h-full flex-col'
       >
-        <div
-          className='flex max-h-56 items-center justify-center'
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
+        <div className='flex max-h-56 items-center justify-center'>
           <div className='relative h-48 w-full'>
             <Image
               priority
@@ -48,28 +43,15 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
               objectFit='cover'
             />
           </div>
-          <div className='z-0'>
-            <AnimatePresence>
-              <motion.button
-                className='absolute top-2 right-2 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
-                key={`cardHeaderButton-${tool.title}-${id}`}
-                onClick={onClick}
-                animate={{ scale: hovered ? 1.1 : 1 }}
-              >
-                <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
-              </motion.button>
-              {hovered && (
-                <motion.div
-                  key={`cardHeaderToolTip-${tool.title}-${id}`}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 10 }}
-                  transition={{ type: 'tween', delay: 0.2 }}
-                  className='absolute top-3 right-11 z-0 whitespace-nowrap rounded-xl rounded-r-none bg-popover py-2 pr-6 pl-3 text-xs-sm-clamp shadow-lg'
-                >
-                  {t('tools.tooltip')}
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className='z-0' title={t('tools.tooltip')}>
+            <motion.button
+              className='absolute top-2 right-2 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
+              key={`cardHeaderButton-${tool.title}-${id}`}
+              onClick={onClick}
+              whileHover={{ scale: 1.1 }}
+            >
+              <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
+            </motion.button>
           </div>
         </div>
         <div className='mt-2 flex h-full flex-col gap-1 px-5 text-left'>
