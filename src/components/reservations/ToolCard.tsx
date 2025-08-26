@@ -1,10 +1,10 @@
 'use client';
 import { Maximize2 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useId, useState } from 'react';
-import type { Tool, t } from '@/components/reservations/ToolCardGrid';
+import { useId } from 'react';
+import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Card } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
 import { Button } from '../ui/Button';

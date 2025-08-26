@@ -1,5 +1,10 @@
 'use client';
 
+import { format } from 'date-fns';
+import { enGB, nb } from 'date-fns/locale';
+import { CalendarDays } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
 import {
@@ -15,11 +20,6 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { format } from 'date-fns';
-import { enGB, nb } from 'date-fns/locale';
-import { CalendarDays } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { type RefObject, useEffect, useRef, useState } from 'react';
 
 type Reservation = {
   toolType: string;

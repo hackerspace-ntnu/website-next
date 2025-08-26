@@ -1,11 +1,10 @@
 'use client';
 
+import { useEffect, useId, useState } from 'react';
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { useTranslations } from 'next-intl';
-import { useEffect, useId, useState } from 'react';
 
 export type t = {
   title: string;
@@ -36,7 +35,6 @@ type ToolCardGridProps = {
 };
 
 export function ToolCardGrid({ tools }: ToolCardGridProps) {
-  const t = useTranslations('reservations');
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
   const [smallScreen, setSmallScreen] = useState(false);
   const [active, setActive] = useState<Tool | null>(null);
