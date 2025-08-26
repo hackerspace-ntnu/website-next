@@ -151,7 +151,8 @@
     "internal": "Internal",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
-    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>."
+    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
+    "reservations": "Reservasjoner"
   },
   "news": {
     "title": "Nyheter",
@@ -672,6 +673,91 @@
     "policyChange": {
       "title": "Endringer i denne personvernerklæringen",
       "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
+    }
+  },
+  "reservations": {
+    "title": "Reservasjoner",
+    "backButton": "Tilbake",
+    "tools": {
+      "available": "Reserver",
+      "unavailable": "Utilgjengelig",
+      "supervision": "Krever veiledning",
+      "tooltip": "Les mer om dette utstyret",
+      "myReservations": "Mine reservasjoner"
+    },
+    "myReservationsTable": {
+      "title": "Dine reservasjoner",
+      "edit": "Rediger",
+      "cancel": "Kanseller",
+      "remove": "Fjern",
+      "editTitle": "Trykk for å redigere tabellen",
+      "cancelTitle": "Kanseller handling",
+      "removetitle": "Fjern valgte reservasjoner",
+      "checkBoxTitle": "Trykk for å velge denne",
+      "checkboxAllTitle": "Trykk for å velge alle",
+      "tool": "Verktøy",
+      "from": "Fra",
+      "to": "til",
+      "goToCalendar": "Gå til kalender",
+      "empty": "Du har ingen reservasjoner",
+      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner."
+    },
+    "information": {
+      "importantTitle": "Viktig informasjon!",
+      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
+      "dontShow": "Ikke vis dette igjen"
+    },
+    "toolbar": {
+      "prev": "Forrige",
+      "today": "I dag",
+      "next": "Neste",
+      "day": "Dag",
+      "week": "Uke",
+      "3days": "3-dager",
+      "dayTitle": "Vis dag oversikt",
+      "weekTitle": "Vis uke oversikt",
+      "3daysTitle": "Vis 3-dager oversikt",
+      "prevWeekTitle": "Forrige uke",
+      "prev3daysTitle": "Forrige 3 dager",
+      "prevDayTitle": "Forrige day",
+      "todayTitle": "Vis i dag",
+      "nextWeekTitle": "Neste uke",
+      "next3daysTitle": "Neste 3 dager",
+      "nextDayTitle": "Neste dag"
+    },
+    "form": {
+      "titleCreate": "Opprett en reservasjon",
+      "descriptionCreate": "Sørg for at feltene er fylt ut og klikk 'lagre' for å reservere",
+      "titleEdit": "Rediger reservasjon",
+      "descriptionEdit": "Rediger feltet du ønsker og trykk 'lagre'",
+      "cancel": "Kanseller",
+      "save": "Lagre",
+      "delete": "Slett",
+      "create": "Opprett",
+      "name": "Navn",
+      "namePlaceholder": "Ole Nordmann",
+      "phoneNr": "mobilnummer",
+      "phoneNrPlaceholder": "Din mobilnummer",
+      "email": "Mail",
+      "emailPlaceholder": "imagine@dragin.com",
+      "startTime": "Start dato/tid",
+      "endTime": "Slutt dato/tid",
+      "formSchema": {
+        "nameReq": "Vennligst tast inn ditt navn",
+        "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
+        "emailReq": "Vennligst tast inn ditt mail",
+        "error": "Noe gikk galt, prøv igjen senere..."
+      }
+    },
+    "confirmDialog": {
+      "confirm": "Bekreft",
+      "cancel": "Kanseller",
+      "title": "Bekreft handling",
+      "description": "Er du sikker på at du vil {action}"
+    },
+    "calendar": {
+      "createButton": "Opprett reservasjon",
+      "locale": "nb"
     }
   }
 }
