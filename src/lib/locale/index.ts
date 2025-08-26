@@ -193,6 +193,10 @@ const routing = defineRouting({
       'en-GB': '/management/skills/[skillId]',
       'nb-NO': '/administrasjon/ferdigheter/[skillId]',
     },
+    '/management/skills/new': {
+      'en-GB': '/management/skills/new',
+      'nb-NO': '/administrasjon/ferdigheter/ny',
+    },
   },
 });
 

@@ -746,19 +746,44 @@
     "title": "Nettside-administrasjon",
     "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
     "skills": {
-      "title": "Ferdigheter",
+      "title": "Administrer ferdigheter",
       "description": "Administrer ferdighetene som medlemmene kan oppnå.",
-      "add": "Legg til ferdighet",
-      "edit": "Rediger ferdighet",
-      "delete": "Slett ferdighet",
+      "backToManagement": "Tilbake til administrasjon",
+      "backToSkills": "Tilbake til ferdigheter",
+      "new": {
+        "title": "Ny ferdighet",
+        "success": "Ferdighet lagt til!"
+      },
+      "edit": {
+        "title": "Oppdater ferdighet",
+        "delete": "Slett ferdighet",
+        "deleteConfirmTitle": "Er du sikker på at du vil slette denne ferdigheten?",
+        "deleteConfirmDescription": "Alle brukere som har denne ferdigheten vil miste den. Denne handlingen kan ikke angres.",
+        "successEdit": "Ferdighet oppdatert!",
+        "successDelete": "Ferdighet slettet!"
+      },
       "form": {
+        "createSubmit": "Opprett ferdighet",
+        "editSubmit": "Oppdater ferdighet",
         "name": {
-          "label": "Ferdighetsnavn",
+          "labelNorwegian": "Ferdighetsnavn (norsk)",
+          "placeholderNorwegian": "Webutvikling",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "Ferdighetsnavn (engelsk)",
           "required": "Ferdighetsnavn er påkrevd"
+        },
+        "identifier": {
+          "label": "Ferdighetsidentifikator",
+          "placeholder": "Webutvikling",
+          "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør DevOps-teamet.",
+          "required": "Ferdighetsidentifikator er påkrevd",
+          "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
         }
       },
       "api": {
-        "invalidId": "Ugyldig ferdighets-ID"
+        "invalidId": "Ugyldig ferdighet-ID",
+        "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede",
+        "skillNotFound": "Ferdighet ikke funnet"
       }
     },
     "users": {
