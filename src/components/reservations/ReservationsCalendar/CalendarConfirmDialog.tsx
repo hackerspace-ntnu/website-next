@@ -23,7 +23,7 @@ type CalendarConfirmDialogProps = {
   };
 };
 
-export default function CalendarConfirmDialog({
+function CalendarConfirmDialog({
   open,
   onOpenChange,
   onConfirm,
@@ -63,3 +63,5 @@ export default function CalendarConfirmDialog({
     </ResponsiveDialog>
   );
 }
+
+export { CalendarConfirmDialog };

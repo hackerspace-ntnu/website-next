@@ -73,7 +73,7 @@ type CalendarConfigProps = {
   };
 };
 
-export function createCalendarConfig({
+function createCalendarConfig({
   isLoggedIn,
   isMember,
   userId,
@@ -144,3 +144,5 @@ export function createCalendarConfig({
     },
   };
 }
+
+export { createCalendarConfig };

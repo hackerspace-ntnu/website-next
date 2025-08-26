@@ -9,7 +9,7 @@ type CustomEventStylingProps = {
   eventInfo: EventContentArg;
 };
 
-export default function CustomEventContent({
+function CustomEventContent({
   isLoggedIn,
   userId,
   eventInfo,
@@ -51,3 +51,5 @@ export default function CustomEventContent({
     </div>
   );
 }
+
+export { CustomEventContent };

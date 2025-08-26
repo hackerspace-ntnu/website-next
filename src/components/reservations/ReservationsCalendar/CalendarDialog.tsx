@@ -30,7 +30,7 @@ type CalendarDialogProps = {
   defaultValues?: Omit<Reservation, 'start' | 'end'>;
 };
 
-export default function CalendarDialog({
+function CalendarDialog({
   open,
   onOpenChange,
   start,
@@ -72,3 +72,5 @@ export default function CalendarDialog({
     </ResponsiveDialog>
   );
 }
+
+export { CalendarDialog };

@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
 
-export default function InformationCard() {
+function InformationCard() {
   const t = useTranslations('reservations');
   return (
     <Card className='rounded-t-none'>
@@ -35,3 +35,5 @@ export default function InformationCard() {
     </Card>
   );
 }
+
+export { InformationCard };

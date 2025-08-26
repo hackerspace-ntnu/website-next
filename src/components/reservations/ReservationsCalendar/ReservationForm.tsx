@@ -25,7 +25,7 @@ type ReservationFormProps = {
   defaultValues?: Omit<Reservation, 'start' | 'end'>;
 };
 
-export function ReservationForm({
+function ReservationForm({
   start,
   end,
   mode,
@@ -160,3 +160,5 @@ export function ReservationForm({
     </form>
   );
 }
+
+export { ReservationForm };
