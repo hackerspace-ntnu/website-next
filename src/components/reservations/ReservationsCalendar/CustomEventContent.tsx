@@ -1,19 +1,15 @@
 import type { EventContentArg } from '@fullcalendar/core';
 import '@/lib/styles/calendar.css';
-import { Separator } from '@/components/ui/Separator';
-import type FullCalendar from '@fullcalendar/react';
 import { ArrowDownToLineIcon, ArrowUpToLineIcon } from 'lucide-react';
-import type { RefObject } from 'react';
+import { Separator } from '@/components/ui/Separator';
 
 type CustomEventStylingProps = {
-  calendarRef: RefObject<FullCalendar | null>;
   isLoggedIn: boolean;
   userId: string;
   eventInfo: EventContentArg;
 };
 
 export default function CustomEventContent({
-  calendarRef,
   isLoggedIn,
   userId,
   eventInfo,

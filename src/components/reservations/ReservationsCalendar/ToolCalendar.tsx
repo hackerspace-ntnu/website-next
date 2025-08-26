@@ -1,9 +1,15 @@
 'use client';
 
+import { createCalendarConfig } from '@/components/reservations/ReservationsCalendar/CalendarConfig';
+import CalendarConfirmDialog from '@/components/reservations/ReservationsCalendar/CalendarConfirmDialog';
+import CalendarDialog from '@/components/reservations/ReservationsCalendar/CalendarDialog';
 import CustomEventContent from '@/components/reservations/ReservationsCalendar/CustomEventContent';
 import CustomToolbar from '@/components/reservations/ReservationsCalendar/CustomToolbar';
+import InformationCard from '@/components/reservations/ReservationsCalendar/InformationCard';
 import { Button } from '@/components/ui/Button';
+import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import '@/lib/styles/calendar.css';
 import type {
   DateSelectArg,
   DatesSetArg,
@@ -17,15 +23,8 @@ import interactionPlugin, {
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { Plus } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import '@/lib/styles/calendar.css';
-import CalendarDialog from '@/components/reservations/ReservationsCalendar/CalendarDialog';
-import InformationCard from '@/components/reservations/ReservationsCalendar/InformationCard';
-import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
-import { nb } from 'date-fns/locale';
 import { useFormatter, useTranslations } from 'next-intl';
-import { createCalendarConfig } from './CalendarConfig';
-import CalendarConfirmDialog from './CalendarConfirmDialog';
+import { useEffect, useRef, useState } from 'react';
 
 /** Midlertidig type, legger til mer når jeg begynner på backend */
 type Reservation = {
@@ -42,15 +41,15 @@ type Reservation = {
 };
 
 /**
- * For den uheldige sjel som må endre på noe her i fremtiden:
- * Fullcalendar har en del props og options, men heldigvis er det god dokumentasjon, eksempler og forklaring
- * på hooks, props, types osv, på nettsiden deres og ellers i github repoet:
+ * For anyone having to edit or work on the code for the calendar:
+ * Fullcalendar has quite a few props and options to work with,
+ * but fortunately there is good documentation, examples, and explanations of hooks, props, types, etc., on their website and also in the GitHub repo:
  * https://fullcalendar.io/docs
  * https://github.com/fullcalendar/fullcalendar-examples/tree/main/react18
  * https://github.com/orgs/fullcalendar/repositories?type=all
  * https://github.com/fullcalendar/fullcalendar-react
  * https://stackblitz.com/github/fullcalendar/fullcalendar-examples/tree/main/react18?file=src%2FDemoApp.jsx
- * ^ Demo prosjekt laget av fullcalendar selv.
+ * ^ Demo project made by fullcalendar themselves.
  * @returns ToolCalendar
  */
 
@@ -102,7 +101,6 @@ export default function ToolCalendar() {
   function customEventStyling(eventInfo: EventContentArg) {
     return (
       <CustomEventContent
-        calendarRef={calendarRef}
         eventInfo={eventInfo}
         userId={userId ?? ''}
         isLoggedIn={isLoggedIn}
@@ -277,12 +275,13 @@ export default function ToolCalendar() {
     if (calendarRef.current) {
       calendarRef.current
         ?.getApi()
-        .scrollToTime(calendarRef.current.getApi().getDate().toString());
+        .scrollToTime(
+          format.dateTime(Date.now(), { hour: 'numeric', minute: 'numeric' }),
+        );
     }
   }
 
   const calendarConfig = createCalendarConfig({
-    date,
     isLoggedIn,
     isMember,
     userId,
