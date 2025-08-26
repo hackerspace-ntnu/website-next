@@ -20,7 +20,7 @@ export default async function EventDetailsLayout({
     <>
       <Link
         href='/events'
-        className='flex w-fit gap-2'
+        className='my-4 flex w-fit gap-2'
         variant='secondary'
         size='default'
         aria-label={t('backToEvents')}
