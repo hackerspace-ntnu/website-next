@@ -181,6 +181,18 @@ const routing = defineRouting({
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
     },
+    '/management': {
+      'en-GB': '/management',
+      'nb-NO': '/administrasjon',
+    },
+    '/management/skills': {
+      'en-GB': '/management/skills',
+      'nb-NO': '/administrasjon/ferdigheter',
+    },
+    '/management/skills/[skillId]': {
+      'en-GB': '/management/skills/[skillId]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillId]',
+    },
   },
 });
 

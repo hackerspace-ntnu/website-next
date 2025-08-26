@@ -741,6 +741,33 @@
     "forEveryone": "For everyone",
     "internal": "Internal rules"
   },
+  "management": {
+    "title": "Website Management",
+    "unauthorized": "Unauthorized to access management tools",
+    "skills": {
+      "title": "Skills",
+      "description": "Manage the skills that members can achieve.",
+      "add": "Add skill",
+      "edit": "Edit skill",
+      "delete": "Delete skill",
+      "form": {
+        "name": {
+          "label": "Skill name",
+          "required": "Skill name is required"
+        }
+      },
+      "api": {
+        "invalidId": "Invalid skill ID"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "description": "Manage admin users who can access this management interface.",
+      "add": "Add user",
+      "edit": "Edit user",
+      "delete": "Delete user"
+    }
+  },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",
     "notAuthenticated": "Not authenticated",

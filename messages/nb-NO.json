@@ -741,6 +741,33 @@
     "forEveryone": "For alle",
     "internal": "Interne regler"
   },
+  "management": {
+    "title": "Nettside-administrasjon",
+    "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
+    "skills": {
+      "title": "Ferdigheter",
+      "description": "Administrer ferdighetene som medlemmene kan oppnå.",
+      "add": "Legg til ferdighet",
+      "edit": "Rediger ferdighet",
+      "delete": "Slett ferdighet",
+      "form": {
+        "name": {
+          "label": "Ferdighetsnavn",
+          "required": "Ferdighetsnavn er påkrevd"
+        }
+      },
+      "api": {
+        "invalidId": "Ugyldig ferdighets-ID"
+      }
+    },
+    "users": {
+      "title": "Brukere",
+      "description": "Administrer brukere som kan få tilgang til dette administrasjonsgrensesnittet.",
+      "add": "Legg til bruker",
+      "edit": "Rediger bruker",
+      "delete": "Slett bruker"
+    }
+  },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
     "notAuthenticated": "Ikke autentisert",
