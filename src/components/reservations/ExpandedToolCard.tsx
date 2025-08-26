@@ -1,15 +1,15 @@
 'use client';
 
+import { Minimize2Icon } from 'lucide-react';
+import { AnimatePresence, m } from 'motion/react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useEffect, useId, useRef } from 'react';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
 import { toolDescriptionFields } from '@/lib/constants';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
-import { Minimize2Icon } from 'lucide-react';
-import { AnimatePresence, m } from 'motion/react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect, useId, useRef } from 'react';
 
 type ExpandedToolCardProps = {
   active: Tool;

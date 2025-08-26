@@ -13,7 +13,7 @@ import type {
 import type { EventResizeDoneArg } from '@fullcalendar/interaction/index.js';
 
 /**
- * Måtte lage egen config fil for statiske variabler fordi toolcalendar.tsx ble for lang..
+ * Had to make a config file for the calendar because original calendar got too big..
  */
 export const viewTypes = {
   timeGridDay: {

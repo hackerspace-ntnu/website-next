@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
   ResponsiveDialog,
   ResponsiveDialogContent,
@@ -8,7 +9,6 @@ import {
   ResponsiveDialogTitle,
 } from '@/components/composites/ResponsiveDialog';
 import { ReservationForm } from '@/components/reservations/ReservationsCalendar/ReservationForm';
-import { useTranslations } from 'next-intl';
 
 type Reservation = {
   navn: string;

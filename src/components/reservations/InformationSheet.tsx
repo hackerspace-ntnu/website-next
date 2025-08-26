@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Label } from '@/components/ui/Label';
 import { Link } from '@/components/ui/Link';
@@ -11,8 +13,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/Sheet';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
 function InformationSheet() {
   const t = useTranslations('reservations');

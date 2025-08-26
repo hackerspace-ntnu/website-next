@@ -1,14 +1,14 @@
 'use client';
 
+import { Maximize2Icon } from 'lucide-react';
+import { AnimatePresence, m } from 'motion/react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { useEffect, useId, useState } from 'react';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardTitle } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
-import { Maximize2Icon } from 'lucide-react';
-import { AnimatePresence, m } from 'motion/react';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useEffect, useId, useState } from 'react';
 
 type HorizontalToolCardProps = {
   tool: Tool;
