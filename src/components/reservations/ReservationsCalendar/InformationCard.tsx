@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/Button';
+import { useTranslations } from 'next-intl';
 import {
   Card,
   CardContent,
@@ -6,8 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
-import { Plus } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/locale/navigation';
 
 export default function InformationCard() {
   const t = useTranslations('reservations');
@@ -19,9 +18,15 @@ export default function InformationCard() {
           <CardDescription className='text-balance text-sm-lg-clamp'>
             {t.rich('information.importantText', {
               link: (chunks) => (
-                <a href='/regler/5' className='text-primary'>
+                <Link
+                  href={{
+                    pathname: '/rules/[subsetId]',
+                    params: { subsetId: 5 },
+                  }}
+                  className='text-primary'
+                >
                   {chunks}
-                </a>
+                </Link>
               ),
             })}
           </CardDescription>
