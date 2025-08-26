@@ -92,11 +92,13 @@ async function Header() {
           />
           <ProfileMenu
             hasUser={Boolean(user)}
+            isAdmin={!!user?.groups.includes('admin')}
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
               signOut: t('signOut'),
               settings: t('settings'),
+              management: t('management'),
             }}
           />
         </div>
