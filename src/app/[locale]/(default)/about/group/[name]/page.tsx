@@ -1,4 +1,9 @@
-import { ArrowLeftIcon, CircleUserRoundIcon } from 'lucide-react';
+import {
+  ArrowLeftIcon,
+  CircleUserRoundIcon,
+  EditIcon,
+  TriangleAlertIcon,
+} from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getLocale, getTranslations } from 'next-intl/server';
@@ -12,8 +17,9 @@ export default async function GroupPage({
   params: Promise<{ name: string }>;
 }) {
   const { name } = await params;
-  const group = await api.about.fetchGroup(name);
-  const t = await getTranslations('about');
+  const group = await api.groups.fetchGroup(name);
+  const t = await getTranslations('groups');
+  const tAbout = await getTranslations('about');
 
   if (!group) {
     return notFound();
@@ -39,6 +45,8 @@ export default async function GroupPage({
     profilePictureUrl?: string;
   })[];
 
+  const { user } = await api.auth.state();
+
   if (!groupLocalization) {
     return notFound();
   }
@@ -54,12 +62,43 @@ export default async function GroupPage({
         <ArrowLeftIcon />
         <span>{t('backToAbout')}</span>
       </Link>
+      <div className='relative'>
+        <h1 className='mb-4 text-center'>{groupLocalization.name}</h1>
+        {user?.groups.some((g) =>
+          ['labops', 'leadership', 'admin'].includes(g),
+        ) && (
+          <Link
+            className='absolute top-0 right-0'
+            href={{
+              pathname: '/about/group/[name]/edit',
+              params: { name: group.identifier },
+            }}
+            variant='default'
+            size='icon'
+          >
+            <EditIcon />
+          </Link>
+        )}
+      </div>
       <div className='flex flex-col items-center justify-center gap-4 p-4'>
-        <h1 className='mb-4'>{groupLocalization.name}</h1>
         <h3>{groupLocalization.summary}</h3>
+        {group.imageUrl && (
+          <div className='relative mx-auto h-auto w-64 max-w-2xl overflow-hidden rounded-lg md:w-96'>
+            <Image
+              src={group.imageUrl}
+              alt={groupLocalization.name}
+              width={512}
+              height={512}
+              className='rounded-lg object-cover'
+            />
+          </div>
+        )}
         <p className='max-w-prose'>{groupLocalization.description}</p>
         {members.length === 0 && (
-          <p className='text-center'>No members in this group yet.</p>
+          <div className='flex w-full items-center justify-center gap-2'>
+            <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
+            <p className='text-center'>{tAbout('noMembers')}</p>
+          </div>
         )}
         <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
           {members.map((member) => {
@@ -84,7 +123,7 @@ export default async function GroupPage({
                     <CircleUserRoundIcon className='h-full w-full duration-200 group-hover:scale-105' />
                   )}
                 </div>
-                <p className='duration-200 group-hover:text-primary'>
+                <p className='mt-2 duration-200 group-hover:text-primary'>
                   {member.firstName} {member.lastName}
                 </p>
               </Link>

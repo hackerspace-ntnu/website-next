@@ -7,14 +7,22 @@ import { Suspense, useEffect } from 'react';
 import { usePathname } from '@/lib/locale/navigation';
 
 function PostHogProvider({ children }: { children: React.ReactNode }) {
+  const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY as string, {
+    if (!posthogKey) return;
+    posthog.init(posthogKey, {
       api_host:
-        process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+        process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
       person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
       capture_pageview: false, // Disable automatic pageview capture, as we capture manually
     });
-  }, []);
+  }, [posthogKey]);
+
+  if (!posthogKey) {
+    console.warn('PostHog key is not set. PostHogProvider will be skipped.');
+    return children;
+  }
 
   return (
     <PHProvider client={posthog}>

@@ -1,6 +1,7 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { relations } from 'drizzle-orm';
 import {
+  boolean,
   index,
   integer,
   pgTable,
@@ -15,7 +16,10 @@ import { localesEnum } from '@/server/db/tables/locales';
 const groups = pgTable('groups', {
   id: serial('id').primaryKey(),
   identifier: varchar('identifier', { length: 50 }).notNull().unique(),
-  imageId: integer('image_id').references(() => files.id),
+  imageId: integer('image_id').references(() => files.id, {
+    onDelete: 'set null',
+  }),
+  internal: boolean().default(false),
 });
 
 const groupLocalizations = pgTable(

@@ -151,7 +151,8 @@
     "NTNUNexus": "The working life network Nexus",
     "internal": "Internal",
     "copyright": "Copyright",
-    "allRightsReserved": "All rights reserved"
+    "allRightsReserved": "All rights reserved",
+    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
   },
   "news": {
     "title": "News",
@@ -278,7 +279,7 @@
   "about": {
     "whatIsHackerspace": "What is Hackerspace?",
     "aboutDescription": "<p1> Hackerspace NTNU is a student-driven project open to all students, regardless of study direction or Hackerspace membership. We offer a creative arena where students from different disciplines can get help realizing their ideas in an engaged and inclusive environment. Here, you will find new technology at your disposal, including drones, 3D printers, and Virtual Reality equipment. </p1> <p2> Whether you are a first-year student needing help with your first Arduino project or a fourth-year student wanting to create a 3D model of Trondheim, we can provide both equipment and expertise. We also regularly hold courses for both beginners and advanced students in many exciting subjects. </p2> <p3> Come by to see what we're doing and have a chat. </p3> You can find us on the second floor of the A-block in the Realfagbygget at NTNU Gløshaugen.",
-    "showMap": "Show map!",
+    "showMap": "Show map",
     "FAQ": {
       "title": "Frequently Asked Questions",
       "canIUseThe3dPrinter": "Can I use the 3D printer?",
@@ -289,11 +290,80 @@
       "answerHowDoIBecomeAMember": "<p1> Hackerspace has ongoing admissions. You can apply whenever you want. We usually respond within 3 working weeks. </p1> <p2> Note that you do not need membership to borrow equipment or try something cool. Come by for a chat during our opening hours to learn more about our offerings and what it's like to be a member. </p2>"
     },
     "activeGroup": "Our Active Groups",
+    "noMembers": "No members are a part of this group yet."
+  },
+  "groups": {
     "backToAbout": "Back to About",
+    "new": {
+      "title": "New Group",
+      "createGroup": "Create group",
+      "unauthorized": "Unauthorized to create new groups",
+      "groupCreated": "Group created successfully"
+    },
+    "update": {
+      "title": "Update Group",
+      "backToGroup": "Back to group",
+      "unauthorized": "Unauthorized to update groups",
+      "updateGroup": "Update group",
+      "groupUpdated": "Group updated successfully",
+      "deleteGroup": "Delete group",
+      "imageDeleted": "Group image deleted successfully",
+      "groupDeleted": "Group deleted successfully",
+      "deleteGroupTitle": "Are you sure you want to delete this group?",
+      "deleteGroupDescription": "The group will be permanently deleted. This action cannot be undone.",
+      "deleteGroupImage": "Delete group image",
+      "deleteGroupImageTitle": "Are you sure you want to delete this group image?",
+      "deleteGroupImageDescription": "The group image will be permanently deleted. This action cannot be undone."
+    },
+    "form": {
+      "image": {
+        "label": "Group image",
+        "description": "Upload an image...",
+        "required": "Group image is required",
+        "sizeLimitError": "Group image must be less than {size} MB",
+        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Group name (Norwegian)",
+        "labelEnglish": "Group name (English)",
+        "placeholder": "DevOps",
+        "required": "Group name is required",
+        "maxLength": "Group name must be less than {count} characters"
+      },
+      "summary": {
+        "labelNorwegian": "Summary (Norwegian)",
+        "labelEnglish": "Summary (English)",
+        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "required": "Group summary is required",
+        "maxLength": "Group summary must be less than {count} characters"
+      },
+      "description": {
+        "labelNorwegian": "Description (Norwegian)",
+        "labelEnglish": "Description (English)",
+        "required": "Group description is required"
+      },
+      "identifier": {
+        "label": "Group identifier",
+        "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
+        "placeholder": "devops",
+        "isReserved": "Sorry, this identifier is reserved by internal systems",
+        "required": "Group identifier is required",
+        "regex": "The identifier can't be used in a URL. Allowed character: a-z, A-Z, 0-9, -, _, ., and ~"
+      },
+      "internal": {
+        "label": "Internal group",
+        "description": "If selected, this group will only be visible to Hackerspace members."
+      }
+    },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
       "invalidId": "Invalid ID",
-      "invalidGroupIdentifier": "Invalid group identifier"
+      "invalidGroupIdentifier": "Invalid group identifier",
+      "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
+      "insertFailed": "Failed to add group",
+      "groupNotFound": "The group could not be found"
     }
   },
   "storage": {
