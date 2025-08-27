@@ -29,8 +29,8 @@ type Reservation = {
   reservationId: string;
   start: Date | string;
   end: Date | string;
-  navn: string;
-  mobilNr: string;
+  name: string;
+  phoneNr: string;
   email: string;
 };
 

@@ -8,8 +8,8 @@ import { DateTimePicker } from '@/components/ui/DateTimePicker';
 import { useAppForm } from '@/components/ui/Form';
 
 type Reservation = {
-  navn: string;
-  mobilNr: string;
+  name: string;
+  phoneNr: string;
   email: string;
   start: Date | string;
   end: Date | string;
@@ -46,8 +46,8 @@ function ReservationForm({
   const [endDate, setEndDate] = useState<Date>(end);
   const form = useAppForm({
     defaultValues: {
-      navn: defaultValues?.navn ?? '',
-      mobilNr: defaultValues?.mobilNr ?? '',
+      name: defaultValues?.name ?? '',
+      phoneNr: defaultValues?.phoneNr ?? '',
       email: defaultValues?.email ?? '',
       start: start || new Date(),
       end: end || new Date(),
@@ -65,8 +65,8 @@ function ReservationForm({
     e.preventDefault();
     try {
       onSubmit({
-        navn: form.getFieldValue('navn'),
-        mobilNr: form.getFieldValue('mobilNr'),
+        name: form.getFieldValue('name'),
+        phoneNr: form.getFieldValue('phoneNr'),
         email: form.getFieldValue('email'),
         start: startDate.toISOString(),
         end: endDate.toISOString(),
@@ -78,7 +78,7 @@ function ReservationForm({
 
   return (
     <form onSubmit={handleFormSubmit} className='w-full space-y-4 p-4'>
-      <form.AppField name='navn'>
+      <form.AppField name='name'>
         {(field) => (
           <field.TextField
             label={t('form.name')}
@@ -96,7 +96,7 @@ function ReservationForm({
         )}
       </form.AppField>
 
-      <form.AppField name='mobilNr'>
+      <form.AppField name='phoneNr'>
         {(field) => (
           <field.PhoneField
             label={t('form.phoneNr')}

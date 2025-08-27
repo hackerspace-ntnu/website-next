@@ -11,8 +11,8 @@ import {
 import { ReservationForm } from '@/components/reservations/ReservationsCalendar/ReservationForm';
 
 type Reservation = {
-  navn: string;
-  mobilNr: string;
+  name: string;
+  phoneNr: string;
   email: string;
   start: Date | string;
   end: Date | string;
@@ -63,9 +63,9 @@ function CalendarDialog({
           onDelete={onDelete}
           mode={mode}
           defaultValues={{
-            navn: defaultValues?.navn ?? '',
+            name: defaultValues?.name ?? '',
             email: defaultValues?.email ?? '',
-            mobilNr: defaultValues?.mobilNr ?? '',
+            phoneNr: defaultValues?.phoneNr ?? '',
           }}
         />
       </ResponsiveDialogContent>

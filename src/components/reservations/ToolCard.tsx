@@ -1,13 +1,13 @@
 'use client';
-import { Maximize2 } from 'lucide-react';
+import { Maximize2Icon } from 'lucide-react';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
+import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
-import { Button } from '../ui/Button';
 
 type ToolCardProps = {
   tool: Tool;
@@ -50,7 +50,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
               onClick={onClick}
               whileHover={{ scale: 1.1 }}
             >
-              <Maximize2 className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
+              <Maximize2Icon className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
             </motion.button>
           </div>
         </div>

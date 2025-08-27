@@ -26,7 +26,7 @@ import { Plus } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
-/** Midlertidig type, legger til mer når jeg begynner på backend */
+/** Temporary type for testing functionality till backend */
 type Reservation = {
   toolType: string;
   toolName: string;
@@ -35,8 +35,8 @@ type Reservation = {
   reservationId: string;
   start: Date | string;
   end: Date | string;
-  navn: string;
-  mobilNr: string;
+  name: string;
+  phoneNr: string;
   email: string;
 };
 
@@ -65,17 +65,17 @@ export default function ToolCalendar() {
   const [date, setDate] = useState(new Date());
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const calendarEvents = reservations.map((reserv) => ({
-    // id: reserv.reservationId, full calendar generer også egne  unike id for hver event som er laget på kalenderen
+    // id: reserv.reservationId, full calendar also generates unique userID
     start: reserv.start,
     end: reserv.end,
     extendedProps: {
       reservationId: reserv.reservationId,
       toolType: reserv.toolType,
       toolName: reserv.toolName,
-      toolId: reserv.toolId, // sikre at riktig reservasjoner dukker opp på riktig kalender, reminder for når jeg begynner med backend
-      userId: reserv.userId, //skal ikke sende userId når jeg begynner med backend, sender det nå for å teste click, delete etc. funksjoner
-      navn: reserv.navn,
-      mobilNr: reserv.mobilNr,
+      toolId: reserv.toolId, // These are temporary just to ensure that correct reservations end up on the correct calendar, will probably be changed when backend begins
+      userId: reserv.userId, // This is again for testing, userID will not be sent when backend starts
+      navn: reserv.name,
+      mobilNr: reserv.phoneNr,
       email: reserv.email,
     },
   }));
@@ -192,8 +192,8 @@ export default function ToolCalendar() {
       toolId: toolId,
       reservationId: crypto.randomUUID(),
       userId: crypto.randomUUID(),
-      navn: data.navn,
-      mobilNr: data.mobilNr,
+      name: data.name,
+      phoneNr: data.phoneNr,
       email: data.email,
       start: new Date(data.start),
       end: new Date(data.end),
@@ -326,9 +326,9 @@ export default function ToolCalendar() {
           handleDeleteEvent(selectedReservation.reservationId)
         }
         defaultValues={{
-          navn: selectedReservation?.navn ?? '',
+          name: selectedReservation?.name ?? '',
           email: selectedReservation?.email ?? '',
-          mobilNr: selectedReservation?.mobilNr ?? '',
+          phoneNr: selectedReservation?.phoneNr ?? '',
         }}
       />
       <div className='w-full overflow-hidden rounded-lg rounded-b-none border border-border bg-background text-foreground'>
