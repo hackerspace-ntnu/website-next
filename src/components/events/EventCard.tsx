@@ -17,7 +17,7 @@ import { cx } from '@/lib/utils';
 import type { SelectEvent, SelectEventLocalization } from '@/server/db/tables';
 
 type EventCardProps = {
-  event: SelectEvent & { localizations: SelectEventLocalization[] } & {
+  event: SelectEvent & { localization: SelectEventLocalization } & {
     imageUrl?: string;
   };
   wrapperClassName?: string;
@@ -46,7 +46,6 @@ function EventCard({
   _active,
 }: EventCardProps) {
   const formatter = useFormatter();
-  const localization = event.localizations[0];
   const imageUrlQuery = api.utils.getFileUrl.useQuery(
     { fileId: event.imageId ?? 0 },
     { enabled: !!event.imageId },
@@ -54,7 +53,7 @@ function EventCard({
 
   const imageUrl = event.imageId ? imageUrlQuery.data : undefined;
 
-  if (!localization) return;
+  if (!event.localization) return;
 
   const started = event.startTime < new Date() || _active;
   const ended = event.endTime < new Date();
@@ -74,8 +73,8 @@ function EventCard({
         })}
       >
         <CardHeader>
-          <CardTitle>{localization.name}</CardTitle>
-          <CardDescription>{localization.summary}</CardDescription>
+          <CardTitle>{event.localization.name}</CardTitle>
+          <CardDescription>{event.localization.summary}</CardDescription>
           {event.internal && (
             <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
               {t.internal}
@@ -83,7 +82,9 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='line-clamp-5 max-w-96'>{localization.description}</p>
+          <p className='line-clamp-5 max-w-96'>
+            {event.localization.description}
+          </p>
           {imageUrl && (
             <Avatar className='h-48 w-48 shrink-0'>
               <AvatarImage

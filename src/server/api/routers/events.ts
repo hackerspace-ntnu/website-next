@@ -84,7 +84,7 @@ const eventsRouter = createRouter({
 
       const { user } = await ctx.auth();
 
-      return await ctx.db.query.events.findMany({
+      const results = await ctx.db.query.events.findMany({
         where:
           user && user.groups.length > 0
             ? where
@@ -99,20 +99,30 @@ const eventsRouter = createRouter({
         limit: input.limit,
         offset: input.offset,
       });
+
+      return results
+        .map((result) => {
+          const { localizations, ...rest } = result;
+          if (!localizations[0]) return null;
+          return {
+            ...rest,
+            localization: localizations[0],
+          };
+        })
+        .filter((event) => event !== null);
     }),
   fetchActiveEvents: publicProcedure.query(async ({ ctx }) => {
     const { user } = await ctx.auth();
 
-    const where = [
-      lte(events.startTime, new Date()),
-      gte(events.endTime, new Date()),
-    ];
+    const now = new Date();
 
-    return await ctx.db.query.events.findMany({
+    const active = [lte(events.startTime, now), gte(events.endTime, now)];
+
+    const results = await ctx.db.query.events.findMany({
       where:
         user && user?.groups.length > 0
-          ? and(...where)
-          : and(...where, eq(events.internal, false)),
+          ? and(...active)
+          : and(...active, eq(events.internal, false)),
       orderBy: asc(events.startTime),
       with: {
         localizations: {
@@ -121,21 +131,31 @@ const eventsRouter = createRouter({
         skill: true,
       },
     });
+
+    return results
+      .map((result) => {
+        const { localizations, ...rest } = result;
+        if (!localizations[0]) return null;
+        return {
+          ...rest,
+          localization: localizations[0],
+        };
+      })
+      .filter((event) => event !== null);
   }),
   nonActiveEventsTotal: publicProcedure.query(async ({ ctx }) => {
     const { user } = await ctx.auth();
-    const where = or(
-      gte(events.startTime, new Date()),
-      lte(events.endTime, new Date()),
-    );
+    const now = new Date();
+
+    const nonActive = or(gte(events.startTime, now), lte(events.endTime, now));
 
     const counts = await ctx.db
       .select({ count: count() })
       .from(events)
       .where(
         user && user.groups.length > 0
-          ? where
-          : and(where, eq(events.internal, false)),
+          ? nonActive
+          : and(nonActive, eq(events.internal, false)),
       );
 
     if (!counts[0]) return Number.NaN;

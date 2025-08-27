@@ -87,7 +87,7 @@ export default async function EventsPage({
           </ExternalLink>
           <div className='space-y-2'>
             {activeEvents.map((event) => {
-              if (!event.localizations[0]) return;
+              if (!event.localization) return;
               return (
                 <EventCard
                   key={event.id}
@@ -95,10 +95,10 @@ export default async function EventsPage({
                   event={event}
                   t={{
                     detailsAboutEvent: t('detailsAboutEvent', {
-                      eventName: event.localizations[0].name,
+                      eventName: event.localization.name,
                     }),
                     photoOf: tUi('photoOf', {
-                      name: event.localizations[0].name,
+                      name: event.localization.name,
                     }),
                     ...translations,
                   }}
@@ -119,7 +119,7 @@ export default async function EventsPage({
           </ExternalLink>
           <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
             {upcomingEvents.map((event) => {
-              if (!event.localizations[0]) return;
+              if (!event.localization) return;
 
               return (
                 <EventCard
@@ -129,10 +129,10 @@ export default async function EventsPage({
                   cardClassName='h-full'
                   t={{
                     detailsAboutEvent: t('detailsAboutEvent', {
-                      eventName: event.localizations[0].name,
+                      eventName: event.localization.name,
                     }),
                     photoOf: tUi('photoOf', {
-                      name: event.localizations[0].name,
+                      name: event.localization.name,
                     }),
                     ...translations,
                   }}
@@ -147,7 +147,7 @@ export default async function EventsPage({
       </ExternalLink>
       <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
         {pastEvents.map((event) => {
-          if (!event.localizations[0]) return;
+          if (!event.localization) return;
 
           return (
             <EventCard
@@ -157,9 +157,9 @@ export default async function EventsPage({
               cardClassName='h-full'
               t={{
                 detailsAboutEvent: t('detailsAboutEvent', {
-                  eventName: event.localizations[0].name,
+                  eventName: event.localization.name,
                 }),
-                photoOf: tUi('photoOf', { name: event.localizations[0].name }),
+                photoOf: tUi('photoOf', { name: event.localization.name }),
                 ...translations,
               }}
             />
