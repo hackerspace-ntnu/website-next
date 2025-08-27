@@ -11,11 +11,14 @@ import {
 import type { RouterOutput } from '@/server/api';
 
 type IntroBannerProps = {
+  t: {
+    placeholderAlt: string;
+  };
   slides: RouterOutput['home']['fetchSlides'];
   locale: Locale;
 };
 
-function IntroBanner({ slides, locale }: IntroBannerProps) {
+function IntroBanner({ slides, locale, t }: IntroBannerProps) {
   return (
     <>
       <div className='absolute top-0 left-0 text-background'>
@@ -41,7 +44,7 @@ function IntroBanner({ slides, locale }: IntroBannerProps) {
                   <div className='relative h-full w-full'>
                     <Image
                       src={slide.imageUrl ?? '/bg.jpg'}
-                      alt={slideLocalization?.imgAlt ?? 'No image available'}
+                      alt={slideLocalization?.imgAlt ?? t.placeholderAlt}
                       fill
                       className='object-cover'
                     />

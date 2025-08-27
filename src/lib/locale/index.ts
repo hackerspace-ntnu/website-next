@@ -37,6 +37,10 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
+    '/slides': {
+      'en-GB': '/slides',
+      'nb-NO': '/bannere',
+    },
     '/too-many-requests': {
       'en-GB': '/too-many-requests',
       'nb-NO': '/for-mange-forespørsler',

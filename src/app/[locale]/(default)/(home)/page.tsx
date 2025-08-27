@@ -23,7 +23,11 @@ export default async function HomePage({ params }: PageProps<'/[locale]'>) {
 
   return (
     <div className='space-y-8'>
-      <IntroBanner slides={slides} locale={locale as Locale} />
+      <IntroBanner
+        slides={slides}
+        locale={locale as Locale}
+        t={{ placeholderAlt: t('placeholderAlt') }}
+      />
       <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
         <p>{t('whoAreWeDescription')}</p>

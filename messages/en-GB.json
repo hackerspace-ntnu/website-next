@@ -154,6 +154,7 @@
     "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
   },
   "home": {
+    "placeholderAlt": "No image available",
     "whoAreWe": "Who are we?",
     "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
     "stopBy": "Stop by!",
@@ -161,7 +162,12 @@
     "events": "Events",
     "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on social activities.",
     "news": "News",
-    "newsDescription": "See the latest updates from Hackerspace."
+    "newsDescription": "See the latest updates from Hackerspace.",
+    "slides": {
+      "image": "Image",
+      "overlay": "Overlay",
+      "unauthorized": "Unauthorized to manage home page slides"
+    }
   },
   "news": {
     "title": "News",
