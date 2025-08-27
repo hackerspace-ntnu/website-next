@@ -4,12 +4,22 @@ import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 
 function eventSchema(t: Translations) {
   return z.object({
-    nameNorwegian: z.string().min(1, t('events.form.nameNorwegian.required')),
-    nameEnglish: z.string().min(1, t('events.form.nameEnglish.required')),
+    nameNorwegian: z
+      .string()
+      .min(1, t('events.form.nameNorwegian.required'))
+      .max(50, t('events.form.nameNorwegian.maxLength', { count: 50 })),
+    nameEnglish: z
+      .string()
+      .min(1, t('events.form.nameEnglish.required'))
+      .max(50, t('events.form.nameEnglish.maxLength', { count: 50 })),
     summaryNorwegian: z
       .string()
-      .min(1, t('events.form.summaryNorwegian.required')),
-    summaryEnglish: z.string().min(1, t('events.form.summaryEnglish.required')),
+      .min(1, t('events.form.summaryNorwegian.required'))
+      .max(255, t('events.form.summaryNorwegian.maxLength', { count: 255 })),
+    summaryEnglish: z
+      .string()
+      .min(1, t('events.form.summaryEnglish.required'))
+      .max(255, t('events.form.summaryEnglish.maxLength', { count: 255 })),
     descriptionNorwegian: z
       .string()
       .min(1, t('events.form.descriptionNorwegian.required')),
@@ -18,10 +28,12 @@ function eventSchema(t: Translations) {
       .min(1, t('events.form.descriptionEnglish.required')),
     locationNorwegian: z
       .string()
-      .min(1, t('events.form.locationNorwegian.required')),
+      .min(1, t('events.form.locationNorwegian.required'))
+      .max(255, t('events.form.locationNorwegian.maxLength', { count: 255 })),
     locationEnglish: z
       .string()
-      .min(1, t('events.form.locationEnglish.required')),
+      .min(1, t('events.form.locationEnglish.required'))
+      .max(255, t('events.form.locationEnglish.maxLength', { count: 255 })),
     startTime: z.date({ message: t('events.form.startTime.required') }),
     setSignUpDeadline: z.boolean(),
     signUpDeadline: z.date().nullable(),

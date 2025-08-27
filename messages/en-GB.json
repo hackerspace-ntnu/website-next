@@ -541,22 +541,26 @@
       "nameNorwegian": {
         "label": "Event name (Norwegian)",
         "placeholder": "Arrangementsnavn",
-        "required": "Event name is required"
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
       },
       "nameEnglish": {
         "label": "Event name (English)",
         "placeholder": "Event name",
-        "required": "Event name is required"
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
       },
       "summaryNorwegian": {
         "label": "Summary (Norwegian)",
         "placeholder": "Kort beskrivelse av arrangementet",
-        "required": "Event summary is required"
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
       },
       "summaryEnglish": {
         "label": "Summary (English)",
         "placeholder": "Short description of the event",
-        "required": "Event summary is required"
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
       },
       "descriptionNorwegian": {
         "label": "Description (Norwegian)",
@@ -571,12 +575,14 @@
       "locationNorwegian": {
         "label": "Location (Norwegian)",
         "placeholder": "Sted for arrangementet",
-        "required": "Event location is required"
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
       },
       "locationEnglish": {
         "label": "Location (English)",
         "placeholder": "Location of the event",
-        "required": "Event location is required"
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
       },
       "startTime": {
         "label": "Start time",
