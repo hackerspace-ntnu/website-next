@@ -28,6 +28,7 @@ function SignUpButton({
   const pastSignUpDeadline =
     event?.signUpDeadline && new Date() > new Date(event.signUpDeadline);
   const pastStartTime = new Date() > new Date(event.startTime);
+  const pastEndTime = new Date() > new Date(event.endTime);
   const toggleEventSignUp = api.events.toggleEventSignUp.useMutation({
     onSuccess: (newState) => {
       if (newState) {
@@ -54,9 +55,11 @@ function SignUpButton({
           </TooltipTrigger>
           <TooltipContent className='bg-destructive text-destructive-foreground'>
             <p>
-              {pastSignUpDeadline
-                ? t('pastSignUpDeadline')
-                : t('eventStartedAlready')}
+              {pastEndTime
+                ? t('eventFinishedAlready')
+                : pastSignUpDeadline
+                  ? t('pastSignUpDeadline')
+                  : t('eventStartedAlready')}
             </p>
           </TooltipContent>
         </Tooltip>

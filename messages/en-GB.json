@@ -630,6 +630,7 @@
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
+      "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
       "attendance": "Attendance",
       "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",

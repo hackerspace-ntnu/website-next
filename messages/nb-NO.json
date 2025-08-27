@@ -630,6 +630,7 @@
       "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
       "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
       "eventStartedAlready": "Arrangementet har allerede startet",
+      "eventFinishedAlready": "Arrangementet er ferdig",
       "signUpDeadline": "Påmeldingsfrist: {date}",
       "attendance": "Oppmøte",
       "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
