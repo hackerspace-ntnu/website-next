@@ -640,6 +640,7 @@
       "eventFinishedAlready": "Arrangementet er ferdig",
       "signUpDeadline": "Påmeldingsfrist: {date}",
       "attendance": "Oppmøte",
+      "attended": "Møtte opp",
       "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
       "member": "Medlem",

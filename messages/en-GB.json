@@ -640,6 +640,7 @@
       "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
       "attendance": "Attendance",
+      "attended": "Attended",
       "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
       "member": "Member",
