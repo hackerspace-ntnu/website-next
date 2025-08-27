@@ -30,12 +30,9 @@ function SheetPortal(
 }
 
 function SheetOverlay({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & {
-  ref?: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Overlay>>;
-}) {
+}: React.ComponentPropsWithRef<typeof SheetPrimitive.Overlay>) {
   return (
     <SheetPrimitive.Overlay
       className={cx(
@@ -43,7 +40,6 @@ function SheetOverlay({
         className,
       )}
       {...props}
-      ref={ref}
     />
   );
 }
@@ -66,13 +62,11 @@ const sheetVariants = cva({
 });
 
 function SheetContent({
-  ref,
   side = 'right',
   className,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> & {
-  ref?: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Content>>;
+}: React.ComponentPropsWithRef<typeof SheetPrimitive.Content> & {
   side?: VariantProps<typeof sheetVariants>['side'];
 }) {
   const t = useTranslations('ui');
@@ -80,7 +74,6 @@ function SheetContent({
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content
-        ref={ref}
         className={cx(sheetVariants({ side }), className)}
         {...props}
       >
@@ -125,15 +118,11 @@ function SheetFooter({
 }
 
 function SheetTitle({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title> & {
-  ref?: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Title>>;
-}) {
+}: React.ComponentPropsWithRef<typeof SheetPrimitive.Title>) {
   return (
     <SheetPrimitive.Title
-      ref={ref}
       className={cx('font-semibold text-foreground text-lg', className)}
       {...props}
     />
@@ -141,15 +130,11 @@ function SheetTitle({
 }
 
 function SheetDescription({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description> & {
-  ref?: React.RefObject<React.ComponentRef<typeof SheetPrimitive.Description>>;
-}) {
+}: React.ComponentPropsWithRef<typeof SheetPrimitive.Description>) {
   return (
     <SheetPrimitive.Description
-      ref={ref}
       className={cx('text-muted-foreground text-sm', className)}
       {...props}
     />

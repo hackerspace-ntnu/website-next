@@ -15,15 +15,17 @@ import { cx } from '@/lib/utils';
 
 type ProfileMenuProps = {
   hasUser: boolean;
+  isAdmin: boolean;
   t: {
     profile: string;
     signIn: string;
     settings: string;
+    management: string;
     signOut: string;
   };
 };
 
-function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
+function ProfileMenu({ hasUser, isAdmin, t }: ProfileMenuProps) {
   const router = useRouter();
   const signOutMutation = api.auth.signOut.useMutation({
     onSuccess: () => {
@@ -54,6 +56,16 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
                 {t.settings}
               </Link>
             </DropdownMenuItem>
+            {isAdmin && (
+              <DropdownMenuItem asChild>
+                <Link
+                  href='/management'
+                  className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+                >
+                  {t.management}
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem asChild>
               <Button
                 onClick={() => signOutMutation.mutate()}

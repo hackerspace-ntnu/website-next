@@ -101,9 +101,17 @@ const routing = defineRouting({
       'en-GB': '/events',
       'nb-NO': '/arrangementer',
     },
+    '/events/new': {
+      'en-GB': '/events/new',
+      'nb-NO': '/arrangementer/ny',
+    },
     '/events/[eventId]': {
       'en-GB': '/events/[eventId]',
       'nb-NO': '/arrangementer/[eventId]',
+    },
+    '/events/[eventId]/edit': {
+      'en-GB': '/events/[eventId]/edit',
+      'nb-NO': '/arrangementer/[eventId]/rediger',
     },
     '/news': {
       'en-GB': '/news',
@@ -172,6 +180,22 @@ const routing = defineRouting({
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
+    },
+    '/management': {
+      'en-GB': '/management',
+      'nb-NO': '/administrasjon',
+    },
+    '/management/skills': {
+      'en-GB': '/management/skills',
+      'nb-NO': '/administrasjon/ferdigheter',
+    },
+    '/management/skills/[skillId]': {
+      'en-GB': '/management/skills/[skillId]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillId]',
+    },
+    '/management/skills/new': {
+      'en-GB': '/management/skills/new',
+      'nb-NO': '/administrasjon/ferdigheter/ny',
     },
   },
 });
