@@ -74,8 +74,8 @@ export default function ToolCalendar() {
       toolName: reserv.toolName,
       toolId: reserv.toolId, // These are temporary just to ensure that correct reservations end up on the correct calendar, will probably be changed when backend begins
       userId: reserv.userId, // This is again for testing, userID will not be sent when backend starts
-      navn: reserv.name,
-      mobilNr: reserv.phoneNr,
+      name: reserv.name,
+      phoneNr: reserv.phoneNr,
       email: reserv.email,
     },
   }));
