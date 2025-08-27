@@ -519,6 +519,7 @@
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
     "backToEvent": "Back to Event",
+    "attendanceGivesSkill": "By attending this event, you will gain the following skill:",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",

@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormatter } from 'next-intl';
+import { useFormatter, useLocale } from 'next-intl';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import {
@@ -14,10 +15,16 @@ import {
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
 import { cx } from '@/lib/utils';
-import type { SelectEvent, SelectEventLocalization } from '@/server/db/tables';
+import type {
+  SelectEvent,
+  SelectEventLocalization,
+  SelectSkill,
+} from '@/server/db/tables';
 
 type EventCardProps = {
   event: SelectEvent & { localization: SelectEventLocalization } & {
+    skill?: SelectSkill | null;
+  } & {
     imageUrl?: string;
   };
   wrapperClassName?: string;
@@ -52,6 +59,7 @@ function EventCard({
   );
 
   const imageUrl = event.imageId ? imageUrlQuery.data : undefined;
+  const locale = useLocale();
 
   if (!event.localization) return;
 
@@ -82,9 +90,23 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='line-clamp-5 max-w-96'>
-            {event.localization.description}
-          </p>
+          <div>
+            <p className='line-clamp-5 max-w-96'>
+              {event.localization.description}
+            </p>
+            <p className='mt-2 flex items-center justify-center gap-2'>
+              {event.skill && (
+                <>
+                  <SkillIcon skill={event.skill} size='large' />
+                  <span className='font-bold'>
+                    {locale === 'en-GB'
+                      ? event.skill?.nameEnglish
+                      : event.skill?.nameNorwegian}
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
           {imageUrl && (
             <Avatar className='h-48 w-48 shrink-0'>
               <AvatarImage

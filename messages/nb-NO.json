@@ -519,6 +519,7 @@
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
     "backToEvent": "Tilbake til arrangement",
+    "attendanceGivesSkill": "Ved å delta på dette arrangementet vil du oppnå følgende ferdighet:",
     "new": {
       "title": "Nytt arrangement",
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",

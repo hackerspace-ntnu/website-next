@@ -17,6 +17,7 @@ import {
 } from 'next-intl/server';
 import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
@@ -141,6 +142,20 @@ export default async function EventDetailsPage({
             <MapPinIcon className='h-8 w-8' />
             <span>{localization.location}</span>
           </div>
+        )}
+        {event.skill && (
+          <>
+            <Separator />
+            <span className='text-muted-foreground'>
+              {t('attendanceGivesSkill')}
+            </span>
+            <div className='mt-4 flex items-center gap-2'>
+              <SkillIcon skill={event.skill} size='xl' />
+              {locale === 'en-GB'
+                ? event.skill?.nameEnglish
+                : event.skill?.nameNorwegian}
+            </div>
+          </>
         )}
         <Separator />
         <NextIntlClientProvider
