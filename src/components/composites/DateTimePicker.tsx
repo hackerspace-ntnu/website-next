@@ -1,11 +1,12 @@
 import { add, format } from 'date-fns';
-import { enUS, type Locale } from 'date-fns/locale';
+import { enGB, type Locale, nb as nbNO } from 'date-fns/locale';
 import {
   Calendar as CalendarIcon,
   ChevronLeft,
   ChevronRight,
   Clock,
 } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import * as React from 'react';
 import { useImperativeHandle, useRef } from 'react';
 import { DayPicker } from 'react-day-picker';
@@ -17,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/Popover';
-
 import {
   Select,
   SelectContent,
@@ -25,12 +25,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select';
+import { dayPickerLocales } from '@/lib/locale';
 import { cx } from '@/lib/utils';
 
 // ---------- utils start ----------
 /**
  * regular expression to check for valid hour format (01-23)
  */
+const dfnsLocales = {
+  'en-GB': enGB,
+  'nb-NO': nbNO,
+} as const;
+
 function isValidHour(value: string) {
   return /^(0[0-9]|1[0-9]|2[0-3])$/.test(value);
 }
@@ -255,18 +261,14 @@ function Calendar({
   yearRange = 50,
   ...props
 }: CalendarProps & { yearRange?: number }) {
+  const localeCode = useLocale() as 'en-GB' | 'nb-NO';
+  const dfnsLocaleForMonths = dfnsLocales[localeCode] ?? enGB;
+
   const MONTHS = React.useMemo(() => {
-    let locale: Pick<Locale, 'options' | 'localize' | 'formatLong'> = enUS;
-    const { options, localize, formatLong } = props.locale || {};
-    if (options && localize && formatLong) {
-      locale = {
-        options,
-        localize,
-        formatLong,
-      };
-    }
-    return genMonths(locale);
-  }, [props.locale]);
+    const { options, localize, formatLong } = dfnsLocaleForMonths;
+    const localeObj = { options, localize, formatLong };
+    return genMonths(localeObj);
+  }, [dfnsLocaleForMonths]);
 
   const YEARS = React.useMemo(() => genYears(yearRange), [yearRange]);
   const disableLeftNavigation = () => {
@@ -716,10 +718,7 @@ type DateTimePickerProps = {
    * Show the default month and time when popup the calendar. Default is the current Date().
    **/
   defaultPopupValue?: Date;
-} & Pick<
-  CalendarProps,
-  'locale' | 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'
->;
+} & Pick<CalendarProps, 'weekStartsOn' | 'showWeekNumber' | 'showOutsideDays'>;
 
 type DateTimePickerRef = {
   value?: Date;
@@ -731,7 +730,6 @@ const DateTimePicker = React.forwardRef<
 >(
   (
     {
-      locale = enUS,
       defaultPopupValue = new Date(new Date().setHours(0, 0, 0, 0)),
       value,
       onChange,
@@ -747,6 +745,9 @@ const DateTimePicker = React.forwardRef<
     },
     ref,
   ) => {
+    const localeCode = useLocale() as 'en-GB' | 'nb-NO';
+    const dfnsLocale = dfnsLocales[localeCode] ?? enGB; // for date-fns format()
+    const rdpLocale = dayPickerLocales[localeCode]; // for react-day-picker / Calendar
     const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
@@ -821,17 +822,6 @@ const DateTimePicker = React.forwardRef<
         `PP hh:mm${!granularity || granularity === 'second' ? ':ss' : ''} b`,
     };
 
-    let loc = enUS;
-    const { options, localize, formatLong } = locale;
-    if (options && localize && formatLong) {
-      loc = {
-        ...enUS,
-        options,
-        localize,
-        formatLong,
-      };
-    }
-
     return (
       <Popover>
         <PopoverTrigger asChild disabled={disabled}>
@@ -852,7 +842,7 @@ const DateTimePicker = React.forwardRef<
                   ? initHourFormat.hour24
                   : initHourFormat.hour12,
                 {
-                  locale: loc,
+                  locale: dfnsLocale,
                 },
               )
             ) : (
@@ -877,7 +867,7 @@ const DateTimePicker = React.forwardRef<
             }}
             onMonthChange={handleMonthChange}
             yearRange={yearRange}
-            locale={locale}
+            locale={rdpLocale}
             {...props}
           />
           {granularity !== 'day' && (
