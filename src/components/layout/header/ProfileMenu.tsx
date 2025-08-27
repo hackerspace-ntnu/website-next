@@ -1,6 +1,7 @@
 'use client';
 
 import { UserIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -10,7 +11,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
-import { usePathname, useRouter } from '@/lib/locale/navigation';
+import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 type ProfileMenuProps = {
@@ -25,6 +26,10 @@ type ProfileMenuProps = {
 
 function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
   const router = useRouter();
+  // We use the pathname from next/navigation instead of next-intl.
+  // If we used pathname from next-intl, the dynamic sections wouldn't be filled out,
+  // so we would get /events/[eventId] or /users/[userId] and so on.
+  // We want the actual pathname, language doesn't matter as next-intl will handle it.
   const pathname = usePathname();
 
   const signOutMutation = api.auth.signOut.useMutation({
@@ -73,7 +78,8 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
             <Link
               href={{
                 pathname: '/auth',
-                ...(pathname !== '/' && { query: { r: pathname } }),
+                ...(pathname !== '/' &&
+                  pathname !== '/en' && { query: { r: pathname } }),
               }}
               className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
             >

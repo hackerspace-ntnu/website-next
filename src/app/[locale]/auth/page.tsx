@@ -6,6 +6,7 @@ import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
+import type { routing } from '@/lib/locale';
 import { redirect } from '@/lib/locale/navigation';
 
 export default async function SignInPage({
@@ -17,11 +18,6 @@ export default async function SignInPage({
 }) {
   const { locale } = await params;
   let { r: redirectTo, error } = await searchParams;
-
-  // Only accept redirect paths that actually exist
-  if (redirectTo && !Object.keys(routing.pathnames).includes(redirectTo)) {
-    return redirect({ href: '/auth', locale });
-  }
 
   setRequestLocale(locale);
   const t = await getTranslations('auth');
@@ -47,7 +43,7 @@ export default async function SignInPage({
       <Separator />
       <div className='absolute bottom-0 left-0 w-full space-y-4'>
         <p className='text-center font-montserrat'>{t('signInWith')}</p>
-        <FeideButton />
+        <FeideButton redirectTo={redirectTo} />
         <Link
           className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
           variant='default'
