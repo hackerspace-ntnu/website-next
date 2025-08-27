@@ -1,11 +1,11 @@
 'use client';
 
-import { createCalendarConfig } from '@/components/reservations/ReservationsCalendar/CalendarConfig';
-import { CalendarConfirmDialog } from '@/components/reservations/ReservationsCalendar/CalendarConfirmDialog';
-import { CalendarDialog } from '@/components/reservations/ReservationsCalendar/CalendarDialog';
-import { CustomEventContent } from '@/components/reservations/ReservationsCalendar/CustomEventContent';
-import CustomToolbar from '@/components/reservations/ReservationsCalendar/CustomToolbar';
-import { InformationCard } from '@/components/reservations/ReservationsCalendar/InformationCard';
+import { createCalendarConfig } from '@/components/reservations/reservations-calendar/CalendarConfig';
+import { CalendarConfirmDialog } from '@/components/reservations/reservations-calendar/CalendarConfirmDialog';
+import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
+import { CustomEventContent } from '@/components/reservations/reservations-calendar/CustomEventContent';
+import CustomToolbar from '@/components/reservations/reservations-calendar/CustomToolbar';
+import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
 import { Button } from '@/components/ui/Button';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';

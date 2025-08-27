@@ -8,7 +8,7 @@ import {
   ResponsiveDialogHeader,
   ResponsiveDialogTitle,
 } from '@/components/composites/ResponsiveDialog';
-import { ReservationForm } from '@/components/reservations/ReservationsCalendar/ReservationForm';
+import { ReservationForm } from '@/components/reservations/reservations-calendar/ReservationForm';
 
 type Reservation = {
   name: string;
