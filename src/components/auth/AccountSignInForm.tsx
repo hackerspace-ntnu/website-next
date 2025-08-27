@@ -9,7 +9,7 @@ import type { TRPCClientError } from '@/lib/api/types';
 import { useRouter } from '@/lib/locale/navigation';
 import { accountSignInSchema } from '@/validations/auth/accountSignInSchema';
 
-function AccountSignInForm() {
+function AccountSignInForm({ redirectTo }: { redirectTo?: string }) {
   const router = useRouter();
   const t = useTranslations('auth');
   const formSchema = accountSignInSchema(useTranslations());
@@ -40,7 +40,8 @@ function AccountSignInForm() {
       password: '',
     },
     onSubmit: () => {
-      router.push('/');
+      // Honestly, this is somewhat cursed, but it works to let TS know we have verified the string as a valid path
+      router.push((redirectTo as Parameters<typeof router.push>[0]) ?? '/');
       router.refresh();
     },
   });

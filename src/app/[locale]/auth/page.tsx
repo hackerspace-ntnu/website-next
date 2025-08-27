@@ -13,10 +13,16 @@ export default async function SignInPage({
   searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ r?: string; error?: string }>;
 }) {
   const { locale } = await params;
-  let { error } = await searchParams;
+  let { r: redirectTo, error } = await searchParams;
+
+  // Only accept redirect paths that actually exist
+  if (redirectTo && !Object.keys(routing.pathnames).includes(redirectTo)) {
+    return redirect({ href: '/auth', locale });
+  }
+
   setRequestLocale(locale);
   const t = await getTranslations('auth');
 
@@ -46,13 +52,16 @@ export default async function SignInPage({
           className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
           variant='default'
           size='default'
-          href='/auth/account'
+          href={{ pathname: '/auth/account', query: { r: redirectTo } }}
         >
           <FingerprintIcon className='text-accent dark:text-primary' />
           {t('hackerspaceAccount')}
         </Link>
       </div>
-      <ErrorToast error={error} cleanPath='/auth' />
+      <ErrorToast
+        error={error}
+        cleanPath={redirectTo ? `/auth?r=${redirectTo}` : '/auth'}
+      />
     </div>
   );
 }

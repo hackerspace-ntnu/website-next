@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/DropdownMenu';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
-import { useRouter } from '@/lib/locale/navigation';
+import { usePathname, useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
 
 type ProfileMenuProps = {
@@ -25,11 +25,14 @@ type ProfileMenuProps = {
 
 function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
   const router = useRouter();
+  const pathname = usePathname();
+
   const signOutMutation = api.auth.signOut.useMutation({
     onSuccess: () => {
       router.refresh();
     },
   });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -68,7 +71,10 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
         ) : (
           <DropdownMenuItem asChild>
             <Link
-              href='/auth'
+              href={{
+                pathname: '/auth',
+                ...(pathname !== '/' && { query: { r: pathname } }),
+              }}
               className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
             >
               {t.signIn}
