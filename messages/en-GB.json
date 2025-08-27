@@ -518,6 +518,7 @@
     "endsAt": "Ends at",
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
+    "backToEvent": "Back to Event",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",

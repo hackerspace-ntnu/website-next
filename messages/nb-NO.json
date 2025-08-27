@@ -518,6 +518,7 @@
     "endsAt": "Slutter",
     "endedAt": "Sluttet",
     "backToEvents": "Tilbake til arrangementer",
+    "backToEvent": "Tilbake til arrangement",
     "new": {
       "title": "Nytt arrangement",
       "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",

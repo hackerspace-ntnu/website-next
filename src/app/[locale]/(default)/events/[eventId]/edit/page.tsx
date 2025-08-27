@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
@@ -6,6 +7,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { EditEventForm } from '@/components/events/EditEventForm';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 import { getFileUrl } from '@/server/services/files';
 
@@ -25,7 +27,7 @@ export default async function EditEventPage({
   const { locale, eventId } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations('events.edit');
+  const t = await getTranslations('events');
   const { ui, events } = await getMessages();
   const skills = await api.skills.fetchAllSkills();
   const { user } = await api.auth.state();
@@ -34,7 +36,7 @@ export default async function EditEventPage({
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    throw new Error(t('edit.unauthorized'));
   }
 
   const event = await api.events.fetchEvent(Number(eventId));
@@ -45,7 +47,20 @@ export default async function EditEventPage({
 
   return (
     <>
-      <h1 className='my-4 text-center'>{t('title')}</h1>
+      <Link
+        href={{
+          pathname: '/events/[eventId]',
+          params: { eventId },
+        }}
+        className='my-4 flex w-fit gap-2'
+        variant='secondary'
+        size='default'
+        aria-label={t('backToEvent')}
+      >
+        <ArrowLeftIcon aria-hidden='true' />
+        {t('backToEvent')}
+      </Link>
+      <h1 className='my-4 text-center'>{t('edit.title')}</h1>
       <NextIntlClientProvider
         messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
       >
