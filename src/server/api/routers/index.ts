@@ -3,6 +3,8 @@ export * from './auth';
 export * from './events';
 export * from './settings';
 export * from './shiftSchedule';
+export * from './skills';
 export * from './storage';
 export * from './test';
+export * from './users';
 export * from './utils';
