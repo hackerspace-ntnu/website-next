@@ -40,7 +40,7 @@ function AccountSignInForm({ redirectTo }: { redirectTo?: string }) {
       password: '',
     },
     onSubmit: () => {
-      // Honestly, this is somewhat cursed, but it works to let TS know we have verified the string as a valid path
+      // Honestly, this is somewhat cursed, but it works to let TS know we assume the string is a valid path
       router.push((redirectTo as Parameters<typeof router.push>[0]) ?? '/');
       router.refresh();
     },

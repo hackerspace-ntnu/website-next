@@ -28,7 +28,7 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
   const router = useRouter();
   // We use the pathname from next/navigation instead of next-intl.
   // If we used pathname from next-intl, the dynamic sections wouldn't be filled out,
-  // so we would get /events/[eventId] or /users/[userId] and so on.
+  // so we would get /events/[eventId], /users/[userId] and so on.
   // We want the actual pathname, language doesn't matter as next-intl will handle it.
   const pathname = usePathname();
 
