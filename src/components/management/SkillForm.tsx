@@ -98,9 +98,10 @@ function SkillForm({
       </form.AppField>
       <form.AppField name='identifier'>
         {(field) => (
-          <field.TextAreaField
+          <field.TextField
             label={t('identifier.label')}
             placeholder={t('identifier.placeholder')}
+            description={t('identifier.description')}
           />
         )}
       </form.AppField>

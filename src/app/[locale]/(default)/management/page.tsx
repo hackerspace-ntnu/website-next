@@ -62,7 +62,7 @@ export default async function ManagementPage({
 
   return (
     <div className='min-h-screen'>
-      <h1>{t('title')}</h1>
+      <h1 className='text-center'>{t('title')}</h1>
       <div className='my-4 grid grid-cols-2 gap-4'>
         {cards.map(({ name, description, href, className }) => (
           <CategoryCard
