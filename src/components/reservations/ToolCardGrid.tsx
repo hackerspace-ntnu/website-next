@@ -6,15 +6,6 @@ import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard
 import { ToolCard } from '@/components/reservations/ToolCard';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
-export type t = {
-  title: string;
-  available: string;
-  unavailable: string;
-  supervision: string;
-  tooltip: string;
-  myReservations: string;
-};
-
 export type Tool = {
   type: string;
   title: string;
