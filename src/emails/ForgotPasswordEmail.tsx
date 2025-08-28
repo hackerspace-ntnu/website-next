@@ -5,11 +5,12 @@ import { Header } from '@/components/emails/Header';
 import { Wrapper } from '@/components/emails/Wrapper';
 import { routing } from '@/lib/locale';
 
-function ForgotPasswordEmail({
+// Using default export to support React Email Dev Preview
+export default function ForgotPasswordEmail({
   locale = routing.defaultLocale,
   theme = 'dark',
   publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  validationCode,
+  validationCode = 'ABCDEFGH',
 }: {
   locale: Locale;
   theme: 'dark' | 'light';
@@ -46,9 +47,9 @@ function ForgotPasswordEmail({
         {(() => {
           switch (locale) {
             case 'nb-NO':
-              return 'Din bekreftelseskode er nedenfor - skriv den inn på nettsiden vår for å endre passordet ditt.';
+              return 'Din bekreftelseskode er nedenfor - skriv den inn på nettsiden vår for å endre passordet ditt. Hold den hemmelig.';
             default:
-              return 'Your confirmation code is below - enter it on our website to reset your password.';
+              return 'Your confirmation code is below - enter it on our website to reset your password. Keep it secret.';
           }
         })()}
       </Text>
@@ -59,9 +60,17 @@ function ForgotPasswordEmail({
           {validationCode.substring(4)}
         </Text>
       </Section>
+      <Text className='mb-8'>
+        {(() => {
+          switch (locale) {
+            case 'nb-NO':
+              return 'Har du ikke bedt om å tilbakestille passordet ditt? Se bort fra denne e-posten og ikke oppgi koden din til noen.';
+            default:
+              return 'If you did not request a password reset, please ignore this email and do not share your code with anyone.';
+          }
+        })()}
+      </Text>
       <Footer publicSiteUrl={publicSiteUrl} locale={locale} theme={theme} />
     </Wrapper>
   );
 }
-
-export { ForgotPasswordEmail };
