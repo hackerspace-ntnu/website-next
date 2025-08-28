@@ -59,7 +59,7 @@ function InputOtpSlot({
     <div
       ref={ref}
       className={cx(
-        'relative flex h-10 w-10 items-center justify-center border-input border-y border-r text-base shadow-xs transition-all first:rounded-l-md first:border-l last:rounded-r-md',
+        'relative flex h-8 w-8 items-center justify-center border-input border-y border-r text-base shadow-xs transition-all first:rounded-l-md first:border-l last:rounded-r-md sm:h-10 sm:w-10',
         isActive && 'z-10 ring-1 ring-ring',
         className,
       )}
