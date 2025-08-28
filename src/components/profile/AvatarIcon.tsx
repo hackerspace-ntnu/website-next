@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
 
 type AvatarIconProps = {
   className?: string;
-  photoUrl: string;
+  photoUrl?: string | null;
   name: string;
   initials: string;
 };
