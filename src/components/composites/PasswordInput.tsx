@@ -7,13 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input, type InputProps } from '@/components/ui/Input';
 import { cx } from '@/lib/utils';
 
-function PasswordInput({
-  ref,
-  className,
-  ...props
-}: InputProps & {
-  ref?: React.RefObject<HTMLInputElement>;
-}) {
+function PasswordInput({ className, ...props }: InputProps) {
   const t = useTranslations('ui');
   const [showPassword, setShowPassword] = useState(false);
   const disabled =
@@ -24,7 +18,6 @@ function PasswordInput({
       <Input
         type={showPassword ? 'text' : 'password'}
         className={cx('pr-10', className)}
-        ref={ref}
         {...props}
       />
       <Button

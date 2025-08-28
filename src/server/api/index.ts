@@ -1,23 +1,27 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import {
   authRouter,
+  eventsRouter,
   groupsRouter,
   settingsRouter,
   shiftScheduleRouter,
+  skillsRouter,
   storageRouter,
   testRouter,
+  usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
-import { usersRouter } from '@/server/api/routers/users';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
-  test: testRouter,
   auth: authRouter,
   groups: groupsRouter,
-  storage: storageRouter,
-  shiftSchedule: shiftScheduleRouter,
+  events: eventsRouter,
   settings: settingsRouter,
+  shiftSchedule: shiftScheduleRouter,
+  skills: skillsRouter,
+  storage: storageRouter,
+  test: testRouter,
   users: usersRouter,
   utils: utilsRouter,
 });

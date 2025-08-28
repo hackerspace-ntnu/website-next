@@ -36,10 +36,9 @@ const buttonVariants = cva({
   },
 });
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+type ButtonProps = React.ComponentPropsWithRef<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
-    ref?: React.RefObject<HTMLButtonElement>;
   };
 
 function Button({

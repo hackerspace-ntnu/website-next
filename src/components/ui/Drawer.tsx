@@ -21,34 +21,24 @@ function DrawerPortal(
   return <DrawerPrimitive.Portal {...props} />;
 }
 
-function DrawerTrigger({
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Trigger> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Trigger>>;
-}) {
-  return <DrawerPrimitive.Trigger ref={ref} {...props} />;
+function DrawerTrigger(
+  props: React.ComponentPropsWithRef<typeof DrawerPrimitive.Trigger>,
+) {
+  return <DrawerPrimitive.Trigger {...props} />;
 }
 
-function DrawerClose({
-  ref,
-  ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Close> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Close>>;
-}) {
-  return <DrawerPrimitive.Close ref={ref} {...props} />;
+function DrawerClose(
+  props: React.ComponentPropsWithRef<typeof DrawerPrimitive.Close>,
+) {
+  return <DrawerPrimitive.Close {...props} />;
 }
 
 function DrawerOverlay({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Overlay>>;
-}) {
+}: React.ComponentPropsWithRef<typeof DrawerPrimitive.Overlay>) {
   return (
     <DrawerPrimitive.Overlay
-      ref={ref}
       className={cx('fixed inset-0 z-50 bg-black/80', className)}
       {...props}
     />
@@ -56,18 +46,14 @@ function DrawerOverlay({
 }
 
 function DrawerContent({
-  ref,
   className,
   children,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Content>>;
-}) {
+}: React.ComponentPropsWithRef<typeof DrawerPrimitive.Content>) {
   return (
     <DrawerPortal>
       <DrawerOverlay />
       <DrawerPrimitive.Content
-        ref={ref}
         className={cx(
           'fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background',
           className,
@@ -106,15 +92,11 @@ function DrawerFooter({
 }
 
 function DrawerTitle({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Title>>;
-}) {
+}: React.ComponentPropsWithRef<typeof DrawerPrimitive.Title>) {
   return (
     <DrawerPrimitive.Title
-      ref={ref}
       className={cx(
         'font-semibold text-lg leading-none tracking-tight',
         className,
@@ -125,15 +107,11 @@ function DrawerTitle({
 }
 
 function DrawerDescription({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description> & {
-  ref?: React.RefObject<React.ComponentRef<typeof DrawerPrimitive.Description>>;
-}) {
+}: React.ComponentPropsWithRef<typeof DrawerPrimitive.Description>) {
   return (
     <DrawerPrimitive.Description
-      ref={ref}
       className={cx('text-muted-foreground text-sm', className)}
       {...props}
     />

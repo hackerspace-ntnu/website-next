@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { endOfWeek } from 'date-fns';
 import { and, eq, gte, isNull, or, sql } from 'drizzle-orm';
-import { days, type skillIdentifiers, timeslots } from '@/lib/constants';
+import { days, timeslots } from '@/lib/constants';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   leadershipProcedure,
@@ -9,7 +9,13 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { shifts, skills, userSkills, users } from '@/server/db/tables';
+import {
+  type SelectSkill,
+  shifts,
+  skills,
+  users,
+  usersSkills,
+} from '@/server/db/tables';
 import {
   registerShiftSchema,
   unregisterShiftSchema,
@@ -18,7 +24,7 @@ import {
 type Member = {
   id: number;
   name: string;
-  skills: (typeof skillIdentifiers)[number][];
+  skills: SelectSkill[];
   recurring: boolean;
 };
 
@@ -26,7 +32,7 @@ type Shift = {
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
   members: Member[];
-  skills: (typeof skillIdentifiers)[number][];
+  skills: SelectSkill[];
 };
 
 const shiftScheduleRouter = createRouter({
@@ -38,14 +44,14 @@ const shiftScheduleRouter = createRouter({
         id: users.id,
         name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
         skills: sql<
-          (typeof skillIdentifiers)[number][]
+          string[]
         >`COALESCE(ARRAY_AGG(DISTINCT ${skills.identifier}::TEXT) FILTER (WHERE ${skills.identifier} IS NOT NULL), ARRAY[]::TEXT[])`,
         endDate: shifts.endDate,
       })
       .from(shifts)
       .innerJoin(users, eq(shifts.userId, users.id))
-      .leftJoin(userSkills, eq(users.id, userSkills.userId))
-      .leftJoin(skills, eq(userSkills.skillId, skills.id))
+      .leftJoin(usersSkills, eq(users.id, usersSkills.userId))
+      .leftJoin(skills, eq(usersSkills.skillId, skills.id))
       .where(or(isNull(shifts.endDate), gte(shifts.endDate, new Date())))
       .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id)
       .catch((error) => {
@@ -56,6 +62,8 @@ const shiftScheduleRouter = createRouter({
           cause: { toast: 'error' },
         });
       });
+
+    const allSkills = await ctx.db.query.skills.findMany();
 
     const returnShifts: Shift[] = [];
     for (const day of days) {
@@ -71,19 +79,26 @@ const shiftScheduleRouter = createRouter({
           members: [],
           skills: [],
         } as Shift;
-        const skills = new Set();
+        const skills = new Set<SelectSkill>();
 
         for (const tempShift of tempShifts) {
+          const shiftSkills = tempShift.skills.map(
+            (skillIdentifier) =>
+              allSkills.find(
+                (s) => s.identifier === skillIdentifier,
+              ) as SelectSkill,
+          );
+
           shift.members.push({
             id: tempShift.id,
             name: tempShift.name,
-            skills: tempShift.skills,
+            skills: shiftSkills,
             recurring: tempShift.endDate === null,
           });
-          tempShift.skills.forEach(skills.add, skills);
+          shiftSkills.forEach(skills.add, skills);
         }
 
-        shift.skills = [...skills] as (typeof skillIdentifiers)[number][];
+        shift.skills = [...skills];
         returnShifts.push(shift);
       }
     }
