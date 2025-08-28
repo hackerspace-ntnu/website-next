@@ -15,14 +15,6 @@ type AuthLayoutProps = {
   params: Promise<{ locale: Locale }>;
 };
 
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
-
-  return {
-    title: t('signIn'),
-  };
-}
-
 export const dynamic = 'force-dynamic';
 
 export default async function AuthLayout({

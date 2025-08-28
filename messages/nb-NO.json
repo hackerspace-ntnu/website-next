@@ -6,6 +6,7 @@
     "open": "Åpne",
     "close": "Lukk",
     "previous": "Forrige",
+    "goBack": "Gå tilbake",
     "goToPreviousPage": "Gå til forrige side",
     "next": "Neste",
     "goToNextPage": "Gå til neste side",
@@ -57,6 +58,7 @@
     "signIn": "Logg inn",
     "useYourAccount": "Bruk din konto",
     "forgotPassword": "Glemt passord",
+    "forgotPasswordDescription": "Skriv inn e-postadressen knyttet til Hackerspace-kontoen din for å tilbakestille passordet.",
     "submit": "Send",
     "invalidCredentials": "Ugyldige påloggingsdetaljer",
     "matrixRegistrationFailed": "Matrix bruker registrering feilet",
@@ -98,6 +100,11 @@
         "length": "Engangspassordet må være {count} tegn langt",
         "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
         "incorrect": "Feil engangspassord"
+      },
+      "email": {
+        "label": "E-post",
+        "required": "E-post er påkrevd",
+        "invalid": "E-post er ugyldig"
       }
     },
     "error": {
@@ -107,7 +114,9 @@
       "phoneInUse": "Telefonnummeret er allerede i bruk",
       "emailInUse": "E-postadressen er allerede i bruk",
       "invalidUserData": "Ugyldig brukerdata",
-      "userCreationFailed": "Kunne ikke opprette bruker"
+      "userCreationFailed": "Kunne ikke opprette bruker",
+      "forgotPasswordRequestCreationFailed": "Kunne ikke opprette forespørsel om tilbakestilling av passord",
+      "failedToSendEmail": "Kunne ikke sende e-post"
     }
   },
   "layout": {
@@ -130,6 +139,7 @@
     "profile": "Profil",
     "signIn": "Logg inn",
     "signOut": "Logg ut",
+    "forgotPassword": "Glemt passord",
     "settings": "Innstillinger",
     "links": "Lenker",
     "utilities": "Verktøy",

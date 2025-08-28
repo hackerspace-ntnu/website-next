@@ -6,6 +6,7 @@
     "open": "Open",
     "close": "Close",
     "previous": "Previous",
+    "goBack": "Go back",
     "goToPreviousPage": "Go to previous page",
     "next": "Next",
     "goToNextPage": "Go to next page",
@@ -57,6 +58,7 @@
     "signIn": "Sign in",
     "useYourAccount": "Use your account",
     "forgotPassword": "Forgot password",
+    "forgotPasswordDescription": "Enter your Hackerspace account email address to reset your password.",
     "submit": "Submit",
     "invalidCredentials": "Invalid credentials",
     "matrixRegistrationFailed": "Matrix user registration failed",
@@ -98,6 +100,11 @@
         "length": "One-time password must be {count} characters long",
         "invalid": "One-time password must only contain digits and characters",
         "incorrect": "Incorrect one-time password"
+      },
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Email is invalid"
       }
     },
     "error": {
@@ -107,7 +114,9 @@
       "phoneInUse": "Phone number is already in use",
       "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
-      "userCreationFailed": "Failed to create user"
+      "userCreationFailed": "Failed to create user",
+      "forgotPasswordRequestCreationFailed": "Failed to create forgot password request",
+      "failedToSendEmail": "Failed to send email"
     }
   },
   "layout": {
@@ -130,6 +139,7 @@
     "profile": "Profile",
     "signIn": "Sign in",
     "signOut": "Sign out",
+    "forgotPassword": "Forgot password",
     "settings": "Settings",
     "links": "Links",
     "utilities": "Utilities",

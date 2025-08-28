@@ -1,5 +1,6 @@
 export * from './emails';
 export * from './files';
+export * from './forgotPassword';
 export * from './groups';
 export * from './loans';
 export * from './locales';
