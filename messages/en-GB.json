@@ -59,6 +59,7 @@
     "useYourAccount": "Use your account",
     "forgotPassword": "Forgot password",
     "forgotPasswordDescription": "Enter your Hackerspace account email address to reset your password.",
+    "enterTheCode": "Please enter the code we've sent to your email to confirm the password change",
     "submit": "Submit",
     "invalidCredentials": "Invalid credentials",
     "matrixRegistrationFailed": "Matrix user registration failed",
@@ -75,6 +76,8 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
+    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "tryAgain": "Try again",
     "form": {
       "username": {
         "label": "Username",
@@ -94,12 +97,16 @@
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
       },
+      "newPassword": {
+        "label": "New password"
+      },
       "otp": {
         "label": "One-time password",
         "required": "One-time password is required",
         "length": "One-time password must be {count} characters long",
         "invalid": "One-time password must only contain digits and characters",
-        "incorrect": "Incorrect one-time password"
+        "incorrect": "Incorrect one-time password",
+        "expired": "One-time password has expired."
       },
       "email": {
         "label": "Email",
@@ -116,7 +123,10 @@
       "invalidUserData": "Invalid user data",
       "userCreationFailed": "Failed to create user",
       "forgotPasswordRequestCreationFailed": "Failed to create forgot password request",
-      "failedToSendEmail": "Failed to send email"
+      "failedToSendEmail": "Failed to send email",
+      "forgotPasswordRequestIdRequired": "Forgot password request ID is required",
+      "matrixPasswordUpdateFailed": "Failed to update Matrix password",
+      "passwordUpdateFailed": "Failed to update password"
     }
   },
   "layout": {

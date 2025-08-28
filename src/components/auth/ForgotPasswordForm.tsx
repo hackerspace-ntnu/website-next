@@ -21,6 +21,11 @@ function ForgotPasswordForm() {
   const createRequestMutation = api.forgotPassword.createRequest.useMutation({
     onMutate: () => setPending(true),
     onSettled: () => setPending(false),
+    onSuccess: (id) =>
+      router.push({
+        pathname: '/auth/forgot-password/[requestId]',
+        params: { requestId: id },
+      }),
   });
 
   const form = useAppForm({

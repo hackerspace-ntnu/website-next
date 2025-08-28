@@ -59,6 +59,7 @@
     "useYourAccount": "Bruk din konto",
     "forgotPassword": "Glemt passord",
     "forgotPasswordDescription": "Skriv inn e-postadressen knyttet til Hackerspace-kontoen din for å tilbakestille passordet.",
+    "enterTheCode": "Vennligst skriv inn koden vi har sendt til e-posten din for å bekrefte endringen av passordet",
     "submit": "Send",
     "invalidCredentials": "Ugyldige påloggingsdetaljer",
     "matrixRegistrationFailed": "Matrix bruker registrering feilet",
@@ -75,6 +76,8 @@
     "noVerificationRequest": "Ingen verifikasjonsforespørsel funnet",
     "verificationCodeExpired": "Verifikasjonskoden har utløpt, vi har sendt en ny kode til innboksen din",
     "emailUpdateSuccess": "E-postadressen ble oppdatert",
+    "passwordUpdateSuccess": "Passordet ble oppdatert! Du kan nå logge inn med det nye passordet.",
+    "tryAgain": "Prøv igjen",
     "form": {
       "username": {
         "label": "Brukernavn",
@@ -94,12 +97,16 @@
         "mismatch": "Passordene stemmer ikke overens",
         "weak": "Passordet er for svakt"
       },
+      "newPassword": {
+        "label": "Nytt passord"
+      },
       "otp": {
         "label": "Engangspassord",
         "required": "Engangspassord er påkrevd",
         "length": "Engangspassordet må være {count} tegn langt",
         "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
-        "incorrect": "Feil engangspassord"
+        "incorrect": "Feil engangspassord",
+        "expired": "Engangspassordet har utløpt"
       },
       "email": {
         "label": "E-post",
@@ -116,7 +123,10 @@
       "invalidUserData": "Ugyldig brukerdata",
       "userCreationFailed": "Kunne ikke opprette bruker",
       "forgotPasswordRequestCreationFailed": "Kunne ikke opprette forespørsel om tilbakestilling av passord",
-      "failedToSendEmail": "Kunne ikke sende e-post"
+      "failedToSendEmail": "Kunne ikke sende e-post",
+      "forgotPasswordRequestIdRequired": "ID-en til forespørselen om tilbakestilling av passord er påkrevd",
+      "matrixPasswordUpdateFailed": "Kunne ikke oppdatere Matrix-passord",
+      "passwordUpdateFailed": "Kunne ikke oppdatere passord"
     }
   },
   "layout": {

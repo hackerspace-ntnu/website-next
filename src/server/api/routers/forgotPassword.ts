@@ -1,15 +1,28 @@
 import { encodeBase32 } from '@oslojs/encoding';
 import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
-import { ForgotPasswordEmail } from '@/emails/ForgotPasswordEmail';
+import ForgotPasswordEmail from '@/emails/ForgotPasswordEmail';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { generateRandomOTP } from '@/server/auth/code';
+import { hashPassword, verifyPasswordStrength } from '@/server/auth/password';
+import { updateUserPassword } from '@/server/auth/user';
 import { users } from '@/server/db/tables';
 import { forgotPasswordRequests } from '@/server/db/tables/forgotPassword';
 import { sendEmail } from '@/server/services/emails';
+import { matrixChangePassword } from '@/server/services/matrix';
 import { forgotPasswordSchema } from '@/validations/auth/forgotPasswordSchema';
+import { setNewPasswordSchema } from '@/validations/auth/setNewPasswordSchema';
+
+type NewPasswordState =
+  | {
+      success: true;
+    }
+  | {
+      success: false;
+      cause: 'incorrectCode' | 'expiredCode';
+    };
 
 const forgotPasswordRouter = createRouter({
   createRequest: publicProcedure
@@ -71,6 +84,79 @@ const forgotPasswordRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+
+      return id;
+    }),
+  setNewPassword: publicProcedure
+    .input((input) =>
+      setNewPasswordSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const request = await ctx.db.query.forgotPasswordRequests.findFirst({
+        where: eq(forgotPasswordRequests.id, input.forgotPasswordRequestId),
+      });
+
+      if (!request || request.code !== input.code) {
+        return {
+          success: false,
+          cause: 'incorrectCode',
+        } satisfies NewPasswordState;
+      }
+
+      if (new Date() > request.expiresAt) {
+        return {
+          success: false,
+          cause: 'expiredCode',
+        } satisfies NewPasswordState;
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, request.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('auth.error.userInfoFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const strongPassword = await verifyPasswordStrength(input.newPassword);
+      if (!strongPassword) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('auth.form.password.weak'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      try {
+        await matrixChangePassword(user.username, input.newPassword);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.error.matrixPasswordUpdateFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      try {
+        const hashedPassword = await hashPassword(input.newPassword);
+        await updateUserPassword(user.id, hashedPassword);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('auth.error.passwordUpdateFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      return {
+        success: true,
+      } satisfies NewPasswordState;
     }),
 });
 
