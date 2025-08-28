@@ -109,6 +109,7 @@ async function validateFeideAuthorization(code: string, codeVerifier: string) {
 async function setFeideAuthorizationCookies(
   state: string,
   codeVerifier: string,
+  redirectTo?: string,
 ) {
   if (!isFeideServiceConfigured()) {
     return console.log(
@@ -130,6 +131,15 @@ async function setFeideAuthorizationCookies(
     maxAge: 60 * 10,
     secure: env.NODE_ENV === 'production',
   });
+  if (redirectTo) {
+    cookieStore.set('feide-redirect-to', redirectTo, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: 60 * 10,
+      secure: env.NODE_ENV === 'production',
+    });
+  }
 }
 
 export {

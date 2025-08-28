@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
 
-function FeideButton() {
+function FeideButton({ redirectTo }: { redirectTo?: string }) {
   const router = useRouter();
   const signInMutation = api.auth.signInFeide.useMutation({
     onSuccess: (data) => {
@@ -17,7 +17,7 @@ function FeideButton() {
   return (
     <Button
       className='w-full bg-[#3FACC2]/90 hover:bg-[#3FACC2] dark:bg-[#222832] hover:dark:bg-[#222832]/40'
-      onClick={() => signInMutation.mutate()}
+      onClick={() => signInMutation.mutate(redirectTo)}
       aria-label='Feide'
       title='Feide'
     >
