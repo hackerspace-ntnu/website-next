@@ -39,7 +39,7 @@ function InformationSheet() {
           <SheetTitle className='text-center'>
             {t('information.importantTitle')}
           </SheetTitle>
-          <SheetDescription className='mx-auto max-w-xl text-balance text-sm-base-clamp'>
+          <SheetDescription className='clamp-[text-sm-base-clamp] mx-auto max-w-xl text-balance'>
             {t.rich('information.importantText', {
               link: (chunks) => (
                 <Link variant='link' href='/rules' className='text-primary'>

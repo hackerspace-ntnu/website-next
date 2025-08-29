@@ -154,7 +154,7 @@ function MyReservationsTable() {
         ref={ref2}
         className='max-h-96 overflow-auto rounded-xl border bg-secondary/50'
       >
-        <h3 className='~text-lg/2xl p-3 text-left'>
+        <h3 className='clamp-[text-lg-4xl-clamp] p-3 text-left'>
           {t('myReservationsTable.title')}
         </h3>
         <Table>
@@ -197,7 +197,7 @@ function MyReservationsTable() {
                       )}
                       <TableCell>
                         <div className='flex w-full flex-row justify-between gap-3'>
-                          <h1 className='w-full text-center text-sm-base-clamp'>
+                          <h1 className='clamp-[text-sm-base-clamp] w-full text-center'>
                             {res.toolName}
                           </h1>
                           <div className='~text-xs/sm size-full flex-col'>
@@ -214,7 +214,7 @@ function MyReservationsTable() {
                             }}
                             className='mr-4 flex'
                           >
-                            <CalendarDays className='size-16-20-clamp' />
+                            <CalendarDays className='clamp-[size-16-20-clamp]' />
                           </Link>
                         </div>
                       </TableCell>
@@ -250,12 +250,12 @@ function MyReservationsTable() {
                 )}
               </TableBody>
             ) : (
-              <TableCaption className='p-3 text-sm-base-clamp'>
+              <TableCaption className='clamp-[text-sm-base-clamp] p-3'>
                 {t('myReservationsTable.empty')}
               </TableCaption>
             )
           ) : (
-            <TableCaption className='p-3 text-sm-base-clamp'>
+            <TableCaption className='clamp-[text-sm-base-clamp] p-3'>
               {t('myReservationsTable.notLoggedIn')}
             </TableCaption>
           )}
