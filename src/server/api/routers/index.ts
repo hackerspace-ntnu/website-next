@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './forgotPassword';
 export * from './groups';
 export * from './settings';
 export * from './shiftSchedule';

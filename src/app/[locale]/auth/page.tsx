@@ -8,6 +8,14 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
+
+  return {
+    title: t('signIn'),
+  };
+}
+
 export default async function SignInPage({
   params,
   searchParams,

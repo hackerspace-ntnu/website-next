@@ -23,7 +23,7 @@ function Header({
           <Column>
             <Link href='https://beta.hackerspace-ntnu.no'>
               <Img
-                src={`${publicSiteUrl}/static/images/${theme === 'dark' ? 'logo-dark.svg' : 'logo-light.svg'}`}
+                src={`${publicSiteUrl}/static/images/emails/${theme === 'dark' ? 'logo-dark.png' : 'logo-light.png'}`}
                 width='64'
                 height='64'
                 alt='Hackerspace NTNU'

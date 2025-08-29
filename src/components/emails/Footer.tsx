@@ -25,7 +25,7 @@ function Footer({
         >
           <Img
             className='mx-auto mt-4'
-            src={`${publicSiteUrl}/static/images/${theme === 'dark' ? 'idi-dark.svg' : 'idi-light.svg'}`}
+            src={`${publicSiteUrl}/static/images/emails/${theme === 'dark' ? 'idi-dark.png' : 'idi-light.png'}`}
             width='217'
             height='64'
             alt={(() => {
@@ -41,7 +41,7 @@ function Footer({
         <Link href='https://www.ntnu.no/ie/nexus/'>
           <Img
             className='mx-auto mt-4'
-            src={`${publicSiteUrl}/static/images/nexus.svg`}
+            src={`${publicSiteUrl}/static/images/emails/nexus.png`}
             width='193'
             height='64'
             alt={(() => {

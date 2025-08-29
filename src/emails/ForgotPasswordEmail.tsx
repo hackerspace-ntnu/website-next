@@ -6,7 +6,7 @@ import { Wrapper } from '@/components/emails/Wrapper';
 import { routing } from '@/lib/locale';
 
 // Using default export to support React Email Dev Preview
-export default function VerificationCodeEmail({
+export default function ForgotPasswordEmail({
   locale = routing.defaultLocale,
   theme = 'dark',
   publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
@@ -14,7 +14,7 @@ export default function VerificationCodeEmail({
 }: {
   locale: Locale;
   theme: 'dark' | 'light';
-  publicSiteUrl: string;
+  publicSiteUrl?: string;
   validationCode: string;
 }) {
   return (
@@ -25,9 +25,9 @@ export default function VerificationCodeEmail({
       previewText={(() => {
         switch (locale) {
           case 'nb-NO':
-            return 'Bekreft e-postadressen din';
+            return 'Gjenopprett tilgang til kontoen din';
           default:
-            return 'Confirm your email address';
+            return 'Recover access to your account';
         }
       })()}
     >
@@ -35,9 +35,9 @@ export default function VerificationCodeEmail({
         title={(() => {
           switch (locale) {
             case 'nb-NO':
-              return 'Bekreft e-postadressen din';
+              return 'Gjenopprett tilgang til Hackerspace-kontoen din';
             default:
-              return 'Confirm your email address';
+              return 'Recover access to your Hackerspace Account';
           }
         })()}
         theme={theme}
@@ -47,9 +47,9 @@ export default function VerificationCodeEmail({
         {(() => {
           switch (locale) {
             case 'nb-NO':
-              return 'Din bekreftelseskode er nedenfor - skriv den inn i det åpne nettleservinduet ditt, så hjelper vi deg med å logge inn.';
+              return 'Din bekreftelseskode er nedenfor - skriv den inn på nettsiden vår for å endre passordet ditt. Hold den hemmelig.';
             default:
-              return "Your confirmation code is below - enter it in your open browser window and we'll help you get signed in.";
+              return 'Your confirmation code is below - enter it on our website to reset your password. Keep it secret.';
           }
         })()}
       </Text>
@@ -60,13 +60,13 @@ export default function VerificationCodeEmail({
           {validationCode.substring(4)}
         </Text>
       </Section>
-      <Text>
+      <Text className='mb-8'>
         {(() => {
           switch (locale) {
             case 'nb-NO':
-              return 'Du må bekrefte e-posten din for å opprettholde tilgang til Hackerspace-kontoen din.';
+              return 'Har du ikke bedt om å tilbakestille passordet ditt? Se bort fra denne e-posten og ikke oppgi koden din til noen.';
             default:
-              return 'You need to confirm you email to keep having access to your Hackerspace Account.';
+              return 'If you did not request a password reset, please ignore this email and do not share your code with anyone.';
           }
         })()}
       </Text>
