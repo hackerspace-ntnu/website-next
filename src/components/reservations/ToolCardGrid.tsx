@@ -10,7 +10,7 @@ export type Tool = {
   type: string;
   title: string;
   toolId: string;
-  description?: string;
+  nickName?: string;
   krever?: string;
   photoUrl: string;
   difficulty?: number;

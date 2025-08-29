@@ -1,6 +1,6 @@
 'use client';
 import { Maximize2Icon } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
@@ -29,7 +29,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
 
   return (
     <Card className='relative z-0 flex h-112 w-80 flex-col overflow-hidden rounded-xl hover:brightness-105'>
-      <motion.div
+      <m.div
         layoutId={`${tool.type}-${tool.title}-${id}`}
         className='z-0 flex h-full flex-col'
       >
@@ -44,27 +44,25 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             />
           </div>
           <div className='z-0' title={t('tools.tooltip')}>
-            <motion.button
+            <m.button
               className='absolute top-2 right-2 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
               key={`cardHeaderButton-${tool.title}-${id}`}
               onClick={onClick}
               whileHover={{ scale: 1.1 }}
             >
               <Maximize2Icon className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
-            </motion.button>
+            </m.button>
           </div>
         </div>
         <div className='mt-2 flex h-full flex-col gap-1 overflow-hidden px-5 text-center'>
           <h1 className='clamp-[text-lg-2xl-clamp] text-wrap'>{tool.title}</h1>
           <h2 className='clamp-[text-sm-lg-clamp] text-center'>
-            {tool.description}
+            {tool.nickName}
           </h2>
           <div className='line-clamp-6 text-left text-clip-3 text-sm'>
             {tool.type === 'printer' &&
               fieldsToShow.map((field) => {
                 const text = tool[field];
-                if (text === '' || text === 'null' || text === null)
-                  return null;
                 return (
                   <p key={field}>
                     {field.charAt(0).toUpperCase() + field.slice(1)}: {text}
@@ -103,7 +101,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             </Button>
           )}
         </div>
-      </motion.div>
+      </m.div>
     </Card>
   );
 }
