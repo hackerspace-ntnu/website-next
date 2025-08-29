@@ -93,7 +93,7 @@ export default function ToolCalendar() {
   /**Midlertidig constandterf, endre disse verdiene for å teste ulike handlers, tabellen på main page osv.*/
   const userId = '233d9770-817c-4d57-a9ec-1795683ddb54'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
   const isMember = true;
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const toolType = 'printer';
   const toolName = 'Prusa i3 MK3';
   const toolId = 'prusamk3';

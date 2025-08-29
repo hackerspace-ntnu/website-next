@@ -54,13 +54,11 @@ function ReservationForm({
     },
   });
 
-  /** I tilfelle personen endrer tiden igjen i formen */
+  /** Incase the person decides to change the time in the popup dialog */
   useEffect(() => {
     setStartDate(start);
     setEndDate(end);
   }, [start, end]);
-
-  /** FormEvent<HTMLFormElement>, fordi onSubmit tar inn den her typen */
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
@@ -72,7 +70,7 @@ function ReservationForm({
         end: endDate.toISOString(),
       });
     } catch (_error) {
-      // noe toast/alert her
+      // some type of toast/alert here
     }
   }
 

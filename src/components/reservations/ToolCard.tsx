@@ -34,13 +34,13 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
         className='z-0 flex h-full flex-col'
       >
         <div className='flex max-h-56 items-center justify-center'>
-          <div className='relative h-48 w-full'>
+          <div className='h-48 w-full'>
             <Image
               priority
               src={tool.photoUrl}
               alt={tool.title}
               fill
-              objectFit='cover'
+              className='max-h-48 object-cover'
             />
           </div>
           <div className='z-0' title={t('tools.tooltip')}>
@@ -54,12 +54,12 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             </motion.button>
           </div>
         </div>
-        <div className='mt-2 flex h-full flex-col gap-1 px-5 text-left'>
-          <h1 className='text-wrap text-center text-lg-xl-clamp'>
-            {tool.title}
-          </h1>
-          <h2 className='text-sm-lg-clamp'>{tool.description}</h2>
-          <div className='relative line-clamp-6 max-h-fit text-clip-3 text-xs-sm-clamp'>
+        <div className='mt-2 flex h-full flex-col gap-1 overflow-hidden px-5 text-center'>
+          <h1 className='clamp-[text-lg-2xl-clamp] text-wrap'>{tool.title}</h1>
+          <h2 className='clamp-[text-sm-lg-clamp] text-center'>
+            {tool.description}
+          </h2>
+          <div className='line-clamp-6 text-left text-clip-3 text-sm'>
             {tool.type === 'printer' &&
               fieldsToShow.map((field) => {
                 const text = tool[field];
@@ -82,14 +82,14 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
                 }}
                 className='absolute bottom-0 left-0 h-14 w-full'
               >
-                <Button className='size-full rounded-t-none text-base-lg-clamp hover:brightness-110'>
+                <Button className='size-full rounded-t-none text-base-lg-clamp hover:bg-primary'>
                   {t('tools.available')}
                 </Button>
               </Link>
             ) : (
               <Button
                 variant='destructive'
-                className='pointer-events-none absolute bottom-0 left-0 h-14 w-full rounded-t-none text-base-lg-clamp'
+                className='clamp-[text-base-lg-clamp] pointer-events-none absolute bottom-0 left-0 h-14 w-full rounded-t-none hover:bg-destructive'
               >
                 {t('tools.unavailable')}
               </Button>
@@ -97,7 +97,7 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
           ) : (
             <Button
               variant='secondary'
-              className='pointer-events-none absolute bottom-0 left-0 flex h-14 w-full rounded-t-none text-center text-base-lg-clamp brightness-90'
+              className='clamp-[text-base-lg-clamp] pointer-events-none absolute bottom-0 left-0 flex h-14 w-full rounded-t-none text-center brightness-90'
             >
               {t('tools.supervision')}
             </Button>
