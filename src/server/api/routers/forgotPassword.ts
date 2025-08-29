@@ -1,9 +1,11 @@
 import { encodeBase32 } from '@oslojs/encoding';
 import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
+import { headers } from 'next/headers';
 import ForgotPasswordEmail from '@/emails/ForgotPasswordEmail';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
+import { ExpiringTokenBucket } from '@/server/api/rate-limit/expiringTokenBucket';
 import { createRouter } from '@/server/api/trpc';
 import { generateRandomOTP } from '@/server/auth/code';
 import { hashPassword, verifyPasswordStrength } from '@/server/auth/password';
@@ -24,22 +26,49 @@ type NewPasswordState =
       cause: 'incorrectCode' | 'expiredCode';
     };
 
+const requestsBucket = new ExpiringTokenBucket<string>(3, 60 * 15);
+
 const forgotPasswordRouter = createRouter({
   createRequest: publicProcedure
     .input((input) =>
       forgotPasswordSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = await ctx.db.query.users.findFirst({
-        where: eq(users.email, input.email),
-      });
+      const headerStore = await headers();
+      const ip = headerStore.get('X-Forwarded-For');
+
+      if (ip && !requestsBucket.check(ip, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users
+        .findFirst({
+          where: eq(users.email, input.email),
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('auth.error.userInfoFailed'),
+            cause: { toast: 'error' },
+          });
+        });
 
       const idBytes = new Uint8Array(20);
       crypto.getRandomValues(idBytes);
       const id = encodeBase32(idBytes).toLowerCase();
 
       // Silent failure. Do not inform the user whether someone is using this email.
-      if (!user) return id;
+      if (!user) {
+        if (ip) {
+          requestsBucket.consume(ip, 1);
+        }
+        return id;
+      }
 
       const code = generateRandomOTP();
 
@@ -84,6 +113,10 @@ const forgotPasswordRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+
+      if (ip) {
+        requestsBucket.consume(ip, 1);
+      }
 
       return id;
     }),
