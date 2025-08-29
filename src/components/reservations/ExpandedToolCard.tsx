@@ -60,23 +60,23 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
                 src={active.photoUrl}
                 alt={active.title}
                 fill
-                objectFit='cover'
+                className='object-cover'
               />
             </div>
             <div className='relative mt-2 flex max-h-80 flex-col gap-1 p-2'>
-              <div>
-                <h1 className='text-lg-2xl-clamp'>{active.title}</h1>
-                <h2 className='text-base-lg-clamp'>{active.description}</h2>
+              <div className='text-center'>
+                <h1 className='clamp-[text-2xl-4xl-clamp]'>{active.title}</h1>
+                <h2 className='clamp-[text-base-lg-clamp]'>
+                  {active.nickName}
+                </h2>
               </div>
-              <div className='flex h-full max-h-60 flex-col gap-1 overflow-auto px-5 text-left text-sm-base-clamp '>
+              <div className='clamp-[text-sm-base-clamp] flex h-full max-h-60 flex-col gap-1 overflow-auto px-5 text-left'>
                 {active.textContent}
                 <br />
                 <div>
                   {active.type === 'printer' &&
                     toolDescriptionFields.map((field) => {
                       const text = active[field];
-                      if (text === '' || text === 'null' || text === null)
-                        return;
                       return (
                         <p key={field}>
                           {field.charAt(0).toUpperCase() + field.slice(1)}:{' '}
@@ -97,7 +97,7 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
               >
                 <Button
                   variant='default'
-                  className='h-12-14-clamp w-full rounded-none font-semibold text-base-lg-clamp'
+                  className='clamp-[h-12-14-clamp] clamp-[text-base-lg-clamp] w-full rounded-none font-semibold'
                 >
                   {t('tools.available')}
                 </Button>
