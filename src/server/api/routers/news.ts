@@ -6,8 +6,8 @@ import { createRouter } from '@/server/api/trpc';
 import { newsArticles } from '@/server/db/tables/news';
 import { deleteFile, insertFile } from '@/server/services/files';
 import { editNewsArticleSchema } from '@/validations/news/editNewsArticleSchema';
-import { fetchNewsArticleSchema } from '@/validations/news/fetchNewsArticleSchema';
 import { fetchNewsArticlesSchema } from '@/validations/news/fetchNewsArticlesSchema';
+import { newsArticleIdSchema } from '@/validations/news/newsArticleIdSchema';
 import { newsArticleSchema } from '@/validations/news/newsArticleSchema';
 
 const newsRouter = createRouter({
@@ -30,7 +30,7 @@ const newsRouter = createRouter({
     }),
   fetchArticle: publicProcedure
     .input((input) =>
-      fetchNewsArticleSchema(useTranslationsFromContext()).parse(input),
+      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const { user } = await ctx.auth();
@@ -120,7 +120,7 @@ const newsRouter = createRouter({
     }),
   deleteArticle: protectedProcedure
     .input((input) =>
-      fetchNewsArticleSchema(useTranslationsFromContext()).parse(input),
+      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const article = await ctx.db.query.newsArticles.findFirst({
@@ -141,7 +141,7 @@ const newsRouter = createRouter({
     }),
   deleteArticleImage: protectedProcedure
     .input((input) =>
-      fetchNewsArticleSchema(useTranslationsFromContext()).parse(input),
+      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const article = await ctx.db.query.newsArticles.findFirst({
