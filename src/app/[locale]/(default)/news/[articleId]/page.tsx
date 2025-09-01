@@ -20,11 +20,11 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: Locale; articleId: string }>;
 }) {
-  const { locale, articleId } = await params;
+  const { articleId } = await params;
   const article = await api.news.fetchArticle(Number(articleId));
 
   return {
-    title: locale === 'en-GB' ? article?.titleEnglish : article?.titleNorwegian,
+    title: article?.localization?.title,
   };
 }
 
@@ -46,17 +46,11 @@ export default async function ArticlePage({
     return notFound();
   }
 
-  const { minutes } = readingTime(
-    locale === 'en-GB' ? article.contentEnglish : article.contentNorwegian,
-  );
+  const { minutes } = readingTime(article.localization.content);
 
   const { user } = await api.auth.state();
 
-  const title =
-    locale === 'en-GB' ? article.titleEnglish : article.titleNorwegian;
   const authorName = `${article.author?.firstName} ${article.author?.lastName}`;
-  const content =
-    locale === 'en-GB' ? article.contentEnglish : article.contentNorwegian;
 
   const imageUrl = article.imageId ? await getFileUrl(article.imageId) : null;
   const authorImageUrl = article.author?.profilePictureId
@@ -80,7 +74,7 @@ export default async function ArticlePage({
             <Image
               className='h-auto w-full max-w-4xl rounded-lg'
               src={imageUrl}
-              alt={title}
+              alt={article.localization.title}
               width={1600}
               height={900}
               priority
@@ -92,7 +86,7 @@ export default async function ArticlePage({
           )}
         </div>
         <div className='my-4 flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <h2>{title}</h2>
+          <h2>{article.localization.title}</h2>
           {user?.groups && user.groups.length > 0 && (
             <Link
               variant='default'
@@ -131,7 +125,7 @@ export default async function ArticlePage({
         </div>
         <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
       </section>
-      <section>{content}</section>
+      <section>{article.localization.content}</section>
     </article>
   );
 }

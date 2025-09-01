@@ -1,9 +1,12 @@
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, type SQL } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { newsArticles } from '@/server/db/tables/news';
+import {
+  newsArticleLocalizations,
+  newsArticles,
+} from '@/server/db/tables/news';
 import { deleteFile, insertFile } from '@/server/services/files';
 import { editNewsArticleSchema } from '@/validations/news/editNewsArticleSchema';
 import { fetchNewsArticlesSchema } from '@/validations/news/fetchNewsArticlesSchema';
@@ -18,7 +21,7 @@ const newsRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       const { user } = await ctx.auth();
 
-      return await ctx.db.query.newsArticles.findMany({
+      const articles = await ctx.db.query.newsArticles.findMany({
         where:
           user?.groups && user.groups.length > 0
             ? undefined
@@ -26,6 +29,28 @@ const newsRouter = createRouter({
         orderBy: desc(newsArticles.createdAt),
         limit: input.limit,
         offset: input.offset,
+      });
+
+      const localizations =
+        await ctx.db.query.newsArticleLocalizations.findMany({
+          where: and(
+            inArray(
+              newsArticleLocalizations.articleId,
+              articles.map((article) => article.id),
+            ),
+            eq(newsArticleLocalizations.locale, ctx.locale),
+          ),
+        });
+
+      return articles.flatMap((article) => {
+        const localization = localizations.find(
+          (loc) => loc.articleId === article.id,
+        );
+        // Effectively remove item from articles list
+        // if localization is not available, as this is using flatMap
+        if (!localization) return [];
+
+        return [{ ...article, localization }];
       });
     }),
   fetchArticle: publicProcedure
@@ -41,10 +66,27 @@ const newsRouter = createRouter({
         where = and(where, eq(newsArticles.internal, false)) as SQL;
       }
 
-      return await ctx.db.query.newsArticles.findFirst({
+      const article = await ctx.db.query.newsArticles.findFirst({
         where,
         with: { author: true },
       });
+
+      if (!article) return null;
+
+      const localization =
+        await ctx.db.query.newsArticleLocalizations.findFirst({
+          where: and(
+            eq(newsArticleLocalizations.articleId, article.id),
+            eq(newsArticleLocalizations.locale, ctx.locale),
+          ),
+        });
+
+      if (!localization) return null;
+
+      return {
+        ...article,
+        localization,
+      };
     }),
   countAvailableArticles: publicProcedure.mutation(async ({ ctx }) => {
     const { user } = await ctx.auth();
@@ -79,9 +121,9 @@ const newsRouter = createRouter({
       const [article] = await ctx.db
         .insert(newsArticles)
         .values({
-          ...restInput,
           authorId: ctx.user.id,
           imageId: fileId,
+          internal: restInput.internal,
         })
         .returning({ id: newsArticles.id });
 
@@ -91,6 +133,20 @@ const newsRouter = createRouter({
           message: ctx.t('news.api.insertFailed'),
           cause: { toast: 'error' },
         });
+
+      await ctx.db.insert(newsArticleLocalizations).values({
+        articleId: article.id,
+        title: restInput.titleEnglish,
+        content: restInput.contentEnglish,
+        locale: 'en-GB',
+      });
+
+      await ctx.db.insert(newsArticleLocalizations).values({
+        articleId: article.id,
+        title: restInput.titleNorwegian,
+        content: restInput.contentNorwegian,
+        locale: 'nb-NO',
+      });
 
       return article.id;
     }),
@@ -111,10 +167,37 @@ const newsRouter = createRouter({
       await ctx.db
         .update(newsArticles)
         .set({
-          ...restInput,
           imageId: input.image ? imageId : undefined,
+          internal: restInput.internal,
+          updatedAt: new Date(),
         })
         .where(eq(newsArticles.id, input.id));
+
+      await ctx.db
+        .update(newsArticleLocalizations)
+        .set({
+          title: restInput.titleEnglish,
+          content: restInput.contentEnglish,
+        })
+        .where(
+          and(
+            eq(newsArticleLocalizations.articleId, input.id),
+            eq(newsArticleLocalizations.locale, 'en-GB'),
+          ),
+        );
+
+      await ctx.db
+        .update(newsArticleLocalizations)
+        .set({
+          title: restInput.titleNorwegian,
+          content: restInput.contentNorwegian,
+        })
+        .where(
+          and(
+            eq(newsArticleLocalizations.articleId, input.id),
+            eq(newsArticleLocalizations.locale, 'nb-NO'),
+          ),
+        );
 
       return input.id;
     }),

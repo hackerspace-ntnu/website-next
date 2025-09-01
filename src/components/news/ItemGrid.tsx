@@ -1,4 +1,3 @@
-import { getLocale } from 'next-intl/server';
 import { ArticleItem } from '@/components/news/ArticleItem';
 import type { RouterOutput } from '@/server/api';
 
@@ -7,8 +6,6 @@ type ItemGridProps = {
 };
 
 async function ItemGrid({ articles }: ItemGridProps) {
-  const locale = await getLocale();
-
   return (
     <div className='grid min-h-[752px] grid-cols-1 gap-4 sm:min-h-[368px] sm:grid-cols-2 lg:min-h-[240px] lg:grid-cols-3'>
       {articles.map((article) => (
@@ -16,9 +13,7 @@ async function ItemGrid({ articles }: ItemGridProps) {
           key={article.id}
           id={article.id}
           internal={article.internal}
-          title={
-            locale === 'en-GB' ? article.titleEnglish : article.titleNorwegian
-          }
+          title={article.localization.title}
           date={article.createdAt}
           imageId={article.imageId}
         />

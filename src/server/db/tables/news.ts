@@ -5,20 +5,18 @@ import {
 } from 'drizzle-orm';
 import {
   boolean,
+  index,
   integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
-import { files, users } from '@/server/db/tables';
+import { files, localesEnum, users } from '@/server/db/tables';
 
 const newsArticles = pgTable('news_articles', {
   id: serial('id').primaryKey(),
-  titleNorwegian: text('title_norwegian').notNull(),
-  titleEnglish: text('title_english').notNull(),
-  contentNorwegian: text('content_norwegian').notNull(),
-  contentEnglish: text('content_english').notNull(),
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
@@ -33,6 +31,27 @@ const newsArticles = pgTable('news_articles', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+const newsArticleLocalizations = pgTable(
+  'news_article_localizations',
+  {
+    articleId: integer('article_id').references(() => newsArticles.id, {
+      onDelete: 'cascade',
+    }),
+    title: text('title').notNull(),
+    content: text('content').notNull(),
+    locale: localesEnum('locale').notNull(),
+  },
+  (table) => {
+    return [
+      primaryKey({ columns: [table.articleId, table.locale] }),
+      index('news_article_localizations_article_id_locale_unique_idx').on(
+        table.articleId,
+        table.locale,
+      ),
+    ];
+  },
+);
+
 const newsArticlesRelations = relations(newsArticles, ({ one }) => ({
   image: one(files, {
     fields: [newsArticles.imageId],
@@ -44,12 +63,32 @@ const newsArticlesRelations = relations(newsArticles, ({ one }) => ({
   }),
 }));
 
+const newsArticleLocalizationsRelations = relations(
+  newsArticleLocalizations,
+  ({ one }) => ({
+    article: one(newsArticles, {
+      fields: [newsArticleLocalizations.articleId],
+      references: [newsArticles.id],
+    }),
+  }),
+);
+
 type SelectNewsArticle = InferSelectModel<typeof newsArticles>;
 type InsertNewsArticle = InferInsertModel<typeof newsArticles>;
+type SelectNewsArticleLocalization = InferSelectModel<
+  typeof newsArticleLocalizations
+>;
+type InsertNewsArticleLocalization = InferInsertModel<
+  typeof newsArticleLocalizations
+>;
 
 export {
   newsArticles,
+  newsArticleLocalizations,
   newsArticlesRelations,
+  newsArticleLocalizationsRelations,
   type SelectNewsArticle,
   type InsertNewsArticle,
+  type SelectNewsArticleLocalization,
+  type InsertNewsArticleLocalization,
 };
