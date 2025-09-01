@@ -160,6 +160,7 @@
     "updateArticle": "Oppdater artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
     "views": "Visninger",
+    "backToNews": "Tilbake til nyheter",
     "backToArticle": "Tilbake til artikkel",
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
