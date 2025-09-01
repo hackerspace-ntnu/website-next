@@ -137,7 +137,7 @@ function ArticleForm({
               <AlertDialogFooter>
                 <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
                 <AlertDialogActionDestructive
-                  onClick={() => deleteArticleImage.mutate(article.id)}
+                  onClick={() => deleteArticleImage.mutate({ id: article.id })}
                 >
                   {tUi('confirm')}
                 </AlertDialogActionDestructive>
@@ -189,7 +189,7 @@ function ArticleForm({
                 <AlertDialogFooter>
                   <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
                   <AlertDialogActionDestructive
-                    onClick={() => deleteArticle.mutate(article.id)}
+                    onClick={() => deleteArticle.mutate({ id: article.id })}
                   >
                     {tUi('confirm')}
                   </AlertDialogActionDestructive>
