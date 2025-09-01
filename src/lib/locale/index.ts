@@ -173,6 +173,10 @@ const routing = defineRouting({
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/privacy-policy': {
+      'en-GB': '/privacy-policy',
+      'nb-NO': '/personvern',
+    },
   },
 });
 
