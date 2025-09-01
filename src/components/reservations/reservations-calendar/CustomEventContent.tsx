@@ -32,11 +32,11 @@ function CustomEventContent({
     <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
       {isLoggedIn && userId === res.event.extendedProps.userId && (
         <div className='flex w-full flex-col'>
-          <ArrowUpToLineIcon className='size-base-xs-clamp self-center' />
+          <ArrowUpToLineIcon className='clamp-[size-base-xs-clamp] self-center' />
           <Separator className='mb-1 w-full dark:bg-foreground' />
         </div>
       )}
-      <div className='flex size-full flex-col items-center justify-between gap-64 overflow-hidden px-1 py-2 font-semibold text-lg-sm-clamp'>
+      <div className='clamp-[text-lg-sm-clamp] flex size-full flex-col items-center justify-between gap-64 overflow-hidden px-1 py-2 font-semibold'>
         {infoBlock}
         {durationHours >= 6 && infoBlock}
         {durationHours >= 12 && infoBlock}

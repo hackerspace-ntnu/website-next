@@ -61,7 +61,7 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
           title={t('toolbar.dayTitle')}
           onClick={() => onViewChange('timeGridDay')}
           variant={view === 'timeGridDay' ? 'default' : 'secondary'}
-          className='w-13-20-clamp rounded-r-none rounded-l-lg text-sm-base-clamp'
+          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
         >
           {t('toolbar.day')}
         </Button>
@@ -75,15 +75,15 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
               ? 'default'
               : 'secondary'
           }
-          className='w-13-20-clamp rounded-r-lg rounded-l-none text-sm-base-clamp'
+          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
         >
           {isLaptop ? t('toolbar.week') : t('toolbar.3days')}
         </Button>
       </div>
-      <span className='flex-grow text-center text-lg-2xl-clamp'>
+      <span className='clamp-[text-lg-2xl-clamp] flex-grow text-center'>
         {calendarRef.current?.getApi().view.title}
       </span>
-      <div className='flex w-5-22-clamp whitespace-nowrap'>
+      <div className='clamp-[w-5-22-clamp] flex whitespace-nowrap'>
         <Button
           title={
             isLaptop
@@ -93,7 +93,7 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
                 : t('toolbar.prevDayTitle')
           }
           onClick={handlePrev}
-          className='w-13-20-clamp rounded-r-none rounded-l-lg text-sm-base-clamp'
+          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
         >
           <ChevronLeft className='h-4 w-4' />
           <span className='ml-1'>{t('toolbar.prev')}</span>
@@ -101,7 +101,7 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
         <Button
           title={t('toolbar.todayTitle')}
           onClick={handleToday}
-          className='w-10-20-clamp rounded-none text-sm-base-clamp'
+          className='clamp-[w-10-20-clamp] clamp-[text-sm-base-clamp] rounded-none'
         >
           {t('toolbar.today')}
         </Button>
@@ -114,7 +114,7 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
                 : t('toolbar.nextDayTitle')
           }
           onClick={handleNext}
-          className='w-13-20-clamp rounded-r-lg rounded-l-none text-sm-base-clamp'
+          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
         >
           <span className='mr-1'>{t('toolbar.next')}</span>
           <ChevronRight className='h-4 w-4' />

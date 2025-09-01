@@ -15,7 +15,7 @@ function InformationCard() {
       <CardContent>
         <CardHeader>
           <CardTitle>{t('information.importantTitle')}</CardTitle>
-          <CardDescription className='text-balance text-sm-lg-clamp'>
+          <CardDescription className='clamp-[text-sm-lg-clamp] text-balance'>
             {t.rich('information.importantText', {
               link: (chunks) => (
                 <Link
