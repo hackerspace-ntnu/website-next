@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, inArray, type SQL } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, type SQL, sql } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -10,8 +10,8 @@ import {
 import { deleteFile, insertFile } from '@/server/services/files';
 import { editNewsArticleSchema } from '@/validations/news/editNewsArticleSchema';
 import { fetchNewsArticlesSchema } from '@/validations/news/fetchNewsArticlesSchema';
-import { newsArticleIdSchema } from '@/validations/news/newsArticleIdSchema';
 import { newsArticleSchema } from '@/validations/news/newsArticleSchema';
+import { selectNewsArticleSchema } from '@/validations/news/selectNewsArticleSchema';
 
 const newsRouter = createRouter({
   fetchArticles: publicProcedure
@@ -55,12 +55,12 @@ const newsRouter = createRouter({
     }),
   fetchArticle: publicProcedure
     .input((input) =>
-      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
+      selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const { user } = await ctx.auth();
 
-      let where = eq(newsArticles.id, input);
+      let where = eq(newsArticles.id, input.id);
 
       if (!user?.groups || user.groups.length === 0) {
         where = and(where, eq(newsArticles.internal, false)) as SQL;
@@ -85,6 +85,12 @@ const newsRouter = createRouter({
         });
 
       if (!localization) return null;
+
+      if (input.incrementViews) {
+        await ctx.db.update(newsArticles).set({
+          views: sql`${newsArticles.views} + 1`,
+        });
+      }
 
       return {
         ...article,
@@ -206,11 +212,11 @@ const newsRouter = createRouter({
     }),
   deleteArticle: protectedProcedure
     .input((input) =>
-      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
+      selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const article = await ctx.db.query.newsArticles.findFirst({
-        where: eq(newsArticles.id, input),
+        where: eq(newsArticles.id, input.id),
       });
 
       if (!article) {
@@ -221,17 +227,17 @@ const newsRouter = createRouter({
         });
       }
 
-      await ctx.db.delete(newsArticles).where(eq(newsArticles.id, input));
+      await ctx.db.delete(newsArticles).where(eq(newsArticles.id, input.id));
 
       return input;
     }),
   deleteArticleImage: protectedProcedure
     .input((input) =>
-      newsArticleIdSchema(useTranslationsFromContext()).parse(input),
+      selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const article = await ctx.db.query.newsArticles.findFirst({
-        where: eq(newsArticles.id, input),
+        where: eq(newsArticles.id, input.id),
       });
 
       if (!article?.imageId) {

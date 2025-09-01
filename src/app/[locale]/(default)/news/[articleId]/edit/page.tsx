@@ -39,7 +39,7 @@ export default async function EditArticlePage({
     throw new Error(t('updateArticlesUnauthorized'));
   }
 
-  const article = await api.news.fetchArticle(Number(articleId));
+  const article = await api.news.fetchArticle({ id: Number(articleId) });
 
   if (!article) return notFound();
 
