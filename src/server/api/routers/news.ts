@@ -68,7 +68,10 @@ const newsRouter = createRouter({
 
       const article = await ctx.db.query.newsArticles.findFirst({
         where,
-        with: { author: true },
+        with: {
+          author: true,
+          localizations: true,
+        },
       });
 
       if (!article) return null;

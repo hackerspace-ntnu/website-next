@@ -57,16 +57,22 @@ function ArticleForm({
     },
   });
 
+  const english = article?.localizations.find((loc) => loc.locale === 'en-GB');
+
+  const norwegian = article?.localizations.find(
+    (loc) => loc.locale === 'nb-NO',
+  );
+
   const form = useAppForm({
     validators: {
       onChange: formSchema,
     },
     defaultValues: {
       image: null as string | null,
-      titleNorwegian: article?.titleNorwegian ?? '',
-      titleEnglish: article?.titleEnglish ?? '',
-      contentNorwegian: article?.contentNorwegian ?? '',
-      contentEnglish: article?.contentEnglish ?? '',
+      titleNorwegian: norwegian?.title ?? '',
+      titleEnglish: english?.title ?? '',
+      contentNorwegian: norwegian?.content ?? '',
+      contentEnglish: english?.content ?? '',
       internal: article?.internal ?? false,
     },
     onSubmit: ({ value }) => {

@@ -52,7 +52,7 @@ const newsArticleLocalizations = pgTable(
   },
 );
 
-const newsArticlesRelations = relations(newsArticles, ({ one }) => ({
+const newsArticlesRelations = relations(newsArticles, ({ one, many }) => ({
   image: one(files, {
     fields: [newsArticles.imageId],
     references: [files.id],
@@ -61,6 +61,7 @@ const newsArticlesRelations = relations(newsArticles, ({ one }) => ({
     fields: [newsArticles.authorId],
     references: [users.id],
   }),
+  localizations: many(newsArticleLocalizations),
 }));
 
 const newsArticleLocalizationsRelations = relations(
