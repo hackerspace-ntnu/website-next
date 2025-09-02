@@ -115,7 +115,7 @@ function MyReservationsTable() {
   }
 
   return (
-    <div className='mx-auto flex size-full max-w-3xl flex-col gap-1'>
+    <div className='mx-auto flex h-full w-full max-w-3xl flex-col gap-1'>
       <div className='flex flex-row justify-between'>
         {loggedIn &&
           (editPressed ? (
