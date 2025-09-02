@@ -1,4 +1,5 @@
 'use client';
+
 import { Maximize2Icon } from 'lucide-react';
 import { m } from 'motion/react';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ type ToolCardProps = {
   onClick: () => void;
 };
 
-export function ToolCard({ tool, onClick }: ToolCardProps) {
+function ToolCard({ tool, onClick }: ToolCardProps) {
   const t = useTranslations('reservations');
 
   const fieldsToShow = [
@@ -107,3 +108,5 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
     </Card>
   );
 }
+
+export { ToolCard };
