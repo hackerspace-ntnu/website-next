@@ -1,8 +1,16 @@
 import type { Locale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { VerifyEmailForm } from '@/components/auth/VerifyEmailForm';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
+
+export async function generateMetadata() {
+  const t = await getTranslations('auth');
+
+  return {
+    title: t('verifyEmail'),
+  };
+}
 
 export default async function VerifyEmailPage({
   params,

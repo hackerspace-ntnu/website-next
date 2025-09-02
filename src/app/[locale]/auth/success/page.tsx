@@ -13,8 +13,8 @@ export default async function SuccessPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('auth');
 
+  const t = await getTranslations('auth');
   const { user } = await api.auth.state();
 
   if (!user) {

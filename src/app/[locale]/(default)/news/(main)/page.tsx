@@ -30,6 +30,7 @@ export default async function NewsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
