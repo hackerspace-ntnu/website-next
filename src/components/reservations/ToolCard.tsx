@@ -31,16 +31,16 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
     <Card className='relative z-0 flex h-112 w-80 flex-col overflow-hidden rounded-xl hover:brightness-105'>
       <m.div
         layoutId={`${tool.type}-${tool.title}-${id}`}
-        className='z-0 flex h-full flex-col'
+        className='z-0 flex h-full flex-col gap-2'
       >
-        <div className='flex max-h-56 items-center justify-center'>
-          <div className='h-48 w-full'>
+        <div>
+          <div className='relative h-52 w-full'>
             <Image
               priority
               src={tool.photoUrl}
               alt={tool.title}
               fill
-              className='max-h-48 object-cover'
+              className='object-cover'
             />
           </div>
           <div className='z-0' title={t('tools.tooltip')}>
@@ -54,53 +54,55 @@ export function ToolCard({ tool, onClick }: ToolCardProps) {
             </m.button>
           </div>
         </div>
-        <div className='mt-2 flex h-full flex-col gap-1 overflow-hidden px-5 text-center'>
-          <h1 className='clamp-[text-lg-2xl-clamp] text-wrap'>{tool.title}</h1>
-          <h2 className='clamp-[text-sm-lg-clamp] text-center'>
-            {tool.nickName}
-          </h2>
-          <div className='line-clamp-6 text-left text-clip-3 text-sm'>
+        <div className='flex h-40 flex-col gap-1 px-5 text-center'>
+          <h1 className='clamp-[text-lg-2xl-clamp] h-1/5 truncate'>
+            {tool.title}
+          </h1>
+          <h2 className='clamp-[text-sm-lg-clamp] h-1/5'>{tool.nickName}</h2>
+          <div className='h-3/5'>
             {tool.type === 'printer' &&
               fieldsToShow.map((field) => {
                 const text = tool[field];
                 return (
-                  <p key={field}>
+                  <span
+                    key={field}
+                    className='m-1 inline-flex h-fit w-fit rounded-xl bg-stone-600 p-1 text-sm'
+                  >
                     {field.charAt(0).toUpperCase() + field.slice(1)}: {text}
-                    <br />
-                  </p>
+                  </span>
                 );
               })}
           </div>
-          {tool.type === 'printer' ? (
-            tool.available ? (
-              <Link
-                href={{
-                  pathname: '/reservations/[id]',
-                  params: { id: tool.toolId },
-                }}
-                className='absolute bottom-0 left-0 h-14 w-full'
-              >
-                <Button className='size-full rounded-t-none text-base-lg-clamp hover:bg-primary'>
-                  {t('tools.available')}
-                </Button>
-              </Link>
-            ) : (
-              <Button
-                variant='destructive'
-                className='clamp-[text-base-lg-clamp] pointer-events-none absolute bottom-0 left-0 h-14 w-full rounded-t-none hover:bg-destructive'
-              >
-                {t('tools.unavailable')}
+        </div>
+        {tool.type === 'printer' ? (
+          tool.available ? (
+            <Link
+              href={{
+                pathname: '/reservations/[id]',
+                params: { id: tool.toolId },
+              }}
+              className='mt-auto h-14 w-full'
+            >
+              <Button className='h-full w-full rounded-t-none text-base-lg-clamp hover:bg-primary'>
+                {t('tools.available')}
               </Button>
-            )
+            </Link>
           ) : (
             <Button
-              variant='secondary'
-              className='clamp-[text-base-lg-clamp] pointer-events-none absolute bottom-0 left-0 flex h-14 w-full rounded-t-none text-center brightness-90'
+              variant='destructive'
+              className='clamp-[text-base-lg-clamp] pointer-events-none mt-auto h-14 w-full rounded-t-none hover:bg-destructive'
             >
-              {t('tools.supervision')}
+              {t('tools.unavailable')}
             </Button>
-          )}
-        </div>
+          )
+        ) : (
+          <Button
+            variant='secondary'
+            className='clamp-[text-base-lg-clamp] pointer-events-none mt-auto h-14 w-full rounded-t-none text-center brightness-90'
+          >
+            {t('tools.supervision')}
+          </Button>
+        )}
       </m.div>
     </Card>
   );
