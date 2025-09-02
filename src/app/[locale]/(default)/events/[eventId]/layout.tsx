@@ -3,15 +3,19 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 
+type DefaultLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export default async function EventDetailsLayout({
   children,
   params,
-}: LayoutProps<'/[locale]/events/[eventId]'>) {
+}: DefaultLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('events');
-
   return (
     <>
       <Link

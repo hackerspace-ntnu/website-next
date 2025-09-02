@@ -6,14 +6,16 @@ import { redirect } from '@/lib/locale/navigation';
 
 export default async function VerifyEmailPage({
   params,
-}: PageProps<'/[locale]/auth/verify-email'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale: locale as Locale });
+    return redirect({ href: '/auth', locale });
   }
 
   return <VerifyEmailForm />;

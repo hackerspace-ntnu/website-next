@@ -1,38 +1,22 @@
 import { ArrowLeftIcon } from 'lucide-react';
-import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
-import {
-  getMessages,
-  getTranslations,
-  setRequestLocale,
-} from 'next-intl/server';
+import { type Messages, NextIntlClientProvider } from 'next-intl';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { GroupForm } from '@/components/groups/GroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/about/group/new'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'groups.new',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('groups.new');
 
   return {
     title: `${t('title')}`,
   };
 }
 
-export default async function NewGroupPage({
-  params,
-}: PageProps<'/[locale]/about/group/new'>) {
-  const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+export default async function NewGroupPage() {
+  const { user } = await api.auth.state();
   const t = await getTranslations('groups');
   const { about, groups, ui } = await getMessages();
-
-  const { user } = await api.auth.state();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))

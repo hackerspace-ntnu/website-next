@@ -5,12 +5,12 @@ import { rulesMockdata } from '@/mock-data/rules';
 
 export default async function RuleSubSetPage({
   params,
-}: PageProps<'/[locale]/rules/[subsetId]'>) {
+}: {
+  params: Promise<{ locale: Locale; subsetId: string }>;
+}) {
   const { locale, subsetId } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const page = rulesMockdata.find((rule) => rule.id === Number(subsetId));
   if (!page) return notFound();
-
   return <h1 className='text-center'>{page.title}</h1>;
 }

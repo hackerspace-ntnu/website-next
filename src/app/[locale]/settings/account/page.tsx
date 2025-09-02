@@ -6,14 +6,8 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/settings/account'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'settings.account',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('settings.account');
 
   return {
     title: t('title'),
@@ -22,14 +16,16 @@ export async function generateMetadata({
 
 export default async function AccountPage({
   params,
-}: PageProps<'/[locale]/settings/account'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale: locale as Locale });
+    return redirect({ href: '/auth', locale });
   }
 
   return (

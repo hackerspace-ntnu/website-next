@@ -2,13 +2,17 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 
+type MemberHeaderLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export default async function MembersLayout({
   children,
   params,
-}: LayoutProps<'/[locale]/members'>) {
+}: MemberHeaderLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('members');
   const tUi = await getTranslations('ui');
 

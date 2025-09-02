@@ -3,14 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CategoriesTable } from '@/components/storage/CategoriesTable';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/storage/categories'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'storage',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('storage');
 
   return {
     title: `${t('title')}: ${t('categories.title')}`,
@@ -19,9 +13,11 @@ export async function generateMetadata({
 
 export default async function StorageCategoriesPage({
   params,
-}: PageProps<'/[locale]/storage/categories'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('storage.categories');
 

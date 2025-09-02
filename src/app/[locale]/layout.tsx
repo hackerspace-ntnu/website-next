@@ -1,6 +1,5 @@
 import { Inter, Montserrat } from 'next/font/google';
-import { notFound } from 'next/navigation';
-import { hasLocale, type Locale } from 'next-intl';
+import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
 import { RootProviders } from '@/components/providers/RootProviders';
@@ -9,6 +8,11 @@ import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
 import { cx } from '@/lib/utils';
+
+type LocaleLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,14 +30,8 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: Pick<LayoutProps<'/[locale]'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'meta',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('meta');
 
   return {
     title: {
@@ -72,13 +70,9 @@ export async function generateMetadata({
 export default async function LocaleLayout({
   params,
   children,
-}: LayoutProps<'/[locale]'>) {
+}: LocaleLayoutProps) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('layout');
 
   return (
@@ -93,7 +87,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className='h-full w-full font-inter antialiased'>
-        <RootProviders locale={locale as Locale}>
+        <RootProviders locale={locale}>
           <ScrollArea className='h-full w-full' variant='primary'>
             <div className='flex h-full w-full flex-col'>
               {children}

@@ -2,12 +2,17 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
+type StorageCategoriesLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export default async function StorageCategoriesLayout({
   params,
   children,
-}: LayoutProps<'/[locale]/storage/categories'>) {
+}: StorageCategoriesLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('storage');
   const tEdit = await getTranslations('storage.categories');

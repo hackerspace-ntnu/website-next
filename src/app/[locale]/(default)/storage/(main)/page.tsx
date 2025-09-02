@@ -4,19 +4,14 @@ import {
   createSearchParamsCache,
   parseAsInteger,
   parseAsString,
+  type SearchParams,
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { ItemCard } from '@/components/storage/ItemCard';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/storage'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'layout',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('storage'),
@@ -26,10 +21,14 @@ export async function generateMetadata({
 export default async function StoragePage({
   params,
   searchParams,
-}: PageProps<'/[locale]/storage'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<SearchParams>;
+}) {
   const { locale } = await params;
   const awaitedSearchParams = await searchParams;
-  setRequestLocale(locale as Locale);
+
+  setRequestLocale(locale);
 
   const itemsPerPage = 12;
 

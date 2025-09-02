@@ -6,20 +6,19 @@ import { redirect } from '@/lib/locale/navigation';
 
 export default async function AccountPage({
   params,
-}: PageProps<'/[locale]/auth/account'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const { user } = await api.auth.state();
 
   if (user) {
     if (!user.isAccountComplete) {
-      return redirect({
-        href: '/auth/create-account',
-        locale: locale as Locale,
-      });
+      return redirect({ href: '/auth/create-account', locale });
     }
-    return redirect({ href: '/', locale: locale as Locale });
+    return redirect({ href: '/', locale });
   }
 
   return <AccountSignInForm />;

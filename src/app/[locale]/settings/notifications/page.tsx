@@ -4,14 +4,8 @@ import { NotificationsForm } from '@/components/settings/NotificationsForm';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/settings/notifications'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'settings.notifications',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('settings.notifications');
 
   return {
     title: t('title'),
@@ -20,14 +14,16 @@ export async function generateMetadata({
 
 export default async function NotificationsPage({
   params,
-}: PageProps<'/[locale]/settings/notifications'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale: locale as Locale });
+    return redirect({ href: '/auth', locale });
   }
 
   return <NotificationsForm notifications='useful' />;

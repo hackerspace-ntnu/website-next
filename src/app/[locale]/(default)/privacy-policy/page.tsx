@@ -3,10 +3,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export default async function PrivacyPage({
   params,
-}: PageProps<'/[locale]/privacy-policy'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('privacy');
 
   return (

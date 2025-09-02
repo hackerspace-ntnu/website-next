@@ -8,14 +8,8 @@ import { ClearShiftsButton } from '@/components/shift-schedule/ClearShiftsButton
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/shift-schedule'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'layout',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('shiftSchedule'),
@@ -24,12 +18,13 @@ export async function generateMetadata({
 
 export default async function ShiftSchedulePage({
   params,
-}: PageProps<'/[locale]/shift-schedule'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
   const { user } = await api.auth.state();
 
+  setRequestLocale(locale);
   const { shiftSchedule, ui } = await getMessages();
   const t = await getTranslations('shiftSchedule');
 

@@ -1,18 +1,16 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  type SearchParams,
+} from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/storage/loans/user'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'storage',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('storage');
 
   return {
     title: `${t('title')}: ${t('loans.title')}`,
@@ -22,9 +20,12 @@ export async function generateMetadata({
 export default async function UserLoansPage({
   params,
   searchParams,
-}: PageProps<'/[locale]/storage/loans/user'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<SearchParams>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');

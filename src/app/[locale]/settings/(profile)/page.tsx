@@ -7,14 +7,8 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/settings'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'settings.profile',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('settings.profile');
 
   return {
     title: t('title'),
@@ -23,16 +17,17 @@ export async function generateMetadata({
 
 export default async function ProfilePage({
   params,
-}: PageProps<'/[locale]/settings'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('settings.profile');
 
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale: locale as Locale });
+    return redirect({ href: '/auth', locale });
   }
 
   const profilePictureUrl = user.profilePictureId

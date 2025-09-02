@@ -18,7 +18,6 @@ export default function ErrorPage({
   useEffect(() => {
     console.error(error);
   }, [error]);
-
   return (
     <Main className='flex min-h-svh flex-col items-center justify-center text-center'>
       <AlertTriangleIcon className='mb-6 xs:mb-8 h-16 xs:h-24 w-16 xs:w-24 text-destructive' />

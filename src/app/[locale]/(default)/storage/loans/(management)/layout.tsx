@@ -2,12 +2,17 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
+type LoansLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export default async function LoansLayout({
   params,
   children,
-}: LayoutProps<'/[locale]/storage/loans'>) {
+}: LoansLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('storage');
   const tLoans = await getTranslations('storage.loans');

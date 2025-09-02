@@ -4,7 +4,6 @@ import { ExternalLink } from '@/components/ui/Link';
 
 export default async function EventsSkeleton() {
   const t = await getTranslations('events');
-
   return (
     <>
       <h1 className='my-4'>{t('title')}</h1>

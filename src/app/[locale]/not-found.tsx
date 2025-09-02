@@ -5,7 +5,6 @@ import { Link } from '@/components/ui/Link';
 
 export default function NotFoundPage() {
   const t = useTranslations('error');
-
   return (
     <Main className='flex min-h-svh flex-col items-center justify-center'>
       <HardDriveIcon className='mb-6 xs:mb-8 h-16 xs:h-24 w-16 xs:w-24 text-primary' />

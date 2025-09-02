@@ -11,23 +11,22 @@ import { redirect } from '@/lib/locale/navigation';
 export default async function SignInPage({
   params,
   searchParams,
-}: PageProps<'/[locale]/auth'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ error?: string }>;
+}) {
   const { locale } = await params;
   let { error } = await searchParams;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('auth');
 
   const { user } = await api.auth.state();
 
   if (user) {
     if (!user.isAccountComplete) {
-      return redirect({
-        href: '/auth/create-account',
-        locale: locale as Locale,
-      });
+      return redirect({ href: '/auth/create-account', locale });
     }
-    return redirect({ href: '/', locale: locale as Locale });
+    return redirect({ href: '/', locale });
   }
 
   // @ts-expect-error: Unknown if error is a valid translation key

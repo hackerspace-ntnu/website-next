@@ -7,14 +7,8 @@ import {
 import { EditItemForm } from '@/components/storage/EditItemForm';
 import { api } from '@/lib/api/server';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/storage/item/new'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'storage',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('storage');
 
   return {
     title: `${t('title')}: ${t('edit.titleNew')}`,
@@ -23,9 +17,11 @@ export async function generateMetadata({
 
 export default async function NewStorageItemPage({
   params,
-}: PageProps<'/[locale]/storage/item/new'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations('storage.edit');
   const auth = await api.auth.state();

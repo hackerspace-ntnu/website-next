@@ -2,13 +2,18 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
+type ShoppingCartLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export default async function ShoppingCartLayout({
   params,
   children,
-}: LayoutProps<'/[locale]/storage/shopping-cart'>) {
+}: ShoppingCartLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
 
+  setRequestLocale(locale);
   const t = await getTranslations('storage');
   return (
     <>

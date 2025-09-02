@@ -13,15 +13,19 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
+type SettingsLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: Locale }>;
+};
+
 export const dynamic = 'force-dynamic';
 
 export default async function SettingsLayout({
   children,
   params,
-}: LayoutProps<'/[locale]/settings'>) {
+}: SettingsLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const { settings, ui } = await getMessages();
   const t = await getTranslations('settings');
   const tLayout = await getTranslations('layout');
@@ -29,7 +33,7 @@ export default async function SettingsLayout({
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale: locale as Locale });
+    return redirect({ href: '/auth', locale });
   }
 
   const showAdministratorMenu = user.groups.some(

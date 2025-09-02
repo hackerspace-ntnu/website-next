@@ -1,24 +1,18 @@
 import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
-import {
-  getMessages,
-  getTranslations,
-  setRequestLocale,
-} from 'next-intl/server';
+import { type Messages, NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { GroupForm } from '@/components/groups/GroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
 export default async function EditGroupPage({
   params,
-}: PageProps<'/[locale]/about/group/[name]/edit'>) {
-  const { locale, name } = await params;
-  setRequestLocale(locale as Locale);
-
-  const t = await getTranslations('groups.update');
-
+}: {
+  params: Promise<{ name: string }>;
+}) {
   const { user } = await api.auth.state();
+  const t = await getTranslations('groups.update');
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -27,12 +21,14 @@ export default async function EditGroupPage({
     throw new Error(t('unauthorized'));
   }
 
+  const { name } = await params;
   const group = await api.groups.fetchGroup(name);
 
   if (!group) {
     return notFound();
   }
 
+  const locale = await getLocale();
   const groupLocalization = group.localizations.find(
     (localization) => localization.locale === locale,
   );

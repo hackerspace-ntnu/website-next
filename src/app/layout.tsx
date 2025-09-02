@@ -1,5 +1,9 @@
 import '@/lib/styles/globals.css';
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return children;
 }

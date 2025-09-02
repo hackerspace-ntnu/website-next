@@ -1,6 +1,10 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { createSearchParamsCache, parseAsInteger } from 'nuqs/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  type SearchParams,
+} from 'nuqs/server';
 import { Suspense } from 'react';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { CardGrid } from '@/components/news/CardGrid';
@@ -9,14 +13,8 @@ import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
 import { articleMockData as articleData } from '@/mock-data/article';
 
-export async function generateMetadata({
-  params,
-}: Pick<PageProps<'/[locale]/news'>, 'params'>) {
-  const { locale } = await params;
-  const t = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'layout',
-  });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('news'),
@@ -26,10 +24,12 @@ export async function generateMetadata({
 export default async function NewsPage({
   params,
   searchParams,
-}: PageProps<'/[locale]/news'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+  searchParams: Promise<SearchParams>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
-
+  setRequestLocale(locale);
   const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
@@ -37,7 +37,6 @@ export default async function NewsPage({
 
   const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
   // TODO: Button to create new article should only be visible when logged in
-
   return (
     <>
       <CardGrid topArticles={articleData.slice(0, 4)} />

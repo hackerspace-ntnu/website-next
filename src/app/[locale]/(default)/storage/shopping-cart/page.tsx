@@ -11,10 +11,12 @@ import { api } from '@/lib/api/server';
 
 export default async function StorageShoppingCartPage({
   params,
-}: PageProps<'/[locale]/storage/shopping-cart'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
 
+  setRequestLocale(locale);
   const t = await getTranslations('storage.shoppingCart');
   const tUi = await getTranslations('ui');
   const tLoanForm = await getTranslations('storage.loanForm');
