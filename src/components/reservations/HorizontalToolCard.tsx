@@ -25,7 +25,7 @@ function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
         layoutId={`${tool.type}-${tool.title}-${id}`}
         className='flex h-full w-full flex-row'
       >
-        <div className='relative h-full w-44 flex-shrink-0'>
+        <div className='relative h-full w-40 flex-shrink-0'>
           <Image
             src={tool.photoUrl}
             alt={tool.title}
