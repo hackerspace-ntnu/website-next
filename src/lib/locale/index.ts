@@ -41,6 +41,14 @@ const routing = defineRouting({
       'en-GB': '/slides',
       'nb-NO': '/bannere',
     },
+    '/slides/[slideId]/edit': {
+      'en-GB': '/slides/[slideId]/edit',
+      'nb-NO': '/bannere/[slideId]/rediger',
+    },
+    '/slides/new': {
+      'en-GB': '/slides/new',
+      'nb-NO': '/bannere/ny',
+    },
     '/too-many-requests': {
       'en-GB': '/too-many-requests',
       'nb-NO': '/for-mange-forespørsler',

@@ -166,7 +166,17 @@
     "slides": {
       "image": "Image",
       "overlay": "Overlay",
-      "unauthorized": "Unauthorized to manage home page slides"
+      "unauthorized": "Unauthorized to manage home page slides",
+      "new": {
+        "unauthorized": "Unauthorized to create new home page slides"
+      },
+      "edit": {
+        "unauthorized": "Unauthorized to edit home page slides"
+      }
+    },
+    "api": {
+      "invalidId": "Invalid ID",
+      "fetchSlideFailed": "Failed to fetch slide"
     }
   },
   "news": {

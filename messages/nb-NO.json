@@ -166,7 +166,17 @@
     "slides": {
       "image": "Bilde",
       "overlay": "Overlegg ???",
-      "unauthorized": "Uautorisert til å administrere hjemmesidens bannere"
+      "unauthorized": "Uautorisert til å administrere hjemmesidens bannere",
+      "new": {
+        "unauthorized": "Uautorisert til å lage nye bannere til hjemmesiden"
+      },
+      "edit": {
+        "unauthorized": "Uautorisert til å redigere bannere på hjemmesiden"
+      }
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "fetchSlideFailed": "Kunne ikke hente banner"
     }
   },
   "news": {

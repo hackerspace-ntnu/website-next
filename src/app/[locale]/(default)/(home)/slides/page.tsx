@@ -14,7 +14,9 @@ import { api } from '@/lib/api/server';
 
 export default async function SlidesPage({
   params,
-}: PageProps<'/[locale]/slides'>) {
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
 
