@@ -3,6 +3,7 @@ import {
   authRouter,
   groupsRouter,
   homeRouter,
+  newsRouter,
   settingsRouter,
   shiftScheduleRouter,
   storageRouter,
@@ -22,6 +23,7 @@ const router = createRouter({
   settings: settingsRouter,
   users: usersRouter,
   utils: utilsRouter,
+  news: newsRouter,
 });
 
 const createCaller = createCallerFactory(router);

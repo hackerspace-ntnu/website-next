@@ -129,6 +129,10 @@ const routing = defineRouting({
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
     },
+    '/news/[articleId]/edit': {
+      'en-GB': '/news/[articleId]/edit',
+      'nb-NO': '/nyheter/[articleId]/rediger',
+    },
     '/members': {
       'en-GB': '/members',
       'nb-NO': '/medlemmer',
