@@ -15,6 +15,7 @@
     "category": "category",
     "sort": "sort",
     "photoOf": "Photo of {name}",
+    "skills": "Skills",
     "today": "Today",
     "selected": "Selected",
     "week": "Week",
@@ -663,23 +664,169 @@
     "startedAt": "Started at",
     "endsAt": "Ends at",
     "endedAt": "Ended at",
-    "backToEvents": "Back to Events"
+    "backToEvents": "Back to Events",
+    "backToEvent": "Back to Event",
+    "attendanceGivesSkill": "By attending this event, you will gain the following skill:",
+    "new": {
+      "title": "New Event",
+      "unauthorized": "Unauthorized to create events",
+      "success": "Event created successfully! Redirecting to event..."
+    },
+    "edit": {
+      "title": "Edit Event",
+      "unauthorized": "Unauthorized to edit events",
+      "delete": "Delete event",
+      "deleteImage": "Delete event image",
+      "deleteConfirmTitle": "Are you sure you want to delete this event?",
+      "deleteConfirmDescription": "All registrations for this event will also be deleted. This action cannot be undone.",
+      "deleteImageConfirmTitle": "Are you sure you want to delete the event image?",
+      "deleteImageConfirmDescription": "This action cannot be undone.",
+      "successEdit": "Event updated successfully! Redirecting to event...",
+      "successDelete": "Event deleted successfully! Redirecting to events...",
+      "successDeleteImage": "Event image deleted successfully!"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "Event name (Norwegian)",
+        "placeholder": "Arrangementsnavn",
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
+      },
+      "nameEnglish": {
+        "label": "Event name (English)",
+        "placeholder": "Event name",
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
+      },
+      "summaryNorwegian": {
+        "label": "Summary (Norwegian)",
+        "placeholder": "Kort beskrivelse av arrangementet",
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
+      },
+      "summaryEnglish": {
+        "label": "Summary (English)",
+        "placeholder": "Short description of the event",
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
+      },
+      "descriptionNorwegian": {
+        "label": "Description (Norwegian)",
+        "placeholder": "Beskrivelse av arrangementet",
+        "required": "Event description is required"
+      },
+      "descriptionEnglish": {
+        "label": "Description (English)",
+        "placeholder": "Description of the event",
+        "required": "Event description is required"
+      },
+      "locationNorwegian": {
+        "label": "Location (Norwegian)",
+        "placeholder": "Sted for arrangementet",
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
+      },
+      "locationEnglish": {
+        "label": "Location (English)",
+        "placeholder": "Location of the event",
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
+      },
+      "startTime": {
+        "label": "Start time",
+        "required": "Start time is required",
+        "timeInPast": "The start time must be in the future"
+      },
+      "setSignUpDeadline": {
+        "label": "Set sign-up deadline",
+        "description": "Optionally, you can set a sign-up deadline. After this time, no new sign-ups will be accepted"
+      },
+      "signUpDeadline": {
+        "label": "Sign-up deadline",
+        "timeInPast": "The sign-up deadline must be in the future",
+        "beforeStartTime": "The sign-up deadline must be before the event start time"
+      },
+      "endTime": {
+        "label": "End time",
+        "required": "End time is required",
+        "dateBeforeStart": "The end time must be after the start time"
+      },
+      "locationMapLink": {
+        "label": "Location map link",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Link to a map showing the event location",
+        "invalid": "Invalid map link format. Must be a URL"
+      },
+      "internal": {
+        "label": "Internal event",
+        "description": "If checked, the event will only be visible to Hackerspace members"
+      },
+      "skill": {
+        "label": "Select skill",
+        "description": "Select the skill that can be acquired by attending this event",
+        "placeholder": "Select a skill"
+      },
+      "image": {
+        "label": "Event image",
+        "upload": "Upload an image...",
+        "sizeLimitError": "Event image must be less than {size} MB",
+        "wrongFileTypeError": "Event image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "createSubmit": "Create event",
+      "editSubmit": "Update event"
+    },
+    "attendance": {
+      "signUp": "Sign up",
+      "cancelSignUp": "Cancel sign-up",
+      "signUpSuccess": "Successfully signed up for the event!",
+      "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
+      "mustBeLoggedIn": "You must be logged in to sign up",
+      "signUpClosed": "Sign-up for this event is closed",
+      "pastSignUpDeadline": "The sign-up deadline has passed",
+      "eventStartedAlready": "The event has already started",
+      "eventFinishedAlready": "The event has already finished",
+      "signUpDeadline": "Sign-up deadline: {date}",
+      "attendance": "Attendance",
+      "attended": "Attended",
+      "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
+      "attendeesList": "Attendees list",
+      "member": "Member",
+      "actions": "Actions",
+      "present": "Present",
+      "absent": "Absent",
+      "give": "Give",
+      "skillAttained": "Skill attained!",
+      "noParticipants": "No members signed up for this event",
+      "notStartedYet": "Cannot change attendance: The event has not started yet",
+      "updating": "Updating attendance for {name}...",
+      "success": "Attendance updated for {name}!",
+      "error": "Failed to update attendance for {name}",
+      "givingSkill": "Giving skill {skill} to {name}...",
+      "successSkill": "Skill {skill} given to {name}!",
+      "errorSkill": "Failed to give skill {skill} to {name}"
+    },
+    "api": {
+      "invalidId": "Invalid event ID",
+      "invalidUserId": "Invalid user ID",
+      "invalidSkillId": "Invalid skill ID",
+      "fetchEventFailed": "Failed to fetch event",
+      "unauthorized": "Unauthorized to view this event",
+      "invalidOffset": "Invalid offset",
+      "invalidLimit": "Invalid limit",
+      "insertFailed": "Failed to create event",
+      "notFound": "Event not found",
+      "skillNotFound": "Skill not found",
+      "userNotFound": "User not found",
+      "alreadyHasSkill": "User {user} already has the skill {skill}",
+      "participantNotFound": "Participant not found",
+      "noImage": "There is no image for this event"
+    }
   },
   "rules": {
     "title": "Rules",
     "forEveryone": "For everyone",
     "internal": "Internal rules"
-  },
-  "skills": {
-    "skills": "Skills",
-    "printing": "3D Printing",
-    "soldering": "Soldering",
-    "raspberry": "Raspberry Pi",
-    "unix": "Unix/Linux",
-    "laser": "Laser Cutting",
-    "workshop": "Workshop Tools",
-    "microcontroller": "Microcontroller Programming",
-    "webdevelopment": "Web Development"
   },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",

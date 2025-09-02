@@ -1,4 +1,4 @@
-import { getFormatter, getTranslations } from 'next-intl/server';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import {
@@ -11,12 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
-import {
-  days,
-  skillIdentifiers,
-  timeslots,
-  timeslotTimes,
-} from '@/lib/constants';
+import { days, timeslots, timeslotTimes } from '@/lib/constants';
 import type { RouterOutputs } from '@/server/api';
 
 type ScheduleTableProps = {
@@ -25,9 +20,10 @@ type ScheduleTableProps = {
 
 async function ScheduleTable({ user }: ScheduleTableProps) {
   const t = await getTranslations('shiftSchedule.table');
-  const tSkills = await getTranslations('skills');
   const format = await getFormatter();
+  const locale = await getLocale();
   const shifts = await api.shiftSchedule.fetchShifts();
+  const skills = await api.skills.fetchAllSkills();
 
   function getDateTimeRange(timeslot: (typeof timeslots)[number]) {
     return format.dateTimeRange(
@@ -87,13 +83,17 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         <Table>
           <TableCaption>
             <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
-              {skillIdentifiers.map((identifier) => (
+              {skills.map((skill) => (
                 <div
-                  key={identifier}
+                  key={skill.identifier}
                   className='flex items-center gap-3 text-left'
                 >
-                  <SkillIcon identifier={identifier} size='large' />
-                  <span className='text-xs'>{tSkills(identifier)}</span>
+                  <SkillIcon skill={skill} size='large' />
+                  <span className='text-xs'>
+                    {locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian}
+                  </span>
                 </div>
               ))}
             </div>
@@ -143,10 +143,12 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         </TableBody>
         <TableCaption className='h-fit min-h-12 pb-4'>
           <div className='flex flex-wrap justify-center gap-8'>
-            {skillIdentifiers.map((identifier) => (
-              <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} size='large' />
-                <span className='text-xs'>{tSkills(identifier)}</span>
+            {skills.map((skill) => (
+              <div key={skill.identifier} className='flex items-center gap-3'>
+                <SkillIcon skill={skill} size='large' />
+                <span className='text-xs'>
+                  {locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+                </span>
               </div>
             ))}
           </div>

@@ -1,4 +1,5 @@
 export * from './emails';
+export * from './events';
 export * from './files';
 export * from './groups';
 export * from './home';

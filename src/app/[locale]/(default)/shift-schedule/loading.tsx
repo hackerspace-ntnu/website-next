@@ -1,4 +1,4 @@
-import { useFormatter, useTranslations } from 'next-intl';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Skeleton } from '@/components/ui/Skeleton';
 import {
@@ -10,17 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
-import {
-  days,
-  skillIdentifiers,
-  timeslots,
-  timeslotTimes,
-} from '@/lib/constants';
+import { api } from '@/lib/api/server';
+import { days, timeslots, timeslotTimes } from '@/lib/constants';
 
-export default function ShiftScheduleLayout() {
-  const t = useTranslations('shiftSchedule');
-  const tSkills = useTranslations('skills');
-  const format = useFormatter();
+export default async function ShiftScheduleLayout() {
+  const t = await getTranslations('shiftSchedule');
+  const format = await getFormatter();
+  const locale = await getLocale();
+  const skills = await api.skills.fetchAllSkills();
 
   function getDateTimeRange(timeslot: (typeof timeslots)[number]) {
     return format.dateTimeRange(
@@ -71,13 +68,17 @@ export default function ShiftScheduleLayout() {
         <Table>
           <TableCaption>
             <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
-              {skillIdentifiers.map((identifier) => (
+              {skills.map((skill) => (
                 <div
-                  key={identifier}
+                  key={skill.identifier}
                   className='flex items-center gap-3 text-left'
                 >
-                  <SkillIcon identifier={identifier} size='large' />
-                  <span className='text-xs'>{tSkills(identifier)}</span>
+                  <SkillIcon skill={skill} size='large' />
+                  <span className='text-xs'>
+                    {locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian}
+                  </span>
                 </div>
               ))}
             </div>
@@ -116,10 +117,12 @@ export default function ShiftScheduleLayout() {
         </TableBody>
         <TableCaption className='h-fit min-h-12 pb-4'>
           <div className='flex flex-wrap justify-center gap-8'>
-            {skillIdentifiers.map((identifier) => (
-              <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} size='large' />
-                <span className='text-xs'>{tSkills(identifier)}</span>
+            {skills.map((skill) => (
+              <div key={skill.identifier} className='flex items-center gap-3'>
+                <SkillIcon skill={skill} size='large' />
+                <span className='text-xs'>
+                  {locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+                </span>
               </div>
             ))}
           </div>
