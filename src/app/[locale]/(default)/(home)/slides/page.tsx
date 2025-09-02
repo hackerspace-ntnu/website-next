@@ -18,7 +18,7 @@ export default async function SlidesPage({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const tHome = await getTranslations('home');
   const t = await getTranslations('home.slides');

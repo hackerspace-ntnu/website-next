@@ -8,8 +8,6 @@ import { TextBlock } from '@/components/home/TextBlock';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { articleMockData } from '@/mock-data/article';
-import { events } from '@/mock-data/events';
 
 export default async function HomePage({
   params,
@@ -25,11 +23,14 @@ export default async function HomePage({
   const slides = await api.home.fetchSlides();
   const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
 
+  const events = await api.events.fetchEvents({ limit: 3, offset: 0 });
+  const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
+
   return (
     <div className='space-y-8'>
       <IntroBanner
         slides={slides}
-        locale={locale as Locale}
+        locale={locale}
         t={{ placeholderAlt: t('placeholderAlt') }}
       />
       <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
@@ -59,7 +60,7 @@ export default async function HomePage({
               {tLayout('events')} <CornerUpRightIcon size={16} />
             </Link>
           </div>
-          <EventTable events={events.slice(0, 3)} />
+          <EventTable events={events} />
         </div>
       </TextBlock>
       <Separator />
@@ -72,7 +73,7 @@ export default async function HomePage({
               {tLayout('news')} <CornerUpRightIcon size={16} />
             </Link>
           </div>
-          <NewsTable articles={articleMockData.slice(0, 3)} />
+          <NewsTable articles={articles} />
         </div>
       </TextBlock>
     </div>

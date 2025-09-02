@@ -1,8 +1,8 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/Table';
-import type { events } from '@/mock-data/events';
+import type { RouterOutput } from '@/server/api';
 
 type EventTableProps = {
-  events: typeof events;
+  events: RouterOutput['events']['fetchEvents'];
 };
 
 function EventTable({ events }: EventTableProps) {
@@ -11,9 +11,9 @@ function EventTable({ events }: EventTableProps) {
       <TableBody>
         {events.map((event) => (
           <TableRow key={event.id}>
-            <TableCell className='max-w-80 rounded-lg p-2'>
-              <h3 className='truncate'>{event.title}</h3>
-              <p className='truncate'>{event.subheader}</p>
+            <TableCell className='w-80 rounded-lg p-2'>
+              <h3 className='truncate'>{event.localization.name}</h3>
+              <p className='truncate'>{event.localization.summary}</p>
             </TableCell>
           </TableRow>
         ))}
