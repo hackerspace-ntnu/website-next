@@ -16,11 +16,11 @@ function ToolCardSkeleton() {
           <Skeleton className='h-7 w-full' />
           <Skeleton className='h-7 w-full' />
         </CardTitle>
-        <CardDescription className='m-3'>
+        <div className='m-3'>
           <Skeleton className='m-2 inline-flex h-5 w-20' />
           <Skeleton className='m-2 inline-flex h-5 w-20' />
           <Skeleton className='m-2 inline-flex h-5 w-20' />
-        </CardDescription>
+        </div>
       </CardHeader>
       <CardFooter className='mt-auto p-0'>
         <Skeleton className='h-14 w-full' />
