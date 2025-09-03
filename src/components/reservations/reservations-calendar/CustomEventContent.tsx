@@ -22,8 +22,8 @@ function CustomEventContent({
   const infoBlock = (
     <div className='w-full'>
       <span className='font-extrabold'>{eventInfo.timeText}</span> <br />
-      {res.event.extendedProps.navn} <br />
-      {res.event.extendedProps.mobilNr} <br />
+      {res.event.extendedProps.name} <br />
+      {res.event.extendedProps.phoneNr} <br />
       {res.event.extendedProps.email}
     </div>
   );
