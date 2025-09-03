@@ -700,7 +700,7 @@
       "to": "To",
       "goToCalendar": "Go to calendar",
       "empty": "You have no reservations",
-      "notLoggedIn": "You are not currently logged in. Login to see your reservations."
+      "notLoggedIn": "Please log in to see your reservations."
     },
     "information": {
       "importantTitle": "Important information!",
