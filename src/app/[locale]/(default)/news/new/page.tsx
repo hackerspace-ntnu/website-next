@@ -27,7 +27,7 @@ export default async function NewArticlePage({
 
   const { user } = await api.auth.state();
   const t = await getTranslations('news');
-  const { about, news, ui } = await getMessages();
+  const { news, ui } = await getMessages();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -51,9 +51,7 @@ export default async function NewArticlePage({
         <h1>{t('newArticle')}</h1>
       </div>
       <NextIntlClientProvider
-        messages={
-          { about, news, ui } as Pick<Messages, 'about' | 'news' | 'ui'>
-        }
+        messages={{ news, ui } as Pick<Messages, 'news' | 'ui'>}
       >
         <div className='mx-auto lg:max-w-2xl'>
           <ArticleForm />

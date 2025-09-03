@@ -28,7 +28,7 @@ export default async function EditArticlePage({
 
   const { user } = await api.auth.state();
   const t = await getTranslations('news');
-  const { about, news, ui } = await getMessages();
+  const { news, ui } = await getMessages();
 
   if (Number.isNaN(Number(articleId))) return notFound();
 
@@ -58,9 +58,7 @@ export default async function EditArticlePage({
         <h1>{t('updateArticle')}</h1>
       </div>
       <NextIntlClientProvider
-        messages={
-          { about, news, ui } as Pick<Messages, 'about' | 'news' | 'ui'>
-        }
+        messages={{ news, ui } as Pick<Messages, 'news' | 'ui'>}
       >
         <div className='mx-auto lg:max-w-2xl'>
           <ArticleForm article={article} />
