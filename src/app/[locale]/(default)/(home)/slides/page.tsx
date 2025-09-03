@@ -3,7 +3,6 @@ import Image from 'next/image';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SlideActiveCheckbox } from '@/components/home/SlideActiveCheckbox';
-import { Checkbox } from '@/components/ui/Checkbox';
 import { Link } from '@/components/ui/Link';
 import {
   Table,

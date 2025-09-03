@@ -8,17 +8,20 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/Carousel';
+import { Link } from '@/components/ui/Link';
 import type { RouterOutput } from '@/server/api';
 
 type IntroBannerProps = {
-  t: {
-    placeholderAlt: string;
-  };
   slides: RouterOutput['home']['fetchSlides'];
   locale: Locale;
+  canEditSlides: boolean;
+  t: {
+    placeholderAlt: string;
+    editSlides: string;
+  };
 };
 
-function IntroBanner({ slides, locale, t }: IntroBannerProps) {
+function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
   return (
     <>
       <div className='absolute top-0 left-0 text-background'>
@@ -65,6 +68,16 @@ function IntroBanner({ slides, locale, t }: IntroBannerProps) {
         <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-5/12 left-1/2 w-full transform text-center text-4xl-7xl-clamp text-shadow-foreground text-shadow-lg dark:text-foreground dark:text-shadow-background'>
           Hackerspace NTNU
         </h1>
+        {canEditSlides && (
+          <Link
+            href='/slides'
+            variant='default'
+            size='default'
+            className='absolute right-0 bottom-0 m-4'
+          >
+            {t.editSlides}
+          </Link>
+        )}
       </div>
       {/* Above div is absolute, div below is used to offset content below intro banner */}
       <div className='h-[calc(100vh-5rem)]' />

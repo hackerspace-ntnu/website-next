@@ -30,9 +30,9 @@ const homeCarouselSlideLocalizations = pgTable(
         onDelete: 'cascade',
       })
       .notNull(),
-    imgAlt: varchar('img_alt', { length: 127 }),
+    imgAlt: varchar('img_alt', { length: 255 }),
     heading: varchar('heading', { length: 50 }).notNull(),
-    description: varchar('description', { length: 127 }).notNull(),
+    description: varchar('description', { length: 255 }).notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {

@@ -3,6 +3,8 @@ import { reset } from 'drizzle-seed';
 import { routing } from '@/lib/locale';
 import { db } from '@/server/db';
 import {
+  articleLocalizationsData,
+  articlesData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
@@ -28,6 +30,8 @@ import {
   homeCarouselSlides,
   itemCategories,
   itemLocalizations,
+  newsArticleLocalizations,
+  newsArticles,
   shifts,
   skills,
   storageItems,
@@ -122,6 +126,14 @@ async function main() {
   console.log('Inserting event localizations...');
   await db.insert(eventLocalizations).values(eventLocalizationsData);
   console.log('Event localizations inserted');
+
+  console.log('Inserting articles...');
+  await db.insert(newsArticles).values(articlesData);
+  console.log('Articles inserted');
+
+  console.log('Inserting article localizations...');
+  await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
+  console.log('Article localizations inserted');
 }
 
 await main();

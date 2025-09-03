@@ -6,11 +6,11 @@ function slideSchema(t: Translations) {
   return z.object({
     altNorwegian: z
       .string()
-      .max(127, t('home.form.altNorwegian.maxLength', { count: 127 }))
+      .max(255, t('home.form.altNorwegian.maxLength', { count: 255 }))
       .nullable(),
     altEnglish: z
       .string()
-      .max(127, t('home.form.altEnglish.maxLength', { count: 127 }))
+      .max(255, t('home.form.altEnglish.maxLength', { count: 255 }))
       .nullable(),
     headingNorwegian: z
       .string()
@@ -23,11 +23,11 @@ function slideSchema(t: Translations) {
     descriptionNorwegian: z
       .string()
       .min(1, t('home.form.descriptionNorwegian.required'))
-      .max(127, t('home.form.descriptionNorwegian.maxLength', { count: 127 })),
+      .max(255, t('home.form.descriptionNorwegian.maxLength', { count: 255 })),
     descriptionEnglish: z
       .string()
       .min(1, t('home.form.descriptionEnglish.required'))
-      .max(127, t('home.form.descriptionEnglish.maxLength', { count: 127 })),
+      .max(255, t('home.form.descriptionEnglish.maxLength', { count: 255 })),
     active: z.boolean({ message: t('home.form.active.invalid') }),
     image: fileUploadZodString({
       allowedMediaType: 'image',

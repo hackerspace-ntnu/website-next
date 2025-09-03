@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -52,6 +52,7 @@ const homeRouter = createRouter({
         with: {
           localizations: true,
         },
+        orderBy: [asc(homeCarouselSlides.id)],
       });
 
       return Promise.all(

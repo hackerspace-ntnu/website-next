@@ -11,7 +11,7 @@ function EventTable({ events }: EventTableProps) {
       <TableBody>
         {events.map((event) => (
           <TableRow key={event.id}>
-            <TableCell className='w-80 rounded-lg p-2'>
+            <TableCell className='max-w-80 rounded-lg p-2'>
               <h3 className='truncate'>{event.localization.name}</h3>
               <p className='truncate'>{event.localization.summary}</p>
             </TableCell>

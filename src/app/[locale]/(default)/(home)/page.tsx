@@ -20,18 +20,27 @@ export default async function HomePage({
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 
+  const { user } = await api.auth.state();
+
   const slides = await api.home.fetchSlides({ onlyActive: true });
   const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
 
   const events = await api.events.fetchEvents({ limit: 3, offset: 0 });
   const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
 
+  const canEditSlides =
+    user?.groups.some((g) => ['leadership', 'admin'].includes(g)) ?? false;
+
   return (
     <div className='space-y-8'>
       <IntroBanner
         slides={slides}
         locale={locale}
-        t={{ placeholderAlt: t('placeholderAlt') }}
+        canEditSlides={canEditSlides}
+        t={{
+          placeholderAlt: t('placeholderAlt'),
+          editSlides: t('changeSlides'),
+        }}
       />
       <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
@@ -53,8 +62,8 @@ export default async function HomePage({
       <Separator />
       <TextBlock imgSrc='/event.webp' imgAlt='...' imgSide='right'>
         <h2>{t('events')}</h2>
-        <div className='flex gap-3'>
-          <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3 md:flex-row'>
+          <div className='flex flex-col gap-3 lg:w-1/2'>
             <p>{t('eventsDescription')}</p>
             <Link variant='link' href='/events' className='flex w-fit gap-3'>
               {tLayout('events')} <CornerUpRightIcon size={16} />
@@ -66,8 +75,8 @@ export default async function HomePage({
       <Separator />
       <TextBlock imgSrc='/mock.jpg' imgAlt='...' imgSide='left'>
         <h2>{t('news')}</h2>
-        <div className='flex gap-3 '>
-          <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3 md:flex-row '>
+          <div className='flex flex-col gap-3 lg:w-1/2'>
             <p>{t('newsDescription')}</p>
             <Link variant='link' href='/news' className='flex w-fit gap-3'>
               {tLayout('news')} <CornerUpRightIcon size={16} />
