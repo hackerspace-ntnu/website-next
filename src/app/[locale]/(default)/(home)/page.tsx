@@ -20,7 +20,7 @@ export default async function HomePage({
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 
-  const slides = await api.home.fetchSlides();
+  const slides = await api.home.fetchSlides({ onlyActive: true });
   const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
 
   const events = await api.events.fetchEvents({ limit: 3, offset: 0 });

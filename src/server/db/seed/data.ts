@@ -329,7 +329,17 @@ const usersSkillsData: InsertUserSkill[] = [
   },
 ];
 
-const homeCarouselSlidesData: InsertHomeCarouselSlide[] = [{}, {}, {}];
+const homeCarouselSlidesData: InsertHomeCarouselSlide[] = [
+  {
+    active: true,
+  },
+  {
+    active: true,
+  },
+  {
+    active: false,
+  },
+];
 
 const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] =
   [

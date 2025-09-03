@@ -1,7 +1,10 @@
-import { EditIcon } from 'lucide-react';
+import { EditIcon, PlusIcon } from 'lucide-react';
 import Image from 'next/image';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { SlideActiveCheckbox } from '@/components/home/SlideActiveCheckbox';
+import { Checkbox } from '@/components/ui/Checkbox';
+import { Link } from '@/components/ui/Link';
 import {
   Table,
   TableBody,
@@ -30,7 +33,7 @@ export default async function SlidesPage({
     throw new Error(t('unauthorized'));
   }
 
-  const slides = await api.home.fetchSlides();
+  const slides = await api.home.fetchSlides({});
 
   return (
     <Table>
@@ -38,7 +41,18 @@ export default async function SlidesPage({
         <TableRow>
           <TableHead>{t('image')}</TableHead>
           <TableHead>{t('overlay')}</TableHead>
-          <TableHead />
+          <TableHead>{t('active')}</TableHead>
+          <TableHead>
+            <Link
+              href='/slides/new'
+              variant='default'
+              size='icon'
+              className='my-2'
+              aria-label={t('create')}
+            >
+              <PlusIcon />
+            </Link>
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -62,7 +76,32 @@ export default async function SlidesPage({
                 <span>{slideLocalization?.description}</span>
               </TableCell>
               <TableCell>
-                <EditIcon />
+                <SlideActiveCheckbox
+                  slide={slide}
+                  t={{
+                    successfullyChangedToActive: tHome(
+                      'api.successChangeActive',
+                      { active: 'true' },
+                    ),
+                    successfullyChangedToInactive: tHome(
+                      'api.successChangeActive',
+                      { active: 'false' },
+                    ),
+                  }}
+                />
+              </TableCell>
+              <TableCell>
+                <Link
+                  href={{
+                    pathname: '/slides/[slideId]/edit',
+                    params: { slideId: slide.id },
+                  }}
+                  variant='default'
+                  size='icon'
+                  aria-label={t('editSlide')}
+                >
+                  <EditIcon />
+                </Link>
               </TableCell>
             </TableRow>
           );

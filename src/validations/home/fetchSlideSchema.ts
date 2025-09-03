@@ -1,8 +1,10 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
 
-function fetchSlideSchema(t: Translations) {
-  return z.number({ message: t('home.api.invalidId') });
+function selectSlideSchema(t: Translations) {
+  return z.object({
+    id: z.number({ message: t('home.api.invalidId') }),
+  });
 }
 
-export { fetchSlideSchema };
+export { selectSlideSchema };

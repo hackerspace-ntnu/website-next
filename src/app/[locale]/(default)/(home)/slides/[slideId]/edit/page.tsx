@@ -1,6 +1,13 @@
+import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
+import { EditSlideForm } from '@/components/home/SlideForm';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
 export default async function EditSlidePage({
@@ -12,6 +19,7 @@ export default async function EditSlidePage({
   setRequestLocale(locale);
 
   const t = await getTranslations('home.slides.edit');
+  const { ui, home } = await getMessages();
 
   const { user } = await api.auth.state();
 
@@ -25,11 +33,32 @@ export default async function EditSlidePage({
     return notFound();
   }
 
-  const slide = await api.home.fetchSlide(processedSlideId);
+  const slide = await api.home.fetchSlide({ id: processedSlideId });
 
   if (!slide) {
     return notFound();
   }
 
-  return;
+  return (
+    <>
+      <Link
+        href='/slides'
+        className='my-4 flex w-fit gap-2'
+        variant='secondary'
+        size='default'
+        aria-label={t('backToSlides')}
+      >
+        <ArrowLeftIcon aria-hidden='true' />
+        {t('backToSlides')}
+      </Link>
+      <h1 className='my-4 text-center'>{t('edit')}</h1>
+      <NextIntlClientProvider
+        messages={{ ui, home } as Pick<Messages, 'ui' | 'home'>}
+      >
+        <div className='mx-auto w-full max-w-2xl'>
+          <EditSlideForm slide={slide} />
+        </div>
+      </NextIntlClientProvider>
+    </>
+  );
 }

@@ -46,7 +46,7 @@ const eventLocalizations = pgTable('event_localizations', {
   eventId: integer('event_id')
     .references(() => events.id, { onDelete: 'cascade' })
     .notNull(),
-  name: varchar('name', { length: 50 }).notNull(),
+  name: varchar('name', { length: 63 }).notNull(),
   summary: varchar('summary', { length: 255 }).notNull(),
   description: text('description').notNull(),
   location: varchar('location', { length: 255 }).notNull(),

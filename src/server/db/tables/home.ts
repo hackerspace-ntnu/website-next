@@ -4,6 +4,7 @@ import {
   relations,
 } from 'drizzle-orm';
 import {
+  boolean,
   integer,
   pgTable,
   primaryKey,
@@ -15,6 +16,7 @@ import { localesEnum } from './locales';
 
 const homeCarouselSlides = pgTable('home_carousel_slides', {
   id: serial('id').primaryKey(),
+  active: boolean('active').notNull(),
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'no action',
   }),
@@ -28,9 +30,9 @@ const homeCarouselSlideLocalizations = pgTable(
         onDelete: 'cascade',
       })
       .notNull(),
-    imgAlt: varchar('img_alt', { length: 255 }),
+    imgAlt: varchar('img_alt', { length: 127 }),
     heading: varchar('heading', { length: 50 }).notNull(),
-    description: varchar('description', { length: 255 }).notNull(),
+    description: varchar('description', { length: 127 }).notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {
