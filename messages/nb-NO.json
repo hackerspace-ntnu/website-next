@@ -157,8 +157,59 @@
     "title": "Nyheter",
     "internalArticle": "Dette er en intern artikkel",
     "newArticle": "Ny artikkel",
+    "updateArticle": "Oppdater artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
+    "views": "Visninger",
+    "backToNews": "Tilbake til nyheter",
+    "backToArticle": "Tilbake til artikkel",
+    "lastUpdated": "Sist oppdatert: {date}",
+    "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
+    "UpdateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "form": {
+      "createArticle": "Opprett artikkel",
+      "updateArticle": "Oppdater artikkel",
+      "deleteArticle": "Slett artikkel",
+      "articleCreated": "Artikkel opprettet",
+      "articleUpdated": "Artikkel oppdatert",
+      "articleImageDeleted": "Artikkelbilde slettet",
+      "articleDeleted": "Artikkel slettet",
+      "deleteArticleImage": "Slett artikkelbilde",
+      "deleteArticleImageTitle": "Er du sikker på at du vil slette dette artikkelbildet?",
+      "deleteArticleImageDescription": "Denne handlingen kan ikke angres.",
+      "deleteArticleTitle": "Er du sikker på at du vil slette denne artikkelen?",
+      "deleteArticleDescription": "Denne handlingen kan ikke angres.",
+      "image": {
+        "label": "Artikkelbilde",
+        "description": "Last opp et bilde...",
+        "required": "Artikkelbilde er påkrevd",
+        "sizeLimitError": "Artikkelbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Artikkelbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "title": {
+        "labelNorwegian": "Artikkeltittel (norsk)",
+        "labelEnglish": "Artikkeltittel (engelsk)",
+        "required": "Artikkeltittel er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Artikkelinnhold (norsk)",
+        "labelEnglish": "Artikkelinnhold (engelsk)",
+        "required": "Artikkelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern",
+        "description": "Hvis valgt, vil denne artikkelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "invalidLimit": "Ugyldig limit",
+      "invalidOffset": "Ugyldig offset",
+      "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "insertFailed": "Kunne ikke legge til nyhetsartikkel",
+      "articleNotFound": "Artikkel ikke funnet",
+      "articleImageNotFound": "Artikkelbilde ikke funnet"
+    }
   },
   "members": {
     "title": "Medlemmer",
