@@ -24,13 +24,9 @@ function GiveSkillButton({
     },
   });
 
-  const hasSkillAlready = (
-    participant: RouterOutput['events']['fetchEventParticipants'][number],
-  ) => {
-    return participant.user.usersSkills.some((userSkill) => {
-      return userSkill.skillId === event.skill?.id;
-    });
-  };
+  const hasSkillAlready = participant.user.usersSkills.some(
+    (userSkill) => userSkill.skillId === event.skill?.id,
+  );
 
   if (!event.skill) return null;
 
@@ -71,9 +67,9 @@ function GiveSkillButton({
           },
         );
       }}
-      disabled={hasSkillAlready(participant)}
+      disabled={hasSkillAlready}
     >
-      {hasSkillAlready(participant) ? (
+      {hasSkillAlready ? (
         t('skillAttained')
       ) : (
         <>
