@@ -99,6 +99,7 @@ function ReservationForm({
           <field.PhoneField
             label={t('form.phoneNr')}
             placeholder={t('form.phoneNrPlaceholder')}
+            defaultCountry='NO'
             inputMode='tel'
           />
         )}
