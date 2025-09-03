@@ -33,13 +33,14 @@ function SlideActiveCheckbox({ slide, t }: SlideActiveCheckboxProps) {
 
   return (
     <Checkbox
-      checked={slide.active}
+      checked={changeSlideActive.variables?.active ?? slide.active}
       onCheckedChange={(value) => {
         changeSlideActive.mutate({
           id: slide.id,
           active: value !== 'indeterminate' ? value : false,
         });
       }}
+      className='cursor-pointer'
     />
   );
 }

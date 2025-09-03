@@ -38,10 +38,10 @@ export default async function SlidesPage({
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('image')}</TableHead>
-          <TableHead>{t('overlay')}</TableHead>
-          <TableHead>{t('active')}</TableHead>
-          <TableHead>
+          <TableHead className='min-w-48'>{t('image')}</TableHead>
+          <TableHead className='w-full'>{t('overlay')}</TableHead>
+          <TableHead className='min-w-20'>{t('active')}</TableHead>
+          <TableHead className='min-w-20'>
             <Link
               href='/slides/new'
               variant='default'

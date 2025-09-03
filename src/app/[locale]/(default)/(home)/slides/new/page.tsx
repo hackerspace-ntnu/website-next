@@ -5,7 +5,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { EditSlideForm } from '@/components/home/SlideForm';
+import { SlideForm } from '@/components/home/SlideForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
@@ -44,7 +44,7 @@ export default async function NewSlidePage({
         messages={{ ui, home } as Pick<Messages, 'ui' | 'home'>}
       >
         <div className='mx-auto w-full max-w-2xl'>
-          <EditSlideForm />
+          <SlideForm />
         </div>
       </NextIntlClientProvider>
     </>

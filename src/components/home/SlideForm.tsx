@@ -27,11 +27,11 @@ import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { slideSchema } from '@/validations/home/slideSchema';
 
-type EditSlideFormProps = {
+type SlideFormProps = {
   slide?: RouterOutput['home']['fetchSlide'];
 };
 
-function EditSlideForm({ slide }: EditSlideFormProps) {
+function SlideForm({ slide }: SlideFormProps) {
   const translations = useTranslations();
 
   const t = useTranslations('home.form');
@@ -268,4 +268,4 @@ function EditSlideForm({ slide }: EditSlideFormProps) {
   );
 }
 
-export { EditSlideForm };
+export { SlideForm };
