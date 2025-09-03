@@ -704,7 +704,7 @@
     },
     "information": {
       "importantTitle": "Important information!",
-      "importantText": "Read the <link>rules regarding the use of 3D-printers</link> before you create a reservation. By using our reservation system, we allocate our resources ( both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
+      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
       "dontShow": "Do not show this again"
     },
     "toolbar": {
