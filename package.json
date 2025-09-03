@@ -27,7 +27,7 @@
     "db:migrate": "bunx drizzle-kit migrate",
     "db:push": "bunx drizzle-kit push",
     "db:studio": "bunx drizzle-kit studio",
-    "db:seed": "bun run src/server/db/seed.ts",
+    "db:seed": "bun run src/server/db/seed",
     "s3:squash": "bun -e \"require('fs').rmSync('src/server/db/migrations/*', { recursive: true, force: true })\" && bun run db:generate",
     "s3:start": "docker compose -f compose.local.yml up s3 -d",
     "s3:stop": "docker compose -f compose.local.yml down s3",

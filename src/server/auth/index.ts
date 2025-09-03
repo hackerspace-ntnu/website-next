@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
 import { db } from '@/server/db';
-import { groups, sessions, userGroups, users } from '@/server/db/tables';
+import { groups, sessions, users, usersGroups } from '@/server/db/tables';
 
 async function validateSessionToken(token: string) {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -16,8 +16,8 @@ async function validateSessionToken(token: string) {
     })
     .from(sessions)
     .innerJoin(users, eq(sessions.userId, users.id))
-    .leftJoin(userGroups, eq(users.id, userGroups.userId))
-    .leftJoin(groups, eq(userGroups.groupId, groups.id))
+    .leftJoin(usersGroups, eq(users.id, usersGroups.userId))
+    .leftJoin(groups, eq(usersGroups.groupId, groups.id))
     .where(eq(sessions.id, sessionId));
 
   if (result.length < 1) {
