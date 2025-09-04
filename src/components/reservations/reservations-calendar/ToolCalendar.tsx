@@ -326,9 +326,9 @@ export default function ToolCalendar() {
           handleDeleteEvent(selectedReservation.reservationId)
         }
         defaultValues={{
-          name: selectedReservation?.name ?? '',
-          email: selectedReservation?.email ?? '',
-          phoneNr: selectedReservation?.phoneNr ?? '',
+          name: selectedReservation?.name,
+          email: selectedReservation?.email,
+          phoneNr: selectedReservation?.phoneNr,
         }}
       />
       <div className='w-full overflow-hidden rounded-lg rounded-b-none border border-border bg-background text-foreground'>
