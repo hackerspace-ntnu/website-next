@@ -305,7 +305,7 @@ export default function ToolCalendar() {
         {t('calendar.createButton')}
       </Button>
       <CalendarDialog
-        open={selectedSlot !== null}
+        open={!!selectedSlot}
         onOpenChange={() => setSelectedSlot(null)}
         start={selectedSlot?.start ?? new Date()}
         end={selectedSlot?.end ?? new Date()}
