@@ -314,7 +314,7 @@ export default function ToolCalendar() {
         onCancel={() => setSelectedSlot(null)}
       />
       <CalendarDialog
-        open={selectedReservation !== null}
+        open={!!selectedReservation}
         onOpenChange={() => setSelectedReservation(null)}
         start={new Date(selectedReservation?.start ?? new Date())}
         end={new Date(selectedReservation?.end ?? new Date())}
