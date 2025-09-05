@@ -1,15 +1,15 @@
 import { eq } from 'drizzle-orm';
-
+import type { fileDirectories } from '@/lib/constants';
 import { db } from '@/server/db';
 import { files } from '@/server/db/tables';
-import { type directories, s3 } from '@/server/s3';
+import { s3 } from '@/server/s3';
 import { matrixDeleteMedia, matrixUploadMedia } from '@/server/services/matrix';
 
 const SIGNED_URL_EXPIRATION = 3600;
 
 async function insertFile(
   base64String: string,
-  directory: (typeof directories)[number],
+  directory: (typeof fileDirectories)[number],
   userId: number,
   uploadToMatrix = false,
 ) {

@@ -3,7 +3,6 @@ import {
   authRouter,
   eventsRouter,
   groupsRouter,
-  newsRouter,
   settingsRouter,
   shiftScheduleRouter,
   skillsRouter,
@@ -12,6 +11,7 @@ import {
   usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
+import { newsRouter } from '@/server/api/routers/news';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
@@ -19,9 +19,9 @@ const router = createRouter({
   groups: groupsRouter,
   events: eventsRouter,
   settings: settingsRouter,
+  storage: storageRouter,
   shiftSchedule: shiftScheduleRouter,
   skills: skillsRouter,
-  storage: storageRouter,
   test: testRouter,
   users: usersRouter,
   utils: utilsRouter,

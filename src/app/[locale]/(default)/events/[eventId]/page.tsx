@@ -21,6 +21,7 @@ import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { db } from '@/server/db';
@@ -163,7 +164,7 @@ export default async function EventDetailsPage({
         >
           <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
             <div className='max-w-prose'>
-              <p>{localization.description}</p>
+              <PlateEditorView value={localization.description} />
               <SignUpButton
                 event={event}
                 signedUp={signedUp}

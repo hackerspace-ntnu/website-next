@@ -9,11 +9,10 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-
+import { fileDirectories } from '@/lib/constants';
 import { users } from '@/server/db/tables';
-import { directories } from '@/server/s3';
 
-const directoriesEnum = pgEnum('directories', directories);
+const directoriesEnum = pgEnum('directories', fileDirectories);
 
 const files = pgTable('files', {
   id: serial('id').primaryKey(),

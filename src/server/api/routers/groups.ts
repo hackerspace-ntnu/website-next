@@ -119,7 +119,7 @@ const groupsRouter = createRouter({
           });
         });
 
-      return results.map((userGroup) => userGroup.user);
+      return results.map((usersGroup) => usersGroup.user);
     }),
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
