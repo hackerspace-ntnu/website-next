@@ -1,4 +1,8 @@
-import { InferSelectModel, relations } from 'drizzle-orm';
+import {
+  type InferInsertModel,
+  type InferSelectModel,
+  relations,
+} from 'drizzle-orm';
 import {
   boolean,
   integer,
@@ -9,7 +13,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { toolType } from '@/lib/constants';
-import { files, localesEnum, users } from '@/server/db/tables';
+import { files, localesEnum } from '@/server/db/tables';
 
 const toolTypeEnum = pgEnum('toolType', toolType);
 
@@ -70,3 +74,25 @@ const printerSpecsRelations = relations(printerSpecs, ({ one }) => ({
     references: [tools.id],
   }),
 }));
+
+type SelectTool = InferSelectModel<typeof tools>;
+type InsertTool = InferInsertModel<typeof tools>;
+type SelectToolLocalization = InferSelectModel<typeof toolsLocalizations>;
+type InsertToolLocalization = InferInsertModel<typeof toolsLocalizations>;
+type SelectPrinterSpecs = InferSelectModel<typeof printerSpecs>;
+type InsertPrinterSpecs = InferInsertModel<typeof printerSpecs>;
+
+export {
+  tools,
+  toolsRelations,
+  toolsLocalizations,
+  toolsLocalizationsRelations,
+  printerSpecs,
+  printerSpecsRelations,
+  type SelectTool,
+  type InsertTool,
+  type SelectToolLocalization,
+  type InsertToolLocalization,
+  type SelectPrinterSpecs,
+  type InsertPrinterSpecs,
+};
