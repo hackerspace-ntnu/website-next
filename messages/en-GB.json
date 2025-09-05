@@ -299,8 +299,59 @@
     "title": "News",
     "internalArticle": "This is an internal article",
     "newArticle": "New article",
+    "updateArticle": "Update article",
     "readTime": "{count, plural, =0 {less than a minute} one {# minute} other {# minutes}} read",
-    "views": "Views"
+    "views": "Views",
+    "backToNews": "Back to news",
+    "backToArticle": "Back to article",
+    "lastUpdated": "Last updated: {date}",
+    "newArticlesUnauthorized": "Unauthorized to create new articles",
+    "updateArticlesUnauthorized": "Unauthorized to update articles",
+    "form": {
+      "createArticle": "Create article",
+      "updateArticle": "Update article",
+      "deleteArticle": "Delete article",
+      "articleCreated": "Article created successfully",
+      "articleUpdated": "Article updated successfully",
+      "articleImageDeleted": "Article image deleted successfully",
+      "articleDeleted": "Article deleted successfully",
+      "deleteArticleImage": "Delete article image",
+      "deleteArticleImageTitle": "Are you sure you want to delete this article image?",
+      "deleteArticleImageDescription": "This action cannot be undone.",
+      "deleteArticleTitle": "Are you sure you want to delete this article?",
+      "deleteArticleDescription": "This action cannot be undone.",
+      "image": {
+        "label": "Article image",
+        "description": "Upload an image...",
+        "required": "Article image is required",
+        "sizeLimitError": "Article image must be less than {size} MB",
+        "wrongFileTypeError": "Article image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "title": {
+        "labelNorwegian": "Article title (Norwegian)",
+        "labelEnglish": "Article title (English)",
+        "required": "Article title is required"
+      },
+      "content": {
+        "labelNorwegian": "Article content (Norwegian)",
+        "labelEnglish": "Article content (English)",
+        "required": "Article content is required"
+      },
+      "internal": {
+        "label": "Internal",
+        "description": "If selected, this article will only be visible to Hackerspace members."
+      }
+    },
+    "api": {
+      "invalidId": "Invalid ID",
+      "invalidLimit": "Invalid limit",
+      "invalidOffset": "Invalid offset",
+      "tooManyArticles": "Too many articles requested. Cannot fetch more than {count} articles.",
+      "insertFailed": "Failed to add news article",
+      "articleNotFound": "Article not found",
+      "articleImageNotFound": "Article image not found"
+    }
   },
   "members": {
     "title": "Members",
@@ -729,6 +780,8 @@
     "endsAt": "Ends at",
     "endedAt": "Ended at",
     "backToEvents": "Back to Events",
+    "backToEvent": "Back to Event",
+    "attendanceGivesSkill": "By attending this event, you will gain the following skill:",
     "new": {
       "title": "New Event",
       "unauthorized": "Unauthorized to create events",
@@ -751,22 +804,26 @@
       "nameNorwegian": {
         "label": "Event name (Norwegian)",
         "placeholder": "Arrangementsnavn",
-        "required": "Event name is required"
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
       },
       "nameEnglish": {
         "label": "Event name (English)",
         "placeholder": "Event name",
-        "required": "Event name is required"
+        "required": "Event name is required",
+        "maxLength": "Event name must be less than {count} characters"
       },
       "summaryNorwegian": {
         "label": "Summary (Norwegian)",
         "placeholder": "Kort beskrivelse av arrangementet",
-        "required": "Event summary is required"
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
       },
       "summaryEnglish": {
         "label": "Summary (English)",
         "placeholder": "Short description of the event",
-        "required": "Event summary is required"
+        "required": "Event summary is required",
+        "maxLength": "Event summary must be less than {count} characters"
       },
       "descriptionNorwegian": {
         "label": "Description (Norwegian)",
@@ -779,12 +836,14 @@
       "locationNorwegian": {
         "label": "Location (Norwegian)",
         "placeholder": "Sted for arrangementet",
-        "required": "Event location is required"
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
       },
       "locationEnglish": {
         "label": "Location (English)",
         "placeholder": "Location of the event",
-        "required": "Event location is required"
+        "required": "Event location is required",
+        "maxLength": "Event location must be less than {count} characters"
       },
       "startTime": {
         "label": "Start time",
@@ -839,8 +898,10 @@
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
+      "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
       "attendance": "Attendance",
+      "attended": "Attended",
       "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
       "member": "Member",

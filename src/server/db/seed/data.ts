@@ -1,3 +1,4 @@
+import { fakerEN, fakerNB_NO } from '@faker-js/faker';
 import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
@@ -7,6 +8,8 @@ import type {
   InsertGroupLocalization,
   InsertItemCategory,
   InsertItemLocalization,
+  InsertNewsArticle,
+  InsertNewsArticleLocalization,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
@@ -14,6 +17,12 @@ import type {
   InsertUserGroup,
   InsertUserSkill,
 } from '@/server/db/tables';
+
+// To generate fake data use these helpers
+const faker = {
+  en: fakerEN,
+  no: fakerNB_NO,
+};
 
 const usersData: InsertUser[] = [
   // Groups: Admin + Management
@@ -1161,6 +1170,411 @@ const eventLocalizationsData: InsertEventLocalization[] = [
   },
 ];
 
+const articleData: InsertNewsArticle[] = [
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    views: faker.en.number.int({ min: 0, max: 10_000 }),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: true,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+  {
+    internal: false,
+    createdAt: faker.en.date.past(),
+    authorId: faker.en.number.int({ min: 1, max: usersData.length }),
+  },
+];
+
+const articleLocalizationsData: InsertNewsArticleLocalization[] = [
+  {
+    articleId: 1,
+    title: 'Gruppestatus: Prosjekt spill',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 1,
+    title: 'Group status: Project Game',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 2,
+    title: 'DevOps-møtet',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 2,
+    title: 'DevOps Meeting',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 3,
+    title: 'Jonas er kul',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 3,
+    title: 'Jonas is cool',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 4,
+    title: 'Iskrem er godt',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 4,
+    title: 'Ice cream is good',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 5,
+    title: 'Hvorfor er jeg her?',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 5,
+    title: 'Why am I here?',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 6,
+    title: 'Hvorfor er jeg her?',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 6,
+    title: 'Why am I here?',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 7,
+    title: 'Hvorfor er jeg her?',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 7,
+    title: 'Why am I here?',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 8,
+    title: 'Dette er en veeeeldig lang overskrift som skal testes',
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 8,
+    title: 'This is a veeeery long headline that should be tested',
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 9,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 9,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 10,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 10,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 11,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 11,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 12,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 12,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 13,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 13,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 14,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 14,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 15,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 15,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 16,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 16,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 17,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 17,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 18,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 18,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 19,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 19,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 20,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 20,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 21,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 21,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 22,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 22,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+  {
+    articleId: 23,
+    title: faker.no.lorem.sentence(),
+    content: faker.no.lorem.paragraphs(3),
+    locale: 'nb-NO',
+  },
+  {
+    articleId: 23,
+    title: faker.en.lorem.sentence(),
+    content: faker.en.lorem.paragraphs(3),
+    locale: 'en-GB',
+  },
+];
+
 export {
   usersData,
   groupsData,
@@ -1174,4 +1588,6 @@ export {
   shiftsData,
   eventsData,
   eventLocalizationsData,
+  articleData,
+  articleLocalizationsData,
 };

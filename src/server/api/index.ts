@@ -5,12 +5,13 @@ import {
   groupsRouter,
   settingsRouter,
   shiftScheduleRouter,
+  skillsRouter,
   storageRouter,
   testRouter,
+  usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
-import { skillsRouter } from '@/server/api/routers/skills';
-import { usersRouter } from '@/server/api/routers/users';
+import { newsRouter } from '@/server/api/routers/news';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
@@ -24,6 +25,7 @@ const router = createRouter({
   test: testRouter,
   users: usersRouter,
   utils: utilsRouter,
+  news: newsRouter,
 });
 
 const createCaller = createCallerFactory(router);

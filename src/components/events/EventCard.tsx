@@ -1,6 +1,7 @@
 'use client';
 
-import { useFormatter } from 'next-intl';
+import { useFormatter, useLocale } from 'next-intl';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import {
@@ -13,10 +14,16 @@ import {
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
 import { cx } from '@/lib/utils';
-import type { SelectEvent, SelectEventLocalization } from '@/server/db/tables';
+import type {
+  SelectEvent,
+  SelectEventLocalization,
+  SelectSkill,
+} from '@/server/db/tables';
 
 type EventCardProps = {
-  event: SelectEvent & { localizations: SelectEventLocalization[] } & {
+  event: SelectEvent & { localization: SelectEventLocalization } & {
+    skill?: SelectSkill | null;
+  } & {
     imageUrl?: string;
   };
   wrapperClassName?: string;
@@ -45,15 +52,15 @@ function EventCard({
   _active,
 }: EventCardProps) {
   const formatter = useFormatter();
-  const localization = event.localizations[0];
   const imageUrlQuery = api.utils.getFileUrl.useQuery(
     { fileId: event.imageId ?? 0 },
     { enabled: !!event.imageId },
   );
 
   const imageUrl = event.imageId ? imageUrlQuery.data : undefined;
+  const locale = useLocale();
 
-  if (!localization) return;
+  if (!event.localization) return;
 
   const started = event.startTime < new Date() || _active;
   const ended = event.endTime < new Date();
@@ -73,7 +80,7 @@ function EventCard({
         })}
       >
         <CardHeader>
-          <CardTitle>{localization.name}</CardTitle>
+          <CardTitle>{event.localization.name}</CardTitle>
           {event.internal && (
             <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
               {t.internal}
@@ -81,7 +88,23 @@ function EventCard({
           )}
         </CardHeader>
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
-          <p className='line-clamp-5 max-w-96'>{localization.summary}</p>
+          <div>
+            <p className='line-clamp-5 max-w-96'>
+              {event.localization.summary}
+            </p>
+            <div className='mt-2 flex items-center justify-center gap-2'>
+              {event.skill && (
+                <>
+                  <SkillIcon skill={event.skill} size='large' />
+                  <span className='font-bold'>
+                    {locale === 'en-GB'
+                      ? event.skill?.nameEnglish
+                      : event.skill?.nameNorwegian}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
           {imageUrl && (
             <Avatar className='h-48 w-48 shrink-0'>
               <AvatarImage

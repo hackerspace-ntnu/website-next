@@ -19,6 +19,8 @@ on:
 jobs:
   deploy-prod:
     name: Production
+    permissions:
+      contents: read
     if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Production')
     uses: ./.github/workflows/deploy-script.yml
     with:
@@ -33,6 +35,8 @@ jobs:
 
   deploy-dev:
     name: Development
+    permissions:
+      contents: read
     if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'Development')
     uses: ./.github/workflows/deploy-script.yml
     with:

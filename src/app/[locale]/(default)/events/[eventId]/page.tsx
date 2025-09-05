@@ -1,5 +1,6 @@
 import { and, eq } from 'drizzle-orm';
 import {
+  ArrowLeftIcon,
   BookImageIcon,
   CalendarIcon,
   EditIcon,
@@ -16,6 +17,7 @@ import {
 } from 'next-intl/server';
 import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
+import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
@@ -60,7 +62,7 @@ export default async function EventDetailsPage({
     dateStyle: 'short',
     timeStyle: 'short',
   } as const;
-  const t = await getTranslations('events.attendance');
+  const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   const { ui, events } = await getMessages();
   if (Number.isNaN(Number(eventId))) return notFound();
@@ -90,6 +92,16 @@ export default async function EventDetailsPage({
 
   return (
     <>
+      <Link
+        href='/events'
+        className='my-4 flex w-fit gap-2'
+        variant='secondary'
+        size='default'
+        aria-label={t('backToEvents')}
+      >
+        <ArrowLeftIcon aria-hidden='true' />
+        {t('backToEvents')}
+      </Link>
       <div className='relative'>
         <h1 className='my-4'>{localization.name}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
@@ -132,6 +144,20 @@ export default async function EventDetailsPage({
             <span>{localization.location}</span>
           </div>
         )}
+        {event.skill && (
+          <>
+            <Separator />
+            <span className='text-muted-foreground'>
+              {t('attendanceGivesSkill')}
+            </span>
+            <div className='mt-4 flex items-center gap-2'>
+              <SkillIcon skill={event.skill} size='xl' />
+              {locale === 'en-GB'
+                ? event.skill?.nameEnglish
+                : event.skill?.nameNorwegian}
+            </div>
+          </>
+        )}
         <Separator />
         <NextIntlClientProvider
           messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
@@ -145,7 +171,7 @@ export default async function EventDetailsPage({
                 disabled={!user}
               />
               <p>
-                {t('signUpDeadline', {
+                {t('attendance.signUpDeadline', {
                   date: event.signUpDeadline
                     ? formatter.dateTime(event.signUpDeadline, formatterOptions)
                     : formatter.dateTime(event.startTime, formatterOptions),
@@ -162,9 +188,9 @@ export default async function EventDetailsPage({
           {canEdit && (
             <>
               <Separator />
-              <h2>{t('attendance')}</h2>
+              <h2>{t('attendance.attendance')}</h2>
               <p className='text-muted-foreground text-sm'>
-                {t('attendanceDescription')}
+                {t('attendance.attendanceDescription')}
               </p>
               <ParticipantsTable participants={participants} event={event} />
             </>

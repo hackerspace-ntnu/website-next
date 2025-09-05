@@ -54,7 +54,8 @@ const shiftScheduleRouter = createRouter({
       .leftJoin(skills, eq(usersSkills.skillId, skills.id))
       .where(or(isNull(shifts.endDate), gte(shifts.endDate, new Date())))
       .groupBy(shifts.day, shifts.timeslot, shifts.endDate, users.id)
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('shiftSchedule.api.fetchShiftsFailed'),

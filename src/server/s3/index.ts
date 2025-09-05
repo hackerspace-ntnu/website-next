@@ -99,6 +99,14 @@ class S3Service {
   }
 }
 
+const directories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'events',
+  'groups',
+] as const;
+
 const s3 = new S3Service();
 
 export { s3 };

@@ -1,5 +1,6 @@
 'use client';
 
+import { addDays } from 'date-fns';
 import { enGB, nb } from 'date-fns/locale';
 import { ImageIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -109,10 +110,10 @@ function EditEventForm({
       descriptionEnglish: english?.description ?? [],
       locationEnglish: english?.location ?? '',
       locationNorwegian: norwegian?.location ?? '',
-      startTime: event?.startTime ?? new Date(),
+      startTime: event?.startTime ?? addDays(new Date(), 1),
       setSignUpDeadline: !!event?.signUpDeadline,
       signUpDeadline: event?.signUpDeadline ?? null,
-      endTime: event?.endTime ?? new Date(),
+      endTime: event?.endTime ?? addDays(new Date(), 1),
       locationMapLink: event?.locationMapLink ?? '',
       internal: event?.internal ?? false,
       skill: event?.skill?.identifier ?? '',
