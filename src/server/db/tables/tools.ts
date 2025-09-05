@@ -13,7 +13,8 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { toolType } from '@/lib/constants';
-import { files, localesEnum } from '@/server/db/tables';
+import { files } from '@/server/db/tables/files';
+import { localesEnum } from '@/server/db/tables/locales';
 
 const toolTypeEnum = pgEnum('toolType', toolType);
 
