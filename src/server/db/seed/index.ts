@@ -1,8 +1,8 @@
-import { fakerEN, fakerNB_NO } from '@faker-js/faker';
 import { reset } from 'drizzle-seed';
-import { routing } from '@/lib/locale';
 import { db } from '@/server/db';
 import {
+  articleData,
+  articleLocalizationsData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
@@ -24,6 +24,8 @@ import {
   groups,
   itemCategories,
   itemLocalizations,
+  newsArticleLocalizations,
+  newsArticles,
   shifts,
   skills,
   storageItems,
@@ -31,15 +33,6 @@ import {
   usersGroups,
   usersSkills,
 } from '@/server/db/tables';
-
-// To generate fake data use these helpers
-// biome-ignore-start lint/correctness/noUnusedVariables: These may be used in the future
-const locales = routing.locales;
-const faker = {
-  en: fakerEN,
-  no: fakerNB_NO,
-};
-// biome-ignore-end lint/correctness/noUnusedVariables: These may be used in the future
 
 async function main() {
   console.log('Resetting database...');
@@ -108,6 +101,14 @@ async function main() {
   console.log('Inserting event localizations...');
   await db.insert(eventLocalizations).values(eventLocalizationsData);
   console.log('Event localizations inserted');
+
+  console.log('Inserting news articles...');
+  await db.insert(newsArticles).values(articleData);
+  console.log('News articles inserted');
+
+  console.log('Inserting news article localizations...');
+  await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
+  console.log('News article localizations inserted');
 }
 
 await main();

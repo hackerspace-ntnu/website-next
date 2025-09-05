@@ -30,8 +30,8 @@ function ParticipantsTable({
       <TableHeader>
         <TableRow>
           <TableHead className='w-full'>{t('member')}</TableHead>
-          <TableHead>{t('attendance')}</TableHead>
-          <TableHead>{t('actions')}</TableHead>
+          <TableHead className='text-center'>{t('attended')}</TableHead>
+          <TableHead className='min-w-40 text-center'>{t('actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -51,7 +51,7 @@ function ParticipantsTable({
                 </span>
               </div>
             </TableCell>
-            <TableCell>
+            <TableCell className='[&:has([role=checkbox])]:pr-4'>
               <div className='flex items-center gap-2'>
                 <AttendanceCheckbox participant={participant} event={event} />
               </div>
