@@ -3,8 +3,7 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import { timestamp } from 'drizzle-orm/gel-core';
-import { integer, pgTable, serial } from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
 import { tools } from '@/server/db/tables/tools';
 import { users } from '@/server/db/tables/users';
 
