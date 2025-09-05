@@ -7,11 +7,11 @@ function eventSchema(t: Translations) {
     nameNorwegian: z
       .string()
       .min(1, t('events.form.nameNorwegian.required'))
-      .max(50, t('events.form.nameNorwegian.maxLength', { count: 50 })),
+      .max(63, t('events.form.nameNorwegian.maxLength', { count: 63 })),
     nameEnglish: z
       .string()
       .min(1, t('events.form.nameEnglish.required'))
-      .max(50, t('events.form.nameEnglish.maxLength', { count: 50 })),
+      .max(63, t('events.form.nameEnglish.maxLength', { count: 63 })),
     summaryNorwegian: z
       .string()
       .min(1, t('events.form.summaryNorwegian.required'))

@@ -94,7 +94,7 @@ function EventCard({
             <p className='line-clamp-5 max-w-96'>
               {event.localization.description}
             </p>
-            <p className='mt-2 flex items-center justify-center gap-2'>
+            <div className='mt-2 flex items-center justify-center gap-2'>
               {event.skill && (
                 <>
                   <SkillIcon skill={event.skill} size='large' />
@@ -105,7 +105,7 @@ function EventCard({
                   </span>
                 </>
               )}
-            </p>
+            </div>
           </div>
           {imageUrl && (
             <Avatar className='h-48 w-48 shrink-0'>

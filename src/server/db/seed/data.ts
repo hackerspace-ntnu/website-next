@@ -20,6 +20,7 @@ import type {
   InsertUserSkill,
 } from '@/server/db/tables';
 
+// To generate fake data use these helpers
 const faker = {
   en: fakerEN,
   no: fakerNB_NO,

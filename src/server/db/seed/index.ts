@@ -1,6 +1,4 @@
-import { fakerEN, fakerNB_NO } from '@faker-js/faker';
 import { reset } from 'drizzle-seed';
-import { routing } from '@/lib/locale';
 import { db } from '@/server/db';
 import {
   articleLocalizationsData,
@@ -39,15 +37,6 @@ import {
   usersGroups,
   usersSkills,
 } from '@/server/db/tables';
-
-// To generate fake data use these helpers
-// biome-ignore-start lint/correctness/noUnusedVariables: These may be used in the future
-const locales = routing.locales;
-const faker = {
-  en: fakerEN,
-  no: fakerNB_NO,
-};
-// biome-ignore-end lint/correctness/noUnusedVariables: These may be used in the future
 
 async function main() {
   console.log('Resetting database...');
