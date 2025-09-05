@@ -154,6 +154,106 @@
     "allRightsReserved": "All rights reserved",
     "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
   },
+  "home": {
+    "placeholderAlt": "No image available",
+    "changeSlides": "Change slides",
+    "whoAreWe": "Who are we?",
+    "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
+    "stopBy": "Stop by!",
+    "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
+    "events": "Events",
+    "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on social activities.",
+    "news": "News",
+    "newsDescription": "See the latest updates from Hackerspace.",
+    "slides": {
+      "unauthorized": "Unauthorized to manage home page slides",
+      "image": "Image",
+      "overlay": "Overlay",
+      "active": "Active",
+      "create": "Create new slide",
+      "editSlide": "Edit slide",
+      "new": {
+        "unauthorized": "Unauthorized to create new home page slides",
+        "backToSlides": "Back to slides",
+        "create": "Create slide"
+      },
+      "edit": {
+        "unauthorized": "Unauthorized to edit home page slides",
+        "backToSlides": "Back to slides",
+        "edit": "Edit slide"
+      }
+    },
+    "api": {
+      "invalidId": "Invalid ID",
+      "activeInvalid": "Invalid value for active",
+      "slideNotFound": "The slide could not be found",
+      "slideImageNotFound": "The slide image could not be found",
+      "successCreate": "Slide created successfully",
+      "successEdit": "Slide edited successfully",
+      "successDeleteImage": "Slide image deleted successfully",
+      "successDelete": "Slide deleted successfully",
+      "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}"
+    },
+    "form": {
+      "altNorwegian": {
+        "label": "Image alt text (Norwegian)",
+        "placeholder": "Image alt text",
+        "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "altEnglish": {
+        "label": "Image alt text (English)",
+        "placeholder": "Image alt text",
+        "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "headingNorwegian": {
+        "label": "Heading (Norwegian)",
+        "placeholder": "Heading",
+        "required": "Heading is required",
+        "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "headingEnglish": {
+        "label": "Heading (English)",
+        "placeholder": "Heading",
+        "required": "Heading is required",
+        "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "descriptionNorwegian": {
+        "label": "Description (Norwegian)",
+        "placeholder": "Description",
+        "required": "Description is required",
+        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "descriptionEnglish": {
+        "label": "Description (English)",
+        "placeholder": "Description",
+        "required": "Description is required",
+        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+      },
+      "active": {
+        "label": "Active",
+        "invalid": "Invalid value for active"
+      },
+      "image": {
+        "label": "Slide image",
+        "upload": "Upload an image...",
+        "delete": {
+          "label": "Delete image",
+          "confirmTitle": "Are you sure you want to delete the slide image?",
+          "confirmDescription": "This action cannot be undone"
+        },
+        "sizeLimitError": "Home carousel image must be less than {size} MB",
+        "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "editSubmit": "Update slide",
+      "createSubmit": "Create slide",
+      "delete": {
+        "label": "Delete slide",
+        "confirmTitle": "Are you sure you want to delete the slide?",
+        "confirmDescription": "This action cannot be undone"
+      }
+    }
+  },
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",

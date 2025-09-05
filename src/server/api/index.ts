@@ -3,6 +3,7 @@ import {
   authRouter,
   eventsRouter,
   groupsRouter,
+  homeRouter,
   newsRouter,
   settingsRouter,
   shiftScheduleRouter,
@@ -16,6 +17,7 @@ import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
   auth: authRouter,
+  home: homeRouter,
   groups: groupsRouter,
   events: eventsRouter,
   settings: settingsRouter,

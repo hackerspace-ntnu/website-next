@@ -1,12 +1,14 @@
 import { reset } from 'drizzle-seed';
 import { db } from '@/server/db';
 import {
-  articleData,
   articleLocalizationsData,
+  articlesData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
   groupsData,
+  homeCarouselSlideLocalizationsData,
+  homeCarouselSlidesData,
   shiftsData,
   skillsData,
   storageItemCategories,
@@ -22,6 +24,8 @@ import {
   events,
   groupLocalizations,
   groups,
+  homeCarouselSlideLocalizations,
+  homeCarouselSlides,
   itemCategories,
   itemLocalizations,
   newsArticleLocalizations,
@@ -78,6 +82,16 @@ async function main() {
   await db.insert(usersSkills).values(usersSkillsData);
   console.log('User skills inserted');
 
+  console.log('Inserting home carousel slides...');
+  await db.insert(homeCarouselSlides).values(homeCarouselSlidesData);
+  console.log('Home carousel slides inserted');
+
+  console.log('Inserting home carousel slide localizations...');
+  await db
+    .insert(homeCarouselSlideLocalizations)
+    .values(homeCarouselSlideLocalizationsData);
+  console.log('Home carousel slide localizations inserted');
+
   console.log('Inserting storage item categories...');
   await db.insert(itemCategories).values(storageItemCategories);
   console.log('Storage item categories inserted');
@@ -103,7 +117,7 @@ async function main() {
   console.log('Event localizations inserted');
 
   console.log('Inserting news articles...');
-  await db.insert(newsArticles).values(articleData);
+  await db.insert(newsArticles).values(articlesData);
   console.log('News articles inserted');
 
   console.log('Inserting news article localizations...');
