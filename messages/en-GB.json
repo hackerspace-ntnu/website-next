@@ -152,7 +152,8 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved",
-    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
+    "reservations": "Reservations"
   },
   "news": {
     "title": "News",
@@ -870,6 +871,91 @@
     "policyChange": {
       "title": "Changes to this Privacy Policy",
       "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
+    }
+  },
+  "reservations": {
+    "title": "Reservations",
+    "backButton": "Back",
+    "tools": {
+      "available": "Book item",
+      "unavailable": "Unavailable",
+      "supervision": "Requires supervision",
+      "tooltip": "Read more about this tool",
+      "myReservations": "My reservations"
+    },
+    "myReservationsTable": {
+      "title": "Your reservations",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "editTitle": "Edit table",
+      "cancelTitle": "Cancel action",
+      "removetitle": "Remove checked reservations",
+      "checkBoxTitle": "Press to check",
+      "checkboxAllTitle": "Press to check all",
+      "tool": "Tool",
+      "from": "From",
+      "to": "To",
+      "goToCalendar": "Go to calendar",
+      "empty": "You have no reservations",
+      "notLoggedIn": "Please log in to see your reservations."
+    },
+    "information": {
+      "importantTitle": "Important information!",
+      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
+      "dontShow": "Do not show this again"
+    },
+    "toolbar": {
+      "prev": "Prev",
+      "today": "Today",
+      "next": "Next",
+      "day": "Day",
+      "week": "Week",
+      "3days": "3-Days",
+      "dayTitle": "Show day view",
+      "weekTitle": "Show week view",
+      "3daysTitle": "Show 3-day view",
+      "prevWeekTitle": "Previous week",
+      "prev3daysTitle": "Previous 3 days",
+      "prevDayTitle": "Previous day",
+      "todayTitle": "Go to today",
+      "nextWeekTitle": "Next week",
+      "next3daysTitle": "Next 3 days",
+      "nextDayTitle": "Next day"
+    },
+    "form": {
+      "titleCreate": "Create a reservation",
+      "descriptionCreate": "Ensure the input fields are correct and press 'create' to book a reservation",
+      "titleEdit": "Edit reservation",
+      "descriptionEdit": "Edit the field you wish to and press 'save'",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "create": "Create",
+      "name": "Name",
+      "namePlaceholder": "Admin Jim",
+      "phoneNr": "Phone number",
+      "phoneNrPlaceholder": "Your phone number",
+      "email": "Email",
+      "emailPlaceholder": "imagine@dragin.com",
+      "startTime": "Start date/time",
+      "endTime": "End date/time",
+      "formSchema": {
+        "nameReq": "Please type in your full name",
+        "phoneNrReq": "Please type in your phone number",
+        "emailReq": "Please type in your Email",
+        "Error": "Somehting went wrong, try again later..."
+      }
+    },
+    "confirmDialog": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "title": "Confirm action",
+      "description": "Are you certain you want to {action}"
+    },
+    "calendar": {
+      "createButton": "Create reservation",
+      "locale": "en"
     }
   }
 }
