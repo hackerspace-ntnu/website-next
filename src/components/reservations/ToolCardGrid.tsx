@@ -27,24 +27,15 @@ type ToolCardGridProps = {
 
 export function ToolCardGrid({ tools }: ToolCardGridProps) {
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
-  const [smallScreen, setSmallScreen] = useState(false);
   const [active, setActive] = useState<Tool | null>(null);
   const id = useId();
-
-  useEffect(() => {
-    if (!isDesktop) {
-      setSmallScreen(true);
-    } else {
-      setSmallScreen(false);
-    }
-  }, [isDesktop]);
 
   return (
     <div className='size-full'>
       {active && (
         <ExpandedToolCard active={active} onClose={() => setActive(null)} />
       )}
-      {smallScreen ? (
+      {!isDesktop ? (
         <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
           {tools.map(
             (tool) =>

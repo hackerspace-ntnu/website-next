@@ -119,6 +119,7 @@ export default function ToolCalendar() {
   }, [isIPad, isLaptop]);
 
   useEffect(() => {
+    // When you start connecting components to the backend, make sure to remove this and send in the data as a prop to this component - Martin
     if (storedReservations) {
       setReservations(storedReservations);
     }
