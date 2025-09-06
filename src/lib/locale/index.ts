@@ -178,8 +178,8 @@ const routing = defineRouting({
       'nb-NO': '/reservasjoner',
     },
     '/reservations/[id]': {
-      'en-GB': '/reservations/[id]',
-      'nb-NO': '/reservasjoner/[id]',
+      'en-GB': '/reservations/[reservationsId]',
+      'nb-NO': '/reservasjoner/[reservasjonerId]',
     },
   },
 });
