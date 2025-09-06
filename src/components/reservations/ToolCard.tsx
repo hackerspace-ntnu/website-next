@@ -79,8 +79,8 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
           tool.available ? (
             <Link
               href={{
-                pathname: '/reservations/[reservationsId]',
-                params: { reservationsId: tool.toolId },
+                pathname: '/reservations/[reservationId]',
+                params: { reservationId: tool.toolId },
               }}
               className='mt-auto h-14 w-full'
             >
