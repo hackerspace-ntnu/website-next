@@ -91,8 +91,8 @@ function ExpandedToolCard({ active, onClose }: ExpandedToolCardProps) {
             {active.available && (
               <Link
                 href={{
-                  pathname: '/reservations/[id]',
-                  params: { id: active.toolId },
+                  pathname: '/reservations/[reservationsId]',
+                  params: { reservationsId: active.toolId },
                 }}
               >
                 <Button
