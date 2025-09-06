@@ -27,7 +27,7 @@ type ToolCalendarPageLayoutProps = {
   params: Promise<{ locale: Locale; id: string }>;
 };
 
-export default async function EventDetailsLayout({
+export default async function ReservationItemLayout({
   children,
   params,
 }: ToolCalendarPageLayoutProps) {
