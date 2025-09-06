@@ -27,7 +27,7 @@ type CalendarDialogProps = {
   onSubmit: (data: Reservation) => void;
   onCancel: () => void;
   onDelete?: () => void;
-  defaultValues?: Omit<Reservation, 'start' | 'end'>;
+  defaultValues?: Partial<Omit<Reservation, 'start' | 'end'>>;
 };
 
 function CalendarDialog({

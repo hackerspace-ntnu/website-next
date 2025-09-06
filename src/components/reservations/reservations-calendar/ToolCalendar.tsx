@@ -35,9 +35,9 @@ type Reservation = {
   reservationId: string;
   start: Date | string;
   end: Date | string;
-  name: string;
-  phoneNr: string;
-  email: string;
+  name: string | undefined;
+  phoneNr: string | undefined;
+  email: string | undefined;
 };
 
 /**
