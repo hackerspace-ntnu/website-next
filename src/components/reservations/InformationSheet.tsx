@@ -52,7 +52,7 @@ function InformationSheet() {
         <SheetFooter className='flex w-full flex-row items-center justify-center gap-3'>
           <Checkbox
             id='checkboxInformationSheet'
-            onCheckedChange={() => handleSave()}
+            onCheckedChange={handleSave}
           />
           <Label htmlFor='checkboxInformationSheet'>
             {t('information.dontShow')}
