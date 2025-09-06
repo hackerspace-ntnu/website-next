@@ -16,9 +16,11 @@ export async function generateMetadata({
 }) {
   const { id } = await params;
   const data = tools.find((t) => t.toolId.toString() === id);
+  
+  if (!data) return;
 
   return {
-    title: `${data?.title}`,
+    title: `${data.title}`,
   };
 }
 
