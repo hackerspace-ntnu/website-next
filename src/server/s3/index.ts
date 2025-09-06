@@ -102,6 +102,7 @@ const directories = [
   'profile-pictures',
   'news',
   'storage-items',
+  'events',
   'groups',
 ] as const;
 
