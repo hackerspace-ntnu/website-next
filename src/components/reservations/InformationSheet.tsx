@@ -33,7 +33,7 @@ function InformationSheet() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side='top'
-        className='mx-auto w-full max-w-3xl rounded-b-lg border border-border'
+        className='mx-auto mt-6 w-full max-w-3xl rounded-b-lg border border-border'
       >
         <SheetHeader className='mb-5'>
           <SheetTitle className='text-center'>
