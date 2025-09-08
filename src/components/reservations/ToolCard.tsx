@@ -85,7 +85,7 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
               }}
               className='mt-auto w-full'
             >
-              <Button className='h-14 w-full rounded-t-none text-base-lg-clamp hover:bg-primary'>
+              <Button className='clamp-[text-base-lg-clamp] h-14 w-full rounded-t-none hover:bg-primary'>
                 {t('tools.available')}
               </Button>
             </Link>
