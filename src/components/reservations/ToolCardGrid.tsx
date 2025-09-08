@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
@@ -27,13 +27,18 @@ type ToolCardGridProps = {
 
 export function ToolCardGrid({ tools }: ToolCardGridProps) {
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
-  const [active, setActive] = useState<Tool | null>(null);
+  const [currentTool, setCurrentTool] = useState<Tool | null>(null);
   const id = useId();
 
   return (
     <div className='size-full'>
-      {active && (
-        <ExpandedToolCard active={active} onClose={() => setActive(null)} />
+      {currentTool && (
+        <ExpandedToolCard
+          currentTool={currentTool}
+          open={!!currentTool}
+          onOpenChange={() => setCurrentTool(null)}
+          onCloseButton={() => setCurrentTool(null)}
+        />
       )}
       {!isDesktop ? (
         <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
@@ -43,7 +48,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
                 <HorizontalToolCard
                   key={`printer-${tool.title}-${id}`}
                   tool={tool}
-                  onClick={() => setActive(tool)}
+                  onClick={() => setCurrentTool(tool)}
                 />
               ),
           )}
@@ -53,7 +58,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
                 <HorizontalToolCard
                   key={`annet-${tool.title}-${id}`}
                   tool={tool}
-                  onClick={() => setActive(tool)}
+                  onClick={() => setCurrentTool(tool)}
                 />
               ),
           )}
@@ -66,7 +71,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
                 <ToolCard
                   key={`printer-${tool.title}-${id}`}
                   tool={tool}
-                  onClick={() => setActive(tool)}
+                  onClick={() => setCurrentTool(tool)}
                 />
               ),
           )}
@@ -76,7 +81,7 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
                 <ToolCard
                   key={`annet-${tool.title}-${id}`}
                   tool={tool}
-                  onClick={() => setActive(tool)}
+                  onClick={() => setCurrentTool(tool)}
                 />
               ),
           )}
