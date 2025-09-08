@@ -63,11 +63,10 @@ function ExpandedToolCard({
             </span>
           </DialogTitle>
           <DialogDescription className=' flex h-44 flex-col gap-1 overflow-auto px-5 text-left'>
-            <p className='clamp-[text-sm-base-clamp]'>
+            <span className='clamp-[text-sm-base-clamp]'>
               {currentTool.textContent}
-            </p>
+            </span>
             <br />
-
             {currentTool.type === 'printer' &&
               toolDescriptionFields.map((field) => {
                 const text = currentTool[field];
