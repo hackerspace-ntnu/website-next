@@ -185,6 +185,14 @@ const routing = defineRouting({
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
     },
+    '/reservations': {
+      'en-GB': '/reservations',
+      'nb-NO': '/reservasjoner',
+    },
+    '/reservations/[reservationId]': {
+      'en-GB': '/reservations/[reservationId]',
+      'nb-NO': '/reservasjoner/[reservationId]',
+    },
   },
 });
 
