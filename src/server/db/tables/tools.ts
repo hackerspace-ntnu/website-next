@@ -61,7 +61,7 @@ const toolsLocalizationsRelations = relations(
 );
 
 const printerSpecs = pgTable('printer_specs', {
-  id: integer('id')
+  printerId: integer('printerId')
     .primaryKey()
     .references(() => tools.id, { onDelete: 'cascade' }),
   filamentSize: varchar('filament_size', { length: 32 }),
@@ -71,7 +71,7 @@ const printerSpecs = pgTable('printer_specs', {
 
 const printerSpecsRelations = relations(printerSpecs, ({ one }) => ({
   tool: one(tools, {
-    fields: [printerSpecs.id],
+    fields: [printerSpecs.printerId],
     references: [tools.id],
   }),
 }));
