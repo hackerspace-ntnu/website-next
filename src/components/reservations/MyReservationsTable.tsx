@@ -44,7 +44,6 @@ function MyReservationsTable() {
   const ref2 = useRef<HTMLDivElement>(null);
   const refr = [ref, ref2];
   const loggedIn = true;
-  const [smallScreen, setSmallScreen] = useState(false);
   const userId = '9c62462d-9695-4e37-9ddb-e1576998f475'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
 
   useEffect(() => {
@@ -89,17 +88,11 @@ function MyReservationsTable() {
 
   useOutsideClick(refr, () => setEditPressed(false));
 
-  useEffect(() => {
-    setSmallScreen(!isDesktop);
-  }, [isDesktop]);
-
   function selectAllCheckBox() {
     return (
       <TableHead
         className={cx(
-          smallScreen
-            ? 'border-r'
-            : 'flex items-center justify-center border-r',
+          !isDesktop ? 'border-r' : 'flex items-center justify-center border-r',
         )}
       >
         <Checkbox
@@ -108,7 +101,7 @@ function MyReservationsTable() {
             reservations.length > 0 && reservations.length === checked.length
           }
           onCheckedChange={(isChecked) => handleSelectAll(isChecked === true)}
-          className={cx(smallScreen && 'mx-2 flex place-self-center')}
+          className={cx(!isDesktop && 'mx-2 flex place-self-center')}
         />
       </TableHead>
     );
@@ -159,7 +152,7 @@ function MyReservationsTable() {
         </h3>
         <Table>
           <TableHeader>
-            {smallScreen ? (
+            {!isDesktop ? (
               <TableRow className='border-t'>
                 {editPressed && loggedIn && selectAllCheckBox()}
                 <TableHead className='text-center'>Tool</TableHead>
@@ -179,7 +172,7 @@ function MyReservationsTable() {
             reservations.length !== 0 ? (
               <TableBody>
                 {reservations.map((res) =>
-                  smallScreen ? (
+                  !isDesktop ? (
                     <TableRow key={res.reservationId}>
                       {editPressed && loggedIn && (
                         <TableCell className='border-r'>
@@ -209,8 +202,8 @@ function MyReservationsTable() {
                           <Link
                             title={t('myReservationsTable.goToCalendar')}
                             href={{
-                              pathname: '/reservations/[id]',
-                              params: { id: res.toolId },
+                              pathname: '/reservations/[reservationId]',
+                              params: { reservationId: res.toolId },
                             }}
                             className='mr-4 flex'
                           >

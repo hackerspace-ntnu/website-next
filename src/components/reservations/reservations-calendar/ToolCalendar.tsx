@@ -35,9 +35,9 @@ type Reservation = {
   reservationId: string;
   start: Date | string;
   end: Date | string;
-  name: string;
-  phoneNr: string;
-  email: string;
+  name: string | undefined;
+  phoneNr: string | undefined;
+  email: string | undefined;
 };
 
 /**
@@ -119,6 +119,7 @@ export default function ToolCalendar() {
   }, [isIPad, isLaptop]);
 
   useEffect(() => {
+    // When you start connecting components to the backend, make sure to remove this and send in the data as a prop to this component - Martin
     if (storedReservations) {
       setReservations(storedReservations);
     }
@@ -305,7 +306,7 @@ export default function ToolCalendar() {
         {t('calendar.createButton')}
       </Button>
       <CalendarDialog
-        open={selectedSlot !== null}
+        open={!!selectedSlot}
         onOpenChange={() => setSelectedSlot(null)}
         start={selectedSlot?.start ?? new Date()}
         end={selectedSlot?.end ?? new Date()}
@@ -314,7 +315,7 @@ export default function ToolCalendar() {
         onCancel={() => setSelectedSlot(null)}
       />
       <CalendarDialog
-        open={selectedReservation !== null}
+        open={!!selectedReservation}
         onOpenChange={() => setSelectedReservation(null)}
         start={new Date(selectedReservation?.start ?? new Date())}
         end={new Date(selectedReservation?.end ?? new Date())}
@@ -326,9 +327,9 @@ export default function ToolCalendar() {
           handleDeleteEvent(selectedReservation.reservationId)
         }
         defaultValues={{
-          name: selectedReservation?.name ?? '',
-          email: selectedReservation?.email ?? '',
-          phoneNr: selectedReservation?.phoneNr ?? '',
+          name: selectedReservation?.name,
+          email: selectedReservation?.email,
+          phoneNr: selectedReservation?.phoneNr,
         }}
       />
       <div className='w-full overflow-hidden rounded-lg rounded-b-none border border-border bg-background text-foreground'>

@@ -101,9 +101,17 @@ const routing = defineRouting({
       'en-GB': '/events',
       'nb-NO': '/arrangementer',
     },
+    '/events/new': {
+      'en-GB': '/events/new',
+      'nb-NO': '/arrangementer/ny',
+    },
     '/events/[eventId]': {
       'en-GB': '/events/[eventId]',
       'nb-NO': '/arrangementer/[eventId]',
+    },
+    '/events/[eventId]/edit': {
+      'en-GB': '/events/[eventId]/edit',
+      'nb-NO': '/arrangementer/[eventId]/rediger',
     },
     '/news': {
       'en-GB': '/news',
@@ -116,6 +124,10 @@ const routing = defineRouting({
     '/news/[articleId]': {
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
+    },
+    '/news/[articleId]/edit': {
+      'en-GB': '/news/[articleId]/edit',
+      'nb-NO': '/nyheter/[articleId]/rediger',
     },
     '/members': {
       'en-GB': '/members',
@@ -177,9 +189,9 @@ const routing = defineRouting({
       'en-GB': '/reservations',
       'nb-NO': '/reservasjoner',
     },
-    '/reservations/[id]': {
-      'en-GB': '/reservations/[id]',
-      'nb-NO': '/reservasjoner/[id]',
+    '/reservations/[reservationId]': {
+      'en-GB': '/reservations/[reservationId]',
+      'nb-NO': '/reservasjoner/[reservationId]',
     },
   },
 });

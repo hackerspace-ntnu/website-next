@@ -12,30 +12,32 @@ import { tools } from '@/mock-data/reservations';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ reservationId: string }>;
 }) {
-  const { id } = await params;
-  const data = tools.find((t) => t.toolId.toString() === id);
+  const { reservationId } = await params;
+  const data = tools.find((t) => t.toolId.toString() === reservationId);
+
+  if (!data) return;
 
   return {
-    title: `${data?.title}`,
+    title: `${data.title}`,
   };
 }
 
 type ToolCalendarPageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale; id: string }>;
+  params: Promise<{ locale: Locale; reservationId: string }>;
 };
 
-export default async function EventDetailsLayout({
+export default async function ReservationItemLayout({
   children,
   params,
 }: ToolCalendarPageLayoutProps) {
-  const { locale, id } = await params;
+  const { locale, reservationId } = await params;
   setRequestLocale(locale);
   const { reservations, ui } = await getMessages();
   const t = await getTranslations('reservations');
-  const data = tools.find((t) => t.toolId.toString() === id);
+  const data = tools.find((t) => t.toolId.toString() === reservationId);
   if (!data) return notFound();
 
   return (

@@ -33,7 +33,7 @@ function InformationSheet() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side='top'
-        className='mx-auto w-full max-w-3xl rounded-b-lg border border-border'
+        className='mx-auto mt-6 w-full max-w-3xl rounded-b-lg border border-border'
       >
         <SheetHeader className='mb-5'>
           <SheetTitle className='text-center'>
@@ -52,7 +52,7 @@ function InformationSheet() {
         <SheetFooter className='flex w-full flex-row items-center justify-center gap-3'>
           <Checkbox
             id='checkboxInformationSheet'
-            onCheckedChange={() => handleSave()}
+            onCheckedChange={handleSave}
           />
           <Label htmlFor='checkboxInformationSheet'>
             {t('information.dontShow')}

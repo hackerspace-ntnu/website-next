@@ -15,6 +15,7 @@
     "category": "kategori",
     "sort": "sortering",
     "photoOf": "Bilde av {name}",
+    "skills": "Ferdigheter",
     "today": "I dag",
     "selected": "Valgt",
     "week": "Uke",
@@ -158,8 +159,59 @@
     "title": "Nyheter",
     "internalArticle": "Dette er en intern artikkel",
     "newArticle": "Ny artikkel",
+    "updateArticle": "Oppdater artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
+    "views": "Visninger",
+    "backToNews": "Tilbake til nyheter",
+    "backToArticle": "Tilbake til artikkel",
+    "lastUpdated": "Sist oppdatert: {date}",
+    "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
+    "UpdateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "form": {
+      "createArticle": "Opprett artikkel",
+      "updateArticle": "Oppdater artikkel",
+      "deleteArticle": "Slett artikkel",
+      "articleCreated": "Artikkel opprettet",
+      "articleUpdated": "Artikkel oppdatert",
+      "articleImageDeleted": "Artikkelbilde slettet",
+      "articleDeleted": "Artikkel slettet",
+      "deleteArticleImage": "Slett artikkelbilde",
+      "deleteArticleImageTitle": "Er du sikker på at du vil slette dette artikkelbildet?",
+      "deleteArticleImageDescription": "Denne handlingen kan ikke angres.",
+      "deleteArticleTitle": "Er du sikker på at du vil slette denne artikkelen?",
+      "deleteArticleDescription": "Denne handlingen kan ikke angres.",
+      "image": {
+        "label": "Artikkelbilde",
+        "description": "Last opp et bilde...",
+        "required": "Artikkelbilde er påkrevd",
+        "sizeLimitError": "Artikkelbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Artikkelbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "title": {
+        "labelNorwegian": "Artikkeltittel (norsk)",
+        "labelEnglish": "Artikkeltittel (engelsk)",
+        "required": "Artikkeltittel er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Artikkelinnhold (norsk)",
+        "labelEnglish": "Artikkelinnhold (engelsk)",
+        "required": "Artikkelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern",
+        "description": "Hvis valgt, vil denne artikkelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "invalidLimit": "Ugyldig limit",
+      "invalidOffset": "Ugyldig offset",
+      "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "insertFailed": "Kunne ikke legge til nyhetsartikkel",
+      "articleNotFound": "Artikkel ikke funnet",
+      "articleImageNotFound": "Artikkelbilde ikke funnet"
+    }
   },
   "members": {
     "title": "Medlemmer",
@@ -583,27 +635,173 @@
     "upcomingEvents": "Kommende arrangementer",
     "pastEvents": "Tidligere arrangementer",
     "detailsAboutEvent": "Les mer om {eventName}",
-    "startsAt": "Starter kl.",
-    "startedAt": "Startet kl.",
-    "endsAt": "Slutter kl.",
-    "endedAt": "Sluttet kl.",
-    "backToEvents": "Tilbake til arrangementer"
+    "startsAt": "Starter",
+    "startedAt": "Startet",
+    "endsAt": "Slutter",
+    "endedAt": "Sluttet",
+    "backToEvents": "Tilbake til arrangementer",
+    "backToEvent": "Tilbake til arrangement",
+    "attendanceGivesSkill": "Ved å delta på dette arrangementet vil du oppnå følgende ferdighet:",
+    "new": {
+      "title": "Nytt arrangement",
+      "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",
+      "success": "Arrangementet ble opprettet! Videresender deg til arrangementet..."
+    },
+    "edit": {
+      "title": "Rediger arrangement",
+      "unauthorized": "Du har ikke rettigheter til å redigere arrangementer",
+      "delete": "Slett arrangement",
+      "deleteImage": "Slett arrangementsbilde",
+      "deleteConfirmTitle": "Er du sikker på at du vil slette dette arrangementet?",
+      "deleteConfirmDescription": "Alle påmeldinger for dette arrangementet vil også bli slettet. Denne handlingen kan ikke angres.",
+      "deleteImageConfirmTitle": "Er du sikker på at du vil slette arrangementsbildet?",
+      "deleteImageConfirmDescription": "Denne handlingen kan ikke angres.",
+      "successEdit": "Arrangementet ble oppdatert! Videresender deg til arrangementet...",
+      "successDelete": "Arrangementet ble slettet! Videresender deg til arrangementer...",
+      "successDeleteImage": "Arrangementsbildet ble slettet!"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "Navn (norsk)",
+        "placeholder": "Navn",
+        "required": "Navn er påkrevd",
+        "maxLength": "Navn må være mindre enn {count} tegn"
+      },
+      "nameEnglish": {
+        "label": "Navn (engelsk)",
+        "placeholder": "Event name",
+        "required": "Navn er påkrevd",
+        "maxLength": "Navn må være mindre enn {count} tegn"
+      },
+      "summaryNorwegian": {
+        "label": "Sammendrag (norsk)",
+        "placeholder": "Kort beskrivelse av arrangementet",
+        "required": "Sammendrag er påkrevd",
+        "maxLength": "Sammendrag må være mindre enn {count} tegn"
+      },
+      "summaryEnglish": {
+        "label": "Sammendrag (engelsk)",
+        "placeholder": "Short description of the event",
+        "required": "Sammendrag er påkrevd",
+        "maxLength": "Sammendrag må være mindre enn {count} tegn"
+      },
+      "descriptionNorwegian": {
+        "label": "Beskrivelse (norsk)",
+        "placeholder": "Beskrivelse av arrangementet",
+        "required": "Beskrivelse er påkrevd"
+      },
+      "descriptionEnglish": {
+        "label": "Beskrivelse (engelsk)",
+        "placeholder": "Description of the event",
+        "required": "Beskrivelse er påkrevd"
+      },
+      "locationNorwegian": {
+        "label": "Sted (norsk)",
+        "placeholder": "Sted for arrangementet",
+        "required": "Sted er påkrevd",
+        "maxLength": "Sted må være mindre enn {count} tegn"
+      },
+      "locationEnglish": {
+        "label": "Sted (engelsk)",
+        "placeholder": "Location of the event",
+        "required": "Location is required",
+        "maxLength": "Sted må være mindre enn {count} tegn"
+      },
+      "startTime": {
+        "label": "Starttidspunkt",
+        "required": "Starttidspunkt er påkrevd",
+        "timeInPast": "Starttidspunktet må være i fremtiden"
+      },
+      "setSignUpDeadline": {
+        "label": "Sett påmeldingsfrist",
+        "description": "Du kan du sette en påmeldingsfrist. Etter dette tidspunktet vil ingen nye påmeldinger bli akseptert"
+      },
+      "signUpDeadline": {
+        "label": "Påmeldingsfrist",
+        "timeInPast": "Påmeldingsfristen må være i fremtiden",
+        "beforeStartTime": "Påmeldingsfristen må være før arrangementets starttidspunkt"
+      },
+      "endTime": {
+        "label": "Sluttidspunkt",
+        "required": "Sluttidspunkt er påkrevd",
+        "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
+      },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
+      "internal": {
+        "label": "Internt arrangement",
+        "description": "Hvis avkrysset, vil arrangementet kun være synlig for Hackerspace-medlemmer"
+      },
+      "skill": {
+        "label": "Velg ferdighet",
+        "description": "Velg ferdigheten som kan tilegnes ved å delta på dette arrangementet",
+        "placeholder": "Velg en ferdighet"
+      },
+      "image": {
+        "label": "Arrangementsbilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Arrangementsbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Arrangementsbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "createSubmit": "Opprett arrangement",
+      "editSubmit": "Oppdater arrangement"
+    },
+    "attendance": {
+      "signUp": "Meld meg på",
+      "cancelSignUp": "Meld meg av",
+      "signUpSuccess": "Du har blitt meldt på arrangementet!",
+      "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
+      "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
+      "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
+      "eventStartedAlready": "Arrangementet har allerede startet",
+      "eventFinishedAlready": "Arrangementet er ferdig",
+      "signUpDeadline": "Påmeldingsfrist: {date}",
+      "attendance": "Oppmøte",
+      "attended": "Møtte opp",
+      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendeesList": "Deltakerliste",
+      "member": "Medlem",
+      "actions": "Handlinger",
+      "present": "Til stede",
+      "absent": "Fraværende",
+      "give": "Gi",
+      "skillAttained": "Ferdighet oppnådd!",
+      "noParticipants": "Ingen medlemmer har meldt seg på dette arrangementet",
+      "notStartedYet": "Kan ikke endre oppmøte: Arrangementet har ikke startet enda",
+      "updating": "Oppdaterer oppmøte for {name}...",
+      "success": "Oppmøte oppdatert for {name}!",
+      "error": "Kunne ikke oppdatere oppmøte for {name}",
+      "givingSkill": "Gir ferdighet {skill} til {name}...",
+      "successSkill": "Ferdighet {skill} gitt til {name}!",
+      "errorSkill": "Kunne ikke gi ferdighet {skill} til {name}"
+    },
+    "api": {
+      "invalidId": "Ugyldig arrangement-ID",
+      "invalidUserId": "Ugyldig bruker-ID",
+      "invalidSkillId": "Ugyldig ferdighet-ID",
+      "fetchEventFailed": "Kunne ikke hente arrangement",
+      "unauthorized": "Du har ikke rettigheter til å se dette arrangementet",
+      "invalidOffset": "Ugyldig offset",
+      "invalidLimit": "Ugyldig limit",
+      "insertFailed": "Kunne ikke opprette arrangement",
+      "notFound": "Kunne ikke finne arrangementet",
+      "skillNotFound": "Kunne ikke finne ferdigheten",
+      "userNotFound": "Kunne ikke finne brukeren",
+      "alreadyHasSkill": "Brukeren {user} har allerede ferdigheten {skill}",
+      "participantNotFound": "Kunne ikke finne deltakeren",
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
+    }
   },
   "rules": {
     "title": "Regler",
     "forEveryone": "For alle",
     "internal": "Interne regler"
-  },
-  "skills": {
-    "skills": "Ferdigheter",
-    "printing": "3D-printing",
-    "soldering": "Lodding",
-    "raspberry": "Raspberry Pi",
-    "unix": "Unix/Linux",
-    "laser": "Laserkutting",
-    "workshop": "Verkstedsverktøy",
-    "microcontroller": "Mikrokontroller-programmering",
-    "webdevelopment": "Webutvikling"
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",

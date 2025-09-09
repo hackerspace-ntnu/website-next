@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function CalendarSkeleton() {
+export default function CalendarLoading() {
   return (
     <div className='flex h-full w-full flex-col gap-2'>
       <Skeleton className='h-[40px] w-[184px] self-center rounded-xl' />
@@ -15,5 +15,3 @@ function CalendarSkeleton() {
     </div>
   );
 }
-
-export { CalendarSkeleton };
