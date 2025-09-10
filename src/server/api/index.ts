@@ -4,6 +4,7 @@ import {
   eventsRouter,
   groupsRouter,
   newsRouter,
+  reservationsRouter,
   settingsRouter,
   shiftScheduleRouter,
   skillsRouter,
@@ -26,6 +27,7 @@ const router = createRouter({
   users: usersRouter,
   utils: utilsRouter,
   news: newsRouter,
+  reservations: reservationsRouter,
 });
 
 const createCaller = createCallerFactory(router);
