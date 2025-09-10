@@ -956,6 +956,10 @@
     "calendar": {
       "createButton": "Opprett reservasjon",
       "locale": "nb"
+    },
+    "api": {
+      "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
+      "invalidId": "Ugyldig reservasjons-id"
     }
   }
 }

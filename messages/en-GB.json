@@ -944,7 +944,7 @@
         "nameReq": "Please type in your full name",
         "phoneNrReq": "Please type in your phone number",
         "emailReq": "Please type in your Email",
-        "Error": "Somehting went wrong, try again later..."
+        "Error": "Something went wrong, try again later..."
       }
     },
     "confirmDialog": {
@@ -956,6 +956,10 @@
     "calendar": {
       "createButton": "Create reservation",
       "locale": "en"
+    },
+    "api": {
+      "startBeforeEndError": "End time cannot be before start time",
+      "invalidId": "Invalid reservation id"
     }
   }
 }
