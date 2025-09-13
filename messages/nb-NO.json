@@ -959,7 +959,8 @@
     },
     "api": {
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
-      "invalidId": "Ugyldig reservasjons-id"
+      "invalidId": "Ugyldig reservasjons-id",
+      "notFound": "Kunne ikke finne reservasjonen"
     }
   }
 }

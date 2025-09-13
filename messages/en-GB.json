@@ -959,7 +959,8 @@
     },
     "api": {
       "startBeforeEndError": "End time cannot be before start time",
-      "invalidId": "Invalid reservation id"
+      "invalidId": "Invalid reservation id",
+      "notFound": "Could not find reservation"
     }
   }
 }
