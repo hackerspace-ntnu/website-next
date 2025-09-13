@@ -3,7 +3,14 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 import { tools } from '@/server/db/tables/tools';
 import { users } from '@/server/db/tables/users';
 
@@ -19,6 +26,7 @@ const toolReservations = pgTable('tool_reservations', {
   reservedTill: timestamp('reserved_till').notNull(),
   notes: text('notes'),
   reservedAt: timestamp('reserved_at').notNull().defaultNow(),
+  finished: boolean('finished').default(false),
 });
 
 const toolReservationsRelations = relations(toolReservations, ({ one }) => ({
