@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { groupLocalizations, groups, userGroups } from '@/server/db/tables';
+import { groupLocalizations, groups, usersGroups } from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { editGroupSchema } from '@/validations/groups/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/groups/fetchGroupMembersSchema';
@@ -103,9 +103,9 @@ const groupsRouter = createRouter({
     .query(async ({ ctx, input }) => {
       const groupId = input;
 
-      const results = await ctx.db.query.userGroups
+      const results = await ctx.db.query.usersGroups
         .findMany({
-          where: eq(userGroups.groupId, groupId),
+          where: eq(usersGroups.groupId, groupId),
           with: {
             user: true,
           },
