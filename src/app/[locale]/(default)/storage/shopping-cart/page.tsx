@@ -9,6 +9,14 @@ import { ShoppingCartClearDialog } from '@/components/storage/ShoppingCartClearD
 import { ShoppingCartTable } from '@/components/storage/ShoppingCartTable';
 import { api } from '@/lib/api/server';
 
+export async function generateMetadata() {
+  const t = await getTranslations('storage');
+
+  return {
+    title: `${t('title')}: ${t('shoppingCart.title')}`,
+  };
+}
+
 export default async function StorageShoppingCartPage({
   params,
 }: {
