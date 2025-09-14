@@ -21,7 +21,7 @@ const skillIdentifiers = [
   'webdevelopment',
 ] as const;
 
-const notificationSettings = ['all', 'essential', 'useful'] as const;
+const notificationSettings = ['all', 'useful', 'essential'] as const;
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
 

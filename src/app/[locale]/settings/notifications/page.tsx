@@ -21,10 +21,11 @@ export default async function NotificationsPage({
   setRequestLocale(locale);
 
   const { user } = await api.auth.state();
+  const notificationSettings = await api.users.fetchUserNotifications();
 
   if (!user) {
     return redirect({ href: '/auth', locale });
   }
 
-  return <NotificationsForm notifications='useful' />;
+  return <NotificationsForm notifications={notificationSettings} />;
 }

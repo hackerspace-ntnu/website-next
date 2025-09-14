@@ -5,6 +5,7 @@ import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 
 import { api } from '@/lib/api/client';
+import { usersRouter } from '@/server/api/routers/users';
 import { notificationsSchema } from '@/validations/settings/notificationsSchema';
 
 function NotificationsForm({
@@ -19,6 +20,7 @@ function NotificationsForm({
     api.settings.updateNotifications.useMutation({
       onSuccess: () => {
         toast.success(t('updateNotificationsSuccess'));
+        form.reset();
       },
     });
 
@@ -27,7 +29,7 @@ function NotificationsForm({
       onChange: formSchema,
     },
     defaultValues: {
-      notifications,
+      notifications: notifications ?? 'all',
     },
     onSubmit: ({ value }) => {
       updateNotificationsMutation.mutate(value);

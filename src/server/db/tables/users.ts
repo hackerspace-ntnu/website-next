@@ -19,7 +19,7 @@ import {
   userGroups,
   userSkills,
 } from '@/server/db/tables';
-import { notificationsEnum } from './notifications';
+import { notificationsEnum } from '@/server/db/tables/notifications';
 
 const users = pgTable(
   'users',
@@ -57,7 +57,7 @@ const users = pgTable(
     instagramUsername: varchar('instagram_username', { length: 52 }),
     linkedInUsername: varchar('linkedin_username', { length: 52 }),
     private: boolean('private').notNull().default(false),
-    notificationSettings: notificationsEnum('notification_settings')
+    notificationSetting: notificationsEnum('notification_setting')
       .notNull()
       .default('all'),
   },

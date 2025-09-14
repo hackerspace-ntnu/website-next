@@ -241,7 +241,7 @@ const settingsRouter = createRouter({
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .update(users)
-        .set({ notificationSettings: input.notifications })
+        .set({ notificationSetting: input.notifications })
         .where(eq(users.id, ctx.user.id));
     }),
   deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {

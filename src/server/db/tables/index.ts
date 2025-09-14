@@ -3,6 +3,7 @@ export * from './files';
 export * from './groups';
 export * from './loans';
 export * from './locales';
+export * from './notifications';
 export * from './office';
 export * from './sessions';
 export * from './shifts';
