@@ -1,12 +1,9 @@
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
-import { error } from 'node_modules/nuqs/dist/_tsup-dts-rollup';
-import { toast } from 'sonner';
 import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
-  protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -161,7 +158,6 @@ const usersRouter = createRouter({
 
       return Math.ceil(totalCount[0].count);
     }),
-
   fetchUserNotifications: authenticatedProcedure.query(async ({ ctx }) => {
     try {
       const userId = ctx.user.id;

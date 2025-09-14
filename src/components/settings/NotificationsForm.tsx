@@ -3,9 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
-
 import { api } from '@/lib/api/client';
-import { usersRouter } from '@/server/api/routers/users';
 import { notificationsSchema } from '@/validations/settings/notificationsSchema';
 
 function NotificationsForm({
