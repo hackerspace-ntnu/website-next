@@ -64,6 +64,13 @@
       "when": 1756283044330,
       "tag": "0008_friendly_firedrake",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1757881336088,
+      "tag": "0009_green_white_queen",
+      "breakpoints": true
     }
   ]
 }
