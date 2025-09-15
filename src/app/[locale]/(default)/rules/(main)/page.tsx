@@ -3,14 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RuleCard } from '@/components/rules/RuleCard';
 import { rulesMockdata as rules } from '@/mock-data/rules';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
-
-  const t = await getTranslations({ locale, namespace: 'layout' });
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
 
   return {
     title: t('rules'),
