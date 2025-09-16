@@ -832,18 +832,20 @@
           "placeholderNorwegian": "Webutvikling",
           "placeholderEnglish": "Web development",
           "labelEnglish": "Ferdighetsnavn (engelsk)",
-          "required": "Ferdighetsnavn er påkrevd"
+          "required": "Ferdighetsnavn er påkrevd",
+          "maxLength": "Ferdighetsnavn må være mindre enn {count} tegn"
         },
         "identifier": {
           "label": "Ferdighetsidentifikator",
           "placeholder": "Webutvikling",
           "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør DevOps-teamet.",
           "required": "Ferdighetsidentifikator er påkrevd",
+          "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
           "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
         }
       },
       "api": {
-        "invalidId": "Ugyldig ferdighet-ID",
+        "invalidIdentifier": "Ugyldig ferdighetsidentifikator",
         "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede",
         "skillNotFound": "Ferdighet ikke funnet"
       }

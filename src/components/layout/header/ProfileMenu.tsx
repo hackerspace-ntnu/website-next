@@ -15,7 +15,7 @@ import { cx } from '@/lib/utils';
 
 type ProfileMenuProps = {
   hasUser: boolean;
-  isAdmin: boolean;
+  isLeadership: boolean;
   t: {
     profile: string;
     signIn: string;
@@ -25,13 +25,14 @@ type ProfileMenuProps = {
   };
 };
 
-function ProfileMenu({ hasUser, isAdmin, t }: ProfileMenuProps) {
+function ProfileMenu({ hasUser, isLeadership, t }: ProfileMenuProps) {
   const router = useRouter();
   const signOutMutation = api.auth.signOut.useMutation({
     onSuccess: () => {
       router.refresh();
     },
   });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -56,7 +57,7 @@ function ProfileMenu({ hasUser, isAdmin, t }: ProfileMenuProps) {
                 {t.settings}
               </Link>
             </DropdownMenuItem>
-            {isAdmin && (
+            {isLeadership && (
               <DropdownMenuItem asChild>
                 <Link
                   href='/management'

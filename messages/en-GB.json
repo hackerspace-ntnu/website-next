@@ -832,18 +832,20 @@
           "placeholderNorwegian": "Webutvikling",
           "placeholderEnglish": "Web development",
           "labelEnglish": "Skill name (English)",
-          "required": "Skill name is required"
+          "required": "Skill name is required",
+          "maxLength": "Skill name must be less than {count} characters"
         },
         "identifier": {
           "label": "Skill identifier",
           "placeholder": "webdevelopment",
           "description": "Certain skill names may have predefined icons, permissions or similar. If in doubt, ask the DevOps-team.",
           "required": "Skill identifier is required",
+          "maxLength": "Skill identifier must be less than {count} characters",
           "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
         }
       },
       "api": {
-        "invalidId": "Invalid skill ID",
+        "invalidIdentifier": "Invalid skill identifier",
         "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
         "skillNotFound": "Skill not found"
       }

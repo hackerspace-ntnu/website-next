@@ -6,15 +6,15 @@ import {
   pgTable,
   primaryKey,
   serial,
-  text,
+  varchar,
 } from 'drizzle-orm/pg-core';
 import { users } from '@/server/db/tables';
 
 const skills = pgTable('skills', {
   id: serial('id').primaryKey(),
-  identifier: text('identifier').unique().notNull(),
-  nameEnglish: text('name_english').notNull(),
-  nameNorwegian: text('name_norwegian').notNull(),
+  identifier: varchar('identifier', { length: 51 }).unique().notNull(),
+  nameEnglish: varchar('name_english', { length: 51 }).notNull(),
+  nameNorwegian: varchar('name_norwegian', { length: 51 }).notNull(),
 });
 
 const usersSkills = pgTable(

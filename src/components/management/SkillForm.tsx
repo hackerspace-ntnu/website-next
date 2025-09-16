@@ -33,25 +33,32 @@ function SkillForm({
   const tNew = useTranslations('management.skills.new');
   const tEdit = useTranslations('management.skills.edit');
   const router = useRouter();
+  const utils = api.useUtils();
 
   const createSkill = api.skills.createSkill.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tNew('success'));
       router.push('/management/skills');
+      await utils.skills.invalidate();
+      router.refresh();
     },
   });
 
   const editSkill = api.skills.editSkill.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tEdit('successEdit'));
       router.push('/management/skills');
+      await utils.skills.invalidate();
+      router.refresh();
     },
   });
 
   const deleteSkill = api.skills.deleteSkill.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tEdit('successDelete'));
       router.push('/management/skills');
+      await utils.skills.invalidate();
+      router.refresh();
     },
   });
 
@@ -134,7 +141,7 @@ function SkillForm({
               <AlertDialogFooter>
                 <AlertDialogCancel>{tUi('cancel')}</AlertDialogCancel>
                 <AlertDialogActionDestructive
-                  onClick={() => deleteSkill.mutate(skill.id)}
+                  onClick={() => deleteSkill.mutate(skill.identifier)}
                 >
                   {tUi('confirm')}
                 </AlertDialogActionDestructive>
