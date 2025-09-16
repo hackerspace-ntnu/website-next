@@ -1,5 +1,5 @@
 import { fakerEN, fakerNB_NO } from '@faker-js/faker';
-import { groupIdentifiers } from '@/lib/constants';
+import { groupIdentifiers, toolType } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
   InsertEvent,
@@ -13,6 +13,9 @@ import type {
   InsertShift,
   InsertSkill,
   InsertStorageItem,
+  InsertTool,
+  InsertToolLocalization,
+  InsertToolReservation,
   InsertUser,
   InsertUserGroup,
   InsertUserSkill,
@@ -1335,6 +1338,274 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   },
 ];
 
+const toolsData: InsertTool[] = [
+  {
+    id: 1,
+    type: '3dprinter',
+    slug: 'bambux1',
+    nickName: 'Geir Ove Mjølsnes',
+    difficulty: 3,
+    requires: 'SD-kort eller sky-overføring',
+    imageId: 1,
+    available: true,
+  },
+  {
+    id: 2,
+    type: '3dprinter',
+    slug: 'prusamk3',
+    nickName: 'Petter',
+    difficulty: 1,
+    requires: 'SD-kort',
+    imageId: 2,
+    available: true,
+  },
+  {
+    id: 3,
+    type: '3dprinter',
+    slug: 'prusamk4',
+    nickName: 'Kurt Kåre Rogers',
+    difficulty: 1,
+    requires: 'USB-stick',
+    imageId: 3,
+    available: true,
+  },
+  {
+    id: 4,
+    type: '3dprinter',
+    slug: 'creality',
+    nickName: 'Gerd Gunda Brunsnes',
+    difficulty: 5,
+    requires: '',
+    imageId: 4,
+    available: false,
+  },
+  {
+    id: 5,
+    type: 'other',
+    slug: 'loddestasjon',
+    nickName: '',
+    difficulty: 0,
+    requires: '',
+    imageId: 5,
+    available: true,
+  },
+  {
+    id: 6,
+    type: 'other',
+    slug: 'fiberlaser',
+    nickName: '',
+    difficulty: 0,
+    requires: '',
+    imageId: 6,
+    available: true,
+  },
+];
+
+const toolsLocalizationsData: InsertToolLocalization[] = [
+  {
+    toolId: 1,
+    locale: 'en-GB',
+    name: 'Bambu lab X1 Carbon',
+    description: `
+      Bambu lab X1 Carbon FDM 3D-printer med mulighet for flerfarget utskrift.
+      Bruker 1.75mm filament.
+      Bruk av fleksible eller skjøre filamenter skal kun gjøres med klarsignal fra vakthavende medlemmer.
+      Anbefalt slicer: Bambu studio
+    `,
+  },
+  {
+    toolId: 1,
+    locale: 'nb-NO',
+    name: 'Bambu lab X1 Carbon',
+    description: `
+      Bambu lab X1 Carbon FDM 3D-printer med mulighet for flerfarget utskrift.
+      Bruker 1.75mm filament.
+      Bruk av fleksible eller skjøre filamenter skal kun gjøres med klarsignal fra vakthavende medlemmer.
+      Anbefalt slicer: Bambu studio
+    `,
+  },
+
+  {
+    toolId: 2,
+    locale: 'en-GB',
+    name: 'Prusa i3 MK3',
+    description: `
+      Den originale Prusa i3 MK3. En pålitelig printer av høy kvalitet.
+      Sett slicet modell på SD-kort og print ut.
+      SD-kort finner du på verkstedet.
+    `,
+  },
+  {
+    toolId: 2,
+    locale: 'nb-NO',
+    name: 'Prusa i3 MK3',
+    description: `
+      Den originale Prusa i3 MK3. En pålitelig printer av høy kvalitet.
+      Sett slicet modell på SD-kort og print ut.
+      SD-kort finner du på verkstedet.
+    `,
+  },
+
+  {
+    toolId: 3,
+    locale: 'en-GB',
+    name: 'Prusa MK4',
+    description: `
+      Den originale Prusa MK4.
+      En pålitelig printer av høy kvalitet.
+      Sett slicet modell på USB og start.
+      USB-stick ligger på verkstedet.
+    `,
+  },
+  {
+    toolId: 3,
+    locale: 'nb-NO',
+    name: 'Prusa MK4',
+    description: `
+      Den originale Prusa MK4.
+      En pålitelig printer av høy kvalitet.
+      Sett slicet modell på USB og start.
+      USB-stick ligger på verkstedet.
+    `,
+  },
+
+  {
+    toolId: 4,
+    locale: 'en-GB',
+    name: 'Creality Printmill Belt Printer',
+    description: `
+      Med Gerd Gunda har du mulighet for å 3D-printe i uendelig lengde,
+      eller masseprodusere en utskrift takket være belte som byggeplate.
+      Dette spesielle infinite-Z-beltet er det første i sitt slag i verden.
+      Produser lange deler uten å måtte lime sammen flere biter.
+      It's time to go even further beyond.
+
+      Dysen skiller seg ut fra andre 3D-printere ved at den printer i en 45 graders vinkel.
+      NB! Bare PLA-filament kan brukes.
+    `,
+  },
+  {
+    toolId: 4,
+    locale: 'nb-NO',
+    name: 'Creality Printmill Belt Printer',
+    description: `
+      Med Gerd Gunda har du mulighet for å 3D-printe i uendelig lengde,
+      eller masseprodusere en utskrift takket være belte som byggeplate.
+      Dette spesielle infinite-Z-beltet er det første i sitt slag i verden.
+      Produser lange deler uten å måtte lime sammen flere biter.
+      It's time to go even further beyond.
+
+      Dysen skiller seg ut fra andre 3D-printere ved at den printer i en 45 graders vinkel.
+      NB! Bare PLA-filament kan brukes.
+    `,
+  },
+
+  {
+    toolId: 5,
+    locale: 'en-GB',
+    name: 'Loddestasjon',
+    description: `
+      Vi har et stort sortiment med utstyr som hjelper deg å lodde.
+      Med både varmepistol, loddebolt og loddetinn kan du prototype på et nytt nivå!
+    `,
+  },
+  {
+    toolId: 5,
+    locale: 'nb-NO',
+    name: 'Loddestasjon',
+    description: `
+      Vi har et stort sortiment med utstyr som hjelper deg å lodde.
+      Med både varmepistol, loddebolt og loddetinn kan du prototype på et nytt nivå!
+    `,
+  },
+
+  { toolId: 6, locale: 'en-GB', name: 'Fiberlaser', description: '' },
+  { toolId: 6, locale: 'nb-NO', name: 'Fiberlaser', description: '' },
+];
+
+const reservationsData: InsertToolReservation[] = [
+  {
+    id: 1,
+    toolId: 1,
+    reservorId: 1,
+    reservedFrom: new Date('2025-01-20T10:00:00+01:00'),
+    reservedTill: new Date('2025-01-20T12:00:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-01-18T09:30:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 2,
+    toolId: 2,
+    reservorId: 2,
+    reservedFrom: new Date('2025-01-22T14:00:00+01:00'),
+    reservedTill: new Date('2025-01-22T16:30:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-01-21T11:05:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 3,
+    toolId: 3,
+    reservorId: 3,
+    reservedFrom: new Date('2025-01-25T09:00:00+01:00'),
+    reservedTill: new Date('2025-01-25T11:00:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-01-23T17:45:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 4,
+    toolId: 5,
+    reservorId: 4,
+    reservedFrom: new Date('2025-01-27T13:00:00+01:00'),
+    reservedTill: new Date('2025-01-27T15:00:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-01-26T08:10:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 5,
+    toolId: 6,
+    reservorId: 1,
+    reservedFrom: new Date('2025-02-02T10:00:00+01:00'),
+    reservedTill: new Date('2025-02-02T12:30:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-01-30T12:00:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 6,
+    toolId: 2,
+    reservorId: 3,
+    reservedFrom: new Date('2025-02-05T17:00:00+01:00'),
+    reservedTill: new Date('2025-02-05T19:00:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-02-04T10:20:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 7,
+    toolId: 1,
+    reservorId: 2,
+    reservedFrom: new Date('2025-02-10T08:30:00+01:00'),
+    reservedTill: new Date('2025-02-10T11:30:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-02-08T15:00:00+01:00'),
+    finished: false,
+  },
+  {
+    id: 8,
+    toolId: 3,
+    reservorId: 4,
+    reservedFrom: new Date('2025-03-01T12:00:00+01:00'),
+    reservedTill: new Date('2025-03-01T14:00:00+01:00'),
+    notes: '',
+    reservedAt: new Date('2025-02-25T09:15:00+01:00'),
+    finished: false,
+  },
+];
+
 export {
   usersData,
   groupsData,
@@ -1350,4 +1621,7 @@ export {
   eventLocalizationsData,
   articleData,
   articleLocalizationsData,
+  toolsData,
+  toolsLocalizationsData,
+  reservationsData,
 };

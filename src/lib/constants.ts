@@ -22,6 +22,6 @@ const toolDescriptionFields = [
   'slicer',
 ] as const;
 
-const toolType = ['3d_printer', 'other'] as const;
+const toolType = ['3dprinter', 'other'] as const;
 
 export { groupIdentifiers, days, timeslots, toolDescriptionFields, toolType };
