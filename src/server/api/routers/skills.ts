@@ -1,14 +1,11 @@
 import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import {
-  protectedEditProcedure,
-  publicProcedure,
-} from '@/server/api/procedures';
+import { leadershipProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { skills } from '@/server/db/tables';
 import { editSkillSchema } from '@/validations/management/editSkillSchema';
-import { skillIdSchema } from '@/validations/management/skillIdSchema';
+import { skillIdentifierSchema } from '@/validations/management/skillIdentifierSchema';
 import { skillSchema } from '@/validations/management/skillSchema';
 
 const skillsRouter = createRouter({
@@ -16,13 +13,15 @@ const skillsRouter = createRouter({
     return await ctx.db.query.skills.findMany();
   }),
   fetchSkill: publicProcedure
-    .input((input) => skillIdSchema(useTranslationsFromContext()).parse(input))
+    .input((input) =>
+      skillIdentifierSchema(useTranslationsFromContext()).parse(input),
+    )
     .query(async ({ ctx, input }) => {
       return await ctx.db.query.skills.findFirst({
-        where: eq(skills.id, input),
+        where: eq(skills.identifier, input),
       });
     }),
-  createSkill: protectedEditProcedure
+  createSkill: leadershipProcedure
     .input((input) => skillSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
       const existingSkill = await ctx.db.query.skills.findFirst({
@@ -41,7 +40,7 @@ const skillsRouter = createRouter({
 
       await ctx.db.insert(skills).values(input);
     }),
-  editSkill: protectedEditProcedure
+  editSkill: leadershipProcedure
     .input((input) =>
       editSkillSchema(useTranslationsFromContext()).parse(input),
     )
@@ -67,11 +66,13 @@ const skillsRouter = createRouter({
         })
         .where(eq(skills.id, input.id));
     }),
-  deleteSkill: protectedEditProcedure
-    .input((input) => skillIdSchema(useTranslationsFromContext()).parse(input))
+  deleteSkill: leadershipProcedure
+    .input((input) =>
+      skillIdentifierSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ ctx, input }) => {
       const skill = await ctx.db.query.skills.findFirst({
-        where: eq(skills.id, input),
+        where: eq(skills.identifier, input),
       });
 
       if (!skill) {
@@ -82,7 +83,7 @@ const skillsRouter = createRouter({
         });
       }
 
-      await ctx.db.delete(skills).where(eq(skills.id, input));
+      await ctx.db.delete(skills).where(eq(skills.identifier, input));
     }),
 });
 

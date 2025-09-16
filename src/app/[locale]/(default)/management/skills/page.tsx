@@ -24,7 +24,7 @@ export default async function SkillsManagementPage({
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
 
-  if (!user || !user.groups.includes('admin')) {
+  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }

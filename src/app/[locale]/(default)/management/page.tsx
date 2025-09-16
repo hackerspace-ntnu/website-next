@@ -1,6 +1,5 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import type React from 'react';
 import { CategoryCard } from '@/components/management/CategoryCard';
 import type { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -24,7 +23,7 @@ export default async function ManagementPage({
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
 
-  if (!user || !user.groups.includes('admin')) {
+  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }

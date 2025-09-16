@@ -21,24 +21,20 @@ export async function generateMetadata() {
 export default async function EditSkillPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; skillId: string }>;
+  params: Promise<{ locale: Locale; skillIdentifier: string }>;
 }) {
-  const { locale, skillId } = await params;
+  const { locale, skillIdentifier } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
 
-  if (Number.isNaN(Number(skillId))) {
-    return notFound();
-  }
-
-  if (!user || !user.groups.includes('admin')) {
+  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
   }
 
-  const skill = await api.skills.fetchSkill(Number(skillId));
+  const skill = await api.skills.fetchSkill(skillIdentifier);
 
   if (!skill) return notFound();
 
