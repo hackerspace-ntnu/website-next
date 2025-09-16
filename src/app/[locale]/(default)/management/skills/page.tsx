@@ -55,8 +55,8 @@ export default async function SkillsManagementPage({
         {skills.map((skill) => (
           <Link
             href={{
-              pathname: '/management/skills/[skillId]',
-              params: { skillId: skill.id },
+              pathname: '/management/skills/[skillIdentifier]',
+              params: { skillIdentifier: skill.identifier },
             }}
             key={skill.id}
           >

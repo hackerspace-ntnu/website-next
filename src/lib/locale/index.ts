@@ -193,9 +193,9 @@ const routing = defineRouting({
       'en-GB': '/management/skills',
       'nb-NO': '/administrasjon/ferdigheter',
     },
-    '/management/skills/[skillId]': {
-      'en-GB': '/management/skills/[skillId]',
-      'nb-NO': '/administrasjon/ferdigheter/[skillId]',
+    '/management/skills/[skillIdentifier]': {
+      'en-GB': '/management/skills/[skillIdentifier]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillIdentifier]',
     },
     '/management/skills/new': {
       'en-GB': '/management/skills/new',
