@@ -132,6 +132,7 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "settings": "Settings",
+    "management": "Management",
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
@@ -802,6 +803,65 @@
     "title": "Rules",
     "forEveryone": "For everyone",
     "internal": "Internal rules"
+  },
+  "management": {
+    "title": "Website Management",
+    "unauthorized": "Unauthorized to access management tools",
+    "skills": {
+      "title": "Manage Skills",
+      "description": "Manage the skills that members can achieve.",
+      "backToManagement": "Back to management",
+      "backToSkills": "Back to skills",
+      "new": {
+        "title": "New Skill",
+        "success": "Skill added successfully!"
+      },
+      "edit": {
+        "title": "Update Skill",
+        "delete": "Delete skill",
+        "deleteConfirmTitle": "Are you sure you want to delete this skill?",
+        "deleteConfirmDescription": "All users that have this skill will lose it. This action cannot be undone.",
+        "successEdit": "Skill updated successfully!",
+        "successDelete": "Skill deleted successfully!"
+      },
+      "form": {
+        "createSubmit": "Create skill",
+        "editSubmit": "Update skill",
+        "name": {
+          "labelNorwegian": "Skill name (Norwegian)",
+          "placeholderNorwegian": "Webutvikling",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "Skill name (English)",
+          "required": "Skill name is required",
+          "maxLength": "Skill name must be less than {count} characters"
+        },
+        "identifier": {
+          "label": "Skill identifier",
+          "placeholder": "webdevelopment",
+          "description": "Certain skill names may have predefined icons, permissions or similar. If in doubt, ask the DevOps-team.",
+          "required": "Skill identifier is required",
+          "maxLength": "Skill identifier must be less than {count} characters",
+          "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
+        }
+      },
+      "api": {
+        "invalidIdentifier": "Invalid skill identifier",
+        "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
+        "skillNotFound": "Skill not found"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "description": "Manage users on the website."
+    },
+    "files": {
+      "title": "Files & images",
+      "description": "Manage files and images uploaded by members."
+    },
+    "banners": {
+      "title": "Banners",
+      "description": "Manage banners displayed on the website."
+    }
   },
   "api": {
     "tooManyRequests": "Too many requests, please try again later",

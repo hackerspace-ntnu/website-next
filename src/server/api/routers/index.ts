@@ -7,7 +7,5 @@ export * from './shiftSchedule';
 export * from './skills';
 export * from './storage';
 export * from './test';
-export * from './test';
-export * from './test';
 export * from './users';
 export * from './utils';
