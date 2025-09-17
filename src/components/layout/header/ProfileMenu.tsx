@@ -79,7 +79,9 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
               href={{
                 pathname: '/auth',
                 ...(pathname !== '/' &&
-                  pathname !== '/en' && { query: { r: pathname } }),
+                  pathname !== '/en' && {
+                    query: { r: pathname.replace('/en', '') },
+                  }),
               }}
               className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
             >

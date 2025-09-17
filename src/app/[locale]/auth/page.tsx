@@ -6,7 +6,6 @@ import { ErrorToast } from '@/components/layout/ErrorToast';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import type { routing } from '@/lib/locale';
 import { redirect } from '@/lib/locale/navigation';
 
 export default async function SignInPage({
