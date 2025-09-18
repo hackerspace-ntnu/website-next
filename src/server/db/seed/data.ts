@@ -1,5 +1,5 @@
 import { fakerEN, fakerNB_NO } from '@faker-js/faker';
-import { groupIdentifiers, toolType } from '@/lib/constants';
+import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
   InsertEvent,
