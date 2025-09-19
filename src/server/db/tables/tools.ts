@@ -12,16 +12,16 @@ import {
   serial,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { toolType } from '@/lib/constants';
+import { tooltype } from '@/lib/constants';
 import { files } from '@/server/db/tables/files';
 import { localesEnum } from '@/server/db/tables/locales';
 
-const toolTypeEnum = pgEnum('toolType', toolType);
+const toolTypeEnum = pgEnum('tooltype', tooltype);
 
 const tools = pgTable('tools', {
   id: serial('id').primaryKey(),
   type: toolTypeEnum('type').notNull(),
-  slug: varchar('slug', { length: 64 }).unique(),
+  slug: varchar('slug', { length: 64 }).unique().notNull(),
   nickName: varchar('nick_name', { length: 128 }),
   difficulty: integer('difficulty'),
   requires: varchar('requires', { length: 256 }),
@@ -84,6 +84,7 @@ type SelectPrinterSpecs = InferSelectModel<typeof printerSpecs>;
 type InsertPrinterSpecs = InferInsertModel<typeof printerSpecs>;
 
 export {
+  toolTypeEnum,
   tools,
   toolsRelations,
   toolsLocalizations,
