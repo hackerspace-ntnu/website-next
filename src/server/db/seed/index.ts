@@ -116,17 +116,17 @@ async function main() {
   await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
   console.log('News article localizations inserted');
 
-  console.log('Inserting news article localizations...');
+  console.log('Inserting tools...');
   await db.insert(tools).values(toolsData);
-  console.log('News article localizations inserted');
+  console.log('Tools inserted');
 
-  console.log('Inserting news article localizations...');
+  console.log('Inserting tools localizations...');
   await db.insert(toolsLocalizations).values(toolsLocalizationsData);
-  console.log('News article localizations inserted');
+  console.log('Tools localizations inserted');
 
-  console.log('Inserting news article localizations...');
+  console.log('Inserting reservations localizations...');
   await db.insert(toolReservations).values(reservationsData);
-  console.log('News article localizations inserted');
+  console.log('Reservations inserted');
 }
 
 await main();
