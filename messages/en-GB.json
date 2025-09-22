@@ -960,7 +960,8 @@
     "api": {
       "startBeforeEndError": "End time cannot be before start time",
       "invalidId": "Invalid id",
-      "notFound": "Could not find reservation",
+      "reservationNotFound": "Could not find reservation",
+      "toolNotFound": "Could not find tool",
       "specifySlug": "Slug is required",
       "specifyStart": "Start date is required",
       "specifyEnd": "End date is required",
