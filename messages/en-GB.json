@@ -951,7 +951,7 @@
       "confirm": "Confirm",
       "cancel": "Cancel",
       "title": "Confirm action",
-      "description": "Are you certain you want to {action}"
+      "description": "Are you certain you want to delete reservation?"
     },
     "calendar": {
       "createButton": "Create reservation",
@@ -959,8 +959,13 @@
     },
     "api": {
       "startBeforeEndError": "End time cannot be before start time",
-      "invalidId": "Invalid reservation id",
-      "notFound": "Could not find reservation"
+      "invalidId": "Invalid id",
+      "notFound": "Could not find reservation",
+      "specifySlug": "Slug is required",
+      "specifyStart": "Start date is required",
+      "specifyEnd": "End date is required",
+      "rangeTooLarge": "Specified range is too large",
+      "fetchReservationsFailed": "Failed to fetch reservations"
     }
   }
 }

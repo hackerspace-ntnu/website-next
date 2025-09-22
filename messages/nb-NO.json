@@ -951,7 +951,7 @@
       "confirm": "Bekreft",
       "cancel": "Kanseller",
       "title": "Bekreft handling",
-      "description": "Er du sikker på at du vil {action}"
+      "description": "Er du sikker på at du vil slette reservasjonen?"
     },
     "calendar": {
       "createButton": "Opprett reservasjon",
@@ -959,8 +959,13 @@
     },
     "api": {
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
-      "invalidId": "Ugyldig reservasjons-id",
-      "notFound": "Kunne ikke finne reservasjonen"
+      "invalidId": "Ugyldig id",
+      "notFound": "Kunne ikke finne reservasjonen",
+      "specifySlug": "Slug kreves",
+      "specifyStart": "Start dato kreves",
+      "specifyEnd": "Slutt dato kreves",
+      "rangeTooLarge": "Tidsperioden er for lang",
+      "fetchReservationsFailed": "Failed to fetch reservations"
     }
   }
 }
