@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq } from 'drizzle-orm';
+import { and, asc, eq, gt, lt, sql } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -15,7 +15,7 @@ import {
 } from '@/server/db/tables';
 import {
   deleteReservationSchema,
-  fetchManyReservationsSchema,
+  fetchCalendarReservationsSchema,
 } from '@/validations/reservations';
 import { fetchOneReservationSchema } from '@/validations/reservations/fetchOneReservationSchema';
 
@@ -67,7 +67,7 @@ const reservationsRouter = createRouter({
         console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: '',
+          message: ctx.t('reservations.api.fetchReservationsFailed'),
           cause: { toast: error },
         });
       });
@@ -87,6 +87,56 @@ const reservationsRouter = createRouter({
             eq(toolReservations.reservorId, input.reservorId),
           ),
         );
+    }),
+
+  fetchCalendarReservations: publicProcedure
+    .input((input) =>
+      fetchCalendarReservationsSchema(useTranslationsFromContext()).parse(
+        input,
+      ),
+    )
+    .query(async ({ ctx, input }) => {
+      const calendarReservations = await ctx.db
+        .select({
+          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
+          email: users.email,
+          phoneNr: users.phoneNumber,
+          notes: toolReservations.notes,
+          userId: users.id,
+          reservationId: toolReservations.id,
+          finished: toolReservations.finished,
+          toolId: tools.id,
+          toolSlug: tools.slug,
+          toolName: toolsLocalizations.name,
+        })
+        .from(toolReservations)
+        .innerJoin(users, eq(users.id, toolReservations.reservorId))
+        .innerJoin(tools, eq(tools.id, toolReservations.toolId))
+        .innerJoin(
+          toolsLocalizations,
+          and(
+            eq(toolsLocalizations.toolId, tools.id),
+            eq(toolsLocalizations.locale, ctx.locale),
+          ),
+        )
+        .where(
+          and(
+            eq(tools.id, input.toolId),
+            gt(toolReservations.reservedTill, new Date(input.from)),
+            lt(toolReservations.reservedFrom, new Date(input.to)),
+          ),
+        )
+        .orderBy(asc(toolReservations.reservedFrom))
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('reservations.api.fetchReservationsFailed'),
+            cause: { toast: error },
+          });
+        });
+
+      return calendarReservations;
     }),
 });
 
