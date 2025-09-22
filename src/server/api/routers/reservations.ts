@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, gt, lt, sql } from 'drizzle-orm';
+import { ct } from 'node_modules/@fullcalendar/core/internal-common';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -35,7 +36,7 @@ const reservationsRouter = createRouter({
       if (!reservation) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: ctx.t('reservations.api.notFound'),
+          message: ctx.t('reservations.api.reservationNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -46,7 +47,7 @@ const reservationsRouter = createRouter({
     const userReservations = await ctx.db
       .select({
         reservation: toolReservations,
-        toolSlug: tools.slug,
+        toolId: tools.id,
         toolName: toolsLocalizations.name,
       })
       .from(toolReservations)
@@ -106,8 +107,8 @@ const reservationsRouter = createRouter({
           reservationId: toolReservations.id,
           finished: toolReservations.finished,
           toolId: tools.id,
-          toolSlug: tools.slug,
           toolName: toolsLocalizations.name,
+          toolNickname: tools.nickName,
         })
         .from(toolReservations)
         .innerJoin(users, eq(users.id, toolReservations.reservorId))
@@ -135,7 +136,6 @@ const reservationsRouter = createRouter({
             cause: { toast: error },
           });
         });
-
       return calendarReservations;
     }),
 });

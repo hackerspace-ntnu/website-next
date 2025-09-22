@@ -8,37 +8,38 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
-import { tools } from '@/mock-data/reservations';
+import { api } from '@/lib/api/server';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ reservationId: string }>;
+  params: Promise<{ calendarId: string }>;
 }) {
-  const { reservationId } = await params;
-  const data = tools.find((t) => t.toolId.toString() === reservationId);
+  const { calendarId } = await params;
+  const tool = await api.tools.fetchTool(Number.parseInt(calendarId));
 
-  if (!data) return;
+  if (!tool) return;
 
   return {
-    title: `${data.title}`,
+    title: `${tool.name}`,
   };
 }
 
 type ToolCalendarPageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale; reservationId: string }>;
+  params: Promise<{ locale: Locale; calendarId: string }>;
 };
 
 export default async function ReservationItemLayout({
   children,
   params,
 }: ToolCalendarPageLayoutProps) {
-  const { locale, reservationId } = await params;
+  const { locale, calendarId } = await params;
   setRequestLocale(locale);
   const { reservations, ui } = await getMessages();
   const t = await getTranslations('reservations');
-  const data = tools.find((t) => t.toolId.toString() === reservationId);
-  if (!data) return notFound();
+  const tool = await api.tools.fetchTool(Number.parseInt(calendarId));
+
+  if (!tool) return notFound();
 
   return (
     <div>
@@ -52,7 +53,7 @@ export default async function ReservationItemLayout({
         <ArrowLeftIcon aria-hidden='true' />
         {t('backButton')}
       </Link>
-      <h1 className='my-4 text-center'>{data.title}</h1>
+      <h1 className='my-4 text-center'>{tool.name}</h1>
       <NextIntlClientProvider
         messages={{ reservations, ui } as Pick<Messages, 'reservations' | 'ui'>}
       >
