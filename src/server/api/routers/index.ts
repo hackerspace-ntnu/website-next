@@ -10,5 +10,6 @@ export * from './storage';
 export * from './test';
 export * from './test';
 export * from './test';
+export * from './tools';
 export * from './users';
 export * from './utils';

@@ -10,6 +10,7 @@ import {
   skillsRouter,
   storageRouter,
   testRouter,
+  toolsRouter,
   usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
@@ -28,6 +29,7 @@ const router = createRouter({
   utils: utilsRouter,
   news: newsRouter,
   reservations: reservationsRouter,
+  tools: toolsRouter,
 });
 
 const createCaller = createCallerFactory(router);

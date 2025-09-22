@@ -11,8 +11,7 @@ import {
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
-import { tools } from '@/server/db/tables/tools';
-import { users } from '@/server/db/tables/users';
+import { tools, users } from '@/server/db/tables';
 
 const toolReservations = pgTable('tool_reservations', {
   id: serial('id').primaryKey(),

@@ -21,7 +21,6 @@ const toolTypeEnum = pgEnum('tooltype', tooltype);
 const tools = pgTable('tools', {
   id: serial('id').primaryKey(),
   type: toolTypeEnum('type').notNull(),
-  slug: varchar('slug', { length: 64 }).unique().notNull(),
   nickName: varchar('nick_name', { length: 128 }),
   difficulty: integer('difficulty'),
   requires: varchar('requires', { length: 256 }),
