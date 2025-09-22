@@ -1342,7 +1342,6 @@ const toolsData: InsertTool[] = [
   {
     id: 1,
     type: '3dprinter',
-    slug: 'bambux1',
     nickName: 'Geir Ove Mjølsnes',
     difficulty: 3,
     requires: 'SD-kort eller sky-overføring',
@@ -1352,7 +1351,6 @@ const toolsData: InsertTool[] = [
   {
     id: 2,
     type: '3dprinter',
-    slug: 'prusamk3',
     nickName: 'Petter',
     difficulty: 1,
     requires: 'SD-kort',
@@ -1362,7 +1360,6 @@ const toolsData: InsertTool[] = [
   {
     id: 3,
     type: '3dprinter',
-    slug: 'prusamk4',
     nickName: 'Kurt Kåre Rogers',
     difficulty: 1,
     requires: 'USB-stick',
@@ -1372,7 +1369,6 @@ const toolsData: InsertTool[] = [
   {
     id: 4,
     type: '3dprinter',
-    slug: 'creality',
     nickName: 'Gerd Gunda Brunsnes',
     difficulty: 5,
     requires: '',
@@ -1382,7 +1378,6 @@ const toolsData: InsertTool[] = [
   {
     id: 5,
     type: 'other',
-    slug: 'loddestasjon',
     nickName: '',
     difficulty: 0,
     requires: '',
@@ -1392,7 +1387,6 @@ const toolsData: InsertTool[] = [
   {
     id: 6,
     type: 'other',
-    slug: 'fiberlaser',
     nickName: '',
     difficulty: 0,
     requires: '',
@@ -1407,10 +1401,10 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
     locale: 'en-GB',
     name: 'Bambu lab X1 Carbon',
     description: `
-      Bambu lab X1 Carbon FDM 3D-printer med mulighet for flerfarget utskrift.
-      Bruker 1.75mm filament.
-      Bruk av fleksible eller skjøre filamenter skal kun gjøres med klarsignal fra vakthavende medlemmer.
-      Anbefalt slicer: Bambu studio
+      Bambu Lab X1 Carbon FDM 3D printer with multi-color printing capability.
+      Uses 1.75mm filament.
+      Flexible or fragile filaments may only be used with approval from supervising members.
+      Recommended slicer: Bambu Studio.
     `,
   },
   {
@@ -1430,9 +1424,9 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
     locale: 'en-GB',
     name: 'Prusa i3 MK3',
     description: `
-      Den originale Prusa i3 MK3. En pålitelig printer av høy kvalitet.
-      Sett slicet modell på SD-kort og print ut.
-      SD-kort finner du på verkstedet.
+      The original Prusa i3 MK3. A reliable, high-quality printer.
+      Put the sliced model on an SD card and print it out.
+      You can find SD cards in the workshop
     `,
   },
   {
@@ -1451,10 +1445,10 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
     locale: 'en-GB',
     name: 'Prusa MK4',
     description: `
-      Den originale Prusa MK4.
-      En pålitelig printer av høy kvalitet.
-      Sett slicet modell på USB og start.
-      USB-stick ligger på verkstedet.
+      The original Prusa MK4.
+      A reliable, high-quality printer.
+      Put the sliced model on a USB stick and start.
+      The USB stick can be found in the workshop.
     `,
   },
   {
@@ -1474,14 +1468,14 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
     locale: 'en-GB',
     name: 'Creality Printmill Belt Printer',
     description: `
-      Med Gerd Gunda har du mulighet for å 3D-printe i uendelig lengde,
-      eller masseprodusere en utskrift takket være belte som byggeplate.
-      Dette spesielle infinite-Z-beltet er det første i sitt slag i verden.
-      Produser lange deler uten å måtte lime sammen flere biter.
+      With Gerd Gunda you have the possibility to 3D print in infinite length,
+      or mass-produce a print thanks to the belt as the build plate.
+      This special infinite-Z belt is the first of its kind in the world.
+      Produce long parts without having to glue several pieces together.
       It's time to go even further beyond.
 
-      Dysen skiller seg ut fra andre 3D-printere ved at den printer i en 45 graders vinkel.
-      NB! Bare PLA-filament kan brukes.
+      The nozzle is different from other 3D printers as it prints at a 45-degree angle.
+      Note! Only PLA filament can be used.
     `,
   },
   {
@@ -1505,8 +1499,8 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
     locale: 'en-GB',
     name: 'Loddestasjon',
     description: `
-      Vi har et stort sortiment med utstyr som hjelper deg å lodde.
-      Med både varmepistol, loddebolt og loddetinn kan du prototype på et nytt nivå!
+      We have a wide range of equipment to help you solder.
+      With a heat gun, soldering iron, and solder, you can prototype on a whole new level!
     `,
   },
   {
