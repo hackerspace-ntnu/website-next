@@ -5,14 +5,17 @@ import type { Translations } from '@/lib/locale';
 function createReservationSchema(t: Translations) {
   return z
     .object({
-      dates: z.object({
-        from: z.date(),
-        to: z.date(),
-      }),
-      notes: z.string().optional(),
+      toolId: z.number().int().positive(t('reservations.api.invalidId')),
+      reservedFrom: z
+        .string()
+        .datetime({ message: t('reservations.api.specifyStart') }),
+      reservedUntil: z
+        .string()
+        .datetime({ message: t('reservations.api.specifyEnd') }),
+      notes: z.string().max(500).optional(),
     })
     .refine(
-      (data) => isBefore(data.dates.to, data.dates.from),
+      (data) => isBefore(data.reservedUntil, data.reservedFrom),
       t('reservations.api.startBeforeEndError'),
     );
 }
