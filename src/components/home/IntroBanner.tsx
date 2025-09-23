@@ -1,6 +1,7 @@
 'use client';
 
 import Autoplay from 'embla-carousel-autoplay';
+import { EditIcon } from 'lucide-react';
 import Image from 'next/image';
 import type { Locale } from 'next-intl';
 import {
@@ -71,11 +72,12 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
         {canEditSlides && (
           <Link
             href='/slides'
-            variant='default'
-            size='default'
+            variant='nav'
+            size='icon'
             className='absolute right-0 bottom-0 m-4'
+            title={t.editSlides}
           >
-            {t.editSlides}
+            <EditIcon />
           </Link>
         )}
       </div>

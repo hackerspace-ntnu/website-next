@@ -159,12 +159,16 @@
     "changeSlides": "Change slides",
     "whoAreWe": "Who are we?",
     "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
+    "whoAreWeAlt": "Photo of Hackerspace members at Hackstart Fall 2025",
     "stopBy": "Stop by!",
     "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
+    "stopByAlt": "Photo of our workshop",
     "events": "Events",
     "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on social activities.",
+    "eventsAlt": "...",
     "news": "News",
     "newsDescription": "See the latest updates from Hackerspace.",
+    "newsAlt": "...",
     "slides": {
       "unauthorized": "Unauthorized to manage home page slides",
       "image": "Image",
@@ -192,7 +196,9 @@
       "successEdit": "Slide edited successfully",
       "successDeleteImage": "Slide image deleted successfully",
       "successDelete": "Slide deleted successfully",
-      "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}"
+      "changingActive": "Changing slide to {active, select, true {active} other {inactive}}...",
+      "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}",
+      "errorChangingActive": "Couldn't change slide to {active, select, true {active} other {inactive}}"
     },
     "form": {
       "altNorwegian": {

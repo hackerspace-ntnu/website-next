@@ -354,9 +354,9 @@ const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] 
   [
     {
       slideId: 1,
-      heading: 'EN - Har du en skaper i magen?',
+      heading: 'Are you a creator?',
       description:
-        'EN - Vi disponerer nødvendig utstyr, lokaler og ikke minst kunnskap for å bistå i ditt neste prosjekt.',
+        'We have the necessary equipment, facilities, and most importantly, knowledge to assist you in your next project.',
       locale: 'en-GB',
     },
     {
@@ -368,9 +368,9 @@ const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] 
     },
     {
       slideId: 2,
-      heading: 'EN - Nysgjerrig på VR?',
+      heading: 'Curious about VR?',
       description:
-        'EN - Uansett om du bare har lyst til å teste det ut, eller er en veteran på VR-utvikling, har vi både utstyr og kompetanse innenfor Virtual Reality på Hackerspace.',
+        'Whether you just want to try it out or are a veteran in VR development, we have both equipment and expertise in Virtual Reality at Hackerspace.',
       locale: 'en-GB',
     },
     {
@@ -382,9 +382,9 @@ const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] 
     },
     {
       slideId: 3,
-      heading: 'EN - Kreativt, innovativt og ikke minst sosialt',
+      heading: 'Creative, innovative, and last but not least, social',
       description:
-        'EN - Hackerspace tilbyr en arena for prosjekter, enten det er IoT-dingser, programvare, 3D-printing, eller andre kule ting.',
+        "Hackerspace offers a venue for projects, whether it's IoT gadgets, software, 3D printing, or other cool things.",
       locale: 'en-GB',
     },
     {

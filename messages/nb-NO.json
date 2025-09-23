@@ -159,16 +159,20 @@
     "changeSlides": "Endre bannere",
     "whoAreWe": "Hvem er vi?",
     "whoAreWeDescription": "Hackerspace NTNU er et studentdrevet prosjekt fra IDI og er åpent for alle studenter uavhengig av studieretning. Hos oss finner du ny teknologi til din disposisjon, blant annet 3D-printere og Virtual Reality-utstyr. Enten du ønsker å få en LED-lampe til å blinke eller lage en 3D-modell av Trondheim, kan medlemmene i Hackerspace tilby variert og god kompetanse og hjelpe deg med det, uavhengig av ditt medlemsskap i Hackerspace.",
+    "whoAreWeAlt": "Bilde av Hackerspace-medlemmer på Hackstart høsten 2025",
     "stopBy": "Kom innom!",
     "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkuratt nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
+    "stopByAlt": "Bilde av verkstedet vårt",
     "events": "Arrangementer",
     "eventsDescription": "Meld deg på noen av våre oppkommende arrangementer for å lære deg nye ferdigheter eller bli med på noe sosialt.",
+    "eventsAlt": "...",
     "news": "Nyheter",
     "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
+    "newsAlt": "...",
     "slides": {
       "unauthorized": "Uautorisert til å administrere hjemmesidens bannere",
       "image": "Bilde",
-      "overlay": "Overlegg ???",
+      "overlay": "Innhold",
       "active": "Aktiv",
       "create": "Legg til nytt banner",
       "editSlide": "Rediger banner",
@@ -192,7 +196,9 @@
       "successEdit": "Banneret har blitt redigert!",
       "successDeleteImage": "Bildet til banneret ble slettet!",
       "successDelete": "Banneret ble slettet!",
-      "successChangeActive": "Banneret er nå {active, select, true {aktivt} other {inaktivt}}"
+      "changingActive": "Endrer sliden til {active, select, true {aktiv} other {inaktiv}}...",
+      "successChangeActive": "Sliden er nå {active, select, true {aktiv} other {inaktiv}}",
+      "errorChangingActive": "Kunne ikke gjøre sliden {active, select, true {aktiv} other {inaktiv}}"
     },
     "form": {
       "altNorwegian": {

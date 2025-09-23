@@ -18,7 +18,7 @@ const homeCarouselSlides = pgTable('home_carousel_slides', {
   id: serial('id').primaryKey(),
   active: boolean('active').notNull(),
   imageId: integer('image_id').references(() => files.id, {
-    onDelete: 'no action',
+    onDelete: 'set null',
   }),
 });
 
@@ -31,7 +31,7 @@ const homeCarouselSlideLocalizations = pgTable(
       })
       .notNull(),
     imgAlt: varchar('img_alt', { length: 255 }),
-    heading: varchar('heading', { length: 50 }).notNull(),
+    heading: varchar('heading', { length: 63 }).notNull(),
     description: varchar('description', { length: 255 }).notNull(),
     locale: localesEnum('locale').notNull(),
   },

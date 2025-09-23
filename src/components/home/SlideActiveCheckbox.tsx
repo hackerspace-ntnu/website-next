@@ -9,8 +9,12 @@ import type { RouterOutput } from '@/server/api';
 type SlideActiveCheckboxProps = {
   slide: RouterOutput['home']['fetchSlide'];
   t: {
+    changingToActive: string;
+    changingToInactive: string;
     successfullyChangedToActive: string;
     successfullyChangedToInactive: string;
+    errorChangingToActive: string;
+    errorChangingToInactive: string;
   };
 };
 
@@ -19,12 +23,7 @@ function SlideActiveCheckbox({ slide, t }: SlideActiveCheckboxProps) {
   const router = useRouter();
 
   const changeSlideActive = api.home.changeSlideActive.useMutation({
-    onSuccess: async (_data, variables) => {
-      toast.success(
-        variables.active
-          ? t.successfullyChangedToActive
-          : t.successfullyChangedToInactive,
-      );
+    onSuccess: async () => {
       await utils.home.fetchSlide.invalidate();
       await utils.home.fetchSlides.invalidate();
       router.refresh();
@@ -35,9 +34,19 @@ function SlideActiveCheckbox({ slide, t }: SlideActiveCheckboxProps) {
     <Checkbox
       checked={changeSlideActive.variables?.active ?? slide.active}
       onCheckedChange={(value) => {
-        changeSlideActive.mutate({
+        const promise = changeSlideActive.mutateAsync({
           id: slide.id,
           active: value !== 'indeterminate' ? value : false,
+        });
+
+        toast.promise(promise, {
+          loading: slide.active ? t.changingToInactive : t.changingToActive,
+          success: slide.active
+            ? t.successfullyChangedToInactive
+            : t.successfullyChangedToActive,
+          error: slide.active
+            ? t.errorChangingToInactive
+            : t.errorChangingToActive,
         });
       }}
       className='cursor-pointer'

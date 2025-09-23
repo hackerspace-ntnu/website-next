@@ -78,6 +78,12 @@ export default async function SlidesPage({
                 <SlideActiveCheckbox
                   slide={slide}
                   t={{
+                    changingToActive: tHome('api.changingActive', {
+                      active: 'true',
+                    }),
+                    changingToInactive: tHome('api.changingActive', {
+                      active: 'false',
+                    }),
                     successfullyChangedToActive: tHome(
                       'api.successChangeActive',
                       { active: 'true' },
@@ -86,6 +92,12 @@ export default async function SlidesPage({
                       'api.successChangeActive',
                       { active: 'false' },
                     ),
+                    errorChangingToActive: tHome('api.errorChangingActive', {
+                      active: 'true',
+                    }),
+                    errorChangingToInactive: tHome('api.errorChangingActive', {
+                      active: 'false',
+                    }),
                   }}
                 />
               </TableCell>

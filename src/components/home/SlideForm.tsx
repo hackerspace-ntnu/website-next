@@ -85,8 +85,8 @@ function SlideForm({ slide }: SlideFormProps) {
     },
     defaultValues: {
       image: null as string | null,
-      altNorwegian: norwegian?.imgAlt ?? null,
-      altEnglish: english?.imgAlt ?? null,
+      altNorwegian: norwegian?.imgAlt ?? '',
+      altEnglish: english?.imgAlt ?? '',
       headingNorwegian: norwegian?.heading ?? '',
       headingEnglish: english?.heading ?? '',
       descriptionNorwegian: norwegian?.description ?? '',

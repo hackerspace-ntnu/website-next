@@ -39,7 +39,7 @@ export default async function HomeLoading() {
         <h2>{t('events')}</h2>
         <div className='flex flex-col gap-3 md:flex-row'>
           <div className='flex flex-col gap-3 lg:w-1/2'>
-            <p>{t('eventsDescription')}</p>
+            <p className='mt-2'>{t('eventsDescription')}</p>
             <Link variant='link' href='/events' className='flex w-fit gap-3'>
               {tLayout('events')} <CornerUpRightIcon size={16} />
             </Link>
@@ -52,7 +52,7 @@ export default async function HomeLoading() {
         <h2>{t('news')}</h2>
         <div className='flex flex-col gap-3 md:flex-row '>
           <div className='flex flex-col gap-3 lg:w-1/2'>
-            <p>{t('newsDescription')}</p>
+            <p className='mt-2'>{t('newsDescription')}</p>
             <Link variant='link' href='/news' className='flex w-fit gap-3'>
               {tLayout('news')} <CornerUpRightIcon size={16} />
             </Link>

@@ -42,12 +42,12 @@ export default async function HomePage({
           editSlides: t('changeSlides'),
         }}
       />
-      <TextBlock imgSrc='/bg.jpg' imgAlt='...' imgSide='right'>
+      <TextBlock imgSrc='/bg.jpg' imgAlt={t('whoAreWeAlt')} imgSide='right'>
         <h2>{t('whoAreWe')}</h2>
         <p>{t('whoAreWeDescription')}</p>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/unknown.png' imgAlt='...' imgSide='left'>
+      <TextBlock imgSrc='/unknown.png' imgAlt={t('stopByAlt')} imgSide='left'>
         <h2>{t('stopBy')}</h2>
         <p>{t('stopByDescription', { membersOnShift })}</p>
         <Link
@@ -60,11 +60,11 @@ export default async function HomePage({
         </Link>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/event.webp' imgAlt='...' imgSide='right'>
+      <TextBlock imgSrc='/event.webp' imgAlt={t('eventsAlt')} imgSide='right'>
         <h2>{t('events')}</h2>
         <div className='flex flex-col gap-3 md:flex-row'>
           <div className='flex flex-col gap-3 lg:w-1/2'>
-            <p>{t('eventsDescription')}</p>
+            <p className='mt-2'>{t('eventsDescription')}</p>
             <Link variant='link' href='/events' className='flex w-fit gap-3'>
               {tLayout('events')} <CornerUpRightIcon size={16} />
             </Link>
@@ -73,11 +73,11 @@ export default async function HomePage({
         </div>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/mock.jpg' imgAlt='...' imgSide='left'>
+      <TextBlock imgSrc='/mock.jpg' imgAlt={t('newsAlt')} imgSide='left'>
         <h2>{t('news')}</h2>
         <div className='flex flex-col gap-3 md:flex-row '>
           <div className='flex flex-col gap-3 lg:w-1/2'>
-            <p>{t('newsDescription')}</p>
+            <p className='mt-2'>{t('newsDescription')}</p>
             <Link variant='link' href='/news' className='flex w-fit gap-3'>
               {tLayout('news')} <CornerUpRightIcon size={16} />
             </Link>

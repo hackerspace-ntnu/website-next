@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
+import { leadershipProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
   homeCarouselSlideLocalizations,
@@ -64,7 +64,7 @@ const homeRouter = createRouter({
         }),
       );
     }),
-  createSlide: protectedProcedure
+  createSlide: leadershipProcedure
     .input((input) => slideSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
       const { image, ...restInput } = input;
@@ -112,7 +112,7 @@ const homeRouter = createRouter({
         locale: 'nb-NO',
       });
     }),
-  editSlide: protectedProcedure
+  editSlide: leadershipProcedure
     .input((input) =>
       editSlideSchema(useTranslationsFromContext()).parse(input),
     )
@@ -167,7 +167,7 @@ const homeRouter = createRouter({
           ),
         );
     }),
-  deleteSlide: protectedProcedure
+  deleteSlide: leadershipProcedure
     .input((input) =>
       selectSlideSchema(useTranslationsFromContext()).parse(input),
     )
@@ -191,7 +191,7 @@ const homeRouter = createRouter({
         .delete(homeCarouselSlideLocalizations)
         .where(eq(homeCarouselSlideLocalizations.slideId, input.id));
     }),
-  deleteSlideImage: protectedProcedure
+  deleteSlideImage: leadershipProcedure
     .input((input) =>
       selectSlideSchema(useTranslationsFromContext()).parse(input),
     )
@@ -219,7 +219,7 @@ const homeRouter = createRouter({
 
       return input;
     }),
-  changeSlideActive: protectedProcedure
+  changeSlideActive: leadershipProcedure
     .input((input) =>
       changeSlideActiveSchema(useTranslationsFromContext()).parse(input),
     )

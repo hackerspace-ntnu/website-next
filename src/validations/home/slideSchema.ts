@@ -6,20 +6,18 @@ function slideSchema(t: Translations) {
   return z.object({
     altNorwegian: z
       .string()
-      .max(255, t('home.form.altNorwegian.maxLength', { count: 255 }))
-      .nullable(),
+      .max(255, t('home.form.altNorwegian.maxLength', { count: 255 })),
     altEnglish: z
       .string()
-      .max(255, t('home.form.altEnglish.maxLength', { count: 255 }))
-      .nullable(),
+      .max(255, t('home.form.altEnglish.maxLength', { count: 255 })),
     headingNorwegian: z
       .string()
       .min(1, t('home.form.headingNorwegian.required'))
-      .max(50, t('home.form.headingNorwegian.maxLength', { count: 50 })),
+      .max(63, t('home.form.headingNorwegian.maxLength', { count: 63 })),
     headingEnglish: z
       .string()
       .min(1, t('home.form.headingEnglish.required'))
-      .max(50, t('home.form.headingEnglish.maxLength', { count: 50 })),
+      .max(63, t('home.form.headingEnglish.maxLength', { count: 63 })),
     descriptionNorwegian: z
       .string()
       .min(1, t('home.form.descriptionNorwegian.required'))
