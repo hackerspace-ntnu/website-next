@@ -25,7 +25,6 @@ const toolReservations = pgTable('tool_reservations', {
   reservedUntil: timestamp('reserved_till').notNull(),
   notes: text('notes'),
   reservedAt: timestamp('reserved_at').notNull().defaultNow(),
-  finished: boolean('finished').default(false),
 });
 
 const toolReservationsRelations = relations(toolReservations, ({ one }) => ({

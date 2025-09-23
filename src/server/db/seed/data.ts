@@ -1526,7 +1526,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-01-25T12:00:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-01-18T09:30:00+01:00'),
-    finished: false,
   },
   {
     id: 2,
@@ -1536,7 +1535,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-01-22T16:30:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-01-21T11:05:00+01:00'),
-    finished: false,
   },
   {
     id: 3,
@@ -1546,7 +1544,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-25T11:00:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-23T17:45:00+01:00'),
-    finished: false,
   },
   {
     id: 4,
@@ -1556,7 +1553,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-27T15:00:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-26T08:10:00+01:00'),
-    finished: false,
   },
   {
     id: 5,
@@ -1566,7 +1562,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-02T12:30:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-30T12:00:00+01:00'),
-    finished: false,
   },
   {
     id: 6,
@@ -1576,7 +1571,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-12T19:00:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-12T10:20:00+01:00'),
-    finished: false,
   },
   {
     id: 7,
@@ -1586,7 +1580,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-10T11:30:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-08T15:00:00+01:00'),
-    finished: false,
   },
   {
     id: 8,
@@ -1596,7 +1589,6 @@ const reservationsData: InsertToolReservation[] = [
     reservedUntil: new Date('2025-12-01T14:00:00+01:00'),
     notes: '',
     reservedAt: new Date('2025-12-25T09:15:00+01:00'),
-    finished: false,
   },
 ];
 
