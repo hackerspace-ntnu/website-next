@@ -22,7 +22,7 @@ const toolReservations = pgTable('tool_reservations', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   reservedFrom: timestamp('reservered_from').notNull(),
-  reservedTill: timestamp('reserved_till').notNull(),
+  reservedUntil: timestamp('reserved_till').notNull(),
   notes: text('notes'),
   reservedAt: timestamp('reserved_at').notNull().defaultNow(),
   finished: boolean('finished').default(false),

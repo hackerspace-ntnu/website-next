@@ -9,15 +9,15 @@ function fetchCalendarReservationsSchema(t: Translations) {
       from: z
         .string()
         .datetime({ message: t('reservations.api.specifyStart') }),
-      to: z.string().datetime({ message: t('reservations.api.specifyEnd') }),
+      until: z.string().datetime({ message: t('reservations.api.specifyEnd') }),
     })
-    .refine(({ from, to }) => isBefore(new Date(from), new Date(to)), {
-      path: ['to'],
+    .refine(({ from, until }) => isBefore(new Date(from), new Date(until)), {
+      path: ['until'],
       message: t('reservations.api.startBeforeEndError'),
     })
     .refine(
-      ({ from, to }) => {
-        const limit = new Date(to).getTime() - new Date(from).getTime();
+      ({ from, until }) => {
+        const limit = new Date(until).getTime() - new Date(from).getTime();
         // 14 days limit
         return limit > 0 && limit <= 14 * 24 * 60 * 60 * 1000;
       },
