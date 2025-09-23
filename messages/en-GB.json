@@ -961,12 +961,14 @@
       "startBeforeEndError": "End time cannot be before start time",
       "invalidId": "Invalid id",
       "reservationNotFound": "Could not find reservation",
-      "toolNotFound": "Could not find tool",
-      "specifySlug": "Slug is required",
+      "toolNotFound": "Kunne ikke finne verktøyet",
+      "toolUnavailable": "Verktøyet er ikke tilgjengelig",
       "specifyStart": "Start date is required",
       "specifyEnd": "End date is required",
       "rangeTooLarge": "Specified range is too large",
-      "fetchReservationsFailed": "Failed to fetch reservations"
+      "fetchReservationsFailed": "Failed to fetch reservations",
+      "createReservationTimeConflict": "Start/end time cannot overlap existing reservations",
+      "cannotMoveToPast": "Reservation can only be moved to slots after current date/time"
     }
   }
 }

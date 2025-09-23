@@ -961,11 +961,14 @@
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
       "invalidId": "Ugyldig id",
       "notFound": "Kunne ikke finne reservasjonen",
-      "specifySlug": "Slug kreves",
+      "toolNotFound": "Could not find tool",
+      "toolUnavailable": "Tool is unavailable",
       "specifyStart": "Start dato kreves",
       "specifyEnd": "Slutt dato kreves",
       "rangeTooLarge": "Tidsperioden er for lang",
-      "fetchReservationsFailed": "Failed to fetch reservations"
+      "fetchReservationsFailed": "Failed to fetch reservations",
+      "createReservationTimeConflict": "Start/slutt tid kan ikke overlappe med eksisterende reservasjoner",
+      "cannotMoveToPast": "Reservasjonen kan kun bli flyttet til felt etter nåværende tidspunkt"
     }
   }
 }
