@@ -19,14 +19,14 @@ const toolsRouter = createRouter({
           nickName: tools.nickName,
         })
         .from(tools)
-        .leftJoin(toolsLocalizations, eq(toolsLocalizations.toolId, tools.id))
-        .where(
+        .leftJoin(
+          toolsLocalizations,
           and(
-            eq(tools.id, input),
-            eq(tools.available, true),
+            eq(toolsLocalizations.toolId, tools.id),
             eq(toolsLocalizations.locale, ctx.locale),
           ),
         )
+        .where(and(eq(tools.id, input), eq(tools.available, true)))
         .limit(1)
         .catch((error) => {
           console.error(error);
