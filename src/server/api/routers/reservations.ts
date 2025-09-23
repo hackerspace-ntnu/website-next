@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, gt, lt, sql } from 'drizzle-orm';
+import { and, asc, eq, gt, lt, ne, sql } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -14,8 +14,10 @@ import {
   users,
 } from '@/server/db/tables';
 import {
+  createReservationSchema,
   deleteReservationSchema,
   fetchCalendarReservationsSchema,
+  updateReservationSchema,
 } from '@/validations/reservations';
 import { fetchOneReservationSchema } from '@/validations/reservations/fetchOneReservationSchema';
 
@@ -75,20 +77,6 @@ const reservationsRouter = createRouter({
     return userReservations.filter((res) => res.finished !== true);
   }),
 
-  deleteReservation: protectedProcedure
-    .input((input) => deleteReservationSchema().parse(input))
-    .mutation(async ({ input, ctx }) => {
-      await ctx.db
-        .delete(toolReservations)
-        .where(
-          and(
-            eq(toolReservations.id, input.reservationId),
-            eq(toolReservations.toolId, input.toolId),
-            eq(toolReservations.reservorId, input.reservorId),
-          ),
-        );
-    }),
-
   fetchCalendarReservations: publicProcedure
     .input((input) =>
       fetchCalendarReservationsSchema(useTranslationsFromContext()).parse(
@@ -140,6 +128,82 @@ const reservationsRouter = createRouter({
         });
 
       return calendarReservations;
+    }),
+
+  createReservation: protectedProcedure
+    .input((input) =>
+      createReservationSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const tool = await ctx.db
+        .select({
+          tool: tools,
+        })
+        .from(tools)
+        .where(and(eq(tools.id, input.toolId), eq(tools.available, true)));
+
+      if (!tool) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.toolUnavailable'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const checkForOverlapping = await ctx.db
+        .select({
+          reservationId: toolReservations.id,
+        })
+        .from(toolReservations)
+        .where(
+          and(
+            eq(toolReservations.toolId, input.toolId),
+            lt(toolReservations.reservedFrom, new Date(input.reservedUntil)),
+            gt(toolReservations.reservedUntil, new Date(input.reservedFrom)),
+          ),
+        );
+
+      if (checkForOverlapping.length > 0) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('reservations.api.createReservationTimeConflict'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .insert(toolReservations)
+        .values({
+          toolId: input.toolId,
+          reservorId: ctx.user.id,
+          reservedFrom: new Date(input.reservedFrom),
+          reservedUntil: new Date(input.reservedUntil),
+          reservedAt: new Date(),
+          notes: input.notes ?? null,
+        })
+        .returning({
+          reservationId: toolReservations.id,
+          toolId: toolReservations.id,
+          reservorId: toolReservations.reservorId,
+          reservedFrom: toolReservations.reservedFrom,
+          reservedUntil: toolReservations.reservedUntil,
+          reservedAt: toolReservations.reservedAt,
+          notes: toolReservations.notes,
+        });
+    }),
+
+  deleteReservation: protectedProcedure
+    .input((input) => deleteReservationSchema().parse(input))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .delete(toolReservations)
+        .where(
+          and(
+            eq(toolReservations.id, input.reservationId),
+            eq(toolReservations.toolId, input.toolId),
+            eq(toolReservations.reservorId, input.reservorId),
+          ),
+        );
     }),
 });
 
