@@ -1,6 +1,5 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, gt, lt, sql } from 'drizzle-orm';
-import { ct } from 'node_modules/@fullcalendar/core/internal-common';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -49,12 +48,12 @@ const reservationsRouter = createRouter({
         reservation: toolReservations,
         toolId: tools.id,
         toolName: toolsLocalizations.name,
+        finished: sql<boolean>`now() >= ${toolReservations.reservedUntil}`,
       })
       .from(toolReservations)
       .where(
         and(
           eq(toolReservations.reservorId, ctx.user.id),
-          eq(toolReservations.finished, false),
           eq(toolsLocalizations.locale, ctx.locale),
         ),
       )
@@ -73,7 +72,7 @@ const reservationsRouter = createRouter({
         });
       });
 
-    return userReservations;
+    return userReservations.filter((res) => res.finished !== true);
   }),
 
   deleteReservation: protectedProcedure
@@ -105,7 +104,10 @@ const reservationsRouter = createRouter({
           notes: toolReservations.notes,
           userId: users.id,
           reservationId: toolReservations.id,
-          finished: toolReservations.finished,
+          reservedFrom: toolReservations.reservedFrom,
+          reservedUntil: toolReservations.reservedUntil,
+          reservedAt: toolReservations.reservedAt,
+          finished: sql<boolean>`now() >= ${toolReservations.reservedUntil}`,
           toolId: tools.id,
           toolName: toolsLocalizations.name,
           toolNickname: tools.nickName,
@@ -123,8 +125,8 @@ const reservationsRouter = createRouter({
         .where(
           and(
             eq(tools.id, input.toolId),
-            gt(toolReservations.reservedTill, new Date(input.from)),
-            lt(toolReservations.reservedFrom, new Date(input.to)),
+            gt(toolReservations.reservedUntil, new Date(input.from)),
+            lt(toolReservations.reservedFrom, new Date(input.until)),
           ),
         )
         .orderBy(asc(toolReservations.reservedFrom))
@@ -136,6 +138,7 @@ const reservationsRouter = createRouter({
             cause: { toast: error },
           });
         });
+
       return calendarReservations;
     }),
 });
