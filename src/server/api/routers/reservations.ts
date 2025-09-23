@@ -192,6 +192,85 @@ const reservationsRouter = createRouter({
         });
     }),
 
+  updateReservation: protectedProcedure
+    .input((input) =>
+      updateReservationSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const [current] = await ctx.db
+        .select({
+          id: toolReservations.id,
+          reservorId: toolReservations.reservorId,
+          reservedUntil: toolReservations.reservedUntil,
+        })
+        .from(toolReservations)
+        .where(
+          and(
+            eq(toolReservations.id, input.reservationId),
+            eq(toolReservations.toolId, input.toolId),
+          ),
+        );
+
+      if (!current) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('reservations.api.reservationNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (new Date(input.reservedFrom) < new Date()) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.cannotMoveToPast'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const checkForOverlap = await ctx.db
+        .select({ id: toolReservations.id })
+        .from(toolReservations)
+        .where(
+          and(
+            eq(toolReservations.toolId, input.toolId),
+            ne(toolReservations.id, input.reservationId),
+            lt(toolReservations.reservedFrom, new Date(input.reservedUntil)),
+            gt(toolReservations.reservedUntil, new Date(input.reservedFrom)),
+          ),
+        );
+
+      if (checkForOverlap.length > 0) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('reservations.api.createReservationTimeConflict'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(toolReservations)
+        .set({
+          reservedFrom: new Date(input.reservedFrom),
+          reservedUntil: new Date(input.reservedUntil),
+          notes: input.notes ?? sql`COALESCE(${toolReservations.notes}, NULL)`,
+        })
+        .where(
+          and(
+            eq(toolReservations.id, input.reservationId),
+            eq(toolReservations.toolId, input.toolId),
+          ),
+        )
+        .returning({
+          reservationId: toolReservations.id,
+          toolId: toolReservations.toolId,
+          reservorId: toolReservations.reservorId,
+          reservedFrom: toolReservations.reservedFrom,
+          reservedUntil: toolReservations.reservedUntil,
+          reservedAt: toolReservations.reservedAt,
+          notes: toolReservations.notes,
+        });
+    }),
+
   deleteReservation: protectedProcedure
     .input((input) => deleteReservationSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
