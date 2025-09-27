@@ -66,14 +66,16 @@ async function UserSearchTable({
                   ? `${groupNames.substring(0, 50)}...`
                   : groupNames}
               </TableCell>
-              <TableCell className='hidden w-fit grid-cols-3 gap-0.5 md:grid'>
-                {user.usersSkills.map((userSkill) => (
-                  <SkillIcon
-                    key={`${userSkill.userId}-${userSkill.skillId}`}
-                    skill={userSkill.skill}
-                    size='medium'
-                  />
-                ))}
+              <TableCell className='hidden md:table-cell'>
+                <div className='grid w-fit grid-cols-3 gap-0.5'>
+                  {user.usersSkills.map((userSkill) => (
+                    <SkillIcon
+                      key={`${userSkill.userId}-${userSkill.skillId}`}
+                      skill={userSkill.skill}
+                      size='medium'
+                    />
+                  ))}
+                </div>
               </TableCell>
             </TableRow>
           );
