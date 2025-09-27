@@ -4,6 +4,7 @@ import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
+  leadershipProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -160,7 +161,7 @@ const usersRouter = createRouter({
 
       return Math.ceil(totalCount[0].count);
     }),
-  fetchUsers: publicProcedure
+  fetchUsers: leadershipProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )
@@ -214,7 +215,7 @@ const usersRouter = createRouter({
 
       return await Promise.all(usersDataPromises);
     }),
-  totalResultsForUsersQuery: publicProcedure
+  totalResultsForUsersQuery: leadershipProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )
