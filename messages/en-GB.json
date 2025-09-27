@@ -807,10 +807,11 @@
   "management": {
     "title": "Website Management",
     "unauthorized": "Unauthorized to access management tools",
+    "backToManagement": "Back to management",
     "skills": {
+      "name": "Skills",
       "title": "Manage Skills",
       "description": "Manage the skills that members can achieve.",
-      "backToManagement": "Back to management",
       "backToSkills": "Back to skills",
       "new": {
         "title": "New Skill",
@@ -852,15 +853,27 @@
       }
     },
     "users": {
-      "title": "Users",
-      "description": "Manage users on the website."
+      "name": "Users",
+      "title": "Search for Users",
+      "description": "Manage users on the website.",
+      "searchUser": "Search user...",
+      "table": {
+        "name": "Name",
+        "groups": "Groups",
+        "skills": "Skills",
+        "noUsersFound": "No users found. Please check your search criteria.",
+        "caption": "Website users"
+      },
+      "unauthorized": "Unauthorized to manage users"
     },
     "files": {
-      "title": "Files & images",
+      "name": "Files & Images",
+      "title": "Manage Files & Images",
       "description": "Manage files and images uploaded by members."
     },
     "banners": {
-      "title": "Banners",
+      "name": "Banners",
+      "title": "Manage Banners",
       "description": "Manage banners displayed on the website."
     }
   },

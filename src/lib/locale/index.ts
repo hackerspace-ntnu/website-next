@@ -201,6 +201,10 @@ const routing = defineRouting({
       'en-GB': '/management/skills/new',
       'nb-NO': '/administrasjon/ferdigheter/ny',
     },
+    '/management/users': {
+      'en-GB': '/management/users',
+      'nb-NO': '/administrasjon/brukere',
+    },
     '/reservations': {
       'en-GB': '/reservations',
       'nb-NO': '/reservasjoner',

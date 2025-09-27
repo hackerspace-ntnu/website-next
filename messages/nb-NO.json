@@ -807,10 +807,11 @@
   "management": {
     "title": "Nettside-administrasjon",
     "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
+    "backToManagement": "Tilbake til administrasjon",
     "skills": {
+      "name": "Ferdigheter",
       "title": "Administrer ferdigheter",
       "description": "Administrer ferdighetene som medlemmene kan oppnå.",
-      "backToManagement": "Tilbake til administrasjon",
       "backToSkills": "Tilbake til ferdigheter",
       "new": {
         "title": "Ny ferdighet",
@@ -852,15 +853,27 @@
       }
     },
     "users": {
-      "title": "Brukere",
-      "description": "Administrer brukere på nettsiden."
+      "name": "Brukere",
+      "title": "Søk etter brukere",
+      "description": "Administrer brukere på nettsiden.",
+      "searchUser": "Søk etter brukere...",
+      "table": {
+        "name": "Navn",
+        "groups": "Grupper",
+        "skills": "Ferdigheter",
+        "noUsersFound": "Ingen brukere funnet. Sjekk søkekriteriene dine.",
+        "caption": "Brukere på nettsiden"
+      },
+      "unauthorized": "Du har ikke rettigheter til å administrere brukere"
     },
     "files": {
-      "title": "Filer og bilder",
+      "name": "Filer og bilder",
+      "title": "Administrer filer og bilder",
       "description": "Administrer filer og bilder lastet opp av medlemmer."
     },
     "banners": {
-      "title": "Bannere",
+      "name": "Bannere",
+      "title": "Administrer bannere",
       "description": "Administrer bannere som vises på nettsiden."
     }
   },
