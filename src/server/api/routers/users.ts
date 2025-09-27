@@ -1,6 +1,5 @@
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
-import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -95,13 +94,13 @@ const usersRouter = createRouter({
             ),
           );
 
-      const offset = input.page ? (input.page - 1) * itemsPerPage : 0;
+      const offset = input.page ? (input.page - 1) * input.limit : 0;
 
       return await ctx.db.query.users
         .findMany({
           where,
           offset,
-          limit: itemsPerPage,
+          limit: input.limit,
           with: {
             usersGroups: {
               with: {

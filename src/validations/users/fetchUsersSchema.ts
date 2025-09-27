@@ -5,7 +5,7 @@ function fetchUsersSchema(t: Translations) {
   return z.object({
     page: z.number().min(1, t('members.api.pageNumberRequired')).optional(),
     name: z.string().optional(),
-    limit: z.number(),
+    limit: z.number().min(1, t('members.api.invalidLimit')),
   });
 }
 

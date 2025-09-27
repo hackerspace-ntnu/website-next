@@ -222,11 +222,13 @@
     "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "noMembersFound": "Ingen medlemmer funnet.",
     "api": {
       "idOrNameRequired": "Enten ID eller navn må oppgis",
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
-      "pageNumberRequired": "Sidetall må oppgis"
+      "pageNumberRequired": "Sidetall må oppgis",
+      "invalidLimit": "Ugyldig limit"
     }
   },
   "settings": {
