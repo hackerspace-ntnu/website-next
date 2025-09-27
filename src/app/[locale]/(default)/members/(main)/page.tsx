@@ -40,12 +40,12 @@ export default async function MembersPage({
   const { [t('page')]: page = 1, [t('name')]: name = '' } =
     searchParamsCache.parse(await searchParams);
 
-  const users = await api.users.fetchUsers({
+  const users = await api.users.fetchMembers({
     page: page as number,
     name: name as string,
   });
 
-  const totalResults = await api.users.totalResultsForUsersQuery({
+  const totalResults = await api.users.totalResultsForMembersQuery({
     name: name as string,
   });
 

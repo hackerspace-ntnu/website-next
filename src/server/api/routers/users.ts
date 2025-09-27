@@ -8,13 +8,13 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { users, usersGroups } from '@/server/db/tables';
-import { fetchUserSchema } from '@/validations/users/fetchUserSchema';
-import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
+import { fetchMemberSchema } from '@/validations/users/fetchMemberSchema';
+import { fetchMembersSchema } from '@/validations/users/fetchMembersSchema';
 
 const usersRouter = createRouter({
-  fetchUser: publicProcedure
+  fetchMember: publicProcedure
     .input((input) =>
-      fetchUserSchema(useTranslationsFromContext()).parse(input),
+      fetchMemberSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       let where: SQL;
@@ -63,9 +63,9 @@ const usersRouter = createRouter({
         });
       return result;
     }),
-  fetchUsers: publicProcedure
+  fetchMembers: publicProcedure
     .input((input) =>
-      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+      fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       const where = input.name
@@ -120,9 +120,9 @@ const usersRouter = createRouter({
           });
         });
     }),
-  totalResultsForUsersQuery: publicProcedure
+  totalResultsForMembersQuery: publicProcedure
     .input((input) =>
-      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+      fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       const where = input.name

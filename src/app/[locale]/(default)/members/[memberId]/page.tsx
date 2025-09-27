@@ -22,7 +22,7 @@ export async function generateMetadata({
   )
     return;
 
-  const user = await api.users.fetchUser({
+  const user = await api.users.fetchMember({
     id: processedMemberId,
   });
 
@@ -47,7 +47,7 @@ export default async function MemberPage({
   if (Number.isNaN(processedMemberId) || !Number.isInteger(processedMemberId))
     return notFound();
 
-  const user = await api.users.fetchUser({
+  const user = await api.users.fetchMember({
     id: processedMemberId,
   });
 
