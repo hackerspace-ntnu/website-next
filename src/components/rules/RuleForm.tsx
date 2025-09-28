@@ -29,28 +29,33 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
   const tUi = useTranslations('ui');
   const formSchema = ruleSchema(useTranslations());
   const router = useRouter();
+  const utils = api.useUtils();
 
   const newRule = api.rules.newRule.useMutation({
-    onSuccess: (id) => {
+    onSuccess: async (id) => {
       toast.success(tNew('ruleCreated'));
+      await utils.rules.fetchRules.invalidate();
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
     },
   });
   const editRule = api.rules.editRule.useMutation({
-    onSuccess: (id) => {
+    onSuccess: async (id) => {
       toast.success(tUpdate('ruleUpdated'));
+      await utils.rules.invalidate();
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
     },
   });
   const deleteRuleImage = api.rules.deleteRuleImage.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tUpdate('imageDeleted'));
+      await utils.rules.invalidate();
       router.refresh();
     },
   });
   const deleteRule = api.rules.deleteRule.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tUpdate('ruleDeleted'));
+      await utils.rules.invalidate();
       router.push('/rules');
     },
   });
