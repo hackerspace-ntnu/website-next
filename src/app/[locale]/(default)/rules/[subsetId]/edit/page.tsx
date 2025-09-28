@@ -26,7 +26,13 @@ export default async function EditRulePage({
   const { locale, subsetId } = await params;
   setRequestLocale(locale);
 
-  if (Number.isNaN(Number(subsetId))) return notFound();
+  const processedSubsetId = Number(subsetId);
+  if (
+    Number.isNaN(processedSubsetId) ||
+    !Number.isInteger(processedSubsetId) ||
+    processedSubsetId < 1
+  )
+    return notFound();
 
   const { user } = await api.auth.state();
   const t = await getTranslations('rules');
@@ -38,7 +44,7 @@ export default async function EditRulePage({
     throw new Error(t('update.unauthorized'));
   }
 
-  const rule = await api.rules.fetchRule(Number(subsetId));
+  const rule = await api.rules.fetchRule(processedSubsetId);
 
   if (!rule) {
     return notFound();

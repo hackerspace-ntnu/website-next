@@ -12,9 +12,15 @@ export async function generateMetadata({
 }) {
   const { locale, subsetId } = await params;
 
-  if (Number.isNaN(Number(subsetId))) return;
+  const processedSubsetId = Number(subsetId);
+  if (
+    Number.isNaN(processedSubsetId) ||
+    !Number.isInteger(processedSubsetId) ||
+    processedSubsetId < 1
+  )
+    return;
 
-  const rule = await api.rules.fetchRule(Number(subsetId));
+  const rule = await api.rules.fetchRule(processedSubsetId);
 
   if (!rule) return;
 
@@ -31,9 +37,15 @@ export default async function RuleSubsetPage({
   const { locale, subsetId } = await params;
   setRequestLocale(locale);
 
-  if (Number.isNaN(Number(subsetId))) return notFound();
+  const processedSubsetId = Number(subsetId);
+  if (
+    Number.isNaN(processedSubsetId) ||
+    !Number.isInteger(processedSubsetId) ||
+    processedSubsetId < 1
+  )
+    return;
 
-  const rule = await api.rules.fetchRule(Number(subsetId));
+  const rule = await api.rules.fetchRule(processedSubsetId);
 
   if (!rule) return notFound();
 
