@@ -645,7 +645,8 @@
       "fetchRulesFailed": "Kunne ikke hente regler",
       "ruleWithNameExists": "En regel med navnet {name} eksisterer allerede",
       "ruleNotFound": "Regel ikke funnet",
-      "insertFailed": "Kunne ikke legge til regel"
+      "insertFailed": "Kunne ikke legge til regel",
+      "unauthorizedInternalRule": "Du har ikke rettigheter til å se interne regler"
     }
   },
   "skills": {

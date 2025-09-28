@@ -645,7 +645,8 @@
       "fetchRulesFailed": "Failed to fetch rules",
       "ruleWithNameExists": "A rule with the name {name} already exists",
       "ruleNotFound": "Rule not found",
-      "insertFailed": "Failed to add rule"
+      "insertFailed": "Failed to add rule",
+      "unauthorizedInternalRule": "Unauthorized to view internal rules"
     }
   },
   "skills": {

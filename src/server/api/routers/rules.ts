@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, or, type SQL } from 'drizzle-orm';
+import { asc, eq, or } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -18,18 +18,12 @@ const rulesRouter = createRouter({
       fetchRuleSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      let where = eq(rules.id, input);
-
       const { user, session } = await ctx.auth();
       const isMember = user?.groups && user.groups.length > 0;
 
-      if (!session || !isMember) {
-        where = and(where, eq(rules.internal, false)) as SQL;
-      }
-
-      return await ctx.db.query.rules
+      const rule = await ctx.db.query.rules
         .findFirst({
-          where,
+          where: eq(rules.id, input),
         })
         .catch((error) => {
           throw new TRPCError({
@@ -40,6 +34,12 @@ const rulesRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+
+      if ((!session || !isMember) && rule?.internal) {
+        throw new Error(ctx.t('rules.api.unauthorizedInternalRule'));
+      }
+
+      return rule;
     }),
   fetchRules: publicProcedure.query(async ({ ctx }) => {
     const { user, session } = await ctx.auth();
