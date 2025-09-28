@@ -24,8 +24,10 @@ export async function GET(request: NextRequest) {
   const cookieStore = await cookies();
   const storedState = cookieStore.get('feide-state')?.value;
   const codeVerifier = cookieStore.get('feide-code-verifier')?.value;
+  const redirectTo = cookieStore.get('feide-redirect-to')?.value;
   cookieStore.delete('feide-state');
   cookieStore.delete('feide-code-verifier');
+  cookieStore.delete('feide-redirect-to');
 
   if (
     !(
@@ -184,5 +186,7 @@ export async function GET(request: NextRequest) {
   const session = await createSession(sessionToken, user.id);
   await setSessionTokenCookie(sessionToken, session.expiresAt);
 
-  return NextResponse.redirect(new URL('/', env.NEXT_PUBLIC_SITE_URL));
+  return NextResponse.redirect(
+    new URL(redirectTo ?? '/', env.NEXT_PUBLIC_SITE_URL),
+  );
 }

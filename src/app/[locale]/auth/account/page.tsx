@@ -14,11 +14,14 @@ export async function generateMetadata() {
 
 export default async function AccountPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ r?: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const { r: redirectTo } = await searchParams;
 
   const { user } = await api.auth.state();
 
@@ -29,5 +32,5 @@ export default async function AccountPage({
     return redirect({ href: '/', locale });
   }
 
-  return <AccountSignInForm />;
+  return <AccountSignInForm redirectTo={redirectTo} />;
 }

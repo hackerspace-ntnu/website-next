@@ -104,6 +104,7 @@ const directories = [
   'storage-items',
   'groups',
   'rules',
+  'events',
 ] as const;
 
 const s3 = new S3Service();

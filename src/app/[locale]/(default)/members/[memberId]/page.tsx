@@ -74,7 +74,7 @@ export default async function MemberPage({
 
       <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
         <MemberInfoCard user={user} />
-        <SkillCard skills={user.usersSkills.map((row) => row.skill)} />
+        <SkillCard userSkills={user.usersSkills.map((row) => row.skill)} />
       </div>
     </>
   );

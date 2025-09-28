@@ -8,18 +8,20 @@ jobs:
   lint-format:
     name: Lint & Format
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
-        with:
-          version: latest
       - name: Run Biome
         run: biome ci .
   performance-audit:
     name: Lighthouse Performance Audit
     runs-on: noodlebar
+    permissions:
+      contents: read
     env:
       CI: true
       NEXT_TELEMETRY_DISABLED: true
