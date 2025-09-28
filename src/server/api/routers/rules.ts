@@ -134,6 +134,7 @@ const rulesRouter = createRouter({
         .update(rules)
         .set({
           ...rest,
+          updatedAt: new Date(),
           imageId: input.image ? imageId : existingRule.imageId,
         })
         .where(eq(rules.id, input.id));
