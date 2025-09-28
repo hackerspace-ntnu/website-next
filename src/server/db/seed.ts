@@ -12,6 +12,7 @@ import {
   type InsertGroupLocalization,
   type InsertItemCategory,
   type InsertItemLocalization,
+  type InsertRuleLocalizations,
   type InsertRules,
   type InsertShift,
   type InsertSkill,
@@ -21,6 +22,7 @@ import {
   type InsertUserSkill,
   itemCategories,
   itemLocalizations,
+  ruleLocalizations,
   rules,
   shifts,
   skills,
@@ -741,137 +743,227 @@ async function main() {
   await db.insert(shifts).values(shiftsData);
   console.log('Shifts inserted');
 
-  console.log('Inserting shifts...');
+  console.log('Inserting rules...');
   const rulesData: InsertRules[] = [
-    {
-      internal: true,
-      nameNorwegian: 'Regler for regler',
-      nameEnglish: 'Rules for rules',
-      contentNorwegian:
-        'Reglene eksisterer av en grunn, overhold dem! • For din egen sikkerhet, andre sin sikkerhet og for at utstyr skal vare. • Regler håndheves av LabOps, Styret og Ledelsen • Si ifra hvis du ser regelbrudd. Ta ansvar. • Hvis du ikke vil si ifra selv, kan du gå via tillitsvalgt, som har taushetsplikt • Hvis reglene ikke følges, kan det føre til at man ikke får bruke utstyret, eller at man blir utestengt. • Regler kan foreslås endret og/eller fremlegges av hvem som helst, men godkjennes av styret.',
-      contentEnglish:
-        "The rules exist for a reason, adhere to them! • For your own safety, the safety of others, and to ensure the equipment lasts. • Rules are enforced by LabOps, the Board, and Management • Report any rule violations you see. Take responsibility. • If you don't want to report it yourself, you can go through a union representative, who is bound by confidentiality • If the rules are not followed, it may result in losing access to the equipment or being banned. • Rules can be proposed for change and/or presented by anyone, but must be approved by the board.",
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Etiske retningslinjer',
-      nameEnglish: 'Ethical guidelines',
-      contentNorwegian:
-        'Disse retningslinjene gjelder for alle medlemmer av fellesskapet. • Behandle andre med respekt og verdighet. • Unngå diskriminering og trakassering. • Ta ansvar for egne handlinger. • Rapportere uetisk atferd.',
-      contentEnglish:
-        'These guidelines apply to all members of the community. • Treat others with respect and dignity. • Avoid discrimination and harassment. • Take responsibility for your actions. • Report unethical behavior.',
-    },
-    {
-      internal: false,
-      nameNorwegian: 'Regler for verkstedet',
-      nameEnglish: 'Rules for the workshop',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker verkstedet. • Rydd opp etter deg. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using the workshop. • Clean up after yourself. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for vakt',
-      nameEnglish: 'Rules for the guard',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som er på vakt. • Vær oppmerksom og tilstede. • Rapportere mistenkelig aktivitet. • Følg prosedyrer for nødsituasjoner.',
-      contentEnglish:
-        'These rules apply to everyone on duty. • Be alert and present. • Report suspicious activity. • Follow emergency procedures.',
-    },
-    {
-      internal: false,
-      nameNorwegian: 'Regler for bruk av 3D-printer',
-      nameEnglish: 'Rules for using the 3D printer',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker 3D-printeren. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using the 3D printer. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for kaffemaskin',
-      nameEnglish: 'Rules for the coffee machine',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker kaffemaskinen. • Rengjør etter deg. • Følg instruksjoner fra veiledere.',
-      contentEnglish:
-        'These rules apply to everyone using the coffee machine. • Clean up after yourself. • Follow instructions from supervisors.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for utlån',
-      nameEnglish: 'Rules for lending',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som låner utstyr. • Følg prosedyrene for utlån. • Ta ansvar for utstyret du låner.',
-      contentEnglish:
-        'These rules apply to everyone borrowing equipment. • Follow the borrowing procedures. • Take responsibility for the equipment you borrow.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for kurs',
-      nameEnglish: 'Rules for courses',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som deltar på kurs. • Møt presis. • Delta aktivt. • Respekter instruktører og medstudenter.',
-      contentEnglish:
-        'These rules apply to everyone attending courses. • Be on time. • Participate actively. • Respect instructors and fellow students.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for arrangement',
-      nameEnglish: 'Rules for events',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som deltar på arrangementer. • Møt presis. • Delta aktivt. • Respekter arrangører og meddeltakere.',
-      contentEnglish:
-        'These rules apply to everyone attending events. • Be on time. • Participate actively. • Respect organizers and fellow participants.',
-    },
-    {
-      internal: false,
-      nameNorwegian: 'Regler for VR briller',
-      nameEnglish: 'Rules for VR',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker VR-briller. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using VR. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
-    {
-      internal: false,
-      nameNorwegian: 'Regler for verksted-PC',
-      nameEnglish: 'Rules for workshop PC',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker verksted-PCen. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using the workshop PC. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for kjøkkenet',
-      nameEnglish: 'Rules for the kitchen',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker kjøkkenet. • Rengjør etter deg. • Følg instruksjoner fra veiledere.',
-      contentEnglish:
-        'These rules apply to everyone using the kitchen. • Clean up after yourself. • Follow instructions from supervisors.',
-    },
-    {
-      internal: false,
-      nameNorwegian: 'Regler for loddestasjon',
-      nameEnglish: 'Rules for soldering station',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker loddestasjonen. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using the soldering station. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
-    {
-      internal: true,
-      nameNorwegian: 'Regler for Drive',
-      nameEnglish: 'Rules for Drive',
-      contentNorwegian:
-        'Disse reglene gjelder for alle som bruker Drive. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
-      contentEnglish:
-        'These rules apply to everyone using Drive. • Follow instructions from supervisors. • Wear protective equipment when required.',
-    },
+    { internal: true },
+    { internal: true },
+    { internal: false },
+    { internal: true },
+    { internal: false },
+    { internal: true },
+    { internal: true },
+    { internal: true },
+    { internal: true },
+    { internal: false },
+    { internal: false },
+    { internal: true },
+    { internal: false },
+    { internal: true },
   ];
   await db.insert(rules).values(rulesData);
   console.log('Rules inserted');
+
+  console.log('Insert rule localizations...');
+  const ruleLocalizationData: InsertRuleLocalizations[] = [
+    {
+      ruleId: 1,
+      name: 'Regler for regler',
+      content:
+        'Reglene eksisterer av en grunn, overhold dem! • For din egen sikkerhet, andre sin sikkerhet og for at utstyr skal vare. • Regler håndheves av LabOps, Styret og Ledelsen • Si ifra hvis du ser regelbrudd. Ta ansvar. • Hvis du ikke vil si ifra selv, kan du gå via tillitsvalgt, som har taushetsplikt • Hvis reglene ikke følges, kan det føre til at man ikke får bruke utstyret, eller at man blir utestengt. • Regler kan foreslås endret og/eller fremlegges av hvem som helst, men godkjennes av styret.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 1,
+      name: 'Rules for rules',
+      content:
+        "The rules exist for a reason, adhere to them! • For your own safety, the safety of others, and to ensure the equipment lasts. • Rules are enforced by LabOps, the Board, and Management • Report any rule violations you see. Take responsibility. • If you don't want to report it yourself, you can go through a union representative, who is bound by confidentiality • If the rules are not followed, it may result in losing access to the equipment or being banned. • Rules can be proposed for change and/or presented by anyone, but must be approved by the board.",
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 2,
+      name: 'Etiske retningslinjer',
+      content:
+        'Disse retningslinjene gjelder for alle medlemmer av fellesskapet. • Behandle andre med respekt og verdighet. • Unngå diskriminering og trakassering. • Ta ansvar for egne handlinger. • Rapportere uetisk atferd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 2,
+      name: 'Ethical guidelines',
+      content:
+        'These guidelines apply to all members of the community. • Treat others with respect and dignity. • Avoid discrimination and harassment. • Take responsibility for your actions. • Report unethical behavior.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 3,
+      name: 'Regler for verkstedet',
+      content:
+        'Disse reglene gjelder for alle som bruker verkstedet. • Rydd opp etter deg. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 3,
+      name: 'Rules for the workshop',
+      content:
+        'These rules apply to everyone using the workshop. • Clean up after yourself. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 4,
+      name: 'Regler for vakt',
+      content:
+        'Disse reglene gjelder for alle som er på vakt. • Vær oppmerksom og tilstede. • Rapportere mistenkelig aktivitet. • Følg prosedyrer for nødsituasjoner.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 4,
+      name: 'Rules for the shifts',
+      content:
+        'These rules apply to everyone on duty. • Be alert and present. • Report suspicious activity. • Follow emergency procedures.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 5,
+      name: 'Regler for bruk av 3D-printer',
+      content:
+        'Disse reglene gjelder for alle som bruker 3D-printeren. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 5,
+      name: 'Rules for using the 3D printer',
+      content:
+        'These rules apply to everyone using the 3D printer. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 6,
+      name: 'Regler for kaffemaskin',
+      content:
+        'Disse reglene gjelder for alle som bruker kaffemaskinen. • Rengjør etter deg. • Følg instruksjoner fra veiledere.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 6,
+      name: 'Rules for the coffee machine',
+      content:
+        'These rules apply to everyone using the coffee machine. • Clean up after yourself. • Follow instructions from supervisors.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 7,
+      name: 'Regler for utlån',
+      content:
+        'Disse reglene gjelder for alle som låner utstyr. • Følg prosedyrene for utlån. • Ta ansvar for utstyret du låner.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 7,
+      name: 'Rules for lending',
+      content:
+        'These rules apply to everyone borrowing equipment. • Follow the borrowing procedures. • Take responsibility for the equipment you borrow.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 8,
+      name: 'Regler for kurs',
+      content:
+        'Disse reglene gjelder for alle som deltar på kurs. • Møt presis. • Delta aktivt. • Respekter instruktører og medstudenter.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 8,
+      name: 'Rules for courses',
+      content:
+        'These rules apply to everyone attending courses. • Be on time. • Participate actively. • Respect instructors and fellow students.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 9,
+      name: 'Regler for arrangement',
+      content:
+        'Disse reglene gjelder for alle som deltar på arrangementer. • Møt presis. • Delta aktivt. • Respekter arrangører og meddeltakere.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 9,
+      name: 'Rules for events',
+      content:
+        'These rules apply to everyone attending events. • Be on time. • Participate actively. • Respect organizers and fellow participants.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 10,
+      name: 'Regler for VR briller',
+      content:
+        'Disse reglene gjelder for alle som bruker VR-briller. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 10,
+      name: 'Rules for VR',
+      content:
+        'These rules apply to everyone using VR. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 11,
+      name: 'Regler for verksted-PC',
+      content:
+        'Disse reglene gjelder for alle som bruker verksted-PCen. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 11,
+      name: 'Rules for workshop PC',
+      content:
+        'These rules apply to everyone using the workshop PC. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 12,
+      name: 'Regler for kjøkkenet',
+      content:
+        'Disse reglene gjelder for alle som bruker kjøkkenet. • Rengjør etter deg. • Følg instruksjoner fra veiledere.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 12,
+      name: 'Rules for the kitchen',
+      content:
+        'These rules apply to everyone using the kitchen. • Clean up after yourself. • Follow instructions from supervisors.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 13,
+      name: 'Regler for loddestasjon',
+      content:
+        'Disse reglene gjelder for alle som bruker loddestasjonen. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 13,
+      name: 'Rules for soldering station',
+      content:
+        'These rules apply to everyone using the soldering station. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+    {
+      ruleId: 14,
+      name: 'Regler for Drive',
+      content:
+        'Disse reglene gjelder for alle som bruker Drive. • Følg instruksjoner fra veiledere. • Bruk verneutstyr når det er påkrevd.',
+      locale: 'nb-NO',
+    },
+    {
+      ruleId: 14,
+      name: 'Rules for Drive',
+      content:
+        'These rules apply to everyone using Drive. • Follow instructions from supervisors. • Wear protective equipment when required.',
+      locale: 'en-GB',
+    },
+  ];
+  await db.insert(ruleLocalizations).values(ruleLocalizationData);
+  console.log('Rule localizations inserted');
 }
 
 await main();

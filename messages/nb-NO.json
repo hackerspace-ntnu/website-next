@@ -646,6 +646,7 @@
       "ruleWithNameExists": "En regel med navnet {name} eksisterer allerede",
       "ruleNotFound": "Regel ikke funnet",
       "insertFailed": "Kunne ikke legge til regel",
+      "updateFailed": "Kunne ikke oppdatere regel",
       "unauthorizedInternalRule": "Du har ikke rettigheter til å se interne regler"
     }
   },

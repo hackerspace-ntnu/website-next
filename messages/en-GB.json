@@ -646,6 +646,7 @@
       "ruleWithNameExists": "A rule with the name {name} already exists",
       "ruleNotFound": "Rule not found",
       "insertFailed": "Failed to add rule",
+      "updateFailed": "Failed to update rule",
       "unauthorizedInternalRule": "Unauthorized to view internal rules"
     }
   },

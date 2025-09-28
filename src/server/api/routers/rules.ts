@@ -1,12 +1,12 @@
 import { TRPCError } from '@trpc/server';
-import { asc, eq, or } from 'drizzle-orm';
+import { and, asc, eq, or } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { rules } from '@/server/db/tables';
+import { ruleLocalizations, rules } from '@/server/db/tables';
 import { deleteFile, insertFile } from '@/server/services/files';
 import { editRuleSchema } from '@/validations/rules/editRuleSchema';
 import { fetchRuleSchema } from '@/validations/rules/fetchRuleSchema';
@@ -24,6 +24,9 @@ const rulesRouter = createRouter({
       const rule = await ctx.db.query.rules
         .findFirst({
           where: eq(rules.id, input),
+          with: {
+            localizations: true,
+          },
         })
         .catch((error) => {
           throw new TRPCError({
@@ -35,20 +38,32 @@ const rulesRouter = createRouter({
           });
         });
 
+      if (!rule) return null;
+
       if ((!session || !isMember) && rule?.internal) {
         throw new Error(ctx.t('rules.api.unauthorizedInternalRule'));
       }
 
-      return rule;
+      return {
+        ...rule,
+        localization: rule.localizations.find(
+          (loc) => loc.locale === ctx.locale,
+        ),
+      };
     }),
   fetchRules: publicProcedure.query(async ({ ctx }) => {
     const { user, session } = await ctx.auth();
     const isMember = user?.groups && user.groups.length > 0;
 
-    return await ctx.db.query.rules
+    const rulesData = await ctx.db.query.rules
       .findMany({
         where: !session || !isMember ? eq(rules.internal, false) : undefined,
         orderBy: asc(rules.createdAt),
+        with: {
+          localizations: {
+            where: eq(ruleLocalizations.locale, ctx.locale),
+          },
+        },
       })
       .catch((error) => {
         throw new TRPCError({
@@ -59,14 +74,23 @@ const rulesRouter = createRouter({
           cause: { toast: 'error' },
         });
       });
+
+    return rulesData.map((rule) => {
+      const { localizations, ...ruleData } = rule;
+
+      return {
+        ...ruleData,
+        localization: localizations[0],
+      };
+    });
   }),
-  newRule: protectedEditProcedure
+  createRule: protectedEditProcedure
     .input((input) => ruleSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const existingRule = await ctx.db.query.rules.findFirst({
+      const existingRule = await ctx.db.query.ruleLocalizations.findFirst({
         where: or(
-          eq(rules.nameNorwegian, input.nameNorwegian),
-          eq(rules.nameEnglish, input.nameEnglish),
+          eq(ruleLocalizations.name, input.nameNorwegian),
+          eq(ruleLocalizations.name, input.nameEnglish),
         ),
       });
 
@@ -90,14 +114,52 @@ const rulesRouter = createRouter({
 
       const [rule] = await ctx.db
         .insert(rules)
-        .values({ ...input, imageId })
-        .returning({ id: rules.id });
+        .values({ internal: input.internal, imageId })
+        .returning({ id: rules.id })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('rules.api.insertFailed', {
+              error: error.message,
+            }),
+            cause: { toast: 'error' },
+          });
+        });
 
-      if (!rule)
+      if (!rule) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('rules.api.insertFailed'),
           cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .insert(ruleLocalizations)
+        .values([
+          {
+            ruleId: rule.id,
+            name: input.nameNorwegian,
+            content: input.contentNorwegian,
+            locale: 'nb-NO',
+          },
+          {
+            ruleId: rule.id,
+            name: input.nameEnglish,
+            content: input.contentEnglish,
+            locale: 'en-GB',
+          },
+        ])
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('rules.api.insertFailed', {
+              error: error.message,
+            }),
+            cause: { toast: 'error' },
+          });
         });
 
       return rule.id;
@@ -128,16 +190,62 @@ const rulesRouter = createRouter({
         imageId = file.id;
       }
 
-      const { image: _, ...rest } = input;
+      const { image: _, ...data } = input;
 
       await ctx.db
         .update(rules)
         .set({
-          ...rest,
+          internal: data.internal,
           updatedAt: new Date(),
           imageId: input.image ? imageId : existingRule.imageId,
         })
         .where(eq(rules.id, input.id));
+
+      await ctx.db
+        .update(ruleLocalizations)
+        .set({
+          name: data.nameEnglish,
+          content: data.contentEnglish,
+        })
+        .where(
+          and(
+            eq(ruleLocalizations.ruleId, input.id),
+            eq(ruleLocalizations.locale, 'en-GB'),
+          ),
+        )
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('rules.api.updateFailed', {
+              error: error.message,
+            }),
+            cause: { toast: 'error' },
+          });
+        });
+
+      await ctx.db
+        .update(ruleLocalizations)
+        .set({
+          name: data.nameNorwegian,
+          content: data.contentNorwegian,
+        })
+        .where(
+          and(
+            eq(ruleLocalizations.ruleId, input.id),
+            eq(ruleLocalizations.locale, 'nb-NO'),
+          ),
+        )
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('rules.api.updateFailed', {
+              error: error.message,
+            }),
+            cause: { toast: 'error' },
+          });
+        });
 
       return input.id;
     }),

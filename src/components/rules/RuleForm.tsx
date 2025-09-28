@@ -31,7 +31,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
   const router = useRouter();
   const utils = api.useUtils();
 
-  const newRule = api.rules.newRule.useMutation({
+  const createRule = api.rules.createRule.useMutation({
     onSuccess: async (id) => {
       toast.success(tNew('ruleCreated'));
       await utils.rules.fetchRules.invalidate();
@@ -60,16 +60,19 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
     },
   });
 
+  const norwegian = rule?.localizations.find((loc) => loc.locale === 'nb-NO');
+  const english = rule?.localizations.find((loc) => loc.locale === 'en-GB');
+
   const form = useAppForm({
     validators: {
       onChange: formSchema,
     },
     defaultValues: {
       image: null as string | null,
-      nameNorwegian: rule?.nameNorwegian ?? '',
-      nameEnglish: rule?.nameEnglish ?? '',
-      contentNorwegian: rule?.contentNorwegian ?? '',
-      contentEnglish: rule?.contentEnglish ?? '',
+      nameNorwegian: norwegian?.name ?? '',
+      nameEnglish: english?.name ?? '',
+      contentNorwegian: norwegian?.content ?? '',
+      contentEnglish: english?.content ?? '',
       internal: rule?.internal ?? false,
     },
     onSubmit: ({ value }) => {
@@ -79,7 +82,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
           id: rule.id,
         });
       }
-      newRule.mutate(value);
+      createRule.mutate(value);
     },
   });
 
@@ -213,7 +216,9 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
               </AlertDialogContent>
             </AlertDialog>
           )}
-          <form.SubmitButton loading={newRule.isPending || editRule.isPending}>
+          <form.SubmitButton
+            loading={createRule.isPending || editRule.isPending}
+          >
             {rule ? tUpdate('updateRule') : tNew('createRule')}
           </form.SubmitButton>
         </div>

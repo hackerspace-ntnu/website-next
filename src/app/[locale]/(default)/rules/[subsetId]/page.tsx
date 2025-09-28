@@ -10,7 +10,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: Locale; subsetId: string }>;
 }) {
-  const { locale, subsetId } = await params;
+  const { subsetId } = await params;
 
   const processedSubsetId = Number(subsetId);
   if (
@@ -22,10 +22,10 @@ export async function generateMetadata({
 
   const rule = await api.rules.fetchRule(processedSubsetId);
 
-  if (!rule) return;
+  if (!rule || !rule.localization) return;
 
   return {
-    title: locale === 'en-GB' ? rule.nameEnglish : rule.nameNorwegian,
+    title: rule.localization.name,
   };
 }
 
@@ -47,7 +47,7 @@ export default async function RuleSubsetPage({
 
   const rule = await api.rules.fetchRule(processedSubsetId);
 
-  if (!rule) return notFound();
+  if (!rule || !rule.localization) return notFound();
 
   const t = await getTranslations('rules');
   const { user } = await api.auth.state();
@@ -64,9 +64,7 @@ export default async function RuleSubsetPage({
         <span>{t('backToRules')}</span>
       </Link>
       <div className='relative'>
-        <h1 className='text-center'>
-          {locale === 'en-GB' ? rule.nameEnglish : rule.nameNorwegian}
-        </h1>
+        <h1 className='text-center'>{rule.localization.name}</h1>
         {user?.groups.some((g) =>
           ['labops', 'leadership', 'admin'].includes(g),
         ) && (
@@ -83,9 +81,7 @@ export default async function RuleSubsetPage({
           </Link>
         )}
       </div>
-      <p className='my-4'>
-        {locale === 'en-GB' ? rule.contentEnglish : rule.contentNorwegian}
-      </p>
+      <p className='my-4'>{rule.localization.content}</p>
     </>
   );
 }
