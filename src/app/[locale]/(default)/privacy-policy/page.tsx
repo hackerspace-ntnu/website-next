@@ -1,6 +1,14 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+export async function generateMetadata() {
+  const t = await getTranslations('privacy');
+
+  return {
+    title: t('title'),
+  };
+}
+
 export default async function PrivacyPage({
   params,
 }: {

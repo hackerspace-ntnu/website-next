@@ -2,9 +2,13 @@ import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
+import {
+  authenticatedProcedure,
+  protectedProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { userGroups, users } from '@/server/db/tables';
+import { users, usersGroups } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
 import { fetchUserSchema } from '@/validations/users/fetchUserSchema';
 import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
@@ -30,8 +34,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           ),
           with: {
@@ -76,8 +80,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           )
         : and(
@@ -85,8 +89,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           );
 
@@ -161,8 +165,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           )
         : and(
@@ -170,8 +174,8 @@ const usersRouter = createRouter({
             exists(
               ctx.db
                 .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
+                .from(usersGroups)
+                .where(eq(usersGroups.userId, users.id)),
             ),
           );
 
@@ -184,6 +188,29 @@ const usersRouter = createRouter({
 
       return Math.ceil(totalCount[0].count);
     }),
+  fetchUserNotifications: authenticatedProcedure.query(async ({ ctx }) => {
+    try {
+      const userId = ctx.user.id;
+      const row = await ctx.db.query.users.findFirst({
+        where: eq(users.id, userId),
+        columns: { notificationSetting: true },
+      });
+      if (!row) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+        });
+      }
+      return row.notificationSetting ?? 'all';
+    } catch (err) {
+      console.error('Error fetching notification_setting', err);
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: ctx.t('members.api.errorFetchingMember'),
+        cause: { toast: 'error' },
+      });
+    }
+  }),
 });
 
 export { usersRouter };

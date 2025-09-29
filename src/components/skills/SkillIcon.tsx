@@ -1,5 +1,6 @@
 import {
   BoxIcon,
+  CheckCheckIcon,
   CircuitBoardIcon,
   CodeIcon,
   CoffeeIcon,
@@ -8,15 +9,15 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale } from 'next-intl';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/Tooltip';
-import type { skillIdentifiers } from '@/lib/constants';
 import { cx } from '@/lib/utils';
+import type { SelectSkill } from '@/server/db/tables';
 
 function SkillIconTooltipTemplate({
   children,
@@ -39,7 +40,10 @@ function SkillIconTooltipTemplate({
   );
 }
 
-const skillIconsConfig = {
+const skillIconsConfig: Record<
+  string,
+  { icon: React.ElementType; className: string }
+> = {
   printing: {
     icon: BoxIcon,
     className: 'bg-green-100 text-green-600',
@@ -75,21 +79,20 @@ const skillIconsConfig = {
 };
 
 type SkillIconProps = {
-  identifier: (typeof skillIdentifiers)[number];
-  size?: 'small' | 'medium' | 'large';
+  skill: SelectSkill;
+  size?: 'small' | 'medium' | 'large' | 'xl';
 };
 
-function SkillIcon({ identifier, size = 'medium' }: SkillIconProps) {
-  const t = useTranslations('skills');
+function SkillIcon({ skill, size = 'medium' }: SkillIconProps) {
+  const config = skillIconsConfig[skill.identifier];
+  const locale = useLocale();
 
-  const config = skillIconsConfig[identifier];
-
-  if (!config) return null;
-
-  const { icon: Icon, className } = config;
+  const { icon: Icon, className } = config ?? {};
 
   return (
-    <SkillIconTooltipTemplate tooltip={t(identifier)}>
+    <SkillIconTooltipTemplate
+      tooltip={locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+    >
       <span
         className={cx(
           'rounded-full opacity-75',
@@ -97,17 +100,30 @@ function SkillIcon({ identifier, size = 'medium' }: SkillIconProps) {
             'max-h-4 min-h-4 min-w-4 max-w-4 p-0.5': size === 'small',
             'max-h-5 min-h-5 min-w-5 max-w-5 p-[3px]': size === 'medium',
             'max-h-6 min-h-6 min-w-6 max-w-6 p-1': size === 'large',
+            'max-h-8 min-h-8 min-w-8 max-w-8 p-1.5': size === 'xl',
           },
-          className,
+          className ?? 'bg-gray-100 text-black',
         )}
       >
-        <Icon
-          className={cx({
-            'h-3 w-3': size === 'small',
-            'h-3.5 w-3.5': size === 'medium',
-            'h-4 w-4': size === 'large',
-          })}
-        />
+        {Icon ? (
+          <Icon
+            className={cx({
+              'h-3 w-3': size === 'small',
+              'h-3.5 w-3.5': size === 'medium',
+              'h-4 w-4': size === 'large',
+              'h-5 w-5': size === 'xl',
+            })}
+          />
+        ) : (
+          <CheckCheckIcon
+            className={cx({
+              'h-3 w-3': size === 'small',
+              'h-3.5 w-3.5': size === 'medium',
+              'h-4 w-4': size === 'large',
+              'h-5 w-5': size === 'xl',
+            })}
+          />
+        )}
       </span>
     </SkillIconTooltipTemplate>
   );

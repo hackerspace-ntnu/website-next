@@ -9,15 +9,11 @@ const labelVariants = cva({
 });
 
 function Label({
-  ref,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
-  ref?: React.RefObject<React.ComponentRef<typeof LabelPrimitive.Root>>;
-}) {
+}: React.ComponentPropsWithRef<typeof LabelPrimitive.Root>) {
   return (
     <LabelPrimitive.Root
-      ref={ref}
       className={cx(labelVariants(), className)}
       {...props}
     />

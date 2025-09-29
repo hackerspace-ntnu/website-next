@@ -1,0 +1,71 @@
+/*
+Mye av stylingen må defineres i en egen .css fil slik det er gjort her med mindre
+man vil lage custom componenter for alt i fullcalendar. Da må man gjøre det slik jeg har
+gjort med CustomEventStyling komponenten eller CustomToolbar.
+Noe styling er definert i CalendarConfig.ts også.
+Man kan finne hvordan man endrer styling på spesifikke ting ved å sjekke ut fullcalendars github repo under:
+https://github.com/fullcalendar/fullcalendar/blob/9a0edaeb5eddf2cec8bd2409ecc26c4598b98a48/packages/core/src/styles/vars.css
+Alle fullcalendar komponenter skal ha en vars.css fil.
+*/
+
+.fc {
+  /* For selve kalenderen */
+  --fc-page-bg-color: var(--background);
+  --fc-border-color: var(--border);
+  --fc-neutral-bg-color: var(--muted);
+  --fc-neutral-text-color: var(--muted-foreground);
+
+  /* For events eller reservasjoner, noe er default her mens noe er bestemt i CustomEventStyling.tsx og CalendarConfig.ts */
+  --fc-event-resizer-thickness: 3rem;
+  --fc-event-resizer-dot-total-width: 0.5rem;
+  --fc-event-resizer-dot-border-width: 0.0625rem;
+
+  /* tid nå streken og pilen */
+  --fc-now-indicator-color: var(--destructive);
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.fc .fc-view-harness {
+  background-color: var(--background);
+  border-radius: var(--radius);
+}
+
+.fc .fc-toolbar {
+  display: none;
+}
+
+.fc .fc-col-header-cell {
+  background-color: var(--card);
+  padding: 0.5rem 0;
+  border-right: 0.0625rem solid var(--border);
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.375rem;
+}
+
+.fc .fc-timegrid-slot {
+  height: 2.5rem;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  border-bottom: 0;
+}
+
+.fc .fc-timegrid-slot-label {
+  color: var(--muted-foreground);
+}
+
+.fc .fc-timegrid-axis {
+  background-color: var(--card);
+  width: 4.375rem;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: var(--destructive);
+  width: 100%;
+  border-width: 0.125rem;
+}

@@ -94,11 +94,15 @@ async function Header() {
           />
           <ProfileMenu
             hasUser={Boolean(user)}
+            isLeadership={
+              !!user?.groups.some((g) => ['admin', 'leadership'].includes(g))
+            }
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
               signOut: t('signOut'),
               settings: t('settings'),
+              management: t('management'),
             }}
           />
         </div>
