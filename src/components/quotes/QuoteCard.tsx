@@ -48,7 +48,8 @@ async function QuoteCard({
                 />
               )}
               <AvatarFallback>
-                {saidByName.substring(0, 2).toUpperCase()}
+                {quote.saidBy.firstName.charAt(0).toUpperCase() +
+                  quote.saidBy.lastName.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div>
