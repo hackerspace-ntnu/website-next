@@ -58,9 +58,22 @@ const forgotPasswordRouter = createRouter({
           });
         });
 
-      const idBytes = new Uint8Array(20);
-      crypto.getRandomValues(idBytes);
-      const id = encodeBase32(idBytes).toLowerCase();
+      let id: string;
+
+      while (true) {
+        const idBytes = new Uint8Array(20);
+        crypto.getRandomValues(idBytes);
+        id = encodeBase32(idBytes).toLowerCase();
+
+        const existingRequest =
+          await ctx.db.query.forgotPasswordRequests.findFirst({
+            where: eq(forgotPasswordRequests.id, id),
+          });
+
+        if (!existingRequest) {
+          break;
+        }
+      }
 
       // Silent failure. Do not inform the user whether someone is using this email.
       if (!user) {
