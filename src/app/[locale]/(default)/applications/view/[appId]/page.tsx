@@ -26,7 +26,13 @@ export default async function ApplicationPage({
   const { locale, appId } = await params;
   setRequestLocale(locale);
 
-  if (Number.isNaN(Number(appId))) return notFound();
+  const processedAppId = Number(appId);
+  if (
+    Number.isNaN(processedAppId) ||
+    !Number.isInteger(processedAppId) ||
+    processedAppId < 1
+  )
+    return notFound();
 
   const t = await getTranslations('applications.view');
   const tUi = await getTranslations('ui');
@@ -34,7 +40,7 @@ export default async function ApplicationPage({
   const formatter = await getFormatter();
 
   const application = await api.applications.fetchApplication({
-    applicationId: Number(appId),
+    applicationId: processedAppId,
   });
 
   const groupLocalization = application?.group.localizations.find(
