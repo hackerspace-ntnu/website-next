@@ -2,6 +2,7 @@
 
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import type React from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
@@ -29,7 +30,10 @@ type ComboboxProps = {
   buttonClassName?: string;
   contentClassName?: string;
   valueCallback?: (value: string) => void;
+  searchCallback?: (value: string) => void;
   initialValue?: string | null;
+  emptyMessage?: React.ReactNode;
+  shouldFilter?: boolean;
 };
 
 function Combobox({
@@ -39,7 +43,10 @@ function Combobox({
   buttonClassName,
   contentClassName,
   valueCallback,
+  searchCallback,
   initialValue,
+  emptyMessage,
+  shouldFilter = true,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(initialValue ?? '');
@@ -62,10 +69,16 @@ function Combobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
-        <Command className='bg-popover dark:bg-popover'>
-          <CommandInput placeholder={defaultPlaceholder} />
+        <Command
+          className='bg-popover dark:bg-popover'
+          shouldFilter={shouldFilter}
+        >
+          <CommandInput
+            placeholder={defaultPlaceholder}
+            onValueChange={searchCallback}
+          />
           <CommandList>
-            <CommandEmpty>{t('noChoicesFound')}</CommandEmpty>
+            <CommandEmpty>{emptyMessage ?? t('noChoicesFound')}</CommandEmpty>
             <CommandGroup>
               {choices.map((choice) => (
                 <CommandItem
@@ -76,9 +89,7 @@ function Combobox({
                     const newValue = currentValue === value ? '' : currentValue;
                     setValue(newValue);
                     setOpen(false);
-                    if (valueCallback) {
-                      valueCallback(newValue);
-                    }
+                    valueCallback?.(newValue);
                   }}
                 >
                   <CheckIcon

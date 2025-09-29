@@ -460,7 +460,7 @@ function SelectField({
 
 type ComboboxFieldProps = Omit<
   React.ComponentProps<typeof Combobox>,
-  'defaultDescription' | 'defaultPlaceholder' | 'valueCallback'
+  'defaultDescription' | 'defaultPlaceholder'
 > & {
   label: string;
   labelVisible?: boolean;
@@ -479,6 +479,7 @@ function ComboboxField({
   labelSibling,
   description,
   comboboxDescription,
+  valueCallback,
   ...props
 }: ComboboxFieldProps) {
   const field = useFieldContext<string>();
@@ -494,7 +495,10 @@ function ComboboxField({
       <Combobox
         defaultDescription={comboboxDescription}
         defaultPlaceholder={placeholder}
-        valueCallback={field.handleChange}
+        valueCallback={(value) => {
+          field.handleChange(value);
+          valueCallback?.(value);
+        }}
         {...props}
       />
     </BaseField>
