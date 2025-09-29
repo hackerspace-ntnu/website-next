@@ -669,7 +669,8 @@
     "thankYou": {
       "title": "Thank you",
       "description1": "We appreciate your interest in Hackerspace NTNU!",
-      "description2": "We will take a look at your application and get back to you soon."
+      "description2": "We will take a look at your application and get back to you soon.",
+      "backToHome": "Back to home"
     },
     "view": {
       "title": "Applications",

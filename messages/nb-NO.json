@@ -669,7 +669,8 @@
     "thankYou": {
       "title": "Takk",
       "description1": "Vi setter pris på interessen din for Hackerspace NTNU!",
-      "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart."
+      "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart.",
+      "backToHome": "Tilbake til forsiden"
     },
     "view": {
       "title": "Søknader",

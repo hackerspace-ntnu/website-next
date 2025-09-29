@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { HackerspaceLogo } from '@/components/assets/logos';
 import { AnimatedGradientText } from '@/components/fancy/AnimatedGradientText';
 import { GridBackground } from '@/components/fancy/GridBackground';
+import { Link } from '@/components/ui/Link';
 
 export async function generateMetadata() {
   const t = await getTranslations('applications.thankYou');
@@ -31,6 +32,14 @@ export default async function ThankYouPage({
         <h2 className='text-3xl leading-18 md:text-5xl'>{t('description1')}</h2>
         <h3 className='text-xl md:text-3xl'>{t('description2')}</h3>
         <HackerspaceLogo className='mx-auto h-32 w-32 rounded-lg bg-muted p-2' />
+        <Link
+          href='/'
+          variant='default'
+          size='default'
+          className='mx-auto w-48'
+        >
+          {t('backToHome')}
+        </Link>
       </div>
     </GridBackground>
   );
