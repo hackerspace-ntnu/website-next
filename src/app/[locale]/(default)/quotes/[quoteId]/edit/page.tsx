@@ -30,9 +30,15 @@ export default async function NewQuotePage({
   const t = await getTranslations('quotes');
   const tUpdate = await getTranslations('quotes.update');
 
-  if (Number.isNaN(quoteId)) return notFound();
+  const processedQuoteId = Number(quoteId);
+  if (
+    Number.isNaN(processedQuoteId) ||
+    !Number.isInteger(processedQuoteId) ||
+    processedQuoteId < 1
+  )
+    return notFound();
 
-  const quote = await api.quotes.getQuote(Number(quoteId));
+  const quote = await api.quotes.getQuote(processedQuoteId);
 
   if (!quote) return notFound();
 
