@@ -635,6 +635,7 @@
     "webdevelopment": "Webutvikling",
     "api": {
       "skillNotFound": "Ferdighet ikke funnet",
+      "cannotAddSkill": "Du kan ikke gi denne ferdigheten",
       "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
       "userDoesNotHaveSkill": "Brukeren har ikke denne ferdigheten",
       "invalidId": "Ugyldig ID"

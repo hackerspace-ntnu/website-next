@@ -635,6 +635,7 @@
     "webdevelopment": "Web Development",
     "api": {
       "skillNotFound": "Skill not found",
+      "cannotAddSkill": "You cannot give this skill",
       "userAlreadyHasSkill": "User already has this skill",
       "userDoesNotHaveSkill": "User does not have this skill",
       "invalidId": "Invalid ID"

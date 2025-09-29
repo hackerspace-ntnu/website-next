@@ -63,9 +63,17 @@ export default async function MemberPage({
   const groups = await api.groups.fetchGroups();
   const skills = await api.skills.fetchAllSkills();
   const canEdit = auth.user?.groups.some((g) =>
-    ['admin', 'leadership', 'management'].includes(g),
+    ['admin', 'management'].includes(g),
   );
   const { about, members, ui } = await getMessages();
+
+  // We do not allow editing skills if you're not a member yourself
+  const userSkills =
+    auth?.user && auth.user.groups.length > 0
+      ? await api.skills.fetchUserSkills({
+          userId: auth.user.id,
+        })
+      : [];
 
   return (
     <>
@@ -88,9 +96,11 @@ export default async function MemberPage({
         <MemberInfoCard user={user} />
         <SkillCard
           user={user}
-          userSkills={user.usersSkills}
           allSkills={skills}
-          editable={!!canEdit}
+          editableSkills={userSkills.map(
+            (userSkill) => userSkill.skill.identifier,
+          )}
+          isManagement={!!canEdit}
         />
       </div>
       {canEdit && (

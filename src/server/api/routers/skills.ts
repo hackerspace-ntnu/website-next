@@ -1,7 +1,11 @@
 import { TRPCError } from '@trpc/server';
 import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { managementProcedure, publicProcedure } from '@/server/api/procedures';
+import {
+  managementProcedure,
+  protectedProcedure,
+  publicProcedure,
+} from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { skills, userSkills, users } from '@/server/db/tables';
 import { userToSkillSchema } from '@/validations/skills/userToSkillSchema';
@@ -10,11 +14,31 @@ const skillsRouter = createRouter({
   fetchAllSkills: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.query.skills.findMany();
   }),
-  addSkillToUser: managementProcedure
+  addSkillToUser: protectedProcedure
     .input((input) =>
       userToSkillSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const userSkillsData = await ctx.db.query.userSkills.findMany({
+        where: eq(userSkills.userId, ctx.user.id),
+      });
+
+      // We can't add skills if we don't have the skill ourselves, unless we're management or admin
+      if (
+        !userSkillsData
+          .map((userSkill) => userSkill.skillId)
+          .includes(input.skillId) &&
+        !ctx.user.groups.some(
+          (group) => group === 'management' || group === 'admin',
+        )
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('skills.api.cannotAddSkill'),
+          cause: { toast: 'error' },
+        });
+      }
+
       const skill = await ctx.db.query.skills.findFirst({
         where: eq(skills.id, input.skillId),
       });
@@ -111,6 +135,29 @@ const skillsRouter = createRouter({
             eq(userSkills.userId, input.userId),
           ),
         );
+    }),
+  fetchUserSkills: publicProcedure
+    .input((input) =>
+      userToSkillSchema(useTranslationsFromContext())
+        .pick({ userId: true })
+        .parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+        });
+      }
+
+      return await ctx.db.query.userSkills.findMany({
+        where: eq(userSkills.userId, input.userId),
+        with: { skill: true },
+      });
     }),
 });
 

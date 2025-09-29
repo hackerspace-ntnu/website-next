@@ -26,20 +26,31 @@ function ToggleSkillIcon({
   skill,
   hasSkill,
   editable,
+  isManagement,
 }: {
   user: NonNullable<RouterOutput['users']['fetchUser']>;
   skill: RouterOutput['skills']['fetchAllSkills'][number];
   hasSkill: boolean;
   editable: boolean;
+  isManagement: boolean;
 }) {
   const t = useTranslations('members.skillManagement');
   const tSkills = useTranslations('skills');
   const router = useRouter();
+  const utils = api.useUtils();
+
   const addSkill = api.skills.addSkillToUser.useMutation({
-    onSuccess: router.refresh,
+    onSuccess: async () => {
+      await utils.skills.invalidate();
+      router.refresh();
+    },
   });
+
   const removeSkill = api.skills.removeSkillFromUser.useMutation({
-    onSuccess: router.refresh,
+    onSuccess: async () => {
+      await utils.skills.invalidate();
+      router.refresh();
+    },
   });
 
   const trigger = hasSkill ? (
@@ -48,12 +59,16 @@ function ToggleSkillIcon({
     <XIcon className='h-4 w-4 text-red-500' />
   );
 
-  if (!editable) return trigger;
+  if (!editable || (!isManagement && hasSkill)) return trigger;
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant='none' size='none' className='block'>
+        <Button
+          variant='outline'
+          size='xs-icon'
+          className='block [&>svg]:mx-auto'
+        >
           {trigger}
         </Button>
       </AlertDialogTrigger>

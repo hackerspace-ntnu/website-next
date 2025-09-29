@@ -23,16 +23,7 @@ const usersRouter = createRouter({
 
       const result = ctx.db.query.users
         .findFirst({
-          where: and(
-            where,
-            eq(users.private, false),
-            exists(
-              ctx.db
-                .select()
-                .from(userGroups)
-                .where(eq(userGroups.userId, users.id)),
-            ),
-          ),
+          where: and(where, eq(users.private, false)),
           columns: {
             id: true,
             firstName: true,

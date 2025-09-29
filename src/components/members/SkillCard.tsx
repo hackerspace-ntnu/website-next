@@ -4,18 +4,18 @@ import { ToggleSkillIcon } from '@/components/members/ToggleSkillIcon';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Card } from '@/components/ui/Card';
 import type { RouterOutput } from '@/server/api';
-import type { SelectSkill, SelectUserSkill } from '@/server/db/tables';
+import type { SelectSkill } from '@/server/db/tables';
 
 async function SkillCard({
   user,
   allSkills,
-  userSkills,
-  editable,
+  editableSkills,
+  isManagement,
 }: {
   user: NonNullable<RouterOutput['users']['fetchUser']>;
   allSkills: SelectSkill[];
-  userSkills: SelectUserSkill[];
-  editable: boolean;
+  editableSkills: string[];
+  isManagement: boolean;
 }) {
   const t = await getTranslations('skills');
   const { about, members, skills, ui } = await getMessages();
@@ -41,10 +41,15 @@ async function SkillCard({
                 <ToggleSkillIcon
                   user={user}
                   skill={skill}
-                  hasSkill={userSkills.some(
+                  hasSkill={user.usersSkills.some(
                     (userSkill) => userSkill.skillId === skill.id,
                   )}
-                  editable={editable}
+                  editable={
+                    isManagement
+                      ? true
+                      : editableSkills.includes(skill.identifier)
+                  }
+                  isManagement={isManagement}
                 />
                 <SkillIcon identifier={skill.identifier} />
                 <span>{t(skill.identifier)}</span>
