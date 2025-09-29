@@ -74,7 +74,7 @@ export default async function ApplicationsPage({
               <CardHeader>
                 <CardTitle>{t('application')}</CardTitle>
                 <CardDescription>
-                  {application.group.localizations[0]?.name}
+                  {application.group.localization?.name}
                 </CardDescription>
               </CardHeader>
               <CardContent>

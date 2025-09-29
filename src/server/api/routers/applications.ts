@@ -1,15 +1,17 @@
 import { TRPCError } from '@trpc/server';
 import { and, eq, inArray, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
+import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { applications, groupLocalizations, groups } from '@/server/db/tables';
 import { fetchApplicationSchema } from '@/validations/applications/fetchApplicationSchema';
-import { sendAppSchema } from '@/validations/applications/sendAppSchema';
+import { sendApplicationSchema } from '@/validations/applications/sendApplicationSchema';
 
 const applicationsRouter = createRouter({
-  sendApp: publicProcedure
-    .input((input) => sendAppSchema(useTranslationsFromContext()).parse(input))
+  sendApplication: publicProcedure
+    .input((input) =>
+      sendApplicationSchema(useTranslationsFromContext()).parse(input),
+    )
     .mutation(async ({ input, ctx }) => {
       const group = await ctx.db
         .select()
@@ -41,13 +43,7 @@ const applicationsRouter = createRouter({
           });
         });
     }),
-  fetchApplications: protectedProcedure.query(async ({ ctx }) => {
-    const canView = ctx.user.groups.some((g) =>
-      ['admin', 'management', 'leadership'].includes(g),
-    );
-
-    if (!canView) return null;
-
+  fetchApplications: managementProcedure.query(async ({ ctx }) => {
     const canViewAll =
       ctx.user.groups.includes('admin') ||
       ctx.user.groups.includes('leadership');
@@ -69,7 +65,7 @@ const applicationsRouter = createRouter({
       where = inArray(applications.groupId, normalGroupIds);
     }
 
-    return await ctx.db.query.applications.findMany({
+    const applicationsData = await ctx.db.query.applications.findMany({
       where,
       with: {
         group: {
@@ -81,18 +77,26 @@ const applicationsRouter = createRouter({
         },
       },
     });
+
+    return applicationsData.map((app) => {
+      const { group, ...rest } = app;
+
+      const { localizations, ...groupRest } = group;
+
+      return {
+        ...rest,
+        group: {
+          ...groupRest,
+          localization: localizations[0] ?? null,
+        },
+      };
+    });
   }),
-  fetchApplication: protectedProcedure
+  fetchApplication: managementProcedure
     .input((input) =>
       fetchApplicationSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ input, ctx }) => {
-      const canView = ctx.user.groups.some((g) =>
-        ['admin', 'management', 'leadership'].includes(g),
-      );
-
-      if (!canView) return null;
-
       const canViewAll =
         ctx.user.groups.includes('admin') ||
         ctx.user.groups.includes('leadership');
@@ -114,7 +118,7 @@ const applicationsRouter = createRouter({
         where = inArray(applications.groupId, normalGroupIds);
       }
 
-      return await ctx.db.query.applications.findFirst({
+      const application = await ctx.db.query.applications.findFirst({
         where: and(where, eq(applications.id, input.applicationId)),
         with: {
           group: {
@@ -126,18 +130,26 @@ const applicationsRouter = createRouter({
           },
         },
       });
+
+      if (!application) return null;
+
+      const { group, ...rest } = application;
+
+      const { localizations, ...groupRest } = group;
+
+      return {
+        ...rest,
+        group: {
+          ...groupRest,
+          localization: localizations[0] ?? null,
+        },
+      };
     }),
-  deleteApplication: protectedProcedure
+  deleteApplication: managementProcedure
     .input((input) =>
       fetchApplicationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const canView = ctx.user.groups.some((g) =>
-        ['admin', 'management', 'leadership'].includes(g),
-      );
-
-      if (!canView) return null;
-
       const canViewAll =
         ctx.user.groups.includes('admin') ||
         ctx.user.groups.includes('leadership');

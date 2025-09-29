@@ -2,7 +2,7 @@ import z from 'zod';
 import type { Translations } from '@/lib/locale';
 import { applicationSchema } from '@/validations/applications/applicationSchema';
 
-function sendAppSchema(t: Translations) {
+function sendApplicationSchema(t: Translations) {
   return applicationSchema(t).extend({
     studyYear: z
       .number()
@@ -11,4 +11,4 @@ function sendAppSchema(t: Translations) {
   });
 }
 
-export { sendAppSchema };
+export { sendApplicationSchema };

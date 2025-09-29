@@ -16,19 +16,20 @@ function ApplyForm({
   }[];
 }) {
   const t = useTranslations('applications.apply');
-  const formSchema = applicationSchema(useTranslations());
   const router = useRouter();
+  const utils = api.useUtils();
 
-  const sendApp = api.applications.sendApp.useMutation({
-    onSuccess: () => {
+  const sendApplication = api.applications.sendApplication.useMutation({
+    onSuccess: async () => {
       toast.success(t('applicationSubmitted'));
+      await utils.applications.invalidate();
       router.push('/applications/thank-you');
     },
   });
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onChange: applicationSchema(useTranslations()),
     },
     defaultValues: {
       name: '',
@@ -43,7 +44,7 @@ function ApplyForm({
       otherProjects: '',
     },
     onSubmit: ({ value }) =>
-      sendApp.mutate({ ...value, studyYear: Number(value.studyYear) }),
+      sendApplication.mutate({ ...value, studyYear: Number(value.studyYear) }),
   });
 
   if (groups.length === 0) {
@@ -131,7 +132,7 @@ function ApplyForm({
           )}
         </form.AppField>
         <p className='my-4 text-muted-foreground'>{t('dataNote')}</p>
-        <form.SubmitButton loading={sendApp.isPending}>
+        <form.SubmitButton loading={sendApplication.isPending}>
           {t('sendApplication')}
         </form.SubmitButton>
       </form.AppForm>

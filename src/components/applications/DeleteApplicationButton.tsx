@@ -32,9 +32,12 @@ function DeleteApplicationButton({
   };
 }) {
   const router = useRouter();
+  const utils = api.useUtils();
+
   const deleteApplication = api.applications.deleteApplication.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(t.success);
+      await utils.applications.invalidate();
       router.push('/applications/view');
     },
   });
