@@ -1,5 +1,5 @@
 import { EditIcon } from 'lucide-react';
-import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
+import { getFormatter, getTranslations } from 'next-intl/server';
 import { DeleteQuoteButton } from '@/components/quotes/DeleteQuoteButton';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
@@ -15,7 +15,6 @@ async function QuoteCard({
   currentUser: RouterOutput['auth']['state']['user'];
   quote: RouterOutput['quotes']['fetchQuotes'][number];
 }) {
-  const locale = await getLocale();
   const formatter = await getFormatter();
   const tLayout = await getTranslations('layout');
   const tUi = await getTranslations('ui');
@@ -33,6 +32,8 @@ async function QuoteCard({
   const isAdmin = currentUser?.groups.some((g) =>
     ['labops', 'leadership', 'admin'].includes(g),
   );
+
+  if (!quote.localization) return null;
 
   return (
     <Card key={quote.id} className='overflow-hidden'>
@@ -94,7 +95,7 @@ async function QuoteCard({
       </CardHeader>
       <CardContent className='flex flex-col gap-4 p-6'>
         <blockquote className='border-primary/30 border-l-4 pl-4 text-lg italic'>
-          {locale === 'en-GB' ? quote.contentEnglish : quote.contentNorwegian}
+          {quote.localization.content}
         </blockquote>
         {heardByName !== saidByName && (
           <span className='text-muted-foreground'>

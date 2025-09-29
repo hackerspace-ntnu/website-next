@@ -7,6 +7,7 @@ import {
   eventsData,
   groupLocalizationsData,
   groupsData,
+  quoteLocalizationsData,
   quotesData,
   shiftsData,
   skillsData,
@@ -27,6 +28,7 @@ import {
   itemLocalizations,
   newsArticleLocalizations,
   newsArticles,
+  quoteLocalizations,
   quotes,
   shifts,
   skills,
@@ -115,6 +117,10 @@ async function main() {
   console.log('Inserting quotes...');
   await db.insert(quotes).values(quotesData);
   console.log('Quotes inserted');
+
+  console.log('Inserting quote localizations...');
+  await db.insert(quoteLocalizations).values(quoteLocalizationsData);
+  console.log('Quote localizations inserted');
 }
 
 await main();

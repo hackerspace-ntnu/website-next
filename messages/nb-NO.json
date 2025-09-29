@@ -121,7 +121,7 @@
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
     "members": "Medlemmer",
-    "quotes": "Quotes",
+    "quotes": "Sitater",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
@@ -931,7 +931,7 @@
   "quotes": {
     "title": "Inspirerende sitater",
     "backToQuotes": "Tilbake til sitater",
-    "heardByUser": "Hørt by: {user}",
+    "heardByUser": "Hørt av: {user}",
     "new": {
       "title": "Nytt sitat",
       "createQuote": "Opprett sitat",
@@ -972,6 +972,9 @@
     },
     "api": {
       "invalidId": "Ugyldig ID",
+      "insertFailed": "Kunne ikke opprette sitat",
+      "updateFailed": "Kunne ikke oppdatere sitat",
+      "deleteFailed": "Kunne ikke slette sitat",
       "failedToFetchQuotes": "Serveren klarte ikke å hente sitater",
       "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
       "quoteNotFound": "Sitat ikke funnet"

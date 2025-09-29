@@ -5,18 +5,18 @@ import {
 } from 'drizzle-orm';
 import {
   boolean,
+  index,
   integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
-import { users } from '@/server/db/tables';
+import { localesEnum, users } from '@/server/db/tables';
 
 const quotes = pgTable('quotes', {
   id: serial('id').primaryKey(),
-  contentEnglish: text('content_english').notNull(),
-  contentNorwegian: text('content_norwegian').notNull(),
   internal: boolean('internal').notNull(),
   heardBy: integer('heard_by')
     .references(() => users.id)
@@ -27,20 +27,64 @@ const quotes = pgTable('quotes', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-const quotesRelations = relations(quotes, ({ one }) => ({
+const quoteLocalizations = pgTable(
+  'quote_localizations',
+  {
+    quoteId: integer('quote_id')
+      .references(() => quotes.id, {
+        onDelete: 'cascade',
+      })
+      .notNull(),
+    content: text('content').notNull(),
+    locale: localesEnum('locale').notNull(),
+  },
+  (table) => {
+    return [
+      primaryKey({ columns: [table.quoteId, table.locale] }),
+      index('quote_localizations_quote_id_locale_unique_idx').on(
+        table.quoteId,
+        table.locale,
+      ),
+    ];
+  },
+);
+
+const quotesRelations = relations(quotes, ({ one, many }) => ({
   heardBy: one(users, {
-    relationName: 'heardBy',
+    relationName: 'heardQuotes',
     fields: [quotes.heardBy],
     references: [users.id],
   }),
   saidBy: one(users, {
-    relationName: 'saidBy',
+    relationName: 'saidQuotes',
     fields: [quotes.saidBy],
     references: [users.id],
   }),
+  localizations: many(quoteLocalizations),
 }));
 
-type SelectQuotes = InferSelectModel<typeof quotes>;
-type InsertQuotes = InferInsertModel<typeof quotes>;
+const quoteLocalizationsRelations = relations(
+  quoteLocalizations,
+  ({ one }) => ({
+    quote: one(quotes, {
+      fields: [quoteLocalizations.quoteId],
+      references: [quotes.id],
+    }),
+  }),
+);
 
-export { quotes, quotesRelations, type SelectQuotes, type InsertQuotes };
+type SelectQuote = InferSelectModel<typeof quotes>;
+type InsertQuote = InferInsertModel<typeof quotes>;
+type InsertQuoteLocalization = InferInsertModel<typeof quoteLocalizations>;
+type SelectQuoteLocalization = InferSelectModel<typeof quoteLocalizations>;
+
+export {
+  quotes,
+  quoteLocalizations,
+  quotesRelations,
+  quoteLocalizationsRelations,
+  type SelectQuote,
+  type InsertQuote,
+  type InsertQuoteLocalization,
+  type SelectQuoteLocalization,
+};

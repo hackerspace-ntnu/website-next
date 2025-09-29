@@ -1,6 +1,6 @@
 import { fakerEN, fakerNB_NO } from '@faker-js/faker';
+import type { Locale } from 'next-intl';
 import { groupIdentifiers } from '@/lib/constants';
-import { routing } from '@/lib/locale';
 import { hashPassword } from '@/server/auth/password';
 import type {
   InsertEvent,
@@ -11,7 +11,8 @@ import type {
   InsertItemLocalization,
   InsertNewsArticle,
   InsertNewsArticleLocalization,
-  InsertQuotes,
+  InsertQuote,
+  InsertQuoteLocalization,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
@@ -20,7 +21,6 @@ import type {
   InsertUserSkill,
 } from '@/server/db/tables';
 
-const locales = routing.locales;
 // To generate fake data use these helpers
 const faker = {
   'en-GB': fakerEN,
@@ -1338,32 +1338,62 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   },
 ];
 
-const quotesData: InsertQuotes[] = [
+const quotesData: InsertQuote[] = [
   {
     saidBy: 1,
     heardBy: 2,
-    contentNorwegian: 'Hvordan kan speil være ekte?',
-    contentEnglish: 'How can mirrors be real?',
     internal: false,
   },
   {
     saidBy: 5,
     heardBy: 2,
-    contentNorwegian: 'Jeg har en drøm',
-    contentEnglish: 'I have a dream',
     internal: false,
   },
 ];
 
-for (let i = 0; i < 100; i++) {
-  const locale = Math.random() > 0.5 ? locales[0] : locales[1];
+const quoteLocalizationsData: InsertQuoteLocalization[] = [
+  {
+    quoteId: 1,
+    content: 'Hvordan kan speil være ekte?',
+    locale: 'nb-NO',
+  },
+  {
+    quoteId: 1,
+    content: 'How can mirrors be real?',
+    locale: 'en-GB',
+  },
+  {
+    quoteId: 2,
+    content: 'Jeg har en drøm',
+    locale: 'nb-NO',
+  },
+  {
+    quoteId: 2,
+    content: 'I have a dream',
+    locale: 'en-GB',
+  },
+];
+
+for (let i = 3; i < 100; i++) {
   quotesData.push({
-    heardBy: i % 5,
-    saidBy: i % 5,
-    contentNorwegian: faker[locale].lorem.sentence(),
-    contentEnglish: faker[locale].lorem.sentence(),
+    heardBy: Math.floor(Math.random() * 5) + 1,
+    saidBy: Math.floor(Math.random() * 5) + 1,
     internal: i > 50,
   });
+  quoteLocalizationsData.push(
+    ...[
+      {
+        quoteId: i,
+        content: faker['nb-NO'].lorem.sentence(),
+        locale: 'nb-NO' as Locale,
+      },
+      {
+        quoteId: i,
+        content: faker['en-GB'].lorem.sentence(),
+        locale: 'en-GB' as Locale,
+      },
+    ],
+  );
 }
 
 export {
@@ -1382,4 +1412,5 @@ export {
   articleData,
   articleLocalizationsData,
   quotesData,
+  quoteLocalizationsData,
 };

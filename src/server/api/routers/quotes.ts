@@ -1,10 +1,10 @@
 import { TRPCError } from '@trpc/server';
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 import z from 'zod';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { quotes, users } from '@/server/db/tables';
+import { quoteLocalizations, quotes, users } from '@/server/db/tables';
 import { createQuoteSchema } from '@/validations/quotes/createQuoteSchema';
 import { updateQuoteSchema } from '@/validations/quotes/updateQuoteSchema';
 
@@ -13,11 +13,14 @@ const quotesRouter = createRouter({
     const { user } = await ctx.auth();
     const isMember = user?.groups && user.groups.length > 0;
 
-    return await ctx.db.query.quotes
+    const quotesData = await ctx.db.query.quotes
       .findMany({
         where: !isMember ? eq(quotes.internal, false) : undefined,
         orderBy: desc(quotes.createdAt),
         with: {
+          localizations: {
+            where: eq(quoteLocalizations.locale, ctx.locale),
+          },
           saidBy: true,
           heardBy: true,
         },
@@ -29,6 +32,15 @@ const quotesRouter = createRouter({
           cause: { toast: 'error' },
         });
       });
+
+    return quotesData.map((quote) => {
+      const { localizations, ...rest } = quote;
+
+      return {
+        ...rest,
+        localization: localizations[0],
+      };
+    });
   }),
   fetchQuote: publicProcedure
     .input((input) => z.number().parse(input))
@@ -39,6 +51,7 @@ const quotesRouter = createRouter({
           with: {
             saidBy: true,
             heardBy: true,
+            localizations: true,
           },
         })
         .catch(() => {
@@ -52,7 +65,7 @@ const quotesRouter = createRouter({
 
       const { user } = await ctx.auth();
 
-      // Do not expose possibly internal quotes if
+      // Do not expose internal quotes if
       // the user does not have edit permissions,
       // and aren't involved in the quote
       if (
@@ -95,19 +108,51 @@ const quotesRouter = createRouter({
         });
       }
 
-      await ctx.db
+      const [quote] = await ctx.db
         .insert(quotes)
         .values({
-          contentNorwegian: input.contentNorwegian,
-          contentEnglish: input.contentEnglish,
           internal: input.internal,
           saidBy: saidBy.id,
           heardBy: ctx.user.id,
         })
-        .catch(() => {
+        .returning({ id: quotes.id })
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('api.internalServerError'),
+            message: ctx.t('quotes.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      if (!quote?.id) {
+        console.error('No quote ID returned after insert');
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('quotes.api.insertFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .insert(quoteLocalizations)
+        .values([
+          {
+            quoteId: quote.id,
+            content: input.contentNorwegian,
+            locale: 'nb-NO',
+          },
+          {
+            quoteId: quote.id,
+            content: input.contentEnglish,
+            locale: 'en-GB',
+          },
+        ])
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('quotes.api.insertFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -153,7 +198,7 @@ const quotesRouter = createRouter({
         quote.heardBy.id !== user?.id
       ) {
         throw new TRPCError({
-          code: 'NOT_FOUND',
+          code: 'FORBIDDEN',
           message: ctx.t('quotes.update.unauthorized'),
           cause: { toast: 'error' },
         });
@@ -162,17 +207,56 @@ const quotesRouter = createRouter({
       await ctx.db
         .update(quotes)
         .set({
-          contentNorwegian: input.contentNorwegian,
-          contentEnglish: input.contentEnglish,
           internal: input.internal,
           saidBy: input.userId,
           heardBy: ctx.user.id,
         })
         .where(eq(quotes.id, input.quoteId))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('api.internalServerError'),
+            message: ctx.t('quotes.api.updateFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      await ctx.db
+        .update(quoteLocalizations)
+        .set({
+          content: input.contentNorwegian,
+        })
+        .where(
+          and(
+            eq(quoteLocalizations.quoteId, input.quoteId),
+            eq(quoteLocalizations.locale, 'nb-NO'),
+          ),
+        )
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('quotes.api.updateFailed'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      await ctx.db
+        .update(quoteLocalizations)
+        .set({
+          content: input.contentEnglish,
+        })
+        .where(
+          and(
+            eq(quoteLocalizations.quoteId, input.quoteId),
+            eq(quoteLocalizations.locale, 'en-GB'),
+          ),
+        )
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('quotes.api.updateFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -220,7 +304,7 @@ const quotesRouter = createRouter({
         quote.heardBy.id !== user?.id
       ) {
         throw new TRPCError({
-          code: 'NOT_FOUND',
+          code: 'FORBIDDEN',
           message: ctx.t('quotes.delete.unauthorized'),
           cause: { toast: 'error' },
         });
@@ -229,10 +313,11 @@ const quotesRouter = createRouter({
       await ctx.db
         .delete(quotes)
         .where(eq(quotes.id, input.quoteId))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('api.internalServerError'),
+            message: ctx.t('quotes.api.deleteFailed'),
             cause: { toast: 'error' },
           });
         });

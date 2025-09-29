@@ -38,6 +38,9 @@ function QuoteForm({
     },
   });
 
+  const norwegian = quote?.localizations.find((loc) => loc.locale === 'nb-NO');
+  const english = quote?.localizations.find((loc) => loc.locale === 'en-GB');
+
   const form = useAppForm({
     validators: {
       onChange: quoteSchema(useTranslations()),
@@ -45,8 +48,8 @@ function QuoteForm({
     defaultValues: {
       username:
         (quote && `${quote.saidBy.firstName} ${quote.saidBy.lastName}`) ?? '',
-      contentNorwegian: quote?.contentNorwegian ?? '',
-      contentEnglish: quote?.contentEnglish ?? '',
+      contentNorwegian: norwegian?.content ?? '',
+      contentEnglish: english?.content ?? '',
       internal: quote?.internal ?? false,
     },
     onSubmit: ({ value }) => {

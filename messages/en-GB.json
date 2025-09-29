@@ -972,6 +972,9 @@
     },
     "api": {
       "invalidId": "Invalid ID",
+      "insertFailed": "Failed to add quote",
+      "updateFailed": "Failed to update quote",
+      "deleteFailed": "Failed to delete quote",
       "failedToFetchQuotes": "The server failed to get quotes",
       "noUserWithUsername": "No user with provided username found",
       "quoteNotFound": "Quote not found"
