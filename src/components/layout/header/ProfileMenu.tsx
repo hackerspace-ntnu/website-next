@@ -15,6 +15,7 @@ import { cx } from '@/lib/utils';
 
 type ProfileMenuProps = {
   hasUser: boolean;
+  userId?: number;
   t: {
     profile: string;
     signIn: string;
@@ -23,13 +24,14 @@ type ProfileMenuProps = {
   };
 };
 
-function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
+function ProfileMenu({ hasUser, userId, t }: ProfileMenuProps) {
   const router = useRouter();
   const signOutMutation = api.auth.signOut.useMutation({
     onSuccess: () => {
       router.refresh();
     },
   });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,8 +46,19 @@ function ProfileMenu({ hasUser, t }: ProfileMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
-        {hasUser ? (
+        {hasUser && userId ? (
           <>
+            <DropdownMenuItem asChild>
+              <Link
+                href={{
+                  pathname: '/members/[memberId]',
+                  params: { memberId: userId },
+                }}
+                className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
+              >
+                {t.profile}
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link
                 href='/settings'

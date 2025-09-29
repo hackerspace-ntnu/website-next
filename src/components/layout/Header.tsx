@@ -92,6 +92,7 @@ async function Header() {
           />
           <ProfileMenu
             hasUser={Boolean(user)}
+            userId={user?.id}
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
