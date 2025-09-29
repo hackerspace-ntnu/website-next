@@ -37,6 +37,11 @@ export default async function ApplicationsPage({
   const applications = await api.applications.fetchApplications();
   const formatter = await getFormatter();
 
+  const { user } = await api.auth.state();
+
+  const canViewAll =
+    user?.groups.includes('admin') || user?.groups.includes('leadership');
+
   if (!applications) return notFound();
 
   return (
@@ -54,9 +59,11 @@ export default async function ApplicationsPage({
       {applications.length === 0 && (
         <>
           <h4 className='mb-4 text-center'>{t('noPending')}</h4>
-          <p className='text-center text-muted-foreground text-sm'>
-            {t('noPendingDescription')}
-          </p>
+          {!canViewAll && (
+            <p className='text-center text-muted-foreground text-sm'>
+              {t('noPendingDescription')}
+            </p>
+          )}
         </>
       )}
       <div className='grid gap-4 md:grid-cols-2'>
