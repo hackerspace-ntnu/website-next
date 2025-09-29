@@ -672,7 +672,7 @@
   "quotes": {
     "title": "Inspirerende sitater",
     "backToQuotes": "Tilbake til sitater",
-    "heardByUser": "Heard by: {user}",
+    "heardByUser": "Hørt by: {user}",
     "new": {
       "title": "Nytt sitat",
       "createQuote": "Opprett sitat",
