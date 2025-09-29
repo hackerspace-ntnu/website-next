@@ -29,9 +29,7 @@ export default async function QuotesPage({
     <div className='container space-y-8 py-10'>
       <div className='relative'>
         <h1 className='text-center text-4xl tracking-tight'>{t('title')}</h1>
-        {user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
-        ) && (
+        {user?.groups && user.groups.length > 0 && (
           <Link
             className='-translate-y-1/2 absolute top-1/2 right-0'
             href='/quotes/new'
