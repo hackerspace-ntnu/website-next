@@ -79,8 +79,8 @@ const usersRelations = relations(users, ({ many }) => ({
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
   shifts: many(shifts),
-  createdQuotes: many(quotes, { relationName: 'createdBy' }),
-  authoredQuotes: many(quotes, { relationName: 'author' }),
+  heardQuotes: many(quotes, { relationName: 'heardQuotes' }),
+  saidQuotes: many(quotes, { relationName: 'saidQuotes' }),
 }));
 
 type SelectUser = InferSelectModel<typeof users>;
