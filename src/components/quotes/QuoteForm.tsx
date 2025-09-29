@@ -14,31 +14,33 @@ function QuoteForm({
   quote,
 }: {
   users: RouterOutput['users']['fetchAllUsers'];
-  quote?: RouterOutput['quotes']['getQuote'];
+  quote?: RouterOutput['quotes']['fetchQuote'];
 }) {
   const t = useTranslations('quotes.form');
   const tNew = useTranslations('quotes.new');
   const tUpdate = useTranslations('quotes.update');
   const router = useRouter();
-  const formSchema = quoteSchema(useTranslations());
+  const utils = api.useUtils();
 
   const createQuote = api.quotes.createQuote.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tNew('success'));
+      await utils.quotes.fetchQuotes.invalidate();
       router.push('/quotes');
     },
   });
 
   const updateQuote = api.quotes.updateQuote.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tUpdate('success'));
+      await utils.quotes.invalidate();
       router.push('/quotes');
     },
   });
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onChange: quoteSchema(useTranslations()),
     },
     defaultValues: {
       username:

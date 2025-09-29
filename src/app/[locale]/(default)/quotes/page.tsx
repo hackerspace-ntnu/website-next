@@ -22,7 +22,7 @@ export default async function QuotesPage({
   setRequestLocale(locale);
 
   const t = await getTranslations('quotes');
-  const quotes = await api.quotes.getQuotes();
+  const quotes = await api.quotes.fetchQuotes();
   const { user } = await api.auth.state();
 
   return (

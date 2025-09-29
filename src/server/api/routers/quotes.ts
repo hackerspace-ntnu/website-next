@@ -9,7 +9,7 @@ import { createQuoteSchema } from '@/validations/quotes/createQuoteSchema';
 import { updateQuoteSchema } from '@/validations/quotes/updateQuoteSchema';
 
 const quotesRouter = createRouter({
-  getQuotes: publicProcedure.query(async ({ ctx }) => {
+  fetchQuotes: publicProcedure.query(async ({ ctx }) => {
     const { user } = await ctx.auth();
     const isMember = user?.groups && user.groups.length > 0;
 
@@ -25,12 +25,12 @@ const quotesRouter = createRouter({
       .catch(() => {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('quotes.api.failedToGetQuotes'),
+          message: ctx.t('quotes.api.failedToFetchQuotes'),
           cause: { toast: 'error' },
         });
       });
   }),
-  getQuote: publicProcedure
+  fetchQuote: publicProcedure
     .input((input) => z.number().parse(input))
     .query(async ({ ctx, input }) => {
       const quote = await ctx.db.query.quotes
@@ -44,11 +44,11 @@ const quotesRouter = createRouter({
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.failedToGetQuotes'),
+            message: ctx.t('quotes.api.failedToFetchQuotes'),
             cause: { toast: 'error' },
           });
         });
-      if (!quote) return quote;
+      if (!quote) return null;
 
       const { user } = await ctx.auth();
 
@@ -127,7 +127,7 @@ const quotesRouter = createRouter({
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.failedToGetQuotes'),
+            message: ctx.t('quotes.api.failedToFetchQuotes'),
             cause: { toast: 'error' },
           });
         });
@@ -194,7 +194,7 @@ const quotesRouter = createRouter({
         .catch(() => {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.failedToGetQuotes'),
+            message: ctx.t('quotes.api.failedToFetchQuotes'),
             cause: { toast: 'error' },
           });
         });

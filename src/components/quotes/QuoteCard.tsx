@@ -13,7 +13,7 @@ async function QuoteCard({
   quote,
 }: {
   currentUser: RouterOutput['auth']['state']['user'];
-  quote: RouterOutput['quotes']['getQuotes'][number];
+  quote: RouterOutput['quotes']['fetchQuotes'][number];
 }) {
   const locale = await getLocale();
   const formatter = await getFormatter();
@@ -81,7 +81,7 @@ async function QuoteCard({
             )}
             <div className='flex flex-col gap-2'>
               <Badge variant='outline'>
-                {formatter.dateTime(new Date(quote.createdAt))}
+                {formatter.dateTime(quote.createdAt)}
               </Badge>
               {quote.internal && (
                 <Badge className='justify-center rounded-full'>

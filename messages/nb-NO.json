@@ -713,7 +713,7 @@
     },
     "api": {
       "invalidId": "Ugyldig ID",
-      "failedToGetQuotes": "Serveren klarte ikke å hente sitater",
+      "failedToFetchQuotes": "Serveren klarte ikke å hente sitater",
       "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
       "quoteNotFound": "Sitat ikke funnet"
     }

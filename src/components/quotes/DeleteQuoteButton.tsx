@@ -22,7 +22,7 @@ function DeleteQuoteButton({
   quote,
   t,
 }: {
-  quote: RouterOutput['quotes']['getQuotes'][number];
+  quote: RouterOutput['quotes']['fetchQuotes'][number];
   t: {
     title: string;
     description: string;
@@ -32,10 +32,13 @@ function DeleteQuoteButton({
   };
 }) {
   const router = useRouter();
+  const utils = api.useUtils();
+
   const deleteQuote = api.quotes.deleteQuote.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       router.refresh();
       toast.success(t.success);
+      await utils.quotes.invalidate();
     },
   });
 

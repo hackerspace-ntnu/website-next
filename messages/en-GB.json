@@ -713,7 +713,7 @@
     },
     "api": {
       "invalidId": "Invalid ID",
-      "failedToGetQuotes": "The server failed to get quotes",
+      "failedToFetchQuotes": "The server failed to get quotes",
       "noUserWithUsername": "No user with provided username found",
       "quoteNotFound": "Quote not found"
     }

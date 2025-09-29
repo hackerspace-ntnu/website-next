@@ -38,7 +38,7 @@ export default async function NewQuotePage({
   )
     return notFound();
 
-  const quote = await api.quotes.getQuote(processedQuoteId);
+  const quote = await api.quotes.fetchQuote(processedQuoteId);
 
   if (!quote) return notFound();
 
