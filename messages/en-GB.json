@@ -974,6 +974,7 @@
     },
     "api": {
       "invalidId": "Invalid ID",
+      "invalidOffset": "Invalid offset",
       "insertFailed": "Failed to add quote",
       "updateFailed": "Failed to update quote",
       "deleteFailed": "Failed to delete quote",

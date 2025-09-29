@@ -1,6 +1,12 @@
 import { PlusIcon } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  type SearchParams,
+} from 'nuqs/server';
+import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
 import { QuoteCard } from '@/components/quotes/QuoteCard';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -13,16 +19,36 @@ export async function generateMetadata() {
   };
 }
 
+const ITEMS_PER_PAGE = 10;
+
 export default async function QuotesPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const t = await getTranslations('quotes');
-  const quotes = await api.quotes.fetchQuotes();
+  const tUi = await getTranslations('ui');
+
+  const searchParamsCache = createSearchParamsCache({
+    [tUi('page')]: parseAsInteger.withDefault(1),
+  });
+
+  const { [tUi('page')]: page = 1 } = searchParamsCache.parse(
+    await searchParams,
+  );
+
+  const quotes = await api.quotes.fetchQuotes({
+    limit: ITEMS_PER_PAGE,
+    offset: (page - 1) * ITEMS_PER_PAGE,
+  });
+
+  const totalResults = await api.quotes.totalQuotesAvailable();
+
   const { user } = await api.auth.state();
 
   return (
@@ -45,6 +71,10 @@ export default async function QuotesPage({
           <QuoteCard key={quote.id} currentUser={user} quote={quote} />
         ))}
       </div>
+      <PaginationCarousel
+        className='my-6'
+        totalPages={Math.ceil(totalResults / ITEMS_PER_PAGE)}
+      />
     </div>
   );
 }

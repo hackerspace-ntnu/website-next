@@ -1,47 +1,54 @@
 import { TRPCError } from '@trpc/server';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, count, desc, eq } from 'drizzle-orm';
 import z from 'zod';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { quoteLocalizations, quotes, users } from '@/server/db/tables';
 import { createQuoteSchema } from '@/validations/quotes/createQuoteSchema';
+import { fetchQuotesSchema } from '@/validations/quotes/fetchQuotesSchema';
 import { updateQuoteSchema } from '@/validations/quotes/updateQuoteSchema';
 
 const quotesRouter = createRouter({
-  fetchQuotes: publicProcedure.query(async ({ ctx }) => {
-    const { user } = await ctx.auth();
-    const isMember = user?.groups && user.groups.length > 0;
+  fetchQuotes: publicProcedure
+    .input((input) =>
+      fetchQuotesSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const { user } = await ctx.auth();
+      const isMember = user?.groups && user.groups.length > 0;
 
-    const quotesData = await ctx.db.query.quotes
-      .findMany({
-        where: !isMember ? eq(quotes.internal, false) : undefined,
-        orderBy: desc(quotes.createdAt),
-        with: {
-          localizations: {
-            where: eq(quoteLocalizations.locale, ctx.locale),
+      const quotesData = await ctx.db.query.quotes
+        .findMany({
+          where: !isMember ? eq(quotes.internal, false) : undefined,
+          orderBy: desc(quotes.createdAt),
+          limit: input.limit,
+          offset: input.offset,
+          with: {
+            localizations: {
+              where: eq(quoteLocalizations.locale, ctx.locale),
+            },
+            saidBy: true,
+            heardBy: true,
           },
-          saidBy: true,
-          heardBy: true,
-        },
-      })
-      .catch(() => {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('quotes.api.failedToFetchQuotes'),
-          cause: { toast: 'error' },
+        })
+        .catch(() => {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('quotes.api.failedToFetchQuotes'),
+            cause: { toast: 'error' },
+          });
         });
+
+      return quotesData.map((quote) => {
+        const { localizations, ...rest } = quote;
+
+        return {
+          ...rest,
+          localization: localizations[0],
+        };
       });
-
-    return quotesData.map((quote) => {
-      const { localizations, ...rest } = quote;
-
-      return {
-        ...rest,
-        localization: localizations[0],
-      };
-    });
-  }),
+    }),
   fetchQuote: publicProcedure
     .input((input) => z.number().parse(input))
     .query(async ({ ctx, input }) => {
@@ -81,6 +88,26 @@ const quotesRouter = createRouter({
 
       return quote;
     }),
+  totalQuotesAvailable: publicProcedure.query(async ({ ctx }) => {
+    const { user } = await ctx.auth();
+    const isMember = user?.groups && user.groups.length > 0;
+
+    const totalCount = await ctx.db
+      .select({ count: count() })
+      .from(quotes)
+      .where(!isMember ? eq(quotes.internal, false) : undefined)
+      .catch(() => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('quotes.api.failedToFetchQuotes'),
+          cause: { toast: 'error' },
+        });
+      });
+
+    if (!totalCount[0]) return Number.NaN;
+
+    return totalCount[0].count;
+  }),
   createQuote: protectedProcedure
     .input((input) =>
       createQuoteSchema(useTranslationsFromContext()).parse(input),

@@ -974,6 +974,7 @@
     },
     "api": {
       "invalidId": "Ugyldig ID",
+      "invalidOffset": "Ugyldig offset",
       "insertFailed": "Kunne ikke opprette sitat",
       "updateFailed": "Kunne ikke oppdatere sitat",
       "deleteFailed": "Kunne ikke slette sitat",
