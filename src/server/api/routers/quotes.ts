@@ -56,6 +56,7 @@ const quotesRouter = createRouter({
       // the user does not have edit permissions,
       // and aren't involved in the quote
       if (
+        quote.internal &&
         !user?.groups.some((g) =>
           ['labops', 'leadership', 'admin'].includes(g),
         ) &&
