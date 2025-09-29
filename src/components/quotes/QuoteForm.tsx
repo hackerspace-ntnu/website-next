@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { useAppForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
@@ -26,8 +26,10 @@ type BasicUserInfo = RouterOutput['users']['searchMembers'][number];
 
 function QuoteForm({
   quote,
+  initialUser,
 }: {
   quote?: RouterOutput['quotes']['fetchQuote'];
+  initialUser?: BasicUserInfo;
 }) {
   const t = useTranslations('quotes.form');
   const tNew = useTranslations('quotes.new');
@@ -62,17 +64,9 @@ function QuoteForm({
     limit: 2,
   });
 
-  const providedUser = api.users.fetchUser.useQuery(
-    { id: quote?.saidBy.id ?? 0 },
-    { enabled: !!quote },
+  const [chosenUser, setChosenUser] = useState<BasicUserInfo | null>(
+    initialUser ?? null,
   );
-
-  const [chosenUser, setChosenUser] = useState<BasicUserInfo | null>(null);
-
-  useEffect(() => {
-    if (!providedUser.isLoading && providedUser.data)
-      setChosenUser(providedUser.data as BasicUserInfo);
-  }, [providedUser.isLoading, providedUser.data]);
 
   const allUsers = users.data ?? [];
 

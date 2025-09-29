@@ -53,6 +53,8 @@ export default async function NewQuotePage({
 
   const { quotes, ui } = await getMessages();
 
+  const quoteUser = await api.users.fetchUser({ id: quote.saidBy.id });
+
   return (
     <>
       <Link
@@ -68,7 +70,18 @@ export default async function NewQuotePage({
       <NextIntlClientProvider
         messages={{ quotes, ui } as Pick<Messages, 'quotes' | 'ui'>}
       >
-        <QuoteForm quote={quote} />
+        <QuoteForm
+          quote={quote}
+          initialUser={
+            quoteUser && {
+              id: quoteUser.id as number,
+              profilePictureUrl: quoteUser.profilePictureUrl,
+              firstName: quoteUser.firstName as string,
+              lastName: quoteUser.lastName as string,
+              profilePictureId: quoteUser.profilePictureId as number,
+            }
+          }
+        />
       </NextIntlClientProvider>
     </>
   );
