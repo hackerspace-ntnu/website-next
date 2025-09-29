@@ -28,13 +28,14 @@ async function Header() {
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
+          isMember={user?.groups && user.groups.length > 0}
           viewApplications={viewApplications}
           t={{
             navigationMenu: t('navigationMenu'),
             news: t('news'),
             events: t('events'),
             about: t('about'),
-            applyNow: t('applyNow'),
+            apply: t('apply'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
@@ -59,12 +60,13 @@ async function Header() {
       <div className='flex'>
         <div className='hidden items-center gap-6 md:flex'>
           <Nav
+            isMember={user?.groups && user.groups.length > 0}
             className='flex items-center gap-6 text-sm'
             t={{
               news: t('news'),
               events: t('events'),
               about: t('about'),
-              applyNow: t('applyNow'),
+              apply: t('apply'),
             }}
           />
           <DesktopNavMenu

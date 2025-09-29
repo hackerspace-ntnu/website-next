@@ -117,7 +117,7 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
-    "applyNow": "Apply now!",
+    "apply": "Apply",
     "shiftSchedule": "Shift Schedule",
     "members": "Members",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",

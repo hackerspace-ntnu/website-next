@@ -1,5 +1,5 @@
 import { BugIcon, MailIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import {
   FacebookIcon,
   GitHubIcon,
@@ -10,10 +10,13 @@ import { IDILogo, NexusLogo } from '@/components/assets/logos';
 import { Nav } from '@/components/layout/header/Nav';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { ExternalLink, Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/server';
 
-function Footer() {
-  const t = useTranslations('layout');
+async function Footer() {
+  const t = await getTranslations('layout');
   const year = new Date().getFullYear();
+  const { user } = await api.auth.state();
+
   return (
     <footer className='mx-auto w-full max-w-screen-2xl border-border/40 border-t bg-background/95 px-11 py-10 text-sm md:px-16 lg:px-24'>
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 lg:grid-cols-4'>
@@ -117,11 +120,12 @@ function Footer() {
           <h4>{t('links')}</h4>
           <Nav
             className='mt-2 ml-2 flex flex-col items-start gap-1.5'
+            isMember={user?.groups && user.groups.length > 0}
             t={{
               news: t('news'),
               events: t('events'),
               about: t('about'),
-              applyNow: t('applyNow'),
+              apply: t('apply'),
             }}
           />
         </div>

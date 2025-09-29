@@ -22,13 +22,14 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 type MobileSheetProps = {
   className?: string;
+  isMember?: boolean;
   viewApplications: boolean;
   t: {
     navigationMenu: string;
     news: string;
     events: string;
     about: string;
-    applyNow: string;
+    apply: string;
     storage: string;
     shiftSchedule: string;
     members: string;
@@ -44,7 +45,12 @@ type MobileSheetProps = {
   };
 };
 
-function MobileSheet({ className, viewApplications, t }: MobileSheetProps) {
+function MobileSheet({
+  className,
+  isMember,
+  viewApplications,
+  t,
+}: MobileSheetProps) {
   const [open, setOpen] = useState(false);
   const visible = useMediaQuery('(max-width: 48rem)');
 
@@ -81,11 +87,12 @@ function MobileSheet({ className, viewApplications, t }: MobileSheetProps) {
         <Nav
           className='flex flex-col items-start space-y-3 py-6'
           onClick={() => setOpen(false)}
+          isMember={isMember}
           t={{
             news: t.news,
             events: t.events,
             about: t.about,
-            applyNow: t.applyNow,
+            apply: t.apply,
           }}
         />
         <Separator />

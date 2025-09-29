@@ -48,7 +48,7 @@ function ApplyForm({
   });
 
   if (groups.length === 0) {
-    return <p className='my-4 text-center'>{t('noGroupsAvailable')}</p>;
+    return <p className='mt-16 mb-4 text-center'>{t('noGroupsAvailable')}</p>;
   }
 
   return (
