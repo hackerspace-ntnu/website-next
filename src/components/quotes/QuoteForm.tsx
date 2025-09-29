@@ -1,19 +1,32 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { useAppForm } from '@/components/ui/Form';
+import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { quoteSchema } from '@/validations/quotes/quoteSchema';
 
+function LoadingChoices() {
+  const t = useTranslations('quotes.form');
+  return (
+    <div className='flex items-center justify-center gap-2'>
+      <Spinner className='text-primary' />
+      <span>{t('loadingMembers')}</span>
+    </div>
+  );
+}
+
+type BasicUserInfo = RouterOutput['users']['searchMembers'][number];
+
 function QuoteForm({
-  users,
   quote,
 }: {
-  users: RouterOutput['users']['fetchAllUsers'];
   quote?: RouterOutput['quotes']['fetchQuote'];
 }) {
   const t = useTranslations('quotes.form');
@@ -41,6 +54,57 @@ function QuoteForm({
   const norwegian = quote?.localizations.find((loc) => loc.locale === 'nb-NO');
   const english = quote?.localizations.find((loc) => loc.locale === 'en-GB');
 
+  const [name, setName] = useState('');
+  const debouncedSetName = useDebounceCallback(setName, 500);
+
+  const users = api.users.searchMembers.useQuery({
+    name,
+    limit: 2,
+  });
+
+  const providedUser = api.users.fetchUser.useQuery(
+    { id: quote?.saidBy.id ?? 0 },
+    { enabled: !!quote },
+  );
+
+  const [chosenUser, setChosenUser] = useState<BasicUserInfo | null>(null);
+
+  useEffect(() => {
+    if (!providedUser.isLoading && providedUser.data)
+      setChosenUser(providedUser.data as BasicUserInfo);
+  }, [providedUser.isLoading, providedUser.data]);
+
+  const allUsers = users.data ?? [];
+
+  if (
+    chosenUser &&
+    !allUsers.some(
+      (user) =>
+        user.firstName === chosenUser.firstName &&
+        user.lastName === chosenUser.lastName,
+    )
+  ) {
+    allUsers.push(chosenUser);
+  }
+
+  const userChoices = allUsers.map((user) => ({
+    value: `${user.firstName} ${user.lastName}`,
+    label: (
+      <div className='flex items-center gap-2'>
+        <Avatar className='h-8 w-8'>
+          <AvatarImage src={user.profilePictureUrl ?? undefined} />
+          <AvatarFallback>
+            {user.firstName.charAt(0)}
+            {user.lastName.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
+        <span>
+          {user.firstName} {user.lastName}
+        </span>
+      </div>
+    ),
+  }));
+
   const form = useAppForm({
     validators: {
       onChange: quoteSchema(useTranslations()),
@@ -53,7 +117,7 @@ function QuoteForm({
       internal: quote?.internal ?? false,
     },
     onSubmit: ({ value }) => {
-      const user = users.find(
+      const user = users.data?.find(
         (user) => `${user.firstName} ${user.lastName}` === value.username,
       );
 
@@ -71,24 +135,6 @@ function QuoteForm({
       });
     },
   });
-
-  const userChoices = users.map((user) => ({
-    value: `${user.firstName} ${user.lastName}`,
-    label: (
-      <div className='flex items-center gap-2'>
-        <Avatar className='h-8 w-8'>
-          <AvatarImage src={user.profilePictureUrl ?? undefined} />
-          <AvatarFallback>
-            {user.firstName.charAt(0)}
-            {user.lastName.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
-        <span>
-          {user.firstName} {user.lastName}
-        </span>
-      </div>
-    ),
-  }));
 
   return (
     <form
@@ -113,6 +159,18 @@ function QuoteForm({
                   ? `${quote.saidBy.firstName} ${quote.saidBy.lastName}`
                   : ''
               }
+              valueCallback={(value) =>
+                setChosenUser(
+                  allUsers.find(
+                    (user) => `${user.firstName} ${user.lastName}` === value,
+                  ) ?? null,
+                )
+              }
+              searchCallback={debouncedSetName}
+              emptyMessage={
+                users.isLoading ? <LoadingChoices /> : t('noMembersFound')
+              }
+              shouldFilter={false}
             />
           )}
         </form.AppField>

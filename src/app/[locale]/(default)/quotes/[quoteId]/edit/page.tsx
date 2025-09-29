@@ -52,7 +52,6 @@ export default async function NewQuotePage({
   }
 
   const { quotes, ui } = await getMessages();
-  const users = await api.users.fetchAllUsers();
 
   return (
     <>
@@ -69,7 +68,7 @@ export default async function NewQuotePage({
       <NextIntlClientProvider
         messages={{ quotes, ui } as Pick<Messages, 'quotes' | 'ui'>}
       >
-        <QuoteForm users={users} quote={quote} />
+        <QuoteForm quote={quote} />
       </NextIntlClientProvider>
     </>
   );

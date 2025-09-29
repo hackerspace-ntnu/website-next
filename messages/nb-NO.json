@@ -968,7 +968,9 @@
       "internal": {
         "label": "Internt sitat",
         "description": "Hvis valgt, vil dette sitatet kun være synlig for Hackerspace-medlemmer."
-      }
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
     },
     "api": {
       "invalidId": "Ugyldig ID",

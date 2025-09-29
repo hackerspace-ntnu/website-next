@@ -968,7 +968,9 @@
       "internal": {
         "label": "Internal quote",
         "description": "If selected, this quote will only be visible to Hackerspace members."
-      }
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
     },
     "api": {
       "invalidId": "Invalid ID",
