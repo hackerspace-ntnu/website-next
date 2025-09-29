@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { studyYears } from '@/lib/constants';
 import type { Translations } from '@/lib/locale';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 
@@ -10,7 +11,7 @@ function applicationSchema(t: Translations) {
     studyProgram: z
       .string()
       .min(1, t('applications.apply.studyProgram.required')),
-    studyYear: z.string(),
+    studyYear: z.enum(studyYears),
     learnedAboutUsHow: z
       .string()
       .min(1, t('applications.apply.learnedAboutUsHow.required')),

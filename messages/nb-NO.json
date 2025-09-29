@@ -639,7 +639,7 @@
       "studyYear": {
         "label": "Studieår",
         "required": "Studieår er påkrevd",
-        "invalidYear": "Ugyldig studieår"
+        "other": "Annet / Vanskelig å si"
       },
       "learnedAboutUsHow": {
         "label": "Hvordan fikk du vite om Hackerspace?",

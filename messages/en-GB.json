@@ -639,7 +639,7 @@
       "studyYear": {
         "label": "Study year",
         "required": "Study year is required",
-        "invalidYear": "Invalid study year"
+        "other": "Other / Difficult to say"
       },
       "learnedAboutUsHow": {
         "label": "How did you learn about Hackerspace?",

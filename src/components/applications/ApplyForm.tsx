@@ -36,20 +36,29 @@ function ApplyForm({
       email: '',
       phoneNumber: '',
       studyProgram: '',
-      studyYear: '1',
+      studyYear: '1' as '1' | '2' | '3' | '4' | '5' | 'other',
       learnedAboutUsHow: '',
       about: '',
       motivation: '',
       groupIdentifier: '',
       otherProjects: '',
     },
-    onSubmit: ({ value }) =>
-      sendApplication.mutate({ ...value, studyYear: Number(value.studyYear) }),
+    onSubmit: ({ value }) => sendApplication.mutate(value),
   });
 
   if (groups.length === 0) {
     return <p className='mt-16 mb-4 text-center'>{t('noGroupsAvailable')}</p>;
   }
+
+  const studyYearOptions = Array.from({ length: 5 }, (_, i) => ({
+    value: `${i + 1}`,
+    label: `${i + 1}`,
+  }));
+
+  studyYearOptions.push({
+    value: 'other',
+    label: t('studyYear.other'),
+  });
 
   return (
     <form
@@ -88,10 +97,7 @@ function ApplyForm({
           {(field) => (
             <field.SelectField
               label={t('studyYear.label')}
-              options={Array.from({ length: 5 }, (_, i) => ({
-                value: `${i + 1}`,
-                label: `${i + 1}`,
-              }))}
+              options={studyYearOptions}
             />
           )}
         </form.AppField>

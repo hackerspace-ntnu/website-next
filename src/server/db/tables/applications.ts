@@ -3,8 +3,18 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core';
+import { studyYears } from '@/lib/constants';
 import { groups } from '@/server/db/tables/groups';
+
+const studyYearEnum = pgEnum('study_year', studyYears);
 
 const applications = pgTable('applications', {
   id: serial('id').primaryKey(),
@@ -12,7 +22,7 @@ const applications = pgTable('applications', {
   email: text('email').notNull(),
   phoneNumber: text('phone_number').notNull(),
   studyProgram: text('study_program').notNull(),
-  studyYear: integer('study_year').notNull(),
+  studyYear: studyYearEnum('study_year').notNull(),
   groupId: integer('group_id')
     .references(() => groups.id)
     .notNull(),
@@ -36,6 +46,7 @@ type InsertApplication = InferInsertModel<typeof applications>;
 export {
   applications,
   applicationsRelations,
+  studyYearEnum,
   type SelectApplication,
   type InsertApplication,
 };

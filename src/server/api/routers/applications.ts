@@ -4,13 +4,13 @@ import { useTranslationsFromContext } from '@/server/api/locale';
 import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { applications, groupLocalizations, groups } from '@/server/db/tables';
+import { applicationSchema } from '@/validations/applications/applicationSchema';
 import { fetchApplicationSchema } from '@/validations/applications/fetchApplicationSchema';
-import { sendApplicationSchema } from '@/validations/applications/sendApplicationSchema';
 
 const applicationsRouter = createRouter({
   sendApplication: publicProcedure
     .input((input) =>
-      sendApplicationSchema(useTranslationsFromContext()).parse(input),
+      applicationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
       const group = await ctx.db
@@ -18,7 +18,8 @@ const applicationsRouter = createRouter({
         .from(groups)
         .where(eq(groups.identifier, input.groupIdentifier))
         .limit(1)
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: ctx.t('applications.api.fetchGroupFailed'),
@@ -35,7 +36,8 @@ const applicationsRouter = createRouter({
       await ctx.db
         .insert(applications)
         .values({ ...input, groupId: group[0].id })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('applications.api.insertAppFailed'),

@@ -43,10 +43,6 @@ export default async function ApplicationPage({
     applicationId: processedAppId,
   });
 
-  const groupLocalization = application?.group.localizations.find(
-    (loc) => loc.locale === locale,
-  );
-
   if (!application) return notFound();
 
   return (
@@ -85,7 +81,14 @@ export default async function ApplicationPage({
           })}
         </p>
         <p>{t('studyProgram', { program: application.studyProgram })}</p>
-        <p>{t('studyYear', { year: application.studyYear })}</p>
+        <p>
+          {t('studyYear', {
+            year:
+              application.studyYear === 'other'
+                ? tApply('studyYear.other')
+                : application.studyYear,
+          })}
+        </p>
         <p>
           {t('submittedAt', {
             date: formatter.dateTime(application.createdAt, {
@@ -96,7 +99,7 @@ export default async function ApplicationPage({
         </p>
       </div>
       <h2>{tApply('groupIdentifier.label')}</h2>
-      <p>{groupLocalization?.name ?? application.group.id}</p>
+      <p>{application.group.localization?.name ?? application.group.id}</p>
       <h2>{tApply('learnedAboutUsHow.label')}</h2>
       <p>{application.learnedAboutUsHow}</p>
       <h2>{tApply('about.label')}</h2>
