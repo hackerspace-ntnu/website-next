@@ -1,8 +1,6 @@
 'use client';
 
 import { createCalendarConfig } from '@/components/reservations/reservations-calendar/CalendarConfig';
-import { CalendarConfirmDialog } from '@/components/reservations/reservations-calendar/CalendarConfirmDialog';
-import type { CalendarDialogProps } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import { CustomEventContent } from '@/components/reservations/reservations-calendar/CustomEventContent';
 import CustomToolbar from '@/components/reservations/reservations-calendar/CustomToolbar';
 import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
@@ -24,28 +22,42 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { keepPreviousData } from '@tanstack/react-query';
 import { Plus } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
   tool: NonNullable<RouterOutput['tools']['fetchTool']>;
   user: RouterOutputs['auth']['state']['user'];
 };
-
 type CalendarReservation =
   RouterOutput['reservations']['fetchCalendarReservations'][number];
-
 type Range = { fromISO: string; untilISO: string };
 
-// Solution to fix hydration error as suggested by nextjs: https://nextjs.org/docs/messages/react-hydration-error?utm_source=chatgpt.com#solution-2-disabling-ssr-on-specific-components
-const CalendarDialog = dynamic<CalendarDialogProps>(
-  () =>
-    import('@/components/reservations/reservations-calendar/CalendarDialog'),
-  { ssr: false },
-);
+function isFinished(reservedUntil: Date | string) {
+  const end =
+    reservedUntil instanceof Date ? reservedUntil : new Date(reservedUntil);
+  return end.getTime() <= Date.now();
+}
 
+function reservationToCalendarEvent(r: CalendarReservation) {
+  return {
+    id: String(r.reservationId),
+    start: new Date(r.reservedFrom),
+    end: new Date(r.reservedUntil),
+    extendedProps: {
+      reservationId: r.reservationId,
+      userId: r.userId,
+      name: r.name,
+      phoneNr: r.phoneNr,
+      email: r.email,
+      notes: r.notes,
+      toolId: r.toolId,
+      finished: isFinished(r.reservedUntil),
+    },
+  } as const;
+}
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const mounted = useMounted();
   const t = useTranslations('reservations');
@@ -53,9 +65,10 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const isLoggedIn = !!user;
   const isMember = isLoggedIn && user.groups.length > 0;
   const memberId = isMember ? user.id : 0;
+
   const isLaptopRaw = useMediaQuery('(min-width: 64.1rem)');
   const isIpadRaw = useMediaQuery('(min-width: 41.438rem)');
-  const isLaptop = mounted ? isLaptopRaw : false; // stable SSR fallback
+  const isLaptop = mounted ? isLaptopRaw : false;
   const isIpad = mounted ? isIpadRaw : false;
 
   const [manualView, setManualView] = useState(false);
@@ -68,21 +81,19 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const debouncedSetRange = useDebounceCallback(
     (next: Range) => setRange(next),
-    200,
+    300,
     { leading: false, trailing: true },
   );
 
   // Decide initial/auto view
   useEffect(() => {
-    if (!mounted) return;
-    if (manualView) return;
+    if (!mounted || manualView) return;
 
     const next = isLaptop
       ? 'timeGridWeek'
       : isIpad
         ? 'timeGridThreeDay'
         : 'timeGridDay';
-
     setView((prev) => {
       if (prev === next) return prev;
       ignoreNextDatesSetRef.current = true;
@@ -110,233 +121,111 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     },
   );
 
-  const utils = api.useUtils();
-
-  function currentRangeInput() {
-    if (!range) return null;
-    return { toolId: tool.id, from: range.fromISO, until: range.untilISO };
-  }
-
-  function isFinished(reservedUntil: Date | string) {
-    const end =
-      reservedUntil instanceof Date ? reservedUntil : new Date(reservedUntil);
-    return end.getTime() <= Date.now(); // compare in UTC epoch ms
-  }
-
-  function reservationToCalendarEvent(r: CalendarReservation) {
-    return {
-      id: String(r.reservationId),
-      start: new Date(r.reservedFrom),
-      end: new Date(r.reservedUntil),
-      extendedProps: {
-        reservationId: r.reservationId,
-        userId: r.userId,
-        name: r.name,
-        phoneNr: r.phoneNr,
-        email: r.email,
-        notes: r.notes,
-        toolId: r.toolId,
-        finished: isFinished(r.reservedUntil),
-      },
-    } as const;
-  }
-
-  const calendarReservations = (reservationsQuery.data ?? []).map(
-    reservationToCalendarEvent,
+  const calendarReservations = useMemo(
+    () => (reservationsQuery.data ?? []).map(reservationToCalendarEvent),
+    [reservationsQuery.data],
   );
 
-  // ---------- Mutations ----------
-  const createMutation = api.reservations.createReservation.useMutation({
-    onSuccess: async (created) => {
-      if (!created) return;
-
-      const createdFull = await utils.reservations.fetchOneReservation.fetch({
-        reservationId: created.reservationId,
-      });
-
-      const r = createdFull as CalendarReservation;
-
-      const input = currentRangeInput();
-      if (input) {
-        utils.reservations.fetchCalendarReservations.setData(input, (prev) =>
-          prev ? [...prev, r] : [r],
-        );
-      }
-
-      setSelectedSlot(null);
-    },
-  });
-
-  const updateMutation = api.reservations.updateReservation.useMutation({
-    onSuccess: async (updated) => {
-      if (!updated) return;
-
-      const updatedFull = await utils.reservations.fetchOneReservation.fetch({
-        reservationId: updated.reservationId,
-      });
-
-      const r = updatedFull as CalendarReservation;
-
-      const input = currentRangeInput();
-      if (input) {
-        utils.reservations.fetchCalendarReservations.setData(input, (prev) => {
-          if (!prev) return prev;
-          return prev.map((x) => (x.reservationId === r.reservationId ? r : x));
-        });
-      }
-
-      setSelectedReservation(null);
-    },
-  });
-
-  const deleteMutation = api.reservations.deleteReservation.useMutation({
-    onSuccess: async (_, variables) => {
-      const input = currentRangeInput();
-      if (input) {
-        utils.reservations.fetchCalendarReservations.setData(input, (prev) => {
-          if (!prev) return prev;
-          return prev.filter(
-            (x) => x.reservationId !== variables.reservationId,
-          );
-        });
-      }
-      setSelectedReservation(null);
-      setPendingDelete(null);
-    },
-  });
-
   // ---------- UI handlers ----------
-  function customEventStyling(eventInfo: EventContentArg) {
-    return (
-      <CustomEventContent
-        eventInfo={eventInfo}
-        userId={memberId}
-        isLoggedIn={isMember}
-      />
-    );
-  }
-
-  function handleSelectSlot(info: DateSelectArg) {
+  const handleSelectSlot = useCallback((info: DateSelectArg) => {
+    setCreateOption('calendarSelect');
     setSelectedSlot({ start: info.start, end: info.end });
     calendarRef.current?.getApi().unselect();
-  }
+  }, []);
 
-  function handleEventClick(info: EventClickArg) {
-    const isCurrentUsers = info.event.extendedProps.userId === memberId;
-    if (!isCurrentUsers) return;
-    setSelectedReservation({
-      reservationId: Number(info.event.extendedProps.reservationId),
-      toolId: Number(info.event.extendedProps.toolId),
-      reservedFrom: info.event.start ?? new Date(),
-      reservedUntil: info.event.end ?? new Date(),
-      notes: info.event.extendedProps.notes ?? null,
+  const handleEventClick = useCallback(
+    (info: EventClickArg) => {
+      const isCurrentUsers = info.event.extendedProps.userId === memberId;
+      if (!isCurrentUsers) return;
+      setSelectedReservation({
+        reservationId: Number(info.event.extendedProps.reservationId),
+        toolId: Number(info.event.extendedProps.toolId),
+        reservedFrom: info.event.start ?? new Date(),
+        reservedUntil: info.event.end ?? new Date(),
+        notes: info.event.extendedProps.notes ?? null,
+      });
+    },
+    [memberId],
+  );
+
+  const handleDatesSet = useCallback(
+    (info: DatesSetArg) => {
+      if (ignoreNextDatesSetRef.current) {
+        ignoreNextDatesSetRef.current = false;
+        return;
+      }
+      if (
+        pendingTargetViewRef.current &&
+        info.view.type !== pendingTargetViewRef.current
+      )
+        return;
+      if (
+        pendingTargetViewRef.current &&
+        info.view.type === pendingTargetViewRef.current
+      )
+        pendingTargetViewRef.current = null;
+
+      if (view && info.view.type !== view) return;
+
+      setCalendarTitle(info.view.title);
+
+      const startISO = info.view.activeStart.toISOString();
+      const endISO = info.view.activeEnd.toISOString();
+
+      setRange((prev) => {
+        if (prev && prev.fromISO === startISO && prev.untilISO === endISO)
+          return prev;
+        debouncedSetRange({ fromISO: startISO, untilISO: endISO });
+        return prev;
+      });
+    },
+    [view, debouncedSetRange],
+  );
+
+  const renderEventContent = useCallback(
+    (eventInfo: EventContentArg) => (
+      <CustomEventContent eventInfo={eventInfo} />
+    ),
+    [],
+  );
+  const calendarConfig = useMemo(() => {
+    if (!view) return null;
+    return createCalendarConfig({
+      calendarRef,
+      isMember,
+      memberId,
+      isLaptop,
+      isIpad,
+      view,
+      manualView,
+      onViewChange: (v) => {
+        setManualView(true);
+        pendingTargetViewRef.current = v;
+        setView(v);
+      },
+      handleDatesSet,
+      handleSelectSlot,
+      handleEventClick,
+      t: { week: t('toolbar.week') },
     });
-  }
-
-  function handleDatesSet(info: DatesSetArg) {
-    // prevents fetching calendar reservations twice, on initial default view and the view change as a result of useEffect
-    if (ignoreNextDatesSetRef.current) {
-      ignoreNextDatesSetRef.current = false;
-      return;
-    }
-
-    // prevents duplicate fetch when transitioning between views
-    if (
-      pendingTargetViewRef.current &&
-      info.view.type !== pendingTargetViewRef.current
-    )
-      return;
-
-    if (
-      pendingTargetViewRef.current &&
-      info.view.type === pendingTargetViewRef.current
-    )
-      pendingTargetViewRef.current = null;
-
-    if (view && info.view.type !== view) return;
-
-    setCalendarTitle(info.view.title);
-
-    const startISO = info.view.activeStart.toISOString();
-    const endISO = info.view.activeEnd.toISOString();
-
-    if (range && range.fromISO === startISO && range.untilISO === endISO)
-      return;
-
-    debouncedSetRange({ fromISO: startISO, untilISO: endISO });
-  }
-
-  // ---------- Create / Update dialog handlers ----------
-  function handleCreateEvent(values: {
-    reservedFrom: Date;
-    reservedUntil: Date;
-    notes?: string;
-  }) {
-    createMutation.mutate({
-      toolId: tool.id,
-      reservedFrom: values.reservedFrom,
-      reservedUntil: values.reservedUntil,
-      notes: values.notes ?? '',
-    });
-  }
-
-  function handleUpdateEvent(values: {
-    reservedFrom: Date;
-    reservedUntil: Date;
-    notes?: string;
-  }) {
-    if (!selectedReservation) return;
-    updateMutation.mutate({
-      reservationId: selectedReservation.reservationId,
-      toolId: selectedReservation.toolId,
-      reservedFrom: values.reservedFrom,
-      reservedUntil: values.reservedUntil,
-      notes: values.notes ?? '',
-    });
-  }
-
-  function requestDelete() {
-    if (!selectedReservation) return;
-    setPendingDelete({
-      reservationId: selectedReservation.reservationId,
-      toolId: selectedReservation.toolId,
-      userId: memberId,
-    });
-    setConfirmOpen(true);
-  }
-
-  function confirmDelete() {
-    if (!pendingDelete) return;
-    deleteMutation.mutate(pendingDelete);
-  }
-
-  // Calendarconfig
-  const calendarConfig = view
-    ? createCalendarConfig({
-        calendarRef,
-        isMember,
-        memberId,
-        isLaptop,
-        isIpad,
-        view,
-        manualView,
-        onViewChange: (v) => {
-          setManualView(true);
-          pendingTargetViewRef.current = v;
-          setView(v);
-        },
-        handleDatesSet,
-        handleSelectSlot,
-        handleEventClick,
-        t: { week: t('toolbar.week') },
-      })
-    : null;
-
+  }, [
+    view,
+    isMember,
+    memberId,
+    isLaptop,
+    isIpad,
+    manualView,
+    handleDatesSet,
+    handleSelectSlot,
+    handleEventClick,
+    t,
+  ]);
   // local dialog state
   const [selectedSlot, setSelectedSlot] = useState<{
     start: Date;
     end: Date;
   } | null>(null);
+
   const [selectedReservation, setSelectedReservation] = useState<{
     reservationId: number;
     toolId: number;
@@ -345,49 +234,56 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     notes?: string | null;
   } | null>(null);
 
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [pendingDelete, setPendingDelete] = useState<{
-    reservationId: number;
-    toolId: number;
-    userId: number;
-  } | null>(null);
+  const [createOption, setCreateOption] = useState<
+    'calendarSelect' | 'createButton' | null
+  >(null);
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <Button
         variant='default'
         className='mb-1 w-fit self-center'
-        onClick={() =>
-          isMember && setSelectedSlot({ start: new Date(), end: new Date() })
-        }
+        onClick={() => {
+          setCreateOption('createButton');
+          setSelectedSlot({ start: new Date(), end: new Date() });
+        }}
+        disabled={!isMember}
       >
         <Plus className='mr-2 size-5' />
         {t('calendar.createButton')}
       </Button>
 
-      {selectedSlot && (
+      {selectedSlot && range && (
         <CalendarDialog
           open
           onOpenChange={(open) => !open && setSelectedSlot(null)}
+          mode='create'
+          toolId={tool.id}
+          reservationId={undefined}
+          userId={memberId}
           start={selectedSlot.start}
           end={selectedSlot.end}
-          mode='create'
-          onSubmit={handleCreateEvent}
+          range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
           onCancel={() => setSelectedSlot(null)}
+          onFinished={() => setSelectedSlot(null)}
+          pristine={createOption === 'calendarSelect'}
         />
       )}
 
-      {selectedReservation && (
+      {selectedReservation && range && (
         <CalendarDialog
           open
           onOpenChange={(open) => !open && setSelectedReservation(null)}
+          mode='edit'
+          toolId={selectedReservation.toolId}
+          reservationId={selectedReservation.reservationId}
+          userId={memberId}
           start={selectedReservation.reservedFrom}
           end={selectedReservation.reservedUntil}
-          mode='edit'
-          onSubmit={handleUpdateEvent}
+          notes={selectedReservation.notes ?? ''}
+          range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
           onCancel={() => setSelectedReservation(null)}
-          onDelete={requestDelete}
-          defaultValues={{ notes: selectedReservation.notes ?? '' }}
+          onFinished={() => setSelectedReservation(null)}
         />
       )}
 
@@ -413,31 +309,12 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             events={calendarReservations}
             {...calendarConfig}
             locale={t('calendar.locale')}
-            eventContent={customEventStyling}
+            eventContent={renderEventContent}
           />
         </div>
       ) : (
         <ToolCalendarSkeleton />
       )}
-
-      <CalendarConfirmDialog
-        open={confirmOpen}
-        onOpenChange={setConfirmOpen}
-        onConfirm={() => {
-          confirmDelete();
-          setConfirmOpen(false);
-        }}
-        onCancel={() => {
-          setConfirmOpen(false);
-          setPendingDelete(null);
-        }}
-        t={{
-          title: t('confirmDialog.title'),
-          description: t('confirmDialog.description'),
-          confirm: t('confirmDialog.confirm'),
-          cancel: t('confirmDialog.cancel'),
-        }}
-      />
     </div>
   );
 }
