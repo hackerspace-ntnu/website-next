@@ -881,7 +881,12 @@
       "unavailable": "Utilgjengelig",
       "supervision": "Krever veiledning",
       "tooltip": "Les mer om dette utstyret",
-      "myReservations": "Mine reservasjoner"
+      "myReservations": "Mine reservasjoner",
+      "requires": "Krever",
+      "difficulty": "Vanskelighetsgrad",
+      "filamentSize": "Filament størrelse",
+      "filamentType": "Filament type",
+      "slicer": "Slicer"
     },
     "myReservationsTable": {
       "title": "Dine reservasjoner",
@@ -938,8 +943,9 @@
       "phoneNrPlaceholder": "Din mobilnummer",
       "email": "Mail",
       "emailPlaceholder": "imagine@dragin.com",
-      "startTime": "Start dato/tid",
-      "endTime": "Slutt dato/tid",
+      "notes": "Notater",
+      "reservedFrom": "Start dato & tid",
+      "reservedUntil": "Slutt dato & tid",
       "formSchema": {
         "nameReq": "Vennligst tast inn ditt navn",
         "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
@@ -963,12 +969,16 @@
       "notFound": "Kunne ikke finne reservasjonen",
       "toolNotFound": "Could not find tool",
       "toolUnavailable": "Tool is unavailable",
+      "newMustBeInFuture": "Start/end time cannot be in the past",
       "specifyStart": "Start dato kreves",
       "specifyEnd": "Slutt dato kreves",
       "rangeTooLarge": "Tidsperioden er for lang",
       "fetchReservationsFailed": "Failed to fetch reservations",
       "createReservationTimeConflict": "Start/slutt tid kan ikke overlappe med eksisterende reservasjoner",
-      "cannotMoveToPast": "Reservasjonen kan kun bli flyttet til felt etter nåværende tidspunkt"
+      "cannotChangePast": "Kan ikke endre reservasjoner som er ferdig",
+      "updateFailed": "Kunne ikke oppdatere reservasjon",
+      "createFailed": "Kunne ikke opprette reservasjon",
+      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon"
     }
   }
 }

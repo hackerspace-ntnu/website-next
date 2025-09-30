@@ -881,7 +881,12 @@
       "unavailable": "Unavailable",
       "supervision": "Requires supervision",
       "tooltip": "Read more about this tool",
-      "myReservations": "My reservations"
+      "myReservations": "My reservations",
+      "requires": "Requires",
+      "difficulty": "Difficulty",
+      "filamentSize": "Filament size",
+      "filamentType": "Filament type",
+      "slicer": "Slicer"
     },
     "myReservationsTable": {
       "title": "Your reservations",
@@ -938,8 +943,9 @@
       "phoneNrPlaceholder": "Your phone number",
       "email": "Email",
       "emailPlaceholder": "imagine@dragin.com",
-      "startTime": "Start date/time",
-      "endTime": "End date/time",
+      "notes": "Notes",
+      "reservedFrom": "Start date/time",
+      "reservedUntil": "End date/time",
       "formSchema": {
         "nameReq": "Please type in your full name",
         "phoneNrReq": "Please type in your phone number",
@@ -963,12 +969,16 @@
       "reservationNotFound": "Could not find reservation",
       "toolNotFound": "Kunne ikke finne verktøyet",
       "toolUnavailable": "Verktøyet er ikke tilgjengelig",
+      "newMustBeInFuture": "Start/slutt tid kan ikke være i fortiden",
       "specifyStart": "Start date is required",
       "specifyEnd": "End date is required",
       "rangeTooLarge": "Specified range is too large",
       "fetchReservationsFailed": "Failed to fetch reservations",
       "createReservationTimeConflict": "Start/end time cannot overlap existing reservations",
-      "cannotMoveToPast": "Reservation can only be moved to slots after current date/time"
+      "cannotChangePast": "Finished reservations cannot be changed",
+      "updateFailed": "Failed to update reservation",
+      "createFailed": "Failed to create reservation",
+      "cannotChangeOngoingStart": "Cannot change the start time for an ongoing reservation"
     }
   }
 }
