@@ -1,13 +1,15 @@
 'use client';
 
 import {
-  ResponsiveDialog,
-  ResponsiveDialogContent,
-  ResponsiveDialogDescription,
-  ResponsiveDialogFooter,
-  ResponsiveDialogHeader,
-  ResponsiveDialogTitle,
-} from '@/components/composites/ResponsiveDialog';
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
 
 type CalendarConfirmDialogProps = {
@@ -31,36 +33,38 @@ function CalendarConfirmDialog({
   t,
 }: CalendarConfirmDialogProps) {
   return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
-      <ResponsiveDialogContent className='sm:max-w-md'>
-        <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>{t.title}</ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
-            {t.description}
-          </ResponsiveDialogDescription>
-        </ResponsiveDialogHeader>
-        <ResponsiveDialogFooter className='flex w-full gap-2 sm:justify-between'>
-          <Button
-            variant='secondary'
-            onClick={() => {
-              onCancel();
-              onOpenChange(false);
-            }}
-          >
-            {t.cancel}
-          </Button>
-          <Button
-            variant='default'
-            onClick={() => {
-              onConfirm();
-              onOpenChange(false);
-            }}
-          >
-            {t.confirm}
-          </Button>
-        </ResponsiveDialogFooter>
-      </ResponsiveDialogContent>
-    </ResponsiveDialog>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className='sm:max-w-md'>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{t.title}</AlertDialogTitle>
+          <AlertDialogDescription>{t.description}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter className='flex w-full gap-2 sm:justify-between'>
+          <AlertDialogCancel asChild>
+            <Button
+              variant='secondary'
+              onClick={() => {
+                onCancel();
+                onOpenChange(false);
+              }}
+            >
+              {t.cancel}
+            </Button>
+          </AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              variant='default'
+              onClick={() => {
+                onConfirm();
+                onOpenChange(false);
+              }}
+            >
+              {t.confirm}
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
