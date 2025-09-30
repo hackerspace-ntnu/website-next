@@ -27,7 +27,7 @@ type ToolCardGridProps = {
   tools: RouterOutput['tools']['fetchTools'];
 };
 
-export function ToolCardGrid({ tools }: ToolCardGridProps) {
+function ToolCardGrid({ tools }: ToolCardGridProps) {
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
   const [currentTool, setCurrentTool] = useState<Tool | null>(null);
 
@@ -56,3 +56,5 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
     </div>
   );
 }
+
+export { ToolCardGrid };

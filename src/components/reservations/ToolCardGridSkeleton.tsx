@@ -5,7 +5,7 @@ import { HorizontalToolCardSkeleton } from '@/components/reservations/Horizontal
 import { ToolCardSkeleton } from '@/components/reservations/ToolCardSkeleton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
-export function ToolCardGridSkeleton() {
+function ToolCardGridSkeleton() {
   const list = [useId(), useId(), useId(), useId(), useId(), useId()];
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
 
@@ -23,3 +23,5 @@ export function ToolCardGridSkeleton() {
     </div>
   );
 }
+
+export { ToolCardGridSkeleton };
