@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,12 +18,6 @@ type CalendarConfirmDialogProps = {
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
   onCancel: () => void;
-  t: {
-    title: string;
-    description: string;
-    confirm: string;
-    cancel: string;
-  };
 };
 
 function CalendarConfirmDialog({
@@ -30,14 +25,17 @@ function CalendarConfirmDialog({
   onOpenChange,
   onConfirm,
   onCancel,
-  t,
 }: CalendarConfirmDialogProps) {
+  const t = useTranslations('reservations');
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className='sm:max-w-md'>
         <AlertDialogHeader>
-          <AlertDialogTitle>{t.title}</AlertDialogTitle>
-          <AlertDialogDescription>{t.description}</AlertDialogDescription>
+          <AlertDialogTitle>{t('confirmDialog.title')}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {t('confirmDialog.description')}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className='flex w-full gap-2 sm:justify-between'>
           <AlertDialogCancel asChild>
@@ -48,7 +46,7 @@ function CalendarConfirmDialog({
                 onOpenChange(false);
               }}
             >
-              {t.cancel}
+              {t('confirmDialog.cancel')}
             </Button>
           </AlertDialogCancel>
           <AlertDialogAction asChild>
@@ -59,7 +57,7 @@ function CalendarConfirmDialog({
                 onOpenChange(false);
               }}
             >
-              {t.confirm}
+              {t('confirmDialog.confirm')}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
