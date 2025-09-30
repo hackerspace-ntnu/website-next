@@ -1,33 +1,32 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 import {
-  ResponsiveDialog,
-  ResponsiveDialogContent,
-  ResponsiveDialogDescription,
-  ResponsiveDialogHeader,
-  ResponsiveDialogTitle,
-} from '@/components/composites/ResponsiveDialog';
-import { ReservationForm } from '@/components/reservations/reservations-calendar/ReservationForm';
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/AlertDialog';
+import { Button } from '@/components/ui/Button';
+import { useAppForm } from '@/components/ui/Form';
+import { Spinner } from '@/components/ui/Spinner';
+import { reservationFormSchema } from '@/validations/reservations';
 
-type Reservation = {
-  name: string;
-  phoneNr: string;
-  email: string;
-  start: Date | string;
-  end: Date | string;
-};
-
-type CalendarDialogProps = {
+export type CalendarDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  start: Date;
-  end: Date;
-  mode: 'create' | 'view';
-  onSubmit: (data: Reservation) => void;
+  start: Date | null;
+  end: Date | null;
+  mode: 'create' | 'edit';
+  onSubmit: (data: {
+    reservedFrom: Date;
+    reservedUntil: Date;
+    notes?: string;
+  }) => void;
   onCancel: () => void;
   onDelete?: () => void;
-  defaultValues?: Partial<Omit<Reservation, 'start' | 'end'>>;
+  defaultValues?: { notes?: string };
 };
 
 function CalendarDialog({
@@ -42,35 +41,116 @@ function CalendarDialog({
   defaultValues,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
+  const translations = useTranslations();
+
+  const schema = reservationFormSchema(translations, start, mode);
+
+  const form = useAppForm({
+    validators: { onChange: schema },
+    defaultValues: {
+      reservedFrom: start,
+      reservedUntil: end,
+      notes: defaultValues?.notes ?? '',
+    },
+    onSubmit: ({ value }) => {
+      onSubmit({
+        reservedFrom: value.reservedFrom as Date,
+        reservedUntil: value.reservedUntil as Date,
+        notes: value.notes?.trim() ? value.notes : undefined,
+      });
+      onOpenChange(false);
+    },
+  });
+
   return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
-      <ResponsiveDialogContent>
-        <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent className='sm:max-w-md'>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
             {mode === 'create' ? t('form.titleCreate') : t('form.titleEdit')}
-          </ResponsiveDialogTitle>
-          <ResponsiveDialogDescription>
+          </AlertDialogTitle>
+          <AlertDialogDescription>
             {mode === 'create'
               ? t('form.descriptionCreate')
               : t('form.descriptionEdit')}
-          </ResponsiveDialogDescription>
-        </ResponsiveDialogHeader>
-        <ReservationForm
-          start={start}
-          end={end}
-          onSubmit={onSubmit}
-          onCancel={onCancel}
-          onDelete={onDelete}
-          mode={mode}
-          defaultValues={{
-            name: defaultValues?.name ?? '',
-            email: defaultValues?.email ?? '',
-            phoneNr: defaultValues?.phoneNr ?? '',
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <form
+          className='mt-2 space-y-4'
+          onSubmit={async (e) => {
+            e.preventDefault();
+            await form.handleSubmit();
           }}
-        />
-      </ResponsiveDialogContent>
-    </ResponsiveDialog>
+        >
+          <form.AppField name='reservedFrom'>
+            {(field) => (
+              <field.DateTimeField
+                label={t('form.reservedFrom')}
+                granularity='minute'
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name='reservedUntil'>
+            {(field) => (
+              <field.DateTimeField
+                label={t('form.reservedUntil')}
+                granularity='minute'
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name='notes'>
+            {(field) => <field.TextAreaField label={t('form.notes')} />}
+          </form.AppField>
+
+          <AlertDialogFooter className='mt-6 flex w-full items-center justify-between gap-2'>
+            <AlertDialogCancel asChild>
+              <Button
+                type='button'
+                variant='secondary'
+                onClick={() => {
+                  onCancel();
+                  onOpenChange(false);
+                }}
+              >
+                {t('form.cancel')}
+              </Button>
+            </AlertDialogCancel>
+
+            <div className='flex items-center gap-2'>
+              {mode === 'edit' && onDelete && (
+                <Button
+                  type='button'
+                  variant='destructive'
+                  onClick={() => {
+                    onDelete();
+                    onOpenChange(false);
+                  }}
+                >
+                  {t('form.delete')}
+                </Button>
+              )}
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
+              >
+                {([canSubmit, isSubmitting]) => (
+                  <Button type='submit' disabled={!canSubmit || isSubmitting}>
+                    {isSubmitting ? (
+                      <Spinner className='text-primary-foreground' />
+                    ) : (
+                      t('form.save')
+                    )}
+                  </Button>
+                )}
+              </form.Subscribe>
+            </div>
+          </AlertDialogFooter>
+        </form>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
-export { CalendarDialog };
+export default CalendarDialog;
