@@ -2,12 +2,10 @@
 
 import { format } from 'date-fns';
 import { enGB, nb } from 'date-fns/locale';
-import { CalendarDays, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { type RefObject, useEffect, useRef, useState } from 'react';
 import { DeleteReservationButton } from '@/components/reservations/DeleteReservationButton';
 import { Button } from '@/components/ui/Button';
-import { Checkbox } from '@/components/ui/Checkbox';
 import {
   Table,
   TableBody,
@@ -20,21 +18,7 @@ import {
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { useOutsideClick } from '@/lib/hooks/useOutsideClick';
 import { Link } from '@/lib/locale/navigation';
-import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
-
-type Reservation = {
-  toolType: string;
-  toolName: string;
-  toolId: number;
-  userId: number;
-  reservationId: string;
-  start: Date | string;
-  end: Date | string;
-  name: string;
-  phoneNr: string;
-  email: string;
-};
 
 type MyReservationsTableProps = {
   userReservations: RouterOutput['reservations']['fetchUserReservations'];
@@ -118,7 +102,7 @@ function MyReservationsTable({
                             className='mx-2 flex place-self-center justify-self-center'
                             reservationId={res.reservation.id}
                             toolId={res.reservation.toolId}
-                            reservorId={res.reservation.reservorId}
+                            userId={res.reservation.userId}
                             ref={ref3}
                           />
                         </TableCell>
@@ -127,8 +111,8 @@ function MyReservationsTable({
                         <div className='flex w-full flex-row justify-between gap-3'>
                           <Link
                             href={{
-                              pathname: '/reservations/[reservationId]',
-                              params: { reservationId: res.toolSlug },
+                              pathname: '/reservations/[calendarId]',
+                              params: { calendarId: res.toolId },
                             }}
                           >
                             <h1 className='clamp-[text-sm-base-clamp] w-full text-center'>
@@ -139,18 +123,8 @@ function MyReservationsTable({
                             <p className='mb-2 underline'>
                               {`From: ${format(res.reservation.reservedFrom, 'dd.MMM HH:mm', { locale: t('calendar.locale') === 'en' ? enGB : nb })}`}{' '}
                             </p>
-                            <p className='underline'>{`To: ${format(res.reservation.reservedTill, 'dd.MMM HH:mm', { locale: t('calendar.locale') === 'en' ? enGB : nb })}`}</p>
+                            <p className='underline'>{`To: ${format(res.reservation.reservedUntil, 'dd.MMM HH:mm', { locale: t('calendar.locale') === 'en' ? enGB : nb })}`}</p>
                           </div>
-                          <Link
-                            title={t('myReservationsTable.goToCalendar')}
-                            href={{
-                              pathname: '/reservations/[reservationId]',
-                              params: { reservationId: res.reservation.id },
-                            }}
-                            className='mr-4 flex'
-                          >
-                            <CalendarDays className='clamp-[size-16-20-clamp]' />
-                          </Link>
                         </div>
                       </TableCell>
                     </TableRow>
@@ -162,19 +136,28 @@ function MyReservationsTable({
                             className='mx-2 flex place-self-center justify-self-center'
                             reservationId={res.reservation.id}
                             toolId={res.reservation.toolId}
-                            reservorId={res.reservation.reservorId}
+                            userId={res.reservation.userId}
                             ref={ref3}
                           />
                         </TableCell>
                       )}
-                      <TableCell>{res.toolName}</TableCell>
+                      <TableCell>
+                        <Link
+                          href={{
+                            pathname: '/reservations/[calendarId]',
+                            params: { calendarId: res.toolId },
+                          }}
+                        >
+                          {res.toolName}
+                        </Link>
+                      </TableCell>
                       <TableCell className='border-x'>
                         {format(res.reservation.reservedFrom, 'dd.MMM HH:mm', {
                           locale: t('calendar.locale') === 'en' ? enGB : nb,
                         })}
                       </TableCell>
                       <TableCell>
-                        {format(res.reservation.reservedTill, 'dd.MMM HH:mm', {
+                        {format(res.reservation.reservedUntil, 'dd.MMM HH:mm', {
                           locale: t('calendar.locale') === 'en' ? enGB : nb,
                         })}
                       </TableCell>
