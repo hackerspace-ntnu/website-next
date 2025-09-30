@@ -7,16 +7,12 @@ function updateReservationSchema(t: Translations) {
     .object({
       reservationId: z.number().int().positive(t('reservations.api.invalidId')),
       toolId: z.number().int().positive(t('reservations.api.invalidId')),
-      reservedFrom: z
-        .string()
-        .datetime({ message: t('reservations.api.specifyStart') }),
-      reservedUntil: z
-        .string()
-        .datetime({ message: t('reservations.api.specifyEnd') }),
+      reservedFrom: z.date({ message: t('reservations.api.specifyStart') }),
+      reservedUntil: z.date({ message: t('reservations.api.specifyEnd') }),
       notes: z.string().max(500).optional(),
     })
     .refine(
-      (data) => isBefore(data.reservedUntil, data.reservedFrom),
+      (data) => !isBefore(data.reservedUntil, data.reservedFrom),
       t('reservations.api.startBeforeEndError'),
     );
 }
