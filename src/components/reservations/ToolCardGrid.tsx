@@ -1,34 +1,37 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useState } from 'react';
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import type { RouterOutput } from '@/server/api';
 
 export type Tool = {
-  type: string;
-  title: string;
-  toolId: string;
-  nickName?: string;
-  krever?: string;
-  photoUrl: string;
-  difficulty?: number;
+  toolId: number;
+  type: '3dprinter' | 'other';
+  name: string;
+  nickName: string;
+  description: string;
+  difficulty: number;
+  requires: string;
+  imageId: number;
+  imageUrl: string | null;
+  available: boolean;
   filamentSize?: string;
   filamentType?: string;
   slicer?: string;
-  available?: boolean;
-  textContent?: string;
 };
 
 type ToolCardGridProps = {
-  tools: Tool[];
+  tools: RouterOutput['tools']['fetchTools'];
 };
 
 export function ToolCardGrid({ tools }: ToolCardGridProps) {
   const isDesktop = useMediaQuery('(min-width: 45.4rem)');
   const [currentTool, setCurrentTool] = useState<Tool | null>(null);
-  const id = useId();
+
+  const List = isDesktop ? ToolCard : HorizontalToolCard;
 
   return (
     <div className='size-full'>
@@ -40,53 +43,16 @@ export function ToolCardGrid({ tools }: ToolCardGridProps) {
           onCloseButton={() => setCurrentTool(null)}
         />
       )}
-      {!isDesktop ? (
-        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-          {tools.map(
-            (tool) =>
-              tool.type === 'printer' && (
-                <HorizontalToolCard
-                  key={`printer-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-          {tools.map(
-            (tool) =>
-              tool.type === 'annet' && (
-                <HorizontalToolCard
-                  key={`annet-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-        </ul>
-      ) : (
-        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-          {tools.map(
-            (tool) =>
-              tool.type === 'printer' && (
-                <ToolCard
-                  key={`printer-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-          {tools.map(
-            (tool) =>
-              tool.type === 'annet' && (
-                <ToolCard
-                  key={`annet-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-        </ul>
-      )}
+
+      <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
+        {tools.map((tool) => (
+          <List
+            key={tool.toolId}
+            tool={tool as Tool}
+            onClick={() => setCurrentTool(tool as Tool)}
+          />
+        ))}
+      </ul>
     </div>
   );
 }

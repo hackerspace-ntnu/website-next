@@ -15,11 +15,11 @@ const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
 const timeslots = ['1', '2', '3', '4'] as const;
 
 const toolDescriptionFields = [
-  'krever',
-  'difficulty',
-  'filamentSize',
-  'filamentType',
-  'slicer',
+  { key: 'requires', label: 'requires' },
+  { key: 'difficulty', label: 'difficulty' },
+  { key: 'filamentSize', label: 'filamentSize' },
+  { key: 'filamentType', label: 'filamentType' },
+  { key: 'slicer', label: 'slicer' },
 ] as const;
 
 const tooltype = ['3dprinter', 'other'] as const;
