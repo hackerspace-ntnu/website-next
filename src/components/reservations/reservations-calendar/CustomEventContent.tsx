@@ -1,6 +1,4 @@
 import type { EventContentArg } from '@fullcalendar/core';
-/* import { ArrowDownToLineIcon, ArrowUpToLineIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/Separator'; */
 import { useFormatter } from 'next-intl';
 
 type CustomEventStylingProps = {

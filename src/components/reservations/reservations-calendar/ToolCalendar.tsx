@@ -1,6 +1,7 @@
 'use client';
 
 import { createCalendarConfig } from '@/components/reservations/reservations-calendar/CalendarConfig';
+import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import { CustomEventContent } from '@/components/reservations/reservations-calendar/CustomEventContent';
 import CustomToolbar from '@/components/reservations/reservations-calendar/CustomToolbar';
 import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
@@ -24,7 +25,6 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
@@ -265,7 +265,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           end={selectedSlot.end}
           range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
           onCancel={() => setSelectedSlot(null)}
-          onFinished={() => setSelectedSlot(null)}
           pristine={createOption === 'calendarSelect'}
         />
       )}
@@ -283,7 +282,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           notes={selectedReservation.notes ?? ''}
           range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
           onCancel={() => setSelectedReservation(null)}
-          onFinished={() => setSelectedReservation(null)}
         />
       )}
 

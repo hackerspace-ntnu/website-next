@@ -907,8 +907,7 @@
     },
     "information": {
       "importantTitle": "Viktig informasjon!",
-      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
-      "dontShow": "Ikke vis dette igjen"
+      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket."
     },
     "toolbar": {
       "prev": "Forrige",
@@ -938,20 +937,12 @@
       "delete": "Slett",
       "create": "Opprett",
       "name": "Navn",
-      "namePlaceholder": "Ole Nordmann",
-      "phoneNr": "mobilnummer",
-      "phoneNrPlaceholder": "Din mobilnummer",
-      "email": "Mail",
-      "emailPlaceholder": "imagine@dragin.com",
       "notes": "Notater",
       "reservedFrom": "Start dato & tid",
       "reservedUntil": "Slutt dato & tid",
-      "formSchema": {
-        "nameReq": "Vennligst tast inn ditt navn",
-        "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
-        "emailReq": "Vennligst tast inn ditt mail",
-        "error": "Noe gikk galt, prøv igjen senere..."
-      }
+      "successCreate": "Reservasjonen er opprettet.",
+      "successUpdate": "Reservasjonen er oppdatert.",
+      "successDelete": "Reservasjonen er slettet."
     },
     "confirmDialog": {
       "confirm": "Bekreft",

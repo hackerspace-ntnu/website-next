@@ -907,8 +907,7 @@
     },
     "information": {
       "importantTitle": "Important information!",
-      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
-      "dontShow": "Do not show this again"
+      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked."
     },
     "toolbar": {
       "prev": "Prev",
@@ -938,20 +937,12 @@
       "delete": "Delete",
       "create": "Create",
       "name": "Name",
-      "namePlaceholder": "Admin Jim",
-      "phoneNr": "Phone number",
-      "phoneNrPlaceholder": "Your phone number",
-      "email": "Email",
-      "emailPlaceholder": "imagine@dragin.com",
       "notes": "Notes",
       "reservedFrom": "Start date/time",
       "reservedUntil": "End date/time",
-      "formSchema": {
-        "nameReq": "Please type in your full name",
-        "phoneNrReq": "Please type in your phone number",
-        "emailReq": "Please type in your Email",
-        "Error": "Something went wrong, try again later..."
-      }
+      "successCreate": "Successfully created reservation.",
+      "successUpdate": "Successfully updated reservation.",
+      "successDelete": "Successfully deleted reservation."
     },
     "confirmDialog": {
       "confirm": "Confirm",
