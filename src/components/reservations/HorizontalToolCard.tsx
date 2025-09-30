@@ -1,10 +1,7 @@
-'use client';
-
 import { Maximize2Icon } from 'lucide-react';
 import { m } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useId } from 'react';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -17,14 +14,13 @@ type HorizontalToolCardProps = {
 
 function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
   const t = useTranslations('reservations');
-  const id = useId();
 
   return (
     <Card className='flex h-30 w-full overflow-hidden rounded-xl hover:brightness-105'>
       <CardHeader className='relative h-full w-40 flex-shrink-0'>
         <Image
-          src={tool.photoUrl}
-          alt={tool.title}
+          src={tool.imageUrl ?? '/unknown.png'}
+          alt={tool.name}
           fill
           className='object-cover'
         />
@@ -33,19 +29,19 @@ function HorizontalToolCard({ tool, onClick }: HorizontalToolCardProps) {
         <m.button
           title={t('tools.tooltip')}
           className='absolute top-1 right-1 z-10 mx-auto inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-stone-500 bg-opacity-50 backdrop-blur-sm ease-in-out hover:bg-primary'
-          key={`cardHeaderButton-${tool.title}-${id}`}
+          key={`cardHeaderButton-${tool.name}-${tool.toolId}`}
           onClick={onClick}
         >
           <Maximize2Icon className='size-6 transform stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
         </m.button>
-        <CardTitle className='line-clamp-1 text-lg'>{tool.title}</CardTitle>
+        <CardTitle className='line-clamp-1 text-lg'>{tool.name}</CardTitle>
         <div className='absolute bottom-0 left-0 w-full'>
-          {tool.type === 'printer' ? (
+          {tool.type === '3dprinter' ? (
             tool.available ? (
               <Link
                 href={{
-                  pathname: '/reservations/[reservationId]',
-                  params: { reservationId: tool.toolId },
+                  pathname: '/reservations/[calendarId]',
+                  params: { calendarId: tool.toolId },
                 }}
                 className='w-full hover:brightness-110'
               >
