@@ -24,7 +24,9 @@ const tools = pgTable('tools', {
   nickName: varchar('nick_name', { length: 128 }),
   difficulty: integer('difficulty'),
   requires: varchar('requires', { length: 256 }),
-  imageId: integer('image_id'),
+  imageId: integer('image_id').references(() => files.id, {
+    onDelete: 'set null',
+  }),
   available: boolean('available').default(false).notNull(),
 });
 
@@ -83,17 +85,17 @@ type SelectPrinterSpecs = InferSelectModel<typeof printerSpecs>;
 type InsertPrinterSpecs = InferInsertModel<typeof printerSpecs>;
 
 export {
-  toolTypeEnum,
-  tools,
-  toolsRelations,
-  toolsLocalizations,
-  toolsLocalizationsRelations,
   printerSpecs,
   printerSpecsRelations,
-  type SelectTool,
+  tools,
+  toolsLocalizations,
+  toolsLocalizationsRelations,
+  toolsRelations,
+  toolTypeEnum,
+  type InsertPrinterSpecs,
   type InsertTool,
-  type SelectToolLocalization,
   type InsertToolLocalization,
   type SelectPrinterSpecs,
-  type InsertPrinterSpecs,
+  type SelectTool,
+  type SelectToolLocalization,
 };
