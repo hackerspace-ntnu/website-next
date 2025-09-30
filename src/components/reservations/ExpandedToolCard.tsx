@@ -38,11 +38,12 @@ function ExpandedToolCard({
         <DialogHeader className='w-full p-0'>
           <div className='relative h-72 w-full'>
             <Image
-              src={currentTool.photoUrl}
-              alt={currentTool.title}
+              src={currentTool.imageUrl ?? '/unknown.png'}
+              alt={currentTool.name}
               fill
               className='object-cover'
             />
+
             <DialogClose asChild>
               <Button
                 className='absolute top-2 right-2 z-10 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
@@ -54,7 +55,7 @@ function ExpandedToolCard({
           </div>
           <DialogTitle className='text-center'>
             <span className='clamp-[text-xl-2xl-clamp] truncate'>
-              {currentTool.title}
+              {currentTool.name}
             </span>
             <br />
             <br />
@@ -64,16 +65,18 @@ function ExpandedToolCard({
           </DialogTitle>
           <DialogDescription className=' flex h-44 flex-col gap-1 overflow-auto px-5 text-left'>
             <span className='clamp-[text-sm-base-clamp]'>
-              {currentTool.textContent}
+              {currentTool.description}
             </span>
             <br />
-            {currentTool.type === 'printer' &&
-              toolDescriptionFields.map((field) => {
-                const text = currentTool[field];
+            {currentTool.type === '3dprinter' &&
+              toolDescriptionFields.map(({ key, label }) => {
+                const text = currentTool[key as keyof Tool];
                 return (
-                  <span key={field} className='clamp-[text-sm-base-clamp]'>
-                    {field.charAt(0).toUpperCase() + field.slice(1)}: {text}
-                    <br />
+                  <span
+                    key={key}
+                    className='h-fit w-fit rounded-xl bg-stone-600 p-1 text-sm'
+                  >
+                    {t(`tools.${label}`)}: {String(text)}
                   </span>
                 );
               })}
@@ -83,8 +86,8 @@ function ExpandedToolCard({
           {currentTool.available && (
             <Link
               href={{
-                pathname: '/reservations/[reservationId]',
-                params: { reservationId: currentTool.toolId },
+                pathname: '/reservations/[calendarId]',
+                params: { calendarId: currentTool.toolId },
               }}
               className='h-full w-full'
             >
