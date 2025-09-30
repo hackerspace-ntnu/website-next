@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { CalendarConfirmDialog } from '@/components/reservations/reservations-calendar/CalendarConfirmDialog';
+import { FormDeleteButton } from '@/components/reservations/reservations-calendar/FormDeleteButton';
+import { FormSaveButton } from '@/components/reservations/reservations-calendar/FormSaveButton';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
-import { Spinner } from '@/components/ui/Spinner';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import type { RouterOutput } from '@/server/api';
 import { reservationFormSchema } from '@/validations/reservations';
@@ -22,7 +22,7 @@ import { reservationFormSchema } from '@/validations/reservations';
 type CalendarReservation =
   RouterOutput['reservations']['fetchCalendarReservations'][number];
 
-export type CalendarDialogProps = {
+type CalendarDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 
@@ -38,7 +38,6 @@ export type CalendarDialogProps = {
   range: { fromISO: string; untilISO: string };
 
   onCancel: () => void;
-  onFinished?: () => void;
   pristine?: boolean;
 };
 
@@ -54,14 +53,12 @@ function CalendarDialog({
   notes,
   range,
   onCancel,
-  onFinished,
   pristine,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const schema = reservationFormSchema(translations, start, mode);
   const utils = api.useUtils();
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const createMutation = api.reservations.createReservation.useMutation({
     onSuccess: async (created) => {
@@ -117,24 +114,36 @@ function CalendarDialog({
     },
     onSubmit: async ({ value }) => {
       if (mode === 'create') {
-        await createMutation.mutateAsync({
-          toolId,
-          reservedFrom: value.reservedFrom as Date,
-          reservedUntil: value.reservedUntil as Date,
-          notes: value.notes ?? '',
-        });
+        await createMutation.mutateAsync(
+          {
+            toolId,
+            reservedFrom: value.reservedFrom as Date,
+            reservedUntil: value.reservedUntil as Date,
+            notes: value.notes ?? '',
+          },
+          {
+            onSuccess: () => {
+              toast.success(t('form.successCreate'));
+            },
+          },
+        );
       } else {
         if (!reservationId) return;
-        await updateMutation.mutateAsync({
-          reservationId,
-          toolId,
-          reservedFrom: value.reservedFrom as Date,
-          reservedUntil: value.reservedUntil as Date,
-          notes: value.notes ?? '',
-        });
+        await updateMutation.mutateAsync(
+          {
+            reservationId,
+            toolId,
+            reservedFrom: value.reservedFrom as Date,
+            reservedUntil: value.reservedUntil as Date,
+            notes: value.notes ?? '',
+          },
+          {
+            onSuccess: () => {
+              toast.success(t('form.successUpdate'));
+            },
+          },
+        );
       }
-
-      onFinished?.();
       onOpenChange(false);
     },
   });
@@ -153,7 +162,6 @@ function CalendarDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        {/* ✅ Provide the form context so form.SubmitButton works */}
         <form.AppForm>
           <form
             className='mt-2 space-y-4'
@@ -200,35 +208,24 @@ function CalendarDialog({
 
               <div className='flex items-center gap-2'>
                 {mode === 'edit' && reservationId != null && (
-                  <>
-                    <Button
-                      type='button'
-                      variant='destructive'
-                      onClick={() => setConfirmDeleteOpen(true)}
-                      disabled={deleteMutation.isPending}
-                    >
-                      {deleteMutation.isPending ? (
-                        <Spinner className='text-primary-foreground' />
-                      ) : (
-                        t('form.delete')
-                      )}
-                    </Button>
-                    <CalendarConfirmDialog
-                      open={confirmDeleteOpen}
-                      onOpenChange={setConfirmDeleteOpen}
-                      onConfirm={async () => {
-                        await deleteMutation.mutateAsync({
+                  <FormDeleteButton
+                    isLoading={deleteMutation.isPending}
+                    onConfirm={async () => {
+                      await deleteMutation.mutateAsync(
+                        {
                           reservationId,
                           toolId,
                           userId,
-                        });
-                        onFinished?.();
-                        setConfirmDeleteOpen(false);
-                        onOpenChange(false);
-                      }}
-                      onCancel={() => setConfirmDeleteOpen(false)}
-                    />
-                  </>
+                        },
+                        {
+                          onSuccess: () => {
+                            toast.success(t('form.successDelete'));
+                          },
+                        },
+                      );
+                      onOpenChange(false);
+                    }}
+                  />
                 )}
 
                 {/* Had to use form.Subcribe over form.submitButton because isPristine prevents user from just pressing save
@@ -240,20 +237,15 @@ function CalendarDialog({
                     state.isPristine,
                   ]}
                 >
-                  {([canSubmit, isSubmitting, isPristine]) => {
-                    const disabled =
-                      isSubmitting || !canSubmit || (!pristine && isPristine);
-
-                    return (
-                      <Button type='submit' disabled={disabled}>
-                        {isSubmitting ? (
-                          <Spinner className='text-primary-foreground' />
-                        ) : (
-                          t('form.save')
-                        )}
-                      </Button>
-                    );
-                  }}
+                  {([canSubmit, isSubmitting, isPristine]) => (
+                    <FormSaveButton
+                      canSubmit={canSubmit ?? undefined}
+                      isSubmitting={isSubmitting ?? undefined}
+                      isPristine={isPristine}
+                      allowPristine={!!pristine}
+                      className='min-w-28'
+                    />
+                  )}
                 </form.Subscribe>
               </div>
             </AlertDialogFooter>
