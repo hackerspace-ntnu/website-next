@@ -3,14 +3,7 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import {
-  boolean,
-  integer,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-} from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 import { tools, users } from '@/server/db/tables';
 
 const toolReservations = pgTable('tool_reservations', {
@@ -18,7 +11,7 @@ const toolReservations = pgTable('tool_reservations', {
   toolId: integer('tool_id')
     .notNull()
     .references(() => tools.id, { onDelete: 'cascade' }),
-  reservorId: integer('reservor_id')
+  userId: integer('reservor_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   reservedFrom: timestamp('reservered_from').notNull(),
@@ -33,7 +26,7 @@ const toolReservationsRelations = relations(toolReservations, ({ one }) => ({
     references: [tools.id],
   }),
   reservor: one(users, {
-    fields: [toolReservations.reservorId],
+    fields: [toolReservations.userId],
     references: [users.id],
   }),
 }));
@@ -44,6 +37,6 @@ type InsertToolReservation = InferInsertModel<typeof toolReservations>;
 export {
   toolReservations,
   toolReservationsRelations,
-  type SelectToolReservation,
   type InsertToolReservation,
+  type SelectToolReservation,
 };

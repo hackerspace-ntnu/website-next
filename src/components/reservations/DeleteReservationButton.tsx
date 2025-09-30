@@ -23,7 +23,7 @@ import { useRouter } from '@/lib/locale/navigation';
 type DeleteReservationButtonProps = {
   reservationId: number;
   toolId: number;
-  reservorId: number;
+  userId: number;
   variant?: 'icon' | 'button';
   className?: string;
   ref: Ref<HTMLDivElement>;
@@ -32,7 +32,7 @@ type DeleteReservationButtonProps = {
 export function DeleteReservationButton({
   reservationId,
   toolId,
-  reservorId,
+  userId,
   variant = 'icon',
   ref,
 }: DeleteReservationButtonProps) {
@@ -77,9 +77,7 @@ export function DeleteReservationButton({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogActionDestructive
-            onClick={() =>
-              mutation.mutate({ reservationId, toolId, reservorId })
-            }
+            onClick={() => mutation.mutate({ reservationId, toolId, userId })}
             disabled={mutation.isPending}
           >
             {tUi('delete')}
