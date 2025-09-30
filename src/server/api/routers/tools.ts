@@ -1,4 +1,3 @@
-import { Description } from '@radix-ui/react-dialog';
 import { TRPCError } from '@trpc/server';
 import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useId } from 'react';
 import { HorizontalToolCardSkeleton } from '@/components/reservations/HorizontalToolCardSkeleton';
 import { ToolCardSkeleton } from '@/components/reservations/ToolCardSkeleton';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';

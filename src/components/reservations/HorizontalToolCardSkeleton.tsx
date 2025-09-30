@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/Card';
+import { Card, CardFooter, CardHeader } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 function HorizontalToolCardSkeleton() {

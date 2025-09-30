@@ -4,14 +4,14 @@ import { Separator } from '@/components/ui/Separator'; */
 import { useFormatter } from 'next-intl';
 
 type CustomEventStylingProps = {
-  isLoggedIn: boolean;
-  userId: number;
+  /*   isLoggedIn: boolean;
+  userId: number; */
   eventInfo: EventContentArg;
 };
 
 function CustomEventContent({
-  isLoggedIn,
-  userId,
+  /*   isLoggedIn,
+  userId, */
   eventInfo,
 }: CustomEventStylingProps) {
   const format = useFormatter();
