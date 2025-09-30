@@ -11,7 +11,6 @@ import type {
 } from '@fullcalendar/core';
 import type { RefObject } from '@fullcalendar/core/preact';
 import type FullCalendar from '@fullcalendar/react';
-
 export const viewTypes = {
   timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
   timeGridThreeDay: { type: 'timeGrid', duration: { days: 3 } },
@@ -108,7 +107,11 @@ export function createCalendarConfig({
     eventStartEditable: false,
     eventDurationEditable: false,
     eventOverlap: false,
-    eventClick: handleEventClick,
+    eventClick: (info: EventClickArg) => {
+      if (!info.event.end) return;
+      if (info.event.end.getTime() <= Date.now()) return;
+      handleEventClick(info);
+    },
     eventDataTransform: (eventInfo: EventInput) => ({
       ...eventInfo,
       editable: false,
