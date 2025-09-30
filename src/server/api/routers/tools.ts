@@ -1,9 +1,10 @@
+import { Description } from '@radix-ui/react-dialog';
 import { TRPCError } from '@trpc/server';
 import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { tools, toolsLocalizations } from '@/server/db/tables';
+import { printerSpecs, tools, toolsLocalizations } from '@/server/db/tables';
 import { fetchToolSchema } from '@/validations/reservations';
 
 const toolsRouter = createRouter({
@@ -38,6 +39,32 @@ const toolsRouter = createRouter({
         });
       return tool[0];
     }),
+
+  fetchTools: publicProcedure.query(async ({ ctx }) => {
+    const allTools = await ctx.db
+      .select({
+        toolId: tools.id,
+        type: tools.type,
+        name: toolsLocalizations.name,
+        nickName: tools.nickName,
+        description: toolsLocalizations.description,
+        difficulty: tools.difficulty,
+        requires: tools.requires,
+        imageId: tools.imageId,
+        available: tools.available,
+      })
+      .from(tools)
+      .leftJoin(
+        toolsLocalizations,
+        and(
+          eq(toolsLocalizations.toolId, tools.id),
+          eq(toolsLocalizations.locale, ctx.locale),
+        ),
+      )
+      .leftJoin(printerSpecs, eq(printerSpecs.printerId, tools.id));
+
+    return allTools;
+  }),
 });
 
 export { toolsRouter };
