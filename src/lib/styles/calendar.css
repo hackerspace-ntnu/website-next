@@ -19,6 +19,7 @@ Alle fullcalendar komponenter skal ha en vars.css fil.
   --fc-event-resizer-thickness: 3rem;
   --fc-event-resizer-dot-total-width: 0.5rem;
   --fc-event-resizer-dot-border-width: 0.0625rem;
+  --fc-highlight-color: transparent;
 
   /* tid nå streken og pilen */
   --fc-now-indicator-color: var(--destructive);
