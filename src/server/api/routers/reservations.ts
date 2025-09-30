@@ -22,26 +22,36 @@ import {
 import { fetchOneReservationSchema } from '@/validations/reservations/fetchOneReservationSchema';
 
 const reservationsRouter = createRouter({
-  fetchOne: publicProcedure
+  fetchOneReservation: publicProcedure
     .input((input) =>
       fetchOneReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      const reservation = await ctx.db
+      const [row] = await ctx.db
         .select({
-          reservation: toolReservations,
+          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
+          email: users.email,
+          phoneNr: users.phoneNumber,
+          notes: toolReservations.notes,
+          userId: users.id,
+          reservationId: toolReservations.id,
+          reservedFrom: toolReservations.reservedFrom,
+          reservedUntil: toolReservations.reservedUntil,
+          reservedAt: toolReservations.reservedAt,
+          toolId: toolReservations.toolId,
         })
         .from(toolReservations)
-        .where(eq(toolReservations.id, input));
+        .innerJoin(users, eq(users.id, toolReservations.userId))
+        .where(eq(toolReservations.id, input.reservationId));
 
-      if (!reservation) {
+      if (!row) {
         throw new TRPCError({
-          code: 'BAD_REQUEST',
+          code: 'NOT_FOUND',
           message: ctx.t('reservations.api.reservationNotFound'),
           cause: { toast: 'error' },
         });
       }
-      return reservation;
+      return row;
     }),
 
   fetchUserReservations: authenticatedProcedure.query(async ({ ctx }) => {
@@ -53,18 +63,19 @@ const reservationsRouter = createRouter({
         finished: sql<boolean>`now() >= ${toolReservations.reservedUntil}`,
       })
       .from(toolReservations)
-      .where(
-        and(
-          eq(toolReservations.reservorId, ctx.user.id),
-          eq(toolsLocalizations.locale, ctx.locale),
-        ),
-      )
       .innerJoin(tools, eq(tools.id, toolReservations.toolId))
       .innerJoin(
         toolsLocalizations,
         eq(toolsLocalizations.toolId, toolReservations.toolId),
       )
+      .where(
+        and(
+          eq(toolReservations.userId, ctx.user.id),
+          eq(toolsLocalizations.locale, ctx.locale),
+        ),
+      )
       .orderBy(asc(toolReservations.reservedFrom))
+      .limit(25)
       .catch((error) => {
         console.error(error);
         throw new TRPCError({
@@ -95,24 +106,13 @@ const reservationsRouter = createRouter({
           reservedFrom: toolReservations.reservedFrom,
           reservedUntil: toolReservations.reservedUntil,
           reservedAt: toolReservations.reservedAt,
-          finished: sql<boolean>`now() >= ${toolReservations.reservedUntil}`,
-          toolId: tools.id,
-          toolName: toolsLocalizations.name,
-          toolNickname: tools.nickName,
+          toolId: toolReservations.toolId,
         })
         .from(toolReservations)
-        .innerJoin(users, eq(users.id, toolReservations.reservorId))
-        .innerJoin(tools, eq(tools.id, toolReservations.toolId))
-        .innerJoin(
-          toolsLocalizations,
-          and(
-            eq(toolsLocalizations.toolId, tools.id),
-            eq(toolsLocalizations.locale, ctx.locale),
-          ),
-        )
+        .innerJoin(users, eq(users.id, toolReservations.userId))
         .where(
           and(
-            eq(tools.id, input.toolId),
+            eq(toolReservations.toolId, input.toolId),
             gt(toolReservations.reservedUntil, new Date(input.from)),
             lt(toolReservations.reservedFrom, new Date(input.until)),
           ),
@@ -135,10 +135,8 @@ const reservationsRouter = createRouter({
       createReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const tool = await ctx.db
-        .select({
-          tool: tools,
-        })
+      const [tool] = await ctx.db
+        .select({ id: tools.id })
         .from(tools)
         .where(and(eq(tools.id, input.toolId), eq(tools.available, true)));
 
@@ -150,10 +148,8 @@ const reservationsRouter = createRouter({
         });
       }
 
-      const checkForOverlapping = await ctx.db
-        .select({
-          reservationId: toolReservations.id,
-        })
+      const overlapping = await ctx.db
+        .select({ id: toolReservations.id })
         .from(toolReservations)
         .where(
           and(
@@ -163,7 +159,7 @@ const reservationsRouter = createRouter({
           ),
         );
 
-      if (checkForOverlapping.length > 0) {
+      if (overlapping.length) {
         throw new TRPCError({
           code: 'CONFLICT',
           message: ctx.t('reservations.api.createReservationTimeConflict'),
@@ -171,25 +167,44 @@ const reservationsRouter = createRouter({
         });
       }
 
-      await ctx.db
+      const [created] = await ctx.db
         .insert(toolReservations)
         .values({
           toolId: input.toolId,
-          reservorId: ctx.user.id,
+          userId: ctx.user.id,
           reservedFrom: new Date(input.reservedFrom),
           reservedUntil: new Date(input.reservedUntil),
           reservedAt: new Date(),
           notes: input.notes ?? null,
         })
-        .returning({
+        .returning({ reservationId: toolReservations.id });
+
+      if (!created) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('reservations.api.createFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const [reservation] = await ctx.db
+        .select({
+          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
+          email: users.email,
+          phoneNr: users.phoneNumber,
+          notes: toolReservations.notes,
+          userId: users.id,
           reservationId: toolReservations.id,
-          toolId: toolReservations.id,
-          reservorId: toolReservations.reservorId,
           reservedFrom: toolReservations.reservedFrom,
           reservedUntil: toolReservations.reservedUntil,
           reservedAt: toolReservations.reservedAt,
-          notes: toolReservations.notes,
-        });
+          toolId: toolReservations.toolId,
+        })
+        .from(toolReservations)
+        .innerJoin(users, eq(users.id, toolReservations.userId))
+        .where(eq(toolReservations.id, created.reservationId));
+
+      return reservation;
     }),
 
   updateReservation: protectedProcedure
@@ -197,10 +212,16 @@ const reservationsRouter = createRouter({
       updateReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const [current] = await ctx.db
+      const now = new Date();
+      const nextFrom = new Date(input.reservedFrom);
+      const nextUntil = new Date(input.reservedUntil);
+
+      const [reservation] = await ctx.db
         .select({
           id: toolReservations.id,
-          reservorId: toolReservations.reservorId,
+          toolId: toolReservations.toolId,
+          userId: toolReservations.userId,
+          reservedFrom: toolReservations.reservedFrom,
           reservedUntil: toolReservations.reservedUntil,
         })
         .from(toolReservations)
@@ -208,10 +229,11 @@ const reservationsRouter = createRouter({
           and(
             eq(toolReservations.id, input.reservationId),
             eq(toolReservations.toolId, input.toolId),
+            eq(toolReservations.userId, ctx.user.id),
           ),
         );
 
-      if (!current) {
+      if (!reservation) {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: ctx.t('reservations.api.reservationNotFound'),
@@ -219,27 +241,48 @@ const reservationsRouter = createRouter({
         });
       }
 
-      if (new Date(input.reservedFrom) < new Date()) {
+      if (reservation.reservedUntil < now) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: ctx.t('reservations.api.cannotMoveToPast'),
+          message: ctx.t('reservations.api.cannotChangePast'),
           cause: { toast: 'error' },
         });
       }
 
-      const checkForOverlap = await ctx.db
+      if (nextUntil < now) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.startBeforeEndError'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      // If the reservation already started, disallow changing the start
+      const started = reservation.reservedFrom < now;
+      if (
+        started &&
+        nextFrom.getTime() !== reservation.reservedFrom.getTime()
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.cannotChangeOngoingStart'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const overlapping = await ctx.db
         .select({ id: toolReservations.id })
         .from(toolReservations)
         .where(
           and(
             eq(toolReservations.toolId, input.toolId),
             ne(toolReservations.id, input.reservationId),
-            lt(toolReservations.reservedFrom, new Date(input.reservedUntil)),
-            gt(toolReservations.reservedUntil, new Date(input.reservedFrom)),
+            lt(toolReservations.reservedFrom, nextUntil),
+            gt(toolReservations.reservedUntil, nextFrom),
           ),
         );
 
-      if (checkForOverlap.length > 0) {
+      if (overlapping.length) {
         throw new TRPCError({
           code: 'CONFLICT',
           message: ctx.t('reservations.api.createReservationTimeConflict'),
@@ -247,42 +290,87 @@ const reservationsRouter = createRouter({
         });
       }
 
-      await ctx.db
+      const [updated] = await ctx.db
         .update(toolReservations)
         .set({
-          reservedFrom: new Date(input.reservedFrom),
-          reservedUntil: new Date(input.reservedUntil),
+          reservedFrom: nextFrom,
+          reservedUntil: nextUntil,
           notes: input.notes ?? sql`COALESCE(${toolReservations.notes}, NULL)`,
         })
         .where(
           and(
             eq(toolReservations.id, input.reservationId),
             eq(toolReservations.toolId, input.toolId),
+            eq(toolReservations.userId, ctx.user.id),
           ),
         )
-        .returning({
+        .returning({ reservationId: toolReservations.id });
+
+      if (!updated) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('reservations.api.updateFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+      const [updatedReservation] = await ctx.db
+        .select({
+          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
+          email: users.email,
+          phoneNr: users.phoneNumber,
+          notes: toolReservations.notes,
+          userId: users.id,
           reservationId: toolReservations.id,
-          toolId: toolReservations.toolId,
-          reservorId: toolReservations.reservorId,
           reservedFrom: toolReservations.reservedFrom,
           reservedUntil: toolReservations.reservedUntil,
           reservedAt: toolReservations.reservedAt,
-          notes: toolReservations.notes,
-        });
+          toolId: toolReservations.toolId,
+        })
+        .from(toolReservations)
+        .innerJoin(users, eq(users.id, toolReservations.userId))
+        .where(eq(toolReservations.id, updated.reservationId));
+
+      return updatedReservation;
     }),
 
   deleteReservation: protectedProcedure
     .input((input) => deleteReservationSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db
-        .delete(toolReservations)
+      const [res] = await ctx.db
+        .select({
+          id: toolReservations.id,
+          toolId: toolReservations.toolId,
+          userId: toolReservations.userId,
+          reservedUntil: toolReservations.reservedUntil,
+        })
+        .from(toolReservations)
         .where(
           and(
             eq(toolReservations.id, input.reservationId),
             eq(toolReservations.toolId, input.toolId),
-            eq(toolReservations.reservorId, input.reservorId),
+            eq(toolReservations.userId, ctx.user.id),
           ),
         );
+
+      if (!res) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('reservations.api.reservationNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (res.reservedUntil < new Date()) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.cannotChangePast'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .delete(toolReservations)
+        .where(eq(toolReservations.id, res.id));
     }),
 });
 
