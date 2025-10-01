@@ -16,11 +16,7 @@ import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
-import type { RouterOutput } from '@/server/api';
 import { reservationFormSchema } from '@/validations/reservations';
-
-type CalendarReservation =
-  RouterOutput['reservations']['fetchCalendarReservations'][number];
 
 type CalendarDialogProps = {
   open: boolean;
@@ -35,7 +31,8 @@ type CalendarDialogProps = {
   end: Date | null;
   notes?: string;
 
-  range: { fromISO: string; untilISO: string };
+  windowFromISO: string;
+  windowUntilISO: string;
 
   onCancel: () => void;
   pristine?: boolean;
@@ -51,7 +48,8 @@ function CalendarDialog({
   start,
   end,
   notes,
-  range,
+  windowFromISO,
+  windowUntilISO,
   onCancel,
   pristine,
 }: CalendarDialogProps) {
@@ -60,48 +58,32 @@ function CalendarDialog({
   const schema = reservationFormSchema(translations, start, mode);
   const utils = api.useUtils();
 
-  const createMutation = api.reservations.createReservation.useMutation({
-    onSuccess: async (created) => {
-      if (!created) return;
-      const createdFull = await utils.reservations.fetchOneReservation.fetch({
-        reservationId: created.reservationId,
-      });
-      const r = createdFull as CalendarReservation;
+  async function invalidateWindow() {
+    await utils.reservations.fetchCalendarReservations.invalidate({
+      toolId,
+      from: windowFromISO,
+      until: windowUntilISO,
+    });
+  }
 
-      utils.reservations.fetchCalendarReservations.setData(
-        { toolId, from: range.fromISO, until: range.untilISO },
-        (prev) => (prev ? [...prev, r] : [r]),
-      );
+  const createMutation = api.reservations.createReservation.useMutation({
+    onSuccess: async () => {
+      await invalidateWindow();
+      onOpenChange(false);
     },
   });
 
   const updateMutation = api.reservations.updateReservation.useMutation({
-    onSuccess: async (updated) => {
-      if (!updated) return;
-      const updatedFull = await utils.reservations.fetchOneReservation.fetch({
-        reservationId: updated.reservationId,
-      });
-      const r = updatedFull as CalendarReservation;
-
-      utils.reservations.fetchCalendarReservations.setData(
-        { toolId, from: range.fromISO, until: range.untilISO },
-        (prev) =>
-          prev
-            ? prev.map((x) => (x.reservationId === r.reservationId ? r : x))
-            : prev,
-      );
+    onSuccess: async () => {
+      await invalidateWindow();
+      onOpenChange(false);
     },
   });
 
   const deleteMutation = api.reservations.deleteReservation.useMutation({
-    onSuccess: async (_, variables) => {
-      utils.reservations.fetchCalendarReservations.setData(
-        { toolId, from: range.fromISO, until: range.untilISO },
-        (prev) =>
-          prev
-            ? prev.filter((x) => x.reservationId !== variables.reservationId)
-            : prev,
-      );
+    onSuccess: async () => {
+      await invalidateWindow();
+      onOpenChange(false);
     },
   });
 

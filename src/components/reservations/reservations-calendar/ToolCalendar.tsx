@@ -263,7 +263,8 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           userId={memberId}
           start={selectedSlot.start}
           end={selectedSlot.end}
-          range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
+          windowFromISO={range.fromISO}
+          windowUntilISO={range.untilISO}
           onCancel={() => setSelectedSlot(null)}
           pristine={createOption === 'calendarSelect'}
         />
@@ -280,7 +281,8 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           start={selectedReservation.reservedFrom}
           end={selectedReservation.reservedUntil}
           notes={selectedReservation.notes ?? ''}
-          range={{ fromISO: range.fromISO, untilISO: range.untilISO }}
+          windowFromISO={range.fromISO}
+          windowUntilISO={range.untilISO}
           onCancel={() => setSelectedReservation(null)}
         />
       )}
