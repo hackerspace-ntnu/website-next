@@ -187,24 +187,7 @@ const reservationsRouter = createRouter({
         });
       }
 
-      const [reservation] = await ctx.db
-        .select({
-          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
-          email: users.email,
-          phoneNr: users.phoneNumber,
-          notes: toolReservations.notes,
-          userId: users.id,
-          reservationId: toolReservations.id,
-          reservedFrom: toolReservations.reservedFrom,
-          reservedUntil: toolReservations.reservedUntil,
-          reservedAt: toolReservations.reservedAt,
-          toolId: toolReservations.toolId,
-        })
-        .from(toolReservations)
-        .innerJoin(users, eq(users.id, toolReservations.userId))
-        .where(eq(toolReservations.id, created.reservationId));
-
-      return reservation;
+      return;
     }),
 
   updateReservation: protectedProcedure
@@ -257,7 +240,6 @@ const reservationsRouter = createRouter({
         });
       }
 
-      // If the reservation already started, disallow changing the start
       const started = reservation.reservedFrom < now;
       if (
         started &&
@@ -313,24 +295,8 @@ const reservationsRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
-      const [updatedReservation] = await ctx.db
-        .select({
-          name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
-          email: users.email,
-          phoneNr: users.phoneNumber,
-          notes: toolReservations.notes,
-          userId: users.id,
-          reservationId: toolReservations.id,
-          reservedFrom: toolReservations.reservedFrom,
-          reservedUntil: toolReservations.reservedUntil,
-          reservedAt: toolReservations.reservedAt,
-          toolId: toolReservations.toolId,
-        })
-        .from(toolReservations)
-        .innerJoin(users, eq(users.id, toolReservations.userId))
-        .where(eq(toolReservations.id, updated.reservationId));
 
-      return updatedReservation;
+      return;
     }),
 
   deleteReservation: protectedProcedure
