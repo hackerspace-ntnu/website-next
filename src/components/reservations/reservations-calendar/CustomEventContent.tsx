@@ -1,11 +1,14 @@
+'use client';
+
 import type { EventContentArg } from '@fullcalendar/core';
-import { useFormatter } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 
 type CustomEventStylingProps = {
   eventInfo: EventContentArg;
 };
 
 function CustomEventContent({ eventInfo }: CustomEventStylingProps) {
+  const t = useTranslations('reservations');
   const format = useFormatter();
 
   const sameDay =
@@ -35,16 +38,21 @@ function CustomEventContent({ eventInfo }: CustomEventStylingProps) {
   const durationHours = durationMs ? durationMs / (1000 * 60 * 60) : 0;
 
   const infoBlock = (
-    <div className='w-full'>
-      <span className='font-extrabold'>
-        {start} - {end}
-      </span>
-      <br />
-      {eventInfo.event.extendedProps.name}
-      <br />
-      {eventInfo.event.extendedProps.phoneNr}
-      <br />
-      {eventInfo.event.extendedProps.email}
+    <div className='flex flex-col'>
+      <p>
+        <span className='block font-extrabold'>
+          {start} - {end}
+        </span>
+        <span className='block'>{eventInfo.event.extendedProps.name}</span>
+        <span className='block'>{eventInfo.event.extendedProps.phoneNr}</span>
+        <span className='block'>{eventInfo.event.extendedProps.email}</span>
+      </p>
+      <p className='mt-1 rounded-md border border-amber-50 p-1'>
+        <span className='block underline'>{`${t('form.notes')}:`}</span>
+        <span className='block text-left'>
+          {eventInfo.event.extendedProps.notes}
+        </span>
+      </p>
     </div>
   );
 
