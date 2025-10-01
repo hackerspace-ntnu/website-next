@@ -15,6 +15,7 @@ import type {
   InsertStorageItem,
   InsertTool,
   InsertToolLocalization,
+  InsertToolReservation,
   InsertUser,
   InsertUserGroup,
   InsertUserSkill,
@@ -1376,7 +1377,7 @@ const toolsData: InsertTool[] = [
     nickName: '',
     difficulty: 0,
     requires: '',
-    available: true,
+    available: false,
   },
   {
     id: 6,
@@ -1384,7 +1385,7 @@ const toolsData: InsertTool[] = [
     nickName: '',
     difficulty: 0,
     requires: '',
-    available: true,
+    available: false,
   },
 ];
 
@@ -1490,7 +1491,7 @@ const toolsLocalizationsData: InsertToolLocalization[] = [
   {
     toolId: 5,
     locale: 'en-GB',
-    name: 'Loddestasjon',
+    name: 'Lodding station',
     description: `
       We have a wide range of equipment to help you solder.
       With a heat gun, soldering iron, and solder, you can prototype on a whole new level!
@@ -1537,6 +1538,182 @@ const printerSpecsData = [
   },
 ];
 
+const toolReservationsData: InsertToolReservation[] = [
+  // User 1 — past week
+  {
+    id: 1,
+    toolId: 1,
+    userId: 1,
+    reservedFrom: new Date('2025-09-23T10:00:00+02:00'),
+    reservedUntil: new Date('2025-09-23T14:00:00+02:00'),
+    notes: 'PETG test on X1C',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 2,
+    toolId: 2,
+    userId: 1,
+    reservedFrom: new Date('2025-09-26T15:00:00+02:00'),
+    reservedUntil: new Date('2025-09-26T19:00:00+02:00'),
+    notes: 'PLA brackets on MK3',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 1 — current week
+  {
+    id: 3,
+    toolId: 3,
+    userId: 1,
+    reservedFrom: new Date('2025-09-30T09:00:00+02:00'),
+    reservedUntil: new Date('2025-09-30T12:00:00+02:00'),
+    notes: 'Quick prototype on MK4',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 4,
+    toolId: 1,
+    userId: 1,
+    reservedFrom: new Date('2025-10-02T17:00:00+02:00'),
+    reservedUntil: new Date('2025-10-02T21:00:00+02:00'),
+    notes: 'ASA enclosure test',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 1 — next week
+  {
+    id: 5,
+    toolId: 2,
+    userId: 1,
+    reservedFrom: new Date('2025-10-07T08:00:00+02:00'),
+    reservedUntil: new Date('2025-10-07T12:00:00+02:00'),
+    notes: 'Nylon print; approved',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 6,
+    toolId: 3,
+    userId: 1,
+    reservedFrom: new Date('2025-10-09T18:00:00+02:00'),
+    reservedUntil: new Date('2025-10-09T22:00:00+02:00'),
+    notes: 'Evening slot',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+
+  // User 2 — past week
+  {
+    id: 7,
+    toolId: 2,
+    userId: 2,
+    reservedFrom: new Date('2025-09-22T12:00:00+02:00'),
+    reservedUntil: new Date('2025-09-22T16:00:00+02:00'),
+    notes: 'Calibration cubes',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 8,
+    toolId: 3,
+    userId: 2,
+    reservedFrom: new Date('2025-09-27T10:00:00+02:00'),
+    reservedUntil: new Date('2025-09-27T14:00:00+02:00'),
+    notes: 'PETG gears',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 2 — current week
+  {
+    id: 9,
+    toolId: 1,
+    userId: 2,
+    reservedFrom: new Date('2025-10-01T12:00:00+02:00'),
+    reservedUntil: new Date('2025-10-01T16:00:00+02:00'),
+    notes: 'Functional prototype',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 10,
+    toolId: 2,
+    userId: 2,
+    reservedFrom: new Date('2025-10-03T13:00:00+02:00'),
+    reservedUntil: new Date('2025-10-03T17:00:00+02:00'),
+    notes: 'ABS prints (enclosure)',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 2 — next week
+  {
+    id: 11,
+    toolId: 3,
+    userId: 2,
+    reservedFrom: new Date('2025-10-06T18:00:00+02:00'),
+    reservedUntil: new Date('2025-10-06T22:00:00+02:00'),
+    notes: 'Long print; supervisor notified',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 12,
+    toolId: 1,
+    userId: 2,
+    reservedFrom: new Date('2025-10-10T09:00:00+02:00'),
+    reservedUntil: new Date('2025-10-10T13:00:00+02:00'),
+    notes: 'PETG brackets',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+
+  // User 3 — past week
+  {
+    id: 13,
+    toolId: 3,
+    userId: 3,
+    reservedFrom: new Date('2025-09-24T17:00:00+02:00'),
+    reservedUntil: new Date('2025-09-24T21:00:00+02:00'),
+    notes: 'USB stick provided',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 14,
+    toolId: 1,
+    userId: 3,
+    reservedFrom: new Date('2025-09-28T11:00:00+02:00'),
+    reservedUntil: new Date('2025-09-28T15:00:00+02:00'),
+    notes: 'Multi-color logo',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 3 — current week
+  {
+    id: 15,
+    toolId: 2,
+    userId: 3,
+    reservedFrom: new Date('2025-09-29T08:00:00+02:00'),
+    reservedUntil: new Date('2025-09-29T12:00:00+02:00'),
+    notes: 'Workshop prep',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 16,
+    toolId: 3,
+    userId: 3,
+    reservedFrom: new Date('2025-10-04T09:00:00+02:00'),
+    reservedUntil: new Date('2025-10-04T13:00:00+02:00'),
+    notes: 'PLA prototypes',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 3 — next week
+  {
+    id: 17,
+    toolId: 1,
+    userId: 3,
+    reservedFrom: new Date('2025-10-08T14:00:00+02:00'),
+    reservedUntil: new Date('2025-10-08T18:00:00+02:00'),
+    notes: 'Enclosure panels',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    id: 18,
+    toolId: 2,
+    userId: 3,
+    reservedFrom: new Date('2025-10-11T16:00:00+02:00'),
+    reservedUntil: new Date('2025-10-11T20:00:00+02:00'),
+    notes: 'Evening slot',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+];
+
 export {
   articleData,
   articleLocalizationsData,
@@ -1555,4 +1732,5 @@ export {
   usersData,
   usersGroupsData,
   usersSkillsData,
+  toolReservationsData,
 };

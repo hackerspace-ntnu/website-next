@@ -13,6 +13,7 @@ import {
   storageItemCategories,
   storageItemLocalizations,
   storageItemsData,
+  toolReservationsData,
   toolsData,
   toolsLocalizationsData,
   usersData,
@@ -33,6 +34,7 @@ import {
   shifts,
   skills,
   storageItems,
+  toolReservations,
   tools,
   toolsLocalizations,
   users,
@@ -127,6 +129,10 @@ async function main() {
   console.log('Inserting tools localizations...');
   await db.insert(toolsLocalizations).values(toolsLocalizationsData);
   console.log('Tools localizations inserted');
+
+  console.log('Inserting reservations...');
+  await db.insert(toolReservations).values(toolReservationsData);
+  console.log('Reservations inserted');
 }
 
 await main();
