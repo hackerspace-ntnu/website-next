@@ -18,12 +18,13 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; name: string }>;
 }) {
   const { locale, name } = await params;
+
   const group = await api.groups.fetchGroup(name);
   const groupLocalization = group?.localizations.find(
     (localization) => localization.locale === locale,
   );
 
-  if (!groupLocalization) return;
+  if (!group || !groupLocalization) return;
 
   return {
     title: groupLocalization.name,

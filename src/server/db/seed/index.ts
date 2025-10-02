@@ -7,6 +7,8 @@ import {
   eventsData,
   groupLocalizationsData,
   groupsData,
+  ruleLocalizationData,
+  rulesData,
   shiftsData,
   skillsData,
   storageItemCategories,
@@ -26,6 +28,8 @@ import {
   itemLocalizations,
   newsArticleLocalizations,
   newsArticles,
+  ruleLocalizations,
+  rules,
   shifts,
   skills,
   storageItems,
@@ -109,6 +113,14 @@ async function main() {
   console.log('Inserting news article localizations...');
   await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
   console.log('News article localizations inserted');
+
+  console.log('Inserting rules...');
+  await db.insert(rules).values(rulesData);
+  console.log('Rules inserted');
+
+  console.log('Insert rule localizations...');
+  await db.insert(ruleLocalizations).values(ruleLocalizationData);
+  console.log('Rule localizations inserted');
 }
 
 await main();

@@ -103,6 +103,7 @@ const directories = [
   'news',
   'storage-items',
   'groups',
+  'rules',
   'events',
 ] as const;
 
