@@ -10,7 +10,6 @@ type ToolbarProps = {
   view: string;
   isLaptop: boolean;
   isIpad: boolean;
-  title: string;
   onViewChange: (view: string) => void;
   calendarRef: RefObject<FullCalendar | null>;
 };
@@ -27,7 +26,6 @@ function CustomToolbar({
   view,
   isLaptop,
   isIpad,
-  title,
   onViewChange,
   calendarRef,
 }: ToolbarProps) {
@@ -78,7 +76,7 @@ function CustomToolbar({
         </Button>
       </div>
       <span className='clamp-[text-lg-2xl-clamp] flex-grow text-center'>
-        {title ?? ''}
+        {calendarRef.current?.getApi().view.title ?? ''}
       </span>
       <div className='clamp-[w-5-22-clamp] flex whitespace-nowrap'>
         <Button

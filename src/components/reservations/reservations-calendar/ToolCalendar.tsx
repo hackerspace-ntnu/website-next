@@ -22,7 +22,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { keepPreviousData } from '@tanstack/react-query';
-import { Plus } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
@@ -74,17 +74,15 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const [manualView, setManualView] = useState(false);
   const [view, setView] = useState<string | null>(null);
   const [range, setRange] = useState<Range | null>(null);
-  const [calendarTitle, setCalendarTitle] = useState<string>('');
   const calendarRef = useRef<FullCalendar>(null);
   const pendingTargetViewRef = useRef<string | null>(null);
-  const ignoreNextDatesSetRef = useRef(false);
   const snapToTodayOnEntryRef = useRef(false);
 
-  const debouncedSetRange = useDebounceCallback(
-    (next: Range) => setRange(next),
-    300,
-    { leading: false, trailing: true },
+  // Used in dateset to prevent redundant fetches if use spam clicks next/prev buttons
+  const latestWindowRef = useRef<{ startISO: string; endISO: string } | null>(
+    null,
   );
+  const navSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Decide initial/auto view
   useEffect(() => {
@@ -97,10 +95,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
         : 'timeGridDay';
     setView((prev) => {
       if (prev === next) return prev;
-      ignoreNextDatesSetRef.current = true;
-      pendingTargetViewRef.current = next;
       snapToTodayOnEntryRef.current =
         next === 'timeGridDay' || next === 'timeGridThreeDay';
+
       return next;
     });
   }, [mounted, isLaptop, isIpad, manualView]);
@@ -153,7 +150,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
-      // ensure we snap to today just for the two view types below
       if (
         snapToTodayOnEntryRef.current &&
         (info.view.type === 'timeGridDay' ||
@@ -161,39 +157,49 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       ) {
         snapToTodayOnEntryRef.current = false;
         calendarRef.current?.getApi().gotoDate(new Date());
-        return;
       }
 
-      if (ignoreNextDatesSetRef.current) {
-        ignoreNextDatesSetRef.current = false;
-        return;
-      }
       if (
         pendingTargetViewRef.current &&
         info.view.type !== pendingTargetViewRef.current
-      )
+      ) {
         return;
+      }
       if (
         pendingTargetViewRef.current &&
         info.view.type === pendingTargetViewRef.current
-      )
+      ) {
         pendingTargetViewRef.current = null;
+      }
 
       if (view && info.view.type !== view) return;
-
-      setCalendarTitle(info.view.title);
 
       const startISO = info.view.activeStart.toISOString();
       const endISO = info.view.activeEnd.toISOString();
 
-      setRange((prev) => {
-        if (prev && prev.fromISO === startISO && prev.untilISO === endISO)
-          return prev;
-        debouncedSetRange({ fromISO: startISO, untilISO: endISO });
-        return prev;
-      });
+      // our useDebounceCallback hook didn't prevent next/prev button spamclick, i.e. if user spamclicked next 10 times, we fetched for 10 weeks.
+      // Decided to do whats below
+      latestWindowRef.current = { startISO, endISO };
+      if (navSettleTimerRef.current) clearTimeout(navSettleTimerRef.current);
+
+      navSettleTimerRef.current = setTimeout(() => {
+        const latest = latestWindowRef.current;
+        if (!latest) return;
+
+        setRange((prev) => {
+          if (prev) {
+            if (
+              prev.fromISO === latest.startISO &&
+              prev.untilISO === latest.endISO
+            ) {
+              return prev;
+            }
+          }
+          return { fromISO: latest.startISO, untilISO: latest.endISO };
+        });
+      }, 600);
     },
-    [view, debouncedSetRange],
+    [view],
   );
 
   const renderEventContent = useCallback(
@@ -259,14 +265,14 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <Button
         variant='default'
-        className='mb-1 mb-3 w-fit self-center'
+        className='mb-3 w-fit self-center'
         onClick={() => {
           setCreateOption('createButton');
           setSelectedSlot({ start: new Date(), end: new Date() });
         }}
         disabled={!isMember}
       >
-        <Plus className='mr-2 size-5' />
+        <PlusIcon className='mr-2 size-5' />
         {isMember
           ? t('calendar.createButton')
           : t('calendar.createButtonLoggedOut')}
@@ -310,7 +316,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       {mounted && view && calendarConfig ? (
         <div className='w-full overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
           <CustomToolbar
-            title={calendarTitle}
             calendarRef={calendarRef}
             view={view}
             onViewChange={(v) => {
