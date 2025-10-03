@@ -896,8 +896,6 @@
       "editTitle": "Trykk for å redigere tabellen",
       "cancelTitle": "Kanseller handling",
       "removetitle": "Fjern valgte reservasjoner",
-      "checkBoxTitle": "Trykk for å velge denne",
-      "checkboxAllTitle": "Trykk for å velge alle",
       "tool": "Verktøy",
       "from": "Fra",
       "to": "til",
@@ -952,7 +950,11 @@
     },
     "calendar": {
       "createButton": "Opprett reservasjon",
+      "createButtonLoggedOut": "Logg inn for å reservere",
       "locale": "nb"
+    },
+    "customEventContent": {
+      "details": "Detaljer"
     },
     "api": {
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",

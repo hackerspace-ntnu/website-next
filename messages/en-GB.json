@@ -896,8 +896,6 @@
       "editTitle": "Edit table",
       "cancelTitle": "Cancel action",
       "removetitle": "Remove checked reservations",
-      "checkBoxTitle": "Press to check",
-      "checkboxAllTitle": "Press to check all",
       "tool": "Tool",
       "from": "From",
       "to": "To",
@@ -952,7 +950,11 @@
     },
     "calendar": {
       "createButton": "Create reservation",
+      "createButtonLoggedOut": "Login to create reservation",
       "locale": "en"
+    },
+    "customEventContent": {
+      "details": "Details"
     },
     "api": {
       "startBeforeEndError": "End time cannot be before start time",
