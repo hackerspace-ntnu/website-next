@@ -88,7 +88,7 @@ function CustomToolbar({
                 : t('toolbar.prevDayTitle')
           }
           onClick={handlePrev}
-          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
+          className=' clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
         >
           <ChevronLeft className='h-4 w-4' />
           <span className='ml-1'>{t('toolbar.prev')}</span>
@@ -96,7 +96,7 @@ function CustomToolbar({
         <Button
           title={t('toolbar.todayTitle')}
           onClick={handleToday}
-          className='clamp-[w-10-20-clamp] clamp-[text-sm-base-clamp] rounded-none'
+          className=' clamp-[text-sm-base-clamp] rounded-none px-4'
         >
           {t('toolbar.today')}
         </Button>
@@ -109,7 +109,7 @@ function CustomToolbar({
                 : t('toolbar.nextDayTitle')
           }
           onClick={handleNext}
-          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
+          className='clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
         >
           <span className='mr-1'>{t('toolbar.next')}</span>
           <ChevronRight className='h-4 w-4' />
