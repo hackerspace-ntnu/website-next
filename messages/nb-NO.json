@@ -902,6 +902,7 @@
         }
       },
       "api": {
+        "invalidId": "Ugyldig ID",
         "invalidIdentifier": "Ugyldig ferdighetsidentifikator",
         "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede",
         "skillNotFound": "Ferdighet ikke funnet"

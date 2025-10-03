@@ -902,6 +902,7 @@
         }
       },
       "api": {
+        "invalidId": "Invalid ID",
         "invalidIdentifier": "Invalid skill identifier",
         "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
         "skillNotFound": "Skill not found"
