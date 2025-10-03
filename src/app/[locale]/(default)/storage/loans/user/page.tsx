@@ -21,11 +21,11 @@ export default async function UserLoansPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
