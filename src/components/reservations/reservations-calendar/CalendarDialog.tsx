@@ -38,6 +38,21 @@ type CalendarDialogProps = {
   pristine?: boolean;
 };
 
+const HOUR_OPTIONS = Array.from({ length: 24 }, (_, i) => ({
+  label: String(i).padStart(2, '0'),
+  value: String(i), // string to match SelectField
+}));
+const MINUTE_OPTIONS = [0, 15, 30, 45].map((m) => ({
+  label: String(m).padStart(2, '0'),
+  value: String(m), // string to match SelectField
+}));
+
+function withHM(date: Date, h: number, m: number) {
+  const d = new Date(date);
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
 function CalendarDialog({
   open,
   onOpenChange,
@@ -72,14 +87,12 @@ function CalendarDialog({
       onOpenChange(false);
     },
   });
-
   const updateMutation = api.reservations.updateReservation.useMutation({
     onSuccess: async () => {
       await invalidateWindow();
       onOpenChange(false);
     },
   });
-
   const deleteMutation = api.reservations.deleteReservation.useMutation({
     onSuccess: async () => {
       await invalidateWindow();
@@ -88,42 +101,62 @@ function CalendarDialog({
   });
 
   const form = useAppForm({
-    validators: { onChange: schema },
+    validators: { onSubmit: schema },
     defaultValues: {
-      reservedFrom: start,
-      reservedUntil: end,
+      fromDate: start ?? null,
+      untilDate: end ?? null,
+
+      fromHour: start ? String(start.getHours()) : '',
+      fromMinute: start ? String(Math.floor(start.getMinutes() / 15) * 15) : '',
+      untilHour: end ? String(end.getHours()) : '',
+      untilMinute: end ? String(Math.floor(end.getMinutes() / 15) * 15) : '',
       notes: notes ?? '',
     },
     onSubmit: async ({ value }) => {
+      const {
+        fromDate,
+        untilDate,
+        fromHour,
+        fromMinute,
+        untilHour,
+        untilMinute,
+        notes,
+      } = value as {
+        fromDate: Date | null;
+        untilDate: Date | null;
+        fromHour: string;
+        fromMinute: string;
+        untilHour: string;
+        untilMinute: string;
+        notes: string;
+      };
+
+      if (!fromDate || !untilDate) {
+        toast.error(t('form.specifyTime'));
+        return;
+      }
+
+      const reservedFrom = withHM(
+        fromDate,
+        Number(fromHour),
+        Number(fromMinute),
+      );
+      const reservedUntil = withHM(
+        untilDate,
+        Number(untilHour),
+        Number(untilMinute),
+      );
+
       if (mode === 'create') {
         await createMutation.mutateAsync(
-          {
-            toolId,
-            reservedFrom: value.reservedFrom as Date,
-            reservedUntil: value.reservedUntil as Date,
-            notes: value.notes ?? '',
-          },
-          {
-            onSuccess: () => {
-              toast.success(t('form.successCreate'));
-            },
-          },
+          { toolId, reservedFrom, reservedUntil, notes },
+          { onSuccess: () => toast.success(t('form.successCreate')) },
         );
       } else {
         if (!reservationId) return;
         await updateMutation.mutateAsync(
-          {
-            reservationId,
-            toolId,
-            reservedFrom: value.reservedFrom as Date,
-            reservedUntil: value.reservedUntil as Date,
-            notes: value.notes ?? '',
-          },
-          {
-            onSuccess: () => {
-              toast.success(t('form.successUpdate'));
-            },
-          },
+          { reservationId, toolId, reservedFrom, reservedUntil, notes },
+          { onSuccess: () => toast.success(t('form.successUpdate')) },
         );
       }
       onOpenChange(false);
@@ -146,35 +179,81 @@ function CalendarDialog({
 
         <form.AppForm>
           <form
-            className='mt-2 space-y-4'
+            className=''
             onSubmit={async (e) => {
               e.preventDefault();
               await form.handleSubmit();
             }}
           >
-            <form.AppField name='reservedFrom'>
+            <form.AppField name='fromDate'>
               {(field) => (
-                <field.DateTimeField
+                <field.DateField
+                  className='mb-6'
                   label={t('form.reservedFrom')}
-                  granularity='minute'
                 />
               )}
             </form.AppField>
 
-            <form.AppField name='reservedUntil'>
+            <div className='mb-8 grid grid-cols-2 gap-2'>
+              <form.AppField name='fromHour'>
+                {(field) => (
+                  <field.SelectField
+                    label={t('form.hour')}
+                    placeholder='HH'
+                    required
+                    options={HOUR_OPTIONS}
+                  />
+                )}
+              </form.AppField>
+              <form.AppField name='fromMinute'>
+                {(field) => (
+                  <field.SelectField
+                    label={t('form.min')}
+                    placeholder='MM'
+                    required
+                    options={MINUTE_OPTIONS}
+                  />
+                )}
+              </form.AppField>
+            </div>
+
+            <form.AppField name='untilDate'>
               {(field) => (
-                <field.DateTimeField
+                <field.DateField
+                  className='mb-6'
                   label={t('form.reservedUntil')}
-                  granularity='minute'
                 />
               )}
             </form.AppField>
+
+            <div className='mb-8 grid grid-cols-2 gap-2'>
+              <form.AppField name='untilHour'>
+                {(field) => (
+                  <field.SelectField
+                    label={t('form.hour')}
+                    placeholder='HH'
+                    required
+                    options={HOUR_OPTIONS}
+                  />
+                )}
+              </form.AppField>
+              <form.AppField name='untilMinute'>
+                {(field) => (
+                  <field.SelectField
+                    label={t('form.min')}
+                    placeholder='MM'
+                    required
+                    options={MINUTE_OPTIONS}
+                  />
+                )}
+              </form.AppField>
+            </div>
 
             <form.AppField name='notes'>
               {(field) => <field.TextAreaField label={t('form.notes')} />}
             </form.AppField>
 
-            <AlertDialogFooter className='mt-6 flex w-full items-center justify-between gap-2'>
+            <AlertDialogFooter className='flex w-full flex-row items-center justify-between gap-2'>
               <AlertDialogCancel asChild>
                 <Button
                   type='button'
@@ -194,15 +273,10 @@ function CalendarDialog({
                     isLoading={deleteMutation.isPending}
                     onConfirm={async () => {
                       await deleteMutation.mutateAsync(
+                        { reservationId, toolId, userId },
                         {
-                          reservationId,
-                          toolId,
-                          userId,
-                        },
-                        {
-                          onSuccess: () => {
-                            toast.success(t('form.successDelete'));
-                          },
+                          onSuccess: () =>
+                            toast.success(t('form.successDelete')),
                         },
                       );
                       onOpenChange(false);
@@ -210,8 +284,6 @@ function CalendarDialog({
                   />
                 )}
 
-                {/* Had to use form.Subcribe over form.submitButton because isPristine prevents user from just pressing save
-                after dragging and selecting a slot in the calendar, i.e. it ignores defaultvalues and disables button even when the values are defined*/}
                 <form.Subscribe
                   selector={(state) => [
                     state.canSubmit,
