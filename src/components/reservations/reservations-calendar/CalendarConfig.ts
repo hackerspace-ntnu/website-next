@@ -14,7 +14,7 @@ import type FullCalendar from '@fullcalendar/react';
 export const viewTypes = {
   timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
   timeGridThreeDay: { type: 'timeGrid', duration: { days: 3 } },
-  timeGridWeek: { type: 'timeGrid', duration: { days: 7 } },
+  timeGridWeek: { type: 'timeGrid' },
 };
 
 const timeFormats: {
@@ -70,15 +70,14 @@ export function createCalendarConfig({
     rerenderDelay: 0,
     progressiveEventRendering: true,
     scrollTimeReset: false,
-
     views: viewTypes,
     initialView: view,
     headerToolbar: false as const,
     height: 750,
-    firstDay: 1,
     scrollTime: '10:00:00',
     allDaySlot: false,
     nowIndicator: true,
+    firstDay: 1,
     snapDuration: '00:15:00',
     slotDuration: isMember ? '00:30:00' : '00:15:00',
     slotLabelInterval: isMember ? '01:00:00' : '00:30:00',
@@ -119,9 +118,10 @@ export function createCalendarConfig({
 
     // styling
     viewClassNames: 'text-base w-full border-border',
-    eventClassNames: 'break-words text-center bg-secondary',
+    eventClassNames: 'break-words w-full text-center ',
     eventBorderColor: 'transparent',
     eventBackgroundColor: 'inherit',
+    eventTextColor: 'inherit',
     weekNumbers: true,
     weekNumberFormat: { week: 'numeric' as const },
     weekNumberContent: (info: WeekNumberContentArg) => `${t.week} ${info.num}`,
@@ -132,18 +132,16 @@ export function createCalendarConfig({
     eventDidMount: (info: EventMountArg) => {
       const isOwn = info.event.extendedProps.userId === memberId;
       info.el.style.backgroundColor =
-        isOwn && isMember ? 'var(--primary)' : 'oklch(27.8% 0.033 256.848)';
-      info.el.style.borderColor = 'var(--border)';
-      info.el.style.color =
-        isOwn && isMember ? 'var(--primary-foreground)' : '';
-      info.el.style.borderRadius = '0.4rem';
+        (isOwn && isMember) || info.isMirror
+          ? 'var(--primary)'
+          : 'oklch(27.8% 0.033 256.848)';
     },
     dayCellDidMount: (info: DayCellMountArg) => {
       if (info.isToday) {
         info.el.style.backgroundColor = 'oklch(from var(--accent) l c h / 0.5)';
       } else if (info.isPast) {
         info.el.style.backgroundColor = 'var(--destructive)';
-        info.el.style.opacity = '0.1';
+        info.el.style.opacity = '0.15';
       }
     },
 

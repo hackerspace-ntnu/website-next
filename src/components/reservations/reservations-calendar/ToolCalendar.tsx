@@ -66,7 +66,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const isMember = isLoggedIn && user.groups.length > 0;
   const memberId = isMember ? user.id : 0;
 
-  const isLaptopRaw = useMediaQuery('(min-width: 64.1rem)');
+  const isLaptopRaw = useMediaQuery('(min-width: 70rem)');
   const isIpadRaw = useMediaQuery('(min-width: 41.438rem)');
   const isLaptop = mounted ? isLaptopRaw : false;
   const isIpad = mounted ? isIpadRaw : false;
@@ -78,6 +78,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const calendarRef = useRef<FullCalendar>(null);
   const pendingTargetViewRef = useRef<string | null>(null);
   const ignoreNextDatesSetRef = useRef(false);
+  const snapToTodayOnEntryRef = useRef(false);
 
   const debouncedSetRange = useDebounceCallback(
     (next: Range) => setRange(next),
@@ -98,6 +99,8 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       if (prev === next) return prev;
       ignoreNextDatesSetRef.current = true;
       pendingTargetViewRef.current = next;
+      snapToTodayOnEntryRef.current =
+        next === 'timeGridDay' || next === 'timeGridThreeDay';
       return next;
     });
   }, [mounted, isLaptop, isIpad, manualView]);
@@ -150,6 +153,17 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
+      // ensure we snap to today just for the two view types below
+      if (
+        snapToTodayOnEntryRef.current &&
+        (info.view.type === 'timeGridDay' ||
+          info.view.type === 'timeGridThreeDay')
+      ) {
+        snapToTodayOnEntryRef.current = false;
+        calendarRef.current?.getApi().gotoDate(new Date());
+        return;
+      }
+
       if (ignoreNextDatesSetRef.current) {
         ignoreNextDatesSetRef.current = false;
         return;
@@ -184,9 +198,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) => (
-      <CustomEventContent eventInfo={eventInfo} />
+      <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
     ),
-    [],
+    [memberId],
   );
   const calendarConfig = useMemo(() => {
     if (!view) return null;
@@ -198,10 +212,12 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       isIpad,
       view,
       manualView,
-      onViewChange: (v) => {
+      onViewChange: (view) => {
         setManualView(true);
-        pendingTargetViewRef.current = v;
-        setView(v);
+        pendingTargetViewRef.current = view;
+        snapToTodayOnEntryRef.current =
+          view === 'timeGridDay' || view === 'timeGridThreeDay';
+        setView(view);
       },
       handleDatesSet,
       handleSelectSlot,
@@ -220,6 +236,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     handleEventClick,
     t,
   ]);
+
   // local dialog state
   const [selectedSlot, setSelectedSlot] = useState<{
     start: Date;
@@ -242,7 +259,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <Button
         variant='default'
-        className='mb-1 w-fit self-center'
+        className='mb-1 mb-3 w-fit self-center'
         onClick={() => {
           setCreateOption('createButton');
           setSelectedSlot({ start: new Date(), end: new Date() });
@@ -250,7 +267,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
         disabled={!isMember}
       >
         <Plus className='mr-2 size-5' />
-        {t('calendar.createButton')}
+        {isMember
+          ? t('calendar.createButton')
+          : t('calendar.createButtonLoggedOut')}
       </Button>
 
       {selectedSlot && range && (
