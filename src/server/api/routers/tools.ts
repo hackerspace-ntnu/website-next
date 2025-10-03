@@ -26,7 +26,7 @@ const toolsRouter = createRouter({
             eq(toolLocalizations.locale, ctx.locale),
           ),
         )
-        .where(and(eq(tools.id, input), eq(tools.available, true)))
+        .where(and(eq(tools.id, input), eq(tools.status, 'available')))
         .limit(1)
         .catch((error) => {
           console.error(error);
@@ -50,7 +50,7 @@ const toolsRouter = createRouter({
         difficulty: tools.difficulty,
         requires: tools.requires,
         imageId: tools.imageId,
-        available: tools.available,
+        status: tools.status,
       })
       .from(tools)
       .leftJoin(

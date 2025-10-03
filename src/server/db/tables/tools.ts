@@ -12,11 +12,12 @@ import {
   serial,
   varchar,
 } from 'drizzle-orm/pg-core';
-import { tooltype } from '@/lib/constants';
+import { toolStatus, tooltype } from '@/lib/constants';
 import { files } from '@/server/db/tables/files';
 import { localesEnum } from '@/server/db/tables/locales';
 
 const toolTypeEnum = pgEnum('tooltype', tooltype);
+const toolStatusEnum = pgEnum('tool_status', toolStatus);
 
 const tools = pgTable('tools', {
   id: serial('id').primaryKey(),
@@ -27,7 +28,7 @@ const tools = pgTable('tools', {
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
-  available: boolean('available').default(false).notNull(),
+  status: toolStatusEnum('status').notNull().default('unavailable'),
 });
 
 const toolsRelations = relations(tools, ({ one, many }) => ({
@@ -89,6 +90,7 @@ export {
   toolLocalizationsRelations,
   toolsRelations,
   toolTypeEnum,
+  toolStatusEnum,
   type InsertPrinterSpecs,
   type InsertTool,
   type InsertToolLocalization,

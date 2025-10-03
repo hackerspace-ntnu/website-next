@@ -138,7 +138,7 @@ const reservationsRouter = createRouter({
       const [tool] = await ctx.db
         .select({ id: tools.id })
         .from(tools)
-        .where(and(eq(tools.id, input.toolId), eq(tools.available, true)));
+        .where(and(eq(tools.id, input.toolId), eq(tools.status, 'available')));
 
       if (!tool) {
         throw new TRPCError({

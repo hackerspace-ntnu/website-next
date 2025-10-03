@@ -22,6 +22,20 @@ const toolDescriptionFields = [
   { key: 'slicer', label: 'slicer' },
 ] as const;
 
+const toolStatus = [
+  'available',
+  'unavailable',
+  'out_of_order',
+  'requires_supervision',
+] as const;
+
 const tooltype = ['3dprinter', 'other'] as const;
 
-export { groupIdentifiers, days, timeslots, toolDescriptionFields, tooltype };
+export {
+  groupIdentifiers,
+  days,
+  timeslots,
+  toolDescriptionFields,
+  tooltype,
+  toolStatus,
+};

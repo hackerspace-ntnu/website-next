@@ -1345,7 +1345,7 @@ const toolsData: InsertTool[] = [
     nickName: 'Geir Ove Mjølsnes',
     difficulty: 3,
     requires: 'SD-kort eller sky-overføring',
-    available: true,
+    status: 'available',
   },
   {
     id: 2,
@@ -1353,7 +1353,7 @@ const toolsData: InsertTool[] = [
     nickName: 'Petter',
     difficulty: 1,
     requires: 'SD-kort',
-    available: true,
+    status: 'available',
   },
   {
     id: 3,
@@ -1361,7 +1361,7 @@ const toolsData: InsertTool[] = [
     nickName: 'Kurt Kåre Rogers',
     difficulty: 1,
     requires: 'USB-stick',
-    available: true,
+    status: 'available',
   },
   {
     id: 4,
@@ -1369,7 +1369,7 @@ const toolsData: InsertTool[] = [
     nickName: 'Gerd Gunda Brunsnes',
     difficulty: 5,
     requires: '',
-    available: false,
+    status: 'unavailable',
   },
   {
     id: 5,
@@ -1377,7 +1377,7 @@ const toolsData: InsertTool[] = [
     nickName: '',
     difficulty: 0,
     requires: '',
-    available: false,
+    status: 'requires_supervision',
   },
   {
     id: 6,
@@ -1385,7 +1385,7 @@ const toolsData: InsertTool[] = [
     nickName: '',
     difficulty: 0,
     requires: '',
-    available: false,
+    status: 'requires_supervision',
   },
 ];
 
