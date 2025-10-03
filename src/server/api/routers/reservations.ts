@@ -8,9 +8,9 @@ import {
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import {
-  toolReservations,
+  reservations,
+  toolLocalizations,
   tools,
-  toolsLocalizations,
   users,
 } from '@/server/db/tables';
 import {
@@ -32,17 +32,17 @@ const reservationsRouter = createRouter({
           name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
           email: users.email,
           phoneNr: users.phoneNumber,
-          notes: toolReservations.notes,
+          notes: reservations.notes,
           userId: users.id,
-          reservationId: toolReservations.id,
-          reservedFrom: toolReservations.reservedFrom,
-          reservedUntil: toolReservations.reservedUntil,
-          reservedAt: toolReservations.reservedAt,
-          toolId: toolReservations.toolId,
+          reservationId: reservations.id,
+          reservedFrom: reservations.reservedFrom,
+          reservedUntil: reservations.reservedUntil,
+          reservedAt: reservations.reservedAt,
+          toolId: reservations.toolId,
         })
-        .from(toolReservations)
-        .innerJoin(users, eq(users.id, toolReservations.userId))
-        .where(eq(toolReservations.id, input.reservationId));
+        .from(reservations)
+        .innerJoin(users, eq(users.id, reservations.userId))
+        .where(eq(reservations.id, input.reservationId));
 
       if (!row) {
         throw new TRPCError({
@@ -57,24 +57,24 @@ const reservationsRouter = createRouter({
   fetchUserReservations: authenticatedProcedure.query(async ({ ctx }) => {
     const userReservations = await ctx.db
       .select({
-        reservation: toolReservations,
+        reservation: reservations,
         toolId: tools.id,
-        toolName: toolsLocalizations.name,
-        finished: sql<boolean>`now() >= ${toolReservations.reservedUntil}`,
+        toolName: toolLocalizations.name,
+        finished: sql<boolean>`now() >= ${reservations.reservedUntil}`,
       })
-      .from(toolReservations)
-      .innerJoin(tools, eq(tools.id, toolReservations.toolId))
+      .from(reservations)
+      .innerJoin(tools, eq(tools.id, reservations.toolId))
       .innerJoin(
-        toolsLocalizations,
-        eq(toolsLocalizations.toolId, toolReservations.toolId),
+        toolLocalizations,
+        eq(toolLocalizations.toolId, reservations.toolId),
       )
       .where(
         and(
-          eq(toolReservations.userId, ctx.user.id),
-          eq(toolsLocalizations.locale, ctx.locale),
+          eq(reservations.userId, ctx.user.id),
+          eq(toolLocalizations.locale, ctx.locale),
         ),
       )
-      .orderBy(asc(toolReservations.reservedFrom))
+      .orderBy(asc(reservations.reservedFrom))
       .limit(25)
       .catch((error) => {
         console.error(error);
@@ -100,24 +100,24 @@ const reservationsRouter = createRouter({
           name: sql<string>`${users.firstName} || ' ' || ${users.lastName}`,
           email: users.email,
           phoneNr: users.phoneNumber,
-          notes: toolReservations.notes,
+          notes: reservations.notes,
           userId: users.id,
-          reservationId: toolReservations.id,
-          reservedFrom: toolReservations.reservedFrom,
-          reservedUntil: toolReservations.reservedUntil,
-          reservedAt: toolReservations.reservedAt,
-          toolId: toolReservations.toolId,
+          reservationId: reservations.id,
+          reservedFrom: reservations.reservedFrom,
+          reservedUntil: reservations.reservedUntil,
+          reservedAt: reservations.reservedAt,
+          toolId: reservations.toolId,
         })
-        .from(toolReservations)
-        .innerJoin(users, eq(users.id, toolReservations.userId))
+        .from(reservations)
+        .innerJoin(users, eq(users.id, reservations.userId))
         .where(
           and(
-            eq(toolReservations.toolId, input.toolId),
-            gt(toolReservations.reservedUntil, new Date(input.from)),
-            lt(toolReservations.reservedFrom, new Date(input.until)),
+            eq(reservations.toolId, input.toolId),
+            gt(reservations.reservedUntil, new Date(input.from)),
+            lt(reservations.reservedFrom, new Date(input.until)),
           ),
         )
-        .orderBy(asc(toolReservations.reservedFrom))
+        .orderBy(asc(reservations.reservedFrom))
         .catch((error) => {
           console.error(error);
           throw new TRPCError({
@@ -149,13 +149,13 @@ const reservationsRouter = createRouter({
       }
 
       const overlapping = await ctx.db
-        .select({ id: toolReservations.id })
-        .from(toolReservations)
+        .select({ id: reservations.id })
+        .from(reservations)
         .where(
           and(
-            eq(toolReservations.toolId, input.toolId),
-            lt(toolReservations.reservedFrom, new Date(input.reservedUntil)),
-            gt(toolReservations.reservedUntil, new Date(input.reservedFrom)),
+            eq(reservations.toolId, input.toolId),
+            lt(reservations.reservedFrom, new Date(input.reservedUntil)),
+            gt(reservations.reservedUntil, new Date(input.reservedFrom)),
           ),
         );
 
@@ -168,7 +168,7 @@ const reservationsRouter = createRouter({
       }
 
       const [created] = await ctx.db
-        .insert(toolReservations)
+        .insert(reservations)
         .values({
           toolId: input.toolId,
           userId: ctx.user.id,
@@ -177,7 +177,7 @@ const reservationsRouter = createRouter({
           reservedAt: new Date(),
           notes: input.notes ?? null,
         })
-        .returning({ reservationId: toolReservations.id });
+        .returning({ reservationId: reservations.id });
 
       if (!created) {
         throw new TRPCError({
@@ -201,18 +201,18 @@ const reservationsRouter = createRouter({
 
       const [reservation] = await ctx.db
         .select({
-          id: toolReservations.id,
-          toolId: toolReservations.toolId,
-          userId: toolReservations.userId,
-          reservedFrom: toolReservations.reservedFrom,
-          reservedUntil: toolReservations.reservedUntil,
+          id: reservations.id,
+          toolId: reservations.toolId,
+          userId: reservations.userId,
+          reservedFrom: reservations.reservedFrom,
+          reservedUntil: reservations.reservedUntil,
         })
-        .from(toolReservations)
+        .from(reservations)
         .where(
           and(
-            eq(toolReservations.id, input.reservationId),
-            eq(toolReservations.toolId, input.toolId),
-            eq(toolReservations.userId, ctx.user.id),
+            eq(reservations.id, input.reservationId),
+            eq(reservations.toolId, input.toolId),
+            eq(reservations.userId, ctx.user.id),
           ),
         );
 
@@ -253,14 +253,14 @@ const reservationsRouter = createRouter({
       }
 
       const overlapping = await ctx.db
-        .select({ id: toolReservations.id })
-        .from(toolReservations)
+        .select({ id: reservations.id })
+        .from(reservations)
         .where(
           and(
-            eq(toolReservations.toolId, input.toolId),
-            ne(toolReservations.id, input.reservationId),
-            lt(toolReservations.reservedFrom, nextUntil),
-            gt(toolReservations.reservedUntil, nextFrom),
+            eq(reservations.toolId, input.toolId),
+            ne(reservations.id, input.reservationId),
+            lt(reservations.reservedFrom, nextUntil),
+            gt(reservations.reservedUntil, nextFrom),
           ),
         );
 
@@ -273,20 +273,20 @@ const reservationsRouter = createRouter({
       }
 
       const [updated] = await ctx.db
-        .update(toolReservations)
+        .update(reservations)
         .set({
           reservedFrom: nextFrom,
           reservedUntil: nextUntil,
-          notes: input.notes ?? sql`COALESCE(${toolReservations.notes}, NULL)`,
+          notes: input.notes ?? sql`COALESCE(${reservations.notes}, NULL)`,
         })
         .where(
           and(
-            eq(toolReservations.id, input.reservationId),
-            eq(toolReservations.toolId, input.toolId),
-            eq(toolReservations.userId, ctx.user.id),
+            eq(reservations.id, input.reservationId),
+            eq(reservations.toolId, input.toolId),
+            eq(reservations.userId, ctx.user.id),
           ),
         )
-        .returning({ reservationId: toolReservations.id });
+        .returning({ reservationId: reservations.id });
 
       if (!updated) {
         throw new TRPCError({
@@ -304,17 +304,17 @@ const reservationsRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       const [res] = await ctx.db
         .select({
-          id: toolReservations.id,
-          toolId: toolReservations.toolId,
-          userId: toolReservations.userId,
-          reservedUntil: toolReservations.reservedUntil,
+          id: reservations.id,
+          toolId: reservations.toolId,
+          userId: reservations.userId,
+          reservedUntil: reservations.reservedUntil,
         })
-        .from(toolReservations)
+        .from(reservations)
         .where(
           and(
-            eq(toolReservations.id, input.reservationId),
-            eq(toolReservations.toolId, input.toolId),
-            eq(toolReservations.userId, ctx.user.id),
+            eq(reservations.id, input.reservationId),
+            eq(reservations.toolId, input.toolId),
+            eq(reservations.userId, ctx.user.id),
           ),
         );
 
@@ -334,9 +334,7 @@ const reservationsRouter = createRouter({
         });
       }
 
-      await ctx.db
-        .delete(toolReservations)
-        .where(eq(toolReservations.id, res.id));
+      await ctx.db.delete(reservations).where(eq(reservations.id, res.id));
     }),
 });
 

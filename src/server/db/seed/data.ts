@@ -10,12 +10,12 @@ import type {
   InsertItemLocalization,
   InsertNewsArticle,
   InsertNewsArticleLocalization,
+  InsertReservation,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
   InsertTool,
   InsertToolLocalization,
-  InsertToolReservation,
   InsertUser,
   InsertUserGroup,
   InsertUserSkill,
@@ -1389,7 +1389,7 @@ const toolsData: InsertTool[] = [
   },
 ];
 
-const toolsLocalizationsData: InsertToolLocalization[] = [
+const toolLocalizationsData: InsertToolLocalization[] = [
   {
     toolId: 1,
     locale: 'en-GB',
@@ -1538,10 +1538,9 @@ const printerSpecsData = [
   },
 ];
 
-const toolReservationsData: InsertToolReservation[] = [
+const reservationsData: InsertReservation[] = [
   // User 1 — past week
   {
-    id: 1,
     toolId: 1,
     userId: 1,
     reservedFrom: new Date('2025-09-23T10:00:00+02:00'),
@@ -1550,7 +1549,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 2,
     toolId: 2,
     userId: 1,
     reservedFrom: new Date('2025-09-26T15:00:00+02:00'),
@@ -1560,7 +1558,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 1 — current week
   {
-    id: 3,
     toolId: 3,
     userId: 1,
     reservedFrom: new Date('2025-09-30T09:00:00+02:00'),
@@ -1569,7 +1566,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 4,
     toolId: 1,
     userId: 1,
     reservedFrom: new Date('2025-10-02T17:00:00+02:00'),
@@ -1579,7 +1575,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 1 — next week
   {
-    id: 5,
     toolId: 2,
     userId: 1,
     reservedFrom: new Date('2025-10-07T08:00:00+02:00'),
@@ -1588,7 +1583,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 6,
     toolId: 3,
     userId: 1,
     reservedFrom: new Date('2025-10-09T18:00:00+02:00'),
@@ -1599,7 +1593,6 @@ const toolReservationsData: InsertToolReservation[] = [
 
   // User 2 — past week
   {
-    id: 7,
     toolId: 2,
     userId: 2,
     reservedFrom: new Date('2025-09-22T12:00:00+02:00'),
@@ -1608,7 +1601,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 8,
     toolId: 3,
     userId: 2,
     reservedFrom: new Date('2025-09-27T10:00:00+02:00'),
@@ -1618,7 +1610,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 2 — current week
   {
-    id: 9,
     toolId: 1,
     userId: 2,
     reservedFrom: new Date('2025-10-01T12:00:00+02:00'),
@@ -1627,7 +1618,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 10,
     toolId: 2,
     userId: 2,
     reservedFrom: new Date('2025-10-03T13:00:00+02:00'),
@@ -1637,7 +1627,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 2 — next week
   {
-    id: 11,
     toolId: 3,
     userId: 2,
     reservedFrom: new Date('2025-10-06T18:00:00+02:00'),
@@ -1646,7 +1635,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 12,
     toolId: 1,
     userId: 2,
     reservedFrom: new Date('2025-10-10T09:00:00+02:00'),
@@ -1657,7 +1645,6 @@ const toolReservationsData: InsertToolReservation[] = [
 
   // User 3 — past week
   {
-    id: 13,
     toolId: 3,
     userId: 3,
     reservedFrom: new Date('2025-09-24T17:00:00+02:00'),
@@ -1666,7 +1653,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 14,
     toolId: 1,
     userId: 3,
     reservedFrom: new Date('2025-09-28T11:00:00+02:00'),
@@ -1676,7 +1662,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 3 — current week
   {
-    id: 15,
     toolId: 2,
     userId: 3,
     reservedFrom: new Date('2025-09-29T08:00:00+02:00'),
@@ -1685,7 +1670,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 16,
     toolId: 3,
     userId: 3,
     reservedFrom: new Date('2025-10-04T09:00:00+02:00'),
@@ -1695,7 +1679,6 @@ const toolReservationsData: InsertToolReservation[] = [
   },
   // User 3 — next week
   {
-    id: 17,
     toolId: 1,
     userId: 3,
     reservedFrom: new Date('2025-10-08T14:00:00+02:00'),
@@ -1704,7 +1687,6 @@ const toolReservationsData: InsertToolReservation[] = [
     reservedAt: new Date('2025-10-01T10:27:00+02:00'),
   },
   {
-    id: 18,
     toolId: 2,
     userId: 3,
     reservedFrom: new Date('2025-10-11T16:00:00+02:00'),
@@ -1728,9 +1710,9 @@ export {
   storageItemLocalizations,
   storageItemsData,
   toolsData,
-  toolsLocalizationsData,
+  toolLocalizationsData,
   usersData,
   usersGroupsData,
   usersSkillsData,
-  toolReservationsData,
+  reservationsData,
 };

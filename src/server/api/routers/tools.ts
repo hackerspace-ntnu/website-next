@@ -3,7 +3,7 @@ import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { printerSpecs, tools, toolsLocalizations } from '@/server/db/tables';
+import { printerSpecs, toolLocalizations, tools } from '@/server/db/tables';
 import { fetchToolSchema } from '@/validations/reservations';
 
 const toolsRouter = createRouter({
@@ -15,15 +15,15 @@ const toolsRouter = createRouter({
       const tool = await ctx.db
         .select({
           id: tools.id,
-          name: toolsLocalizations.name,
+          name: toolLocalizations.name,
           nickName: tools.nickName,
         })
         .from(tools)
         .leftJoin(
-          toolsLocalizations,
+          toolLocalizations,
           and(
-            eq(toolsLocalizations.toolId, tools.id),
-            eq(toolsLocalizations.locale, ctx.locale),
+            eq(toolLocalizations.toolId, tools.id),
+            eq(toolLocalizations.locale, ctx.locale),
           ),
         )
         .where(and(eq(tools.id, input), eq(tools.available, true)))
@@ -44,9 +44,9 @@ const toolsRouter = createRouter({
       .select({
         toolId: tools.id,
         type: tools.type,
-        name: toolsLocalizations.name,
+        name: toolLocalizations.name,
         nickName: tools.nickName,
-        description: toolsLocalizations.description,
+        description: toolLocalizations.description,
         difficulty: tools.difficulty,
         requires: tools.requires,
         imageId: tools.imageId,
@@ -54,10 +54,10 @@ const toolsRouter = createRouter({
       })
       .from(tools)
       .leftJoin(
-        toolsLocalizations,
+        toolLocalizations,
         and(
-          eq(toolsLocalizations.toolId, tools.id),
-          eq(toolsLocalizations.locale, ctx.locale),
+          eq(toolLocalizations.toolId, tools.id),
+          eq(toolLocalizations.locale, ctx.locale),
         ),
       )
       .leftJoin(printerSpecs, eq(printerSpecs.printerId, tools.id));

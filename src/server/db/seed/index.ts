@@ -8,14 +8,14 @@ import {
   groupLocalizationsData,
   groupsData,
   printerSpecsData,
+  reservationsData,
   shiftsData,
   skillsData,
   storageItemCategories,
   storageItemLocalizations,
   storageItemsData,
-  toolReservationsData,
+  toolLocalizationsData,
   toolsData,
-  toolsLocalizationsData,
   usersData,
   usersGroupsData,
   usersSkillsData,
@@ -31,12 +31,12 @@ import {
   newsArticleLocalizations,
   newsArticles,
   printerSpecs,
+  reservations,
   shifts,
   skills,
   storageItems,
-  toolReservations,
+  toolLocalizations,
   tools,
-  toolsLocalizations,
   users,
   usersGroups,
   usersSkills,
@@ -127,11 +127,11 @@ async function main() {
   console.log('Printer specs inserted');
 
   console.log('Inserting tools localizations...');
-  await db.insert(toolsLocalizations).values(toolsLocalizationsData);
+  await db.insert(toolLocalizations).values(toolLocalizationsData);
   console.log('Tools localizations inserted');
 
   console.log('Inserting reservations...');
-  await db.insert(toolReservations).values(toolReservationsData);
+  await db.insert(reservations).values(reservationsData);
   console.log('Reservations inserted');
 }
 

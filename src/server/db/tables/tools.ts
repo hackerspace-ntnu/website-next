@@ -31,14 +31,14 @@ const tools = pgTable('tools', {
 });
 
 const toolsRelations = relations(tools, ({ one, many }) => ({
-  localizations: many(toolsLocalizations),
+  localizations: many(toolLocalizations),
   imageId: one(files, {
     fields: [tools.imageId],
     references: [files.id],
   }),
 }));
 
-const toolsLocalizations = pgTable(
+const toolLocalizations = pgTable(
   'tools_localizations',
   {
     toolId: integer('tool_id')
@@ -51,15 +51,12 @@ const toolsLocalizations = pgTable(
   (table) => [primaryKey({ columns: [table.toolId, table.locale] })],
 );
 
-const toolsLocalizationsRelations = relations(
-  toolsLocalizations,
-  ({ one }) => ({
-    tool: one(tools, {
-      fields: [toolsLocalizations.toolId],
-      references: [tools.id],
-    }),
+const toolLocalizationsRelations = relations(toolLocalizations, ({ one }) => ({
+  tool: one(tools, {
+    fields: [toolLocalizations.toolId],
+    references: [tools.id],
   }),
-);
+}));
 
 const printerSpecs = pgTable('printer_specs', {
   printerId: integer('printerId')
@@ -79,8 +76,8 @@ const printerSpecsRelations = relations(printerSpecs, ({ one }) => ({
 
 type SelectTool = InferSelectModel<typeof tools>;
 type InsertTool = InferInsertModel<typeof tools>;
-type SelectToolLocalization = InferSelectModel<typeof toolsLocalizations>;
-type InsertToolLocalization = InferInsertModel<typeof toolsLocalizations>;
+type SelectToolLocalization = InferSelectModel<typeof toolLocalizations>;
+type InsertToolLocalization = InferInsertModel<typeof toolLocalizations>;
 type SelectPrinterSpecs = InferSelectModel<typeof printerSpecs>;
 type InsertPrinterSpecs = InferInsertModel<typeof printerSpecs>;
 
@@ -88,8 +85,8 @@ export {
   printerSpecs,
   printerSpecsRelations,
   tools,
-  toolsLocalizations,
-  toolsLocalizationsRelations,
+  toolLocalizations,
+  toolLocalizationsRelations,
   toolsRelations,
   toolTypeEnum,
   type InsertPrinterSpecs,

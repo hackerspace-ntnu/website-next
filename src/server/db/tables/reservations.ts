@@ -6,7 +6,7 @@ import {
 import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 import { tools, users } from '@/server/db/tables';
 
-const toolReservations = pgTable('tool_reservations', {
+const reservations = pgTable('tool_reservations', {
   id: serial('id').primaryKey(),
   toolId: integer('tool_id')
     .notNull()
@@ -20,23 +20,23 @@ const toolReservations = pgTable('tool_reservations', {
   reservedAt: timestamp('reserved_at').notNull().defaultNow(),
 });
 
-const toolReservationsRelations = relations(toolReservations, ({ one }) => ({
+const reservationsRelations = relations(reservations, ({ one }) => ({
   tool: one(tools, {
-    fields: [toolReservations.toolId],
+    fields: [reservations.toolId],
     references: [tools.id],
   }),
-  reservor: one(users, {
-    fields: [toolReservations.userId],
+  user: one(users, {
+    fields: [reservations.userId],
     references: [users.id],
   }),
 }));
 
-type SelectToolReservation = InferSelectModel<typeof toolReservations>;
-type InsertToolReservation = InferInsertModel<typeof toolReservations>;
+type SelectReservation = InferSelectModel<typeof reservations>;
+type InsertReservation = InferInsertModel<typeof reservations>;
 
 export {
-  toolReservations,
-  toolReservationsRelations,
-  type InsertToolReservation,
-  type SelectToolReservation,
+  reservations,
+  reservationsRelations,
+  type InsertReservation,
+  type SelectReservation,
 };
