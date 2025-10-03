@@ -7,7 +7,7 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 function ToolCardGridSkeleton() {
   const list = [useId(), useId(), useId(), useId(), useId(), useId()];
-  const isDesktop = useMediaQuery('(min-width: 45.4rem)');
+  const isDesktop = useMediaQuery('(min-width: 48rem)');
 
   return (
     <div className='size-full'>

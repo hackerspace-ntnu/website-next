@@ -30,7 +30,7 @@ function MyReservationsTable({
   loggedIn,
 }: MyReservationsTableProps) {
   const t = useTranslations('reservations');
-  const isDesktop = useMediaQuery('(min-width: 42rem)');
+  const isDesktop = useMediaQuery('(min-width: 48rem)');
   const [editPressed, setEditPressed] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
   const ref2 = useRef<HTMLDivElement>(null);

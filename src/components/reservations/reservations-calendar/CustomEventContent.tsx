@@ -1,13 +1,21 @@
 'use client';
-
 import type { EventContentArg } from '@fullcalendar/core';
+import { MailIcon, PhoneIcon, StickyNoteIcon } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/Accordion';
+import { cx } from '@/lib/utils';
 
 type CustomEventStylingProps = {
   eventInfo: EventContentArg;
+  memberId: number;
 };
 
-function CustomEventContent({ eventInfo }: CustomEventStylingProps) {
+function CustomEventContent({ eventInfo, memberId }: CustomEventStylingProps) {
   const t = useTranslations('reservations');
   const format = useFormatter();
 
@@ -38,31 +46,68 @@ function CustomEventContent({ eventInfo }: CustomEventStylingProps) {
   const durationHours = durationMs ? durationMs / (1000 * 60 * 60) : 0;
 
   const infoBlock = (
-    <div className='flex flex-col'>
-      <p>
-        <span className='block font-extrabold'>
+    <div className='flex w-full max-w-md flex-col'>
+      <p
+        className={cx(
+          'clamp-[text-lg-sm-clamp] ',
+          eventInfo.event.extendedProps.userId === memberId
+            ? 'text-foreground'
+            : 'text-white',
+        )}
+      >
+        <span className='clamp-[text-lg-sm-clamp] font-extrabold'>
           {start} - {end}
         </span>
-        <span className='block'>{eventInfo.event.extendedProps.name}</span>
-        <span className='block'>{eventInfo.event.extendedProps.phoneNr}</span>
-        <span className='block'>{eventInfo.event.extendedProps.email}</span>
-      </p>
-      <p className='mt-1 rounded-md border border-amber-50 p-1'>
-        <span className='block underline'>{`${t('form.notes')}:`}</span>
-        <span className='block text-left'>
-          {eventInfo.event.extendedProps.notes}
+        <span className='block break-words'>
+          {eventInfo.event.extendedProps.name}
         </span>
       </p>
+
+      {eventInfo.event.extendedProps.userId !== memberId &&
+      !eventInfo.isPast &&
+      !eventInfo.isMirror ? (
+        <Accordion type='single' collapsible className='text-left text-white'>
+          <AccordionItem value='item-1'>
+            <AccordionTrigger className='[&>svg]:white mb-3 h-auto cursor-pointer border-white border-b py-1 [&>svg]:h-5 [&>svg]:w-5'>
+              <span className='clamp-[text-lg-sm-clamp]'>
+                {t('customEventContent.details')}
+              </span>
+            </AccordionTrigger>
+            <AccordionContent className='flex flex-col gap-1'>
+              <div className='flex flex-row items-start gap-2'>
+                <PhoneIcon className='h-4 w-4 flex-shrink-0' />
+                <span className='flex-1 break-all'>
+                  {eventInfo.event.extendedProps.phoneNr}
+                </span>
+              </div>
+              <div className='flex flex-row items-start gap-2'>
+                <MailIcon className='h-4 w-4 flex-shrink-0' />
+                <span className='flex-1 break-all'>
+                  {eventInfo.event.extendedProps.email}
+                </span>
+              </div>
+              <div className='flex max-w-sm flex-row items-start gap-2'>
+                <StickyNoteIcon className='h-4 w-4 flex-shrink-0' />
+                <span className='flex-1 break-words'>
+                  {eventInfo.event.extendedProps.notes}
+                </span>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      ) : (
+        <span className='mt-3 flex-1 break-words'>
+          {eventInfo.event.extendedProps.notes}
+        </span>
+      )}
     </div>
   );
 
   return (
-    <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
-      <div className='clamp-[text-lg-sm-clamp] flex size-full flex-col items-center justify-between gap-64 overflow-hidden px-1 py-2 font-semibold'>
-        {infoBlock}
-        {durationHours >= 6 && infoBlock}
-        {durationHours >= 12 && infoBlock}
-      </div>
+    <div className='flex h-full w-full flex-col items-center justify-between gap-64 overflow-hidden p-2 px-5'>
+      {infoBlock}
+      {durationHours >= 6 && infoBlock}
+      {durationHours >= 12 && infoBlock}
     </div>
   );
 }
