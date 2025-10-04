@@ -8,7 +8,6 @@ import { InformationCard } from '@/components/reservations/reservations-calendar
 import { ToolCalendarSkeleton } from '@/components/reservations/reservations-calendar/ToolCalendarSkeleton';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api/client';
-import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import { useMounted } from '@/lib/hooks/useMounted';
 import '@/lib/styles/calendar.css';
@@ -197,7 +196,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           }
           return { fromISO: latest.startISO, untilISO: latest.endISO };
         });
-      }, 600);
+      }, 500);
     },
     [view],
   );
@@ -264,7 +263,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <Button
-        variant='default'
+        variant={isMember ? 'default' : 'secondary'}
         className='mb-3 w-fit self-center'
         onClick={() => {
           setCreateOption('createButton');
