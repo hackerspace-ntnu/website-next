@@ -1,8 +1,7 @@
 'use client';
 
-import { Trash2 } from 'lucide-react';
+import { Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { Ref } from 'react';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -26,15 +25,13 @@ type DeleteReservationButtonProps = {
   userId: number;
   variant?: 'icon' | 'button';
   className?: string;
-  ref: Ref<HTMLDivElement>;
 };
 
-export function DeleteReservationButton({
+function DeleteReservationButton({
   reservationId,
   toolId,
   userId,
   variant = 'icon',
-  ref,
 }: DeleteReservationButtonProps) {
   const t = useTranslations('reservations');
   const tUi = useTranslations('ui');
@@ -57,7 +54,11 @@ export function DeleteReservationButton({
         disabled={mutation.isPending}
         title={tUi('delete')}
       >
-        {mutation.isPending ? <Spinner /> : <Trash2 className='h-4 w-4' />}
+        {mutation.isPending ? (
+          <Spinner />
+        ) : (
+          <Trash2Icon className='h-4 w-4 text-destructive' />
+        )}
       </Button>
     ) : (
       <Button variant='destructive' disabled={mutation.isPending}>
@@ -68,14 +69,14 @@ export function DeleteReservationButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
-      <AlertDialogContent className='sm:max-w-md' ref={ref}>
+      <AlertDialogContent className='sm:max-w-md'>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('confirmDialog.title')}</AlertDialogTitle>
           <AlertDialogDescription>
             {t('confirmDialog.description')}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className='flex flex-row justify-between'>
           <AlertDialogActionDestructive
             onClick={() => mutation.mutate({ reservationId, toolId, userId })}
             disabled={mutation.isPending}
@@ -90,3 +91,5 @@ export function DeleteReservationButton({
     </AlertDialog>
   );
 }
+
+export { DeleteReservationButton };
