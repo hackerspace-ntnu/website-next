@@ -19,6 +19,7 @@ type DesktopNavMenuProps = {
     shiftSchedule: string;
     members: string;
     rules: string;
+    reservations: string;
   };
 };
 
@@ -52,6 +53,7 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
           shiftSchedule: t.shiftSchedule,
           members: t.members,
           rules: t.rules,
+          reservations: t.reservations,
         }}
       />
     </DropdownMenu>
