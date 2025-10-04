@@ -17,7 +17,7 @@ export type Tool = {
   requires: string;
   imageId: number;
   imageUrl: string | null;
-  available: boolean;
+  status: 'available' | 'unavailable' | 'out_of_order' | 'requires_supervision';
   filamentSize?: string;
   filamentType?: string;
   slicer?: string;
@@ -28,7 +28,7 @@ type ToolCardGridProps = {
 };
 
 function ToolCardGrid({ tools }: ToolCardGridProps) {
-  const isDesktop = useMediaQuery('(min-width: 45.4rem)');
+  const isDesktop = useMediaQuery('(min-width: 48rem)');
   const [currentTool, setCurrentTool] = useState<Tool | null>(null);
 
   const List = isDesktop ? ToolCard : HorizontalToolCard;
@@ -45,13 +45,16 @@ function ToolCardGrid({ tools }: ToolCardGridProps) {
       )}
 
       <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-        {tools.map((tool) => (
-          <List
-            key={tool.toolId}
-            tool={tool as Tool}
-            onClick={() => setCurrentTool(tool as Tool)}
-          />
-        ))}
+        {tools
+          .slice() // copy so you don’t mutate the original array
+          .sort((a, b) => a.toolId - b.toolId)
+          .map((tool) => (
+            <List
+              key={tool.toolId}
+              tool={tool as Tool}
+              onClick={() => setCurrentTool(tool as Tool)}
+            />
+          ))}
       </ul>
     </div>
   );
