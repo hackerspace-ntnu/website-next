@@ -32,10 +32,57 @@ function ExpandedToolCard({
 }: ExpandedToolCardProps) {
   const t = useTranslations('reservations');
 
+  const footerButton = (() => {
+    switch (currentTool.status) {
+      case 'available':
+        return (
+          <Link
+            href={{
+              pathname: '/reservations/[calendarId]',
+              params: { calendarId: currentTool.toolId },
+            }}
+            className='h-full w-full'
+          >
+            <Button className='h-14 w-full rounded-none font-semibold'>
+              {t('tools.available')}
+            </Button>
+          </Link>
+        );
+      case 'requires_supervision':
+        return (
+          <Button
+            variant='secondary'
+            className='h-14 w-full rounded-none'
+            disabled
+          >
+            {t('tools.supervision')}
+          </Button>
+        );
+      case 'out_of_order':
+        return (
+          <Button
+            variant='ring-only'
+            className='pointer-events-none h-14 w-full rounded-none'
+          >
+            {t('tools.outOfOrder')}
+          </Button>
+        );
+      default:
+        return (
+          <Button
+            variant='destructive'
+            className='pointer-events-none h-14 w-full rounded-none'
+          >
+            {t('tools.unavailable')}
+          </Button>
+        );
+    }
+  })();
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='flex w-full max-w-96 flex-col overflow-hidden rounded-2xl p-0 shadow-2xl shadow-black md:max-w-lg'>
-        <DialogHeader className='w-full p-0'>
+        <DialogHeader className='h-fit w-full p-0'>
           <div className='relative h-72 w-full'>
             <Image
               src={currentTool.imageUrl ?? '/unknown.png'}
@@ -46,60 +93,43 @@ function ExpandedToolCard({
 
             <DialogClose asChild>
               <Button
-                className='absolute top-2 right-2 z-10 size-11 transform rounded-full bg-stone-500 p-0 opacity-90 transition delay-150 duration-300 ease-in-out hover:scale-105'
+                className='absolute top-2 right-2 z-10 size-11 rounded-full bg-stone-500 p-0 opacity-90 transition hover:scale-105'
                 onClick={onCloseButton}
               >
-                <Minimize2Icon className='size-7 transform stroke-stone-300 transition delay-150 duration-300 ease-in-out hover:scale-90 hover:stroke-stone-200 ' />
+                <Minimize2Icon className='size-7 stroke-stone-300 transition hover:stroke-stone-200' />
               </Button>
             </DialogClose>
           </div>
-          <DialogTitle className='text-center'>
-            <span className='clamp-[text-xl-2xl-clamp] truncate'>
+
+          <DialogTitle className='flex h-20 flex-col items-center justify-center text-center'>
+            <span className='clamp-[text-xl-2xl-clamp] line-clamp-1'>
               {currentTool.name}
             </span>
-            <br />
-            <br />
-            <span className='clamp-[text-base-xl-clamp]'>
+            <span className='clamp-[text-base-xl-clamp] line-clamp-1 opacity-80'>
               {currentTool.nickName}
             </span>
           </DialogTitle>
-          <DialogDescription className=' flex h-44 flex-col gap-1 overflow-auto px-5 text-left'>
-            <span className='clamp-[text-sm-base-clamp]'>
-              {currentTool.description}
-            </span>
-            <br />
-            {currentTool.type === '3dprinter' &&
-              toolDescriptionFields.map(({ key, label }) => {
-                const text = currentTool[key as keyof Tool];
-                return (
+
+          <DialogDescription className='clamp-[text-sm-base-clamp] flex h-44 w-full flex-wrap gap-1 overflow-auto px-5 text-left'>
+            <span>{currentTool.description}</span>
+            {toolDescriptionFields.map(({ key, label }) => {
+              const field = currentTool[key as keyof Tool];
+              const text = field && String(field).trim();
+              return (
+                text && (
                   <span
                     key={key}
-                    className='h-fit w-fit rounded-xl bg-stone-600 p-1 text-sm'
+                    className='h-fit rounded-xl bg-secondary p-2 text-sm'
                   >
-                    {t(`tools.${label}`)}: {String(text)}
+                    {t(`tools.${label}`)}: {text}
                   </span>
-                );
-              })}
+                )
+              );
+            })}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className='h-14 w-full p-0'>
-          {currentTool.available && (
-            <Link
-              href={{
-                pathname: '/reservations/[calendarId]',
-                params: { calendarId: currentTool.toolId },
-              }}
-              className='h-full w-full'
-            >
-              <Button
-                variant='default'
-                className='clamp-[text-base-lg-clamp] h-full w-full rounded-none font-semibold'
-              >
-                {t('tools.available')}
-              </Button>
-            </Link>
-          )}
-        </DialogFooter>
+
+        <DialogFooter className='h-fit w-full p-0'>{footerButton}</DialogFooter>
       </DialogContent>
     </Dialog>
   );
