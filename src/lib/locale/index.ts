@@ -177,6 +177,14 @@ const routing = defineRouting({
       'en-GB': '/rules/[subsetId]',
       'nb-NO': '/regler/[subsetId]',
     },
+    '/rules/new': {
+      'en-GB': '/rules/new',
+      'nb-NO': '/regler/ny',
+    },
+    '/rules/[subsetId]/edit': {
+      'en-GB': '/rules/[subsetId]/edit',
+      'nb-NO': '/regler/[subsetId]/rediger',
+    },
     '/shift-schedule': {
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
@@ -184,6 +192,22 @@ const routing = defineRouting({
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
+    },
+    '/management': {
+      'en-GB': '/management',
+      'nb-NO': '/administrasjon',
+    },
+    '/management/skills': {
+      'en-GB': '/management/skills',
+      'nb-NO': '/administrasjon/ferdigheter',
+    },
+    '/management/skills/[skillIdentifier]': {
+      'en-GB': '/management/skills/[skillIdentifier]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillIdentifier]',
+    },
+    '/management/skills/new': {
+      'en-GB': '/management/skills/new',
+      'nb-NO': '/administrasjon/ferdigheter/ny',
     },
     '/reservations': {
       'en-GB': '/reservations',

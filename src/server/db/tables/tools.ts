@@ -4,7 +4,6 @@ import {
   relations,
 } from 'drizzle-orm';
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
@@ -85,12 +84,12 @@ type InsertPrinterSpecs = InferInsertModel<typeof printerSpecs>;
 export {
   printerSpecs,
   printerSpecsRelations,
-  tools,
   toolLocalizations,
   toolLocalizationsRelations,
+  tools,
   toolsRelations,
-  toolTypeEnum,
   toolStatusEnum,
+  toolTypeEnum,
   type InsertPrinterSpecs,
   type InsertTool,
   type InsertToolLocalization,

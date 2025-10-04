@@ -132,6 +132,7 @@
     "signIn": "Logg inn",
     "signOut": "Logg ut",
     "settings": "Innstillinger",
+    "management": "Administrasjon",
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
@@ -149,7 +150,7 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
-    "internal": "Internal",
+    "internal": "Intern",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
     "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
@@ -800,8 +801,124 @@
   },
   "rules": {
     "title": "Regler",
-    "forEveryone": "For alle",
-    "internal": "Interne regler"
+    "publicRules": "Offentlige regler",
+    "internalRules": "Interne regler",
+    "backToRules": "Tilbake til regler",
+    "new": {
+      "title": "Ny regel",
+      "createRule": "Opprett regel",
+      "ruleCreated": "Regel opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette regler"
+    },
+    "update": {
+      "title": "Oppdater regel",
+      "updateRule": "Oppdater regel",
+      "deleteRule": "Slett regel",
+      "deleteRuleTitle": "Er du sikker på at du vil slette denne regelen?",
+      "deleteRuleDescription": "Regelen vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "deleteRuleImage": "Slett regelbilde",
+      "deleteRuleImageTitle": "Er du sikker på at du vil slette dette regelbildet?",
+      "deleteRuleImageDescription": "Regelbildet vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "ruleUpdated": "Regel oppdatert",
+      "ruleDeleted": "Regel slettet",
+      "imageDeleted": "Regelbilde slettet",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere regler"
+    },
+    "form": {
+      "image": {
+        "label": "Regelbilde",
+        "description": "Last opp et bilde...",
+        "sizeLimitError": "Regelbildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Regelbildet må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelNorwegian": "Navn (norsk)",
+        "labelEnglish": "Navn (engelsk)",
+        "placeholderNorwegian": "Regler for verkstedet",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "Navn er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Regelinnhold (norsk)",
+        "labelEnglish": "Regelinnhold (engelsk)",
+        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
+        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
+        "required": "Regelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern regel",
+        "description": "Hvis valgt, vil denne regelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidRuleId": "Ugyldig regel-ID",
+      "fetchRulesFailed": "Kunne ikke hente regler",
+      "ruleWithNameExists": "En regel med navnet {name} eksisterer allerede",
+      "ruleNotFound": "Regel ikke funnet",
+      "insertFailed": "Kunne ikke legge til regel",
+      "updateFailed": "Kunne ikke oppdatere regel",
+      "unauthorizedInternalRule": "Du har ikke rettigheter til å se interne regler"
+    }
+  },
+  "management": {
+    "title": "Nettside-administrasjon",
+    "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
+    "skills": {
+      "title": "Administrer ferdigheter",
+      "description": "Administrer ferdighetene som medlemmene kan oppnå.",
+      "backToManagement": "Tilbake til administrasjon",
+      "backToSkills": "Tilbake til ferdigheter",
+      "new": {
+        "title": "Ny ferdighet",
+        "success": "Ferdighet lagt til!"
+      },
+      "edit": {
+        "title": "Oppdater ferdighet",
+        "delete": "Slett ferdighet",
+        "deleteConfirmTitle": "Er du sikker på at du vil slette denne ferdigheten?",
+        "deleteConfirmDescription": "Alle brukere som har denne ferdigheten vil miste den. Denne handlingen kan ikke angres.",
+        "successEdit": "Ferdighet oppdatert!",
+        "successDelete": "Ferdighet slettet!"
+      },
+      "form": {
+        "createSubmit": "Opprett ferdighet",
+        "editSubmit": "Oppdater ferdighet",
+        "name": {
+          "labelNorwegian": "Ferdighetsnavn (norsk)",
+          "placeholderNorwegian": "Webutvikling",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "Ferdighetsnavn (engelsk)",
+          "required": "Ferdighetsnavn er påkrevd",
+          "maxLength": "Ferdighetsnavn må være mindre enn {count} tegn"
+        },
+        "identifier": {
+          "label": "Ferdighetsidentifikator",
+          "placeholder": "Webutvikling",
+          "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør DevOps-teamet.",
+          "required": "Ferdighetsidentifikator er påkrevd",
+          "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
+          "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
+        }
+      },
+      "api": {
+        "invalidIdentifier": "Ugyldig ferdighetsidentifikator",
+        "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede",
+        "skillNotFound": "Ferdighet ikke funnet"
+      }
+    },
+    "users": {
+      "title": "Brukere",
+      "description": "Administrer brukere på nettsiden."
+    },
+    "files": {
+      "title": "Filer og bilder",
+      "description": "Administrer filer og bilder lastet opp av medlemmer."
+    },
+    "banners": {
+      "title": "Bannere",
+      "description": "Administrer bannere som vises på nettsiden."
+    }
   },
   "api": {
     "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",

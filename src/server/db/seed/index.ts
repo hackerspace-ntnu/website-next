@@ -9,6 +9,8 @@ import {
   groupsData,
   printerSpecsData,
   reservationsData,
+  ruleLocalizationData,
+  rulesData,
   shiftsData,
   skillsData,
   storageItemCategories,
@@ -32,6 +34,8 @@ import {
   newsArticles,
   printerSpecs,
   reservations,
+  ruleLocalizations,
+  rules,
   shifts,
   skills,
   storageItems,
@@ -133,6 +137,14 @@ async function main() {
   console.log('Inserting reservations...');
   await db.insert(reservations).values(reservationsData);
   console.log('Reservations inserted');
+
+  console.log('Inserting rules...');
+  await db.insert(rules).values(rulesData);
+  console.log('Rules inserted');
+
+  console.log('Insert rule localizations...');
+  await db.insert(ruleLocalizations).values(ruleLocalizationData);
+  console.log('Rule localizations inserted');
 }
 
 await main();

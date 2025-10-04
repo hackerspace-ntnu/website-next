@@ -44,7 +44,6 @@ export default async function ArticlePage({
     id: Number(articleId),
     incrementViews: true,
   });
-
   if (!article) {
     return notFound();
   }

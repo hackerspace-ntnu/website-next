@@ -10,6 +10,8 @@ const groupIdentifiers = [
   'admin',
 ] as const;
 
+const notificationSettings = ['all', 'useful', 'essential'] as const;
+
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
 
 const timeslots = ['1', '2', '3', '4'] as const;
@@ -38,4 +40,5 @@ export {
   toolDescriptionFields,
   tooltype,
   toolStatus,
+  notificationSettings,
 };
