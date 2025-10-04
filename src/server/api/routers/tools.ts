@@ -51,6 +51,9 @@ const toolsRouter = createRouter({
         requires: tools.requires,
         imageId: tools.imageId,
         status: tools.status,
+        filamentSize: printerSpecs.filamentSize,
+        filamentType: printerSpecs.filamentType,
+        slicer: printerSpecs.slicer,
       })
       .from(tools)
       .leftJoin(
