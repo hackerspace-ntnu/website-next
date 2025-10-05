@@ -26,9 +26,8 @@ function MyReservationsTable({
   const t = useTranslations('reservations');
   const format = useFormatter();
 
-  const formatDate = (value: string | number | Date) => {
-    const d = value instanceof Date ? value : new Date(value);
-    return format.dateTime(d, {
+  const formatDate = (value: Date) => {
+    return format.dateTime(value, {
       day: '2-digit',
       month: 'short',
       hour: '2-digit',
@@ -64,7 +63,7 @@ function MyReservationsTable({
               {t('myReservationsTable.notLoggedIn')}
             </TableCaption>
           ) : !hasReservations ? (
-            <TableCaption className='clamp-[text-sm-base-clamp] p-3'>
+            <TableCaption className='clamp-[text-sm-base-clamp] pb-4'>
               {t('myReservationsTable.empty')}
             </TableCaption>
           ) : (
@@ -82,15 +81,12 @@ function MyReservationsTable({
                       {res.toolName}
                     </Link>
                   </TableCell>
-
                   <TableCell className='border-x'>
                     {formatDate(res.reservation.reservedFrom)}
                   </TableCell>
-
                   <TableCell>
                     {formatDate(res.reservation.reservedUntil)}
                   </TableCell>
-
                   <TableCell className='w-12 border-l p-0 text-center align-middle'>
                     <DeleteReservationButton
                       className='inline-flex h-8 w-8 items-center justify-center rounded-md p-0'

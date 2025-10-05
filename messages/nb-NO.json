@@ -1208,7 +1208,8 @@
       "until": "Til",
       "goToCalendar": "Gå til kalender",
       "empty": "Du har ingen reservasjoner",
-      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner."
+      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner.",
+      "deletedSuccess": "Reservasjon slettet"
     },
     "information": {
       "importantTitle": "Viktig informasjon!",

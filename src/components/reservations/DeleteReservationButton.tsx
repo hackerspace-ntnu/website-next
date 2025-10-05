@@ -40,7 +40,7 @@ function DeleteReservationButton({
 
   const mutation = api.reservations.deleteReservation.useMutation({
     onSuccess: async () => {
-      toast.success('');
+      toast.success(t('myReservationsTable.deletedSuccess'));
       await utils.reservations.fetchUserReservations.invalidate();
       router.refresh();
     },

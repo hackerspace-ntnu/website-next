@@ -950,24 +950,18 @@
           "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
         }
       },
-      "api": {
-        "invalidId": "Invalid ID",
-        "invalidIdentifier": "Invalid skill identifier",
-        "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
-        "skillNotFound": "Skill not found"
+      "users": {
+        "title": "Users",
+        "description": "Manage users on the website."
+      },
+      "files": {
+        "title": "Files & images",
+        "description": "Manage files and images uploaded by members."
+      },
+      "banners": {
+        "title": "Banners",
+        "description": "Manage banners displayed on the website."
       }
-    },
-    "users": {
-      "title": "Users",
-      "description": "Manage users on the website."
-    },
-    "files": {
-      "title": "Files & images",
-      "description": "Manage files and images uploaded by members."
-    },
-    "banners": {
-      "title": "Banners",
-      "description": "Manage banners displayed on the website."
     }
   },
   "applications": {
@@ -1214,7 +1208,8 @@
       "until": "Until",
       "goToCalendar": "Go to calendar",
       "empty": "You have no reservations",
-      "notLoggedIn": "Please log in to see your reservations."
+      "notLoggedIn": "Please log in to see your reservations.",
+      "deletedSuccess": "Successfully deleted reservation"
     },
     "information": {
       "importantTitle": "Important information!",
