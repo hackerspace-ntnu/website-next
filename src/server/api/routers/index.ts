@@ -3,6 +3,7 @@ export * from './events';
 export * from './groups';
 export * from './news';
 export * from './quotes';
+export * from './rules';
 export * from './settings';
 export * from './shiftSchedule';
 export * from './skills';

@@ -803,8 +803,65 @@
   },
   "rules": {
     "title": "Rules",
-    "forEveryone": "For everyone",
-    "internal": "Internal rules"
+    "publicRules": "Public rules",
+    "internalRules": "Internal rules",
+    "backToRules": "Back to Rules",
+    "new": {
+      "title": "New Rule",
+      "createRule": "Create rule",
+      "ruleCreated": "Rule created successfully",
+      "unauthorized": "Unauthorized to create new rules"
+    },
+    "update": {
+      "title": "Update Rule",
+      "updateRule": "Update rule",
+      "deleteRule": "Delete rule",
+      "deleteRuleTitle": "Are you sure you want to delete this rule?",
+      "deleteRuleDescription": "The rule will be permanently deleted. This action cannot be undone.",
+      "deleteRuleImage": "Delete rule image",
+      "deleteRuleImageTitle": "Are you sure you want to delete this rule image?",
+      "deleteRuleImageDescription": "The rule image will be permanently deleted. This action cannot be undone.",
+      "ruleUpdated": "Rule updated successfully",
+      "ruleDeleted": "Rule deleted successfully",
+      "imageDeleted": "Rule image deleted successfully",
+      "unauthorized": "Unauthorized to update rules"
+    },
+    "form": {
+      "image": {
+        "label": "Rule image",
+        "description": "Upload an image...",
+        "sizeLimitError": "Rule image must be less than {size} MB",
+        "wrongFileTypeError": "Rule image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Rule name (Norwegian)",
+        "labelEnglish": "Rule name (English)",
+        "placeholderNorwegian": "Regler for verkstedet",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "Rule name is required"
+      },
+      "content": {
+        "labelNorwegian": "Rule content (Norwegian)",
+        "labelEnglish": "Rule content (English)",
+        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
+        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
+        "required": "Rule content is required"
+      },
+      "internal": {
+        "label": "Internal rule",
+        "description": "If selected, this rule will only be visible to Hackerspace members."
+      }
+    },
+    "api": {
+      "invalidRuleId": "Invalid rule ID",
+      "fetchRulesFailed": "Failed to fetch rules",
+      "ruleWithNameExists": "A rule with the name {name} already exists",
+      "ruleNotFound": "Rule not found",
+      "insertFailed": "Failed to add rule",
+      "updateFailed": "Failed to update rule",
+      "unauthorizedInternalRule": "Unauthorized to view internal rules"
+    }
   },
   "management": {
     "title": "Website Management",

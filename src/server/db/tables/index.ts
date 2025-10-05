@@ -8,6 +8,7 @@ export * from './news';
 export * from './notifications';
 export * from './office';
 export * from './quotes';
+export * from './rules';
 export * from './sessions';
 export * from './shifts';
 export * from './skills';

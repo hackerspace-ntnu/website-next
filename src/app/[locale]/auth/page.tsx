@@ -8,6 +8,14 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
+export async function generateMetadata() {
+  const t = await getTranslations('auth');
+
+  return {
+    title: t('signIn'),
+  };
+}
+
 export default async function SignInPage({
   params,
   searchParams,
@@ -19,8 +27,8 @@ export default async function SignInPage({
   let { r: redirectTo, error } = await searchParams;
 
   setRequestLocale(locale);
-  const t = await getTranslations('auth');
 
+  const t = await getTranslations('auth');
   const { user } = await api.auth.state();
 
   if (user) {
