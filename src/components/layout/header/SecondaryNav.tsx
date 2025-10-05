@@ -12,6 +12,7 @@ type SecondaryNavProps = {
     shiftSchedule: string;
     members: string;
     rules: string;
+    quotes: string;
   };
 };
 
@@ -28,6 +29,9 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
     </Link>,
     <Link key={3} variant='nav' onClick={onClick} href='/rules'>
       {t.rules}
+    </Link>,
+    <Link key={4} variant='nav' onClick={onClick} href='/quotes'>
+      {t.quotes}
     </Link>,
   ];
 

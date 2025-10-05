@@ -34,7 +34,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "uploadText": "Drop files here or click to upload",
-    "noValidFiles": "No valid files were dropped"
+    "noValidFiles": "No valid files were dropped",
+    "noChoicesFound": "No choices found"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -120,6 +121,7 @@
     "about": "About",
     "shiftSchedule": "Shift Schedule",
     "members": "Members",
+    "quotes": "Quotes",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
@@ -920,13 +922,6 @@
       "description": "Manage banners displayed on the website."
     }
   },
-  "api": {
-    "tooManyRequests": "Too many requests, please try again later",
-    "notAuthenticated": "Not authenticated",
-    "notAuthorized": "Not authorized",
-    "noFileFound": "No file found",
-    "unableToUpdateMatrix": "Unable to update on Matrix"
-  },
   "privacy": {
     "title": "Privacy Policy",
     "lastUpdated": "Last updated: 9th July 2025",
@@ -989,6 +984,69 @@
       "title": "Changes to this Privacy Policy",
       "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
     }
+  },
+  "quotes": {
+    "title": "Inspirational Quotes",
+    "backToQuotes": "Back to quotes",
+    "heardByUser": "Heard by: {user}",
+    "new": {
+      "title": "New Quote",
+      "createQuote": "Create quote",
+      "success": "Quote created",
+      "unauthorized": "Unauthorized to create new quotes"
+    },
+    "update": {
+      "title": "Update Quote",
+      "updateQuote": "Update quote",
+      "success": "Quote updated",
+      "unauthorized": "Unauthorized to update quotes"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete this quote?",
+      "description": "This action cannot be undone.",
+      "success": "Quote deleted successfully",
+      "unauthorized": "Unauthorized to delete quotes"
+    },
+    "form": {
+      "userId": {
+        "label": "User",
+        "required": "User is required",
+        "placeholder": "Search for a user...",
+        "description": "Select a user"
+      },
+      "content": {
+        "labelEnglish": "Quote (English)",
+        "labelNorwegian": "Quote (Norwegian)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Quote is required",
+        "minLength": "Quote must be at least {count} characters"
+      },
+      "internal": {
+        "label": "Internal quote",
+        "description": "If selected, this quote will only be visible to Hackerspace members."
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
+    },
+    "api": {
+      "invalidId": "Invalid ID",
+      "invalidOffset": "Invalid offset",
+      "insertFailed": "Failed to add quote",
+      "updateFailed": "Failed to update quote",
+      "deleteFailed": "Failed to delete quote",
+      "failedToFetchQuotes": "The server failed to get quotes",
+      "noUserWithUsername": "No user with provided username found",
+      "quoteNotFound": "Quote not found"
+    }
+  },
+  "api": {
+    "internalServerError": "Internal server error",
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
   },
   "reservations": {
     "title": "Reservations",

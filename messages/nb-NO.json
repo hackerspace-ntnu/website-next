@@ -34,7 +34,8 @@
     "cancel": "Avbryt",
     "save": "Lagre",
     "uploadText": "Slipp filer her eller klikk for å laste opp",
-    "noValidFiles": "Ingen gyldige filer ble sluppet"
+    "noValidFiles": "Ingen gyldige filer ble sluppet",
+    "noChoicesFound": "Ingen valg funnet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -120,6 +121,7 @@
     "about": "Om oss",
     "shiftSchedule": "Vaktliste",
     "members": "Medlemmer",
+    "quotes": "Sitater",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
@@ -920,13 +922,6 @@
       "description": "Administrer bannere som vises på nettsiden."
     }
   },
-  "api": {
-    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
-    "notAuthenticated": "Ikke autentisert",
-    "notAuthorized": "Ikke autorisert",
-    "noFileFound": "Ingen fil funnet",
-    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
-  },
   "privacy": {
     "title": "Personvernerklæring",
     "lastUpdated": "Sist oppdatert: 9. juli 2025",
@@ -989,6 +984,69 @@
       "title": "Endringer i denne personvernerklæringen",
       "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
     }
+  },
+  "quotes": {
+    "title": "Inspirerende sitater",
+    "backToQuotes": "Tilbake til sitater",
+    "heardByUser": "Hørt av: {user}",
+    "new": {
+      "title": "Nytt sitat",
+      "createQuote": "Opprett sitat",
+      "success": "Sitat opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette nye sitater"
+    },
+    "update": {
+      "title": "Oppdater sitat",
+      "updateQuote": "Oppdater sitat",
+      "success": "Sitat oppdatert",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere sitater"
+    },
+    "delete": {
+      "title": "Er du sikker på at du vil slette dette sitatet?",
+      "description": "Denne handlingen kan ikke angres.",
+      "success": "Sitat slettet",
+      "unauthorized": "Du har ikke rettigheter til å slette sitater"
+    },
+    "form": {
+      "userId": {
+        "label": "Bruker",
+        "required": "Bruker er påkrevd",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en bruker"
+      },
+      "content": {
+        "labelEnglish": "Sitat (engelsk)",
+        "labelNorwegian": "Sitat (norsk)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Sitat er påkrevd",
+        "minLength": "Sitat må være minst {count} tegn"
+      },
+      "internal": {
+        "label": "Internt sitat",
+        "description": "Hvis valgt, vil dette sitatet kun være synlig for Hackerspace-medlemmer."
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "invalidOffset": "Ugyldig offset",
+      "insertFailed": "Kunne ikke opprette sitat",
+      "updateFailed": "Kunne ikke oppdatere sitat",
+      "deleteFailed": "Kunne ikke slette sitat",
+      "failedToFetchQuotes": "Serveren klarte ikke å hente sitater",
+      "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
+      "quoteNotFound": "Sitat ikke funnet"
+    }
+  },
+  "api": {
+    "internalServerError": "Intern serverfeil",
+    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet",
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
   },
   "reservations": {
     "title": "Reservasjoner",

@@ -189,6 +189,18 @@ const routing = defineRouting({
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/quotes': {
+      'en-GB': '/quotes',
+      'nb-NO': '/sitater',
+    },
+    '/quotes/new': {
+      'en-GB': '/quotes/new',
+      'nb-NO': '/sitater/ny',
+    },
+    '/quotes/[quoteId]/edit': {
+      'en-GB': '/quotes/[quoteId]/edit',
+      'nb-NO': '/sitater/[quoteId]/rediger',
+    },
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
