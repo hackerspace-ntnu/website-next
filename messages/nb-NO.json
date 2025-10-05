@@ -227,6 +227,7 @@
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
     "noMembersFound": "Ingen medlemmer funnet.",
+    "unauthorized": "Du har ikke rettigheter til å se denne brukeren",
     "skillManagement": {
       "addDialogTitle": "Er du sikker på at du vil gi ferdigheten {skill} til {user}?",
       "removeDialogTitle": "Er du sikker på at du vil fjerne ferdigheten {skill} fra {user}?",

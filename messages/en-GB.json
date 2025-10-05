@@ -227,6 +227,7 @@
     "guest": "Guest",
     "usernameCopied": "Username copied to clipboard!",
     "noMembersFound": "No members found.",
+    "unauthorized": "Unauthorized to view this user",
     "skillManagement": {
       "addDialogTitle": "Are you sure you want to add {skill} to {user}?",
       "removeDialogTitle": "Are you sure you want to remove {skill} from {user}?",

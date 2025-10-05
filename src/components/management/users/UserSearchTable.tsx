@@ -49,6 +49,9 @@ async function UserSearchTable({
                   href={{
                     pathname: '/members/[memberId]',
                     params: { memberId: user.id },
+                    query: {
+                      management: true,
+                    },
                   }}
                   className='flex items-center gap-4 hover:[&>span]:underline'
                 >
