@@ -51,8 +51,9 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
       case 'out_of_order':
         return (
           <Button
-            variant='ghost'
+            variant='secondary'
             className='clamp-[text-base-lg-clamp] pointer-events-none mt-auto h-14 w-full rounded-t-none rounded-b-xl'
+            disabled
           >
             {t('tools.outOfOrder')}
           </Button>
