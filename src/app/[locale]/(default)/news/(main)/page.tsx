@@ -11,7 +11,7 @@ import { CardGrid } from '@/components/news/CardGrid';
 import { ItemGrid } from '@/components/news/ItemGrid';
 import { ItemGridSkeleton } from '@/components/news/ItemGridSkeleton';
 import { Separator } from '@/components/ui/Separator';
-import { articleMockData as articleData } from '@/mock-data/article';
+import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('layout');
@@ -20,6 +20,9 @@ export async function generateMetadata() {
     title: t('news'),
   };
 }
+
+const TOP_ARTICLES = 4;
+const GRID_ARTICLES = 6;
 
 export default async function NewsPage({
   params,
@@ -30,23 +33,31 @@ export default async function NewsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
   });
 
   const { [t('page')]: page = 1 } = searchParamsCache.parse(await searchParams);
-  // TODO: Button to create new article should only be visible when logged in
+
+  const articles = await api.news.fetchArticles({
+    limit: TOP_ARTICLES + GRID_ARTICLES,
+    offset: (page - 1) * (TOP_ARTICLES + GRID_ARTICLES),
+  });
+
+  const availableArticles = await api.news.countAvailableArticles();
+
   return (
     <>
-      <CardGrid topArticles={articleData.slice(0, 4)} />
+      <CardGrid topArticles={articles.slice(0, 4)} />
       <Separator className='my-6' />
       <Suspense key={page} fallback={<ItemGridSkeleton />}>
-        <ItemGrid page={page} />
+        <ItemGrid articles={articles.slice(4)} />
       </Suspense>
       <PaginationCarousel
         className='mt-6'
-        totalPages={Math.ceil(articleData.length / 6)}
+        totalPages={Math.ceil(availableArticles / GRID_ARTICLES)}
       />
     </>
   );

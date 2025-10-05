@@ -101,9 +101,17 @@ const routing = defineRouting({
       'en-GB': '/events',
       'nb-NO': '/arrangementer',
     },
+    '/events/new': {
+      'en-GB': '/events/new',
+      'nb-NO': '/arrangementer/ny',
+    },
     '/events/[eventId]': {
       'en-GB': '/events/[eventId]',
       'nb-NO': '/arrangementer/[eventId]',
+    },
+    '/events/[eventId]/edit': {
+      'en-GB': '/events/[eventId]/edit',
+      'nb-NO': '/arrangementer/[eventId]/rediger',
     },
     '/news': {
       'en-GB': '/news',
@@ -116,6 +124,10 @@ const routing = defineRouting({
     '/news/[articleId]': {
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
+    },
+    '/news/[articleId]/edit': {
+      'en-GB': '/news/[articleId]/edit',
+      'nb-NO': '/nyheter/[articleId]/rediger',
     },
     '/members': {
       'en-GB': '/members',
@@ -165,13 +177,73 @@ const routing = defineRouting({
       'en-GB': '/rules/[subsetId]',
       'nb-NO': '/regler/[subsetId]',
     },
+    '/rules/new': {
+      'en-GB': '/rules/new',
+      'nb-NO': '/regler/ny',
+    },
+    '/rules/[subsetId]/edit': {
+      'en-GB': '/rules/[subsetId]/edit',
+      'nb-NO': '/regler/[subsetId]/rediger',
+    },
     '/shift-schedule': {
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/applications/apply': {
+      'en-GB': '/applications/apply',
+      'nb-NO': '/opptak/søk',
+    },
+    '/applications/thank-you': {
+      'en-GB': '/applications/thank-you',
+      'nb-NO': '/opptak/takk',
+    },
+    '/applications/view': {
+      'en-GB': '/applications/view',
+      'nb-NO': '/opptak/vis',
+    },
+    '/applications/view/[appId]': {
+      'en-GB': '/applications/view/[appId]',
+      'nb-NO': '/opptak/vis/[appId]',
+    },
+    '/quotes': {
+      'en-GB': '/quotes',
+      'nb-NO': '/sitater',
+    },
+    '/quotes/new': {
+      'en-GB': '/quotes/new',
+      'nb-NO': '/sitater/ny',
+    },
+    '/quotes/[quoteId]/edit': {
+      'en-GB': '/quotes/[quoteId]/edit',
+      'nb-NO': '/sitater/[quoteId]/rediger',
+    },
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
+    },
+    '/management': {
+      'en-GB': '/management',
+      'nb-NO': '/administrasjon',
+    },
+    '/management/skills': {
+      'en-GB': '/management/skills',
+      'nb-NO': '/administrasjon/ferdigheter',
+    },
+    '/management/skills/[skillIdentifier]': {
+      'en-GB': '/management/skills/[skillIdentifier]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillIdentifier]',
+    },
+    '/management/skills/new': {
+      'en-GB': '/management/skills/new',
+      'nb-NO': '/administrasjon/ferdigheter/ny',
+    },
+    '/reservations': {
+      'en-GB': '/reservations',
+      'nb-NO': '/reservasjoner',
+    },
+    '/reservations/[reservationId]': {
+      'en-GB': '/reservations/[reservationId]',
+      'nb-NO': '/reservasjoner/[reservationId]',
     },
   },
 });

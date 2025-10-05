@@ -46,6 +46,7 @@ export default async function MemberPage({
 }) {
   const { locale, memberId } = await params;
   setRequestLocale(locale);
+
   const t = await getTranslations('members');
 
   const processedMemberId = Number(memberId);

@@ -10,8 +10,8 @@ import { createRouter } from '@/server/api/trpc';
 import {
   groupLocalizations,
   groups,
-  userGroups,
   users,
+  usersGroups,
 } from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { editGroupSchema } from '@/validations/groups/editGroupSchema';
@@ -110,9 +110,9 @@ const groupsRouter = createRouter({
     .query(async ({ ctx, input }) => {
       const groupId = input;
 
-      const results = await ctx.db.query.userGroups
+      const results = await ctx.db.query.usersGroups
         .findMany({
-          where: eq(userGroups.groupId, groupId),
+          where: eq(usersGroups.groupId, groupId),
           with: {
             user: true,
           },
@@ -128,6 +128,29 @@ const groupsRouter = createRouter({
 
       return results.map((userGroup) => userGroup.user);
     }),
+  fetchGroupsOpenToApps: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.query.groups
+      .findMany({
+        where: eq(groups.openForApplications, true),
+        with: {
+          localizations: {
+            columns: {
+              name: true,
+              locale: true,
+            },
+          },
+        },
+      })
+      .catch((error) => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('groups.api.fetchGroupsFailed', {
+            error: error.message,
+          }),
+          cause: { toast: 'error' },
+        });
+      });
+  }),
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
@@ -163,6 +186,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .returning({ id: groups.id });
 
@@ -230,6 +254,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 
@@ -283,11 +308,6 @@ const groupsRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
-
-      await ctx.db
-        .update(groups)
-        .set({ imageId: null })
-        .where(eq(groups.id, input.id));
 
       await deleteFile(group.imageId);
     }),
@@ -352,10 +372,10 @@ const groupsRouter = createRouter({
           cause: { toast: 'error' },
         });
 
-      const existingUserGroup = await ctx.db.query.userGroups.findFirst({
+      const existingUserGroup = await ctx.db.query.usersGroups.findFirst({
         where: and(
-          eq(userGroups.groupId, input.groupId),
-          eq(userGroups.userId, input.userId),
+          eq(usersGroups.groupId, input.groupId),
+          eq(usersGroups.userId, input.userId),
         ),
       });
 
@@ -367,7 +387,7 @@ const groupsRouter = createRouter({
         });
       }
 
-      await ctx.db.insert(userGroups).values({
+      await ctx.db.insert(usersGroups).values({
         groupId: input.groupId,
         userId: input.userId,
       });
@@ -401,10 +421,10 @@ const groupsRouter = createRouter({
         });
       }
 
-      const existingUserGroup = await ctx.db.query.userGroups.findFirst({
+      const existingUserGroup = await ctx.db.query.usersGroups.findFirst({
         where: and(
-          eq(userGroups.groupId, input.groupId),
-          eq(userGroups.userId, input.userId),
+          eq(usersGroups.groupId, input.groupId),
+          eq(usersGroups.userId, input.userId),
         ),
       });
 
@@ -417,11 +437,11 @@ const groupsRouter = createRouter({
       }
 
       await ctx.db
-        .delete(userGroups)
+        .delete(usersGroups)
         .where(
           and(
-            eq(userGroups.groupId, input.groupId),
-            eq(userGroups.userId, input.userId),
+            eq(usersGroups.groupId, input.groupId),
+            eq(usersGroups.userId, input.userId),
           ),
         );
     }),

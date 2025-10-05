@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import {
   CalendarIcon,
   CheckIcon,
@@ -6,7 +5,7 @@ import {
   ShoppingBasketIcon,
   XIcon,
 } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { ApproveLoanButton } from '@/components/storage/ApproveLoanButton';
 import { ConfirmLoanReturnedButton } from '@/components/storage/ConfirmLoanReturnedButton';
 import { DeleteLoanButton } from '@/components/storage/DeleteLoanButton';
@@ -32,6 +31,7 @@ async function LoanCard({
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
   const locale = await getLocale();
+  const formatter = await getFormatter();
   const englishLocale = loan.item.localizations.find(
     (l) => l.locale === 'en-GB',
   );
@@ -61,8 +61,12 @@ async function LoanCard({
             <CalendarIcon className='h-6 w-6 text-primary' />
             <span>
               {t('borrowTimeline', {
-                from: format(loan.borrowFrom, 'dd.MM.yyyy'),
-                until: format(loan.borrowUntil, 'dd.MM.yyyy'),
+                from: formatter.dateTime(loan.borrowFrom, {
+                  dateStyle: 'short',
+                }),
+                until: formatter.dateTime(loan.borrowUntil, {
+                  dateStyle: 'short',
+                }),
               })}
             </span>
           </li>
@@ -85,7 +89,9 @@ async function LoanCard({
                 <CheckIcon className='h-6 w-6 text-primary' />
                 <span>
                   {t('returned', {
-                    date: format(loan.returnedAt, 'dd.MM.yyyy'),
+                    date: formatter.dateTime(loan.returnedAt, {
+                      dateStyle: 'short',
+                    }),
                   })}
                 </span>
               </li>

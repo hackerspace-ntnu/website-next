@@ -2,25 +2,102 @@ import { TRPCError } from '@trpc/server';
 import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
+  leadershipProcedure,
   managementProcedure,
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { skills, userSkills, users } from '@/server/db/tables';
+import { skills, users, usersSkills } from '@/server/db/tables';
+import { editSkillSchema } from '@/validations/management/editSkillSchema';
+import { skillIdentifierSchema } from '@/validations/management/skillIdentifierSchema';
+import { skillSchema } from '@/validations/management/skillSchema';
 import { userToSkillSchema } from '@/validations/skills/userToSkillSchema';
 
 const skillsRouter = createRouter({
   fetchAllSkills: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.query.skills.findMany();
   }),
+  fetchSkill: publicProcedure
+    .input((input) =>
+      skillIdentifierSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.db.query.skills.findFirst({
+        where: eq(skills.identifier, input),
+      });
+    }),
+  createSkill: leadershipProcedure
+    .input((input) => skillSchema(useTranslationsFromContext()).parse(input))
+    .mutation(async ({ ctx, input }) => {
+      const existingSkill = await ctx.db.query.skills.findFirst({
+        where: eq(skills.identifier, input.identifier),
+      });
+
+      if (existingSkill) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('skills.api.skillWithIdExists', {
+            identifier: input.identifier,
+          }),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.insert(skills).values(input);
+    }),
+  editSkill: leadershipProcedure
+    .input((input) =>
+      editSkillSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const skill = await ctx.db.query.skills.findFirst({
+        where: eq(skills.id, input.id),
+      });
+
+      if (!skill) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('skills.api.skillNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .update(skills)
+        .set({
+          identifier: input.identifier,
+          nameNorwegian: input.nameNorwegian,
+          nameEnglish: input.nameEnglish,
+        })
+        .where(eq(skills.id, input.id));
+    }),
+  deleteSkill: leadershipProcedure
+    .input((input) =>
+      skillIdentifierSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const skill = await ctx.db.query.skills.findFirst({
+        where: eq(skills.identifier, input),
+      });
+
+      if (!skill) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('skills.api.skillNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.delete(skills).where(eq(skills.identifier, input));
+    }),
   addSkillToUser: protectedProcedure
     .input((input) =>
       userToSkillSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const userSkillsData = await ctx.db.query.userSkills.findMany({
-        where: eq(userSkills.userId, ctx.user.id),
+      const userSkillsData = await ctx.db.query.usersSkills.findMany({
+        where: eq(usersSkills.userId, ctx.user.id),
       });
 
       // We can't add skills if we don't have the skill ourselves, unless we're management or admin
@@ -63,10 +140,10 @@ const skillsRouter = createRouter({
         });
       }
 
-      const existingUserSkill = await ctx.db.query.userSkills.findFirst({
+      const existingUserSkill = await ctx.db.query.usersSkills.findFirst({
         where: and(
-          eq(userSkills.skillId, input.skillId),
-          eq(userSkills.userId, input.userId),
+          eq(usersSkills.skillId, input.skillId),
+          eq(usersSkills.userId, input.userId),
         ),
       });
 
@@ -78,7 +155,7 @@ const skillsRouter = createRouter({
         });
       }
 
-      await ctx.db.insert(userSkills).values({
+      await ctx.db.insert(usersSkills).values({
         skillId: input.skillId,
         userId: input.userId,
       });
@@ -112,10 +189,10 @@ const skillsRouter = createRouter({
         });
       }
 
-      const existingUserSkill = await ctx.db.query.userSkills.findFirst({
+      const existingUserSkill = await ctx.db.query.usersSkills.findFirst({
         where: and(
-          eq(userSkills.skillId, input.skillId),
-          eq(userSkills.userId, input.userId),
+          eq(usersSkills.skillId, input.skillId),
+          eq(usersSkills.userId, input.userId),
         ),
       });
 
@@ -128,11 +205,11 @@ const skillsRouter = createRouter({
       }
 
       await ctx.db
-        .delete(userSkills)
+        .delete(usersSkills)
         .where(
           and(
-            eq(userSkills.skillId, input.skillId),
-            eq(userSkills.userId, input.userId),
+            eq(usersSkills.skillId, input.skillId),
+            eq(usersSkills.userId, input.userId),
           ),
         );
     }),
@@ -154,8 +231,8 @@ const skillsRouter = createRouter({
         });
       }
 
-      return await ctx.db.query.userSkills.findMany({
-        where: eq(userSkills.userId, input.userId),
+      return await ctx.db.query.usersSkills.findMany({
+        where: eq(usersSkills.userId, input.userId),
         with: { skill: true },
       });
     }),

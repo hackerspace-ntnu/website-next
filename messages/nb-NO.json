@@ -15,6 +15,7 @@
     "category": "kategori",
     "sort": "sortering",
     "photoOf": "Bilde av {name}",
+    "skills": "Ferdigheter",
     "today": "I dag",
     "selected": "Valgt",
     "week": "Uke",
@@ -33,7 +34,8 @@
     "cancel": "Avbryt",
     "save": "Lagre",
     "uploadText": "Slipp filer her eller klikk for å laste opp",
-    "noValidFiles": "Ingen gyldige filer ble sluppet"
+    "noValidFiles": "Ingen gyldige filer ble sluppet",
+    "noChoicesFound": "Ingen valg funnet"
   },
   "error": {
     "notFound": "404 - Siden ble ikke funnet",
@@ -117,11 +119,14 @@
     "events": "Arrangementer",
     "storage": "Lager",
     "about": "Om oss",
+    "apply": "Søk",
     "shiftSchedule": "Vaktliste",
     "members": "Medlemmer",
+    "quotes": "Sitater",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
     "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
+    "applications": "Søknader",
     "changeLocale": "Bytt språk",
     "toggleTheme": "Bytt tema",
     "light": "Lys",
@@ -131,6 +136,7 @@
     "signIn": "Logg inn",
     "signOut": "Logg ut",
     "settings": "Innstillinger",
+    "management": "Administrasjon",
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
@@ -148,17 +154,69 @@
     "NTNUIDI": "NTNU Institutt for datateknologi og informatikk",
     "NTNUIDIURL": "https://www.ntnu.no/idi",
     "NTNUNexus": "Arbeidslivsnettverket Nexus",
-    "internal": "Internal",
+    "internal": "Intern",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
-    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>."
+    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
+    "reservations": "Reservasjoner"
   },
   "news": {
     "title": "Nyheter",
     "internalArticle": "Dette er en intern artikkel",
     "newArticle": "Ny artikkel",
+    "updateArticle": "Oppdater artikkel",
     "readTime": "{count, plural, =0 {mindre enn ett minutt} one {# minutt} other {# minutter}} lesing",
-    "views": "Visninger"
+    "views": "Visninger",
+    "backToNews": "Tilbake til nyheter",
+    "backToArticle": "Tilbake til artikkel",
+    "lastUpdated": "Sist oppdatert: {date}",
+    "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
+    "UpdateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "form": {
+      "createArticle": "Opprett artikkel",
+      "updateArticle": "Oppdater artikkel",
+      "deleteArticle": "Slett artikkel",
+      "articleCreated": "Artikkel opprettet",
+      "articleUpdated": "Artikkel oppdatert",
+      "articleImageDeleted": "Artikkelbilde slettet",
+      "articleDeleted": "Artikkel slettet",
+      "deleteArticleImage": "Slett artikkelbilde",
+      "deleteArticleImageTitle": "Er du sikker på at du vil slette dette artikkelbildet?",
+      "deleteArticleImageDescription": "Denne handlingen kan ikke angres.",
+      "deleteArticleTitle": "Er du sikker på at du vil slette denne artikkelen?",
+      "deleteArticleDescription": "Denne handlingen kan ikke angres.",
+      "image": {
+        "label": "Artikkelbilde",
+        "description": "Last opp et bilde...",
+        "required": "Artikkelbilde er påkrevd",
+        "sizeLimitError": "Artikkelbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Artikkelbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "title": {
+        "labelNorwegian": "Artikkeltittel (norsk)",
+        "labelEnglish": "Artikkeltittel (engelsk)",
+        "required": "Artikkeltittel er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Artikkelinnhold (norsk)",
+        "labelEnglish": "Artikkelinnhold (engelsk)",
+        "required": "Artikkelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern",
+        "description": "Hvis valgt, vil denne artikkelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "invalidLimit": "Ugyldig limit",
+      "invalidOffset": "Ugyldig offset",
+      "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "insertFailed": "Kunne ikke legge til nyhetsartikkel",
+      "articleNotFound": "Artikkel ikke funnet",
+      "articleImageNotFound": "Artikkelbilde ikke funnet"
+    }
   },
   "members": {
     "title": "Medlemmer",
@@ -382,6 +440,10 @@
       "internal": {
         "label": "Intern gruppe",
         "description": "Hvis valgt, vil denne gruppen kun være synlig for Hackerspace-medlemmer."
+      },
+      "openForApplications": {
+        "label": "Åpen for søknader",
+        "description": "Hvis valgt, vil alle kunne sende en søknad om å bli med i denne gruppen."
       }
     },
     "api": {
@@ -612,41 +674,384 @@
     "upcomingEvents": "Kommende arrangementer",
     "pastEvents": "Tidligere arrangementer",
     "detailsAboutEvent": "Les mer om {eventName}",
-    "startsAt": "Starter kl.",
-    "startedAt": "Startet kl.",
-    "endsAt": "Slutter kl.",
-    "endedAt": "Sluttet kl.",
-    "backToEvents": "Tilbake til arrangementer"
+    "startsAt": "Starter",
+    "startedAt": "Startet",
+    "endsAt": "Slutter",
+    "endedAt": "Sluttet",
+    "backToEvents": "Tilbake til arrangementer",
+    "backToEvent": "Tilbake til arrangement",
+    "attendanceGivesSkill": "Ved å delta på dette arrangementet vil du oppnå følgende ferdighet:",
+    "new": {
+      "title": "Nytt arrangement",
+      "unauthorized": "Du har ikke rettigheter til å opprette arrangementer",
+      "success": "Arrangementet ble opprettet! Videresender deg til arrangementet..."
+    },
+    "edit": {
+      "title": "Rediger arrangement",
+      "unauthorized": "Du har ikke rettigheter til å redigere arrangementer",
+      "delete": "Slett arrangement",
+      "deleteImage": "Slett arrangementsbilde",
+      "deleteConfirmTitle": "Er du sikker på at du vil slette dette arrangementet?",
+      "deleteConfirmDescription": "Alle påmeldinger for dette arrangementet vil også bli slettet. Denne handlingen kan ikke angres.",
+      "deleteImageConfirmTitle": "Er du sikker på at du vil slette arrangementsbildet?",
+      "deleteImageConfirmDescription": "Denne handlingen kan ikke angres.",
+      "successEdit": "Arrangementet ble oppdatert! Videresender deg til arrangementet...",
+      "successDelete": "Arrangementet ble slettet! Videresender deg til arrangementer...",
+      "successDeleteImage": "Arrangementsbildet ble slettet!"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "Navn (norsk)",
+        "placeholder": "Navn",
+        "required": "Navn er påkrevd",
+        "maxLength": "Navn må være mindre enn {count} tegn"
+      },
+      "nameEnglish": {
+        "label": "Navn (engelsk)",
+        "placeholder": "Event name",
+        "required": "Navn er påkrevd",
+        "maxLength": "Navn må være mindre enn {count} tegn"
+      },
+      "summaryNorwegian": {
+        "label": "Sammendrag (norsk)",
+        "placeholder": "Kort beskrivelse av arrangementet",
+        "required": "Sammendrag er påkrevd",
+        "maxLength": "Sammendrag må være mindre enn {count} tegn"
+      },
+      "summaryEnglish": {
+        "label": "Sammendrag (engelsk)",
+        "placeholder": "Short description of the event",
+        "required": "Sammendrag er påkrevd",
+        "maxLength": "Sammendrag må være mindre enn {count} tegn"
+      },
+      "descriptionNorwegian": {
+        "label": "Beskrivelse (norsk)",
+        "placeholder": "Beskrivelse av arrangementet",
+        "required": "Beskrivelse er påkrevd"
+      },
+      "descriptionEnglish": {
+        "label": "Beskrivelse (engelsk)",
+        "placeholder": "Description of the event",
+        "required": "Beskrivelse er påkrevd"
+      },
+      "locationNorwegian": {
+        "label": "Sted (norsk)",
+        "placeholder": "Sted for arrangementet",
+        "required": "Sted er påkrevd",
+        "maxLength": "Sted må være mindre enn {count} tegn"
+      },
+      "locationEnglish": {
+        "label": "Sted (engelsk)",
+        "placeholder": "Location of the event",
+        "required": "Location is required",
+        "maxLength": "Sted må være mindre enn {count} tegn"
+      },
+      "startTime": {
+        "label": "Starttidspunkt",
+        "required": "Starttidspunkt er påkrevd",
+        "timeInPast": "Starttidspunktet må være i fremtiden"
+      },
+      "setSignUpDeadline": {
+        "label": "Sett påmeldingsfrist",
+        "description": "Du kan du sette en påmeldingsfrist. Etter dette tidspunktet vil ingen nye påmeldinger bli akseptert"
+      },
+      "signUpDeadline": {
+        "label": "Påmeldingsfrist",
+        "timeInPast": "Påmeldingsfristen må være i fremtiden",
+        "beforeStartTime": "Påmeldingsfristen må være før arrangementets starttidspunkt"
+      },
+      "endTime": {
+        "label": "Sluttidspunkt",
+        "required": "Sluttidspunkt er påkrevd",
+        "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
+      },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
+      "internal": {
+        "label": "Internt arrangement",
+        "description": "Hvis avkrysset, vil arrangementet kun være synlig for Hackerspace-medlemmer"
+      },
+      "skill": {
+        "label": "Velg ferdighet",
+        "description": "Velg ferdigheten som kan tilegnes ved å delta på dette arrangementet",
+        "placeholder": "Velg en ferdighet"
+      },
+      "image": {
+        "label": "Arrangementsbilde",
+        "upload": "Last opp et bilde...",
+        "sizeLimitError": "Arrangementsbilde må være mindre enn {size} MB",
+        "wrongFileTypeError": "Arrangementsbilde må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "createSubmit": "Opprett arrangement",
+      "editSubmit": "Oppdater arrangement"
+    },
+    "attendance": {
+      "signUp": "Meld meg på",
+      "cancelSignUp": "Meld meg av",
+      "signUpSuccess": "Du har blitt meldt på arrangementet!",
+      "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
+      "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
+      "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
+      "eventStartedAlready": "Arrangementet har allerede startet",
+      "eventFinishedAlready": "Arrangementet er ferdig",
+      "signUpDeadline": "Påmeldingsfrist: {date}",
+      "attendance": "Oppmøte",
+      "attended": "Møtte opp",
+      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendeesList": "Deltakerliste",
+      "member": "Medlem",
+      "actions": "Handlinger",
+      "present": "Til stede",
+      "absent": "Fraværende",
+      "give": "Gi",
+      "skillAttained": "Ferdighet oppnådd!",
+      "noParticipants": "Ingen medlemmer har meldt seg på dette arrangementet",
+      "notStartedYet": "Kan ikke endre oppmøte: Arrangementet har ikke startet enda",
+      "updating": "Oppdaterer oppmøte for {name}...",
+      "success": "Oppmøte oppdatert for {name}!",
+      "error": "Kunne ikke oppdatere oppmøte for {name}",
+      "givingSkill": "Gir ferdighet {skill} til {name}...",
+      "successSkill": "Ferdighet {skill} gitt til {name}!",
+      "errorSkill": "Kunne ikke gi ferdighet {skill} til {name}"
+    },
+    "api": {
+      "invalidId": "Ugyldig arrangement-ID",
+      "invalidUserId": "Ugyldig bruker-ID",
+      "invalidSkillId": "Ugyldig ferdighet-ID",
+      "fetchEventFailed": "Kunne ikke hente arrangement",
+      "unauthorized": "Du har ikke rettigheter til å se dette arrangementet",
+      "invalidOffset": "Ugyldig offset",
+      "invalidLimit": "Ugyldig limit",
+      "insertFailed": "Kunne ikke opprette arrangement",
+      "notFound": "Kunne ikke finne arrangementet",
+      "skillNotFound": "Kunne ikke finne ferdigheten",
+      "userNotFound": "Kunne ikke finne brukeren",
+      "alreadyHasSkill": "Brukeren {user} har allerede ferdigheten {skill}",
+      "participantNotFound": "Kunne ikke finne deltakeren",
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
+    }
   },
   "rules": {
     "title": "Regler",
-    "forEveryone": "For alle",
-    "internal": "Interne regler"
+    "publicRules": "Offentlige regler",
+    "internalRules": "Interne regler",
+    "backToRules": "Tilbake til regler",
+    "new": {
+      "title": "Ny regel",
+      "createRule": "Opprett regel",
+      "ruleCreated": "Regel opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette regler"
+    },
+    "update": {
+      "title": "Oppdater regel",
+      "updateRule": "Oppdater regel",
+      "deleteRule": "Slett regel",
+      "deleteRuleTitle": "Er du sikker på at du vil slette denne regelen?",
+      "deleteRuleDescription": "Regelen vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "deleteRuleImage": "Slett regelbilde",
+      "deleteRuleImageTitle": "Er du sikker på at du vil slette dette regelbildet?",
+      "deleteRuleImageDescription": "Regelbildet vil bli permanent slettet. Denne handlingen kan ikke angres.",
+      "ruleUpdated": "Regel oppdatert",
+      "ruleDeleted": "Regel slettet",
+      "imageDeleted": "Regelbilde slettet",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere regler"
+    },
+    "form": {
+      "image": {
+        "label": "Regelbilde",
+        "description": "Last opp et bilde...",
+        "sizeLimitError": "Regelbildet må være mindre enn {size} MB",
+        "wrongFileTypeError": "Regelbildet må være en PNG eller JPG",
+        "fileNotImageError": "Filen er ikke et bilde"
+      },
+      "name": {
+        "labelNorwegian": "Navn (norsk)",
+        "labelEnglish": "Navn (engelsk)",
+        "placeholderNorwegian": "Regler for verkstedet",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "Navn er påkrevd"
+      },
+      "content": {
+        "labelNorwegian": "Regelinnhold (norsk)",
+        "labelEnglish": "Regelinnhold (engelsk)",
+        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
+        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
+        "required": "Regelinnhold er påkrevd"
+      },
+      "internal": {
+        "label": "Intern regel",
+        "description": "Hvis valgt, vil denne regelen kun være synlig for Hackerspace-medlemmer."
+      }
+    },
+    "api": {
+      "invalidRuleId": "Ugyldig regel-ID",
+      "fetchRulesFailed": "Kunne ikke hente regler",
+      "ruleWithNameExists": "En regel med navnet {name} eksisterer allerede",
+      "ruleNotFound": "Regel ikke funnet",
+      "insertFailed": "Kunne ikke legge til regel",
+      "updateFailed": "Kunne ikke oppdatere regel",
+      "unauthorizedInternalRule": "Du har ikke rettigheter til å se interne regler"
+    }
   },
   "skills": {
-    "skills": "Ferdigheter",
-    "printing": "3D-printing",
-    "soldering": "Lodding",
-    "raspberry": "Raspberry Pi",
-    "unix": "Unix/Linux",
-    "laser": "Laserkutting",
-    "workshop": "Verkstedsverktøy",
-    "microcontroller": "Mikrokontroller-programmering",
-    "webdevelopment": "Webutvikling",
     "api": {
       "skillNotFound": "Ferdighet ikke funnet",
       "cannotAddSkill": "Du kan ikke gi denne ferdigheten",
       "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
       "userDoesNotHaveSkill": "Brukeren har ikke denne ferdigheten",
-      "invalidId": "Ugyldig ID"
+      "invalidId": "Ugyldig ID",
+      "invalidIdentifier": "Ugyldig ferdighetsidentifikator",
+      "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede"
     }
   },
-  "api": {
-    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
-    "notAuthenticated": "Ikke autentisert",
-    "notAuthorized": "Ikke autorisert",
-    "noFileFound": "Ingen fil funnet",
-    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+  "management": {
+    "title": "Nettside-administrasjon",
+    "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
+    "skills": {
+      "title": "Administrer ferdigheter",
+      "description": "Administrer ferdighetene som medlemmene kan oppnå.",
+      "backToManagement": "Tilbake til administrasjon",
+      "backToSkills": "Tilbake til ferdigheter",
+      "new": {
+        "title": "Ny ferdighet",
+        "success": "Ferdighet lagt til!"
+      },
+      "edit": {
+        "title": "Oppdater ferdighet",
+        "delete": "Slett ferdighet",
+        "deleteConfirmTitle": "Er du sikker på at du vil slette denne ferdigheten?",
+        "deleteConfirmDescription": "Alle brukere som har denne ferdigheten vil miste den. Denne handlingen kan ikke angres.",
+        "successEdit": "Ferdighet oppdatert!",
+        "successDelete": "Ferdighet slettet!"
+      },
+      "form": {
+        "createSubmit": "Opprett ferdighet",
+        "editSubmit": "Oppdater ferdighet",
+        "name": {
+          "labelNorwegian": "Ferdighetsnavn (norsk)",
+          "placeholderNorwegian": "Webutvikling",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "Ferdighetsnavn (engelsk)",
+          "required": "Ferdighetsnavn er påkrevd",
+          "maxLength": "Ferdighetsnavn må være mindre enn {count} tegn"
+        },
+        "identifier": {
+          "label": "Ferdighetsidentifikator",
+          "placeholder": "Webutvikling",
+          "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør DevOps-teamet.",
+          "required": "Ferdighetsidentifikator er påkrevd",
+          "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
+          "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
+        }
+      }
+    },
+    "applications": {
+      "apply": {
+        "title": "Søk Hackerspace NTNU",
+        "pageDescription": "Takk for din interesse for å bli med oss! Du kan forvente mye moro, læring og utvikling. Vennligst fyll ut skjemaet nedenfor for å søke, så tar vi kontakt med deg så snart som mulig (men senest innen to uker).",
+        "dataNote": "Merk: Alle dataene dine vil bli slettet så snart søknadsprosessen er fullført.",
+        "sendApplication": "Send søknad",
+        "applicationSubmitted": "Søknaden din har blitt sendt inn!",
+        "noGroupsAvailable": "Vi beklager, men alle Hackerspace-grupper er fulle for øyeblikket. Vennligst prøv igjen senere, send oss en melding eller spør et medlem på verkstedet vårt.",
+        "name": {
+          "label": "Fullt navn",
+          "required": "Navn er påkrevd"
+        },
+        "email": {
+          "label": "E-post",
+          "required": "E-post er påkrevd",
+          "invalid": "Ugyldig e-postadresse"
+        },
+        "phoneNumber": {
+          "label": "Telefonnummer",
+          "required": "Telefonnummer er påkrevd"
+        },
+        "studyProgram": {
+          "label": "Studieprogram",
+          "description": "F.eks. datateknologi, fysikk og matematikk eller kybernetikk og robotikk",
+          "required": "Studieprogram er påkrevd"
+        },
+        "studyYear": {
+          "label": "Studieår",
+          "required": "Studieår er påkrevd",
+          "other": "Annet / Vanskelig å si"
+        },
+        "learnedAboutUsHow": {
+          "label": "Hvordan fikk du vite om Hackerspace?",
+          "required": "Dette feltet er påkrevd"
+        },
+        "about": {
+          "label": "Litt om deg",
+          "description": "Vi vil gjerne vite mer om deg! Hvordan vil du beskrive deg selv? Hva liker du å gjøre på fritiden? Hvordan ville andre beskrive deg? Osv.",
+          "required": "Dette feltet er påkrevd"
+        },
+        "motivation": {
+          "label": "Hvorfor søker du til Hackerspace?",
+          "description": "Du kan beskrive hva du ønsker å gjøre i gruppen, eller beskrive motivasjonen din for å bli med.",
+          "required": "Dette feltet er påkrevd"
+        },
+        "groupIdentifier": {
+          "label": "Gruppe",
+          "description": "Hvis det er flere grupper som interesserer deg, vennligst legg inn ditt førstevalg. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
+          "required": "Gruppe er påkrevd"
+        },
+        "otherProjects": {
+          "label": "Er det noen andre prosjekter du kan være interessert i?",
+          "description": "Gi oss beskjed hvis det er noen andre prosjekter du kan være interessert i. Alle Hackerspace-medlemmer kan starte et nytt prosjekt!",
+          "required": "Dette feltet er påkrevd"
+        }
+      },
+      "thankYou": {
+        "title": "Takk",
+        "description1": "Vi setter pris på interessen din for Hackerspace NTNU!",
+        "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart.",
+        "backToHome": "Tilbake til forsiden"
+      },
+      "view": {
+        "title": "Søknader",
+        "application": "Søknad",
+        "noPending": "Ingen ventende søknader ✅",
+        "noPendingDescription": "Merk: Det kan være ventende søknader som du ikke har tilgang til å se.",
+        "backToHome": "Tilbake til hjem",
+        "backToApplications": "Tilbake til søknader",
+        "submittedBy": "Sendt inn av: {name}",
+        "submittedAt": "Innsendt: {date}",
+        "userInfo": "Brukerinformasjon",
+        "email": "E-post: <link>{email}</link>",
+        "phoneNumber": "Telefonnummer: <link>{phone}</link>",
+        "studyProgram": "Studieprogram: {program}",
+        "studyYear": "Studieår: {year}",
+        "deleteApplication": "Slett søknad",
+        "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
+        "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
+        "applicationDeleted": "Søknad slettet"
+      },
+      "api": {
+        "fetchGroupFailed": "Kunne ikke hente gruppe",
+        "groupNotFound": "Gruppe ikke funnet",
+        "insertAppFailed": "Kunne ikke sende inn søknad",
+        "invalidId": "Ugyldig ID",
+        "deleteAppFailed": "Kunne ikke slette søknad"
+      }
+    },
+    "users": {
+      "title": "Brukere",
+      "description": "Administrer brukere på nettsiden."
+    },
+    "files": {
+      "title": "Filer og bilder",
+      "description": "Administrer filer og bilder lastet opp av medlemmer."
+    },
+    "banners": {
+      "title": "Bannere",
+      "description": "Administrer bannere som vises på nettsiden."
+    }
   },
   "privacy": {
     "title": "Personvernerklæring",
@@ -709,6 +1114,154 @@
     "policyChange": {
       "title": "Endringer i denne personvernerklæringen",
       "content": "Vi forbeholder oss retten til å endre denne personvernerklæringen når som helst. Eventuelle endringer vil bli publisert på denne siden, og endringsdatoen vil bli oppdatert. Vi oppfordrer deg til å regelmessig lese erklæringen for å holde deg informert om hvordan vi beskytter personvernet ditt."
+    }
+  },
+  "quotes": {
+    "title": "Inspirerende sitater",
+    "backToQuotes": "Tilbake til sitater",
+    "heardByUser": "Hørt av: {user}",
+    "new": {
+      "title": "Nytt sitat",
+      "createQuote": "Opprett sitat",
+      "success": "Sitat opprettet",
+      "unauthorized": "Du har ikke rettigheter til å opprette nye sitater"
+    },
+    "update": {
+      "title": "Oppdater sitat",
+      "updateQuote": "Oppdater sitat",
+      "success": "Sitat oppdatert",
+      "unauthorized": "Du har ikke rettigheter til å oppdatere sitater"
+    },
+    "delete": {
+      "title": "Er du sikker på at du vil slette dette sitatet?",
+      "description": "Denne handlingen kan ikke angres.",
+      "success": "Sitat slettet",
+      "unauthorized": "Du har ikke rettigheter til å slette sitater"
+    },
+    "form": {
+      "userId": {
+        "label": "Bruker",
+        "required": "Bruker er påkrevd",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en bruker"
+      },
+      "content": {
+        "labelEnglish": "Sitat (engelsk)",
+        "labelNorwegian": "Sitat (norsk)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Sitat er påkrevd",
+        "minLength": "Sitat må være minst {count} tegn"
+      },
+      "internal": {
+        "label": "Internt sitat",
+        "description": "Hvis valgt, vil dette sitatet kun være synlig for Hackerspace-medlemmer."
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
+    },
+    "api": {
+      "invalidId": "Ugyldig ID",
+      "invalidOffset": "Ugyldig offset",
+      "insertFailed": "Kunne ikke opprette sitat",
+      "updateFailed": "Kunne ikke oppdatere sitat",
+      "deleteFailed": "Kunne ikke slette sitat",
+      "failedToFetchQuotes": "Serveren klarte ikke å hente sitater",
+      "noUserWithUsername": "Ingen bruker med oppgitt brukernavn funnet",
+      "quoteNotFound": "Sitat ikke funnet"
+    }
+  },
+  "api": {
+    "internalServerError": "Intern serverfeil",
+    "tooManyRequests": "For mange forespørsler. Vennligst vent noen minutter og prøv igjen",
+    "notAuthenticated": "Ikke autentisert",
+    "notAuthorized": "Ikke autorisert",
+    "noFileFound": "Ingen fil funnet",
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+  },
+  "reservations": {
+    "title": "Reservasjoner",
+    "backButton": "Tilbake",
+    "tools": {
+      "available": "Reserver",
+      "unavailable": "Utilgjengelig",
+      "supervision": "Krever veiledning",
+      "tooltip": "Les mer om dette utstyret",
+      "myReservations": "Mine reservasjoner"
+    },
+    "myReservationsTable": {
+      "title": "Dine reservasjoner",
+      "edit": "Rediger",
+      "cancel": "Kanseller",
+      "remove": "Fjern",
+      "editTitle": "Trykk for å redigere tabellen",
+      "cancelTitle": "Kanseller handling",
+      "removetitle": "Fjern valgte reservasjoner",
+      "checkBoxTitle": "Trykk for å velge denne",
+      "checkboxAllTitle": "Trykk for å velge alle",
+      "tool": "Verktøy",
+      "from": "Fra",
+      "to": "til",
+      "goToCalendar": "Gå til kalender",
+      "empty": "Du har ingen reservasjoner",
+      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner."
+    },
+    "information": {
+      "importantTitle": "Viktig informasjon!",
+      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
+      "dontShow": "Ikke vis dette igjen"
+    },
+    "toolbar": {
+      "prev": "Forrige",
+      "today": "I dag",
+      "next": "Neste",
+      "day": "Dag",
+      "week": "Uke",
+      "3days": "3-dager",
+      "dayTitle": "Vis dag oversikt",
+      "weekTitle": "Vis uke oversikt",
+      "3daysTitle": "Vis 3-dager oversikt",
+      "prevWeekTitle": "Forrige uke",
+      "prev3daysTitle": "Forrige 3 dager",
+      "prevDayTitle": "Forrige day",
+      "todayTitle": "Vis i dag",
+      "nextWeekTitle": "Neste uke",
+      "next3daysTitle": "Neste 3 dager",
+      "nextDayTitle": "Neste dag"
+    },
+    "form": {
+      "titleCreate": "Opprett en reservasjon",
+      "descriptionCreate": "Sørg for at feltene er fylt ut og klikk 'lagre' for å reservere",
+      "titleEdit": "Rediger reservasjon",
+      "descriptionEdit": "Rediger feltet du ønsker og trykk 'lagre'",
+      "cancel": "Kanseller",
+      "save": "Lagre",
+      "delete": "Slett",
+      "create": "Opprett",
+      "name": "Navn",
+      "namePlaceholder": "Ole Nordmann",
+      "phoneNr": "mobilnummer",
+      "phoneNrPlaceholder": "Din mobilnummer",
+      "email": "Mail",
+      "emailPlaceholder": "imagine@dragin.com",
+      "startTime": "Start dato/tid",
+      "endTime": "Slutt dato/tid",
+      "formSchema": {
+        "nameReq": "Vennligst tast inn ditt navn",
+        "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
+        "emailReq": "Vennligst tast inn ditt mail",
+        "error": "Noe gikk galt, prøv igjen senere..."
+      }
+    },
+    "confirmDialog": {
+      "confirm": "Bekreft",
+      "cancel": "Kanseller",
+      "title": "Bekreft handling",
+      "description": "Er du sikker på at du vil {action}"
+    },
+    "calendar": {
+      "createButton": "Opprett reservasjon",
+      "locale": "nb"
     }
   }
 }

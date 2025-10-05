@@ -14,11 +14,14 @@ import {
 import {
   emailVerificationRequests,
   files,
+  quotes,
   sessions,
   shifts,
-  userGroups,
-  userSkills,
+  usersGroups,
+  usersSkills,
 } from '@/server/db/tables';
+import { usersEvents } from '@/server/db/tables/events';
+import { notificationsEnum } from '@/server/db/tables/notifications';
 
 const users = pgTable(
   'users',
@@ -56,6 +59,9 @@ const users = pgTable(
     instagramUsername: varchar('instagram_username', { length: 52 }),
     linkedInUsername: varchar('linkedin_username', { length: 52 }),
     private: boolean('private').notNull().default(false),
+    notificationSetting: notificationsEnum('notification_setting')
+      .notNull()
+      .default('all'),
   },
   (table) => [
     index('users_email_idx').on(table.email),
@@ -73,11 +79,14 @@ const users = pgTable(
 
 const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
-  usersGroups: many(userGroups),
-  usersSkills: many(userSkills),
+  usersGroups: many(usersGroups),
+  usersSkills: many(usersSkills),
+  usersEvents: many(usersEvents),
   emailVerificationRequests: many(emailVerificationRequests),
   files: many(files),
   shifts: many(shifts),
+  heardQuotes: many(quotes, { relationName: 'heardQuotes' }),
+  saidQuotes: many(quotes, { relationName: 'saidQuotes' }),
 }));
 
 type SelectUser = InferSelectModel<typeof users>;
