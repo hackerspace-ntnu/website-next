@@ -13,10 +13,10 @@ export async function generateMetadata() {
 export default async function ToolCalendarPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   return <ToolCalendar />;
 }

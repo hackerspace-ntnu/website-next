@@ -4,6 +4,7 @@ import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
   leadershipProcedure,
+  protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -12,6 +13,7 @@ import { getFileUrl } from '@/server/services/files';
 import { fetchMemberSchema } from '@/validations/users/fetchMemberSchema';
 import { fetchMembersSchema } from '@/validations/users/fetchMembersSchema';
 import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
+import { searchMembersSchema } from '@/validations/users/searchMembersSchema';
 
 const usersRouter = createRouter({
   fetchMember: publicProcedure
@@ -26,18 +28,23 @@ const usersRouter = createRouter({
         where = ilike(users.firstName, input.name ? `%${input.name}%` : '%%');
       }
 
-      const result = ctx.db.query.users
+      const result = await ctx.db.query.users
         .findFirst({
-          where: and(
-            where,
-            eq(users.private, false),
-            exists(
-              ctx.db
-                .select()
-                .from(usersGroups)
-                .where(eq(usersGroups.userId, users.id)),
-            ),
-          ),
+          where: and(where, eq(users.private, false)),
+          columns: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            gitHubUsername: true,
+            discordUsername: true,
+            linkedInUsername: true,
+            instagramUsername: true,
+            private: true,
+            profilePictureId: true,
+            email: true,
+            memberSince: true,
+          },
           with: {
             usersGroups: {
               with: {
@@ -63,7 +70,13 @@ const usersRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
-      return result;
+
+      return {
+        ...result,
+        profilePictureUrl: result?.profilePictureId
+          ? await getFileUrl(result.profilePictureId)
+          : null,
+      };
     }),
   fetchMembers: publicProcedure
     .input((input) =>
@@ -101,6 +114,20 @@ const usersRouter = createRouter({
           where,
           offset,
           limit: input.limit,
+          columns: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            bio: true,
+            gitHubUsername: true,
+            discordUsername: true,
+            linkedInUsername: true,
+            instagramUsername: true,
+            private: true,
+            profilePictureId: true,
+            email: true,
+            memberSince: true,
+          },
           with: {
             usersGroups: {
               with: {
@@ -121,6 +148,44 @@ const usersRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+    }),
+  searchMembers: protectedProcedure
+    .input((input) =>
+      searchMembersSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const usersData = await ctx.db.query.users
+        .findMany({
+          columns: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            profilePictureId: true,
+          },
+          where: or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          ),
+          limit: input.limit,
+          offset: input.offset,
+        })
+        .catch((error) => {
+          console.error('Error fetching users:', error);
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('members.api.errorFetchingMembers'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      return await Promise.all(
+        usersData.map(async (user) => ({
+          ...user,
+          profilePictureUrl: user.profilePictureId
+            ? await getFileUrl(user.profilePictureId)
+            : null,
+        })),
+      );
     }),
   totalResultsForMembersQuery: publicProcedure
     .input((input) =>

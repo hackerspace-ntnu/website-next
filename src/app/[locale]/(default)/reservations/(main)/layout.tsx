@@ -15,7 +15,7 @@ export async function generateMetadata() {
 
 type ReservationsLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function ReservationsLayout({
@@ -23,7 +23,8 @@ export default async function ReservationsLayout({
   params,
 }: ReservationsLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('reservations');
   const { reservations, ui } = await getMessages();
 

@@ -22,13 +22,12 @@ export default async function StoragePage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
   const awaitedSearchParams = await searchParams;
-
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const itemsPerPage = 12;
 

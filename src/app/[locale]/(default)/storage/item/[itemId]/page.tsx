@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
 type StorageItemParams = Promise<{
-  locale: Locale;
+  locale: string;
   itemId: string;
 }>;
 
@@ -37,7 +37,7 @@ export default async function StorageItemPage({
   params: StorageItemParams;
 }) {
   const { locale, itemId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const item = await api.storage.fetchOne(Number.parseInt(itemId));

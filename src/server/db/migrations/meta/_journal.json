@@ -71,6 +71,27 @@
       "when": 1757881336088,
       "tag": "0009_green_white_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1759429948193,
+      "tag": "0010_fine_jubilee",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1759659510521,
+      "tag": "0011_absurd_white_tiger",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1759660293142,
+      "tag": "0012_open_umar",
+      "breakpoints": true
     }
   ]
 }
