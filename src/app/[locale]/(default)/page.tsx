@@ -6,10 +6,10 @@ import { api } from '@/lib/api/server';
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const hello = await api.test.helloWorld();
 

@@ -8,7 +8,7 @@ import { api } from '@/lib/api/server';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; subsetId: string }>;
+  params: Promise<{ locale: string; subsetId: string }>;
 }) {
   const { subsetId } = await params;
 
@@ -32,10 +32,10 @@ export async function generateMetadata({
 export default async function RuleSubsetPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; subsetId: string }>;
+  params: Promise<{ locale: string; subsetId: string }>;
 }) {
   const { locale, subsetId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const processedSubsetId = Number(subsetId);
   if (

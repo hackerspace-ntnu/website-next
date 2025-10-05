@@ -901,11 +901,11 @@
   },
   "skills": {
     "api": {
+      "invalidId": "Ugyldig ID",
       "skillNotFound": "Ferdighet ikke funnet",
       "cannotAddSkill": "Du kan ikke gi denne ferdigheten",
       "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
       "userDoesNotHaveSkill": "Brukeren har ikke denne ferdigheten",
-      "invalidId": "Ugyldig ID",
       "invalidIdentifier": "Ugyldig ferdighetsidentifikator",
       "skillWithIdExists": "Ferdighet med identifikatoren \"{identifier}\" finnes allerede"
     }

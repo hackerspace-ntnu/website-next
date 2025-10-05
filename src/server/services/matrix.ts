@@ -408,7 +408,7 @@ async function matrixUploadMedia(buffer: Buffer, contentType: string) {
       {
         method: 'POST',
         headers,
-        body: buffer,
+        body: new Uint8Array(buffer),
         signal: controller.signal,
       },
     );

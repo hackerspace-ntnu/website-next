@@ -28,10 +28,10 @@ export async function generateMetadata() {
 export default async function ApplicationsPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('applications.view');
   const applications = await api.applications.fetchApplications();

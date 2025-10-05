@@ -901,11 +901,11 @@
   },
   "skills": {
     "api": {
+      "invalidId": "Invalid ID",
       "skillNotFound": "Skill not found",
       "cannotAddSkill": "You cannot give this skill",
       "userAlreadyHasSkill": "User already has this skill",
       "userDoesNotHaveSkill": "User does not have this skill",
-      "invalidId": "Invalid ID",
       "invalidIdentifier": "Invalid skill identifier",
       "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists"
     }
@@ -949,6 +949,12 @@
           "maxLength": "Skill identifier must be less than {count} characters",
           "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
         }
+      },
+      "api": {
+        "invalidId": "Invalid ID",
+        "invalidIdentifier": "Invalid skill identifier",
+        "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
+        "skillNotFound": "Skill not found"
       }
     },
     "users": {

@@ -21,10 +21,10 @@ export async function generateMetadata() {
 export default async function NewQuotePage({
   params,
 }: {
-  params: Promise<{ locale: Locale; quoteId: string }>;
+  params: Promise<{ locale: string; quoteId: string }>;
 }) {
   const { locale, quoteId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
   const t = await getTranslations('quotes');

@@ -15,16 +15,16 @@ export async function generateMetadata() {
 export default async function NotificationsPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
   const notificationSetting = await api.users.fetchUserNotifications();
 
   if (!user) {
-    return redirect({ href: '/auth', locale });
+    return redirect({ href: '/auth', locale: locale as Locale });
   }
 
   return <NotificationsForm notifications={notificationSetting} />;

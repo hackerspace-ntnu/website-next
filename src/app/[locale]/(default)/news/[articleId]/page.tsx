@@ -18,7 +18,7 @@ import { getFileUrl } from '@/server/services/files';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; articleId: string }>;
+  params: Promise<{ locale: string; articleId: string }>;
 }) {
   const { articleId } = await params;
   const article = await api.news.fetchArticle({ id: Number(articleId) });
@@ -31,10 +31,10 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: Locale; articleId: string }>;
+  params: Promise<{ locale: string; articleId: string }>;
 }) {
   const { locale, articleId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   if (Number.isNaN(Number(articleId))) return notFound();
 

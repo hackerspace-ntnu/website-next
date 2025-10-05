@@ -21,10 +21,10 @@ export async function generateMetadata() {
 export default async function ApplicationPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; appId: string }>;
+  params: Promise<{ locale: string; appId: string }>;
 }) {
   const { locale, appId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const processedAppId = Number(appId);
   if (

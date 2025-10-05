@@ -42,10 +42,10 @@ export async function generateMetadata({
 export default async function MemberPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; memberId: string }>;
+  params: Promise<{ locale: string; memberId: string }>;
 }) {
   const { locale, memberId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('members');
 

@@ -15,7 +15,7 @@ import type { SelectUser } from '@/server/db/tables';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; name: string }>;
+  params: Promise<{ locale: string; name: string }>;
 }) {
   const { locale, name } = await params;
 
@@ -34,10 +34,10 @@ export async function generateMetadata({
 export default async function GroupPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; name: string }>;
+  params: Promise<{ locale: string; name: string }>;
 }) {
   const { locale, name } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
