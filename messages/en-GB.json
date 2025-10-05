@@ -1200,13 +1200,9 @@
       "edit": "Edit",
       "cancel": "Cancel",
       "remove": "Remove",
-      "editTitle": "Edit table",
-      "cancelTitle": "Cancel action",
-      "removetitle": "Remove checked reservations",
       "tool": "Tool",
       "from": "From",
       "until": "Until",
-      "goToCalendar": "Go to calendar",
       "empty": "You have no reservations",
       "notLoggedIn": "Please log in to see your reservations.",
       "deletedSuccess": "Successfully deleted reservation"

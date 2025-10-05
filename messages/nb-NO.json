@@ -1198,15 +1198,11 @@
     "myReservationsTable": {
       "title": "Dine reservasjoner",
       "edit": "Rediger",
-      "cancel": "Kanseller",
+      "cancel": "Avbryt",
       "remove": "Fjern",
-      "editTitle": "Trykk for å redigere tabellen",
-      "cancelTitle": "Kanseller handling",
-      "removetitle": "Fjern valgte reservasjoner",
       "tool": "Verktøy",
       "from": "Fra",
       "until": "Til",
-      "goToCalendar": "Gå til kalender",
       "empty": "Du har ingen reservasjoner",
       "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner.",
       "deletedSuccess": "Reservasjon slettet"
