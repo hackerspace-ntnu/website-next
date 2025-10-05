@@ -1,5 +1,5 @@
 import { type Messages, NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { ToggleSkillIcon } from '@/components/members/ToggleSkillIcon';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Card } from '@/components/ui/Card';
@@ -17,8 +17,9 @@ async function SkillCard({
   editableSkills: string[];
   isManagement: boolean;
 }) {
-  const t = await getTranslations('skills');
+  const t = await getTranslations('ui');
   const { about, members, skills, ui } = await getMessages();
+  const locale = await getLocale();
 
   return (
     <NextIntlClientProvider
@@ -29,7 +30,7 @@ async function SkillCard({
         >
       }
     >
-      <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit'>
+      <Card className='relative flex w-full overflow-hidden rounded-xl px-6 py-4 lg:w-fit'>
         <div className='flex w-full flex-col items-center justify-center'>
           <h3 className='mt-4 text-center'>{t('skills')}</h3>
           <ul className='mt-5 mb-7 divide-y'>
@@ -41,9 +42,11 @@ async function SkillCard({
                 <ToggleSkillIcon
                   user={user}
                   skill={skill}
-                  hasSkill={user.usersSkills.some(
-                    (userSkill) => userSkill.skillId === skill.id,
-                  )}
+                  hasSkill={
+                    user.usersSkills?.some(
+                      (userSkill) => userSkill.skillId === skill.id,
+                    ) ?? false
+                  }
                   editable={
                     isManagement
                       ? true
@@ -51,8 +54,10 @@ async function SkillCard({
                   }
                   isManagement={isManagement}
                 />
-                <SkillIcon identifier={skill.identifier} />
-                <span>{t(skill.identifier)}</span>
+                <SkillIcon skill={skill} />
+                <span>
+                  {locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+                </span>
               </li>
             ))}
           </ul>

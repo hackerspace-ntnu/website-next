@@ -55,7 +55,7 @@ function GroupManagementTableRow({
   const apiUtils = api.useUtils();
 
   const localization = group.localizations.find((loc) => loc.locale === locale);
-  const hasGroup = user.usersGroups.some(
+  const hasGroup = user.usersGroups?.some(
     (userGroup) => userGroup.groupId === group.id,
   );
 
@@ -88,6 +88,7 @@ function GroupManagementTableRow({
           disabled={addToGroup.isPending || removeFromGroup.isPending}
           variant={hasGroup ? 'destructive' : 'default'}
           onClick={() => {
+            if (!user.id) return;
             if (hasGroup) {
               toast.promise(
                 removeFromGroup.mutateAsync({

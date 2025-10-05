@@ -1,7 +1,7 @@
 'use client';
 
 import { CheckIcon, XIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import {
   AlertDialog,
@@ -35,9 +35,9 @@ function ToggleSkillIcon({
   isManagement: boolean;
 }) {
   const t = useTranslations('members.skillManagement');
-  const tSkills = useTranslations('skills');
   const router = useRouter();
   const utils = api.useUtils();
+  const locale = useLocale();
 
   const addSkill = api.skills.addSkillToUser.useMutation({
     onSuccess: async () => {
@@ -78,11 +78,17 @@ function ToggleSkillIcon({
             {hasSkill
               ? t('removeDialogTitle', {
                   user: `${user.firstName} ${user.lastName}`,
-                  skill: tSkills(skill.identifier),
+                  skill:
+                    locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian,
                 })
               : t('addDialogTitle', {
                   user: `${user.firstName} ${user.lastName}`,
-                  skill: tSkills(skill.identifier),
+                  skill:
+                    locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian,
                 })}
           </AlertDialogTitle>
           <AlertDialogDescription>
@@ -96,7 +102,7 @@ function ToggleSkillIcon({
               onClick={() =>
                 toast.promise(
                   removeSkill.mutateAsync({
-                    userId: user.id,
+                    userId: user.id as number,
                     skillId: skill.id,
                   }),
                   {
@@ -113,7 +119,10 @@ function ToggleSkillIcon({
             <AlertDialogAction
               onClick={() =>
                 toast.promise(
-                  addSkill.mutateAsync({ userId: user.id, skillId: skill.id }),
+                  addSkill.mutateAsync({
+                    userId: user.id as number,
+                    skillId: skill.id,
+                  }),
                   {
                     loading: t('addingSkill'),
                     success: t('addedSkill'),
