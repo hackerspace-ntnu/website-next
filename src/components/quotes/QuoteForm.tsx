@@ -61,7 +61,7 @@ function QuoteForm({
 
   const users = api.users.searchMembers.useQuery({
     name,
-    limit: 2,
+    limit: 5,
   });
 
   const [chosenUser, setChosenUser] = useState<BasicUserInfo | null>(
