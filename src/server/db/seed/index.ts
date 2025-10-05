@@ -8,6 +8,8 @@ import {
   groupLocalizationsData,
   groupsData,
   printerSpecsData,
+  quoteLocalizationsData,
+  quotesData,
   reservationsData,
   ruleLocalizationData,
   rulesData,
@@ -33,6 +35,8 @@ import {
   newsArticleLocalizations,
   newsArticles,
   printerSpecs,
+  quoteLocalizations,
+  quotes,
   reservations,
   ruleLocalizations,
   rules,
@@ -137,6 +141,14 @@ async function main() {
   console.log('Inserting reservations...');
   await db.insert(reservations).values(reservationsData);
   console.log('Reservations inserted');
+
+  console.log('Inserting quotes...');
+  await db.insert(quotes).values(quotesData);
+  console.log('Quotes inserted');
+
+  console.log('Inserting quote localizations...');
+  await db.insert(quoteLocalizations).values(quoteLocalizationsData);
+  console.log('Quote localizations inserted');
 
   console.log('Inserting rules...');
   await db.insert(rules).values(rulesData);

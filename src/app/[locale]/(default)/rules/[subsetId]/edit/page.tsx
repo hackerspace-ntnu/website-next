@@ -21,10 +21,10 @@ export async function generateMetadata() {
 export default async function EditRulePage({
   params,
 }: {
-  params: Promise<{ locale: Locale; subsetId: string }>;
+  params: Promise<{ locale: string; subsetId: string }>;
 }) {
   const { locale, subsetId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const processedSubsetId = Number(subsetId);
   if (

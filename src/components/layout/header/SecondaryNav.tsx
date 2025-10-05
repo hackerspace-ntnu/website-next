@@ -7,16 +7,24 @@ import { Link } from '@/components/ui/Link';
 type SecondaryNavProps = {
   asDropDown?: boolean;
   onClick?: () => void;
+  viewApplications: boolean;
   t: {
     storage: string;
     shiftSchedule: string;
     members: string;
     rules: string;
     reservations: string;
+    applications: string;
+    quotes: string;
   };
 };
 
-function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
+function SecondaryNav({
+  asDropDown = false,
+  onClick,
+  viewApplications,
+  t,
+}: SecondaryNavProps) {
   const items = [
     <Link key={0} variant='nav' onClick={onClick} href='/storage'>
       {t.storage}
@@ -33,7 +41,15 @@ function SecondaryNav({ asDropDown = false, onClick, t }: SecondaryNavProps) {
     <Link key={4} variant='nav' onClick={onClick} href='/reservations'>
       {t.reservations}
     </Link>,
-  ];
+    <Link key={5} variant='nav' onClick={onClick} href='/quotes'>
+      {t.quotes}
+    </Link>,
+    viewApplications ? (
+      <Link key={6} variant='nav' onClick={onClick} href='/applications/view'>
+        {t.applications}
+      </Link>
+    ) : null,
+  ].filter((item) => item !== null);
 
   return (
     <nav>

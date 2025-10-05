@@ -1,6 +1,8 @@
 'use client';
 
 import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type React from 'react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
@@ -21,15 +23,17 @@ import { cx } from '@/lib/utils';
 type ComboboxProps = {
   choices: {
     value: string;
-    label: string;
+    label: React.ReactNode;
   }[];
   defaultDescription: string;
   defaultPlaceholder: string;
   buttonClassName?: string;
   contentClassName?: string;
-  valueCallback?: (value: string | null) => void;
+  valueCallback?: (value: string) => void;
+  searchCallback?: (value: string) => void;
   initialValue?: string | null;
-  ariaLabel?: string;
+  emptyMessage?: React.ReactNode;
+  shouldFilter?: boolean;
 };
 
 function Combobox({
@@ -39,11 +43,14 @@ function Combobox({
   buttonClassName,
   contentClassName,
   valueCallback,
+  searchCallback,
   initialValue,
-  ariaLabel,
+  emptyMessage,
+  shouldFilter = true,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(initialValue ?? '');
+  const t = useTranslations('ui');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -52,7 +59,7 @@ function Combobox({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          aria-label={ariaLabel}
+          aria-label={defaultDescription}
           className={cx('w-[200px] justify-between', buttonClassName)}
         >
           {value
@@ -62,24 +69,27 @@ function Combobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cx('w-[200px] p-0', contentClassName)}>
-        <Command className='bg-popover dark:bg-popover'>
-          <CommandInput placeholder={defaultPlaceholder} />
+        <Command
+          className='bg-popover dark:bg-popover'
+          shouldFilter={shouldFilter}
+        >
+          <CommandInput
+            placeholder={defaultPlaceholder}
+            onValueChange={searchCallback}
+          />
           <CommandList>
-            <CommandEmpty>Ingen valg funnet.</CommandEmpty>
+            <CommandEmpty>{emptyMessage ?? t('noChoicesFound')}</CommandEmpty>
             <CommandGroup>
               {choices.map((choice) => (
                 <CommandItem
                   key={choice.value}
                   value={choice.value}
                   onSelect={(currentValue) => {
-                    // Set newValue to null if user selects the same value twice
-                    const newValue =
-                      currentValue === value ? null : currentValue;
+                    // Set newValue to empty string if user selects the same value twice
+                    const newValue = currentValue === value ? '' : currentValue;
                     setValue(newValue);
                     setOpen(false);
-                    if (valueCallback) {
-                      valueCallback(newValue);
-                    }
+                    valueCallback?.(newValue);
                   }}
                 >
                   <CheckIcon

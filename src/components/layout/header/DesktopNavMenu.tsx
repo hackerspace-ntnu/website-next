@@ -12,6 +12,7 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 
 type DesktopNavMenuProps = {
   className?: string;
+  viewApplications: boolean;
   t: {
     open: string;
     close: string;
@@ -20,10 +21,12 @@ type DesktopNavMenuProps = {
     members: string;
     rules: string;
     reservations: string;
+    applications: string;
+    quotes: string;
   };
 };
 
-function DesktopNavMenu({ t }: DesktopNavMenuProps) {
+function DesktopNavMenu({ viewApplications, t }: DesktopNavMenuProps) {
   const [open, setOpen] = useState(false);
   const visible = useMediaQuery('(min-width: 48rem)');
 
@@ -48,12 +51,15 @@ function DesktopNavMenu({ t }: DesktopNavMenuProps) {
       <SecondaryNav
         asDropDown
         onClick={() => setOpen(false)}
+        viewApplications={viewApplications}
         t={{
           storage: t.storage,
           shiftSchedule: t.shiftSchedule,
           members: t.members,
           rules: t.rules,
           reservations: t.reservations,
+          applications: t.applications,
+          quotes: t.quotes,
         }}
       />
     </DropdownMenu>

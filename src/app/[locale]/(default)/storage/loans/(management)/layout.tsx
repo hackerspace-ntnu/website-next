@@ -4,7 +4,7 @@ import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
 type LoansLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function LoansLayout({
@@ -12,7 +12,7 @@ export default async function LoansLayout({
   children,
 }: LoansLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tLoans = await getTranslations('storage.loans');

@@ -12,10 +12,10 @@ export async function generateMetadata() {
 export default async function ForgotPasswordPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   return (
     <div className='flex h-full flex-col transition-opacity duration-500'>

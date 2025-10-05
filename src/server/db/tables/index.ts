@@ -1,3 +1,4 @@
+export * from './applications';
 export * from './emails';
 export * from './events';
 export * from './files';
@@ -7,6 +8,7 @@ export * from './locales';
 export * from './news';
 export * from './notifications';
 export * from './office';
+export * from './quotes';
 export * from './reservations';
 export * from './rules';
 export * from './sessions';

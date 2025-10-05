@@ -26,7 +26,7 @@ export async function generateMetadata({
 
 type ToolCalendarPageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale; calendarId: string }>;
+  params: Promise<{ locale: string; calendarId: string }>;
 };
 
 export default async function ReservationItemLayout({
@@ -34,7 +34,8 @@ export default async function ReservationItemLayout({
   params,
 }: ToolCalendarPageLayoutProps) {
   const { locale, calendarId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const { reservations, ui } = await getMessages();
   const t = await getTranslations('reservations');
   const tool = await api.tools.fetchTool(Number.parseInt(calendarId));

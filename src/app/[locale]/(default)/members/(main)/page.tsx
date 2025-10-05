@@ -25,11 +25,11 @@ export default async function MembersPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('ui');
   const searchParamsCache = createSearchParamsCache({

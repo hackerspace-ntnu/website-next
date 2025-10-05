@@ -7,13 +7,7 @@ import { ScrollArea } from '@/components/ui/ScrollArea';
 
 import { cx } from '@/lib/utils';
 
-function SidebarNav({
-  className,
-  showAdministratorMenu,
-}: {
-  className?: string;
-  showAdministratorMenu: boolean;
-}) {
+function SidebarNav({ className }: { className?: string }) {
   const t = useTranslations('settings');
   const tLayout = useTranslations('layout');
 
@@ -32,11 +26,6 @@ function SidebarNav({
           <SidebarNavLink href='/settings/notifications'>
             {t('notifications.title')}
           </SidebarNavLink>
-          {showAdministratorMenu && (
-            <SidebarNavLink href='/settings/administrator'>
-              {t('administrator.title')}
-            </SidebarNavLink>
-          )}
         </nav>
         <div className='flex min-w-fit shrink-0 px-2 lg:px-0 lg:py-2'>
           <MatrixLink t={{ title: tLayout('goToMatrix') }} />

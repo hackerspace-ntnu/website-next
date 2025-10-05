@@ -15,15 +15,15 @@ export async function generateMetadata() {
 export default async function VerifyEmailPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale });
+    return redirect({ href: '/auth', locale: locale as Locale });
   }
 
   return <VerifyEmailForm />;

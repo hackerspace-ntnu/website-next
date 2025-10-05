@@ -12,7 +12,7 @@ import { Card, CardHeader } from '@/components/ui/Card';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata() {
@@ -30,7 +30,8 @@ export default async function AuthLayout({
   params,
 }: AuthLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('layout');
   const { auth, ui } = await getMessages();
 

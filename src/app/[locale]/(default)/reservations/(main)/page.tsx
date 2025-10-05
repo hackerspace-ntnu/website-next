@@ -1,8 +1,25 @@
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { MyReservationsTable } from '@/components/reservations/MyReservationsTable';
 import { ToolCardGrid } from '@/components/reservations/ToolCardGrid';
 import { api } from '@/lib/api/server';
 
-export default async function ReservationsPage() {
+export async function generateMetadata() {
+  const t = await getTranslations('layout');
+
+  return {
+    title: t('reservations'),
+  };
+}
+
+export default async function ReservationsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale as Locale);
+
   const { user } = await api.auth.state();
   const userReservations = user
     ? await api.reservations.fetchUserReservations()
