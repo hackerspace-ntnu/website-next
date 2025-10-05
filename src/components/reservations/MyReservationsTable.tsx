@@ -54,13 +54,11 @@ function MyReservationsTable({
   return (
     <div className='mx-auto my-3 flex h-full w-full max-w-3xl flex-col gap-1'>
       <div className='max-h-96 overflow-auto rounded-xl border bg-secondary/50'>
-        <h3 className='clamp-[text-lg-4xl-clamp] p-3 text-left'>
+        <h3 className='clamp-[text-lg-4xl-clamp] p-3 text-center'>
           {t('myReservationsTable.title')}
         </h3>
-
         <Table className='table-fixed'>
           {loggedIn && header}
-
           {!loggedIn ? (
             <TableCaption className='clamp-[text-sm-base-clamp] p-3'>
               {t('myReservationsTable.notLoggedIn')}

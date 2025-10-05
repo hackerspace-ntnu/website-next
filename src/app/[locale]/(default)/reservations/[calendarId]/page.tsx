@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
-import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { ToolCalendar } from '@/components/reservations/reservations-calendar/ToolCalendar';
 import { api } from '@/lib/api/server';
 
@@ -15,11 +14,9 @@ export async function generateMetadata() {
 export default async function ToolCalendarPage({
   params,
 }: {
-  params: Promise<{ locale: string; calendarId: string }>;
+  params: Promise<{ calendarId: string }>;
 }) {
-  const { locale, calendarId } = await params;
-  setRequestLocale(locale as Locale);
-
+  const { calendarId } = await params;
   const { user } = await api.auth.state();
   const tool = await api.tools.fetchTool(Number(calendarId));
 

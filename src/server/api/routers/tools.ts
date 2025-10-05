@@ -38,7 +38,6 @@ const toolsRouter = createRouter({
         });
       return tool[0];
     }),
-
   fetchTools: publicProcedure.query(async ({ ctx }) => {
     const allTools = await ctx.db
       .select({
@@ -63,7 +62,8 @@ const toolsRouter = createRouter({
           eq(toolLocalizations.locale, ctx.locale),
         ),
       )
-      .leftJoin(printerSpecs, eq(printerSpecs.printerId, tools.id));
+      .leftJoin(printerSpecs, eq(printerSpecs.printerId, tools.id))
+      .orderBy(tools.id);
 
     return allTools;
   }),

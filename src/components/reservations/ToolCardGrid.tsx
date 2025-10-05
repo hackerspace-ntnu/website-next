@@ -45,16 +45,13 @@ function ToolCardGrid({ tools }: ToolCardGridProps) {
       )}
 
       <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-        {tools
-          .slice() // copy so you don’t mutate the original array
-          .sort((a, b) => a.toolId - b.toolId)
-          .map((tool) => (
-            <List
-              key={tool.toolId}
-              tool={tool as Tool}
-              onClick={() => setCurrentTool(tool as Tool)}
-            />
-          ))}
+        {tools.map((tool) => (
+          <List
+            key={tool.toolId}
+            tool={tool as Tool}
+            onClick={() => setCurrentTool(tool as Tool)}
+          />
+        ))}
       </ul>
     </div>
   );
