@@ -31,7 +31,7 @@ export default async function ThankYouPage({
         </AnimatedGradientText>
         <h2 className='text-3xl leading-18 md:text-5xl'>{t('description1')}</h2>
         <h3 className='text-xl md:text-3xl'>{t('description2')}</h3>
-        <HackerspaceLogo className='mx-auto h-32 w-32 rounded-lg bg-muted p-2' />
+        <HackerspaceLogo className='mx-auto h-32 w-32 rounded-lg p-2' />
         <Link
           href='/'
           variant='default'
