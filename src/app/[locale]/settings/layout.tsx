@@ -35,10 +35,6 @@ export default async function SettingsLayout({
     return redirect({ href: '/auth', locale: locale as Locale });
   }
 
-  const showAdministratorMenu = user.groups.some(
-    (group) => group === 'leadership' || group === 'admin',
-  );
-
   return (
     <Main className='h-full'>
       <div className='h-full w-full gap-6 p-10 pb-16'>
@@ -65,7 +61,7 @@ export default async function SettingsLayout({
             messages={{ settings, ui } as Pick<Messages, 'settings' | 'ui'>}
           >
             <aside className='-my-2 w-full lg:my-0 lg:w-1/5'>
-              <SidebarNav showAdministratorMenu={showAdministratorMenu} />
+              <SidebarNav />
             </aside>
             <div className='h-full w-full flex-1 lg:max-w-2xl'>{children}</div>
           </NextIntlClientProvider>
