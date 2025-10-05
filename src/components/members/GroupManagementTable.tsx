@@ -84,7 +84,7 @@ function GroupManagementTableRow({
       </TableCell>
       <TableCell className='flex flex-col gap-2 md:flex-row'>
         <Button
-          className='disabled:pointer-events-auto disabled:cursor-not-allowed'
+          className='w-40 disabled:pointer-events-auto disabled:cursor-not-allowed'
           disabled={addToGroup.isPending || removeFromGroup.isPending}
           variant={hasGroup ? 'destructive' : 'default'}
           onClick={() => {
