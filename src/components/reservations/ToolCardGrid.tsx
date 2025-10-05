@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
-import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import type { RouterOutput } from '@/server/api';
 
 export type Tool = {
@@ -28,10 +26,7 @@ type ToolCardGridProps = {
 };
 
 function ToolCardGrid({ tools }: ToolCardGridProps) {
-  const isDesktop = useMediaQuery('(min-width: 48rem)');
   const [currentTool, setCurrentTool] = useState<Tool | null>(null);
-
-  const List = isDesktop ? ToolCard : HorizontalToolCard;
 
   return (
     <div className='size-full'>
@@ -43,16 +38,15 @@ function ToolCardGrid({ tools }: ToolCardGridProps) {
           onCloseButton={() => setCurrentTool(null)}
         />
       )}
-
-      <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
+      <div className='mx-auto grid w-fit max-w-5xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {tools.map((tool) => (
-          <List
-            key={tool.toolId}
+          <ToolCard
             tool={tool as Tool}
+            key={tool.toolId}
             onClick={() => setCurrentTool(tool as Tool)}
           />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

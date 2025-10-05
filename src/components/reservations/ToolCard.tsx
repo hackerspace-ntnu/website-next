@@ -115,7 +115,6 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
           );
         })}
       </CardContent>
-
       <CardFooter className='h-fit w-full p-0'>{button}</CardFooter>
     </Card>
   );
