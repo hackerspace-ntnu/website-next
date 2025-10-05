@@ -313,7 +313,8 @@ const storageRouter = createRouter({
             locale: 'nb-NO',
           },
         ])
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: ctx.t('storage.item.api.insertLocalizationsFailed'),
@@ -448,7 +449,8 @@ const storageRouter = createRouter({
       await ctx.db
         .insert(itemCategories)
         .values(input)
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.insertFailed'),
@@ -465,7 +467,8 @@ const storageRouter = createRouter({
         .update(itemCategories)
         .set(input)
         .where(eq(itemCategories.id, input.id))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.updateFailed'),
@@ -481,7 +484,8 @@ const storageRouter = createRouter({
       await ctx.db
         .delete(itemCategories)
         .where(eq(itemCategories.id, input.id))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('storage.categories.api.deleteFailed'),

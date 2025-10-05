@@ -35,6 +35,7 @@ type MobileSheetProps = {
     members: string;
     rules: string;
     applications: string;
+    quotes: string;
     hackerspaceHome: string;
     goToMatrix: string;
     changeLocale: string;
@@ -107,6 +108,7 @@ function MobileSheet({
               members: t.members,
               shiftSchedule: t.shiftSchedule,
               applications: t.applications,
+              quotes: t.quotes,
             }}
           />
         </div>

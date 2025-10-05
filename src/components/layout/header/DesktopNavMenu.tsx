@@ -21,6 +21,7 @@ type DesktopNavMenuProps = {
     members: string;
     rules: string;
     applications: string;
+    quotes: string;
   };
 };
 
@@ -56,6 +57,7 @@ function DesktopNavMenu({ viewApplications, t }: DesktopNavMenuProps) {
           members: t.members,
           rules: t.rules,
           applications: t.applications,
+          quotes: t.quotes,
         }}
       />
     </DropdownMenu>

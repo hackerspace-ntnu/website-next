@@ -22,9 +22,9 @@ export default async function ShiftSchedulePage({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  const { user } = await api.auth.state();
-
   setRequestLocale(locale);
+
+  const { user } = await api.auth.state();
   const { shiftSchedule, ui } = await getMessages();
   const t = await getTranslations('shiftSchedule');
 

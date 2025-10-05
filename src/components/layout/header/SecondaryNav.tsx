@@ -14,6 +14,7 @@ type SecondaryNavProps = {
     members: string;
     rules: string;
     applications: string;
+    quotes: string;
   };
 };
 
@@ -36,8 +37,11 @@ function SecondaryNav({
     <Link key={3} variant='nav' onClick={onClick} href='/rules'>
       {t.rules}
     </Link>,
+    <Link key={4} variant='nav' onClick={onClick} href='/quotes'>
+      {t.quotes}
+    </Link>,
     viewApplications ? (
-      <Link key={4} variant='nav' onClick={onClick} href='/applications/view'>
+      <Link key={5} variant='nav' onClick={onClick} href='/applications/view'>
         {t.applications}
       </Link>
     ) : null,

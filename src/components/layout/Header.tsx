@@ -41,6 +41,7 @@ async function Header() {
             members: t('members'),
             rules: t('rules'),
             applications: t('applications'),
+            quotes: t('quotes'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
@@ -79,6 +80,7 @@ async function Header() {
               members: t('members'),
               rules: t('rules'),
               applications: t('applications'),
+              quotes: t('quotes'),
             }}
           />
         </div>
@@ -104,11 +106,15 @@ async function Header() {
           />
           <ProfileMenu
             hasUser={Boolean(user)}
+            isLeadership={
+              !!user?.groups.some((g) => ['admin', 'leadership'].includes(g))
+            }
             t={{
               profile: t('profile'),
               signIn: t('signIn'),
               signOut: t('signOut'),
               settings: t('settings'),
+              management: t('management'),
             }}
           />
         </div>
