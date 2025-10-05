@@ -20,7 +20,7 @@ function GroupManagementTable({
   user,
   groups,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
   groups: RouterOutput['groups']['fetchGroups'];
 }) {
   const t = useTranslations('members.groupManagement');
@@ -47,7 +47,7 @@ function GroupManagementTableRow({
   user,
 }: {
   group: RouterOutput['groups']['fetchGroups'][number];
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
 }) {
   const t = useTranslations('members.groupManagement');
   const locale = useLocale();

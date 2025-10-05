@@ -12,7 +12,7 @@ async function SkillCard({
   editableSkills,
   isManagement,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
   allSkills: SelectSkill[];
   editableSkills: string[];
   isManagement: boolean;
