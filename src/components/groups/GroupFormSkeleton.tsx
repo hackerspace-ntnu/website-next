@@ -42,6 +42,15 @@ async function GroupFormSkeleton() {
           {t('internal.description')}
         </p>
       </div>
+      <div>
+        <div className='mb-2 flex items-center gap-2'>
+          <Skeleton className='flex h-4 w-4 rounded-md' />
+          <Label>{t('openForApplications.label')}</Label>
+        </div>
+        <p className='text-muted-foreground text-sm'>
+          {t('openForApplications.description')}
+        </p>
+      </div>
       <div className='flex justify-between'>
         <Skeleton className='h-10 w-32 rounded-lg' />
         <Skeleton className='h-10 w-32 rounded-lg' />

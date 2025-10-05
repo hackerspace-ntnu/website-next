@@ -189,6 +189,34 @@ const routing = defineRouting({
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/applications/apply': {
+      'en-GB': '/applications/apply',
+      'nb-NO': '/opptak/søk',
+    },
+    '/applications/thank-you': {
+      'en-GB': '/applications/thank-you',
+      'nb-NO': '/opptak/takk',
+    },
+    '/applications/view': {
+      'en-GB': '/applications/view',
+      'nb-NO': '/opptak/vis',
+    },
+    '/applications/view/[appId]': {
+      'en-GB': '/applications/view/[appId]',
+      'nb-NO': '/opptak/vis/[appId]',
+    },
+    '/quotes': {
+      'en-GB': '/quotes',
+      'nb-NO': '/sitater',
+    },
+    '/quotes/new': {
+      'en-GB': '/quotes/new',
+      'nb-NO': '/sitater/ny',
+    },
+    '/quotes/[quoteId]/edit': {
+      'en-GB': '/quotes/[quoteId]/edit',
+      'nb-NO': '/sitater/[quoteId]/rediger',
+    },
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
