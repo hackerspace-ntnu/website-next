@@ -19,7 +19,8 @@ const groups = pgTable('groups', {
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
-  internal: boolean().default(false),
+  openForApplications: boolean('open_for_applications').default(false),
+  internal: boolean('internal').default(false),
 });
 
 const groupLocalizations = pgTable(

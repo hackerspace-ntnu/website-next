@@ -19,20 +19,28 @@ async function Header() {
     return redirect({ href: '/auth/create-account', locale });
   }
 
+  const viewApplications = !!user?.groups.some((g) =>
+    ['admin', 'leadership', 'management'].includes(g),
+  );
+
   return (
     <header className='clamp-[px-1-24-clamp] sticky top-0 z-20 mx-auto flex min-h-14 w-full max-w-screen-2xl items-center justify-between border-border/40 border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60'>
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
+          isMember={user?.groups && user.groups.length > 0}
+          viewApplications={viewApplications}
           t={{
             navigationMenu: t('navigationMenu'),
             news: t('news'),
             events: t('events'),
             about: t('about'),
+            apply: t('apply'),
             storage: t('storage'),
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
             rules: t('rules'),
+            applications: t('applications'),
             quotes: t('quotes'),
             hackerspaceHome: t('hackerspaceHome'),
             goToMatrix: t('goToMatrix'),
@@ -53,14 +61,17 @@ async function Header() {
       <div className='flex'>
         <div className='hidden items-center gap-6 md:flex'>
           <Nav
+            isMember={user?.groups && user.groups.length > 0}
             className='flex items-center gap-6 text-sm'
             t={{
               news: t('news'),
               events: t('events'),
               about: t('about'),
+              apply: t('apply'),
             }}
           />
           <DesktopNavMenu
+            viewApplications={viewApplications}
             t={{
               open: t('desktopNavMenu', { open: 'true' }),
               close: t('desktopNavMenu', { open: 'false' }),
@@ -68,6 +79,7 @@ async function Header() {
               shiftSchedule: t('shiftSchedule'),
               members: t('members'),
               rules: t('rules'),
+              applications: t('applications'),
               quotes: t('quotes'),
             }}
           />

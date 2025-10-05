@@ -1,3 +1,4 @@
+export * from './applications';
 export * from './emails';
 export * from './events';
 export * from './files';

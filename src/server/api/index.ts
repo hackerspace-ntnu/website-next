@@ -14,9 +14,11 @@ import {
   usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
+import { applicationsRouter } from '@/server/api/routers/applications';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
+  applications: applicationsRouter,
   auth: authRouter,
   events: eventsRouter,
   groups: groupsRouter,

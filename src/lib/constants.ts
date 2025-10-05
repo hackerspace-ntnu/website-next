@@ -16,6 +16,8 @@ const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
 
 const timeslots = ['1', '2', '3', '4'] as const;
 
+const studyYears = ['1', '2', '3', '4', '5', 'other'] as const;
+
 const toolDescriptionFields = [
   'krever',
   'difficulty',
@@ -29,5 +31,6 @@ export {
   notificationSettings,
   days,
   timeslots,
+  studyYears,
   toolDescriptionFields,
 };
