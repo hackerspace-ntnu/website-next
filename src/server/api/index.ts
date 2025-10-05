@@ -1,5 +1,6 @@
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import {
+  applicationsRouter,
   authRouter,
   eventsRouter,
   groupsRouter,
@@ -14,7 +15,6 @@ import {
   usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
-import { applicationsRouter } from '@/server/api/routers/applications';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({

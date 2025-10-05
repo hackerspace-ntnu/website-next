@@ -106,6 +106,7 @@ async function Header() {
           />
           <ProfileMenu
             hasUser={Boolean(user)}
+            userId={user?.id}
             isLeadership={
               !!user?.groups.some((g) => ['admin', 'leadership'].includes(g))
             }

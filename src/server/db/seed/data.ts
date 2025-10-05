@@ -157,6 +157,22 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     locale: 'nb-NO',
   },
   {
+    groupId: 4,
+    name: 'Management',
+    summary: 'Management group focused on organizational oversight.',
+    description:
+      'The Management group is consists of all leaders from the different groups in Hackerspace.',
+    locale: 'en-GB',
+  },
+  {
+    groupId: 4,
+    name: 'Styret',
+    summary: 'Styret er fokusert på organisatorisk tilsyn.',
+    description:
+      'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
+    locale: 'nb-NO',
+  },
+  {
     groupId: 5,
     name: 'Trusted Representative',
     summary: 'A selected member which can be contacted for various inquiries.',

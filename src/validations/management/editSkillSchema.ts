@@ -4,7 +4,7 @@ import { skillSchema } from '@/validations/management/skillSchema';
 
 function editSkillSchema(t: Translations) {
   return skillSchema(t).extend({
-    id: z.number().min(1, t('management.skills.api.invalidId')),
+    id: z.number().min(1, t('skills.api.invalidId')),
   });
 }
 

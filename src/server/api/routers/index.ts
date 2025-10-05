@@ -1,3 +1,4 @@
+export * from './applications';
 export * from './auth';
 export * from './events';
 export * from './groups';
