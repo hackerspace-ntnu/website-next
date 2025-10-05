@@ -57,13 +57,13 @@ function reservationToCalendarEvent(r: CalendarReservation) {
     },
   } as const;
 }
+
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const mounted = useMounted();
   const t = useTranslations('reservations');
 
-  const isLoggedIn = !!user;
-  const isMember = isLoggedIn && user.groups.length > 0;
-  const memberId = isMember ? user.id : 0;
+  const isMember = user?.groups ? user.groups.length > 0 : false;
+  const memberId = user?.id ?? 0;
 
   const isLaptopRaw = useMediaQuery('(min-width: 70rem)');
   const isIpadRaw = useMediaQuery('(min-width: 41.438rem)');
@@ -127,7 +127,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   // ---------- UI handlers ----------
   const handleSelectSlot = useCallback((info: DateSelectArg) => {
-    setCreateOption('calendarSelect');
     setSelectedSlot({ start: info.start, end: info.end });
     calendarRef.current?.getApi().unselect();
   }, []);
@@ -256,17 +255,12 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     notes?: string | null;
   } | null>(null);
 
-  const [createOption, setCreateOption] = useState<
-    'calendarSelect' | 'createButton' | null
-  >(null);
-
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <Button
         variant={isMember ? 'default' : 'secondary'}
         className='mb-3 w-fit self-center'
         onClick={() => {
-          setCreateOption('createButton');
           setSelectedSlot({ start: new Date(), end: new Date() });
         }}
         disabled={!isMember}
@@ -290,7 +284,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           windowFromISO={range.fromISO}
           windowUntilISO={range.untilISO}
           onCancel={() => setSelectedSlot(null)}
-          pristine={createOption === 'calendarSelect'}
         />
       )}
 
@@ -330,9 +323,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             ref={calendarRef}
             plugins={[timeGridPlugin, interactionPlugin]}
             events={calendarReservations}
-            {...calendarConfig}
             locale={t('calendar.locale')}
             eventContent={renderEventContent}
+            {...calendarConfig}
           />
         </div>
       ) : (

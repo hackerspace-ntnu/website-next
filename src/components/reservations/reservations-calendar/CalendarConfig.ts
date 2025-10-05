@@ -85,7 +85,7 @@ export function createCalendarConfig({
     slotMaxTime: isMember ? '23:59:59' : '18:00:00',
     weekends: isMember,
 
-    //keep this or else reservations/events wont show when logged out
+    // keep this or else reservations/events wont show when logged out
     businessHours: {
       startTime: '00:00:00',
       endTime: '23:59:59',
@@ -140,7 +140,7 @@ export function createCalendarConfig({
       if (info.isToday) {
         info.el.style.backgroundColor = 'oklch(from var(--accent) l c h / 0.5)';
       } else if (info.isPast) {
-        info.el.style.backgroundColor = 'var(--destructive)';
+        info.el.style.backgroundColor = 'var(--secondary)';
         info.el.style.opacity = '0.15';
       }
     },

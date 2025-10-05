@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { FormDeleteButton } from '@/components/reservations/reservations-calendar/FormDeleteButton';
-import { FormSaveButton } from '@/components/reservations/reservations-calendar/FormSaveButton';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -35,7 +34,6 @@ type CalendarDialogProps = {
   windowUntilISO: string;
 
   onCancel: () => void;
-  pristine?: boolean;
 };
 
 const HOUR_OPTIONS = Array.from({ length: 24 }, (_, i) => ({
@@ -66,7 +64,6 @@ function CalendarDialog({
   windowFromISO,
   windowUntilISO,
   onCancel,
-  pristine,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
@@ -179,7 +176,6 @@ function CalendarDialog({
 
         <form.AppForm>
           <form
-            className=''
             onSubmit={async (e) => {
               e.preventDefault();
               await form.handleSubmit();
@@ -283,24 +279,13 @@ function CalendarDialog({
                     }}
                   />
                 )}
-
-                <form.Subscribe
-                  selector={(state) => [
-                    state.canSubmit,
-                    state.isSubmitting,
-                    state.isPristine,
-                  ]}
+                <form.SubmitButton
+                  allowPristine={mode === 'create'}
+                  loading={updateMutation.isPending}
+                  className='min-w-28'
                 >
-                  {([canSubmit, isSubmitting, isPristine]) => (
-                    <FormSaveButton
-                      canSubmit={canSubmit ?? undefined}
-                      isSubmitting={isSubmitting ?? undefined}
-                      isPristine={isPristine}
-                      allowPristine={!!pristine}
-                      className='min-w-28'
-                    />
-                  )}
-                </form.Subscribe>
+                  {t('form.save')}
+                </form.SubmitButton>
               </div>
             </AlertDialogFooter>
           </form>

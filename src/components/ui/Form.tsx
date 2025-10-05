@@ -1023,6 +1023,7 @@ type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
     loading?: boolean;
+    allowPristine?: boolean;
   };
 
 function SubmitButton({
@@ -1030,6 +1031,7 @@ function SubmitButton({
   className,
   spinnerClassName,
   loading,
+  allowPristine = false,
   ...props
 }: SubmitButtonProps) {
   const form = useFormContext();
@@ -1045,7 +1047,12 @@ function SubmitButton({
         <Button
           className={cx('min-w-28', className)}
           type='submit'
-          disabled={isSubmitting || isPristine || isValidating || loading}
+          disabled={
+            isSubmitting ||
+            (!allowPristine && isPristine) ||
+            isValidating ||
+            loading
+          }
           {...props}
         >
           {isSubmitting || isValidating || loading ? (

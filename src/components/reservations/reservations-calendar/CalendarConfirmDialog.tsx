@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
   AlertDialogAction,
+  AlertDialogActionDestructive,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -49,9 +50,8 @@ function CalendarConfirmDialog({
               {t('confirmDialog.cancel')}
             </Button>
           </AlertDialogCancel>
-          <AlertDialogAction asChild>
+          <AlertDialogActionDestructive asChild>
             <Button
-              variant='default'
               onClick={() => {
                 onConfirm();
                 onOpenChange(false);
@@ -59,7 +59,7 @@ function CalendarConfirmDialog({
             >
               {t('confirmDialog.confirm')}
             </Button>
-          </AlertDialogAction>
+          </AlertDialogActionDestructive>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
