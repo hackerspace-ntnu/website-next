@@ -70,15 +70,15 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
   })();
 
   return (
-    <Card className='flex h-112 w-80 flex-col gap-2 overflow-hidden rounded-xl hover:brightness-105'>
+    <Card className='group flex h-112 w-80 flex-col gap-2 overflow-hidden rounded-xl'>
       <CardHeader className='p-0'>
-        <div className='relative h-44 w-full'>
+        <div className='relative h-44 w-full overflow-hidden'>
           <Image
             priority
             src={tool.imageUrl ?? '/unknown.png'}
             alt={tool.name}
             fill
-            className='object-cover'
+            className='object-cover duration-150 group-hover:scale-105'
           />
           <m.button
             className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm ease-in-out hover:bg-primary'
