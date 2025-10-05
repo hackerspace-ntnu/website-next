@@ -949,108 +949,108 @@
           "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
           "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
         }
+      },
+      "users": {
+        "title": "Brukere",
+        "description": "Administrer brukere på nettsiden."
+      },
+      "files": {
+        "title": "Filer og bilder",
+        "description": "Administrer filer og bilder lastet opp av medlemmer."
+      },
+      "banners": {
+        "title": "Bannere",
+        "description": "Administrer bannere som vises på nettsiden."
+      }
+    }
+  },
+  "applications": {
+    "apply": {
+      "title": "Søk Hackerspace NTNU",
+      "pageDescription": "Takk for din interesse for å bli med oss! Du kan forvente mye moro, læring og utvikling. Vennligst fyll ut skjemaet nedenfor for å søke, så tar vi kontakt med deg så snart som mulig (men senest innen to uker).",
+      "dataNote": "Merk: Alle dataene dine vil bli slettet så snart søknadsprosessen er fullført.",
+      "sendApplication": "Send søknad",
+      "applicationSubmitted": "Søknaden din har blitt sendt inn!",
+      "noGroupsAvailable": "Vi beklager, men alle Hackerspace-grupper er fulle for øyeblikket. Vennligst prøv igjen senere, send oss en melding eller spør et medlem på verkstedet vårt.",
+      "name": {
+        "label": "Fullt navn",
+        "required": "Navn er påkrevd"
+      },
+      "email": {
+        "label": "E-post",
+        "required": "E-post er påkrevd",
+        "invalid": "Ugyldig e-postadresse"
+      },
+      "phoneNumber": {
+        "label": "Telefonnummer",
+        "required": "Telefonnummer er påkrevd"
+      },
+      "studyProgram": {
+        "label": "Studieprogram",
+        "description": "F.eks. datateknologi, fysikk og matematikk eller kybernetikk og robotikk",
+        "required": "Studieprogram er påkrevd"
+      },
+      "studyYear": {
+        "label": "Studieår",
+        "required": "Studieår er påkrevd",
+        "other": "Annet / Vanskelig å si"
+      },
+      "learnedAboutUsHow": {
+        "label": "Hvordan fikk du vite om Hackerspace?",
+        "required": "Dette feltet er påkrevd"
+      },
+      "about": {
+        "label": "Litt om deg",
+        "description": "Vi vil gjerne vite mer om deg! Hvordan vil du beskrive deg selv? Hva liker du å gjøre på fritiden? Hvordan ville andre beskrive deg? Osv.",
+        "required": "Dette feltet er påkrevd"
+      },
+      "motivation": {
+        "label": "Hvorfor søker du til Hackerspace?",
+        "description": "Du kan beskrive hva du ønsker å gjøre i gruppen, eller beskrive motivasjonen din for å bli med.",
+        "required": "Dette feltet er påkrevd"
+      },
+      "groupIdentifier": {
+        "label": "Gruppe",
+        "description": "Hvis det er flere grupper som interesserer deg, vennligst legg inn ditt førstevalg. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
+        "required": "Gruppe er påkrevd"
+      },
+      "otherProjects": {
+        "label": "Er det noen andre prosjekter du kan være interessert i?",
+        "description": "Gi oss beskjed hvis det er noen andre prosjekter du kan være interessert i. Alle Hackerspace-medlemmer kan starte et nytt prosjekt!",
+        "required": "Dette feltet er påkrevd"
       }
     },
-    "applications": {
-      "apply": {
-        "title": "Søk Hackerspace NTNU",
-        "pageDescription": "Takk for din interesse for å bli med oss! Du kan forvente mye moro, læring og utvikling. Vennligst fyll ut skjemaet nedenfor for å søke, så tar vi kontakt med deg så snart som mulig (men senest innen to uker).",
-        "dataNote": "Merk: Alle dataene dine vil bli slettet så snart søknadsprosessen er fullført.",
-        "sendApplication": "Send søknad",
-        "applicationSubmitted": "Søknaden din har blitt sendt inn!",
-        "noGroupsAvailable": "Vi beklager, men alle Hackerspace-grupper er fulle for øyeblikket. Vennligst prøv igjen senere, send oss en melding eller spør et medlem på verkstedet vårt.",
-        "name": {
-          "label": "Fullt navn",
-          "required": "Navn er påkrevd"
-        },
-        "email": {
-          "label": "E-post",
-          "required": "E-post er påkrevd",
-          "invalid": "Ugyldig e-postadresse"
-        },
-        "phoneNumber": {
-          "label": "Telefonnummer",
-          "required": "Telefonnummer er påkrevd"
-        },
-        "studyProgram": {
-          "label": "Studieprogram",
-          "description": "F.eks. datateknologi, fysikk og matematikk eller kybernetikk og robotikk",
-          "required": "Studieprogram er påkrevd"
-        },
-        "studyYear": {
-          "label": "Studieår",
-          "required": "Studieår er påkrevd",
-          "other": "Annet / Vanskelig å si"
-        },
-        "learnedAboutUsHow": {
-          "label": "Hvordan fikk du vite om Hackerspace?",
-          "required": "Dette feltet er påkrevd"
-        },
-        "about": {
-          "label": "Litt om deg",
-          "description": "Vi vil gjerne vite mer om deg! Hvordan vil du beskrive deg selv? Hva liker du å gjøre på fritiden? Hvordan ville andre beskrive deg? Osv.",
-          "required": "Dette feltet er påkrevd"
-        },
-        "motivation": {
-          "label": "Hvorfor søker du til Hackerspace?",
-          "description": "Du kan beskrive hva du ønsker å gjøre i gruppen, eller beskrive motivasjonen din for å bli med.",
-          "required": "Dette feltet er påkrevd"
-        },
-        "groupIdentifier": {
-          "label": "Gruppe",
-          "description": "Hvis det er flere grupper som interesserer deg, vennligst legg inn ditt førstevalg. Du kan spesifisere andre grupper du ønsker å bli med i \"Andre prosjekter\"-feltet nedenfor - i tilfelle gruppen du valgte er full.",
-          "required": "Gruppe er påkrevd"
-        },
-        "otherProjects": {
-          "label": "Er det noen andre prosjekter du kan være interessert i?",
-          "description": "Gi oss beskjed hvis det er noen andre prosjekter du kan være interessert i. Alle Hackerspace-medlemmer kan starte et nytt prosjekt!",
-          "required": "Dette feltet er påkrevd"
-        }
-      },
-      "thankYou": {
-        "title": "Takk",
-        "description1": "Vi setter pris på interessen din for Hackerspace NTNU!",
-        "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart.",
-        "backToHome": "Tilbake til forsiden"
-      },
-      "view": {
-        "title": "Søknader",
-        "application": "Søknad",
-        "noPending": "Ingen ventende søknader ✅",
-        "noPendingDescription": "Merk: Det kan være ventende søknader som du ikke har tilgang til å se.",
-        "backToHome": "Tilbake til hjem",
-        "backToApplications": "Tilbake til søknader",
-        "submittedBy": "Sendt inn av: {name}",
-        "submittedAt": "Innsendt: {date}",
-        "userInfo": "Brukerinformasjon",
-        "email": "E-post: <link>{email}</link>",
-        "phoneNumber": "Telefonnummer: <link>{phone}</link>",
-        "studyProgram": "Studieprogram: {program}",
-        "studyYear": "Studieår: {year}",
-        "deleteApplication": "Slett søknad",
-        "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
-        "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
-        "applicationDeleted": "Søknad slettet"
-      },
-      "api": {
-        "fetchGroupFailed": "Kunne ikke hente gruppe",
-        "groupNotFound": "Gruppe ikke funnet",
-        "insertAppFailed": "Kunne ikke sende inn søknad",
-        "invalidId": "Ugyldig ID",
-        "deleteAppFailed": "Kunne ikke slette søknad"
-      }
+    "thankYou": {
+      "title": "Takk",
+      "description1": "Vi setter pris på interessen din for Hackerspace NTNU!",
+      "description2": "Vi tar en titt på søknaden din og kommer tilbake til deg snart.",
+      "backToHome": "Tilbake til forsiden"
     },
-    "users": {
-      "title": "Brukere",
-      "description": "Administrer brukere på nettsiden."
+    "view": {
+      "title": "Søknader",
+      "application": "Søknad",
+      "noPending": "Ingen ventende søknader ✅",
+      "noPendingDescription": "Merk: Det kan være ventende søknader som du ikke har tilgang til å se.",
+      "backToHome": "Tilbake til hjem",
+      "backToApplications": "Tilbake til søknader",
+      "submittedBy": "Sendt inn av: {name}",
+      "submittedAt": "Innsendt: {date}",
+      "userInfo": "Brukerinformasjon",
+      "email": "E-post: <link>{email}</link>",
+      "phoneNumber": "Telefonnummer: <link>{phone}</link>",
+      "studyProgram": "Studieprogram: {program}",
+      "studyYear": "Studieår: {year}",
+      "deleteApplication": "Slett søknad",
+      "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
+      "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
+      "applicationDeleted": "Søknad slettet"
     },
-    "files": {
-      "title": "Filer og bilder",
-      "description": "Administrer filer og bilder lastet opp av medlemmer."
-    },
-    "banners": {
-      "title": "Bannere",
-      "description": "Administrer bannere som vises på nettsiden."
+    "api": {
+      "fetchGroupFailed": "Kunne ikke hente gruppe",
+      "groupNotFound": "Gruppe ikke funnet",
+      "insertAppFailed": "Kunne ikke sende inn søknad",
+      "invalidId": "Ugyldig ID",
+      "deleteAppFailed": "Kunne ikke slette søknad"
     }
   },
   "privacy": {
