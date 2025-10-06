@@ -21,9 +21,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { keepPreviousData } from '@tanstack/react-query';
-import { PlusIcon } from 'lucide-react';
+import { EditIcon, PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from '@/components/ui/Link';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
@@ -226,19 +227,36 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
-      <Button
-        variant={isMember ? 'default' : 'secondary'}
-        className='mb-3 w-fit self-center'
-        onClick={() => {
-          setSelectedSlot({ start: new Date(), end: new Date() });
-        }}
-        disabled={!isMember}
-      >
-        <PlusIcon className='mr-2 size-5' />
-        {isMember
-          ? t('calendar.createButton')
-          : t('calendar.createButtonLoggedOut')}
-      </Button>
+      <div className='relative flex w-full justify-center'>
+        <Button
+          variant={isMember ? 'default' : 'secondary'}
+          className='mb-3'
+          onClick={() => {
+            setSelectedSlot({ start: new Date(), end: new Date() });
+          }}
+          disabled={!isMember}
+        >
+          <PlusIcon className='mr-2 size-5' />
+          {isMember
+            ? t('calendar.createButton')
+            : t('calendar.createButtonLoggedOut')}
+        </Button>
+        {user?.groups.some((g) =>
+          ['labops', 'leadership', 'admin'].includes(g),
+        ) && (
+          <Link
+            href={{
+              pathname: '/reservations/tools/[toolId]/edit',
+              params: { toolId: tool.id },
+            }}
+            variant='default'
+            size='icon'
+            className='absolute top-0 right-0'
+          >
+            <EditIcon />
+          </Link>
+        )}
+      </div>
 
       {selectedSlot && range && (
         <CalendarDialog

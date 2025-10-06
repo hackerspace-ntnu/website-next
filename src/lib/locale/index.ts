@@ -241,6 +241,14 @@ const routing = defineRouting({
       'en-GB': '/reservations/[calendarId]',
       'nb-NO': '/reservasjoner/[calendarId]',
     },
+    '/reservations/tools/new': {
+      'en-GB': '/reservations/tools/new',
+      'nb-NO': '/reservasjoner/verktøy/ny',
+    },
+    '/reservations/tools/[toolId]/edit': {
+      'en-GB': '/reservations/tools/[toolId]/edit',
+      'nb-NO': '/reservasjoner/verktøy/[toolId]/rediger',
+    },
   },
 });
 

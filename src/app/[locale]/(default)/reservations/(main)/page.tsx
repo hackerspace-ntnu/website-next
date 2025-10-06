@@ -32,7 +32,7 @@ export default async function ReservationsPage() {
         userReservations={userReservations}
         loggedIn={!!user}
       />
-      <ToolCardGrid tools={toolsWithImageUrl} />
+      <ToolCardGrid tools={toolsWithImageUrl} user={user} />
     </>
   );
 }

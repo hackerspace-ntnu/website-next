@@ -36,6 +36,10 @@ const toolsRelations = relations(tools, ({ one, many }) => ({
     fields: [tools.imageId],
     references: [files.id],
   }),
+  printerSpec: one(printerSpecs, {
+    fields: [tools.id],
+    references: [printerSpecs.printerId],
+  }),
 }));
 
 const toolLocalizations = pgTable(

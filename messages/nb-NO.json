@@ -1193,7 +1193,96 @@
       "difficulty": "Vanskelighetsgrad",
       "filamentSize": "Filament størrelse",
       "filamentType": "Filament type",
-      "slicer": "Slicer"
+      "slicer": "Slicer",
+      "backToReservations": "Tilbake til reservasjoner",
+      "new": {
+        "title": "Nytt reservasjonsverktøy",
+        "createTool": "Opprett verktøy",
+        "toolCreated": "Verktøy opprettet",
+        "unauthorized": "Du har ikke rettigheter til å opprette reservasjonverktøy"
+      },
+      "edit": {
+        "title": "Oppdater reservasjonsverktøy",
+        "updateTool": "Oppdater verktøy",
+        "toolUpdated": "Verktøy oppdatert",
+        "deleteTool": "Slett verktøy",
+        "deleteToolTitle": "Er du sikker på at du vil slette dette verktøyet?",
+        "deleteToolDescription": "Dette vil også slette alle reservasjonene for dette verktøyet. Denne handlingen kan ikke angres.",
+        "toolDeleted": "Verktøy slettet",
+        "deleteToolImage": "Slett verktøybilde",
+        "deleteToolImageTitle": "Er du sikker på at du vil slette dette verktøybildet?",
+        "deleteToolImageDescription": "Denne handlingen kan ikke angres.",
+        "imageDeleted": "Verktøybilde slettet",
+        "unauthorized": "Du har ikke rettigheter til å oppdatere reservasjonverktøy"
+      },
+      "form": {
+        "3dprinterOptions": "3D-printer alternativer",
+        "image": {
+          "label": "Verktøybilde",
+          "description": "Last opp et bilde...",
+          "sizeLimitError": "Vertøybilde må være mindre enn {size} MB",
+          "wrongFileTypeError": "Vertøybilde må være en PNG eller JPG",
+          "fileNotImageError": "Filen er ikke et bilde"
+        },
+        "type": {
+          "label": "Verktøytype",
+          "required": "Verktøytype er påkrevd",
+          "3dprinter": "3D-printer",
+          "other": "Annet"
+        },
+        "name": {
+          "labelNorwegian": "Verktøynavn (norsk)",
+          "labelEnglish": "Verktøynavn (engelsk)",
+          "placeholder": "3D-printer",
+          "required": "Verktøynavn er påkrevd",
+          "maxLength": "Verktøynavn må være mindre enn {count} tegn"
+        },
+        "nickName": {
+          "label": "Kallenavn",
+          "placeholder": "Geir Ove Mjølsnes",
+          "maxLength": "Kallenavn må være mindre enn {count} tegn"
+        },
+        "description": {
+          "labelNorwegian": "Verktøybeskrivelse (norsk)",
+          "labelEnglish": "Verktøybeskrivelse (engelsk)",
+          "placeholder": "En kort beskrivelse av verktøyet",
+          "required": "Verktøybeskrivelse er påkrevd",
+          "maxLength": "Verktøybeskrivelse må være mindre enn {count} tegn"
+        },
+        "status": {
+          "label": "Verktøystatus",
+          "description": "Velg den nåværende statusen til verktøyet.",
+          "required": "Verktøystatus er påkrevd",
+          "available": "Tilgjengelig",
+          "unavailable": "Utilgjengelig",
+          "requires_supervision": "Krever veiledning",
+          "out_of_order": "Ute av drift"
+        },
+        "requires": {
+          "label": "Gjenstander som kreves",
+          "description": "For eks. SD-kort, USB-minnepinne, osv.",
+          "maxLength": "Gjenstander som kreves må være mindre enn {count} tegn"
+        },
+        "difficultyLevel": {
+          "label": "Vanskelighetsgrad",
+          "description": "Velg vanskelighetsgraden for å bruke verktøyet."
+        },
+        "filamentSize": {
+          "label": "Filamentstørrelse",
+          "description": "For eks. 1.75mm or 2.85mm",
+          "maxLength": "Filmentstørrelse must be less than {count} characters"
+        },
+        "filamentType": {
+          "label": "Filamenttype",
+          "description": "For eks. PLA, ABS, PETG, osv.",
+          "maxLength": "Filament type must be less than {count} characters"
+        },
+        "slicer": {
+          "label": "Slicerprogramvare",
+          "description": "For eks. Bambu Studio, PrusaSlicer, etc.",
+          "maxLength": "Slicerprogramvare må være mindre enn {count} tegn"
+        }
+      }
     },
     "myReservationsTable": {
       "title": "Dine reservasjoner",
@@ -1282,9 +1371,9 @@
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
       "invalidId": "Ugyldig id",
       "notFound": "Kunne ikke finne reservasjonen",
-      "toolNotFound": "Could not find tool",
-      "toolUnavailable": "Tool is unavailable",
-      "newMustBeInFuture": "Start/end time cannot be in the past",
+      "toolNotFound": "Kunne ikke finne verktøyet",
+      "toolUnavailable": "Verktøyet er ikke tilgjengelig",
+      "newMustBeInFuture": "Start/slutt tid kan ikke være i fortiden",
       "specifyStart": "Start dato kreves",
       "specifyEnd": "Slutt dato kreves",
       "rangeTooLarge": "Tidsperioden er for lang",
@@ -1293,7 +1382,9 @@
       "cannotChangePast": "Kan ikke endre reservasjoner som er ferdig",
       "updateFailed": "Kunne ikke oppdatere reservasjon",
       "createFailed": "Kunne ikke opprette reservasjon",
-      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon"
+      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon",
+      "createToolFailed": "Kunne ikke opprette verktøy",
+      "editToolFailed": "Kunne ikke opprette verktøy"
     }
   }
 }

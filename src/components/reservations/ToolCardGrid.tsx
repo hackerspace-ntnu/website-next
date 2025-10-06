@@ -1,8 +1,10 @@
 'use client';
 
+import { PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
 import { ToolCard } from '@/components/reservations/ToolCard';
+import { Link } from '@/components/ui/Link';
 import type { RouterOutput } from '@/server/api';
 
 export type Tool = {
@@ -23,9 +25,10 @@ export type Tool = {
 
 type ToolCardGridProps = {
   tools: RouterOutput['tools']['fetchTools'];
+  user?: RouterOutput['auth']['state']['user'];
 };
 
-function ToolCardGrid({ tools }: ToolCardGridProps) {
+function ToolCardGrid({ tools, user }: ToolCardGridProps) {
   const [currentTool, setCurrentTool] = useState<Tool | null>(null);
 
   return (
@@ -38,14 +41,26 @@ function ToolCardGrid({ tools }: ToolCardGridProps) {
           onCloseButton={() => setCurrentTool(null)}
         />
       )}
-      <div className='mx-auto grid w-fit max-w-5xl grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-        {tools.map((tool) => (
-          <ToolCard
-            tool={tool as Tool}
-            key={tool.toolId}
-            onClick={() => setCurrentTool(tool as Tool)}
-          />
-        ))}
+      <div className='mx-auto w-fit max-w-5xl'>
+        <div className='mb-4 flex w-full justify-end'>
+          {user?.groups.some((g) =>
+            ['labops', 'leadership', 'admin'].includes(g),
+          ) && (
+            <Link href='/reservations/tools/new' variant='default' size='icon'>
+              <PlusIcon />
+            </Link>
+          )}
+        </div>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+          {tools.map((tool) => (
+            <ToolCard
+              tool={tool as Tool}
+              user={user}
+              key={tool.toolId}
+              onClick={() => setCurrentTool(tool as Tool)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

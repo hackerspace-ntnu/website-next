@@ -1,4 +1,4 @@
-import { Maximize2Icon } from 'lucide-react';
+import { EditIcon, Maximize2Icon } from 'lucide-react';
 import { m } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -13,13 +13,15 @@ import {
 } from '@/components/ui/Card';
 import { toolDescriptionFields } from '@/lib/constants';
 import { Link } from '@/lib/locale/navigation';
+import type { RouterOutput } from '@/server/api';
 
 type ToolCardProps = {
   tool: Tool;
+  user?: RouterOutput['auth']['state']['user'];
   onClick: () => void;
 };
 
-function ToolCard({ tool, onClick }: ToolCardProps) {
+function ToolCard({ tool, user, onClick }: ToolCardProps) {
   const t = useTranslations('reservations');
 
   const button = (() => {
@@ -82,14 +84,29 @@ function ToolCard({ tool, onClick }: ToolCardProps) {
             className='object-cover duration-150 group-hover:scale-105'
           />
           <m.button
-            className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm ease-in-out hover:bg-primary'
+            className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
             key={`cardHeaderButton-${tool.name}`}
             onClick={onClick}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             title={t('tools.tooltip')}
           >
-            <Maximize2Icon className='size-6 stroke-stone-300 transition delay-75 duration-300 ease-in-out hover:scale-110' />
+            <Maximize2Icon className='size-6 stroke-stone-300' />
           </m.button>
+          {user?.groups.some((g) =>
+            ['labops', 'leadership', 'admin'].includes(g),
+          ) && (
+            <Link
+              className='absolute top-14 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm duration-150 ease-in-out hover:scale-105 hover:bg-primary'
+              key={`cardHeaderEditButton-${tool.name}`}
+              href={{
+                pathname: '/reservations/tools/[toolId]/edit',
+                params: { toolId: tool.toolId },
+              }}
+              title={t('tools.tooltip')}
+            >
+              <EditIcon className='size-6 stroke-stone-300' />
+            </Link>
+          )}
         </div>
         <CardTitle className='truncate text-center'>
           <span className='clamp-[text-lg-xl-clamp]'>{tool.name}</span>
