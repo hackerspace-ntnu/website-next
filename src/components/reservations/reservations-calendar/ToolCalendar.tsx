@@ -72,7 +72,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   } | null>(null);
   const [range, setRange] = useState<Range | null>(null);
   const calendarRef = useRef<FullCalendar>(null);
-  const pendingTargetViewRef = useRef<string | null>(null);
 
   // Used in dateset to prevent redundant fetches if use spam clicks next/prev buttons
   const latestWindowRef = useRef<{ startISO: string; endISO: string } | null>(
@@ -105,8 +104,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       until: range?.untilISO ?? '',
     },
     {
-      enabled:
-        !!tool.id && !!range && view !== null && !pendingTargetViewRef.current,
+      enabled: !!tool.id && !!range && view !== null,
       refetchOnWindowFocus: false,
       placeholderData: keepPreviousData,
     },
@@ -147,19 +145,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       ) {
         setView((view) => (view ? { ...view, snapToToday: false } : view));
         calendarRef.current?.getApi().gotoDate(new Date());
-      }
-
-      if (
-        pendingTargetViewRef.current &&
-        info.view.type !== pendingTargetViewRef.current
-      ) {
-        return;
-      }
-      if (
-        pendingTargetViewRef.current &&
-        info.view.type === pendingTargetViewRef.current
-      ) {
-        pendingTargetViewRef.current = null;
       }
 
       if (view && info.view.type !== view.name) return;
@@ -208,7 +193,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       isIpad,
       view,
       onViewChange: (view) => {
-        pendingTargetViewRef.current = view;
         setView({
           name: view,
           snapToToday: view === 'timeGridDay' || view === 'timeGridThreeDay',
@@ -301,7 +285,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             calendarRef={calendarRef}
             view={view.name}
             onViewChange={(v) => {
-              pendingTargetViewRef.current = v;
               setView((prev) =>
                 prev ? { ...prev, name: v, manual: true } : prev,
               );
