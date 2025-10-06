@@ -1273,7 +1273,10 @@
       "locale": "en"
     },
     "customEventContent": {
-      "details": "Details"
+      "details": "Details",
+      "tooltipUserEvent": "Click to edit",
+      "tooltipOtherEvents": "Click for details",
+      "close": "Close"
     },
     "api": {
       "startBeforeEndError": "End time cannot be before start time",

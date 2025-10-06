@@ -8,6 +8,7 @@ import { InformationCard } from '@/components/reservations/reservations-calendar
 import { ToolCalendarSkeleton } from '@/components/reservations/reservations-calendar/ToolCalendarSkeleton';
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api/client';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import '@/lib/styles/calendar.css';
 import type {
@@ -23,7 +24,6 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
@@ -75,6 +75,25 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const debouncedSetRange = useDebounceCallback(setRange, 500);
   const calendarRef = useRef<FullCalendar>(null);
 
+  // local dialog state
+  const [selectedSlot, setSelectedSlot] = useState<{
+    start: Date;
+    end: Date;
+  } | null>(null);
+
+  const [selectedReservation, setSelectedReservation] = useState<{
+    reservationId: number;
+    toolId: number;
+    reservedFrom: Date;
+    reservedUntil: Date;
+    notes?: string | null;
+  } | null>(null);
+
+  const [detailsDialogOpen, setDetailscDialogOpen] = useState(false);
+  const [detailsDialogEventId, setDetailsDialogEventId] = useState<
+    string | null
+  >(null);
+
   // Decide initial/auto view
   useEffect(() => {
     if (view?.manual) return;
@@ -120,14 +139,18 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const handleEventClick = useCallback(
     (info: EventClickArg) => {
       const isCurrentUsers = info.event.extendedProps.userId === memberId;
-      if (!isCurrentUsers) return;
-      setSelectedReservation({
-        reservationId: Number(info.event.extendedProps.reservationId),
-        toolId: Number(info.event.extendedProps.toolId),
-        reservedFrom: info.event.start ?? new Date(),
-        reservedUntil: info.event.end ?? new Date(),
-        notes: info.event.extendedProps.notes ?? null,
-      });
+      if (isCurrentUsers) {
+        setSelectedReservation({
+          reservationId: Number(info.event.extendedProps.reservationId),
+          toolId: Number(info.event.extendedProps.toolId),
+          reservedFrom: info.event.start ?? new Date(),
+          reservedUntil: info.event.end ?? new Date(),
+          notes: info.event.extendedProps.notes ?? null,
+        });
+      } else {
+        setDetailsDialogEventId(info.event.id);
+        setDetailscDialogOpen(true);
+      }
     },
     [memberId],
   );
@@ -155,9 +178,18 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) => (
-      <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
+      <CustomEventContent
+        eventInfo={eventInfo}
+        memberId={memberId}
+        // below is needed so fullcalendar doesn't open user dialog for non-user reservations
+        open={detailsDialogOpen && detailsDialogEventId === eventInfo.event.id}
+        onOpenChange={(open) => {
+          setDetailscDialogOpen(open);
+          if (!open) setDetailsDialogEventId(null);
+        }}
+      />
     ),
-    [memberId],
+    [memberId, detailsDialogEventId, detailsDialogOpen],
   );
   const calendarConfig = useMemo(() => {
     if (!view) return null;
@@ -191,20 +223,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     handleEventClick,
     t,
   ]);
-
-  // local dialog state
-  const [selectedSlot, setSelectedSlot] = useState<{
-    start: Date;
-    end: Date;
-  } | null>(null);
-
-  const [selectedReservation, setSelectedReservation] = useState<{
-    reservationId: number;
-    toolId: number;
-    reservedFrom: Date;
-    reservedUntil: Date;
-    notes?: string | null;
-  } | null>(null);
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>

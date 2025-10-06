@@ -1273,7 +1273,10 @@
       "locale": "nb"
     },
     "customEventContent": {
-      "details": "Detaljer"
+      "details": "Detaljer",
+      "tooltipUserEvent": "Klikk for å redigere",
+      "tooltipOtherEvents": "Klikk for mer info",
+      "close": "Lukk"
     },
     "api": {
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
