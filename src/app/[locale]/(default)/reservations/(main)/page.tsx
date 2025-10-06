@@ -1,15 +1,6 @@
-import { getTranslations } from 'next-intl/server';
 import { MyReservationsTable } from '@/components/reservations/MyReservationsTable';
 import { ToolCardGrid } from '@/components/reservations/ToolCardGrid';
 import { api } from '@/lib/api/server';
-
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
-
-  return {
-    title: t('reservations'),
-  };
-}
 
 export default async function ReservationsPage() {
   const { user } = await api.auth.state();

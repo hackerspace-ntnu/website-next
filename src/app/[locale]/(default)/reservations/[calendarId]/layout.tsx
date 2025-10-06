@@ -9,6 +9,7 @@ import {
 } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
+
 export async function generateMetadata({
   params,
 }: {
@@ -20,7 +21,7 @@ export async function generateMetadata({
   if (!tool) return;
 
   return {
-    title: `${tool.name}`,
+    title: tool.name,
   };
 }
 
@@ -38,7 +39,16 @@ export default async function ReservationItemLayout({
 
   const { reservations, ui } = await getMessages();
   const t = await getTranslations('reservations');
-  const tool = await api.tools.fetchTool(Number.parseInt(calendarId));
+  const processedCalendarId = Number(calendarId);
+
+  if (
+    Number.isNaN(processedCalendarId) ||
+    !Number.isInteger(processedCalendarId) ||
+    processedCalendarId < 1
+  )
+    return notFound();
+
+  const tool = await api.tools.fetchTool(processedCalendarId);
 
   if (!tool) return notFound();
 

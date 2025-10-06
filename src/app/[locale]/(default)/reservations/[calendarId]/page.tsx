@@ -1,15 +1,6 @@
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
 import { ToolCalendar } from '@/components/reservations/reservations-calendar/ToolCalendar';
 import { api } from '@/lib/api/server';
-
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
-
-  return {
-    title: t('reservations'),
-  };
-}
 
 export default async function ToolCalendarPage({
   params,
@@ -18,7 +9,16 @@ export default async function ToolCalendarPage({
 }) {
   const { calendarId } = await params;
   const { user } = await api.auth.state();
-  const tool = await api.tools.fetchTool(Number(calendarId));
+  const processedCalendarId = Number(calendarId);
+
+  if (
+    Number.isNaN(processedCalendarId) ||
+    !Number.isInteger(processedCalendarId) ||
+    processedCalendarId < 1
+  )
+    return notFound();
+
+  const tool = await api.tools.fetchTool(processedCalendarId);
 
   if (!tool) return notFound();
 
