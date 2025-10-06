@@ -9,7 +9,6 @@ import { ToolCalendarSkeleton } from '@/components/reservations/reservations-cal
 import { Button } from '@/components/ui/Button';
 import { api } from '@/lib/api/client';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { useMounted } from '@/lib/hooks/useMounted';
 import '@/lib/styles/calendar.css';
 import type {
   DateSelectArg,
@@ -59,16 +58,12 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 }
 
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
-  const mounted = useMounted();
   const t = useTranslations('reservations');
 
   const isMember = user?.groups ? user.groups.length > 0 : false;
   const memberId = user?.id ?? 0;
-
-  const isLaptopRaw = useMediaQuery('(min-width: 70rem)');
-  const isIpadRaw = useMediaQuery('(min-width: 41.438rem)');
-  const isLaptop = mounted ? isLaptopRaw : false;
-  const isIpad = mounted ? isIpadRaw : false;
+  const isLaptop = useMediaQuery('(min-width: 70rem)');
+  const isIpad = useMediaQuery('(min-width: 41.438rem)');
 
   const [view, setView] = useState<{
     name: string;
@@ -87,7 +82,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   // Decide initial/auto view
   useEffect(() => {
-    if (!mounted || view?.manual) return;
+    if (view?.manual) return;
 
     const next = isLaptop
       ? 'timeGridWeek'
@@ -100,7 +95,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       snapToToday: next === 'timeGridDay' || next === 'timeGridThreeDay',
       manual: false,
     });
-  }, [mounted, isLaptop, isIpad, view?.manual]);
+  }, [isLaptop, isIpad, view?.manual]);
 
   // ---------- Data fetching ----------
   const reservationsQuery = api.reservations.fetchCalendarReservations.useQuery(
@@ -111,11 +106,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     },
     {
       enabled:
-        mounted &&
-        !!tool.id &&
-        !!range &&
-        view !== null &&
-        !pendingTargetViewRef.current,
+        !!tool.id && !!range && view !== null && !pendingTargetViewRef.current,
       refetchOnWindowFocus: false,
       placeholderData: keepPreviousData,
     },
@@ -304,7 +295,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       )}
 
       <InformationCard />
-      {mounted && view && calendarConfig ? (
+      {view && calendarConfig ? (
         <div className='w-full overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
           <CustomToolbar
             calendarRef={calendarRef}
