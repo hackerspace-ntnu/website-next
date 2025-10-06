@@ -1361,7 +1361,6 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
 
 const toolsData: InsertTool[] = [
   {
-    id: 1,
     type: '3dprinter',
     nickName: 'Geir Ove Mjølsnes',
     difficulty: 3,
@@ -1369,7 +1368,6 @@ const toolsData: InsertTool[] = [
     status: 'available',
   },
   {
-    id: 2,
     type: '3dprinter',
     nickName: 'Petter',
     difficulty: 1,
@@ -1377,7 +1375,6 @@ const toolsData: InsertTool[] = [
     status: 'available',
   },
   {
-    id: 3,
     type: '3dprinter',
     nickName: 'Kurt Kåre Rogers',
     difficulty: 1,
@@ -1385,7 +1382,6 @@ const toolsData: InsertTool[] = [
     status: 'available',
   },
   {
-    id: 4,
     type: '3dprinter',
     nickName: 'Gerd Gunda Brunsnes',
     difficulty: 5,
@@ -1393,7 +1389,6 @@ const toolsData: InsertTool[] = [
     status: 'out_of_order',
   },
   {
-    id: 5,
     type: 'other',
     nickName: '',
     difficulty: 5,
@@ -1401,7 +1396,6 @@ const toolsData: InsertTool[] = [
     status: 'requires_supervision',
   },
   {
-    id: 6,
     type: 'other',
     nickName: '',
     difficulty: 5,
