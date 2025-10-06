@@ -23,6 +23,7 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
@@ -71,13 +72,8 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     manual: boolean;
   } | null>(null);
   const [range, setRange] = useState<Range | null>(null);
+  const debouncedSetRange = useDebounceCallback(setRange, 500);
   const calendarRef = useRef<FullCalendar>(null);
-
-  // Used in dateset to prevent redundant fetches if use spam clicks next/prev buttons
-  const latestWindowRef = useRef<{ startISO: string; endISO: string } | null>(
-    null,
-  );
-  const navSettleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Decide initial/auto view
   useEffect(() => {
@@ -152,29 +148,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       const startISO = info.view.activeStart.toISOString();
       const endISO = info.view.activeEnd.toISOString();
 
-      // our useDebounceCallback hook didn't prevent next/prev button spamclick, i.e. if user spamclicked next 10 times, we fetched for 10 weeks.
-      // Decided to do whats below
-      latestWindowRef.current = { startISO, endISO };
-      if (navSettleTimerRef.current) clearTimeout(navSettleTimerRef.current);
-
-      navSettleTimerRef.current = setTimeout(() => {
-        const latest = latestWindowRef.current;
-        if (!latest) return;
-
-        setRange((prev) => {
-          if (prev) {
-            if (
-              prev.fromISO === latest.startISO &&
-              prev.untilISO === latest.endISO
-            ) {
-              return prev;
-            }
-          }
-          return { fromISO: latest.startISO, untilISO: latest.endISO };
-        });
-      }, 500);
+      debouncedSetRange({ fromISO: startISO, untilISO: endISO });
     },
-    [view],
+    [view, debouncedSetRange],
   );
 
   const renderEventContent = useCallback(
