@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { RefObject } from 'react';
 import { Button } from '@/components/ui/Button';
+import { cx } from '@/lib/utils';
 
 type ToolbarProps = {
   view: string;
@@ -45,7 +46,10 @@ function CustomToolbar({
 
   return (
     <div
-      className={`flex flex-wrap items-center justify-between border-border border-b bg-card p-2 font-extrabold ${isLaptop || isIpad ? 'flex-row gap-0' : 'flex-col text-center'}`}
+      className={cx(
+        'flex flex-wrap items-center justify-between border-border border-b bg-card p-2 font-extrabold',
+        isLaptop || isIpad ? 'flex-row gap-0' : 'flex-col gap-2 text-center',
+      )}
     >
       <div
         className={

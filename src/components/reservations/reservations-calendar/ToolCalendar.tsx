@@ -70,12 +70,14 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const isLaptop = mounted ? isLaptopRaw : false;
   const isIpad = mounted ? isIpadRaw : false;
 
-  const [manualView, setManualView] = useState(false);
-  const [view, setView] = useState<string | null>(null);
+  const [view, setView] = useState<{
+    name: string;
+    snapToToday: boolean;
+    manual: boolean;
+  } | null>(null);
   const [range, setRange] = useState<Range | null>(null);
   const calendarRef = useRef<FullCalendar>(null);
   const pendingTargetViewRef = useRef<string | null>(null);
-  const snapToTodayOnEntryRef = useRef(false);
 
   // Used in dateset to prevent redundant fetches if use spam clicks next/prev buttons
   const latestWindowRef = useRef<{ startISO: string; endISO: string } | null>(
@@ -85,21 +87,20 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   // Decide initial/auto view
   useEffect(() => {
-    if (!mounted || manualView) return;
+    if (!mounted || view?.manual) return;
 
     const next = isLaptop
       ? 'timeGridWeek'
       : isIpad
         ? 'timeGridThreeDay'
         : 'timeGridDay';
-    setView((prev) => {
-      if (prev === next) return prev;
-      snapToTodayOnEntryRef.current =
-        next === 'timeGridDay' || next === 'timeGridThreeDay';
 
-      return next;
+    setView({
+      name: next,
+      snapToToday: next === 'timeGridDay' || next === 'timeGridThreeDay',
+      manual: false,
     });
-  }, [mounted, isLaptop, isIpad, manualView]);
+  }, [mounted, isLaptop, isIpad, view?.manual]);
 
   // ---------- Data fetching ----------
   const reservationsQuery = api.reservations.fetchCalendarReservations.useQuery(
@@ -149,11 +150,11 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
       if (
-        snapToTodayOnEntryRef.current &&
+        view?.snapToToday &&
         (info.view.type === 'timeGridDay' ||
           info.view.type === 'timeGridThreeDay')
       ) {
-        snapToTodayOnEntryRef.current = false;
+        setView((view) => (view ? { ...view, snapToToday: false } : view));
         calendarRef.current?.getApi().gotoDate(new Date());
       }
 
@@ -170,7 +171,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
         pendingTargetViewRef.current = null;
       }
 
-      if (view && info.view.type !== view) return;
+      if (view && info.view.type !== view.name) return;
 
       const startISO = info.view.activeStart.toISOString();
       const endISO = info.view.activeEnd.toISOString();
@@ -215,13 +216,13 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       isLaptop,
       isIpad,
       view,
-      manualView,
       onViewChange: (view) => {
-        setManualView(true);
         pendingTargetViewRef.current = view;
-        snapToTodayOnEntryRef.current =
-          view === 'timeGridDay' || view === 'timeGridThreeDay';
-        setView(view);
+        setView({
+          name: view,
+          snapToToday: view === 'timeGridDay' || view === 'timeGridThreeDay',
+          manual: true,
+        });
       },
       handleDatesSet,
       handleSelectSlot,
@@ -234,7 +235,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     memberId,
     isLaptop,
     isIpad,
-    manualView,
     handleDatesSet,
     handleSelectSlot,
     handleEventClick,
@@ -277,7 +277,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           onOpenChange={(open) => !open && setSelectedSlot(null)}
           mode='create'
           toolId={tool.id}
-          reservationId={undefined}
           userId={memberId}
           start={selectedSlot.start}
           end={selectedSlot.end}
@@ -309,17 +308,18 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
         <div className='w-full overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
           <CustomToolbar
             calendarRef={calendarRef}
-            view={view}
+            view={view.name}
             onViewChange={(v) => {
-              setManualView(true);
               pendingTargetViewRef.current = v;
-              setView(v);
+              setView((prev) =>
+                prev ? { ...prev, name: v, manual: true } : prev,
+              );
             }}
             isLaptop={isLaptop}
             isIpad={isIpad}
           />
           <FullCalendar
-            key={`${view}-${memberId}`}
+            key={`${view.name}-${memberId}`}
             ref={calendarRef}
             plugins={[timeGridPlugin, interactionPlugin]}
             events={calendarReservations}

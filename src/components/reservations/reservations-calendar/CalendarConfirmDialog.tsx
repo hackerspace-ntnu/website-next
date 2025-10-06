@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogActionDestructive,
   AlertDialogCancel,
   AlertDialogContent,

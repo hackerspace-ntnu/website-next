@@ -35,8 +35,11 @@ type CalendarConfigProps = {
   memberId: number;
   isLaptop: boolean;
   isIpad: boolean;
-  view: string;
-  manualView: boolean;
+  view: {
+    name: string;
+    snapToToday: boolean;
+    manual: boolean;
+  };
   onViewChange: (view: string) => void;
   handleDatesSet: (info: DatesSetArg) => void;
   handleSelectSlot: (info: DateSelectArg) => void;
@@ -51,7 +54,6 @@ export function createCalendarConfig({
   isLaptop,
   isIpad,
   view,
-  manualView,
   onViewChange,
   handleDatesSet,
   handleSelectSlot,
@@ -71,7 +73,7 @@ export function createCalendarConfig({
     progressiveEventRendering: true,
     scrollTimeReset: false,
     views: viewTypes,
-    initialView: view,
+    initialView: view.name,
     headerToolbar: false as const,
     height: 750,
     scrollTime: '10:00:00',
@@ -147,7 +149,7 @@ export function createCalendarConfig({
 
     // view change
     windowResize: () => {
-      if (manualView) return;
+      if (view.manual) return;
       const api = calendarRef.current?.getApi();
       if (!api) return;
       const nextView = decideView();
