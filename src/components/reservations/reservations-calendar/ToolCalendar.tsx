@@ -152,11 +152,15 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           toolId={eventInfo.event.extendedProps.toolId}
           reservationId={eventInfo.event.extendedProps.reservationId}
           userId={memberId}
-          start={eventInfo.event.start}
-          end={eventInfo.event.end}
+          range={{
+            start: eventInfo.event.start,
+            end: eventInfo.event.end,
+          }}
           notes={eventInfo.event.extendedProps.notes ?? ''}
-          windowFromISO={eventInfo.view.currentStart.toISOString()}
-          windowUntilISO={eventInfo.view.currentEnd.toISOString()}
+          windowRange={{
+            from: eventInfo.view.currentStart.toISOString(),
+            until: eventInfo.view.currentEnd.toISOString(),
+          }}
         >
           <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
         </CalendarDialog>
@@ -237,10 +241,14 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           mode='create'
           toolId={tool.id}
           userId={memberId}
-          start={selectedSlot.start}
-          end={selectedSlot.end}
-          windowFromISO={range.fromISO}
-          windowUntilISO={range.untilISO}
+          range={{
+            start: selectedSlot.start,
+            end: selectedSlot.end,
+          }}
+          windowRange={{
+            from: range.fromISO,
+            until: range.untilISO,
+          }}
         />
       )}
 

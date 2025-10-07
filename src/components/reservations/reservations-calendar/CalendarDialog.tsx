@@ -28,12 +28,9 @@ type CalendarDialogProps = {
   toolId: number;
   reservationId?: number;
 
-  start: Date | null;
-  end: Date | null;
+  range: { start: Date | null; end: Date | null };
+  windowRange: { from: string; until: string };
   notes?: string;
-
-  windowFromISO: string;
-  windowUntilISO: string;
 
   children?: React.ReactNode;
 };
@@ -60,17 +57,15 @@ function CalendarDialog({
   toolId,
   reservationId,
   userId,
-  start,
-  end,
+  range,
   notes,
-  windowFromISO,
-  windowUntilISO,
+  windowRange,
   children,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const utils = api.useUtils();
-  const schema = reservationFormSchema(translations, start, mode);
+  const schema = reservationFormSchema(translations, range.start, mode);
 
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
   const open = openProp !== undefined ? openProp : internalOpen;
@@ -85,8 +80,8 @@ function CalendarDialog({
   async function onMutationSuccess() {
     await utils.reservations.fetchCalendarReservations.invalidate({
       toolId,
-      from: windowFromISO,
-      until: windowUntilISO,
+      from: windowRange.from,
+      until: windowRange.until,
     });
     handleOpenChange(false);
   }
@@ -104,13 +99,17 @@ function CalendarDialog({
   const form = useAppForm({
     validators: { onSubmit: schema },
     defaultValues: {
-      fromDate: start ?? null,
-      untilDate: end ?? null,
+      fromDate: range.start ?? null,
+      untilDate: range.end ?? null,
 
-      fromHour: start ? String(start.getHours()) : '',
-      fromMinute: start ? String(Math.floor(start.getMinutes() / 15) * 15) : '',
-      untilHour: end ? String(end.getHours()) : '',
-      untilMinute: end ? String(Math.floor(end.getMinutes() / 15) * 15) : '',
+      fromHour: range.start ? String(range.start.getHours()) : '',
+      fromMinute: range.start
+        ? String(Math.floor(range.start.getMinutes() / 15) * 15)
+        : '',
+      untilHour: range.end ? String(range.end.getHours()) : '',
+      untilMinute: range.end
+        ? String(Math.floor(range.end.getMinutes() / 15) * 15)
+        : '',
       notes: notes ?? '',
     },
     onSubmit: async ({ value }) => {
@@ -167,7 +166,10 @@ function CalendarDialog({
   return (
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       {children && (
-        <AlertDialogTrigger onClick={() => handleOpenChange(true)}>
+        <AlertDialogTrigger
+          className='h-full w-full'
+          onClick={() => handleOpenChange(true)}
+        >
           {children}
         </AlertDialogTrigger>
       )}
