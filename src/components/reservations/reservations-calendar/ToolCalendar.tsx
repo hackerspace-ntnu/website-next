@@ -14,7 +14,6 @@ import '@/lib/styles/calendar.css';
 import type {
   DateSelectArg,
   DatesSetArg,
-  EventClickArg,
   EventContentArg,
 } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -62,7 +61,7 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
 
-  const isMember = user?.groups ? user.groups.length > 0 : false;
+  const isMember = user?.groups && user.groups.length > 0;
   const memberId = user?.id ?? 0;
   const isLaptop = useMediaQuery('(min-width: 70rem)');
   const isIpad = useMediaQuery('(min-width: 41.438rem)');
@@ -76,18 +75,10 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const debouncedSetRange = useDebounceCallback(setRange, 500);
   const calendarRef = useRef<FullCalendar>(null);
 
-  // local dialog state
+  // Used when creating a new reservation
   const [selectedSlot, setSelectedSlot] = useState<{
     start: Date;
     end: Date;
-  } | null>(null);
-
-  const [selectedReservation, setSelectedReservation] = useState<{
-    reservationId: number;
-    toolId: number;
-    reservedFrom: Date;
-    reservedUntil: Date;
-    notes?: string | null;
   } | null>(null);
 
   // Decide initial/auto view
@@ -132,22 +123,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     calendarRef.current?.getApi().unselect();
   }, []);
 
-  const handleEventClick = useCallback(
-    (info: EventClickArg) => {
-      const isCurrentUsers = info.event.extendedProps.userId === memberId;
-      if (isCurrentUsers) {
-        setSelectedReservation({
-          reservationId: Number(info.event.extendedProps.reservationId),
-          toolId: Number(info.event.extendedProps.toolId),
-          reservedFrom: info.event.start ?? new Date(),
-          reservedUntil: info.event.end ?? new Date(),
-          notes: info.event.extendedProps.notes ?? null,
-        });
-      }
-    },
-    [memberId],
-  );
-
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
       if (
@@ -170,16 +145,32 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   );
 
   const renderEventContent = useCallback(
-    (eventInfo: EventContentArg) => (
-      <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
-    ),
+    (eventInfo: EventContentArg) =>
+      eventInfo.event.extendedProps.userId === memberId ? (
+        <CalendarDialog
+          mode='edit'
+          toolId={eventInfo.event.extendedProps.toolId}
+          reservationId={eventInfo.event.extendedProps.reservationId}
+          userId={memberId}
+          start={eventInfo.event.start}
+          end={eventInfo.event.end}
+          notes={eventInfo.event.extendedProps.notes ?? ''}
+          windowFromISO={eventInfo.view.currentStart.toISOString()}
+          windowUntilISO={eventInfo.view.currentEnd.toISOString()}
+        >
+          <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
+        </CalendarDialog>
+      ) : (
+        <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
+      ),
     [memberId],
   );
+
   const calendarConfig = useMemo(() => {
     if (!view) return null;
     return createCalendarConfig({
       calendarRef,
-      isMember,
+      isMember: !!isMember,
       memberId,
       isLaptop,
       isIpad,
@@ -193,7 +184,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       },
       handleDatesSet,
       handleSelectSlot,
-      handleEventClick,
       t: { week: t('toolbar.week') },
     });
   }, [
@@ -204,7 +194,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     isIpad,
     handleDatesSet,
     handleSelectSlot,
-    handleEventClick,
     t,
   ]);
 
@@ -252,24 +241,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           end={selectedSlot.end}
           windowFromISO={range.fromISO}
           windowUntilISO={range.untilISO}
-          onCancel={() => setSelectedSlot(null)}
-        />
-      )}
-
-      {selectedReservation && range && (
-        <CalendarDialog
-          open
-          onOpenChange={(open) => !open && setSelectedReservation(null)}
-          mode='edit'
-          toolId={selectedReservation.toolId}
-          reservationId={selectedReservation.reservationId}
-          userId={memberId}
-          start={selectedReservation.reservedFrom}
-          end={selectedReservation.reservedUntil}
-          notes={selectedReservation.notes ?? ''}
-          windowFromISO={range.fromISO}
-          windowUntilISO={range.untilISO}
-          onCancel={() => setSelectedReservation(null)}
         />
       )}
 

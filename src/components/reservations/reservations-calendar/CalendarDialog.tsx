@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
 import {
   AlertDialog,
@@ -10,6 +11,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
@@ -18,8 +20,8 @@ import { api } from '@/lib/api/client';
 import { reservationFormSchema } from '@/validations/reservations';
 
 type CalendarDialogProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 
   mode: 'create' | 'edit';
   userId: number;
@@ -33,7 +35,7 @@ type CalendarDialogProps = {
   windowFromISO: string;
   windowUntilISO: string;
 
-  onCancel: () => void;
+  children?: React.ReactNode;
 };
 
 const HOUR_OPTIONS = Array.from({ length: 24 }, (_, i) => ({
@@ -52,7 +54,7 @@ function withHM(date: Date, h: number, m: number) {
 }
 
 function CalendarDialog({
-  open,
+  open: openProp,
   onOpenChange,
   mode,
   toolId,
@@ -63,38 +65,40 @@ function CalendarDialog({
   notes,
   windowFromISO,
   windowUntilISO,
-  onCancel,
+  children,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
-  const schema = reservationFormSchema(translations, start, mode);
   const utils = api.useUtils();
+  const schema = reservationFormSchema(translations, start, mode);
 
-  async function invalidateWindow() {
+  const [internalOpen, setInternalOpen] = useState(openProp ?? false);
+  const open = openProp !== undefined ? openProp : internalOpen;
+
+  function handleOpenChange(open: boolean) {
+    if (openProp === undefined) {
+      setInternalOpen(open);
+    }
+    onOpenChange?.(open);
+  }
+
+  async function onMutationSuccess() {
     await utils.reservations.fetchCalendarReservations.invalidate({
       toolId,
       from: windowFromISO,
       until: windowUntilISO,
     });
+    handleOpenChange(false);
   }
 
   const createMutation = api.reservations.createReservation.useMutation({
-    onSuccess: async () => {
-      await invalidateWindow();
-      onOpenChange(false);
-    },
+    onSuccess: onMutationSuccess,
   });
   const updateMutation = api.reservations.updateReservation.useMutation({
-    onSuccess: async () => {
-      await invalidateWindow();
-      onOpenChange(false);
-    },
+    onSuccess: onMutationSuccess,
   });
   const deleteMutation = api.reservations.deleteReservation.useMutation({
-    onSuccess: async () => {
-      await invalidateWindow();
-      onOpenChange(false);
-    },
+    onSuccess: onMutationSuccess,
   });
 
   const form = useAppForm({
@@ -156,12 +160,17 @@ function CalendarDialog({
           { onSuccess: () => toast.success(t('form.successUpdate')) },
         );
       }
-      onOpenChange(false);
+      handleOpenChange(false);
     },
   });
 
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
+      {children && (
+        <AlertDialogTrigger onClick={() => handleOpenChange(true)}>
+          {children}
+        </AlertDialogTrigger>
+      )}
       <AlertDialogContent className='sm:max-w-md'>
         <AlertDialogHeader>
           <AlertDialogTitle>
@@ -254,10 +263,7 @@ function CalendarDialog({
                 <Button
                   type='button'
                   variant='secondary'
-                  onClick={() => {
-                    onCancel();
-                    onOpenChange(false);
-                  }}
+                  onClick={() => handleOpenChange(false)}
                 >
                   {t('form.cancel')}
                 </Button>
@@ -275,7 +281,7 @@ function CalendarDialog({
                             toast.success(t('form.successDelete')),
                         },
                       );
-                      onOpenChange(false);
+                      handleOpenChange(false);
                     }}
                   />
                 )}

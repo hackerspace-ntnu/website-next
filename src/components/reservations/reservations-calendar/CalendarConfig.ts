@@ -44,7 +44,7 @@ type CalendarConfigProps = {
   onViewChange: (view: string) => void;
   handleDatesSet: (info: DatesSetArg) => void;
   handleSelectSlot: (info: DateSelectArg) => void;
-  handleEventClick: (info: EventClickArg) => void;
+  handleEventClick?: (info: EventClickArg) => void;
   t: { week: string };
 };
 
@@ -75,7 +75,7 @@ function createCalendarConfig({
     scrollTimeReset: false,
     views: viewTypes,
     initialView: view.name,
-    headerToolbar: false as const,
+    headerToolbar: false,
     height: 750,
     scrollTime: '10:00:00',
     allDaySlot: false,
@@ -112,7 +112,7 @@ function createCalendarConfig({
     eventClick: (info: EventClickArg) => {
       if (!info.event.end) return;
       if (info.event.end.getTime() <= Date.now()) return;
-      handleEventClick(info);
+      handleEventClick?.(info);
     },
     eventDataTransform: (eventInfo: EventInput) => ({
       ...eventInfo,
@@ -126,7 +126,7 @@ function createCalendarConfig({
     eventBackgroundColor: 'inherit',
     eventTextColor: 'inherit',
     weekNumbers: true,
-    weekNumberFormat: { week: 'numeric' as const },
+    weekNumberFormat: { week: 'numeric' },
     weekNumberContent: (info: WeekNumberContentArg) => `${t.week} ${info.num}`,
 
     datesSet: handleDatesSet,
@@ -160,7 +160,7 @@ function createCalendarConfig({
         onViewChange(nextView);
       }
     },
-  };
+  } as const;
 }
 
 export { viewTypes, createCalendarConfig };

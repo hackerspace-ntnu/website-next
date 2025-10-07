@@ -1362,7 +1362,7 @@
       "locale": "nb"
     },
     "customEventContent": {
-      "details": "Detaljer",
+      "details": "Reservasjonsdetaljer",
       "tooltipUserEvent": "Klikk for å redigere",
       "tooltipOtherEvents": "Klikk for mer info",
       "close": "Lukk"

@@ -1362,7 +1362,7 @@
       "locale": "en"
     },
     "customEventContent": {
-      "details": "Details",
+      "details": "Reservation Details",
       "tooltipUserEvent": "Click to edit",
       "tooltipOtherEvents": "Click for details",
       "close": "Close"
