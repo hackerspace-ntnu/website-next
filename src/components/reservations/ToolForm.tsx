@@ -172,8 +172,7 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
         <form.AppField name='type'>
           {(field) => (
             <field.SelectField
-              label={t('name.labelNorwegian')}
-              placeholder={t('name.placeholder')}
+              label={t('type.label')}
               options={(['3dprinter', 'other'] as const).map((type) => ({
                 value: type,
                 label: t(`type.${type}`),
