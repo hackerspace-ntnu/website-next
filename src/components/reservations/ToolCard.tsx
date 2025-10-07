@@ -30,8 +30,8 @@ function ToolCard({ tool, user }: ToolCardProps) {
         return (
           <Link
             href={{
-              pathname: '/reservations/[calendarId]',
-              params: { calendarId: tool.toolId },
+              pathname: '/reservations/[toolId]',
+              params: { toolId: tool.toolId },
             }}
             className='mt-auto w-full'
           >

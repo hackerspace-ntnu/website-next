@@ -73,8 +73,8 @@ function MyReservationsTable({
                   <TableCell>
                     <Link
                       href={{
-                        pathname: '/reservations/[calendarId]',
-                        params: { calendarId: res.toolId },
+                        pathname: '/reservations/[toolId]',
+                        params: { toolId: res.toolId },
                       }}
                       className='text-primary'
                     >

@@ -35,8 +35,8 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
     onSuccess: (id) => {
       toast.success(tNew('toolCreated'));
       router.push({
-        pathname: '/reservations/[calendarId]',
-        params: { calendarId: id },
+        pathname: '/reservations/[toolId]',
+        params: { toolId: id },
       });
     },
   });
@@ -44,8 +44,8 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
     onSuccess: (id) => {
       toast.success(tEdit('toolUpdated'));
       router.push({
-        pathname: '/reservations/[calendarId]',
-        params: { calendarId: id },
+        pathname: '/reservations/[toolId]',
+        params: { toolId: id },
       });
     },
   });

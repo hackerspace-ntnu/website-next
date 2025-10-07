@@ -56,8 +56,8 @@ export default async function EditToolPage({
       <Link
         className='flex w-fit items-center gap-2'
         href={{
-          pathname: '/reservations/[calendarId]',
-          params: { calendarId: tool.id },
+          pathname: '/reservations/[toolId]',
+          params: { toolId: tool.id },
         }}
         variant='ghost'
         size='default'

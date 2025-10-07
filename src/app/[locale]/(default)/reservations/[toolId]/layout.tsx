@@ -13,10 +13,19 @@ import { api } from '@/lib/api/server';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ calendarId: string }>;
+  params: Promise<{ toolId: string }>;
 }) {
-  const { calendarId } = await params;
-  const tool = await api.tools.fetchTool(Number.parseInt(calendarId));
+  const { toolId } = await params;
+  const processedToolId = Number(toolId);
+
+  if (
+    Number.isNaN(processedToolId) ||
+    !Number.isInteger(processedToolId) ||
+    processedToolId < 1
+  )
+    return;
+
+  const tool = await api.tools.fetchTool(processedToolId);
 
   if (!tool) return;
 
@@ -27,28 +36,28 @@ export async function generateMetadata({
 
 type ToolCalendarPageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: string; calendarId: string }>;
+  params: Promise<{ locale: string; toolId: string }>;
 };
 
 export default async function ReservationItemLayout({
   children,
   params,
 }: ToolCalendarPageLayoutProps) {
-  const { locale, calendarId } = await params;
+  const { locale, toolId } = await params;
   setRequestLocale(locale as Locale);
 
   const { reservations, ui } = await getMessages();
   const t = await getTranslations('reservations');
-  const processedCalendarId = Number(calendarId);
+  const processedToolId = Number(toolId);
 
   if (
-    Number.isNaN(processedCalendarId) ||
-    !Number.isInteger(processedCalendarId) ||
-    processedCalendarId < 1
+    Number.isNaN(processedToolId) ||
+    !Number.isInteger(processedToolId) ||
+    processedToolId < 1
   )
     return notFound();
 
-  const tool = await api.tools.fetchTool(processedCalendarId);
+  const tool = await api.tools.fetchTool(processedToolId);
 
   if (!tool) return notFound();
 

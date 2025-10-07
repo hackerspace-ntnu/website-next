@@ -32,8 +32,8 @@ function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
         return (
           <Link
             href={{
-              pathname: '/reservations/[calendarId]',
-              params: { calendarId: tool.toolId },
+              pathname: '/reservations/[toolId]',
+              params: { toolId: tool.toolId },
             }}
             className='h-full w-full'
           >

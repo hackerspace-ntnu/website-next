@@ -237,9 +237,9 @@ const routing = defineRouting({
       'en-GB': '/reservations',
       'nb-NO': '/reservasjoner',
     },
-    '/reservations/[calendarId]': {
-      'en-GB': '/reservations/[calendarId]',
-      'nb-NO': '/reservasjoner/[calendarId]',
+    '/reservations/[toolId]': {
+      'en-GB': '/reservations/[toolId]',
+      'nb-NO': '/reservasjoner/[toolId]',
     },
     '/reservations/tools/new': {
       'en-GB': '/reservations/tools/new',

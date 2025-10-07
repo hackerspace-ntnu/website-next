@@ -5,20 +5,20 @@ import { api } from '@/lib/api/server';
 export default async function ToolCalendarPage({
   params,
 }: {
-  params: Promise<{ calendarId: string }>;
+  params: Promise<{ toolId: string }>;
 }) {
-  const { calendarId } = await params;
+  const { toolId } = await params;
   const { user } = await api.auth.state();
-  const processedCalendarId = Number(calendarId);
+  const processedToolId = Number(toolId);
 
   if (
-    Number.isNaN(processedCalendarId) ||
-    !Number.isInteger(processedCalendarId) ||
-    processedCalendarId < 1
+    Number.isNaN(processedToolId) ||
+    !Number.isInteger(processedToolId) ||
+    processedToolId < 1
   )
     return notFound();
 
-  const tool = await api.tools.fetchTool(processedCalendarId);
+  const tool = await api.tools.fetchTool(processedToolId);
 
   if (!tool) return notFound();
 
