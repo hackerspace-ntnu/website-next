@@ -1,23 +1,24 @@
 import { TRPCError } from '@trpc/server';
 import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
-import { itemsPerPage } from '@/app/[locale]/(default)/members/(main)/page';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
+  leadershipProcedure,
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { users, usersGroups } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
-import { fetchUserSchema } from '@/validations/users/fetchUserSchema';
+import { fetchMemberSchema } from '@/validations/users/fetchMemberSchema';
+import { fetchMembersSchema } from '@/validations/users/fetchMembersSchema';
 import { fetchUsersSchema } from '@/validations/users/fetchUsersSchema';
 import { searchMembersSchema } from '@/validations/users/searchMembersSchema';
 
 const usersRouter = createRouter({
-  fetchUser: publicProcedure
+  fetchMember: publicProcedure
     .input((input) =>
-      fetchUserSchema(useTranslationsFromContext()).parse(input),
+      fetchMemberSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       let where: SQL;
@@ -77,9 +78,9 @@ const usersRouter = createRouter({
           : null,
       };
     }),
-  fetchUsers: publicProcedure
+  fetchMembers: publicProcedure
     .input((input) =>
-      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+      fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       const where = input.name
@@ -106,13 +107,13 @@ const usersRouter = createRouter({
             ),
           );
 
-      const offset = input.page ? (input.page - 1) * itemsPerPage : 0;
+      const offset = input.page ? (input.page - 1) * input.limit : 0;
 
       return await ctx.db.query.users
         .findMany({
           where,
           offset,
-          limit: itemsPerPage,
+          limit: input.limit,
           columns: {
             id: true,
             firstName: true,
@@ -186,9 +187,9 @@ const usersRouter = createRouter({
         })),
       );
     }),
-  totalResultsForUsersQuery: publicProcedure
+  totalResultsForMembersQuery: publicProcedure
     .input((input) =>
-      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+      fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
       const where = input.name
@@ -214,6 +215,81 @@ const usersRouter = createRouter({
                 .where(eq(usersGroups.userId, users.id)),
             ),
           );
+
+      const totalCount = await ctx.db
+        .select({ count: count() })
+        .from(users)
+        .where(where);
+
+      if (!totalCount[0]) return Number.NaN;
+
+      return Math.ceil(totalCount[0].count);
+    }),
+  fetchUsers: leadershipProcedure
+    .input((input) =>
+      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const where = input.name
+        ? or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          )
+        : undefined;
+
+      const offset = input.page ? (input.page - 1) * input.limit : 0;
+
+      const usersData = await ctx.db.query.users
+        .findMany({
+          where,
+          offset,
+          limit: input.limit,
+          with: {
+            usersGroups: {
+              with: {
+                group: {
+                  with: {
+                    localizations: true,
+                  },
+                },
+              },
+            },
+            usersSkills: {
+              with: {
+                skill: true,
+              },
+            },
+          },
+        })
+        .catch((error) => {
+          console.error('Error fetching users:', error);
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('members.api.errorFetchingMembers'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      const usersDataPromises = usersData.map(async (user) => ({
+        ...user,
+        profilePictureUrl: user.profilePictureId
+          ? await getFileUrl(user.profilePictureId)
+          : null,
+      }));
+
+      return await Promise.all(usersDataPromises);
+    }),
+  totalResultsForUsersQuery: leadershipProcedure
+    .input((input) =>
+      fetchUsersSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ ctx, input }) => {
+      const where = input.name
+        ? or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          )
+        : undefined;
 
       const totalCount = await ctx.db
         .select({ count: count() })

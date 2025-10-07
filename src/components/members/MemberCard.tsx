@@ -14,7 +14,7 @@ import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
 
 type MemberItemCardProps = {
-  user: RouterOutput['users']['fetchUsers'][number];
+  user: RouterOutput['users']['fetchMembers'][number];
   className?: string;
 };
 

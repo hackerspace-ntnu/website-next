@@ -16,7 +16,7 @@ import type { RouterOutput } from '@/server/api';
 async function MemberInfoCard({
   user,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
 }) {
   const t = await getTranslations('layout');
   const tMembers = await getTranslations('members');

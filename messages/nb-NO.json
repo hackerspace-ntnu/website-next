@@ -226,6 +226,8 @@
     "memberSince": "Medlem siden {date}",
     "guest": "Gjest",
     "usernameCopied": "Brukernavn kopiert til utklippstavlen!",
+    "noMembersFound": "Ingen medlemmer funnet.",
+    "unauthorized": "Du har ikke rettigheter til å se denne brukeren",
     "skillManagement": {
       "addDialogTitle": "Er du sikker på at du vil gi ferdigheten {skill} til {user}?",
       "removeDialogTitle": "Er du sikker på at du vil fjerne ferdigheten {skill} fra {user}?",
@@ -258,6 +260,7 @@
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
       "pageNumberRequired": "Sidetall må oppgis",
+      "invalidLimit": "Ugyldig limit",
       "adminGroupRequired": "Du må være administrator selv for å redigere administratorbrukere"
     }
   },
@@ -901,7 +904,7 @@
   },
   "skills": {
     "api": {
-      "invalidId": "Ugyldig ID",
+      "invalidId": "Ugyldig ferdighets-ID",
       "skillNotFound": "Ferdighet ikke funnet",
       "cannotAddSkill": "Du kan ikke gi denne ferdigheten",
       "userAlreadyHasSkill": "Brukeren har allerede denne ferdigheten",
@@ -913,10 +916,11 @@
   "management": {
     "title": "Nettside-administrasjon",
     "unauthorized": "Du har ikke rettigheter til å bruke administrasjonsgrensesnittet",
+    "backToManagement": "Tilbake til administrasjon",
     "skills": {
+      "name": "Ferdigheter",
       "title": "Administrer ferdigheter",
       "description": "Administrer ferdighetene som medlemmene kan oppnå.",
-      "backToManagement": "Tilbake til administrasjon",
       "backToSkills": "Tilbake til ferdigheter",
       "new": {
         "title": "Ny ferdighet",
@@ -949,19 +953,31 @@
           "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
           "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
         }
-      },
-      "users": {
-        "title": "Brukere",
-        "description": "Administrer brukere på nettsiden."
-      },
-      "files": {
-        "title": "Filer og bilder",
-        "description": "Administrer filer og bilder lastet opp av medlemmer."
-      },
-      "banners": {
-        "title": "Bannere",
-        "description": "Administrer bannere som vises på nettsiden."
       }
+    },
+    "users": {
+      "name": "Brukere",
+      "title": "Søk etter brukere",
+      "description": "Administrer brukere på nettsiden.",
+      "searchUser": "Søk etter brukere...",
+      "table": {
+        "name": "Navn",
+        "groups": "Grupper",
+        "skills": "Ferdigheter",
+        "noUsersFound": "Ingen brukere funnet. Sjekk søkekriteriene dine.",
+        "caption": "Brukere på nettsiden"
+      },
+      "unauthorized": "Du har ikke rettigheter til å administrere brukere"
+    },
+    "files": {
+      "name": "Filer og bilder",
+      "title": "Administrer filer og bilder",
+      "description": "Administrer filer og bilder lastet opp av medlemmer."
+    },
+    "banners": {
+      "name": "Bannere",
+      "title": "Administrer bannere",
+      "description": "Administrer bannere som vises på nettsiden."
     }
   },
   "applications": {

@@ -53,7 +53,7 @@ export default async function NewQuotePage({
 
   const { quotes, ui } = await getMessages();
 
-  const quoteUser = await api.users.fetchUser({ id: quote.saidBy.id });
+  const quoteUser = await api.users.fetchMember({ id: quote.saidBy.id });
 
   return (
     <>

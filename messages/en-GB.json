@@ -226,6 +226,8 @@
     "memberSince": "Member since {date}",
     "guest": "Guest",
     "usernameCopied": "Username copied to clipboard!",
+    "noMembersFound": "No members found.",
+    "unauthorized": "Unauthorized to view this user",
     "skillManagement": {
       "addDialogTitle": "Are you sure you want to add {skill} to {user}?",
       "removeDialogTitle": "Are you sure you want to remove {skill} from {user}?",
@@ -258,6 +260,7 @@
       "errorFetchingMember": "Error fetching member",
       "errorFetchingMembers": "Error fetching members",
       "pageNumberRequired": "Page number required",
+      "invalidLimit": "Invalid limit",
       "adminGroupRequired": "You must be an admin yourself to edit admin users"
     }
   },
@@ -901,7 +904,7 @@
   },
   "skills": {
     "api": {
-      "invalidId": "Invalid ID",
+      "invalidId": "Invalid skill ID",
       "skillNotFound": "Skill not found",
       "cannotAddSkill": "You cannot give this skill",
       "userAlreadyHasSkill": "User already has this skill",
@@ -913,10 +916,11 @@
   "management": {
     "title": "Website Management",
     "unauthorized": "Unauthorized to access management tools",
+    "backToManagement": "Back to management",
     "skills": {
+      "name": "Skills",
       "title": "Manage Skills",
       "description": "Manage the skills that members can achieve.",
-      "backToManagement": "Back to management",
       "backToSkills": "Back to skills",
       "new": {
         "title": "New Skill",
@@ -949,24 +953,30 @@
           "maxLength": "Skill identifier must be less than {count} characters",
           "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
         }
-      },
-      "api": {
-        "invalidId": "Invalid ID",
-        "invalidIdentifier": "Invalid skill identifier",
-        "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists",
-        "skillNotFound": "Skill not found"
       }
     },
     "users": {
-      "title": "Users",
-      "description": "Manage users on the website."
+      "name": "Users",
+      "title": "Search for Users",
+      "description": "Manage users on the website.",
+      "searchUser": "Search user...",
+      "table": {
+        "name": "Name",
+        "groups": "Groups",
+        "skills": "Skills",
+        "noUsersFound": "No users found. Please check your search criteria.",
+        "caption": "Website users"
+      },
+      "unauthorized": "Unauthorized to manage users"
     },
     "files": {
-      "title": "Files & images",
+      "name": "Files & Images",
+      "title": "Manage Files & Images",
       "description": "Manage files and images uploaded by members."
     },
     "banners": {
-      "title": "Banners",
+      "name": "Banners",
+      "title": "Manage Banners",
       "description": "Manage banners displayed on the website."
     }
   },
