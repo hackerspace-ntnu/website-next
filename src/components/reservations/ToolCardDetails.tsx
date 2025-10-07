@@ -13,33 +13,27 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/Dialog';
 import { toolDescriptionFields } from '@/lib/constants';
 import { Link } from '@/lib/locale/navigation';
 
 type ExpandedToolCardProps = {
-  currentTool: Tool;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onCloseButton: () => void;
+  tool: Tool;
+  children: React.ReactNode;
 };
 
-function ExpandedToolCard({
-  currentTool,
-  open,
-  onOpenChange,
-  onCloseButton,
-}: ExpandedToolCardProps) {
+function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
   const t = useTranslations('reservations');
 
   const footerButton = (() => {
-    switch (currentTool.status) {
+    switch (tool.status) {
       case 'available':
         return (
           <Link
             href={{
               pathname: '/reservations/[calendarId]',
-              params: { calendarId: currentTool.toolId },
+              params: { calendarId: tool.toolId },
             }}
             className='h-full w-full'
           >
@@ -80,22 +74,20 @@ function ExpandedToolCard({
   })();
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className='flex w-full max-w-96 flex-col overflow-hidden rounded-2xl p-0 shadow-2xl shadow-black md:max-w-lg'>
         <DialogHeader className='h-fit w-full p-0'>
           <div className='relative h-72 w-full'>
             <Image
-              src={currentTool.imageUrl ?? '/unknown.png'}
-              alt={currentTool.name}
+              src={tool.imageUrl ?? '/unknown.png'}
+              alt={tool.name}
               fill
               className='object-cover'
             />
 
             <DialogClose asChild>
-              <Button
-                className='absolute top-2 right-2 z-10 size-11 rounded-full bg-stone-500 p-0 opacity-90 transition hover:scale-105'
-                onClick={onCloseButton}
-              >
+              <Button className='absolute top-2 right-2 z-10 size-11 rounded-full bg-stone-500 p-0 opacity-90 transition hover:scale-105'>
                 <Minimize2Icon className='size-7 stroke-stone-300 transition hover:stroke-stone-200' />
               </Button>
             </DialogClose>
@@ -103,17 +95,17 @@ function ExpandedToolCard({
 
           <DialogTitle className='flex h-20 flex-col items-center justify-center text-center'>
             <span className='clamp-[text-xl-2xl-clamp] line-clamp-1'>
-              {currentTool.name}
+              {tool.name}
             </span>
             <span className='clamp-[text-base-xl-clamp] line-clamp-1 opacity-80'>
-              {currentTool.nickName}
+              {tool.nickName}
             </span>
           </DialogTitle>
 
           <DialogDescription className='clamp-[text-sm-base-clamp] flex h-44 w-full flex-wrap gap-1 overflow-auto px-5 text-left'>
-            <span>{currentTool.description}</span>
+            <span>{tool.description}</span>
             {toolDescriptionFields.map(({ key, label }) => {
-              const field = currentTool[key as keyof Tool];
+              const field = tool[key as keyof Tool];
               const text = field && String(field).trim();
               return (
                 text && (
@@ -128,11 +120,10 @@ function ExpandedToolCard({
             })}
           </DialogDescription>
         </DialogHeader>
-
         <DialogFooter className='h-fit w-full p-0'>{footerButton}</DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export { ExpandedToolCard };
+export { ToolCardDetails };

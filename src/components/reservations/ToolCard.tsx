@@ -2,6 +2,7 @@ import { EditIcon, Maximize2Icon } from 'lucide-react';
 import { m } from 'motion/react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { ToolCardDetails } from '@/components/reservations/ToolCardDetails';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
 import {
@@ -18,10 +19,9 @@ import type { RouterOutput } from '@/server/api';
 type ToolCardProps = {
   tool: Tool;
   user?: RouterOutput['auth']['state']['user'];
-  onClick: () => void;
 };
 
-function ToolCard({ tool, user, onClick }: ToolCardProps) {
+function ToolCard({ tool, user }: ToolCardProps) {
   const t = useTranslations('reservations');
 
   const button = (() => {
@@ -83,15 +83,16 @@ function ToolCard({ tool, user, onClick }: ToolCardProps) {
             fill
             className='object-cover duration-150 group-hover:scale-105'
           />
-          <m.button
-            className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
-            key={`cardHeaderButton-${tool.name}`}
-            onClick={onClick}
-            whileHover={{ scale: 1.05 }}
-            title={t('tools.tooltip')}
-          >
-            <Maximize2Icon className='size-6 stroke-stone-300' />
-          </m.button>
+          <ToolCardDetails tool={tool}>
+            <m.button
+              className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
+              key={`cardHeaderButton-${tool.name}`}
+              whileHover={{ scale: 1.05 }}
+              title={t('tools.tooltip')}
+            >
+              <Maximize2Icon className='size-6 stroke-stone-300' />
+            </m.button>
+          </ToolCardDetails>
           {user?.groups.some((g) =>
             ['labops', 'leadership', 'admin'].includes(g),
           ) && (
