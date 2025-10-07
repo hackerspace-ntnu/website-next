@@ -90,11 +90,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     notes?: string | null;
   } | null>(null);
 
-  const [detailsDialogOpen, setDetailscDialogOpen] = useState(false);
-  const [detailsDialogEventId, setDetailsDialogEventId] = useState<
-    string | null
-  >(null);
-
   // Decide initial/auto view
   useEffect(() => {
     if (view?.manual) return;
@@ -148,9 +143,6 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           reservedUntil: info.event.end ?? new Date(),
           notes: info.event.extendedProps.notes ?? null,
         });
-      } else {
-        setDetailsDialogEventId(info.event.id);
-        setDetailscDialogOpen(true);
       }
     },
     [memberId],
@@ -179,18 +171,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) => (
-      <CustomEventContent
-        eventInfo={eventInfo}
-        memberId={memberId}
-        // below is needed so fullcalendar doesn't open user dialog for non-user reservations
-        open={detailsDialogOpen && detailsDialogEventId === eventInfo.event.id}
-        onOpenChange={(open) => {
-          setDetailscDialogOpen(open);
-          if (!open) setDetailsDialogEventId(null);
-        }}
-      />
+      <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
     ),
-    [memberId, detailsDialogEventId, detailsDialogOpen],
+    [memberId],
   );
   const calendarConfig = useMemo(() => {
     if (!view) return null;
