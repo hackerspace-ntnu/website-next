@@ -70,7 +70,7 @@ function CustomEventContent({ eventInfo, memberId }: Props) {
       )}
       <p
         className={cx(
-          'clamp-[text-lg-sm-clamp]',
+          'clamp-[text-lg-sm-clamp] p-2',
           isOwner || eventInfo.isMirror ? 'text-foreground' : 'text-white',
         )}
       >
@@ -91,7 +91,7 @@ function CustomEventContent({ eventInfo, memberId }: Props) {
           ? t('customEventContent.tooltipUserEvent')
           : t('customEventContent.tooltipOtherEvents')
       }
-      className='flex h-full w-full cursor-pointer flex-col items-center justify-between gap-64 overflow-hidden p-2 px-5'
+      className='flex h-full w-full cursor-pointer flex-col items-center justify-between gap-64 overflow-hidden p-1'
     >
       {InfoBlock}
       {durationHours >= 6 && InfoBlock}
