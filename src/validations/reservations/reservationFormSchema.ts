@@ -16,7 +16,7 @@ function sameYMD(a: Date, b: Date) {
   );
 }
 
-function ReservationFormSchema(
+function reservationFormSchema(
   t: Translations,
   originalStart: Date | null,
   mode: 'create' | 'edit',
@@ -169,4 +169,4 @@ function ReservationFormSchema(
     });
 }
 
-export { ReservationFormSchema };
+export { reservationFormSchema };

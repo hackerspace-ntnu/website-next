@@ -11,7 +11,8 @@ import type {
 } from '@fullcalendar/core';
 import type { RefObject } from '@fullcalendar/core/preact';
 import type FullCalendar from '@fullcalendar/react';
-export const viewTypes = {
+
+const viewTypes = {
   timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
   timeGridThreeDay: { type: 'timeGrid', duration: { days: 3 } },
   timeGridWeek: { type: 'timeGrid' },
@@ -47,7 +48,7 @@ type CalendarConfigProps = {
   t: { week: string };
 };
 
-export function createCalendarConfig({
+function createCalendarConfig({
   calendarRef,
   isMember,
   memberId,
@@ -161,3 +162,5 @@ export function createCalendarConfig({
     },
   };
 }
+
+export { viewTypes, createCalendarConfig };

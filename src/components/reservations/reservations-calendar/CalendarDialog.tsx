@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
-import { ReservationFormSchema } from '@/validations/reservations';
+import { reservationFormSchema } from '@/validations/reservations';
 
 type CalendarDialogProps = {
   open: boolean;
@@ -67,7 +67,7 @@ function CalendarDialog({
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
-  const schema = ReservationFormSchema(translations, start, mode);
+  const schema = reservationFormSchema(translations, start, mode);
   const utils = api.useUtils();
 
   async function invalidateWindow() {
