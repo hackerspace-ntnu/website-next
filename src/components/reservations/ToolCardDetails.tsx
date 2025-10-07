@@ -1,20 +1,20 @@
 'use client';
 
-import { DialogClose } from '@radix-ui/react-dialog';
 import { Minimize2Icon } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import type { Tool } from '@/components/reservations/ToolCardGrid';
-import { Button } from '@/components/ui/Button';
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog';
+  ResponsiveDialogClose,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogTrigger,
+} from '@/components/composites/ResponsiveDialog';
+import type { Tool } from '@/components/reservations/ToolCardGrid';
+import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
+import { Button } from '@/components/ui/Button';
 import { toolDescriptionFields } from '@/lib/constants';
 import { Link } from '@/lib/locale/navigation';
 
@@ -74,10 +74,10 @@ function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
   })();
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className='flex w-full max-w-96 flex-col overflow-hidden rounded-2xl p-0 shadow-2xl shadow-black md:max-w-lg'>
-        <DialogHeader className='h-fit w-full p-0'>
+    <ResponsiveDialogWrapper>
+      <ResponsiveDialogTrigger asChild>{children}</ResponsiveDialogTrigger>
+      <ResponsiveDialogContent className='overflow-hidden rounded-2xl p-0 shadow-2xl shadow-black'>
+        <ResponsiveDialogHeader className='h-fit w-full'>
           <div className='relative h-72 w-full'>
             <Image
               src={tool.imageUrl ?? '/unknown.png'}
@@ -86,23 +86,23 @@ function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
               className='object-cover'
             />
 
-            <DialogClose asChild>
+            <ResponsiveDialogClose asChild>
               <Button className='absolute top-2 right-2 z-10 size-11 rounded-full bg-stone-500 p-0 opacity-90 transition hover:scale-105'>
                 <Minimize2Icon className='size-7 stroke-stone-300 transition hover:stroke-stone-200' />
               </Button>
-            </DialogClose>
+            </ResponsiveDialogClose>
           </div>
 
-          <DialogTitle className='flex h-20 flex-col items-center justify-center text-center'>
+          <ResponsiveDialogTitle className='flex h-20 flex-col items-center justify-center text-center'>
             <span className='clamp-[text-xl-2xl-clamp] line-clamp-1'>
               {tool.name}
             </span>
             <span className='clamp-[text-base-xl-clamp] line-clamp-1 opacity-80'>
               {tool.nickName}
             </span>
-          </DialogTitle>
+          </ResponsiveDialogTitle>
 
-          <DialogDescription className='clamp-[text-sm-base-clamp] flex h-44 w-full flex-wrap gap-1 overflow-auto px-5 text-left'>
+          <ResponsiveDialogDescription className='clamp-[text-sm-base-clamp] flex h-44 w-full flex-wrap gap-1 overflow-auto px-5 text-left'>
             <span>{tool.description}</span>
             {toolDescriptionFields.map(({ key, label }) => {
               const field = tool[key as keyof Tool];
@@ -118,11 +118,13 @@ function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
                 )
               );
             })}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className='h-fit w-full p-0'>{footerButton}</DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </ResponsiveDialogDescription>
+        </ResponsiveDialogHeader>
+        <ResponsiveDialogFooter className='h-fit w-full p-0'>
+          {footerButton}
+        </ResponsiveDialogFooter>
+      </ResponsiveDialogContent>
+    </ResponsiveDialogWrapper>
   );
 }
 
