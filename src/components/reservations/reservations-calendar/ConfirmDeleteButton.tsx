@@ -10,26 +10,33 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
 
-type CalendarConfirmDialogProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
-  onCancel: () => void;
+type ConfirmDeleteButtonProps = {
+  onConfirm: () => Promise<void> | void;
+  isLoading?: boolean;
 };
 
-function CalendarConfirmDialog({
-  open,
-  onOpenChange,
+function ConfirmDeleteButton({
   onConfirm,
-  onCancel,
-}: CalendarConfirmDialogProps) {
+  isLoading,
+}: ConfirmDeleteButtonProps) {
   const t = useTranslations('reservations');
 
   return (
-    <AlertDialog open={open} onOpenChange={onOpenChange}>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button type='button' variant='destructive' disabled={isLoading}>
+          {isLoading ? (
+            <Spinner className='text-destructive-foreground' />
+          ) : (
+            t('form.delete')
+          )}
+        </Button>
+      </AlertDialogTrigger>
       <AlertDialogContent className='sm:max-w-md'>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('confirmDialog.title')}</AlertDialogTitle>
@@ -39,25 +46,10 @@ function CalendarConfirmDialog({
         </AlertDialogHeader>
         <AlertDialogFooter className='flex w-full gap-2 sm:justify-between'>
           <AlertDialogCancel asChild>
-            <Button
-              variant='secondary'
-              onClick={() => {
-                onCancel();
-                onOpenChange(false);
-              }}
-            >
-              {t('confirmDialog.cancel')}
-            </Button>
+            <Button variant='secondary'>{t('confirmDialog.cancel')}</Button>
           </AlertDialogCancel>
           <AlertDialogActionDestructive asChild>
-            <Button
-              onClick={() => {
-                onConfirm();
-                onOpenChange(false);
-              }}
-            >
-              {t('confirmDialog.confirm')}
-            </Button>
+            <Button onClick={onConfirm}>{t('confirmDialog.confirm')}</Button>
           </AlertDialogActionDestructive>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -65,4 +57,4 @@ function CalendarConfirmDialog({
   );
 }
 
-export { CalendarConfirmDialog };
+export { ConfirmDeleteButton };

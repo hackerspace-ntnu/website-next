@@ -24,16 +24,9 @@ import { cx } from '@/lib/utils';
 type Props = {
   eventInfo: EventContentArg;
   memberId: number;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
 };
 
-function CustomEventContent({
-  eventInfo,
-  memberId,
-  open,
-  onOpenChange,
-}: Props) {
+function CustomEventContent({ eventInfo, memberId }: Props) {
   const t = useTranslations('reservations');
   const format = useFormatter();
 
@@ -106,12 +99,12 @@ function CustomEventContent({
     </div>
   );
 
-  // if current user's
+  // if current user
   if (isOwner) return ParentDiv;
 
-  // othr users
+  // other users
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog>
       <DialogTrigger asChild>{ParentDiv}</DialogTrigger>
 
       <DialogContent>

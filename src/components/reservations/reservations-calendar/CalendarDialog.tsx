@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { FormDeleteButton } from '@/components/reservations/reservations-calendar/FormDeleteButton';
+import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -265,7 +265,7 @@ function CalendarDialog({
 
               <div className='flex items-center gap-2'>
                 {mode === 'edit' && reservationId != null && (
-                  <FormDeleteButton
+                  <ConfirmDeleteButton
                     isLoading={deleteMutation.isPending}
                     onConfirm={async () => {
                       await deleteMutation.mutateAsync(
