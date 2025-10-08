@@ -71,11 +71,13 @@ export default async function MemberPage({
   const auth = await api.auth.state();
 
   // If the user is not a member, only allow access if we're a part of management
+  // But allow if we're looking at our own profile
   if (
     (!user.usersGroups || user.usersGroups.length === 0) &&
     !auth.user?.groups.some((g) =>
       ['leadership', 'management', 'admin'].includes(g),
-    )
+    ) &&
+    !(auth.user && auth.user.id === user.id)
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     throw new Error(t('unauthorized'));
