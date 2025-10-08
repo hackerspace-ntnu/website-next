@@ -187,31 +187,6 @@ const usersRouter = createRouter({
         })),
       );
     }),
-  /* Only to be used if searchMembers cannot be used */
-  fetchAllMembers: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.query.users
-      .findMany({
-        columns: {
-          id: true,
-          firstName: true,
-          lastName: true,
-        },
-        where: exists(
-          ctx.db
-            .select()
-            .from(usersGroups)
-            .where(eq(usersGroups.userId, users.id)),
-        ),
-      })
-      .catch((error) => {
-        console.error('Error fetching users:', error);
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('members.api.errorFetchingMembers'),
-          cause: { toast: 'error' },
-        });
-      });
-  }),
   totalResultsForMembersQuery: publicProcedure
     .input((input) =>
       fetchMembersSchema(useTranslationsFromContext()).parse(input),

@@ -1025,6 +1025,17 @@ function CalendarField({
   );
 }
 
+type EditorFieldProps = Omit<
+  React.ComponentProps<typeof PlateEditor>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  className?: string;
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
 function EditorField({
   className,
   label,
@@ -1112,17 +1123,6 @@ function SubmitButton({
     </form.Subscribe>
   );
 }
-
-type EditorFieldProps = Omit<
-  React.ComponentProps<typeof PlateEditor>,
-  'value' | 'onChange' | 'onBlur'
-> & {
-  className?: string;
-  label: string;
-  labelVisible?: boolean;
-  labelSibling?: React.ReactNode;
-  description?: string;
-};
 
 const { useAppForm } = createFormHook({
   fieldComponents: {

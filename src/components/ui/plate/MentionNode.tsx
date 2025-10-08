@@ -21,6 +21,7 @@ import {
   InlineComboboxItem,
 } from '@/components/ui/plate/InlineCombobox';
 import { api } from '@/lib/api/client';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMounted } from '@/lib/hooks/useMounted';
 import { cx } from '@/lib/utils/index';
 
@@ -78,20 +79,27 @@ const onSelectItem = getMentionOnSelectItem();
 function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const { editor, element } = props;
   const [search, setSearch] = React.useState('');
+  const debouncedSetSearch = useDebounceCallback(setSearch, 500);
   const t = useTranslations('ui');
   const user = api.auth.state.useQuery().data?.user;
-  const users = api.users.fetchAllMembers.useQuery(undefined, {
-    enabled: !!user?.groups.some((group) =>
-      ['labops', 'leadership', 'admin'].includes(group),
-    ),
-  });
+  const users = api.users.searchMembers.useQuery(
+    {
+      name: search,
+      limit: 2,
+    },
+    {
+      enabled: !!user?.groups.some((group) =>
+        ['labops', 'leadership', 'admin'].includes(group),
+      ),
+    },
+  );
 
   return (
     <PlateElement {...props} as='span'>
       <InlineCombobox
         value={search}
         element={element}
-        setValue={setSearch}
+        setValue={debouncedSetSearch}
         showTrigger={false}
         trigger='@'
       >
