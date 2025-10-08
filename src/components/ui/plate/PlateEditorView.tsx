@@ -3,7 +3,7 @@
 import type { Value } from 'platejs';
 import { PlateEditor } from '@/components/ui/plate/PlateEditor';
 
-const PlateEditorView = ({ value }: { value: Value }) => {
+function PlateEditorView({ value }: { value: Value }) {
   return (
     <PlateEditor
       value={value}
@@ -19,6 +19,6 @@ const PlateEditorView = ({ value }: { value: Value }) => {
       editorOptions={{ readOnly: true }}
     />
   );
-};
+}
 
 export { PlateEditorView };
