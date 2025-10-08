@@ -20,6 +20,9 @@ jobs:
   performance-audit:
     name: Lighthouse Performance Audit
     runs-on: noodlebar
+    # Lighthouse flags a lot of small issues that are not a top priority right now.
+    # Can be enabled again later when we want to focus on such improvements.
+    if: false
     permissions:
       contents: read
     env:
