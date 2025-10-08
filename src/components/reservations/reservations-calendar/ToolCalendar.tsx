@@ -158,8 +158,8 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           }}
           notes={eventInfo.event.extendedProps.notes ?? ''}
           windowRange={{
-            from: eventInfo.view.currentStart.toISOString(),
-            until: eventInfo.view.currentEnd.toISOString(),
+            from: eventInfo.view.activeStart.toISOString(),
+            until: eventInfo.view.activeEnd.toISOString(),
           }}
         >
           <CustomEventContent

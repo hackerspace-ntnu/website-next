@@ -94,10 +94,7 @@ function CalendarDialog({
   });
 
   const deleteMutation = api.reservations.deleteReservation.useMutation({
-    onSuccess: async () => {
-      await utils.reservations.fetchCalendarReservations.invalidate();
-      handleOpenChange(false);
-    },
+    onSuccess: onMutationSuccess,
   });
 
   const form = useAppForm({
