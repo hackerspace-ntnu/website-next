@@ -215,15 +215,15 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <div className='relative flex w-full justify-center'>
         <Button
-          variant={isMember ? 'default' : 'secondary'}
+          variant={isLoggedIn ? 'default' : 'secondary'}
           className='mb-3'
           onClick={() => {
             setSelectedSlot({ start: new Date(), end: new Date() });
           }}
-          disabled={!isMember}
+          disabled={!isLoggedIn}
         >
           <PlusIcon className='mr-2 size-5' />
-          {isMember
+          {isLoggedIn
             ? t('calendar.createButton')
             : t('calendar.createButtonLoggedOut')}
         </Button>
