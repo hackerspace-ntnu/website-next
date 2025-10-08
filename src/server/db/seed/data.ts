@@ -30,6 +30,19 @@ const faker = {
   'nb-NO': fakerNB_NO,
 };
 
+function createPlateValue(text: string): Value {
+  return [
+    {
+      children: [
+        {
+          text,
+        },
+      ],
+      type: 'p',
+    },
+  ];
+}
+
 const usersData: InsertUser[] = [
   // Groups: Admin + Management
   // Skills: All skills (printing, soldering, raspberry, unix, laser, workshop, microcontroller)
@@ -113,224 +126,126 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     groupId: 1,
     name: 'DevOps',
     summary: 'DevOps group focused on infrastructure and operations.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The DevOps group is responsible for managing the infrastructure and operations of Hackerspace. They work on automating processes, managing servers, and ensuring smooth operations.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The DevOps group is responsible for managing the infrastructure and operations of Hackerspace. They work on automating processes, managing servers, and ensuring smooth operations.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 1,
     name: 'DevOps',
     summary: 'DevOps fokuserer på infrastruktur og drift.',
-    description: [
-      {
-        children: [
-          {
-            text: 'DevOps er ansvarlig for å administrere infrastruktur og drift av Hackerspace. De jobber med automatisering av prosesser, serveradministrasjon og sikrer smidig drift.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'DevOps er ansvarlig for å administrere infrastruktur og drift av Hackerspace. De jobber med automatisering av prosesser, serveradministrasjon og sikrer smidig drift.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 2,
     name: 'LabOps',
     summary: "LabOps handles Hackerspace's operations.",
-    description: [
-      {
-        children: [
-          {
-            text: 'The LabOps group is responsible for managing the operations of Hackerspace. They work on maintaining equipment, ensuring safety protocols, and facilitating events.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The LabOps group is responsible for managing the operations of Hackerspace. They work on maintaining equipment, ensuring safety protocols, and facilitating events.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 2,
     name: 'LabOps',
     summary: 'LabOps driver verkstedet.',
-    description: [
-      {
-        children: [
-          {
-            text: 'LabOps-gruppen er ansvarlig for å administrere driften av Hackerspace. De jobber med vedlikehold av utstyr, sikkerhetsprotokoller og tilrettelegging av arrangementer.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'LabOps-gruppen er ansvarlig for å administrere driften av Hackerspace. De jobber med vedlikehold av utstyr, sikkerhetsprotokoller og tilrettelegging av arrangementer.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 3,
     name: 'Leadership',
     summary: 'Leadership group focused on strategic direction.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The Leadership group is responsible for setting the strategic direction of Hackerspace. They work on long-term planning, community engagement, and overall management.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The Leadership group is responsible for setting the strategic direction of Hackerspace. They work on long-term planning, community engagement, and overall management.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 3,
     name: 'Lederskap',
     summary: 'Lederskapsgruppen er fokusert på strategisk retning.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Lederskapsgruppen er ansvarlig for å sette den strategiske retningen for Hackerspace. De jobber med langsiktig planlegging, samfunnsengasjement og overordnet ledelse.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Lederskapsgruppen er ansvarlig for å sette den strategiske retningen for Hackerspace. De jobber med langsiktig planlegging, samfunnsengasjement og overordnet ledelse.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 4,
     name: 'Management',
     summary: 'Management group focused on organizational oversight.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The Management group is consists of all leaders from the different groups in Hackerspace.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The Management group is consists of all leaders from the different groups in Hackerspace.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 4,
     name: 'Styret',
     summary: 'Styret er fokusert på organisatorisk tilsyn.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 5,
     name: 'Trusted Representative',
     summary: 'A selected member which can be contacted for various inquiries.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Hackerspace shall have a representative who is appointed during the general assembly. This representative has no voting rights on the board but is a contact person for Hackerspace members regarding issues they do not wish to address directly with the board. The representative has a duty of confidentiality and will, if necessary, relay issues anonymized to the board.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 5,
     name: 'Tillitsvalgt',
     summary: 'Et utvalgt medlem som kan kontaktes for ulike henvendelser.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Hackerspace skal ha en tillitsvalgt som blir utnevnt under generalforsamlingen. Denne tillitsvalgte har ingen stemme i styret, men er en kontaktperson for medlemmer av Hackerspace for saker de ikke ønsker å ta direkte opp med styret. Tillitsvalgt har taushetsplikt, og vil ved behov videreformidle saker anonymisert til styret.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 6,
     name: 'TTRPG',
     summary: 'TTRPG group focused on tabletop role-playing games.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The TTRPG group is dedicated to tabletop role-playing games. They organize game sessions, create campaigns, and foster a community of gamers.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The TTRPG group is dedicated to tabletop role-playing games. They organize game sessions, create campaigns, and foster a community of gamers.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 6,
     name: 'TTRPG',
     summary: 'TTRPG-gruppa er fokusert på bordrollespill.',
-    description: [
-      {
-        children: [
-          {
-            text: 'TTRPG-gruppa er dedikert til bordrollespill. De organiserer spillsesjoner, lager kampanjer og fremmer et fellesskap av spillere.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'TTRPG-gruppa er dedikert til bordrollespill. De organiserer spillsesjoner, lager kampanjer og fremmer et fellesskap av spillere.',
+    ),
     locale: 'nb-NO',
   },
   {
     groupId: 7,
     name: 'Breadboard',
     summary: 'Breadboard group focused on electronics prototyping.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The Breadboard group is focused on electronics prototyping and experimentation. They work on building circuits, testing components, and sharing knowledge about electronics.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The Breadboard group is focused on electronics prototyping and experimentation. They work on building circuits, testing components, and sharing knowledge about electronics.',
+    ),
     locale: 'en-GB',
   },
   {
     groupId: 7,
     name: 'Breadboard',
     summary: 'Breadboard-gruppe fokusert på elektronikkprototyping.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Breadboard-gruppen er fokusert på elektronikkprototyping og eksperimentering. De jobber med å bygge kretser, teste komponenter og dele kunnskap om elektronikk.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Breadboard-gruppen er fokusert på elektronikkprototyping og eksperimentering. De jobber med å bygge kretser, teste komponenter og dele kunnskap om elektronikk.',
+    ),
     locale: 'nb-NO',
   },
   {
@@ -338,16 +253,9 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     name: 'Pang',
     summary:
       'Members which have fulfilled their duties and are now retired from Hackerspace.',
-    description: [
-      {
-        children: [
-          {
-            text: 'The Pang group consists of members who have fulfilled their duties and are now retired from the Hackerspace. They are recognized for their contributions and continue to be part of the community.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'The Pang group consists of members who have fulfilled their duties and are now retired from the Hackerspace. They are recognized for their contributions and continue to be part of the community.',
+    ),
     locale: 'en-GB',
   },
   {
@@ -355,16 +263,9 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     name: 'Pang',
     summary:
       'Medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Pang-gruppen består av medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace. De anerkjennes for sine bidrag og fortsetter å være en del av fellesskapet.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Pang-gruppen består av medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace. De anerkjennes for sine bidrag og fortsetter å være en del av fellesskapet.',
+    ),
     locale: 'nb-NO',
   },
 ];
@@ -930,16 +831,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 1,
     name: 'Intro to 3D Printing Workshop',
     summary: 'A beginner-friendly workshop on the basics of 3D printing.',
-    description: [
-      {
-        children: [
-          {
-            text: "Join us for an introductory workshop on 3D printing! Learn about the various types of 3D printers, materials, and software needed to design and print your own projects. By the end of the session, you'll be able to print your first 3D object!",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "Join us for an introductory workshop on 3D printing! Learn about the various types of 3D printers, materials, and software needed to design and print your own projects. By the end of the session, you'll be able to print your first 3D object!",
+    ),
     location: 'Hackerspace workshop',
     locale: 'en-GB',
   },
@@ -947,16 +841,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 1,
     name: 'Introduksjon til 3D-utskrift',
     summary: 'En nybegynnervennlig workshop om grunnleggende 3D-utskrift.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Bli med på en introduksjonsworkshop om 3D-utskrift! Lær om ulike typer 3D-skrivere, materialer og programvare som trengs for å designe og skrive ut dine egne prosjekter. Ved slutten av økten vil du være i stand til å skrive ut ditt første 3D-objekt!',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Bli med på en introduksjonsworkshop om 3D-utskrift! Lær om ulike typer 3D-skrivere, materialer og programvare som trengs for å designe og skrive ut dine egne prosjekter. Ved slutten av økten vil du være i stand til å skrive ut ditt første 3D-objekt!',
+    ),
     location: 'Hackerspace-verkstedet',
     locale: 'nb-NO',
   },
@@ -965,16 +852,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Build Your First Circuit',
     summary:
       'Hands-on workshop to design and build a simple electronic circuit.',
-    description: [
-      {
-        children: [
-          {
-            text: "Ever wanted to create your own electronics? In this workshop, we'll guide you through building your first circuit! You'll learn about the basics of circuit components and practice your soldering skills to create a simple LED light setup.",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "Ever wanted to create your own electronics? In this workshop, we'll guide you through building your first circuit! You'll learn about the basics of circuit components and practice your soldering skills to create a simple LED light setup.",
+    ),
     location: 'R50',
     locale: 'en-GB',
   },
@@ -983,16 +863,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Bygg din første krets',
     summary:
       'Praktisk workshop for å designe og bygge en enkel elektronisk krets.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Har du alltid ønsket å lage din egen elektronikk? I denne workshopen guider vi deg gjennom byggingen av din første krets! Du lærer om grunnleggende kretskomponenter og får øve på loddeferdighetene dine for å lage et enkelt LED-lys oppsett.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Har du alltid ønsket å lage din egen elektronikk? I denne workshopen guider vi deg gjennom byggingen av din første krets! Du lærer om grunnleggende kretskomponenter og får øve på loddeferdighetene dine for å lage et enkelt LED-lys oppsett.',
+    ),
     location: 'R50',
     locale: 'nb-NO',
   },
@@ -1000,16 +873,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 3,
     name: 'AI in Robotics: Applications and Future Trends',
     summary: 'A talk on the role of AI in robotics and its future.',
-    description: [
-      {
-        children: [
-          {
-            text: "This session explores the impact of artificial intelligence in the field of robotics. We'll discuss recent advancements, applications in industry and academia, and potential future directions. A Q&A session will follow.",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "This session explores the impact of artificial intelligence in the field of robotics. We'll discuss recent advancements, applications in industry and academia, and potential future directions. A Q&A session will follow.",
+    ),
     location: 'Smia',
     locale: 'en-GB',
   },
@@ -1018,16 +884,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'AI i robotikk: Anvendelser og fremtidige trender',
     summary:
       'En samtale om rollen til kunstig intelligens i robotikk og dens fremtid.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Denne sesjonen utforsker påvirkningen av kunstig intelligens innen robotikkfeltet. Vi diskuterer nylige fremskritt, anvendelser i industri og akademia, samt potensielle fremtidige retninger. En spørsmål-og-svar-sesjon vil følge.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Denne sesjonen utforsker påvirkningen av kunstig intelligens innen robotikkfeltet. Vi diskuterer nylige fremskritt, anvendelser i industri og akademia, samt potensielle fremtidige retninger. En spørsmål-og-svar-sesjon vil følge.',
+    ),
     location: 'Smia',
     locale: 'nb-NO',
   },
@@ -1036,16 +895,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Hackathon NTNU 2024 Kickoff',
     summary:
       'Kickoff meeting for Hackathon NTNU 2024 with information on teams, rules, and prizes.',
-    description: [
-      {
-        children: [
-          {
-            text: "Get ready for the biggest Hackathon of the year! Join us for the Hackathon NTNU 2024 kickoff event where you'll learn about the competition structure, form teams, and get all the essential details for the event. Don't miss out on a chance to showcase your skills and win prizes!",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "Get ready for the biggest Hackathon of the year! Join us for the Hackathon NTNU 2024 kickoff event where you'll learn about the competition structure, form teams, and get all the essential details for the event. Don't miss out on a chance to showcase your skills and win prizes!",
+    ),
     location: 'Hackerspace workshop',
     locale: 'en-GB',
   },
@@ -1054,16 +906,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Hackathon NTNU 2024 Oppstart',
     summary:
       'Oppstartsmøte for Hackathon NTNU 2024 med informasjon om lag, regler og premier.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Gjør deg klar for årets største Hackathon! Bli med på Hackathon NTNU 2024 oppstartsarrangement hvor du vil lære om konkurransestrukturen, danne lag, og få alle viktige detaljer for arrangementet. Ikke gå glipp av muligheten til å vise frem ferdighetene dine og vinne premier!',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Gjør deg klar for årets største Hackathon! Bli med på Hackathon NTNU 2024 oppstartsarrangement hvor du vil lære om konkurransestrukturen, danne lag, og få alle viktige detaljer for arrangementet. Ikke gå glipp av muligheten til å vise frem ferdighetene dine og vinne premier!',
+    ),
     location: 'Hackerspace-verkstedet',
     locale: 'nb-NO',
   },
@@ -1071,16 +916,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 5,
     name: 'Basics of Python for Data Science',
     summary: 'An introductory workshop on Python programming for data science.',
-    description: [
-      {
-        children: [
-          {
-            text: "Learn Python fundamentals with a focus on data science! In this beginner-friendly session, we'll cover essential Python libraries and data manipulation techniques using pandas, NumPy, and matplotlib. Perfect for anyone interested in getting started with data analysis!",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "Learn Python fundamentals with a focus on data science! In this beginner-friendly session, we'll cover essential Python libraries and data manipulation techniques using pandas, NumPy, and matplotlib. Perfect for anyone interested in getting started with data analysis!",
+    ),
     location: 'Hackerspace workshop',
     locale: 'en-GB',
   },
@@ -1088,16 +926,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 5,
     name: 'Grunnleggende Python for datanalyse',
     summary: 'En introduksjonsworkshop om Python-programmering for datanalyse.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Lær Python-grunnlag med fokus på datanalyse! I denne nybegynnervennlige økten vil vi gå gjennom essensielle Python-biblioteker og datateknikker ved hjelp av pandas, NumPy og matplotlib. Perfekt for alle som er interessert i å komme i gang med dataanalyse!',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Lær Python-grunnlag med fokus på datanalyse! I denne nybegynnervennlige økten vil vi gå gjennom essensielle Python-biblioteker og datateknikker ved hjelp av pandas, NumPy og matplotlib. Perfekt for alle som er interessert i å komme i gang med dataanalyse!',
+    ),
     location: 'Hackerspace-verkstedet',
     locale: 'nb-NO',
   },
@@ -1105,16 +936,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 6,
     name: 'Soldering 101: Building Your Own Sensor Kit',
     summary: 'Learn the basics of soldering and create a custom sensor kit.',
-    description: [
-      {
-        children: [
-          {
-            text: "In this hands-on workshop, we'll cover the basics of soldering and guide you through creating your own temperature and humidity sensor kit. You'll walk away with valuable soldering skills and a working sensor to use in future projects!",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "In this hands-on workshop, we'll cover the basics of soldering and guide you through creating your own temperature and humidity sensor kit. You'll walk away with valuable soldering skills and a working sensor to use in future projects!",
+    ),
     location: 'R51',
     locale: 'en-GB',
   },
@@ -1123,16 +947,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Lodding 101: Bygg din egen sensorkit',
     summary:
       'Lær det grunnleggende om lodding og lag et egendefinert sensorkit.',
-    description: [
-      {
-        children: [
-          {
-            text: 'I denne praktiske workshopen vil vi gå gjennom grunnleggende loddingsteknikker og guide deg gjennom å lage ditt eget temperatur- og fuktighetssensorkit. Du går hjem med verdifulle loddingsferdigheter og en fungerende sensor til bruk i fremtidige prosjekter!',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'I denne praktiske workshopen vil vi gå gjennom grunnleggende loddingsteknikker og guide deg gjennom å lage ditt eget temperatur- og fuktighetssensorkit. Du går hjem med verdifulle loddingsferdigheter og en fungerende sensor til bruk i fremtidige prosjekter!',
+    ),
     location: 'R51',
     locale: 'nb-NO',
   },
@@ -1140,16 +957,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 7,
     name: 'Advanced 3D Modeling in Fusion 360',
     summary: 'A session on advanced 3D modeling techniques using Fusion 360.',
-    description: [
-      {
-        children: [
-          {
-            text: "Take your 3D modeling skills to the next level with our advanced workshop in Fusion 360! We'll cover complex shapes, custom design features, and optimization tips. Ideal for those with some prior experience in 3D modeling who want to enhance their capabilities.",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "Take your 3D modeling skills to the next level with our advanced workshop in Fusion 360! We'll cover complex shapes, custom design features, and optimization tips. Ideal for those with some prior experience in 3D modeling who want to enhance their capabilities.",
+    ),
     location: 'Hackerspace workshop',
     locale: 'en-GB',
   },
@@ -1157,16 +967,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     eventId: 7,
     name: 'Avansert 3D-modellering i Fusion 360',
     summary: 'En økt om avanserte 3D-modelleringsteknikker med Fusion 360.',
-    description: [
-      {
-        children: [
-          {
-            text: 'Ta dine 3D-modelleringsferdigheter til neste nivå med vår avanserte workshop i Fusion 360! Vi vil dekke komplekse former, tilpassede designfunksjoner og optimaliseringstips. Ideelt for de med noe tidligere erfaring innen 3D-modellering som ønsker å forbedre sine ferdigheter.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'Ta dine 3D-modelleringsferdigheter til neste nivå med vår avanserte workshop i Fusion 360! Vi vil dekke komplekse former, tilpassede designfunksjoner og optimaliseringstips. Ideelt for de med noe tidligere erfaring innen 3D-modellering som ønsker å forbedre sine ferdigheter.',
+    ),
     location: 'Hackerspace-verkstedet',
     locale: 'nb-NO',
   },
@@ -1175,16 +978,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Cybersecurity Basics: Protecting Your Digital Life',
     summary:
       'Learn the basics of cybersecurity and best practices for online safety.',
-    description: [
-      {
-        children: [
-          {
-            text: "In this workshop, we'll go over the essential cybersecurity concepts and teach you how to protect yourself online. Topics will include password security, recognizing phishing attempts, and maintaining secure communications. A must-attend for anyone wanting to safeguard their digital presence.",
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      "In this workshop, we'll go over the essential cybersecurity concepts and teach you how to protect yourself online. Topics will include password security, recognizing phishing attempts, and maintaining secure communications. A must-attend for anyone wanting to safeguard their digital presence.",
+    ),
     location: 'R50',
     locale: 'en-GB',
   },
@@ -1193,16 +989,9 @@ const eventLocalizationsData: InsertEventLocalization[] = [
     name: 'Grunnleggende cybersikkerhet: Beskytt ditt digitale liv',
     summary:
       'Lær det grunnleggende om cybersikkerhet og beste praksis for nettsikkerhet.',
-    description: [
-      {
-        children: [
-          {
-            text: 'I denne workshopen går vi gjennom grunnleggende cybersikkerhetskonsepter og lærer deg hvordan du beskytter deg på nett. Emner vil inkludere passord-sikkerhet, gjenkjenning av phishing-forsøk og opprettholdelse av sikker kommunikasjon. Et must for alle som ønsker å beskytte sin digitale tilstedeværelse.',
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    description: createPlateValue(
+      'I denne workshopen går vi gjennom grunnleggende cybersikkerhetskonsepter og lærer deg hvordan du beskytter deg på nett. Emner vil inkludere passord-sikkerhet, gjenkjenning av phishing-forsøk og opprettholdelse av sikker kommunikasjon. Et must for alle som ønsker å beskytte sin digitale tilstedeværelse.',
+    ),
     location: 'R50',
     locale: 'nb-NO',
   },
@@ -1338,691 +1127,277 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   {
     articleId: 1,
     title: 'Gruppestatus: Prosjekt spill',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 1,
     title: 'Group status: Project Game',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 2,
     title: 'DevOps-møtet',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 2,
     title: 'DevOps Meeting',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 3,
     title: 'Jonas er kul',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 3,
     title: 'Jonas is cool',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 4,
     title: 'Iskrem er godt',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 4,
     title: 'Ice cream is good',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 5,
     title: 'Hvorfor er jeg her?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 5,
     title: 'Why am I here?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 6,
     title: 'Hvorfor er jeg her?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 6,
     title: 'Why am I here?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 7,
     title: 'Hvorfor er jeg her?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 7,
     title: 'Why am I here?',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 8,
     title: 'Dette er en veeeeldig lang overskrift som skal testes',
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 8,
     title: 'This is a veeeery long headline that should be tested',
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 9,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 9,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 10,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 10,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 11,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 11,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 12,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 12,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 13,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 13,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 14,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 14,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 15,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 15,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 16,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 16,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 17,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 17,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 18,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 18,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 19,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 19,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 20,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 20,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 21,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 21,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 22,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 22,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 23,
     title: faker['nb-NO'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['nb-NO'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 23,
     title: faker['en-GB'].lorem.sentence(),
-    content: [
-      {
-        children: [
-          {
-            text: faker['en-GB'].lorem.paragraphs(3),
-          },
-        ],
-        type: 'p',
-      },
-    ],
+    content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
 ];
@@ -2101,19 +1476,6 @@ const rulesData: InsertRules[] = [
   { internal: false },
   { internal: true },
 ];
-
-function createPlateValue(text: string): Value {
-  return [
-    {
-      children: [
-        {
-          text,
-        },
-      ],
-      type: 'p',
-    },
-  ];
-}
 
 const ruleLocalizationData: InsertRuleLocalizations[] = [
   {
