@@ -57,11 +57,11 @@ function reservationFormSchema(
 
       // End must be > start
       if (reservedUntil.getTime() < reservedFrom.getTime()) {
-        if (data.untilDate.getTime() < data.fromDate.getTime()) {
+        if (sameYMD(data.untilDate, data.fromDate) && um < fm) {
           ctx.addIssue({
             code: 'invalid_date',
-            message: t('reservations.form.endDateAfterStart'),
-            path: ['untilDate'],
+            message: t('reservations.form.endMinAfterStart'),
+            path: ['untilMinute'],
           });
         } else if (sameYMD(data.untilDate, data.fromDate) && uh < fh) {
           ctx.addIssue({
@@ -72,8 +72,8 @@ function reservationFormSchema(
         } else {
           ctx.addIssue({
             code: 'invalid_date',
-            message: t('reservations.form.endMinAfterStart'),
-            path: ['untilMinute'],
+            message: t('reservations.form.endDateAfterStart'),
+            path: ['untilDate'],
           });
         }
         return;
@@ -83,23 +83,28 @@ function reservationFormSchema(
       const startInPast = reservedFrom.getTime() < now.getTime();
 
       if (startInPast && mode === 'create') {
-        if (data.fromDate.getTime() < now.getTime()) {
-          ctx.addIssue({
-            code: 'invalid_date',
-            message: t('reservations.form.startDateInPast'),
-            path: ['fromDate'],
-          });
-        } else if (sameYMD(data.fromDate, now) && fh < now.getHours()) {
+        if (sameYMD(data.fromDate, now) && fh < now.getHours()) {
           ctx.addIssue({
             code: 'invalid_date',
             message: t('reservations.form.startHourInPast'),
             path: ['fromHour'],
           });
-        } else {
+        } else if (sameYMD(data.fromDate, now) && fm < now.getMinutes()) {
+          ctx.addIssue({
+            code: 'invalid_date',
+            message: t('reservations.form.startHourInPast'),
+            path: ['fromHour'],
+          });
           ctx.addIssue({
             code: 'invalid_date',
             message: t('reservations.form.startMinuteInPast'),
             path: ['fromMinute'],
+          });
+        } else {
+          ctx.addIssue({
+            code: 'invalid_date',
+            message: t('reservations.form.startDateInPast'),
+            path: ['fromDate'],
           });
         }
         return;
@@ -133,11 +138,11 @@ function reservationFormSchema(
           }
         } else {
           // Editing a future reservation but chose a past start
-          if (data.fromDate.getTime() < now.getTime()) {
+          if (sameYMD(data.fromDate, now) && fm < now.getMinutes()) {
             ctx.addIssue({
               code: 'invalid_date',
-              message: t('reservations.form.startDateInPast'),
-              path: ['fromDate'],
+              message: t('reservations.form.startMinuteInPast'),
+              path: ['fromMinute'],
             });
           } else if (sameYMD(data.fromDate, now) && fh < now.getHours()) {
             ctx.addIssue({
@@ -149,14 +154,13 @@ function reservationFormSchema(
           } else {
             ctx.addIssue({
               code: 'invalid_date',
-              message: t('reservations.form.startMinuteInPast'),
-              path: ['fromMinute'],
+              message: t('reservations.form.startDateInPast'),
+              path: ['fromDate'],
             });
           }
           return;
         }
       }
-
       // Minimum duration of 15 min
       const MIN_MS = 15 * 60 * 1000;
       if (reservedUntil.getTime() - reservedFrom.getTime() < MIN_MS) {
