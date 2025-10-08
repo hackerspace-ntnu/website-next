@@ -2,7 +2,6 @@ import type {
   DateSelectArg,
   DateSpanApi,
   DatesSetArg,
-  DayCellMountArg,
   EventClickArg,
   EventInput,
   EventMountArg,
@@ -109,11 +108,7 @@ function createCalendarConfig({
     eventStartEditable: false,
     eventDurationEditable: false,
     eventOverlap: false,
-    eventClick: (info: EventClickArg) => {
-      if (!info.event.end) return;
-      if (info.event.end.getTime() <= Date.now()) return;
-      handleEventClick?.(info);
-    },
+    eventClick: (info: EventClickArg) => handleEventClick?.(info),
     eventDataTransform: (eventInfo: EventInput) => ({
       ...eventInfo,
       editable: false,
@@ -138,13 +133,9 @@ function createCalendarConfig({
         (isOwn && isMember) || info.isMirror
           ? 'var(--primary)'
           : 'oklch(27.8% 0.033 256.848)';
-    },
-    dayCellDidMount: (info: DayCellMountArg) => {
-      if (info.isToday) {
-        info.el.style.backgroundColor = 'oklch(from var(--accent) l c h / 0.5)';
-      } else if (info.isPast) {
-        info.el.style.backgroundColor = 'var(--secondary)';
-        info.el.style.opacity = '0.15';
+
+      if (info.isPast) {
+        info.el.style.filter = 'brightness(0.75)';
       }
     },
 

@@ -146,7 +146,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) =>
-      eventInfo.event.extendedProps.userId === memberId ? (
+      eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
         <CalendarDialog
           mode='edit'
           toolId={eventInfo.event.extendedProps.toolId}
@@ -162,10 +162,18 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             until: eventInfo.view.currentEnd.toISOString(),
           }}
         >
-          <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
+          <CustomEventContent
+            eventInfo={eventInfo}
+            memberId={memberId}
+            isPast={eventInfo.isPast}
+          />
         </CalendarDialog>
       ) : (
-        <CustomEventContent eventInfo={eventInfo} memberId={memberId} />
+        <CustomEventContent
+          eventInfo={eventInfo}
+          memberId={memberId}
+          isPast={eventInfo.isPast}
+        />
       ),
     [memberId],
   );

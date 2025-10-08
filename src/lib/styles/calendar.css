@@ -70,3 +70,12 @@ All FullCalendar components should have a vars.css file.
   width: 100%;
   border-width: 0.125rem;
 }
+
+.fc-day.fc-day-past .fc-timegrid-col-bg {
+  background-color: var(--secondary);
+  opacity: 0.15;
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+  background-color: oklch(from var(--accent) l c h / 0.5);
+}

@@ -24,9 +24,10 @@ import { cx } from '@/lib/utils';
 type Props = {
   eventInfo: EventContentArg;
   memberId: number;
+  isPast: boolean;
 };
 
-function CustomEventContent({ eventInfo, memberId }: Props) {
+function CustomEventContent({ eventInfo, memberId, isPast }: Props) {
   const t = useTranslations('reservations');
   const format = useFormatter();
 
@@ -100,7 +101,7 @@ function CustomEventContent({ eventInfo, memberId }: Props) {
   );
 
   // if current user
-  if (isOwner) return ParentDiv;
+  if (isOwner && !isPast) return ParentDiv;
 
   // other users
   return (
