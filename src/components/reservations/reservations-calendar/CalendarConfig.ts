@@ -31,6 +31,7 @@ const timeFormats: {
 
 type CalendarConfigProps = {
   calendarRef: RefObject<FullCalendar | null>;
+  isLoggedIn: boolean;
   isMember: boolean;
   memberId: number;
   isLaptop: boolean;
@@ -49,6 +50,7 @@ type CalendarConfigProps = {
 
 function createCalendarConfig({
   calendarRef,
+  isLoggedIn,
   isMember,
   memberId,
   isLaptop,
@@ -100,7 +102,7 @@ function createCalendarConfig({
     selectOverlap: false,
     selectMirror: true,
     selectAllow: (info: DateSpanApi) =>
-      isMember && info.start.getTime() >= Date.now(),
+      (isMember || isLoggedIn) && info.start.getTime() >= Date.now(),
     longPressDelay: 200,
 
     // event/reservations
@@ -130,7 +132,7 @@ function createCalendarConfig({
     eventDidMount: (info: EventMountArg) => {
       const isOwn = info.event.extendedProps.userId === memberId;
       info.el.style.backgroundColor =
-        (isOwn && isMember) || info.isMirror
+        (isOwn && (isMember || isLoggedIn)) || info.isMirror
           ? 'var(--primary)'
           : 'oklch(27.8% 0.033 256.848)';
 

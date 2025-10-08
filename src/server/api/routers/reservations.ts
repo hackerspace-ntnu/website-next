@@ -130,7 +130,7 @@ const reservationsRouter = createRouter({
       return calendarReservations;
     }),
 
-  createReservation: protectedProcedure
+  createReservation: authenticatedProcedure
     .input((input) =>
       createReservationSchema(useTranslationsFromContext()).parse(input),
     )
@@ -190,7 +190,7 @@ const reservationsRouter = createRouter({
       return;
     }),
 
-  updateReservation: protectedProcedure
+  updateReservation: authenticatedProcedure
     .input((input) =>
       updateReservationSchema(useTranslationsFromContext()).parse(input),
     )
@@ -299,7 +299,7 @@ const reservationsRouter = createRouter({
       return;
     }),
 
-  deleteReservation: protectedProcedure
+  deleteReservation: authenticatedProcedure
     .input((input) => deleteReservationSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const [res] = await ctx.db

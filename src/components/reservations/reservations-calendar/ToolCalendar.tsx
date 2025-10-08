@@ -60,7 +60,7 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
-
+  const isLoggedIn = !!user;
   const isMember = user?.groups && user.groups.length > 0;
   const memberId = user?.id ?? 0;
   const isLaptop = useMediaQuery('(min-width: 70rem)');
@@ -182,6 +182,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     if (!view) return null;
     return createCalendarConfig({
       calendarRef,
+      isLoggedIn,
       isMember: !!isMember,
       memberId,
       isLaptop,
@@ -201,6 +202,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   }, [
     view,
     isMember,
+    isLoggedIn,
     memberId,
     isLaptop,
     isIpad,
