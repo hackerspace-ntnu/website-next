@@ -4,7 +4,7 @@ import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
 type StorageCategoriesLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function StorageCategoriesLayout({
@@ -12,7 +12,7 @@ export default async function StorageCategoriesLayout({
   children,
 }: StorageCategoriesLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tEdit = await getTranslations('storage.categories');

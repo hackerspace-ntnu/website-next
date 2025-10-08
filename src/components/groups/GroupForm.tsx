@@ -84,6 +84,7 @@ function GroupForm({
       descriptionEnglish: english?.description ?? [],
       identifier: group?.identifier ?? '',
       internal: group?.internal ?? false,
+      openForApplications: group?.openForApplications ?? false,
     },
     onSubmit: ({ value }) => {
       if (group) {
@@ -211,6 +212,14 @@ function GroupForm({
             <field.CheckboxField
               label={t('internal.label')}
               description={t('internal.description')}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='openForApplications'>
+          {(field) => (
+            <field.CheckboxField
+              label={t('openForApplications.label')}
+              description={t('openForApplications.description')}
             />
           )}
         </form.AppField>

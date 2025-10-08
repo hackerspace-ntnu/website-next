@@ -52,10 +52,10 @@ export async function generateMetadata({
 export default async function EventDetailsPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; eventId: string }>;
+  params: Promise<{ locale: string; eventId: string }>;
 }) {
   const { locale, eventId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const formatter = await getFormatter();
   const formatterOptions = {

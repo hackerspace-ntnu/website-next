@@ -238,7 +238,12 @@ const settingsRouter = createRouter({
     }),
   updateNotifications: authenticatedProcedure
     .input((input) => notificationsSchema().parse(input))
-    .mutation(async () => {}),
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db
+        .update(users)
+        .set({ notificationSetting: input.notifications })
+        .where(eq(users.id, ctx.user.id));
+    }),
   deleteAccount: authenticatedProcedure.mutation(async ({ ctx }) => {
     const userFiles = await ctx.db.query.files.findMany({
       where: eq(files.uploadedBy, ctx.user.id),

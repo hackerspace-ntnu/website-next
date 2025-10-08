@@ -80,7 +80,7 @@ function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const [search, setSearch] = React.useState('');
   const t = useTranslations('ui');
   const user = api.auth.state.useQuery().data?.user;
-  const users = api.users.fetchAllUsers.useQuery(undefined, {
+  const users = api.users.fetchAllMembers.useQuery(undefined, {
     enabled: !!user?.groups.some((group) =>
       ['labops', 'leadership', 'admin'].includes(group),
     ),

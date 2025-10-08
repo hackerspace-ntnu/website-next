@@ -4,7 +4,7 @@ import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
 type EditItemLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function EditItemLayout({
@@ -12,7 +12,7 @@ export default async function EditItemLayout({
   children,
 }: EditItemLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tEdit = await getTranslations('storage.edit');

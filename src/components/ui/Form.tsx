@@ -28,6 +28,7 @@ import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { Combobox } from '@/components/ui/Combobox';
 import { DateTimePicker } from '@/components/ui/DateTimePicker';
 import { Input } from '@/components/ui/Input';
 import {
@@ -459,6 +460,53 @@ function SelectField({
           </Button>
         )}
       </div>
+    </BaseField>
+  );
+}
+
+type ComboboxFieldProps = Omit<
+  React.ComponentProps<typeof Combobox>,
+  'defaultDescription' | 'defaultPlaceholder'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  className?: string;
+  placeholder: string;
+  labelSibling?: React.ReactNode;
+  description?: string;
+  comboboxDescription: string;
+};
+
+function ComboboxField({
+  label,
+  labelVisible,
+  className,
+  placeholder,
+  labelSibling,
+  description,
+  comboboxDescription,
+  valueCallback,
+  ...props
+}: ComboboxFieldProps) {
+  const field = useFieldContext<string>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Combobox
+        defaultDescription={comboboxDescription}
+        defaultPlaceholder={placeholder}
+        valueCallback={(value) => {
+          field.handleChange(value);
+          valueCallback?.(value);
+        }}
+        {...props}
+      />
     </BaseField>
   );
 }
@@ -1085,6 +1133,7 @@ const { useAppForm } = createFormHook({
     CheckboxField,
     MapField,
     SelectField,
+    ComboboxField,
     PhoneField,
     PasswordField,
     DateField,

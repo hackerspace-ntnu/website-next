@@ -6,18 +6,40 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; name: string }>;
+}) {
+  const { locale, name } = await params;
+
+  const group = await api.groups.fetchGroup(name);
+  const groupLocalization = group?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!group || !groupLocalization) return;
+
+  return {
+    title: groupLocalization.name,
+  };
+}
+
 export default async function GroupPage({
   params,
 }: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ locale: string; name: string }>;
 }) {
-  const { name } = await params;
+  const { locale, name } = await params;
+  setRequestLocale(locale as Locale);
+
   const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
   const tAbout = await getTranslations('about');
@@ -26,7 +48,6 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const locale = await getLocale();
   const groupLocalization = group.localizations.find(
     (localization) => localization.locale === locale,
   );
@@ -69,7 +90,7 @@ export default async function GroupPage({
           ['labops', 'leadership', 'admin'].includes(g),
         ) && (
           <Link
-            className='absolute top-0 right-0'
+            className='-translate-y-1/2 absolute top-1/2 right-0'
             href={{
               pathname: '/about/group/[name]/edit',
               params: { name: group.identifier },

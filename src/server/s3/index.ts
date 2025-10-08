@@ -103,8 +103,9 @@ const directories = [
   'profile-pictures',
   'news',
   'storage-items',
-  'events',
   'groups',
+  'rules',
+  'events',
 ] as const;
 
 const s3 = new S3Service();

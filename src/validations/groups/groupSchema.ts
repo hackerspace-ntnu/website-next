@@ -41,6 +41,7 @@ function groupSchema(t: Translations) {
         t('groups.form.identifier.isReserved'),
       ),
     internal: z.boolean(),
+    openForApplications: z.boolean(),
   });
 }
 
