@@ -7,12 +7,14 @@ import {
   boolean,
   index,
   integer,
+  json,
   pgTable,
   primaryKey,
   serial,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
+import type { Value } from 'platejs';
 import { files, localesEnum, users } from '@/server/db/tables';
 
 const newsArticles = pgTable('news_articles', {
@@ -36,7 +38,7 @@ const newsArticleLocalizations = pgTable(
       onDelete: 'cascade',
     }),
     title: text('title').notNull(),
-    content: text('content').notNull(),
+    content: json('content').$type<Value>().notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {

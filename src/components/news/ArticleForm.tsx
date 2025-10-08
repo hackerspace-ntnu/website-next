@@ -71,8 +71,8 @@ function ArticleForm({
       image: null as string | null,
       titleNorwegian: norwegian?.title ?? '',
       titleEnglish: english?.title ?? '',
-      contentNorwegian: norwegian?.content ?? '',
-      contentEnglish: english?.content ?? '',
+      contentNorwegian: norwegian?.content ?? [],
+      contentEnglish: english?.content ?? [],
       internal: article?.internal ?? false,
     },
     onSubmit: ({ value }) => {
@@ -152,12 +152,10 @@ function ArticleForm({
           {(field) => <field.TextField label={t('title.labelEnglish')} />}
         </form.AppField>
         <form.AppField name='contentNorwegian'>
-          {(field) => (
-            <field.TextAreaField label={t('content.labelNorwegian')} />
-          )}
+          {(field) => <field.EditorField label={t('content.labelNorwegian')} />}
         </form.AppField>
         <form.AppField name='contentEnglish'>
-          {(field) => <field.TextAreaField label={t('content.labelEnglish')} />}
+          {(field) => <field.EditorField label={t('content.labelEnglish')} />}
         </form.AppField>
         <form.AppField name='internal'>
           {(field) => (

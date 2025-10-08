@@ -4,6 +4,7 @@ const fileDirectories = [
   'storage-items',
   'events',
   'groups',
+  'rules',
   'rich-input',
 ] as const;
 

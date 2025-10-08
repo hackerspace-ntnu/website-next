@@ -208,16 +208,32 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
     groupId: 4,
     name: 'Management',
     summary: 'Management group focused on organizational oversight.',
-    description:
-      'The Management group is consists of all leaders from the different groups in Hackerspace.',
+    description: [
+      {
+        children: [
+          {
+            text: 'The Management group is consists of all leaders from the different groups in Hackerspace.',
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     groupId: 4,
     name: 'Styret',
     summary: 'Styret er fokusert på organisatorisk tilsyn.',
-    description:
-      'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
+    description: [
+      {
+        children: [
+          {
+            text: 'Styret består av alle ledere fra de forskjellige gruppene i Hackerspace.',
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
@@ -1321,277 +1337,691 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   {
     articleId: 1,
     title: 'Gruppestatus: Prosjekt spill',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 1,
     title: 'Group status: Project Game',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 2,
     title: 'DevOps-møtet',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 2,
     title: 'DevOps Meeting',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 3,
     title: 'Jonas er kul',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 3,
     title: 'Jonas is cool',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 4,
     title: 'Iskrem er godt',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 4,
     title: 'Ice cream is good',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 5,
     title: 'Hvorfor er jeg her?',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 5,
     title: 'Why am I here?',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 6,
     title: 'Hvorfor er jeg her?',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 6,
     title: 'Why am I here?',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 7,
     title: 'Hvorfor er jeg her?',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 7,
     title: 'Why am I here?',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 8,
     title: 'Dette er en veeeeldig lang overskrift som skal testes',
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 8,
     title: 'This is a veeeery long headline that should be tested',
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 9,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 9,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 10,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 10,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 11,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 11,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 12,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 12,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 13,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 13,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 14,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 14,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 15,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 15,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 16,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 16,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 17,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 17,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 18,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 18,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 19,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 19,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 20,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 20,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 21,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 21,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 22,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 22,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
   {
     articleId: 23,
     title: faker['nb-NO'].lorem.sentence(),
-    content: faker['nb-NO'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['nb-NO'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'nb-NO',
   },
   {
     articleId: 23,
     title: faker['en-GB'].lorem.sentence(),
-    content: faker['en-GB'].lorem.paragraphs(3),
+    content: [
+      {
+        children: [
+          {
+            text: faker['en-GB'].lorem.paragraphs(3),
+          },
+        ],
+        type: 'p',
+      },
+    ],
     locale: 'en-GB',
   },
 ];
