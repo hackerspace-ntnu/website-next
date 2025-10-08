@@ -1022,8 +1022,6 @@
       "content": {
         "labelNorwegian": "Regelinnhold (norsk)",
         "labelEnglish": "Regelinnhold (engelsk)",
-        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
-        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
         "required": "Regelinnhold er påkrevd"
       },
       "internal": {

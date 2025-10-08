@@ -71,8 +71,8 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',
       nameEnglish: english?.name ?? '',
-      contentNorwegian: norwegian?.content ?? '',
-      contentEnglish: english?.content ?? '',
+      contentNorwegian: norwegian?.content ?? [],
+      contentEnglish: english?.content ?? [],
       internal: rule?.internal ?? false,
     },
     onSubmit: ({ value }) => {
@@ -161,20 +161,10 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
           )}
         </form.AppField>
         <form.AppField name='contentNorwegian'>
-          {(field) => (
-            <field.TextAreaField
-              label={t('content.labelNorwegian')}
-              placeholder={t('content.placeholderNorwegian')}
-            />
-          )}
+          {(field) => <field.EditorField label={t('content.labelNorwegian')} />}
         </form.AppField>
         <form.AppField name='contentEnglish'>
-          {(field) => (
-            <field.TextAreaField
-              label={t('content.labelEnglish')}
-              placeholder={t('content.placeholderEnglish')}
-            />
-          )}
+          {(field) => <field.EditorField label={t('content.labelEnglish')} />}
         </form.AppField>
         <form.AppField name='internal'>
           {(field) => (

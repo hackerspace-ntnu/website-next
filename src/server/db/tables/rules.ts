@@ -7,12 +7,14 @@ import {
   boolean,
   index,
   integer,
+  json,
   pgTable,
   primaryKey,
   serial,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
+import type { Value } from 'platejs';
 import { files } from '@/server/db/tables/files';
 import { localesEnum } from '@/server/db/tables/locales';
 
@@ -35,7 +37,7 @@ const ruleLocalizations = pgTable(
       })
       .notNull(),
     name: text('name').notNull(),
-    content: text('content').notNull(),
+    content: json('content').$type<Value>().notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {

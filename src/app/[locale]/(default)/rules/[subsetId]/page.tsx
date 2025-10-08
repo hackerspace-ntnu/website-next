@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
 
 export async function generateMetadata({
@@ -81,7 +82,7 @@ export default async function RuleSubsetPage({
           </Link>
         )}
       </div>
-      <p className='my-4'>{rule.localization.content}</p>
+      <PlateEditorView value={rule.localization.content} />
     </>
   );
 }
