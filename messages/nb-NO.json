@@ -1365,7 +1365,8 @@
       "longerThan15min": "Reservasjonen må være 15 minutter eller lengre",
       "successCreate": "Reservasjonen er opprettet.",
       "successUpdate": "Reservasjonen er oppdatert.",
-      "successDelete": "Reservasjonen er slettet."
+      "successDelete": "Reservasjonen er slettet.",
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
     },
     "confirmDialog": {
       "confirm": "Bekreft",
@@ -1401,7 +1402,8 @@
       "createFailed": "Kunne ikke opprette reservasjon",
       "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon",
       "createToolFailed": "Kunne ikke opprette verktøy",
-      "editToolFailed": "Kunne ikke opprette verktøy"
+      "editToolFailed": "Kunne ikke opprette verktøy",
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
     }
   }
 }

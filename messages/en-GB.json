@@ -1365,7 +1365,8 @@
       "longerThan15min": "Reservation must be 15 minutes or longer",
       "successCreate": "Successfully created reservation.",
       "successUpdate": "Successfully updated reservation.",
-      "successDelete": "Successfully deleted reservation."
+      "successDelete": "Successfully deleted reservation.",
+      "weekendsMemberOnly": "Only members can reserve on weekends"
     },
     "confirmDialog": {
       "confirm": "Confirm",
@@ -1401,7 +1402,8 @@
       "createFailed": "Failed to create reservation",
       "cannotChangeOngoingStart": "Cannot change the start time for an ongoing reservation",
       "createToolFailed": "Failed to create tool",
-      "editToolFailed": "Failed to edit tool"
+      "editToolFailed": "Failed to edit tool",
+      "weekendsMemberOnly": "Only members can reserve on weekends"
     }
   }
 }

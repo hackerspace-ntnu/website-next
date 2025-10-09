@@ -1,4 +1,6 @@
 // src/validations/reservations/reservationFormSchema.ts
+
+import { addDays, isWeekend } from 'date-fns';
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
 
@@ -16,10 +18,22 @@ function sameYMD(a: Date, b: Date) {
   );
 }
 
+function normalize(d: Date) {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+function weekendInsideInterval(start: Date, end: Date): Date | null {
+  const a = normalize(start);
+  const b = normalize(end);
+  for (let d = addDays(a, 1); d < b; d = addDays(d, 1)) {
+    if (isWeekend(d)) return d;
+  }
+  return null;
+}
 function reservationFormSchema(
   t: Translations,
   originalStart: Date | null,
   mode: 'create' | 'edit',
+  isMember: boolean,
 ) {
   const HOUR_VALUES = Array.from({ length: 24 }, (_, i) => String(i));
   const MINUTE_VALUES = ['0', '15', '30', '45'];
@@ -54,6 +68,37 @@ function reservationFormSchema(
       const reservedFrom = withHM(data.fromDate, fh, fm);
       const reservedUntil = withHM(data.untilDate, uh, um);
       const now = new Date();
+
+      // check if a non member has picked a day on a weekend, or if theere if the picked range spans over a wekend
+      if (!isMember) {
+        if (isWeekend(reservedFrom)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('reservations.form.weekendsMemberOnly'),
+            path: ['fromDate'],
+          });
+          return;
+        }
+
+        if (isWeekend(reservedUntil)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('reservations.form.weekendsMemberOnly'),
+            path: ['untilDate'],
+          });
+          return;
+        }
+
+        const weekend = weekendInsideInterval(reservedFrom, reservedUntil);
+        if (weekend) {
+          ctx.addIssue({
+            code: 'custom',
+            message: t('reservations.form.weekendsMemberOnly'),
+            path: ['untilDate'],
+          });
+          return;
+        }
+      }
 
       // End must be > start
       if (reservedUntil.getTime() < reservedFrom.getTime()) {
