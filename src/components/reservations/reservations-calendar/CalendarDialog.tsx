@@ -1,5 +1,6 @@
 'use client';
 
+import { isWeekend } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
@@ -20,6 +21,7 @@ import { api } from '@/lib/api/client';
 import { reservationFormSchema } from '@/validations/reservations';
 
 type CalendarDialogProps = {
+  isMember: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 
@@ -35,13 +37,21 @@ type CalendarDialogProps = {
   children?: React.ReactNode;
 };
 
-const HOUR_OPTIONS = Array.from({ length: 24 }, (_, i) => ({
-  label: String(i).padStart(2, '0'),
-  value: String(i), // string to match SelectField
-}));
+const HOUR_OPTIONS = (isMember: boolean) => {
+  const start = isMember ? 0 : 10;
+  const end = isMember ? 24 : 18;
+  return Array.from({ length: end - start }, (_, i) => {
+    const hour = i + start;
+    return {
+      label: String(hour).padStart(2, '0'),
+      value: String(hour),
+    };
+  });
+};
+
 const MINUTE_OPTIONS = [0, 15, 30, 45].map((m) => ({
   label: String(m).padStart(2, '0'),
-  value: String(m), // string to match SelectField
+  value: String(m),
 }));
 
 function withHM(date: Date, h: number, m: number) {
@@ -51,6 +61,7 @@ function withHM(date: Date, h: number, m: number) {
 }
 
 function CalendarDialog({
+  isMember,
   open: openProp,
   onOpenChange,
   mode,
@@ -209,7 +220,7 @@ function CalendarDialog({
                     label={t('form.hour')}
                     placeholder='HH'
                     required
-                    options={HOUR_OPTIONS}
+                    options={HOUR_OPTIONS(isMember)}
                   />
                 )}
               </form.AppField>
@@ -241,7 +252,7 @@ function CalendarDialog({
                     label={t('form.hour')}
                     placeholder='HH'
                     required
-                    options={HOUR_OPTIONS}
+                    options={HOUR_OPTIONS(isMember)}
                   />
                 )}
               </form.AppField>

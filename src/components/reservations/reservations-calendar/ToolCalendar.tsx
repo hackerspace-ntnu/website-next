@@ -148,6 +148,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     (eventInfo: EventContentArg) =>
       eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
         <CalendarDialog
+          isMember={!!isMember}
           mode='edit'
           toolId={eventInfo.event.extendedProps.toolId}
           reservationId={eventInfo.event.extendedProps.reservationId}
@@ -175,7 +176,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           isPast={eventInfo.isPast}
         />
       ),
-    [memberId],
+    [memberId, isMember],
   );
 
   const calendarConfig = useMemo(() => {
@@ -246,6 +247,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
       {selectedSlot && range && (
         <CalendarDialog
+          isMember={!!isMember}
           open
           onOpenChange={(open) => !open && setSelectedSlot(null)}
           mode='create'
