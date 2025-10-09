@@ -1,6 +1,5 @@
 'use client';
 
-import { isWeekend } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
@@ -37,7 +36,7 @@ type CalendarDialogProps = {
   children?: React.ReactNode;
 };
 
-const HOUR_OPTIONS = (isMember: boolean) => {
+function hourOptions(isMember: boolean) {
   const start = isMember ? 0 : 10;
   const end = isMember ? 24 : 18;
   return Array.from({ length: end - start }, (_, i) => {
@@ -47,7 +46,7 @@ const HOUR_OPTIONS = (isMember: boolean) => {
       value: String(hour),
     };
   });
-};
+}
 
 const MINUTE_OPTIONS = [0, 15, 30, 45].map((m) => ({
   label: String(m).padStart(2, '0'),
@@ -220,7 +219,7 @@ function CalendarDialog({
                     label={t('form.hour')}
                     placeholder='HH'
                     required
-                    options={HOUR_OPTIONS(isMember)}
+                    options={hourOptions(isMember)}
                   />
                 )}
               </form.AppField>
@@ -252,7 +251,7 @@ function CalendarDialog({
                     label={t('form.hour')}
                     placeholder='HH'
                     required
-                    options={HOUR_OPTIONS(isMember)}
+                    options={hourOptions(isMember)}
                   />
                 )}
               </form.AppField>
