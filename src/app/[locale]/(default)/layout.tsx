@@ -1,5 +1,6 @@
 import type { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { Banner } from '@/components/layout/Banner';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Main } from '@/components/layout/Main';
@@ -20,6 +21,7 @@ export default async function DefaultLayout({
   return (
     <>
       <Header />
+      <Banner />
       <Main>{children}</Main>
       <Footer />
     </>
