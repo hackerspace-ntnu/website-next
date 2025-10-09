@@ -2,16 +2,23 @@ import { TRPCError } from '@trpc/server';
 import { and, eq, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
+  managementProcedure,
   protectedEditProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { groupLocalizations, groups, userGroups } from '@/server/db/tables';
+import {
+  groupLocalizations,
+  groups,
+  users,
+  usersGroups,
+} from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 import { editGroupSchema } from '@/validations/groups/editGroupSchema';
 import { fetchGroupMembersSchema } from '@/validations/groups/fetchGroupMembersSchema';
 import { fetchGroupSchema } from '@/validations/groups/fetchGroupSchema';
 import { groupSchema } from '@/validations/groups/groupSchema';
+import { userToGroupSchema } from '@/validations/groups/userToGroupSchema';
 
 const groupsRouter = createRouter({
   fetchGroup: publicProcedure
@@ -103,9 +110,9 @@ const groupsRouter = createRouter({
     .query(async ({ ctx, input }) => {
       const groupId = input;
 
-      const results = await ctx.db.query.userGroups
+      const results = await ctx.db.query.usersGroups
         .findMany({
-          where: eq(userGroups.groupId, groupId),
+          where: eq(usersGroups.groupId, groupId),
           with: {
             user: true,
           },
@@ -121,6 +128,29 @@ const groupsRouter = createRouter({
 
       return results.map((userGroup) => userGroup.user);
     }),
+  fetchGroupsOpenToApps: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.db.query.groups
+      .findMany({
+        where: eq(groups.openForApplications, true),
+        with: {
+          localizations: {
+            columns: {
+              name: true,
+              locale: true,
+            },
+          },
+        },
+      })
+      .catch((error) => {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('groups.api.fetchGroupsFailed', {
+            error: error.message,
+          }),
+          cause: { toast: 'error' },
+        });
+      });
+  }),
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
@@ -156,6 +186,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .returning({ id: groups.id });
 
@@ -223,6 +254,7 @@ const groupsRouter = createRouter({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
           internal: input.internal,
+          openForApplications: input.openForApplications,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 
@@ -277,11 +309,6 @@ const groupsRouter = createRouter({
         });
       }
 
-      await ctx.db
-        .update(groups)
-        .set({ imageId: null })
-        .where(eq(groups.id, input.id));
-
       await deleteFile(group.imageId);
     }),
   deleteGroup: protectedEditProcedure
@@ -308,6 +335,115 @@ const groupsRouter = createRouter({
       }
 
       await ctx.db.delete(groups).where(eq(groups.id, input.id));
+    }),
+  addUserToGroup: managementProcedure
+    .input((input) =>
+      userToGroupSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.groupId),
+      });
+
+      if (!group) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (group.identifier === 'admin' && !ctx.user.groups.includes('admin'))
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('members.api.adminGroupRequired'),
+          cause: { toast: 'error' },
+        });
+
+      const existingUserGroup = await ctx.db.query.usersGroups.findFirst({
+        where: and(
+          eq(usersGroups.groupId, input.groupId),
+          eq(usersGroups.userId, input.userId),
+        ),
+      });
+
+      if (existingUserGroup) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('groups.api.userAlreadyInGroup'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db.insert(usersGroups).values({
+        groupId: input.groupId,
+        userId: input.userId,
+      });
+    }),
+  removeUserFromGroup: managementProcedure
+    .input((input) =>
+      userToGroupSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const group = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.groupId),
+      });
+
+      if (!group) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input.userId),
+      });
+
+      if (!user) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('members.api.errorFetchingMember'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const existingUserGroup = await ctx.db.query.usersGroups.findFirst({
+        where: and(
+          eq(usersGroups.groupId, input.groupId),
+          eq(usersGroups.userId, input.userId),
+        ),
+      });
+
+      if (!existingUserGroup) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: ctx.t('groups.api.userNotInGroup'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      await ctx.db
+        .delete(usersGroups)
+        .where(
+          and(
+            eq(usersGroups.groupId, input.groupId),
+            eq(usersGroups.userId, input.userId),
+          ),
+        );
     }),
 });
 

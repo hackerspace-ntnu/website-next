@@ -5,7 +5,7 @@ import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
 export async function generateMetadata() {
-  const t = await getTranslations('layout');
+  const t = await getTranslations('auth');
 
   return {
     title: t('forgotPassword'),
@@ -15,15 +15,15 @@ export async function generateMetadata() {
 export default async function ForgotPasswordPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
 
   if (user) {
-    redirect({ href: '/', locale });
+    redirect({ href: '/', locale: locale as Locale });
   }
 
   return <ForgotPasswordForm />;

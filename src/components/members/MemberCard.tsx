@@ -1,7 +1,6 @@
-import { UserCircle2Icon } from 'lucide-react';
-import Image from 'next/image';
 import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { InternalBadge } from '@/components/members/InternalBadge';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import {
   Card,
   CardContent,
@@ -11,12 +10,11 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
-import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
 
 type MemberItemCardProps = {
-  user: RouterOutput['users']['fetchUsers'][number];
+  user: RouterOutput['users']['fetchMembers'][number];
   className?: string;
 };
 
@@ -24,11 +22,6 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
   const t = await getTranslations('members');
   const locale = await getLocale();
   const format = await getFormatter();
-  const profilePictureUrl = user.profilePictureId
-    ? await api.utils.getFileUrl({
-        fileId: user.profilePictureId,
-      })
-    : null;
 
   return (
     <Link
@@ -54,6 +47,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
                   )?.name,
               )
               .filter((item) => item !== undefined)
+              .filter((item) => item !== 'Admin')
               .join(', ')}
           </CardDescription>
         </CardHeader>
@@ -61,18 +55,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
           {user.private && (
             <InternalBadge className='absolute top-2 right-2 h-5 w-5' />
           )}
-          <div className='mx-auto h-48 w-48'>
-            {profilePictureUrl ? (
-              <Image
-                className='rounded-full object-cover object-center'
-                src={profilePictureUrl}
-                alt={`${user.firstName} ${user.lastName}`}
-                fill
-              />
-            ) : (
-              <UserCircle2Icon className='h-full w-full object-cover' />
-            )}
-          </div>
+          <MemberAvatar size='xl' user={user} />
         </CardContent>
         <CardFooter>
           {user.memberSince && (

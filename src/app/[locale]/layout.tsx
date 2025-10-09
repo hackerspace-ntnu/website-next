@@ -11,7 +11,7 @@ import { cx } from '@/lib/utils';
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 const inter = Inter({
@@ -72,7 +72,7 @@ export default async function LocaleLayout({
   children,
 }: LocaleLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
   const t = await getTranslations('layout');
 
   return (
@@ -87,7 +87,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className='h-full w-full font-inter antialiased'>
-        <RootProviders locale={locale}>
+        <RootProviders locale={locale as Locale}>
           <ScrollArea className='h-full w-full' variant='primary'>
             <div className='flex h-full w-full flex-col'>
               {children}

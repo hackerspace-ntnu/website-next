@@ -18,16 +18,16 @@ export async function generateMetadata() {
 export default async function ProfilePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations('settings.profile');
+  setRequestLocale(locale as Locale);
 
+  const t = await getTranslations('settings.profile');
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale });
+    return redirect({ href: '/auth', locale: locale as Locale });
   }
 
   const profilePictureUrl = user.profilePictureId

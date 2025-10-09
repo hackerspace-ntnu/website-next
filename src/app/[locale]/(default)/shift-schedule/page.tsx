@@ -19,12 +19,12 @@ export async function generateMetadata() {
 export default async function ShiftSchedulePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { user } = await api.auth.state();
+  setRequestLocale(locale as Locale);
 
-  setRequestLocale(locale);
+  const { user } = await api.auth.state();
   const { shiftSchedule, ui } = await getMessages();
   const t = await getTranslations('shiftSchedule');
 

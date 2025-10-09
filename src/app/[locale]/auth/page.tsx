@@ -9,7 +9,7 @@ import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
 
 export async function generateMetadata() {
-  const t = await getTranslations('layout');
+  const t = await getTranslations('auth');
 
   return {
     title: t('signIn'),
@@ -20,21 +20,25 @@ export default async function SignInPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ error?: string }>;
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ r?: string; error?: string }>;
 }) {
   const { locale } = await params;
-  let { error } = await searchParams;
-  setRequestLocale(locale);
-  const t = await getTranslations('auth');
+  let { r: redirectTo, error } = await searchParams;
 
+  setRequestLocale(locale as Locale);
+
+  const t = await getTranslations('auth');
   const { user } = await api.auth.state();
 
   if (user) {
     if (!user.isAccountComplete) {
-      return redirect({ href: '/auth/create-account', locale });
+      return redirect({
+        href: '/auth/create-account',
+        locale: locale as Locale,
+      });
     }
-    return redirect({ href: '/', locale });
+    return redirect({ href: '/', locale: locale as Locale });
   }
 
   // @ts-expect-error: Unknown if error is a valid translation key
@@ -49,18 +53,21 @@ export default async function SignInPage({
       <Separator />
       <div className='absolute bottom-0 left-0 w-full space-y-4'>
         <p className='text-center font-montserrat'>{t('signInWith')}</p>
-        <FeideButton />
+        <FeideButton redirectTo={redirectTo} />
         <Link
           className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
           variant='default'
           size='default'
-          href='/auth/account'
+          href={{ pathname: '/auth/account', query: { r: redirectTo } }}
         >
           <FingerprintIcon className='text-accent dark:text-primary' />
           {t('hackerspaceAccount')}
         </Link>
       </div>
-      <ErrorToast error={error} cleanPath='/auth' />
+      <ErrorToast
+        error={error}
+        cleanPath={redirectTo ? `/auth?r=${redirectTo}` : '/auth'}
+      />
     </div>
   );
 }

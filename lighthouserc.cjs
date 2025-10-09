@@ -1,11 +1,11 @@
 // A list of pages which have custom rules.
 const PAGES_NONSTANDARD_RULES = [
-  'news',
-  'storage',
-  'events',
-  'auth',
-  'rules',
-  'shift-schedule',
+  '/news',
+  '/storage',
+  '/events',
+  '/auth',
+  '/rules',
+  '/shift-schedule',
 ];
 
 // Do not convert into an ES6 export.
@@ -17,7 +17,7 @@ const config = {
         hostname: '127.0.0.1',
       },
       url: [
-        'http://localhost:3000/en/', // Trailing slash required, else the regex for default lighthouse rules won't catch this one
+        'http://localhost:3000/en',
         'http://localhost:3000/en/auth',
         'http://localhost:3000/en/about',
         'http://localhost:3000/en/events',
@@ -35,6 +35,8 @@ const config = {
         'http://localhost:3000/en/shift-schedule',
         'http://localhost:3000/en/rules',
         'http://localhost:3000/en/rules/1',
+        'http://localhost:3000/en/reservations',
+        'http://localhost:3000/en/reservations/prusamk3',
       ],
       startServerCommand: 'bun run start',
     },
@@ -45,7 +47,8 @@ const config = {
     assert: {
       assertMatrix: [
         {
-          matchingUrlPattern: `http://.*/en/(?!${PAGES_NONSTANDARD_RULES.join('|')}).*`, // match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
+          // Match all routes, except for pages with special rules. See https://github.com/GoogleChrome/lighthouse-ci/issues/511 and https://github.com/GoogleChrome/lighthouse-ci/issues/208#issuecomment-784501105
+          matchingUrlPattern: `http://.*/en(?!${PAGES_NONSTANDARD_RULES.join('|')}).*`,
           preset: 'lighthouse:recommended',
           assertions: {
             'bf-cache': 'off',

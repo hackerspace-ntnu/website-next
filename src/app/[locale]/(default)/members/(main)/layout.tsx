@@ -4,7 +4,7 @@ import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 
 type MemberHeaderLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function MembersLayout({
@@ -12,7 +12,8 @@ export default async function MembersLayout({
   params,
 }: MemberHeaderLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('members');
   const tUi = await getTranslations('ui');
 
