@@ -1,5 +1,3 @@
-// src/validations/reservations/reservationFormSchema.ts
-
 import { addDays, isWeekend } from 'date-fns';
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
