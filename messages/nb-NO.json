@@ -254,6 +254,8 @@
       "userRemovedFromGroup": "Bruker fjernet fra gruppe"
     },
     "api": {
+      "invalidOffset": "Invalid offset",
+      "invalidLimit": "Invalid limit",
       "idOrNameRequired": "Enten ID eller navn må oppgis",
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
@@ -949,19 +951,19 @@
           "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
           "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
         }
-      },
-      "users": {
-        "title": "Brukere",
-        "description": "Administrer brukere på nettsiden."
-      },
-      "files": {
-        "title": "Filer og bilder",
-        "description": "Administrer filer og bilder lastet opp av medlemmer."
-      },
-      "banners": {
-        "title": "Bannere",
-        "description": "Administrer bannere som vises på nettsiden."
       }
+    },
+    "users": {
+      "title": "Brukere",
+      "description": "Administrer brukere på nettsiden."
+    },
+    "files": {
+      "title": "Filer og bilder",
+      "description": "Administrer filer og bilder lastet opp av medlemmer."
+    },
+    "banners": {
+      "title": "Bannere",
+      "description": "Administrer bannere som vises på nettsiden."
     }
   },
   "applications": {
