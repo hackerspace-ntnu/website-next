@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server';
+import { addDays, isWeekend } from 'date-fns';
 import { and, asc, eq, gt, lt, ne, sql } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
@@ -19,6 +20,15 @@ import {
   updateReservationSchema,
 } from '@/validations/reservations';
 import { fetchOneReservationSchema } from '@/validations/reservations/fetchOneReservationSchema';
+
+function intervalHasWeekend(start: Date, end: Date): boolean {
+  const a = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const b = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  for (let d = a; d <= b; d = addDays(d, 1)) {
+    if (isWeekend(d)) return true;
+  }
+  return false;
+}
 
 const reservationsRouter = createRouter({
   fetchOneReservation: publicProcedure
@@ -134,6 +144,17 @@ const reservationsRouter = createRouter({
       createReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const reservedFrom = new Date(input.reservedFrom);
+      const reservedUntil = new Date(input.reservedUntil);
+      const isMember = !!input.isMember;
+
+      if (!isMember && intervalHasWeekend(reservedFrom, reservedUntil)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.weekendsMemberOnly'),
+          cause: { toast: 'error' },
+        });
+      }
       const [tool] = await ctx.db
         .select({ id: tools.id })
         .from(tools)
@@ -153,8 +174,8 @@ const reservationsRouter = createRouter({
         .where(
           and(
             eq(reservations.toolId, input.toolId),
-            lt(reservations.reservedFrom, new Date(input.reservedUntil)),
-            gt(reservations.reservedUntil, new Date(input.reservedFrom)),
+            lt(reservations.reservedFrom, reservedUntil),
+            gt(reservations.reservedUntil, reservedFrom),
           ),
         );
 
@@ -171,8 +192,8 @@ const reservationsRouter = createRouter({
         .values({
           toolId: input.toolId,
           userId: ctx.user.id,
-          reservedFrom: new Date(input.reservedFrom),
-          reservedUntil: new Date(input.reservedUntil),
+          reservedFrom: reservedFrom,
+          reservedUntil: reservedUntil,
           reservedAt: new Date(),
           notes: input.notes ?? null,
         })
@@ -197,6 +218,15 @@ const reservationsRouter = createRouter({
       const now = new Date();
       const nextFrom = new Date(input.reservedFrom);
       const nextUntil = new Date(input.reservedUntil);
+      const isMember = !!input.isMember;
+
+      if (!isMember && intervalHasWeekend(nextFrom, nextUntil)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.api.weekendsMemberOnly'),
+          cause: { toast: 'error' },
+        });
+      }
 
       const [reservation] = await ctx.db
         .select({

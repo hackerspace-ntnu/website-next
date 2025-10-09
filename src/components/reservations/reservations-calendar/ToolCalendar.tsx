@@ -7,6 +7,7 @@ import CustomToolbar from '@/components/reservations/reservations-calendar/Custo
 import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
 import { ToolCalendarSkeleton } from '@/components/reservations/reservations-calendar/ToolCalendarSkeleton';
 import { Button } from '@/components/ui/Button';
+import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
 import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
@@ -23,7 +24,6 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { EditIcon, PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from '@/components/ui/Link';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {

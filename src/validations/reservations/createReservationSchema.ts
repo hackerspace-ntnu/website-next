@@ -13,6 +13,7 @@ function createReservationSchema(t: Translations) {
         message: t('reservations.api.specifyEnd'),
       }),
       notes: z.string().max(500).optional(),
+      isMember: z.boolean().default(false),
     })
     .refine(
       (data) => !isBefore(data.reservedUntil, data.reservedFrom),

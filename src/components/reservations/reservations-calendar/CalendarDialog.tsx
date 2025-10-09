@@ -75,7 +75,12 @@ function CalendarDialog({
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const utils = api.useUtils();
-  const schema = reservationFormSchema(translations, range.start, mode);
+  const schema = reservationFormSchema(
+    translations,
+    range.start,
+    mode,
+    isMember,
+  );
 
   const [internalOpen, setInternalOpen] = useState(openProp ?? false);
   const open = openProp !== undefined ? openProp : internalOpen;
@@ -160,13 +165,20 @@ function CalendarDialog({
 
       if (mode === 'create') {
         await createMutation.mutateAsync(
-          { toolId, reservedFrom, reservedUntil, notes },
+          { toolId, reservedFrom, reservedUntil, notes, isMember },
           { onSuccess: () => toast.success(t('form.successCreate')) },
         );
       } else {
         if (!reservationId) return;
         await updateMutation.mutateAsync(
-          { reservationId, toolId, reservedFrom, reservedUntil, notes },
+          {
+            reservationId,
+            toolId,
+            reservedFrom,
+            reservedUntil,
+            notes,
+            isMember,
+          },
           { onSuccess: () => toast.success(t('form.successUpdate')) },
         );
       }
