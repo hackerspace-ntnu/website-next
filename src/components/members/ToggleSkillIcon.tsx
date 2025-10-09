@@ -28,7 +28,7 @@ function ToggleSkillIcon({
   editable,
   isManagement,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
   skill: RouterOutput['skills']['fetchAllSkills'][number];
   hasSkill: boolean;
   editable: boolean;

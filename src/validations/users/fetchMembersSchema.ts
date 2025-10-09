@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
 
-function fetchUsersSchema(t: Translations) {
+function fetchMembersSchema(t: Translations) {
   return z.object({
     page: z.number().min(1, t('members.api.pageNumberRequired')).optional(),
     name: z.string().optional(),
@@ -9,4 +9,4 @@ function fetchUsersSchema(t: Translations) {
   });
 }
 
-export { fetchUsersSchema };
+export { fetchMembersSchema };

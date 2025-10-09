@@ -10,6 +10,7 @@ import {
 import readingTime from 'reading-time';
 import { HackerspaceLogo } from '@/components/assets/logos';
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -52,7 +53,9 @@ export default async function ArticlePage({
 
   const { user } = await api.auth.state();
 
-  const authorName = `${article.author?.firstName} ${article.author?.lastName}`;
+  const authorName = article.author
+    ? `${article.author.firstName} ${article.author.lastName}`
+    : 'Hackerspace';
 
   const imageUrl = article.imageId ? await getFileUrl(article.imageId) : null;
   const authorImageUrl = article.author?.profilePictureId
@@ -106,11 +109,19 @@ export default async function ArticlePage({
       </header>
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
-          <AvatarIcon
-            photoUrl={authorImageUrl}
-            name={`${article.author?.firstName} ${article.author?.lastName}`}
-            initials={`${article.author?.firstName?.charAt(0)}${article.author?.lastName?.charAt(0)}`}
-          />
+          {article.author ? (
+            <AvatarIcon
+              photoUrl={authorImageUrl}
+              name={`${article.author.firstName} ${article.author.lastName}`}
+              initials={`${article.author.firstName.charAt(0)}${article.author.lastName.charAt(0)}`}
+            />
+          ) : (
+            <Avatar>
+              <AvatarFallback>
+                <HackerspaceLogo className='size-6' />
+              </AvatarFallback>
+            </Avatar>
+          )}
           <div className='flex flex-col'>
             <p className='font-montserrat font-semibold'>{authorName}</p>
             <small className='text-foreground/60'>
