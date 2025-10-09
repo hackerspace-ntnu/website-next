@@ -589,7 +589,7 @@
         "label": "Category",
         "placeholder": "Hardware"
       },
-      "submit": "Submit",
+      "submit": "Save item",
       "deleteItem": "Delete item",
       "deleteItemDescription": "Are you sure you want to delete this item? All loans of this item will also be deleted. This action cannot be undone!",
       "successNew": "New storage item added successfully! Redirecting to storage...",

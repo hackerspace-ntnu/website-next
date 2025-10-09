@@ -171,7 +171,7 @@
     "backToArticle": "Tilbake til artikkel",
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
-    "UpdateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
@@ -589,7 +589,7 @@
         "label": "Kategori",
         "placeholder": "Hardware"
       },
-      "submit": "Submit",
+      "submit": "Lagre gjenstand",
       "deleteItem": "Slett gjenstand",
       "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
       "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
@@ -1357,7 +1357,7 @@
       "startDateInPast": "Start dato kan ikke være i fortiden",
       "startHourInPast": "Start time kan ikke være i fortiden",
       "startMinuteInPast": "Start minutt kan ikke være i fortiden",
-      "cannotChangeOngoingStart": "Cannot change the start time for an ongoing reservation",
+      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon",
       "specifyStart": "Start date is required",
       "specifyEnd": "End date is required",
       "invalidHour": "Invalid hour",
@@ -1388,7 +1388,7 @@
     "api": {
       "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
       "invalidId": "Ugyldig id",
-      "notFound": "Kunne ikke finne reservasjonen",
+      "reservationNotFound": "Kunne ikke finne reservasjonen",
       "toolNotFound": "Kunne ikke finne verktøyet",
       "toolUnavailable": "Verktøyet er ikke tilgjengelig",
       "newMustBeInFuture": "Start/slutt tid kan ikke være i fortiden",

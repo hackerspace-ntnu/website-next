@@ -62,7 +62,6 @@ const reservationsRouter = createRouter({
       }
       return row;
     }),
-
   fetchUserReservations: authenticatedProcedure.query(async ({ ctx }) => {
     const userReservations = await ctx.db
       .select({
@@ -96,7 +95,6 @@ const reservationsRouter = createRouter({
 
     return userReservations.filter((res) => res.finished !== true);
   }),
-
   fetchCalendarReservations: publicProcedure
     .input((input) =>
       fetchCalendarReservationsSchema(useTranslationsFromContext()).parse(
@@ -138,14 +136,13 @@ const reservationsRouter = createRouter({
 
       return calendarReservations;
     }),
-
   createReservation: authenticatedProcedure
     .input((input) =>
       createReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const reservedFrom = new Date(input.reservedFrom);
-      const reservedUntil = new Date(input.reservedUntil);
+      const reservedFrom = input.reservedFrom;
+      const reservedUntil = input.reservedUntil;
       const isMember = !!input.isMember;
 
       if (!isMember && intervalHasWeekend(reservedFrom, reservedUntil)) {
@@ -192,8 +189,8 @@ const reservationsRouter = createRouter({
         .values({
           toolId: input.toolId,
           userId: ctx.user.id,
-          reservedFrom: reservedFrom,
-          reservedUntil: reservedUntil,
+          reservedFrom,
+          reservedUntil,
           reservedAt: new Date(),
           notes: input.notes ?? null,
         })
@@ -209,15 +206,14 @@ const reservationsRouter = createRouter({
 
       return;
     }),
-
   updateReservation: authenticatedProcedure
     .input((input) =>
       updateReservationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
       const now = new Date();
-      const nextFrom = new Date(input.reservedFrom);
-      const nextUntil = new Date(input.reservedUntil);
+      const nextFrom = input.reservedFrom;
+      const nextUntil = input.reservedUntil;
       const isMember = !!input.isMember;
 
       if (!isMember && intervalHasWeekend(nextFrom, nextUntil)) {
@@ -327,10 +323,20 @@ const reservationsRouter = createRouter({
 
       return;
     }),
-
   deleteReservation: authenticatedProcedure
     .input((input) => deleteReservationSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
+      const isManagement = ctx.user.groups.some((g) =>
+        ['management', 'leadership', 'admin'].includes(g),
+      );
+
+      // We allow deleting other people's reservations if you're management
+      const where = and(
+        eq(reservations.id, input.reservationId),
+        eq(reservations.toolId, input.toolId),
+        !isManagement ? eq(reservations.userId, ctx.user.id) : undefined,
+      );
+
       const [res] = await ctx.db
         .select({
           id: reservations.id,
@@ -339,13 +345,7 @@ const reservationsRouter = createRouter({
           reservedUntil: reservations.reservedUntil,
         })
         .from(reservations)
-        .where(
-          and(
-            eq(reservations.id, input.reservationId),
-            eq(reservations.toolId, input.toolId),
-            eq(reservations.userId, ctx.user.id),
-          ),
-        );
+        .where(where);
 
       if (!res) {
         throw new TRPCError({

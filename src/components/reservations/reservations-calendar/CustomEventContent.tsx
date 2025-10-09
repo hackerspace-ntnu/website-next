@@ -8,6 +8,7 @@ import {
   StickyNoteIcon,
 } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
+import { DeleteReservationButton } from '@/components/reservations/DeleteReservationButton';
 import { Button } from '@/components/ui/Button';
 import {
   Dialog,
@@ -25,9 +26,15 @@ type Props = {
   eventInfo: EventContentArg;
   memberId: number;
   isPast: boolean;
+  isManagement: boolean;
 };
 
-function CustomEventContent({ eventInfo, memberId, isPast }: Props) {
+function CustomEventContent({
+  eventInfo,
+  memberId,
+  isPast,
+  isManagement,
+}: Props) {
   const t = useTranslations('reservations');
   const format = useFormatter();
 
@@ -137,7 +144,15 @@ function CustomEventContent({ eventInfo, memberId, isPast }: Props) {
           </div>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className='sm:justify-between'>
+          {isManagement && (
+            <DeleteReservationButton
+              reservationId={eventInfo.event.extendedProps.reservationId}
+              toolId={eventInfo.event.extendedProps.toolId}
+              userId={eventInfo.event.extendedProps.userId}
+              variant='button'
+            />
+          )}
           <DialogClose asChild>
             <Button variant='secondary'>{t('customEventContent.close')}</Button>
           </DialogClose>

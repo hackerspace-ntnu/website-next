@@ -2,6 +2,7 @@
 
 import { Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -41,7 +42,7 @@ function DeleteReservationButton({
   const mutation = api.reservations.deleteReservation.useMutation({
     onSuccess: async () => {
       toast.success(t('myReservationsTable.deletedSuccess'));
-      await utils.reservations.fetchUserReservations.invalidate();
+      await utils.reservations.fetchCalendarReservations.invalidate();
       router.refresh();
     },
   });

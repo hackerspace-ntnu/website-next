@@ -62,6 +62,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
   const isLoggedIn = !!user;
   const isMember = user?.groups && user.groups.length > 0;
+  const isManagement = !!user?.groups.some((g) =>
+    ['management', 'leadership', 'admin'].includes(g),
+  );
   const memberId = user?.id ?? 0;
   const isLaptop = useMediaQuery('(min-width: 70rem)');
   const isIpad = useMediaQuery('(min-width: 41.438rem)');
@@ -167,6 +170,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             eventInfo={eventInfo}
             memberId={memberId}
             isPast={eventInfo.isPast}
+            isManagement={isManagement}
           />
         </CalendarDialog>
       ) : (
@@ -174,9 +178,10 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           eventInfo={eventInfo}
           memberId={memberId}
           isPast={eventInfo.isPast}
+          isManagement={isManagement}
         />
       ),
-    [memberId, isMember],
+    [memberId, isMember, isManagement],
   );
 
   const calendarConfig = useMemo(() => {
