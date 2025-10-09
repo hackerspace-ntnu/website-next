@@ -30,10 +30,13 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
   const formSchema = toolSchema(useTranslations());
   const tUi = useTranslations('ui');
   const router = useRouter();
+  const utils = api.useUtils();
 
   const newTool = api.tools.createTool.useMutation({
-    onSuccess: (id) => {
+    onSuccess: async (id) => {
       toast.success(tNew('toolCreated'));
+      await utils.tools.fetchTools.invalidate();
+      await utils.tools.fetchTool.invalidate(id);
       router.push({
         pathname: '/reservations/[toolId]',
         params: { toolId: id },
@@ -41,8 +44,10 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
     },
   });
   const editTool = api.tools.editTool.useMutation({
-    onSuccess: (id) => {
+    onSuccess: async (id) => {
       toast.success(tEdit('toolUpdated'));
+      await utils.tools.fetchTools.invalidate();
+      await utils.tools.fetchTool.invalidate(id);
       router.push({
         pathname: '/reservations/[toolId]',
         params: { toolId: id },
@@ -50,14 +55,18 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
     },
   });
   const deleteToolImage = api.tools.deleteToolImage.useMutation({
-    onSuccess: () => {
+    onSuccess: async (id) => {
       toast.success(tEdit('imageDeleted'));
+      await utils.tools.fetchTools.invalidate();
+      await utils.tools.fetchTool.invalidate(id);
       router.refresh();
     },
   });
   const deleteTool = api.tools.deleteTool.useMutation({
-    onSuccess: () => {
+    onSuccess: async (id) => {
       toast.success(tEdit('toolDeleted'));
+      await utils.tools.fetchTools.invalidate();
+      await utils.tools.fetchTool.invalidate(id);
       router.push('/reservations');
     },
   });

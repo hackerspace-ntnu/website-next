@@ -300,6 +300,7 @@ const toolsRouter = createRouter({
       }
 
       await deleteFile(tool.imageId);
+      return input.id;
     }),
   deleteTool: protectedEditProcedure
     .input((input) =>
@@ -325,6 +326,7 @@ const toolsRouter = createRouter({
       }
 
       await ctx.db.delete(tools).where(eq(tools.id, input.id));
+      return input.id;
     }),
 });
 
