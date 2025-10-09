@@ -208,6 +208,7 @@ function CalendarDialog({
                 <field.DateField
                   className='mb-6'
                   label={t('form.reservedFrom')}
+                  disabledDates={!isMember && { dayOfWeek: [0, 6] }}
                 />
               )}
             </form.AppField>
@@ -240,6 +241,7 @@ function CalendarDialog({
                 <field.DateField
                   className='mb-6'
                   label={t('form.reservedUntil')}
+                  disabledDates={!isMember && { dayOfWeek: [0, 6] }}
                 />
               )}
             </form.AppField>
