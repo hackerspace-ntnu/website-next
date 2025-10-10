@@ -110,7 +110,8 @@
         "length": "Engangspassordet må være {count} tegn langt",
         "invalid": "Engangspassordet må kun inneholde sifre og bokstaver",
         "incorrect": "Feil engangspassord",
-        "expired": "Engangspassordet har utløpt"
+        "expired": "Engangspassordet har utløpt",
+        "used": "Engangspassordet har allerede blitt brukt. Vennligst lag en ny forespørsel om tilbakestilling av passord."
       },
       "email": {
         "label": "E-post",

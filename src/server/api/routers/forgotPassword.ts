@@ -23,7 +23,7 @@ type NewPasswordState =
     }
   | {
       success: false;
-      cause: 'incorrectCode' | 'expiredCode';
+      cause: 'incorrectCode' | 'expiredCode' | 'usedCode';
     };
 
 const requestsBucket = new ExpiringTokenBucket<string>(3, 60 * 15);
@@ -156,6 +156,13 @@ const forgotPasswordRouter = createRouter({
         } satisfies NewPasswordState;
       }
 
+      if (request.used) {
+        return {
+          success: false,
+          cause: 'usedCode',
+        } satisfies NewPasswordState;
+      }
+
       const user = await ctx.db.query.users.findFirst({
         where: eq(users.id, request.userId),
       });
@@ -199,6 +206,11 @@ const forgotPasswordRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
+
+      await ctx.db
+        .update(forgotPasswordRequests)
+        .set({ used: true })
+        .where(eq(forgotPasswordRequests.id, request.id));
 
       return {
         success: true,

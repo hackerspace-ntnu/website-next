@@ -29,7 +29,7 @@ function ForgotPasswordForm() {
           strong: (chunks) => <strong>{chunks}</strong>,
           email: form.getFieldValue('email'),
         }),
-        { duration: 20000 },
+        { duration: 20_000 },
       );
       router.push({
         pathname: '/auth/forgot-password/[requestId]',

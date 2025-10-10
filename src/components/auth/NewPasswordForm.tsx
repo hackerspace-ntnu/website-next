@@ -31,6 +31,15 @@ function NewPasswordForm({ requestId }: { requestId: string }) {
             duration: 15_000,
           });
         }
+        if (state.cause === 'usedCode') {
+          return toast.error(t('form.otp.used'), {
+            action: {
+              label: t('tryAgain'),
+              onClick: () => router.push('/auth/forgot-password'),
+            },
+            duration: 15_000,
+          });
+        }
       }
       toast.info(t('passwordUpdateSuccess'));
       router.push('/auth/account');

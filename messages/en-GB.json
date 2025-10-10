@@ -110,7 +110,8 @@
         "length": "One-time password must be {count} characters long",
         "invalid": "One-time password must only contain digits and characters",
         "incorrect": "Incorrect one-time password",
-        "expired": "One-time password has expired."
+        "expired": "One-time password has expired.",
+        "used": "One-time password has already been used. Please create a new forgot password request."
       },
       "email": {
         "label": "Email",

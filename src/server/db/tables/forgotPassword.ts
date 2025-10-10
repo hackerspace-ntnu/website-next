@@ -3,7 +3,14 @@ import {
   type InferSelectModel,
   relations,
 } from 'drizzle-orm';
-import { index, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+} from 'drizzle-orm/pg-core';
 import { users } from '@/server/db/tables';
 
 const forgotPasswordRequests = pgTable(
@@ -18,6 +25,8 @@ const forgotPasswordRequests = pgTable(
       withTimezone: true,
       mode: 'date',
     }).notNull(),
+    used: boolean('used').default(false).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
   },
   (table) => [index('forgot_password_user_id_idx').on(table.userId)],
 );
