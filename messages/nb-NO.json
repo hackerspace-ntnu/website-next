@@ -124,7 +124,6 @@
     "members": "Medlemmer",
     "quotes": "Sitater",
     "desktopNavMenu": "{open, select, true {Åpne} other {Lukk}} navigasjonsmeny",
-    "goToMatrix": "Dra til Matrix",
     "rules": "Regler",
     "applications": "Søknader",
     "changeLocale": "Bytt språk",
@@ -159,6 +158,18 @@
     "allRightsReserved": "Alle rettigheter reservert",
     "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
     "reservations": "Reservasjoner"
+  },
+  "matrixDialog": {
+    "title": "Innlogging på Matrix",
+    "descriptionNotLoggedIn": "Du må ha en Hackerspace-konto for å bruke Matrix. Har du en konto allerede?",
+    "iHaveAnAccount": "Jeg har en konto, ta meg til Matrix",
+    "createAnAccount": "Lag en Hackerspace-konto",
+    "descriptionLoggedIn": "Når du logger inn på Matrix, vennligst bruk NTNU-brukernavnet ditt (uten @ntnu.no) og passordet til Hackerspace-kontoen din. Endringer av brukernavn og passord gjøres her på Hackerspace-siden.",
+    "dontShowAgain": "Greit, ikke vis igjen",
+    "openMatrix": "Åpne Matrix",
+    "api": {
+      "invalidValue": "Ugyldig verdi for ikke vis igjen"
+    }
   },
   "news": {
     "title": "Nyheter",

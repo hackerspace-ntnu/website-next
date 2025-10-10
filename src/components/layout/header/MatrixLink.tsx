@@ -1,6 +1,6 @@
 'use client';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+
+import { useState } from 'react';
 import { MatrixLogo } from '@/components/assets/logos';
 import {
   ResponsiveDialog,
@@ -10,78 +10,128 @@ import {
   ResponsiveDialogTitle,
   ResponsiveDialogTrigger,
 } from '@/components/composites/ResponsiveDialog';
-import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
 import { Button } from '@/components/ui/Button';
-import { Checkbox } from '@/components/ui/Checkbox';
-import { Label } from '@/components/ui/Label';
-import { ExternalLink } from '@/components/ui/Link';
+import { useAppForm } from '@/components/ui/Form';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { env } from '@/env';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { matrixDialogSchema } from '@/validations/matrix-dialog/matrixDialogSchema';
 
 type MatrixLinkProps = {
   className?: string;
+  isLoggedIn: boolean;
   t: {
     title: string;
+    descriptionNotLoggedIn: string;
+    descriptionLoggedIn: string;
+    iHaveAnAccount: string;
+    createAnAccount: string;
+    dontShowAgain: string;
+    openMatrix: string;
+    invalidValue: string;
   };
 };
 
-function MatrixLink({ className, t }: MatrixLinkProps) {
-  const [showMatrixDialog, setShowMatrixDiaog] = useLocalStorage<string | null>(
-    'matrix-key',
-    'true',
+function MatrixLink({ className, isLoggedIn, t }: MatrixLinkProps) {
+  const [showMatrixDialog, setShowMatrixDialog] = useLocalStorage(
+    'matrix-info',
+    true,
   );
-  const [open, onOpenChange] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  return (
-    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
-      <Button
-        className={className}
+  const form = useAppForm({
+    validators: {
+      onChange: matrixDialogSchema({ invalidValue: t.invalidValue }),
+    },
+    defaultValues: {
+      dontShowAgain: !showMatrixDialog,
+    },
+    onSubmit: ({ value }) => {
+      setOpen(false);
+      setShowMatrixDialog(!value.dontShowAgain);
+      window.open(env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#', '_blank');
+    },
+  });
+
+  if (!showMatrixDialog) {
+    return (
+      <ExternalLink
         variant='ghost'
         size='icon'
-        // href={env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#'}
-        onClick={() => {
-          if (showMatrixDialog === 'true') {
-            onOpenChange(true);
-          } else {
-            window
-              .open(env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#', '_blank')
-              ?.focus();
-          }
-        }}
-        // target='_blank'
-        // rel='noopener noreferrer'
-        title={t.title}
-        aria-label={t.title}
+        href={env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#'}
+        target='_blank'
+        rel='noopener noreferrer'
       >
         <MatrixLogo className='h-[1.2rem] w-[1.2rem]' />
-      </Button>
-      <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-5 md:mb-0 md:w-fit lg:w-2/5 lg:min-w-96'>
+      </ExternalLink>
+    );
+  }
+
+  return (
+    <ResponsiveDialog open={open} onOpenChange={setOpen}>
+      <ResponsiveDialogTrigger asChild>
+        <Button
+          className={className}
+          variant='ghost'
+          size='icon'
+          title={t.title}
+          aria-label={t.title}
+        >
+          <MatrixLogo className='h-[1.2rem] w-[1.2rem]' />
+        </Button>
+      </ResponsiveDialogTrigger>
+      <ResponsiveDialogContent>
         <ResponsiveDialogHeader>
-          <ResponsiveDialogTitle className='flex flex-col text-left lg:flex-row lg:gap-5'>
-            <span className='font-semibold text-3xl'>Matrix pop-up</span>
+          <ResponsiveDialogTitle>
+            <span>{t.title}</span>
           </ResponsiveDialogTitle>
-          {/* Not having description causes error, can't use aria-description */}
-          <ResponsiveDialogDescription className='hidden'>
-            {'shiftSchedule'}
+          <ResponsiveDialogDescription>
+            {isLoggedIn ? t.descriptionLoggedIn : t.descriptionNotLoggedIn}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
-
-        <div className='flex flex-col gap-6'>
-          <div className='flex items-center gap-3'>
-            <Checkbox id='matrix-link'>
-              <span className='sr-only'>Bli sendt til Matrix</span>
-            </Checkbox>
-            <Label htmlFor='matrix-link'>Accept terms and conditions</Label>
+        {!isLoggedIn && (
+          <div className='w-full space-y-4 p-4 pb-8 md:p-0 [&>*]:w-full'>
+            <Link
+              variant='secondary'
+              size='default'
+              href='/auth'
+              onClick={() => setOpen(false)}
+            >
+              {t.createAnAccount}
+            </Link>
+            <ExternalLink
+              variant='default'
+              size='default'
+              href={env.NEXT_PUBLIC_MATRIX_CLIENT_URL ?? '#'}
+              target='_blank'
+              rel='noopener noreferrer'
+              onClick={() => setOpen(false)}
+            >
+              {t.iHaveAnAccount}
+            </ExternalLink>
           </div>
-          <div className='flex items-center gap-3'>
-            <Checkbox id='matrix-link'>
-              <span className='sr-only'>Bli sendt til Matrix</span>
-            </Checkbox>
-            <Label htmlFor='matrix-link'>Accept terms and conditions</Label>
-          </div>
-        </div>
+        )}
+        {isLoggedIn && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit();
+            }}
+            className='space-y-4 p-4 pb-8 md:p-0'
+          >
+            <form.AppForm>
+              <form.AppField name='dontShowAgain'>
+                {(field) => <field.CheckboxField label={t.dontShowAgain} />}
+              </form.AppField>
+              <form.SubmitButton className='w-full'>
+                {t.openMatrix}
+              </form.SubmitButton>
+            </form.AppForm>
+          </form>
+        )}
       </ResponsiveDialogContent>
     </ResponsiveDialog>
   );
 }
+
 export { MatrixLink };

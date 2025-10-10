@@ -13,6 +13,7 @@ import { redirect } from '@/lib/locale/navigation';
 async function Header() {
   const locale = await getLocale();
   const t = await getTranslations('layout');
+  const tMatrix = await getTranslations('matrixDialog');
   const { user } = await api.auth.state();
 
   if (user && !user.isAccountComplete) {
@@ -28,6 +29,7 @@ async function Header() {
       <div className='flex gap-2'>
         <MobileSheet
           className='flex md:hidden'
+          isLoggedIn={!!user}
           isMember={user?.groups && user.groups.length > 0}
           viewApplications={viewApplications}
           t={{
@@ -43,12 +45,21 @@ async function Header() {
             applications: t('applications'),
             quotes: t('quotes'),
             hackerspaceHome: t('hackerspaceHome'),
-            goToMatrix: t('goToMatrix'),
             changeLocale: t('changeLocale'),
             toggleTheme: t('toggleTheme'),
             light: t('light'),
             dark: t('dark'),
             system: t('system'),
+            matrix: {
+              title: tMatrix('title'),
+              descriptionNotLoggedIn: tMatrix('descriptionNotLoggedIn'),
+              descriptionLoggedIn: tMatrix('descriptionLoggedIn'),
+              iHaveAnAccount: tMatrix('iHaveAnAccount'),
+              createAnAccount: tMatrix('createAnAccount'),
+              dontShowAgain: tMatrix('dontShowAgain'),
+              openMatrix: tMatrix('openMatrix'),
+              invalidValue: tMatrix('api.invalidValue'),
+            },
           }}
         />
         <LogoLink
@@ -86,7 +97,17 @@ async function Header() {
         </div>
         <div className='flex'>
           <MatrixLink
-            t={{ title: t('goToMatrix') }}
+            isLoggedIn={!!user}
+            t={{
+              title: tMatrix('title'),
+              descriptionNotLoggedIn: tMatrix('descriptionNotLoggedIn'),
+              descriptionLoggedIn: tMatrix('descriptionLoggedIn'),
+              iHaveAnAccount: tMatrix('iHaveAnAccount'),
+              createAnAccount: tMatrix('createAnAccount'),
+              dontShowAgain: tMatrix('dontShowAgain'),
+              openMatrix: tMatrix('openMatrix'),
+              invalidValue: tMatrix('api.invalidValue'),
+            }}
             className='xs:flex hidden'
           />
           <LocaleMenu

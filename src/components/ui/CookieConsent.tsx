@@ -36,7 +36,10 @@ function CookieConsent({
 }: CookieConsentProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hide, setHide] = useState(false);
-  const [optedOut, setOptedOut, isLoading] = useLocalStorage('optedOut', false);
+  const [optedOut, setOptedOut, isLoading] = useLocalStorage(
+    'opted-out',
+    false,
+  );
 
   const handleAccept = useCallback(() => {
     setIsOpen(false);
