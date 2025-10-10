@@ -61,6 +61,7 @@
     "useYourAccount": "Bruk din konto",
     "forgotPassword": "Glemt passord",
     "forgotPasswordDescription": "Skriv inn e-postadressen knyttet til Hackerspace-kontoen din for å tilbakestille passordet.",
+    "forgotPasswordInfoToast": "Vi har sendt deg en engangskode for å tilbakestille passordet dersom e-postadressen <strong>{email}</strong> er knyttet til en Hackerspace-konto.<br></br>Hvis du brukte feil e-post, vennligst lag en ny forespørsel om tilbakestilling av passord.",
     "enterTheCode": "Vennligst skriv inn koden vi har sendt til e-posten din for å bekrefte endringen av passordet",
     "submit": "Send",
     "invalidCredentials": "Ugyldige påloggingsdetaljer",

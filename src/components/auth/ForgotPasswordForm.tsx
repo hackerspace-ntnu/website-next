@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import { usePending } from '@/components/auth/PendingBar';
 import { useAppForm } from '@/components/ui/Form';
 import { Link } from '@/components/ui/Link';
+import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import type { TRPCClientError } from '@/lib/api/types';
 import { useRouter } from '@/lib/locale/navigation';
@@ -21,11 +22,20 @@ function ForgotPasswordForm() {
   const createRequestMutation = api.forgotPassword.createRequest.useMutation({
     onMutate: () => setPending(true),
     onSettled: () => setPending(false),
-    onSuccess: (id) =>
+    onSuccess: (id) => {
+      toast.info(
+        t.rich('forgotPasswordInfoToast', {
+          br: () => <br />,
+          strong: (chunks) => <strong>{chunks}</strong>,
+          email: form.getFieldValue('email'),
+        }),
+        { duration: 20000 },
+      );
       router.push({
         pathname: '/auth/forgot-password/[requestId]',
         params: { requestId: id },
-      }),
+      });
+    },
   });
 
   const form = useAppForm({
@@ -34,7 +44,7 @@ function ForgotPasswordForm() {
       onSubmitAsync: async ({ value }) => {
         try {
           await createRequestMutation.mutateAsync(value);
-        } catch (error: unknown) {
+        } catch (error) {
           setPending(false);
           const TRPCError = error as TRPCClientError;
           if (!TRPCError.data?.toast) {
