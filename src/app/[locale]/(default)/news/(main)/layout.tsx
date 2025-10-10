@@ -6,7 +6,7 @@ import { api } from '@/lib/api/server';
 
 type NewsHeaderLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function NewsHeaderLayout({
@@ -14,8 +14,8 @@ export default async function NewsHeaderLayout({
   children,
 }: NewsHeaderLayoutProps) {
   const { locale } = await params;
+  setRequestLocale(locale as Locale);
 
-  setRequestLocale(locale);
   const t = await getTranslations('news');
   const { user } = await api.auth.state();
 

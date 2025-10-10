@@ -3,14 +3,16 @@ import { Link } from '@/components/ui/Link';
 type NavProps = {
   className?: string;
   onClick?: () => void;
+  isMember?: boolean;
   t: {
     news: string;
     events: string;
     about: string;
+    apply: string;
   };
 };
 
-function Nav({ className, onClick, t }: NavProps) {
+function Nav({ className, onClick, isMember, t }: NavProps) {
   return (
     <nav className='flex items-center'>
       <ul className={className}>
@@ -29,6 +31,13 @@ function Nav({ className, onClick, t }: NavProps) {
             {t.about}
           </Link>
         </li>
+        {!isMember && (
+          <li>
+            <Link variant='nav' onClick={onClick} href='/applications/apply'>
+              {t.apply}
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

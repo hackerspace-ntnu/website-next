@@ -16,7 +16,7 @@ import type { RouterOutput } from '@/server/api';
 async function MemberInfoCard({
   user,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
 }) {
   const t = await getTranslations('layout');
   const tMembers = await getTranslations('members');
@@ -28,7 +28,7 @@ async function MemberInfoCard({
     : undefined;
 
   const groupNames = user.usersGroups
-    .map(
+    ?.map(
       (row) =>
         row.group.localizations.find(
           (localization) => localization.locale === locale,
@@ -37,13 +37,18 @@ async function MemberInfoCard({
     .filter((item) => item !== undefined)
     .join(', ');
 
+  const userInfo = {
+    firstName: user.firstName ?? '',
+    lastName: user.lastName ?? '',
+  };
+
   return (
     <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit lg:min-w-96'>
       {user.private && <InternalBadge />}
       <div className='flex w-full flex-col items-center justify-center'>
         <MemberAvatar
           size='2xl'
-          user={user}
+          user={userInfo}
           profilePictureUrl={profilePictureUrl}
           className='relative my-2'
         />
@@ -51,7 +56,7 @@ async function MemberInfoCard({
           {user.firstName} {user.lastName}
         </h3>
         <h5 className='text-center'>
-          {groupNames.length > 0 ? groupNames : tMembers('guest')}
+          {groupNames && groupNames.length > 0 ? groupNames : tMembers('guest')}
         </h5>
         {user.bio && user.bio.length > 0 && (
           <p className='my-8 max-w-prose text-center'>{user.bio}</p>

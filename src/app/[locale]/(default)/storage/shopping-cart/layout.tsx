@@ -4,7 +4,7 @@ import { BackToStorageButton } from '@/components/storage/BackToStorageButton';
 
 type ShoppingCartLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function ShoppingCartLayout({
@@ -13,7 +13,7 @@ export default async function ShoppingCartLayout({
 }: ShoppingCartLayoutProps) {
   const { locale } = await params;
 
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
   const t = await getTranslations('storage');
   return (
     <>

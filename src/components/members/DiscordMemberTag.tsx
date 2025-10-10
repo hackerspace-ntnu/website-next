@@ -14,7 +14,7 @@ function DiscordMemberTag({
   user,
   t,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
   t: { discordTag: string; usernameCopied: string };
 }) {
   return (

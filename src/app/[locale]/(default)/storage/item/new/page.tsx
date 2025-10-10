@@ -18,10 +18,10 @@ export async function generateMetadata() {
 export default async function NewStorageItemPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage.edit');
   const auth = await api.auth.state();

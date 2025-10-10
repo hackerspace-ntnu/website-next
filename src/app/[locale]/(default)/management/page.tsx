@@ -15,10 +15,10 @@ export async function generateMetadata() {
 export default async function ManagementPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
@@ -35,24 +35,23 @@ export default async function ManagementPage({
     className?: string;
   }[] = [
     {
-      name: t('skills.title'),
+      name: t('skills.name'),
       description: t('skills.description'),
       href: '/management/skills',
     },
     {
-      name: t('users.title'),
+      name: t('users.name'),
       description: t('users.description'),
-      href: '#' as React.ComponentProps<typeof Link>['href'],
-      className: 'pointer-events-auto cursor-not-allowed',
+      href: '/management/users',
     },
     {
-      name: t('files.title'),
+      name: t('files.name'),
       description: t('files.description'),
       href: '#' as React.ComponentProps<typeof Link>['href'],
       className: 'pointer-events-auto cursor-not-allowed',
     },
     {
-      name: t('banners.title'),
+      name: t('banners.name'),
       description: t('banners.description'),
       href: '#' as React.ComponentProps<typeof Link>['href'],
       className: 'pointer-events-auto cursor-not-allowed',

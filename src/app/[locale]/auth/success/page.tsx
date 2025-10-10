@@ -9,20 +9,20 @@ import { redirect } from '@/lib/locale/navigation';
 export default async function SuccessPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations('auth');
+  setRequestLocale(locale as Locale);
 
+  const t = await getTranslations('auth');
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale });
+    return redirect({ href: '/auth', locale: locale as Locale });
   }
 
   if (!user.isAccountComplete) {
-    return redirect({ href: '/auth/create-account', locale });
+    return redirect({ href: '/auth/create-account', locale: locale as Locale });
   }
 
   return (

@@ -20,11 +20,9 @@ const newsArticles = pgTable('news_articles', {
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
-  authorId: integer('author_id')
-    .references(() => users.id, {
-      onDelete: 'set null',
-    })
-    .notNull(),
+  authorId: integer('author_id').references(() => users.id, {
+    onDelete: 'set null',
+  }),
   views: integer('views').default(0).notNull(),
   internal: boolean().default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),

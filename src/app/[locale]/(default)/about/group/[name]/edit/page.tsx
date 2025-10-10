@@ -21,10 +21,10 @@ export async function generateMetadata() {
 export default async function EditGroupPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; name: string }>;
+  params: Promise<{ locale: string; name: string }>;
 }) {
   const { locale, name } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
   const t = await getTranslations('groups.update');

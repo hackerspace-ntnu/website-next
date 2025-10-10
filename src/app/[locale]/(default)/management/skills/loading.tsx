@@ -13,10 +13,10 @@ export default async function SkillsManagementLoading() {
         className='flex w-fit gap-2'
         variant='ghost'
         size='default'
-        aria-label={t('skills.backToManagement')}
+        aria-label={t('backToManagement')}
       >
         <ArrowLeftIcon aria-hidden='true' />
-        {t('skills.backToManagement')}
+        {t('backToManagement')}
       </Link>
       <div className='relative'>
         <h1 className='text-center'>{t('skills.title')}</h1>

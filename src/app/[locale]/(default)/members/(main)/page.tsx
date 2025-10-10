@@ -19,19 +19,20 @@ export async function generateMetadata() {
   };
 }
 
-export const itemsPerPage = 8;
+const itemsPerPage = 8;
 
 export default async function MembersPage({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
   searchParams: Promise<SearchParams>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('ui');
+  const tMembers = await getTranslations('members');
   const searchParamsCache = createSearchParamsCache({
     [t('page')]: parseAsInteger.withDefault(1),
     [t('name')]: parseAsString.withDefault(''),
@@ -40,13 +41,15 @@ export default async function MembersPage({
   const { [t('page')]: page = 1, [t('name')]: name = '' } =
     searchParamsCache.parse(await searchParams);
 
-  const users = await api.users.fetchUsers({
+  const users = await api.users.fetchMembers({
     page: page as number,
     name: name as string,
+    limit: itemsPerPage,
   });
 
-  const totalResults = await api.users.totalResultsForUsersQuery({
+  const totalResults = await api.users.totalResultsForMembersQuery({
     name: name as string,
+    limit: itemsPerPage,
   });
 
   return (
@@ -60,7 +63,7 @@ export default async function MembersPage({
         </div>
       )}
       {users.length === 0 && (
-        <p className='py-4 text-center'>No members found.</p>
+        <p className='py-4 text-center'>{tMembers('noMembersFound')}</p>
       )}
       <PaginationCarousel
         className='my-6'

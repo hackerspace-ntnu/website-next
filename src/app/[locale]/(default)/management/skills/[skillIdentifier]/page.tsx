@@ -21,10 +21,10 @@ export async function generateMetadata() {
 export default async function EditSkillPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; skillIdentifier: string }>;
+  params: Promise<{ locale: string; skillIdentifier: string }>;
 }) {
   const { locale, skillIdentifier } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
