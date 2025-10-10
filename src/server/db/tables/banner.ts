@@ -6,26 +6,19 @@ import {
 import {
   boolean,
   integer,
-  pgEnum,
   pgTable,
   primaryKey,
   serial,
+  text,
   timestamp,
-  varchar,
 } from 'drizzle-orm/pg-core';
-import { bannerSupportedPages } from '@/lib/constants';
 import { localesEnum } from './locales';
-
-// Uses constant instead of another table since adding banners to more pages requires editing the code anyway
-const bannerSupportedPagesEnum = pgEnum(
-  'banner_supported_pages',
-  bannerSupportedPages,
-);
 
 const banners = pgTable('banners', {
   id: serial('id').primaryKey(),
   active: boolean('active').notNull(),
   expiresAt: timestamp('expires_at'),
+  pagesRegex: text('pages_regex').notNull().default('.*'),
 });
 
 const bannerLocalizations = pgTable(
@@ -36,7 +29,7 @@ const bannerLocalizations = pgTable(
         onDelete: 'cascade',
       })
       .notNull(),
-    content: varchar('content', { length: 255 }).notNull(),
+    content: text('content').notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {
@@ -44,24 +37,8 @@ const bannerLocalizations = pgTable(
   },
 );
 
-const bannerPages = pgTable(
-  'banner_pages',
-  {
-    bannerId: integer('banner_id')
-      .references(() => banners.id, {
-        onDelete: 'cascade',
-      })
-      .notNull(),
-    page: bannerSupportedPagesEnum('page'),
-  },
-  (table) => {
-    return [primaryKey({ columns: [table.bannerId, table.page] })];
-  },
-);
-
 const bannersRelations = relations(banners, ({ many }) => ({
   localizations: many(bannerLocalizations),
-  pages: many(bannerPages),
 }));
 
 const bannerLocalizationsRelations = relations(
@@ -74,32 +51,18 @@ const bannerLocalizationsRelations = relations(
   }),
 );
 
-const bannerPagesRelations = relations(bannerPages, ({ one }) => ({
-  banner: one(banners, {
-    fields: [bannerPages.bannerId],
-    references: [banners.id],
-  }),
-}));
-
 type SelectBanner = InferSelectModel<typeof banners>;
 type InsertBanner = InferInsertModel<typeof banners>;
 type SelectBannerLocalization = InferSelectModel<typeof bannerLocalizations>;
 type InsertBannerLocalization = InferInsertModel<typeof bannerLocalizations>;
-type SelectBannerPage = InferSelectModel<typeof bannerPages>;
-type InsertBannerPage = InferInsertModel<typeof bannerPages>;
 
 export {
-  bannerSupportedPagesEnum,
   banners,
   bannerLocalizations,
-  bannerPages,
   bannersRelations,
   bannerLocalizationsRelations,
-  bannerPagesRelations,
   type SelectBanner,
   type InsertBanner,
   type SelectBannerLocalization,
   type InsertBannerLocalization,
-  type SelectBannerPage,
-  type InsertBannerPage,
 };

@@ -44,7 +44,8 @@ const toolDescriptionFields = [
   'slicer',
 ] as const;
 
-const bannerSupportedPages = ['/'] as const;
+// All pages where a banner can be shown
+const bannerPages = ['/'] as const;
 
 export {
   groupIdentifiers,
@@ -54,5 +55,5 @@ export {
   timeslotTimes,
   studyYears,
   toolDescriptionFields,
-  bannerSupportedPages,
+  bannerPages,
 };

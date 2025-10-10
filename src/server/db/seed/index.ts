@@ -3,6 +3,8 @@ import { db } from '@/server/db';
 import {
   articleLocalizationsData,
   articlesData,
+  bannerLocalizationsData,
+  bannersData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
@@ -11,12 +13,12 @@ import {
   homeCarouselSlidesData,
   quoteLocalizationsData,
   quotesData,
-  ruleLocalizationData,
+  ruleLocalizationsData,
   rulesData,
   shiftsData,
   skillsData,
-  storageItemCategories,
-  storageItemLocalizations,
+  storageItemCategoriesData,
+  storageItemLocalizationsData,
   storageItemsData,
   usersData,
   usersGroupsData,
@@ -24,6 +26,8 @@ import {
 } from '@/server/db/seed/data';
 import * as schema from '@/server/db/tables';
 import {
+  bannerLocalizations,
+  banners,
   eventLocalizations,
   events,
   groupLocalizations,
@@ -101,7 +105,7 @@ async function main() {
   console.log('Home carousel slide localizations inserted');
 
   console.log('Inserting storage item categories...');
-  await db.insert(itemCategories).values(storageItemCategories);
+  await db.insert(itemCategories).values(storageItemCategoriesData);
   console.log('Storage item categories inserted');
 
   console.log('Inserting storage items...');
@@ -109,7 +113,7 @@ async function main() {
   console.log('Storage items inserted');
 
   console.log('Inserting storage item localizations...');
-  await db.insert(itemLocalizations).values(storageItemLocalizations);
+  await db.insert(itemLocalizations).values(storageItemLocalizationsData);
   console.log('Storage item localizations inserted');
 
   console.log('Inserting shifts...');
@@ -144,9 +148,17 @@ async function main() {
   await db.insert(rules).values(rulesData);
   console.log('Rules inserted');
 
-  console.log('Insert rule localizations...');
-  await db.insert(ruleLocalizations).values(ruleLocalizationData);
+  console.log('Inserting rule localizations...');
+  await db.insert(ruleLocalizations).values(ruleLocalizationsData);
   console.log('Rule localizations inserted');
+
+  console.log('Inserting banners...');
+  await db.insert(banners).values(bannersData);
+  console.log('Banners inserted');
+
+  console.log('Inserting banner localizations...');
+  await db.insert(bannerLocalizations).values(bannerLocalizationsData);
+  console.log('Banner localizations inserted');
 }
 
 await main();

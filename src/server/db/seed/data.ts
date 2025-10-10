@@ -3,6 +3,8 @@ import type { Locale } from 'next-intl';
 import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
+  InsertBanner,
+  InsertBannerLocalization,
   InsertEvent,
   InsertEventLocalization,
   InsertGroup,
@@ -15,8 +17,8 @@ import type {
   InsertNewsArticleLocalization,
   InsertQuote,
   InsertQuoteLocalization,
-  InsertRuleLocalizations,
-  InsertRules,
+  InsertRule,
+  InsertRuleLocalization,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
@@ -417,7 +419,7 @@ const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] 
     },
   ];
 
-const storageItemCategories: InsertItemCategory[] = [
+const storageItemCategoriesData: InsertItemCategory[] = [
   {
     nameEnglish: 'Cables',
     nameNorwegian: 'Kabler',
@@ -513,7 +515,7 @@ const storageItemsData: InsertStorageItem[] = [
   },
 ];
 
-const storageItemLocalizations: InsertItemLocalization[] = [
+const storageItemLocalizationsData: InsertItemLocalization[] = [
   {
     name: 'Laptop',
     location: 'Storage Room A',
@@ -1474,7 +1476,7 @@ for (let i = 3; i < 100; i++) {
   );
 }
 
-const rulesData: InsertRules[] = [
+const rulesData: InsertRule[] = [
   { internal: true },
   { internal: true },
   { internal: false },
@@ -1491,7 +1493,7 @@ const rulesData: InsertRules[] = [
   { internal: true },
 ];
 
-const ruleLocalizationData: InsertRuleLocalizations[] = [
+const ruleLocalizationsData: InsertRuleLocalization[] = [
   {
     ruleId: 1,
     name: 'Regler for regler',
@@ -1690,6 +1692,58 @@ const ruleLocalizationData: InsertRuleLocalizations[] = [
   },
 ];
 
+const bannersData: InsertBanner[] = [
+  {
+    active: true,
+  },
+  {
+    active: false,
+    pagesRegex: '/storage',
+  },
+  {
+    active: true,
+    expiresAt: new Date('2025-01-12T17:00:00+02:00'),
+    pagesRegex: '/applications/apply',
+  },
+];
+
+const bannerLocalizationsData: InsertBannerLocalization[] = [
+  {
+    bannerId: 1,
+    content:
+      'Vi har nå byttet nettside! Logg inn med Feide for å få bruker og konto i den nye Chat-tjenesten vår, Matrix.',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 1,
+    content:
+      'We have now switched the website! Sign in with Feide to get an account and try our new chat service, Matrix.',
+    locale: 'en-GB',
+  },
+  {
+    bannerId: 2,
+    content:
+      'Vi jobber fortsatt med å føre inn alt på verkstedet til lagersystemet, så det kan hende enkelte ting ikke er oppført. Hvis du lurer på om vi har spesifikt utstyr eller ønsker å låne noe som ikke ligger i lagersystemet kan du komme innom verkstedet og spørre om vi har det likevel!',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 2,
+    content:
+      "We're still in the process of entering everything in the workshop into the storage system, so some items may not be listed. If you're wondering whether we have specific equipment or want to borrow something that's not in the storage system, feel free to stop by the workshop and ask if we have it anyway!",
+    locale: 'en-GB',
+  },
+  {
+    bannerId: 3,
+    content: 'Det er bare lov å søke på DevOps',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 3,
+    content: 'You can only apply for DevOps',
+    locale: 'en-GB',
+  },
+];
+
 export {
   usersData,
   groupsData,
@@ -1699,9 +1753,9 @@ export {
   usersSkillsData,
   homeCarouselSlidesData,
   homeCarouselSlideLocalizationsData,
-  storageItemCategories,
+  storageItemCategoriesData,
   storageItemsData,
-  storageItemLocalizations,
+  storageItemLocalizationsData,
   shiftsData,
   eventsData,
   eventLocalizationsData,
@@ -1710,5 +1764,7 @@ export {
   quotesData,
   quoteLocalizationsData,
   rulesData,
-  ruleLocalizationData,
+  ruleLocalizationsData,
+  bannersData,
+  bannerLocalizationsData,
 };
