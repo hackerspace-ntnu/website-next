@@ -12,10 +12,10 @@ import { api } from '@/lib/api/server';
 export default async function NewSlidePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('home.slides.new');
   const { ui, home } = await getMessages();

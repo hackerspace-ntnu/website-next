@@ -7,7 +7,7 @@ import { Main } from '@/components/layout/Main';
 
 type DefaultLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +17,7 @@ export default async function DefaultLayout({
   params,
 }: DefaultLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
   return (
     <>
       <Header />

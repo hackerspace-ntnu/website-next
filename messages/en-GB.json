@@ -34,7 +34,8 @@
     "cancel": "Cancel",
     "save": "Save",
     "uploadText": "Drop files here or click to upload",
-    "noValidFiles": "No valid files were dropped"
+    "noValidFiles": "No valid files were dropped",
+    "noChoicesFound": "No choices found"
   },
   "error": {
     "notFound": "404 - Page not found",
@@ -118,11 +119,14 @@
     "events": "Events",
     "storage": "Storage",
     "about": "About",
+    "apply": "Apply",
     "shiftSchedule": "Shift Schedule",
     "members": "Members",
+    "quotes": "Quotes",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
     "goToMatrix": "Go to Matrix",
     "rules": "Rules",
+    "applications": "Applications",
     "changeLocale": "Change language",
     "toggleTheme": "Toggle theme",
     "light": "Light",
@@ -132,6 +136,7 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "settings": "Settings",
+    "management": "Management",
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
@@ -152,7 +157,8 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved",
-    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
+    "reservations": "Reservations"
   },
   "home": {
     "placeholderAlt": "No image available",
@@ -326,11 +332,42 @@
     "memberSince": "Member since {date}",
     "guest": "Guest",
     "usernameCopied": "Username copied to clipboard!",
+    "noMembersFound": "No members found.",
+    "unauthorized": "Unauthorized to view this user",
+    "skillManagement": {
+      "addDialogTitle": "Are you sure you want to add {skill} to {user}?",
+      "removeDialogTitle": "Are you sure you want to remove {skill} from {user}?",
+      "dialogDescription": "This change will be reflected in their profile.",
+      "addSkill": "Add skill",
+      "addingSkill": "Adding skill...",
+      "addedSkill": "Skill added successfully",
+      "addingSkillFailed": "Failed to add skill",
+      "removeSkill": "Remove skill",
+      "removingSkill": "Removing skill...",
+      "removedSkill": "Skill removed successfully",
+      "removingSkillFailed": "Failed to remove skill",
+      "cancel": "Cancel"
+    },
+    "groupManagement": {
+      "title": "Group management",
+      "group": "Group",
+      "actions": "Actions",
+      "addToGroup": "Add to group",
+      "addingToGroup": "Adding to group...",
+      "addingToGroupFailed": "Failed to add user to group",
+      "removeFromGroup": "Remove from group",
+      "removingFromGroup": "Removing from group...",
+      "removingFromGroupFailed": "Failed to remove user from group",
+      "userAddedToGroup": "User added to group successfully",
+      "userRemovedFromGroup": "User removed from group successfully"
+    },
     "api": {
       "idOrNameRequired": "Either ID or name must be provided",
       "errorFetchingMember": "Error fetching member",
       "errorFetchingMembers": "Error fetching members",
-      "pageNumberRequired": "Page number required"
+      "pageNumberRequired": "Page number required",
+      "invalidLimit": "Invalid limit",
+      "adminGroupRequired": "You must be an admin yourself to edit admin users"
     }
   },
   "settings": {
@@ -512,6 +549,10 @@
       "internal": {
         "label": "Internal group",
         "description": "If selected, this group will only be visible to Hackerspace members."
+      },
+      "openForApplications": {
+        "label": "Open for applications",
+        "description": "If selected, anyone will be able to send an application to join this group."
       }
     },
     "api": {
@@ -520,7 +561,9 @@
       "invalidGroupIdentifier": "Invalid group identifier",
       "groupWithIdExists": "A group with the identifier \"{identifier}\" already exists",
       "insertFailed": "Failed to add group",
-      "groupNotFound": "The group could not be found"
+      "groupNotFound": "The group could not be found",
+      "userAlreadyInGroup": "User is already a member of the group",
+      "userNotInGroup": "User is not a member of the group"
     }
   },
   "storage": {
@@ -905,15 +948,232 @@
   },
   "rules": {
     "title": "Rules",
-    "forEveryone": "For everyone",
-    "internal": "Internal rules"
+    "publicRules": "Public rules",
+    "internalRules": "Internal rules",
+    "backToRules": "Back to Rules",
+    "new": {
+      "title": "New Rule",
+      "createRule": "Create rule",
+      "ruleCreated": "Rule created successfully",
+      "unauthorized": "Unauthorized to create new rules"
+    },
+    "update": {
+      "title": "Update Rule",
+      "updateRule": "Update rule",
+      "deleteRule": "Delete rule",
+      "deleteRuleTitle": "Are you sure you want to delete this rule?",
+      "deleteRuleDescription": "The rule will be permanently deleted. This action cannot be undone.",
+      "deleteRuleImage": "Delete rule image",
+      "deleteRuleImageTitle": "Are you sure you want to delete this rule image?",
+      "deleteRuleImageDescription": "The rule image will be permanently deleted. This action cannot be undone.",
+      "ruleUpdated": "Rule updated successfully",
+      "ruleDeleted": "Rule deleted successfully",
+      "imageDeleted": "Rule image deleted successfully",
+      "unauthorized": "Unauthorized to update rules"
+    },
+    "form": {
+      "image": {
+        "label": "Rule image",
+        "description": "Upload an image...",
+        "sizeLimitError": "Rule image must be less than {size} MB",
+        "wrongFileTypeError": "Rule image must be a PNG or JPG",
+        "fileNotImageError": "The file is not an image"
+      },
+      "name": {
+        "labelNorwegian": "Rule name (Norwegian)",
+        "labelEnglish": "Rule name (English)",
+        "placeholderNorwegian": "Regler for verkstedet",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "Rule name is required"
+      },
+      "content": {
+        "labelNorwegian": "Rule content (Norwegian)",
+        "labelEnglish": "Rule content (English)",
+        "placeholderNorwegian": "Disse reglene gjelder for alle som bruker verkstedet. Rydd opp etter deg. Bruk verneutstyr når det er påkrevd...",
+        "placeholderEnglish": "These rules apply to everyone using the workshop. Clean up after yourself. Use protective equipment when required...",
+        "required": "Rule content is required"
+      },
+      "internal": {
+        "label": "Internal rule",
+        "description": "If selected, this rule will only be visible to Hackerspace members."
+      }
+    },
+    "api": {
+      "invalidRuleId": "Invalid rule ID",
+      "fetchRulesFailed": "Failed to fetch rules",
+      "ruleWithNameExists": "A rule with the name {name} already exists",
+      "ruleNotFound": "Rule not found",
+      "insertFailed": "Failed to add rule",
+      "updateFailed": "Failed to update rule",
+      "unauthorizedInternalRule": "Unauthorized to view internal rules"
+    }
   },
-  "api": {
-    "tooManyRequests": "Too many requests, please try again later",
-    "notAuthenticated": "Not authenticated",
-    "notAuthorized": "Not authorized",
-    "noFileFound": "No file found",
-    "unableToUpdateMatrix": "Unable to update on Matrix"
+  "skills": {
+    "api": {
+      "invalidId": "Invalid skill ID",
+      "skillNotFound": "Skill not found",
+      "cannotAddSkill": "You cannot give this skill",
+      "userAlreadyHasSkill": "User already has this skill",
+      "userDoesNotHaveSkill": "User does not have this skill",
+      "invalidIdentifier": "Invalid skill identifier",
+      "skillWithIdExists": "Skill with the identifier \"{identifier}\" already exists"
+    }
+  },
+  "management": {
+    "title": "Website Management",
+    "unauthorized": "Unauthorized to access management tools",
+    "backToManagement": "Back to management",
+    "skills": {
+      "name": "Skills",
+      "title": "Manage Skills",
+      "description": "Manage the skills that members can achieve.",
+      "backToSkills": "Back to skills",
+      "new": {
+        "title": "New Skill",
+        "success": "Skill added successfully!"
+      },
+      "edit": {
+        "title": "Update Skill",
+        "delete": "Delete skill",
+        "deleteConfirmTitle": "Are you sure you want to delete this skill?",
+        "deleteConfirmDescription": "All users that have this skill will lose it. This action cannot be undone.",
+        "successEdit": "Skill updated successfully!",
+        "successDelete": "Skill deleted successfully!"
+      },
+      "form": {
+        "createSubmit": "Create skill",
+        "editSubmit": "Update skill",
+        "name": {
+          "labelNorwegian": "Skill name (Norwegian)",
+          "placeholderNorwegian": "Webutvikling",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "Skill name (English)",
+          "required": "Skill name is required",
+          "maxLength": "Skill name must be less than {count} characters"
+        },
+        "identifier": {
+          "label": "Skill identifier",
+          "placeholder": "webdevelopment",
+          "description": "Certain skill names may have predefined icons, permissions or similar. If in doubt, ask the DevOps-team.",
+          "required": "Skill identifier is required",
+          "maxLength": "Skill identifier must be less than {count} characters",
+          "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
+        }
+      }
+    },
+    "users": {
+      "name": "Users",
+      "title": "Search for Users",
+      "description": "Manage users on the website.",
+      "searchUser": "Search user...",
+      "table": {
+        "name": "Name",
+        "groups": "Groups",
+        "skills": "Skills",
+        "noUsersFound": "No users found. Please check your search criteria.",
+        "caption": "Website users"
+      },
+      "unauthorized": "Unauthorized to manage users"
+    },
+    "files": {
+      "name": "Files & Images",
+      "title": "Manage Files & Images",
+      "description": "Manage files and images uploaded by members."
+    },
+    "banners": {
+      "name": "Banners",
+      "title": "Manage Banners",
+      "description": "Manage banners displayed on the website."
+    }
+  },
+  "applications": {
+    "apply": {
+      "title": "Apply to Hackerspace NTNU",
+      "pageDescription": "Thank you very much for your interest in joining us! You're in for a great amount of fun, learning and growth. Please fill out the form below to apply, and we'll take contact you as soon as possible (but no later than two weeks).",
+      "dataNote": "Note: All your data will be deleted as soon as the application process is completed.",
+      "sendApplication": "Send application",
+      "applicationSubmitted": "Your application has been submitted successfully!",
+      "noGroupsAvailable": "We are sorry, but all Hackerspace groups are full at the moment. Please try again later, send us a message or ask a member at our workshop.",
+      "name": {
+        "label": "Full name",
+        "required": "Name is required"
+      },
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Invalid email address"
+      },
+      "phoneNumber": {
+        "label": "Phone number",
+        "required": "Phone number is required"
+      },
+      "studyProgram": {
+        "label": "Study program",
+        "description": "E.g. Computer Science, Applied Physics and Mathematics or Cybernetics and Robotics",
+        "required": "Study program is required"
+      },
+      "studyYear": {
+        "label": "Study year",
+        "required": "Study year is required",
+        "other": "Other / Difficult to say"
+      },
+      "learnedAboutUsHow": {
+        "label": "How did you learn about Hackerspace?",
+        "required": "This field is required"
+      },
+      "about": {
+        "label": "A little bit about you",
+        "description": "We'd love to know more about you! How would you describe yourself? What do you like doing in your free time? How would others describe you? Etc.",
+        "required": "This field is required"
+      },
+      "motivation": {
+        "label": "Why are you applying to Hackerspace?",
+        "description": "You may describe what you'd like to do in the group, or describe your motivation for joining.",
+        "required": "This field is required"
+      },
+      "groupIdentifier": {
+        "label": "Group",
+        "description": "If there are multiple groups that interest you, please pick your top choice. You can specify other groups you'd like to join in \"Other projects\" below - in case the group you picked is full.",
+        "required": "Group is required"
+      },
+      "otherProjects": {
+        "label": "Are there any other projects you might be interested in?",
+        "description": "Let us know if there are any other projects you might be interested in. Any Hackerspace member can start a new project!",
+        "required": "This field is required"
+      }
+    },
+    "thankYou": {
+      "title": "Thank you",
+      "description1": "We appreciate your interest in Hackerspace NTNU!",
+      "description2": "We will take a look at your application and get back to you soon.",
+      "backToHome": "Back to home"
+    },
+    "view": {
+      "title": "Applications",
+      "application": "Application",
+      "noPending": "No pending applications ✅",
+      "noPendingDescription": "Note: There may be pending applications that you do not have access to view.",
+      "backToHome": "Back to home",
+      "backToApplications": "Back to applications",
+      "submittedBy": "Submitted by: {name}",
+      "submittedAt": "Submitted: {date}",
+      "userInfo": "User Information",
+      "email": "Email: <link>{email}</link>",
+      "phoneNumber": "Phone number: <link>{phone}</link>",
+      "studyProgram": "Study program: {program}",
+      "studyYear": "Study year: {year}",
+      "deleteApplication": "Delete application",
+      "deleteApplicationTitle": "Are you sure you want to delete this application?",
+      "deleteApplicationDescription": "This action cannot be undone.",
+      "applicationDeleted": "Application deleted successfully"
+    },
+    "api": {
+      "fetchGroupFailed": "Failed to retrieve group",
+      "groupNotFound": "Group not found",
+      "insertAppFailed": "Failed to submit application",
+      "invalidId": "Invalid ID",
+      "deleteAppFailed": "Failed to delete application"
+    }
   },
   "privacy": {
     "title": "Privacy Policy",
@@ -976,6 +1236,154 @@
     "policyChange": {
       "title": "Changes to this Privacy Policy",
       "content": "We reserve the right to change this Privacy Policy at any time. Any changes will be published on this page and the change date will be updated. We encourage you to regularly read the statement to stay informed about how we protect your privacy."
+    }
+  },
+  "quotes": {
+    "title": "Inspirational Quotes",
+    "backToQuotes": "Back to quotes",
+    "heardByUser": "Heard by: {user}",
+    "new": {
+      "title": "New Quote",
+      "createQuote": "Create quote",
+      "success": "Quote created",
+      "unauthorized": "Unauthorized to create new quotes"
+    },
+    "update": {
+      "title": "Update Quote",
+      "updateQuote": "Update quote",
+      "success": "Quote updated",
+      "unauthorized": "Unauthorized to update quotes"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete this quote?",
+      "description": "This action cannot be undone.",
+      "success": "Quote deleted successfully",
+      "unauthorized": "Unauthorized to delete quotes"
+    },
+    "form": {
+      "userId": {
+        "label": "User",
+        "required": "User is required",
+        "placeholder": "Search for a user...",
+        "description": "Select a user"
+      },
+      "content": {
+        "labelEnglish": "Quote (English)",
+        "labelNorwegian": "Quote (Norwegian)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "Mitt hjerte gråter fordi jeg ikke eier en 3D-printer",
+        "required": "Quote is required",
+        "minLength": "Quote must be at least {count} characters"
+      },
+      "internal": {
+        "label": "Internal quote",
+        "description": "If selected, this quote will only be visible to Hackerspace members."
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
+    },
+    "api": {
+      "invalidId": "Invalid ID",
+      "invalidOffset": "Invalid offset",
+      "insertFailed": "Failed to add quote",
+      "updateFailed": "Failed to update quote",
+      "deleteFailed": "Failed to delete quote",
+      "failedToFetchQuotes": "The server failed to get quotes",
+      "noUserWithUsername": "No user with provided username found",
+      "quoteNotFound": "Quote not found"
+    }
+  },
+  "api": {
+    "internalServerError": "Internal server error",
+    "tooManyRequests": "Too many requests, please try again later",
+    "notAuthenticated": "Not authenticated",
+    "notAuthorized": "Not authorized",
+    "noFileFound": "No file found",
+    "unableToUpdateMatrix": "Unable to update on Matrix"
+  },
+  "reservations": {
+    "title": "Reservations",
+    "backButton": "Back",
+    "tools": {
+      "available": "Book item",
+      "unavailable": "Unavailable",
+      "supervision": "Requires supervision",
+      "tooltip": "Read more about this tool",
+      "myReservations": "My reservations"
+    },
+    "myReservationsTable": {
+      "title": "Your reservations",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "editTitle": "Edit table",
+      "cancelTitle": "Cancel action",
+      "removetitle": "Remove checked reservations",
+      "checkBoxTitle": "Press to check",
+      "checkboxAllTitle": "Press to check all",
+      "tool": "Tool",
+      "from": "From",
+      "to": "To",
+      "goToCalendar": "Go to calendar",
+      "empty": "You have no reservations",
+      "notLoggedIn": "Please log in to see your reservations."
+    },
+    "information": {
+      "importantTitle": "Important information!",
+      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
+      "dontShow": "Do not show this again"
+    },
+    "toolbar": {
+      "prev": "Prev",
+      "today": "Today",
+      "next": "Next",
+      "day": "Day",
+      "week": "Week",
+      "3days": "3-Days",
+      "dayTitle": "Show day view",
+      "weekTitle": "Show week view",
+      "3daysTitle": "Show 3-day view",
+      "prevWeekTitle": "Previous week",
+      "prev3daysTitle": "Previous 3 days",
+      "prevDayTitle": "Previous day",
+      "todayTitle": "Go to today",
+      "nextWeekTitle": "Next week",
+      "next3daysTitle": "Next 3 days",
+      "nextDayTitle": "Next day"
+    },
+    "form": {
+      "titleCreate": "Create a reservation",
+      "descriptionCreate": "Ensure the input fields are correct and press 'create' to book a reservation",
+      "titleEdit": "Edit reservation",
+      "descriptionEdit": "Edit the field you wish to and press 'save'",
+      "cancel": "Cancel",
+      "save": "Save",
+      "delete": "Delete",
+      "create": "Create",
+      "name": "Name",
+      "namePlaceholder": "Admin Jim",
+      "phoneNr": "Phone number",
+      "phoneNrPlaceholder": "Your phone number",
+      "email": "Email",
+      "emailPlaceholder": "imagine@dragin.com",
+      "startTime": "Start date/time",
+      "endTime": "End date/time",
+      "formSchema": {
+        "nameReq": "Please type in your full name",
+        "phoneNrReq": "Please type in your phone number",
+        "emailReq": "Please type in your Email",
+        "Error": "Somehting went wrong, try again later..."
+      }
+    },
+    "confirmDialog": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "title": "Confirm action",
+      "description": "Are you certain you want to {action}"
+    },
+    "calendar": {
+      "createButton": "Create reservation",
+      "locale": "en"
     }
   }
 }

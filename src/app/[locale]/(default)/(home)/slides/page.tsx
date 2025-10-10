@@ -17,10 +17,10 @@ import { api } from '@/lib/api/server';
 export default async function SlidesPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const tHome = await getTranslations('home');
   const t = await getTranslations('home.slides');

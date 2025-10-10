@@ -20,10 +20,10 @@ export async function generateMetadata() {
 export default async function NewArticlePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const { user } = await api.auth.state();
   const t = await getTranslations('news');

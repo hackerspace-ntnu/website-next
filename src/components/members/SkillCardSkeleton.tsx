@@ -10,7 +10,7 @@ async function SkillCardSkeleton() {
   const locale = await getLocale();
 
   return (
-    <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit'>
+    <Card className='relative flex w-full overflow-hidden rounded-xl px-6 py-4 lg:w-fit'>
       <div className='flex w-full flex-col items-center justify-center'>
         <h3 className='mt-4 text-center'>{t('skills')}</h3>
         <ul className='mt-5 mb-7 divide-y'>

@@ -13,10 +13,10 @@ import { api } from '@/lib/api/server';
 export default async function EditSlidePage({
   params,
 }: {
-  params: Promise<{ locale: Locale; slideId: string }>;
+  params: Promise<{ locale: string; slideId: string }>;
 }) {
   const { locale, slideId } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('home.slides.edit');
   const { ui, home } = await getMessages();

@@ -12,11 +12,11 @@ import { api } from '@/lib/api/server';
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 
@@ -35,7 +35,7 @@ export default async function HomePage({
     <div className='space-y-8'>
       <IntroBanner
         slides={slides}
-        locale={locale}
+        locale={locale as Locale}
         canEditSlides={canEditSlides}
         t={{
           placeholderAlt: t('placeholderAlt'),

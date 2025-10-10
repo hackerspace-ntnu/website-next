@@ -9,6 +9,10 @@ import {
   groupsData,
   homeCarouselSlideLocalizationsData,
   homeCarouselSlidesData,
+  quoteLocalizationsData,
+  quotesData,
+  ruleLocalizationData,
+  rulesData,
   shiftsData,
   skillsData,
   storageItemCategories,
@@ -30,6 +34,10 @@ import {
   itemLocalizations,
   newsArticleLocalizations,
   newsArticles,
+  quoteLocalizations,
+  quotes,
+  ruleLocalizations,
+  rules,
   shifts,
   skills,
   storageItems,
@@ -123,6 +131,22 @@ async function main() {
   console.log('Inserting news article localizations...');
   await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
   console.log('News article localizations inserted');
+
+  console.log('Inserting quotes...');
+  await db.insert(quotes).values(quotesData);
+  console.log('Quotes inserted');
+
+  console.log('Inserting quote localizations...');
+  await db.insert(quoteLocalizations).values(quoteLocalizationsData);
+  console.log('Quote localizations inserted');
+
+  console.log('Inserting rules...');
+  await db.insert(rules).values(rulesData);
+  console.log('Rules inserted');
+
+  console.log('Insert rule localizations...');
+  await db.insert(ruleLocalizations).values(ruleLocalizationData);
+  console.log('Rule localizations inserted');
 }
 
 await main();

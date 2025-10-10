@@ -13,7 +13,7 @@ import { api } from '@/lib/api/server';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function StorageLayout({
@@ -22,7 +22,7 @@ export default async function StorageLayout({
 }: StorageLayoutProps) {
   const { locale } = await params;
   const { user } = await api.auth.state();
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');

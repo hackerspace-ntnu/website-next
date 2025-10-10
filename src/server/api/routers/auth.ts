@@ -64,33 +64,36 @@ const authRouter = createRouter({
       session: sanitized.session,
     };
   }),
-  signInFeide: publicProcedure.mutation(async ({ ctx }) => {
-    const headerStore = await headers();
-    const clientIP = headerStore.get('X-Forwarded-For');
+  signInFeide: publicProcedure
+    .input((input) => z.string().optional().parse(input))
+    .mutation(async ({ ctx, input: redirectTo }) => {
+      const headerStore = await headers();
+      const clientIP = headerStore.get('X-Forwarded-For');
 
-    if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
-      throw new TRPCError({
-        code: 'TOO_MANY_REQUESTS',
-        message: ctx.t('api.tooManyRequests'),
-      });
-    }
+      if (clientIP !== null && !ipBucket.check(clientIP, 1)) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: ctx.t('api.tooManyRequests'),
+        });
+      }
 
-    const feideAuthorization = await createFeideAuthorization();
+      const feideAuthorization = await createFeideAuthorization();
 
-    if (!feideAuthorization) {
-      throw new TRPCError({
-        code: 'SERVICE_UNAVAILABLE',
-        message: ctx.t('auth.feideNotConfigured'),
-      });
-    }
+      if (!feideAuthorization) {
+        throw new TRPCError({
+          code: 'SERVICE_UNAVAILABLE',
+          message: ctx.t('auth.feideNotConfigured'),
+        });
+      }
 
-    await setFeideAuthorizationCookies(
-      feideAuthorization.state,
-      feideAuthorization.codeVerifier,
-    );
+      await setFeideAuthorizationCookies(
+        feideAuthorization.state,
+        feideAuthorization.codeVerifier,
+        redirectTo,
+      );
 
-    return feideAuthorization.url.href;
-  }),
+      return feideAuthorization.url.href;
+    }),
   signIn: publicProcedure
     .input((input) =>
       accountSignInSchema(useTranslationsFromContext()).parse(input),

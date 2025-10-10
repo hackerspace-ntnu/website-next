@@ -14,7 +14,7 @@ import { redirect } from '@/lib/locale/navigation';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export const dynamic = 'force-dynamic';
@@ -24,7 +24,8 @@ export default async function SettingsLayout({
   params,
 }: SettingsLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const { settings, ui } = await getMessages();
   const t = await getTranslations('settings');
   const tLayout = await getTranslations('layout');
@@ -32,12 +33,8 @@ export default async function SettingsLayout({
   const { user } = await api.auth.state();
 
   if (!user) {
-    return redirect({ href: '/auth', locale });
+    return redirect({ href: '/auth', locale: locale as Locale });
   }
-
-  const showAdministratorMenu = user.groups.some(
-    (group) => group === 'leadership' || group === 'admin',
-  );
 
   return (
     <>
@@ -67,7 +64,7 @@ export default async function SettingsLayout({
               messages={{ settings, ui } as Pick<Messages, 'settings' | 'ui'>}
             >
               <aside className='-my-2 w-full lg:my-0 lg:w-1/5'>
-                <SidebarNav showAdministratorMenu={showAdministratorMenu} />
+                <SidebarNav />
               </aside>
               <div className='h-full w-full flex-1 lg:max-w-2xl'>
                 {children}
