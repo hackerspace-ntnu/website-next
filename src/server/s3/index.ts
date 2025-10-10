@@ -105,6 +105,7 @@ const directories = [
   'groups',
   'rules',
   'events',
+  'tools',
 ] as const;
 
 const s3 = new S3Service();

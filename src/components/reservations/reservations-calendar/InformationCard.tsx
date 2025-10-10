@@ -11,7 +11,7 @@ import { Link } from '@/lib/locale/navigation';
 function InformationCard() {
   const t = useTranslations('reservations');
   return (
-    <Card className='rounded-t-none'>
+    <Card className='rounded-b-none'>
       <CardContent>
         <CardHeader>
           <CardTitle>{t('information.importantTitle')}</CardTitle>

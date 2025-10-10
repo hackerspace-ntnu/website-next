@@ -5,11 +5,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { RefObject } from 'react';
 import { Button } from '@/components/ui/Button';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { cx } from '@/lib/utils';
 
 type ToolbarProps = {
   view: string;
-  date: Date;
+  isLaptop: boolean;
+  isIpad: boolean;
   onViewChange: (view: string) => void;
   calendarRef: RefObject<FullCalendar | null>;
 };
@@ -22,39 +23,37 @@ type ToolbarProps = {
  * It relies on calendarRef prop passed to it by ToolCalendar.tsx to react on button actions, i.e.
  * handlePrev, handleNext etc.
  */
-function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
+function CustomToolbar({
+  view,
+  isLaptop,
+  isIpad,
+  onViewChange,
+  calendarRef,
+}: ToolbarProps) {
   const t = useTranslations('reservations');
-  const isIPad = useMediaQuery('(min-width: 41.3125rem)');
-  const isLaptop = useMediaQuery('(min-width: 64.1rem)');
 
   const handlePrev = () => {
-    if (calendarRef?.current) {
-      const api = calendarRef.current.getApi();
-      api.prev();
-    }
+    calendarRef.current?.getApi().prev();
   };
 
   const handleNext = () => {
-    if (calendarRef?.current) {
-      const api = calendarRef.current.getApi();
-      api.next();
-    }
+    calendarRef.current?.getApi().next();
   };
 
   const handleToday = () => {
-    if (calendarRef?.current) {
-      const api = calendarRef.current.getApi();
-      api.today();
-    }
+    calendarRef.current?.getApi().today();
   };
 
   return (
     <div
-      className={`flex flex-wrap items-center justify-between border-border border-b bg-card p-2 font-extrabold ${isLaptop || isIPad ? 'flex-row gap-0' : 'flex-col text-center'}`}
+      className={cx(
+        'flex flex-wrap items-center justify-between border-border border-b bg-card p-2 font-extrabold',
+        isLaptop || isIpad ? 'flex-row gap-0' : 'flex-col gap-2 text-center',
+      )}
     >
       <div
         className={
-          isLaptop || isIPad ? 'inline-block whitespace-nowrap' : 'hidden'
+          isLaptop || isIpad ? 'inline-block whitespace-nowrap' : 'hidden'
         }
       >
         <Button
@@ -81,19 +80,19 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
         </Button>
       </div>
       <span className='clamp-[text-lg-2xl-clamp] flex-grow text-center'>
-        {calendarRef.current?.getApi().view.title}
+        {calendarRef.current?.getApi().view.title ?? ''}
       </span>
       <div className='clamp-[w-5-22-clamp] flex whitespace-nowrap'>
         <Button
           title={
             isLaptop
               ? t('toolbar.prevWeekTitle')
-              : isIPad
+              : isIpad
                 ? t('toolbar.prev3daysTitle')
                 : t('toolbar.prevDayTitle')
           }
           onClick={handlePrev}
-          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
+          className=' clamp-[text-sm-base-clamp] rounded-r-none rounded-l-lg'
         >
           <ChevronLeft className='h-4 w-4' />
           <span className='ml-1'>{t('toolbar.prev')}</span>
@@ -101,7 +100,7 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
         <Button
           title={t('toolbar.todayTitle')}
           onClick={handleToday}
-          className='clamp-[w-10-20-clamp] clamp-[text-sm-base-clamp] rounded-none'
+          className=' clamp-[text-sm-base-clamp] rounded-none px-4'
         >
           {t('toolbar.today')}
         </Button>
@@ -109,12 +108,12 @@ function CustomToolbar({ view, onViewChange, calendarRef }: ToolbarProps) {
           title={
             isLaptop
               ? t('toolbar.nextWeekTitle')
-              : isIPad
+              : isIpad
                 ? t('toolbar.next3daysTitle')
                 : t('toolbar.nextDayTitle')
           }
           onClick={handleNext}
-          className='clamp-[w-13-20-clamp] clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
+          className='clamp-[text-sm-base-clamp] rounded-r-lg rounded-l-none'
         >
           <span className='mr-1'>{t('toolbar.next')}</span>
           <ChevronRight className='h-4 w-4' />

@@ -42,6 +42,7 @@ async function Header() {
             shiftSchedule: t('shiftSchedule'),
             members: t('members'),
             rules: t('rules'),
+            reservations: t('reservations'),
             applications: t('applications'),
             quotes: t('quotes'),
             hackerspaceHome: t('hackerspaceHome'),
@@ -90,6 +91,7 @@ async function Header() {
               shiftSchedule: t('shiftSchedule'),
               members: t('members'),
               rules: t('rules'),
+              reservations: t('reservations'),
               applications: t('applications'),
               quotes: t('quotes'),
             }}
