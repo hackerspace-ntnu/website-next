@@ -85,7 +85,7 @@ function ToolCard({ tool, user }: ToolCardProps) {
           />
           <ToolCardDetails tool={tool}>
             <m.button
-              className='absolute top-2 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
+              className='absolute top-2 right-2 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
               key={`cardHeaderButton-${tool.name}`}
               whileHover={{ scale: 1.05 }}
               title={t('tools.tooltip')}
