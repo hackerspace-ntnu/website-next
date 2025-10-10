@@ -171,7 +171,7 @@
     "backToArticle": "Tilbake til artikkel",
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
-    "UpdateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
@@ -256,11 +256,12 @@
       "userRemovedFromGroup": "Bruker fjernet fra gruppe"
     },
     "api": {
+      "invalidOffset": "Ugyldig offset",
+      "invalidLimit": "Ugyldig limit",
       "idOrNameRequired": "Enten ID eller navn må oppgis",
       "errorFetchingMember": "Kunne ikke hente medlem",
       "errorFetchingMembers": "Kunne ikke hente medlemmer",
       "pageNumberRequired": "Sidetall må oppgis",
-      "invalidLimit": "Ugyldig limit",
       "adminGroupRequired": "Du må være administrator selv for å redigere administratorbrukere"
     }
   },
@@ -588,7 +589,7 @@
         "label": "Kategori",
         "placeholder": "Hardware"
       },
-      "submit": "Submit",
+      "submit": "Lagre gjenstand",
       "deleteItem": "Slett gjenstand",
       "deleteItemDescription": "Er du sikker på at du vil slette denne gjenstanden? Alle lån av denne gjenstanden vil også bli slettet. Denne handlingen kan ikke angres!",
       "successNew": "Ny gjenstand på lager lagt til! Videresender deg til lageret...",
@@ -1203,29 +1204,118 @@
       "unavailable": "Utilgjengelig",
       "supervision": "Krever veiledning",
       "tooltip": "Les mer om dette utstyret",
-      "myReservations": "Mine reservasjoner"
+      "outOfOrder": "Ute av drift",
+      "myReservations": "Mine reservasjoner",
+      "requires": "Krever",
+      "difficulty": "Vanskelighetsgrad",
+      "filamentSize": "Filament størrelse",
+      "filamentType": "Filament type",
+      "slicer": "Slicer",
+      "backToReservations": "Tilbake til reservasjoner",
+      "new": {
+        "title": "Nytt reservasjonsverktøy",
+        "createTool": "Opprett verktøy",
+        "toolCreated": "Verktøy opprettet",
+        "unauthorized": "Du har ikke rettigheter til å opprette reservasjonverktøy"
+      },
+      "edit": {
+        "title": "Oppdater reservasjonsverktøy",
+        "updateTool": "Oppdater verktøy",
+        "toolUpdated": "Verktøy oppdatert",
+        "deleteTool": "Slett verktøy",
+        "deleteToolTitle": "Er du sikker på at du vil slette dette verktøyet?",
+        "deleteToolDescription": "Dette vil også slette alle reservasjonene for dette verktøyet. Denne handlingen kan ikke angres.",
+        "toolDeleted": "Verktøy slettet",
+        "deleteToolImage": "Slett verktøybilde",
+        "deleteToolImageTitle": "Er du sikker på at du vil slette dette verktøybildet?",
+        "deleteToolImageDescription": "Denne handlingen kan ikke angres.",
+        "imageDeleted": "Verktøybilde slettet",
+        "unauthorized": "Du har ikke rettigheter til å oppdatere reservasjonverktøy"
+      },
+      "form": {
+        "3dprinterOptions": "3D-printer alternativer",
+        "image": {
+          "label": "Verktøybilde",
+          "description": "Last opp et bilde...",
+          "sizeLimitError": "Vertøybilde må være mindre enn {size} MB",
+          "wrongFileTypeError": "Vertøybilde må være en PNG eller JPG",
+          "fileNotImageError": "Filen er ikke et bilde"
+        },
+        "type": {
+          "label": "Verktøytype",
+          "required": "Verktøytype er påkrevd",
+          "3dprinter": "3D-printer",
+          "other": "Annet"
+        },
+        "name": {
+          "labelNorwegian": "Verktøynavn (norsk)",
+          "labelEnglish": "Verktøynavn (engelsk)",
+          "placeholder": "3D-printer",
+          "required": "Verktøynavn er påkrevd",
+          "maxLength": "Verktøynavn må være mindre enn {count} tegn"
+        },
+        "nickName": {
+          "label": "Kallenavn",
+          "placeholder": "Geir Ove Mjølsnes",
+          "maxLength": "Kallenavn må være mindre enn {count} tegn"
+        },
+        "description": {
+          "labelNorwegian": "Verktøybeskrivelse (norsk)",
+          "labelEnglish": "Verktøybeskrivelse (engelsk)",
+          "placeholder": "En kort beskrivelse av verktøyet",
+          "required": "Verktøybeskrivelse er påkrevd",
+          "maxLength": "Verktøybeskrivelse må være mindre enn {count} tegn"
+        },
+        "status": {
+          "label": "Verktøystatus",
+          "description": "Velg den nåværende statusen til verktøyet.",
+          "required": "Verktøystatus er påkrevd",
+          "available": "Tilgjengelig",
+          "unavailable": "Utilgjengelig",
+          "requires_supervision": "Krever veiledning",
+          "out_of_order": "Ute av drift"
+        },
+        "requires": {
+          "label": "Gjenstander som kreves",
+          "description": "For eks. SD-kort, USB-minnepinne, osv.",
+          "maxLength": "Gjenstander som kreves må være mindre enn {count} tegn"
+        },
+        "difficultyLevel": {
+          "label": "Vanskelighetsgrad",
+          "description": "Velg vanskelighetsgraden for å bruke verktøyet."
+        },
+        "filamentSize": {
+          "label": "Filamentstørrelse",
+          "description": "For eks. 1.75mm or 2.85mm",
+          "maxLength": "Filmentstørrelse must be less than {count} characters"
+        },
+        "filamentType": {
+          "label": "Filamenttype",
+          "description": "For eks. PLA, ABS, PETG, osv.",
+          "maxLength": "Filament type must be less than {count} characters"
+        },
+        "slicer": {
+          "label": "Slicerprogramvare",
+          "description": "For eks. Bambu Studio, PrusaSlicer, etc.",
+          "maxLength": "Slicerprogramvare må være mindre enn {count} tegn"
+        }
+      }
     },
     "myReservationsTable": {
       "title": "Dine reservasjoner",
       "edit": "Rediger",
-      "cancel": "Kanseller",
+      "cancel": "Avbryt",
       "remove": "Fjern",
-      "editTitle": "Trykk for å redigere tabellen",
-      "cancelTitle": "Kanseller handling",
-      "removetitle": "Fjern valgte reservasjoner",
-      "checkBoxTitle": "Trykk for å velge denne",
-      "checkboxAllTitle": "Trykk for å velge alle",
       "tool": "Verktøy",
       "from": "Fra",
-      "to": "til",
-      "goToCalendar": "Gå til kalender",
+      "until": "Til",
       "empty": "Du har ingen reservasjoner",
-      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner."
+      "notLoggedIn": "Du er ikke logget inn. Logg inn for å se dine reservasjoner.",
+      "deletedSuccess": "Reservasjon slettet"
     },
     "information": {
       "importantTitle": "Viktig informasjon!",
-      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket.",
-      "dontShow": "Ikke vis dette igjen"
+      "importantText": "Les <link>regler for bruk av 3D-printer</link> før du starter. Ved å benytte reservasjonssystemet vårt setter vi av våre ressurser (både printer og folk på vakt som følger med). Det er derfor forventet at du møter opp tidsnok (gjerne 5 minutter før avsatt tid) og ikke går over tiden du har booket."
     },
     "toolbar": {
       "prev": "Forrige",
@@ -1233,7 +1323,7 @@
       "next": "Neste",
       "day": "Dag",
       "week": "Uke",
-      "3days": "3-dager",
+      "3days": "3 dager",
       "dayTitle": "Vis dag oversikt",
       "weekTitle": "Vis uke oversikt",
       "3daysTitle": "Vis 3-dager oversikt",
@@ -1255,29 +1345,65 @@
       "delete": "Slett",
       "create": "Opprett",
       "name": "Navn",
-      "namePlaceholder": "Ole Nordmann",
-      "phoneNr": "mobilnummer",
-      "phoneNrPlaceholder": "Din mobilnummer",
-      "email": "Mail",
-      "emailPlaceholder": "imagine@dragin.com",
-      "startTime": "Start dato/tid",
-      "endTime": "Slutt dato/tid",
-      "formSchema": {
-        "nameReq": "Vennligst tast inn ditt navn",
-        "phoneNrReq": "Vennligst tast inn ditt mobilnummer",
-        "emailReq": "Vennligst tast inn ditt mail",
-        "error": "Noe gikk galt, prøv igjen senere..."
-      }
+      "notes": "Notater",
+      "reservedFrom": "Start dato",
+      "reservedUntil": "Slutt dato",
+      "hour": "Time",
+      "min": "Minutt",
+      "specifyTime": "Vennligst fyll ut start og slutt tid",
+      "endDateAfterStart": "Slutt dato må være etter start dato",
+      "endHourAfterStart": "Slutt time må være etter start time",
+      "endMinAfterStart": "Slutt minutt må være etter start minutt",
+      "startDateInPast": "Start dato kan ikke være i fortiden",
+      "startHourInPast": "Start time kan ikke være i fortiden",
+      "startMinuteInPast": "Start minutt kan ikke være i fortiden",
+      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon",
+      "specifyStart": "Start date is required",
+      "specifyEnd": "End date is required",
+      "invalidHour": "Invalid hour",
+      "invalidMinute": "Invalid minute",
+      "longerThan15min": "Reservasjonen må være 15 minutter eller lengre",
+      "successCreate": "Reservasjonen er opprettet.",
+      "successUpdate": "Reservasjonen er oppdatert.",
+      "successDelete": "Reservasjonen er slettet.",
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
     },
     "confirmDialog": {
       "confirm": "Bekreft",
       "cancel": "Kanseller",
       "title": "Bekreft handling",
-      "description": "Er du sikker på at du vil {action}"
+      "description": "Er du sikker på at du vil slette reservasjonen?"
     },
     "calendar": {
       "createButton": "Opprett reservasjon",
+      "createButtonLoggedOut": "Logg inn for å reservere",
       "locale": "nb"
+    },
+    "customEventContent": {
+      "details": "Reservasjonsdetaljer",
+      "tooltipUserEvent": "Klikk for å redigere",
+      "tooltipOtherEvents": "Klikk for mer info",
+      "close": "Lukk"
+    },
+    "api": {
+      "startBeforeEndError": "Slutt-tid kan ikke være før start-tid",
+      "invalidId": "Ugyldig id",
+      "reservationNotFound": "Kunne ikke finne reservasjonen",
+      "toolNotFound": "Kunne ikke finne verktøyet",
+      "toolUnavailable": "Verktøyet er ikke tilgjengelig",
+      "newMustBeInFuture": "Start/slutt tid kan ikke være i fortiden",
+      "specifyStart": "Start dato kreves",
+      "specifyEnd": "Slutt dato kreves",
+      "rangeTooLarge": "Tidsperioden er for lang",
+      "fetchReservationsFailed": "Failed to fetch reservations",
+      "createReservationTimeConflict": "Start/slutt tid kan ikke overlappe med eksisterende reservasjoner",
+      "cannotChangePast": "Kan ikke endre reservasjoner som er ferdig",
+      "updateFailed": "Kunne ikke oppdatere reservasjon",
+      "createFailed": "Kunne ikke opprette reservasjon",
+      "cannotChangeOngoingStart": "Kan ikke endre start tid for en pågående reservasjon",
+      "createToolFailed": "Kunne ikke opprette verktøy",
+      "editToolFailed": "Kunne ikke opprette verktøy",
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
     }
   }
 }
