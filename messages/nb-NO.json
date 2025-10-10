@@ -94,6 +94,7 @@
         "required": "Passord er påkrevd",
         "minLength": "Passord må være minst {count} tegn",
         "maxLength": "Passord må være mindre enn {count} tegn",
+        "lowercase": "Passord må inneholde minst én liten bokstav",
         "uppercase": "Passord må inneholde minst én stor bokstav",
         "specialChar": "Passord må inneholde minst ett spesialtegn",
         "confirmLabel": "Bekreft passord",
