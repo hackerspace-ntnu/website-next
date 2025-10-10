@@ -1,4 +1,5 @@
 export * from './applications';
+export * from './banner';
 export * from './emails';
 export * from './events';
 export * from './files';
