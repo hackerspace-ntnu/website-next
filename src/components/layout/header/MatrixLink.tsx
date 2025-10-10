@@ -123,7 +123,7 @@ function MatrixLink({ className, isLoggedIn, t }: MatrixLinkProps) {
               <form.AppField name='dontShowAgain'>
                 {(field) => <field.CheckboxField label={t.dontShowAgain} />}
               </form.AppField>
-              <form.SubmitButton className='w-full'>
+              <form.SubmitButton className='w-full' allowPristine={true}>
                 {t.openMatrix}
               </form.SubmitButton>
             </form.AppForm>
