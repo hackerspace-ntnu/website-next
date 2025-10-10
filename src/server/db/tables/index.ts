@@ -1,5 +1,5 @@
 export * from './applications';
-export * from './banner';
+export * from './banners';
 export * from './emails';
 export * from './events';
 export * from './files';

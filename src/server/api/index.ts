@@ -2,6 +2,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import {
   applicationsRouter,
   authRouter,
+  bannersRouter,
   eventsRouter,
   groupsRouter,
   homeRouter,
@@ -21,6 +22,7 @@ import { createCallerFactory, createRouter } from '@/server/api/trpc';
 const router = createRouter({
   applications: applicationsRouter,
   auth: authRouter,
+  banners: bannersRouter,
   events: eventsRouter,
   groups: groupsRouter,
   home: homeRouter,

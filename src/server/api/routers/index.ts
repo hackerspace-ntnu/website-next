@@ -1,6 +1,6 @@
 export * from './applications';
 export * from './auth';
-export * from './banner';
+export * from './banners';
 export * from './events';
 export * from './groups';
 export * from './home';

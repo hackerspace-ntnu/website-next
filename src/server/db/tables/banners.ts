@@ -18,6 +18,7 @@ const banners = pgTable('banners', {
   id: serial('id').primaryKey(),
   active: boolean('active').notNull(),
   expiresAt: timestamp('expires_at'),
+  pagesMatch: text('pages_match').notNull().default('*'),
   pagesRegex: text('pages_regex').notNull().default('.*'),
 });
 

@@ -1083,7 +1083,10 @@
     "banners": {
       "name": "Banners",
       "title": "Manage Banners",
-      "description": "Manage banners displayed on the website."
+      "description": "Manage banners displayed on the website.",
+      "api": {
+        "fetchBannersFailed": "Failed to fetch banners"
+      }
     }
   },
   "applications": {

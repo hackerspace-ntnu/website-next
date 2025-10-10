@@ -10,7 +10,7 @@ import {
 import readingTime from 'reading-time';
 import { HackerspaceLogo } from '@/components/assets/logos';
 import { AvatarIcon } from '@/components/profile/AvatarIcon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';

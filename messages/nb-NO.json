@@ -1083,7 +1083,10 @@
     "banners": {
       "name": "Bannere",
       "title": "Administrer bannere",
-      "description": "Administrer bannere som vises på nettsiden."
+      "description": "Administrer bannere som vises på nettsiden.",
+      "api": {
+        "fetchBannersFailed": "Kunne ikke hente bannere"
+      }
     }
   },
   "applications": {

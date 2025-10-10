@@ -150,9 +150,7 @@ const usersRouter = createRouter({
         });
     }),
   searchMembers: protectedProcedure
-    .input((input) =>
-      searchMembersSchema(useTranslationsFromContext()).parse(input),
-    )
+    .input((input) => searchMembersSchema().parse(input))
     .query(async ({ ctx, input }) => {
       const usersData = await ctx.db.query.users
         .findMany({
