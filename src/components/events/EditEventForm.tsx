@@ -275,15 +275,6 @@ function EditEventForm({
           />
         )}
       </form.AppField>
-      <form.AppField name='startTime'>
-        {(field) => (
-          <field.DateTimeField
-            label={t('startTime.label')}
-            granularity='minute'
-            locale={locale === 'en-GB' ? enGB : nb}
-          />
-        )}
-      </form.AppField>
       <form.AppField name='setSignUpDeadline'>
         {(field) => (
           <field.CheckboxField
@@ -307,6 +298,15 @@ function EditEventForm({
           )
         }
       </form.Subscribe>
+      <form.AppField name='startTime'>
+        {(field) => (
+          <field.DateTimeField
+            label={t('startTime.label')}
+            granularity='minute'
+            locale={locale === 'en-GB' ? enGB : nb}
+          />
+        )}
+      </form.AppField>
       <form.AppField name='endTime'>
         {(field) => (
           <field.DateTimeField

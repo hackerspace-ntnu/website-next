@@ -41,8 +41,6 @@ async function EditEventFormSkeleton() {
         {t('locationMapLink.description')}
       </p>
       <Skeleton className='h-10 w-full rounded-lg' />
-      <Label className='mb-2'>{t('startTime.label')}</Label>
-      <Skeleton className='h-10 w-full rounded-lg' />
       <div>
         <div className='flex gap-2'>
           <Skeleton className='h-4 w-4 rounded-lg' />
@@ -52,6 +50,8 @@ async function EditEventFormSkeleton() {
           {t('setSignUpDeadline.description')}
         </span>
       </div>
+      <Label className='mb-2'>{t('startTime.label')}</Label>
+      <Skeleton className='h-10 w-full rounded-lg' />
       <Label className='mb-2'>{t('endTime.label')}</Label>
       <Skeleton className='h-10 w-full rounded-lg' />
       <div>
