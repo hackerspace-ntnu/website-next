@@ -1083,10 +1083,71 @@
     "banners": {
       "name": "Bannere",
       "title": "Administrer bannere",
-      "description": "Administrer bannere som vises på nettsiden.",
+      "description": "Administrer bannerene på nettsiden",
+      "content": "Innhold",
+      "pages": "Sider",
+      "expiresAt": "Utløper",
+      "active": "Aktiv",
+      "create": "Lag nytt banner",
+      "editBanner": "Rediger banner",
+      "edit": {
+        "backToBanners": "Tilbake til bannere",
+        "edit": "Rediger",
+        "unauthorized": "Uautorisert til å redigere bannere"
+      },
+      "new": {
+        "backToBanners": "Tilbake til bannere",
+        "create": "Lag banner",
+        "unauthorized": "Uautorisert til å opprette nye bannere"
+      },
+      "form": {
+        "contentNorwegian": {
+          "label": "Bannerinnhold (norsk)",
+          "placeholder": "Velkommen til Hackerspace NTNU!",
+          "required": "Bannerinnhold er påkrevd"
+        },
+        "contentEnglish": {
+          "label": "Bannerinnhold (engelsk)",
+          "placeholder": "Welcome to Hackerspace NTNU!",
+          "required": "Bannerinnhold er påkrevd"
+        },
+        "active": {
+          "label": "Aktiv",
+          "invalid": "Ugyldig verdi for aktiv"
+        },
+        "expiresAt": {
+          "label": "Utløper"
+        },
+        "pagesMatch": {
+          "label": "Valgte sider",
+          "placeholder": "/,/storage*,/management/banners/*/edit",
+          "description": "Banneret vil bli vist på de valgte sidene. Du kan bruke * som wildcard",
+          "required": "Valg av sider er påkrevd",
+          "charactersInvalid": "Du kan bare bruke følgende tegn: {characters}",
+          "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)"
+        },
+        "editSubmit": "Rediger banner",
+        "createSubmit": "Lag banner",
+        "delete": {
+          "label": "Slett banner",
+          "confirmTitle": "Er du sikker på at du vil slette banneret?",
+          "confirmDescription": "Denne handlingen kan ikke angres"
+        }
+      },
       "api": {
-        "fetchBannersFailed": "Kunne ikke hente bannere"
-      }
+        "invalidId": "Ugyldig ID",
+        "activeInvalid": "Ugyldig verdi for aktiv",
+        "successCreate": "Banner opprettet",
+        "successEdit": "Banner redigert",
+        "successDelete": "Banner slettet",
+        "changingActive": "Endrer banner til {active, select, true {aktiv} other {inaktiv}}...",
+        "successChangeActive": "Banner er nå {active, select, true {aktiv} other {inaktiv}}",
+        "errorChangingActive": "Kunne ikke endre banner til {active, select, true {aktiv} other {inaktiv}}",
+        "fetchBannersFailed": "Kunne ikke hente bannere",
+        "insertFailed": "Kunne ikke opprette banner",
+        "bannerNotFound": "Banneret ble ikke funnet"
+      },
+      "unauthorized": "Uautorisert til å administrere bannere"
     }
   },
   "applications": {

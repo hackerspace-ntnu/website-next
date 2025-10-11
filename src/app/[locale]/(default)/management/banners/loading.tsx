@@ -22,11 +22,11 @@ export default async function BannersLoading() {
         <TableRow>
           <TableHead className='w-full'>{t('content')}</TableHead>
           <TableHead className='w-full'>{t('pages')}</TableHead>
-          <TableHead className='w-full'>{t('expires')}</TableHead>
+          <TableHead className='w-full'>{t('expiresAt')}</TableHead>
           <TableHead className='w-full'>{t('active')}</TableHead>
           <TableHead className='min-w-20'>
             <Link
-              href='/banners/new'
+              href='/management/banners/new'
               variant='default'
               size='icon'
               className='my-2'

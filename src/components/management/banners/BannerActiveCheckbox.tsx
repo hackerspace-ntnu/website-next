@@ -24,8 +24,7 @@ function BannerActiveCheckbox({ banner, t }: BannerActiveCheckboxProps) {
 
   const changeBannerActive = api.banners.changeBannerActive.useMutation({
     onSuccess: async () => {
-      await utils.home.fetchSlide.invalidate();
-      await utils.home.fetchSlides.invalidate();
+      await utils.banners.invalidate();
       router.refresh();
     },
   });

@@ -5,7 +5,6 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { SlideActiveCheckbox } from '@/components/home/SlideActiveCheckbox';
 import { BannerActiveCheckbox } from '@/components/management/banners/BannerActiveCheckbox';
 import { Link } from '@/components/ui/Link';
 import {
@@ -44,7 +43,7 @@ export default async function BannersPage({
         <TableRow>
           <TableHead>{t('content')}</TableHead>
           <TableHead>{t('pages')}</TableHead>
-          <TableHead>{t('expires')}</TableHead>
+          <TableHead>{t('expiresAt')}</TableHead>
           <TableHead>{t('active')}</TableHead>
           <TableHead>
             <Link

@@ -37,6 +37,8 @@ function SlideForm({ slide }: SlideFormProps) {
   const t = useTranslations('home.form');
   const tApi = useTranslations('home.api');
   const tUi = useTranslations('ui');
+
+  const utils = api.useUtils();
   const router = useRouter();
 
   const [previewImage, setPreviewImage] = useState(slide?.imageUrl);
@@ -49,30 +51,34 @@ function SlideForm({ slide }: SlideFormProps) {
   );
 
   const createSlide = api.home.createSlide.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successCreate'));
+      await utils.home.invalidate();
       router.push('/slides');
     },
   });
 
   const editSlide = api.home.editSlide.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successEdit'));
+      await utils.home.invalidate();
       router.push('/slides');
     },
   });
 
   const deleteSlideImage = api.home.deleteSlideImage.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successDeleteImage'));
       setPreviewImage(undefined);
+      await utils.home.invalidate();
       router.refresh();
     },
   });
 
   const deleteSlide = api.home.deleteSlide.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successDelete'));
+      await utils.home.invalidate();
       router.push('/slides');
     },
   });

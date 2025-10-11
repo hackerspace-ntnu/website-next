@@ -6,7 +6,6 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { SlideForm } from '@/components/home/SlideForm';
 import { BannerForm } from '@/components/management/banners/BannerForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';

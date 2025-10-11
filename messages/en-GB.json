@@ -1084,9 +1084,70 @@
       "name": "Banners",
       "title": "Manage Banners",
       "description": "Manage banners displayed on the website.",
+      "content": "Content",
+      "pages": "Pages",
+      "expiresAt": "Expires at",
+      "active": "Active",
+      "create": "Create new banner",
+      "editBanner": "Edit banner",
+      "edit": {
+        "backToBanners": "Back to banners",
+        "edit": "Edit",
+        "unauthorized": "Unauthorized to edit banners"
+      },
+      "new": {
+        "backToBanners": "Back to banners",
+        "create": "Create",
+        "unauthorized": "Unauthorized to create new banners"
+      },
+      "form": {
+        "contentNorwegian": {
+          "label": "Banner content (Norwegian)",
+          "placeholder": "Velkommen til Hackerspace NTNU!",
+          "required": "Banner content is required"
+        },
+        "contentEnglish": {
+          "label": "Banner content (English)",
+          "placeholder": "Welcome to Hackerspace NTNU!",
+          "required": "Banner content is required"
+        },
+        "active": {
+          "label": "Active",
+          "invalid": "Invalid value for active"
+        },
+        "expiresAt": {
+          "label": "Expires at"
+        },
+        "pagesMatch": {
+          "label": "Selected pages",
+          "placeholder": "/,/storage*,/management/banners/*/edit",
+          "description": "The banner will be shown on the selected pages. You can use * as a wildcard",
+          "required": "Selecting pages is required",
+          "charactersInvalid": "You can only use the following characters: {characters}",
+          "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)"
+        },
+        "editSubmit": "Edit banner",
+        "createSubmit": "Create banner",
+        "delete": {
+          "label": "Delete banner",
+          "confirmTitle": "Are you sure you want to delete the banner?",
+          "confirmDescription": "This action cannot be undone"
+        }
+      },
       "api": {
-        "fetchBannersFailed": "Failed to fetch banners"
-      }
+        "invalidId": "Invalid ID",
+        "activeInvalid": "Invalid value for active",
+        "successCreate": "Banner created successfully",
+        "successEdit": "Banner edited successfully",
+        "successDelete": "Banner deleted successfully",
+        "changingActive": "Changing banner to {active, select, true {active} other {inactive}}...",
+        "successChangeActive": "Banner is now {active, select, true {active} other {inactive}}",
+        "errorChangingActive": "Couldn't change banner to {active, select, true {active} other {inactive}}",
+        "fetchBannersFailed": "Failed to fetch banners",
+        "insertFailed": "Failed to create banner",
+        "bannerNotFound": "The banner could not be found"
+      },
+      "unauthorized": "Unauthorized to manage banners"
     }
   },
   "applications": {

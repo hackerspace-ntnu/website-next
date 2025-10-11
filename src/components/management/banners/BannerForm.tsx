@@ -31,6 +31,8 @@ function BannerForm({ banner }: BannerFormProps) {
   const t = useTranslations('management.banners.form');
   const tApi = useTranslations('management.banners.api');
   const tUi = useTranslations('ui');
+
+  const utils = api.useUtils();
   const router = useRouter();
 
   const english = banner?.localizations.find(
@@ -41,22 +43,25 @@ function BannerForm({ banner }: BannerFormProps) {
   );
 
   const createBanner = api.banners.createBanner.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successCreate'));
+      await utils.banners.invalidate();
       router.push('/management/banners');
     },
   });
 
   const editBanner = api.banners.editBanner.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successEdit'));
+      await utils.banners.invalidate();
       router.push('/management/banners');
     },
   });
 
   const deleteBanner = api.banners.deleteBanner.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(tApi('successDelete'));
+      await utils.banners.invalidate();
       router.push('/management/banners');
     },
   });
@@ -108,18 +113,14 @@ function BannerForm({ banner }: BannerFormProps) {
         {(field) => <field.CheckboxField label={t('active.label')} />}
       </form.AppField>
       <form.AppField name='expiresAt'>
-        {(field) => (
-          <field.DateTimeField
-            label={t('expiresAt.label')}
-            placeholder={t('expiresAt.placeholder')}
-          />
-        )}
+        {(field) => <field.DateTimeField label={t('expiresAt.label')} />}
       </form.AppField>
       <form.AppField name='pagesMatch'>
         {(field) => (
           <field.TextField
             label={t('pagesMatch.label')}
             placeholder={t('pagesMatch.placeholder')}
+            description={t('pagesMatch.description')}
           />
         )}
       </form.AppField>
