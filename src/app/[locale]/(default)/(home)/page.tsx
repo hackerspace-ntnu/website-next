@@ -77,7 +77,7 @@ export default async function HomePage({
         </div>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/news.jpg' imgAlt={t('newsAlt')} imgSide='left'>
+      <TextBlock imgSrc='/ducks.jpg' imgAlt={t('newsAlt')} imgSide='left'>
         <h2>{t('news')}</h2>
         <div className='flex flex-col gap-3 md:flex-row '>
           <div className='flex flex-col gap-3 lg:w-1/2'>
