@@ -1699,13 +1699,13 @@ const bannersData: InsertBanner[] = [
   {
     active: false,
     pagesMatch: '/storage*',
-    pagesRegex: '/storage.*',
+    pagesRegex: '^/storage.*$',
   },
   {
     active: true,
     expiresAt: new Date('2025-01-12T17:00:00+02:00'),
     pagesMatch: '/applications/apply',
-    pagesRegex: '/applications/apply',
+    pagesRegex: '^/applications/apply$',
   },
 ];
 

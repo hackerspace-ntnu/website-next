@@ -77,11 +77,9 @@ function SlideForm({ slide }: SlideFormProps) {
     },
   });
 
-  const schema = slideSchema(translations);
-
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onChange: slideSchema(translations),
     },
     defaultValues: {
       image: null as string | null,

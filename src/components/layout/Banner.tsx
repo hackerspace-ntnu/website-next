@@ -24,18 +24,19 @@ function Banner() {
     { enabled: fetchBanners },
   );
 
+  if (!banners || banners.length === 0) return;
+
   return (
     <div className='-mb-4 relative mt-4'>
       <div
         className={cx(
-          'w-screen bg-yellow-300 text-center text-black',
+          'w-screen bg-yellow-300 py-2 text-center text-black',
           path === '/' && 'absolute z-10',
         )}
       >
         <Carousel
           opts={{
             loop: true,
-            watchDrag: false,
             duration: 50,
           }}
           plugins={[
@@ -55,7 +56,7 @@ function Banner() {
                   key={banner.id}
                   className='flex items-center justify-center pl-0'
                 >
-                  <span className='my-2 max-w-4/5'>
+                  <span className='max-w-4/5'>
                     {bannerLocalization?.content}
                   </span>
                 </CarouselItem>

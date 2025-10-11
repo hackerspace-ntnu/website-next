@@ -7,19 +7,20 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { SlideForm } from '@/components/home/SlideForm';
+import { BannerForm } from '@/components/management/banners/BannerForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export default async function EditSlidePage({
+export default async function EditBannerPage({
   params,
 }: {
-  params: Promise<{ locale: string; slideId: string }>;
+  params: Promise<{ locale: string; bannerId: string }>;
 }) {
-  const { locale, slideId } = await params;
+  const { locale, bannerId } = await params;
   setRequestLocale(locale as Locale);
 
-  const t = await getTranslations('home.slides.edit');
-  const { ui, home } = await getMessages();
+  const t = await getTranslations('management.banners.edit');
+  const { ui, management } = await getMessages();
 
   const { user } = await api.auth.state();
 
@@ -28,39 +29,39 @@ export default async function EditSlidePage({
     throw new Error(t('unauthorized'));
   }
 
-  const processedSlideId = Number(slideId);
+  const processedBannerId = Number(bannerId);
   if (
-    Number.isNaN(processedSlideId) ||
-    !Number.isInteger(processedSlideId) ||
-    processedSlideId < 1
+    Number.isNaN(processedBannerId) ||
+    !Number.isInteger(processedBannerId) ||
+    processedBannerId < 1
   ) {
     return notFound();
   }
 
-  const slide = await api.home.fetchSlide({ id: processedSlideId });
+  const banner = await api.banners.fetchBanner({ id: processedBannerId });
 
-  if (!slide) {
+  if (!banner) {
     return notFound();
   }
 
   return (
     <>
       <Link
-        href='/slides'
+        href='/management/banners'
         className='my-4 flex w-fit gap-2'
         variant='secondary'
         size='default'
-        aria-label={t('backToSlides')}
+        aria-label={t('backToBanners')}
       >
         <ArrowLeftIcon aria-hidden='true' />
-        {t('backToSlides')}
+        {t('backToBanners')}
       </Link>
       <h1 className='my-4 text-center'>{t('edit')}</h1>
       <NextIntlClientProvider
-        messages={{ ui, home } as Pick<Messages, 'ui' | 'home'>}
+        messages={{ ui, management } as Pick<Messages, 'ui' | 'management'>}
       >
         <div className='mx-auto w-full max-w-2xl'>
-          <SlideForm slide={slide} />
+          <BannerForm banner={banner} />
         </div>
       </NextIntlClientProvider>
     </>

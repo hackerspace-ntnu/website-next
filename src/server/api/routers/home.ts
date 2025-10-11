@@ -92,7 +92,7 @@ const homeRouter = createRouter({
       if (!slide)
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('news.api.insertFailed'),
+          message: ctx.t('home.api.insertFailed'),
           cause: { toast: 'error' },
         });
 
@@ -187,9 +187,6 @@ const homeRouter = createRouter({
       await ctx.db
         .delete(homeCarouselSlides)
         .where(eq(homeCarouselSlides.id, input.id));
-      await ctx.db
-        .delete(homeCarouselSlideLocalizations)
-        .where(eq(homeCarouselSlideLocalizations.slideId, input.id));
     }),
   deleteSlideImage: leadershipProcedure
     .input((input) =>
