@@ -195,6 +195,7 @@
     },
     "api": {
       "invalidId": "Invalid ID",
+      "insertFailed": "Failed to add slide",
       "activeInvalid": "Invalid value for active",
       "slideNotFound": "The slide could not be found",
       "slideImageNotFound": "The slide image could not be found",

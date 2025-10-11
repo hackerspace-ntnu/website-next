@@ -195,6 +195,7 @@
     },
     "api": {
       "invalidId": "Ugyldig ID",
+      "insertFailed": "Kunne ikke legge til slide",
       "activeInvalid": "Ugyldig verdi for aktiv",
       "slideNotFound": "Kunne ikke finne banneret",
       "slideImageNotFound": "Kunne ikke finne bilde til banneret",
