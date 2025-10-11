@@ -691,7 +691,7 @@ function OTPField({
       );
     }
 
-    return groups.map((groupIndex, groupSize) => (
+    return groups.map((groupSize, groupIndex) => (
       <Fragment key={`group-${field.name}-${groupIndex}`}>
         {groupIndex > 0 && <InputOtpSeparator />}
         <InputOtpGroup>

@@ -1,6 +1,7 @@
 export * from './applications';
 export * from './auth';
 export * from './events';
+export * from './forgotPassword';
 export * from './groups';
 export * from './news';
 export * from './quotes';

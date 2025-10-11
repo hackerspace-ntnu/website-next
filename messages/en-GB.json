@@ -6,6 +6,7 @@
     "open": "Open",
     "close": "Close",
     "previous": "Previous",
+    "goBack": "Go back",
     "goToPreviousPage": "Go to previous page",
     "next": "Next",
     "goToNextPage": "Go to next page",
@@ -59,6 +60,9 @@
     "signIn": "Sign in",
     "useYourAccount": "Use your account",
     "forgotPassword": "Forgot password",
+    "forgotPasswordDescription": "Enter your Hackerspace account email address to reset your password.",
+    "forgotPasswordInfoToast": "We've sent you a one-time code to reset your password if the email <strong>{email}</strong> is associated with a Hackerspace account.<br></br>If you've used the wrong email, please create a new forgot password request.",
+    "enterTheCode": "Please enter the code we've sent to your email to confirm the password change",
     "submit": "Submit",
     "invalidCredentials": "Invalid credentials",
     "matrixRegistrationFailed": "Matrix user registration failed",
@@ -75,6 +79,8 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
+    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "tryAgain": "Try again",
     "form": {
       "username": {
         "label": "Username",
@@ -88,18 +94,29 @@
         "required": "Password is required",
         "minLength": "Password must be at least {count} characters",
         "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
         "uppercase": "Password must contain at least one uppercase letter",
         "specialChar": "Password must contain at least one special character",
         "confirmLabel": "Confirm password",
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
       },
+      "newPassword": {
+        "label": "New password"
+      },
       "otp": {
         "label": "One-time password",
         "required": "One-time password is required",
         "length": "One-time password must be {count} characters long",
         "invalid": "One-time password must only contain digits and characters",
-        "incorrect": "Incorrect one-time password"
+        "incorrect": "Incorrect one-time password",
+        "expired": "One-time password has expired.",
+        "used": "One-time password has already been used. Please create a new forgot password request."
+      },
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Email is invalid"
       }
     },
     "error": {
@@ -109,7 +126,12 @@
       "phoneInUse": "Phone number is already in use",
       "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
-      "userCreationFailed": "Failed to create user"
+      "userCreationFailed": "Failed to create user",
+      "forgotPasswordRequestCreationFailed": "Failed to create forgot password request",
+      "failedToSendEmail": "Failed to send email",
+      "forgotPasswordRequestIdRequired": "Forgot password request ID is required",
+      "matrixPasswordUpdateFailed": "Failed to update Matrix password",
+      "passwordUpdateFailed": "Failed to update password"
     }
   },
   "layout": {
@@ -135,6 +157,7 @@
     "profile": "Profile",
     "signIn": "Sign in",
     "signOut": "Sign out",
+    "forgotPassword": "Forgot password",
     "settings": "Settings",
     "management": "Management",
     "links": "Links",

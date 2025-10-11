@@ -2,6 +2,7 @@ export * from './applications';
 export * from './emails';
 export * from './events';
 export * from './files';
+export * from './forgotPassword';
 export * from './groups';
 export * from './loans';
 export * from './locales';
