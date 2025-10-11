@@ -1694,7 +1694,7 @@ const ruleLocalizationsData: InsertRuleLocalization[] = [
 
 const bannersData: InsertBanner[] = [
   {
-    active: true,
+    active: false,
   },
   {
     active: false,
@@ -1702,7 +1702,7 @@ const bannersData: InsertBanner[] = [
     pagesRegex: '^/storage.*$',
   },
   {
-    active: true,
+    active: false,
     expiresAt: new Date('2025-01-12T17:00:00+02:00'),
     pagesMatch: '/applications/apply',
     pagesRegex: '^/applications/apply$',
