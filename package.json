@@ -79,6 +79,7 @@
     "drizzle-zod": "^0.7.1",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "escape-string-regexp": "^5.0.0",
     "input-otp": "^1.4.2",
     "libphonenumber-js": "^1.12.8",
     "lodash.debounce": "^4.0.8",
