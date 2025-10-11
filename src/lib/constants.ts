@@ -1,3 +1,5 @@
+import { routing } from '@/lib/locale';
+
 const groupIdentifiers = [
   'devops',
   'labops',
@@ -45,60 +47,9 @@ const toolDescriptionFields = [
 ] as const;
 
 // All pages where a banner can be shown
-const bannerPages = [
-  '/',
-  '/slides',
-  '/slides/[slideId]/edit',
-  '/slides/new',
-  '/about',
-  '/about/group/[name]',
-  '/about/group/[name]/edit',
-  '/about/group/new',
-  '/applications/apply',
-  '/applications/thank-you',
-  '/applications/view',
-  '/applications/view/[appId]',
-  '/events',
-  '/events/[eventId]',
-  '/events/[eventId]/edit',
-  '/events/new',
-  '/management',
-  '/management/banners',
-  '/management/banners/[bannerId]/edit',
-  '/management/banners/new',
-  '/management/skills',
-  '/management/skills/[skillIdentifier]',
-  '/management/skills/new',
-  '/management/users',
-  '/members',
-  '/members/[memberId]',
-  '/news',
-  '/news/[articleId]',
-  '/news/[articleId]/edit',
-  '/news/new',
-  '/privacy-policy',
-  '/quotes',
-  '/quotes/[quoteId]/edit',
-  '/quotes/new',
-  '/reservations',
-  '/reservations/[reservationId]',
-  '/rules',
-  '/rules/[subsetId]',
-  '/rules/[subsetId]/edit',
-  '/rules/new',
-  '/shift-schedule',
-  '/storage',
-  '/storage/categories',
-  '/storage/item/[itemId]',
-  '/storage/item/[itemId]/edit',
-  '/storage/item/new',
-  '/storage/loans',
-  '/storage/loans/user',
-  '/storage/shopping-cart',
-  '/settings',
-  '/settings/account',
-  '/settings/notifications',
-] as const;
+const bannerPages = Object.keys(routing.pathnames)
+  .filter((path) => !path.startsWith('/auth'))
+  .filter((path) => path !== '/too-many-requests');
 
 export {
   groupIdentifiers,

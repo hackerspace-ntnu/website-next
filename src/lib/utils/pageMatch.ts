@@ -12,7 +12,7 @@ function pageMatchToRegex(pageMatch: string) {
   // , -> \x2c -> |
   // Wrapped in ^(...)$ to match the entire path
   // TODO: Change to using RegExp.escape when it bacomes a part of the LTS version of Node.js
-  return `^(${escapeStringRegexp(pageMatch).replaceAll('\\*', '.*').replaceAll('\\x2c', '|')})$`;
+  return `^(${escapeStringRegexp(pageMatch).replaceAll('\\*', '.*').replaceAll(',', '|')})$`;
 }
 
 export { pageMatchToRegex };
