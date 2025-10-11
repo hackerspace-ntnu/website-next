@@ -131,7 +131,9 @@ function BannerForm({ banner }: BannerFormProps) {
         {(field) => <field.CheckboxField label={t('active.label')} />}
       </form.AppField>
       <form.AppField name='expiresAt'>
-        {(field) => <field.DateTimeField label={t('expiresAt.label')} />}
+        {(field) => (
+          <field.DateTimeField label={t('expiresAt.label')} required={false} />
+        )}
       </form.AppField>
       <form.AppField name='pagesMatch'>
         {(field) => (

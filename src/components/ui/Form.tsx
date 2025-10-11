@@ -589,6 +589,7 @@ type DateFieldProps = Omit<
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: React.ReactNode;
+  required?: boolean;
 };
 
 function DateField({
@@ -597,9 +598,10 @@ function DateField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: DateFieldProps) {
-  const field = useFieldContext<Date>();
+  const field = useFieldContext<Date | null>();
 
   return (
     <BaseField
@@ -609,12 +611,24 @@ function DateField({
       className={className}
       description={description}
     >
-      <DatePicker
-        date={field.state.value}
-        setDate={(date) => field.handleChange(date)}
-        onBlur={field.handleBlur}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <DatePicker
+          date={field.state.value ?? undefined}
+          setDate={(date) => field.handleChange(date)}
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
@@ -627,6 +641,7 @@ type DateTimeFieldProps = Omit<
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: React.ReactNode;
+  required?: boolean;
 };
 
 function DateTimeField({
@@ -635,9 +650,10 @@ function DateTimeField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: DateTimeFieldProps) {
-  const field = useFieldContext<Date>();
+  const field = useFieldContext<Date | null>();
 
   return (
     <BaseField
@@ -647,11 +663,23 @@ function DateTimeField({
       className={className}
       description={description}
     >
-      <DateTimePicker
-        onChange={(date) => date && field.handleChange(date)}
-        value={field.state.value}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <DateTimePicker
+          onChange={(date) => date && field.handleChange(date)}
+          value={field.state.value ?? undefined}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
