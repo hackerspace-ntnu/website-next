@@ -111,6 +111,7 @@ function RegisterShiftForm({
             <form.SubmitButton
               loading={registerShift.isPending || unregisterShift.isPending}
               variant={canUnregister ? 'destructive' : 'default'}
+              allowPristine={true}
             >
               {getButtonText()}
             </form.SubmitButton>

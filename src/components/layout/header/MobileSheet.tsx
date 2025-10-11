@@ -23,6 +23,7 @@ import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 type MobileSheetProps = {
   className?: string;
   isMember?: boolean;
+  isLoggedIn?: boolean;
   viewApplications: boolean;
   t: {
     navigationMenu: string;
@@ -38,17 +39,27 @@ type MobileSheetProps = {
     applications: string;
     quotes: string;
     hackerspaceHome: string;
-    goToMatrix: string;
     changeLocale: string;
     toggleTheme: string;
     light: string;
     dark: string;
     system: string;
+    matrix: {
+      title: string;
+      descriptionNotLoggedIn: string;
+      descriptionLoggedIn: string;
+      iHaveAnAccount: string;
+      createAnAccount: string;
+      dontShowAgain: string;
+      openMatrix: string;
+      invalidValue: string;
+    };
   };
 };
 
 function MobileSheet({
   className,
+  isLoggedIn,
   isMember,
   viewApplications,
   t,
@@ -115,7 +126,20 @@ function MobileSheet({
           />
         </div>
         <SheetFooter className='absolute bottom-2 flex flex-row'>
-          <MatrixLink t={{ title: t.goToMatrix }} className='xs:hidden' />
+          <MatrixLink
+            t={{
+              title: t.matrix.title,
+              descriptionNotLoggedIn: t.matrix.descriptionNotLoggedIn,
+              descriptionLoggedIn: t.matrix.descriptionLoggedIn,
+              iHaveAnAccount: t.matrix.iHaveAnAccount,
+              createAnAccount: t.matrix.createAnAccount,
+              dontShowAgain: t.matrix.dontShowAgain,
+              openMatrix: t.matrix.openMatrix,
+              invalidValue: t.matrix.invalidValue,
+            }}
+            isLoggedIn={!!isLoggedIn}
+            className='xs:hidden'
+          />
           <LocaleMenu
             t={{
               changeLocale: t.changeLocale,

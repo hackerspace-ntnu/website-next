@@ -146,7 +146,6 @@
     "members": "Members",
     "quotes": "Quotes",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
-    "goToMatrix": "Go to Matrix",
     "rules": "Rules",
     "applications": "Applications",
     "changeLocale": "Change language",
@@ -182,6 +181,18 @@
     "allRightsReserved": "All rights reserved",
     "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
     "reservations": "Reservations"
+  },
+  "matrixDialog": {
+    "title": "Matrix Login Information",
+    "descriptionNotLoggedIn": "You must have a Hackerspace Account to use Matrix. Do you have a Hackerspace Account already?",
+    "iHaveAnAccount": "I have an account, take me to Matrix",
+    "createAnAccount": "Create a Hackerspace Account",
+    "descriptionLoggedIn": "When logging in to Matrix, please use your NTNU username (without @ntnu.no) and the Hackerspace Account password. Username and password should be changed here on the Hackerspace website.",
+    "dontShowAgain": "Alright, don't show this again",
+    "openMatrix": "Open Matrix",
+    "api": {
+      "invalidValue": "Invalid value for don't show again"
+    }
   },
   "news": {
     "title": "News",
