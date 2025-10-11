@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, isNull, or, sql } from 'drizzle-orm';
+import { pageMatchToRegex } from '@/lib/utils/pageMatch';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -69,15 +70,13 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const pagesRegex = `^(${RegExp.escape(input.pagesMatch).replaceAll('\\*', '.*').replaceAll('\\x2c', '|')})$`;
-
       const [banner] = await ctx.db
         .insert(banners)
         .values({
           active: input.active,
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
-          pagesRegex,
+          pagesRegex: pageMatchToRegex(input.pagesMatch),
         })
         .returning({ id: banners.id });
 
@@ -105,15 +104,13 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const pagesRegex = `^(${RegExp.escape(input.pagesMatch).replaceAll('\\*', '.*').replaceAll('\\x2c', '|')})$`;
-
       await ctx.db
         .update(banners)
         .set({
           active: input.active,
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
-          pagesRegex,
+          pagesRegex: pageMatchToRegex(input.pagesMatch),
         })
         .where(eq(banners.id, input.id));
 

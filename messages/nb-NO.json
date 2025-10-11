@@ -1125,7 +1125,8 @@
           "description": "Banneret vil bli vist på de valgte sidene. Du kan bruke * som wildcard",
           "required": "Valg av sider er påkrevd",
           "charactersInvalid": "Du kan bare bruke følgende tegn: {characters}",
-          "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)"
+          "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)",
+          "displayLabel": "Vis alle sider"
         },
         "editSubmit": "Rediger banner",
         "createSubmit": "Lag banner",

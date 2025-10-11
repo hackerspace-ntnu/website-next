@@ -1125,7 +1125,8 @@
           "description": "The banner will be shown on the selected pages. You can use * as a wildcard",
           "required": "Selecting pages is required",
           "charactersInvalid": "You can only use the following characters: {characters}",
-          "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)"
+          "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)",
+          "displayLabel": "Show all pages"
         },
         "editSubmit": "Edit banner",
         "createSubmit": "Create banner",

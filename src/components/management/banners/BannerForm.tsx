@@ -1,6 +1,13 @@
 'use client';
 
+import { useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/Accordion';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -17,7 +24,10 @@ import { useAppForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import { bannerPages } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
+import { cx } from '@/lib/utils';
+import { pageMatchToRegex } from '@/lib/utils/pageMatch';
 import type { RouterOutput } from '@/server/api';
 import { bannerSchema } from '@/validations/banners/bannerSchema';
 
@@ -85,6 +95,12 @@ function BannerForm({ banner }: BannerFormProps) {
     },
   });
 
+  const pagesRegex = useStore(form.store, (state) => {
+    if (state.fieldMeta.pagesMatch?.errors?.length === 0) {
+      return pageMatchToRegex(state.values.pagesMatch);
+    }
+  });
+
   return (
     <form
       onSubmit={(e) => {
@@ -124,6 +140,25 @@ function BannerForm({ banner }: BannerFormProps) {
           />
         )}
       </form.AppField>
+      <Accordion type='single' collapsible>
+        <AccordionItem value='paths'>
+          <AccordionTrigger className='-mt-4 cursor-pointer hover:no-underline'>
+            {t('pagesMatch.displayLabel')}
+          </AccordionTrigger>
+          <AccordionContent className='flex flex-wrap gap-2'>
+            {bannerPages.map((path) => (
+              <div
+                key={path}
+                className={cx(
+                  pagesRegex && path.match(pagesRegex) && 'text-primary',
+                )}
+              >
+                {path}
+              </div>
+            ))}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
       <div className='flex w-full justify-between'>
         <form.AppForm>
           <form.SubmitButton>

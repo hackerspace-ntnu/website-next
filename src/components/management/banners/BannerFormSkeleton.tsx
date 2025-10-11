@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
@@ -27,6 +28,11 @@ async function BannerFormSkeleton({ bannerExists }: BannerFormSkeletonProps) {
       <Skeleton className='h-10 w-full rounded-lg' />
       <Label className='mb-2'>{t('pagesMatch.label')}</Label>
       <Skeleton className='h-10 w-full rounded-lg' />
+      <div className='flex justify-between'>
+        <span>{t('pagesMatch.displayLabel')}</span>
+
+        <ChevronDownIcon className='h-4 w-4 text-foreground/60' />
+      </div>
       <div className='flex w-full justify-between'>
         <Button>{bannerExists ? t('editSubmit') : t('createSubmit')}</Button>
         {bannerExists && (
