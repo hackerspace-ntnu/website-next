@@ -24,6 +24,12 @@ function bannerSchema(t: Translations) {
         /^(?!.*(\/\/|--|\*\*|,{2,}|\[{2,}|\]{2,})).+$/,
         t('management.banners.form.pagesMatch.doubleSymbolsInvalid'),
       ),
+    className: z.string().regex(
+      /^[a-zA-Z0-9-\s]*$/,
+      t('management.banners.form.className.charactersInvalid', {
+        characters: 'a-z A-Z 0-9 -',
+      }),
+    ),
   });
 }
 

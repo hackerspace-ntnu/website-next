@@ -174,7 +174,7 @@
     "eventsAlt": "Bilde fra tetris 2-turnering i et av arrangementene våre",
     "news": "Nyheter",
     "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
-    "newsAlt": "Bilde av gummidukker merket med Hackerspace-logoen",
+    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen",
     "slides": {
       "unauthorized": "Uautorisert til å administrere hjemmesidens bannere",
       "image": "Bilde",
@@ -1127,6 +1127,12 @@
           "charactersInvalid": "Du kan bare bruke følgende tegn: {characters}",
           "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)",
           "displayLabel": "Vis alle sider"
+        },
+        "className": {
+          "label": "Tailwind CSS-klassenavn",
+          "placeholder": "bg-red-500 text-white py-4",
+          "description": "Valgfritt: Du kan angi selvvalgte Tailwind CSS-klassenavn. Dette kan brukes til å for eksempel bytte <link>fargen</link> til banneret. Merk: Du er fullt ansvarlig for inputen din, da den kan ødelegge nettstedets design eller tilgjengelighet hvis den brukes feil.",
+          "charactersInvalid": "Ugyldig klassenavn. Du kan bare bruke følgende tegn: {characters}"
         },
         "editSubmit": "Rediger banner",
         "createSubmit": "Lag banner",

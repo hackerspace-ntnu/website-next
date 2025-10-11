@@ -1128,6 +1128,12 @@
           "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)",
           "displayLabel": "Show all pages"
         },
+        "className": {
+          "label": "Tailwind CSS class names",
+          "placeholder": "bg-red-500 text-white py-4",
+          "description": "Optionally, you can set Tailwind CSS class names of your choice. This can be for example used to change <link>the color</link> of the banner. Warning: You are fully responsible for your input, as it may break the website's design or accessibility if used incorrectly.",
+          "charactersInvalid": "Invalid class name. You can only use the following characters: {characters}"
+        },
         "editSubmit": "Edit banner",
         "createSubmit": "Create banner",
         "delete": {

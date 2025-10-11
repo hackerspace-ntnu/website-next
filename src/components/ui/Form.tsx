@@ -55,7 +55,7 @@ type BaseFieldProps = {
   className?: string;
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
   labelSibling?: React.ReactNode;
   children: React.ReactNode;
 };
@@ -135,7 +135,7 @@ type TextFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextField({
@@ -174,7 +174,7 @@ type NumberFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function NumberField({
@@ -213,7 +213,7 @@ type TextAreaFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextAreaField({
@@ -250,7 +250,7 @@ type CheckboxFieldProps = Omit<
 > & {
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function CheckboxField({
@@ -330,7 +330,7 @@ type MapFieldProps = {
   zoom?: number;
   coordinates?: Location;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 const DEFAULT_COORDINATES: Location = {
@@ -403,7 +403,7 @@ type SelectFieldProps = {
   options: SelectOption[];
   required?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function SelectField({
@@ -467,7 +467,7 @@ type ComboboxFieldProps = Omit<
   className?: string;
   placeholder: string;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   comboboxDescription: string;
 };
 
@@ -512,7 +512,7 @@ type PhoneFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PhoneField({
@@ -550,7 +550,7 @@ type PasswordFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PasswordField({
@@ -588,7 +588,7 @@ type DateFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function DateField({
@@ -626,7 +626,7 @@ type DateTimeFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function DateTimeField({
@@ -665,7 +665,7 @@ type OTPFieldProps = Omit<
   labelSibling?: React.ReactNode;
   slots?: number;
   groups?: number[];
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function OTPField({
@@ -743,7 +743,7 @@ type RadioGroupFieldProps = {
   className?: string;
   options: RadioOption[];
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function RadioGroupField({
@@ -787,7 +787,7 @@ type FileUploadFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   className?: string;
   validator?: (value: string) => { success: boolean; error?: ZodError };
 };
@@ -983,7 +983,7 @@ type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   calendarClassName?: string;
 };
 

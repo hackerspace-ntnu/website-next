@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/AlertDialog';
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
+import { ExternalLink } from '@/components/ui/Link';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
@@ -86,6 +87,7 @@ function BannerForm({ banner }: BannerFormProps) {
       active: banner?.active ?? true,
       expiresAt: banner?.expiresAt ?? null,
       pagesMatch: banner?.pagesMatch ?? '',
+      className: banner?.className ?? '',
     },
     onSubmit: ({ value }) => {
       if (banner) {
@@ -159,6 +161,21 @@ function BannerForm({ banner }: BannerFormProps) {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <form.AppField name='className'>
+        {(field) => (
+          <field.TextField
+            label={t('className.label')}
+            placeholder={t('className.placeholder')}
+            description={t.rich('className.description', {
+              link: (chunks) => (
+                <ExternalLink href='https://tailwindcss.com/docs/colors'>
+                  {chunks}
+                </ExternalLink>
+              ),
+            })}
+          />
+        )}
+      </form.AppField>
       <div className='flex w-full justify-between'>
         <form.AppForm>
           <form.SubmitButton>

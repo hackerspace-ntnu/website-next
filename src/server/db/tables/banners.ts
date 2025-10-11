@@ -20,6 +20,7 @@ const banners = pgTable('banners', {
   expiresAt: timestamp('expires_at'),
   pagesMatch: text('pages_match').notNull().default('*'),
   pagesRegex: text('pages_regex').notNull().default('.*'),
+  className: text('class_name'),
 });
 
 const bannerLocalizations = pgTable(

@@ -77,6 +77,7 @@ const bannersRouter = createRouter({
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
           pagesRegex: pageMatchToRegex(input.pagesMatch),
+          className: input.className,
         })
         .returning({ id: banners.id });
 
@@ -111,6 +112,7 @@ const bannersRouter = createRouter({
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
           pagesRegex: pageMatchToRegex(input.pagesMatch),
+          className: input.className,
         })
         .where(eq(banners.id, input.id));
 

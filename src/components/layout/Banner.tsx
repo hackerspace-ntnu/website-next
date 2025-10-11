@@ -30,7 +30,7 @@ function Banner() {
     <div className='-mb-4 relative mt-4'>
       <div
         className={cx(
-          'w-screen bg-yellow-300 py-2 text-center text-black',
+          'w-screen text-center text-black',
           path === '/' && 'absolute z-10',
         )}
       >
@@ -54,7 +54,10 @@ function Banner() {
               return (
                 <CarouselItem
                   key={banner.id}
-                  className='flex items-center justify-center pl-0'
+                  className={cx(
+                    'flex items-center justify-center bg-yellow-300 py-2 pl-0',
+                    banner.className,
+                  )}
                 >
                   <span className='max-w-4/5'>
                     {bannerLocalization?.content}

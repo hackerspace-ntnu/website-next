@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/Button';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { Label } from '@/components/ui/Label';
+import { ExternalLink } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 type BannerFormSkeletonProps = {
@@ -30,8 +31,20 @@ async function BannerFormSkeleton({ bannerExists }: BannerFormSkeletonProps) {
       <Skeleton className='h-10 w-full rounded-lg' />
       <div className='flex justify-between'>
         <span>{t('pagesMatch.displayLabel')}</span>
-
         <ChevronDownIcon className='h-4 w-4 text-foreground/60' />
+      </div>
+      <div>
+        <Label>{t('className.label')}</Label>
+        <p className='mb-2 text-muted-foreground text-sm'>
+          {t.rich('className.description', {
+            link: (chunks) => (
+              <ExternalLink href='https://tailwindcss.com/docs/colors'>
+                {chunks}
+              </ExternalLink>
+            ),
+          })}
+        </p>
+        <Skeleton className='flex h-10 w-full rounded-md' />
       </div>
       <div className='flex w-full justify-between'>
         <Button>{bannerExists ? t('editSubmit') : t('createSubmit')}</Button>
