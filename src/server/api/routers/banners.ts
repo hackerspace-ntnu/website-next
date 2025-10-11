@@ -69,7 +69,7 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const pagesRegex = `^(${input.pagesMatch.replace('*', '.*').replace(',', '|').replace('[', '\\[').replace(']', '\\]')})$`;
+      const pagesRegex = `^(${input.pagesMatch.replace(/\*/g, '.*').replace(/,/g, '|').replace(/\[/g, '\\[').replace(/\]/g, '\\]')})$`;
 
       const [banner] = await ctx.db
         .insert(banners)
@@ -105,7 +105,7 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const pagesRegex = `^(${input.pagesMatch.replace('*', '.*').replace(',', '|').replace('[', '\\[').replace(']', '\\]')})$`;
+      const pagesRegex = `^(${input.pagesMatch.replace(/\*/g, '.*').replace(/,/g, '|').replace(/\[/g, '\\[').replace(/\]/g, '\\]')})$`;
 
       await ctx.db
         .update(banners)
