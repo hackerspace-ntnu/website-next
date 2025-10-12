@@ -11,8 +11,10 @@ import {
   groupsData,
   homeCarouselSlideLocalizationsData,
   homeCarouselSlidesData,
+  printerSpecsData,
   quoteLocalizationsData,
   quotesData,
+  reservationsData,
   ruleLocalizationsData,
   rulesData,
   shiftsData,
@@ -20,6 +22,8 @@ import {
   storageItemCategoriesData,
   storageItemLocalizationsData,
   storageItemsData,
+  toolLocalizationsData,
+  toolsData,
   usersData,
   usersGroupsData,
   usersSkillsData,
@@ -38,13 +42,17 @@ import {
   itemLocalizations,
   newsArticleLocalizations,
   newsArticles,
+  printerSpecs,
   quoteLocalizations,
   quotes,
+  reservations,
   ruleLocalizations,
   rules,
   shifts,
   skills,
   storageItems,
+  toolLocalizations,
+  tools,
   users,
   usersGroups,
   usersSkills,
@@ -135,6 +143,22 @@ async function main() {
   console.log('Inserting news article localizations...');
   await db.insert(newsArticleLocalizations).values(articleLocalizationsData);
   console.log('News article localizations inserted');
+
+  console.log('Inserting tools...');
+  await db.insert(tools).values(toolsData);
+  console.log('Tools inserted');
+
+  console.log('Inserting printer specs...');
+  await db.insert(printerSpecs).values(printerSpecsData);
+  console.log('Printer specs inserted');
+
+  console.log('Inserting tools localizations...');
+  await db.insert(toolLocalizations).values(toolLocalizationsData);
+  console.log('Tools localizations inserted');
+
+  console.log('Inserting reservations...');
+  await db.insert(reservations).values(reservationsData);
+  console.log('Reservations inserted');
 
   console.log('Inserting quotes...');
   await db.insert(quotes).values(quotesData);

@@ -2,32 +2,19 @@ import type {
   DateSelectArg,
   DateSpanApi,
   DatesSetArg,
-  DayCellMountArg,
   EventClickArg,
-  EventDropArg,
   EventInput,
   EventMountArg,
   FormatDateOptions,
   WeekNumberContentArg,
 } from '@fullcalendar/core';
-import type { EventResizeDoneArg } from '@fullcalendar/interaction/index.js';
+import type { RefObject } from '@fullcalendar/core/preact';
+import type FullCalendar from '@fullcalendar/react';
 
-/**
- * Had to make a config file for the calendar because original calendar got too big..
- */
-export const viewTypes = {
-  timeGridDay: {
-    type: 'timeGrid',
-    duration: { days: 1 },
-  },
-  timeGridThreeDay: {
-    type: 'timeGrid',
-    duration: { days: 3 },
-  },
-  timeGridWeek: {
-    type: 'timeGrid',
-    duration: { days: 7 },
-  },
+const viewTypes = {
+  timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
+  timeGridThreeDay: { type: 'timeGrid', duration: { days: 3 } },
+  timeGridWeek: { type: 'timeGrid' },
 };
 
 const timeFormats: {
@@ -36,113 +23,137 @@ const timeFormats: {
   titleFormat: FormatDateOptions;
   dayHeaderFormat: FormatDateOptions;
 } = {
-  eventTimeFormat: {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  },
-  slotLabelFormat: {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  },
-  titleFormat: {
-    month: 'long',
-    year: 'numeric',
-    day: 'numeric',
-  },
-  dayHeaderFormat: {
-    weekday: 'short',
-    month: '2-digit',
-    day: '2-digit',
-  },
+  eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
+  slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
+  titleFormat: { month: 'long', year: 'numeric', day: 'numeric' },
+  dayHeaderFormat: { weekday: 'short', month: '2-digit', day: '2-digit' },
 };
 
 type CalendarConfigProps = {
+  calendarRef: RefObject<FullCalendar | null>;
   isLoggedIn: boolean;
   isMember: boolean;
-  userId: string;
-  view: string;
+  memberId: number;
+  isLaptop: boolean;
+  isIpad: boolean;
+  view: {
+    name: string;
+    snapToToday: boolean;
+    manual: boolean;
+  };
+  onViewChange: (view: string) => void;
   handleDatesSet: (info: DatesSetArg) => void;
   handleSelectSlot: (info: DateSelectArg) => void;
-  handleEventClick: (info: EventClickArg) => void;
-  handleEventDrop: (info: EventDropArg) => void;
-  handleEventResize: (info: EventResizeDoneArg) => void;
-  t: {
-    week: string;
-  };
+  handleEventClick?: (info: EventClickArg) => void;
+  t: { week: string };
 };
 
 function createCalendarConfig({
+  calendarRef,
   isLoggedIn,
   isMember,
-  userId,
+  memberId,
+  isLaptop,
+  isIpad,
   view,
+  onViewChange,
   handleDatesSet,
   handleSelectSlot,
   handleEventClick,
-  handleEventDrop,
-  handleEventResize,
   t,
 }: CalendarConfigProps) {
+  function decideView() {
+    if (isLaptop) return 'timeGridWeek';
+    if (isIpad) return 'timeGridThreeDay';
+    return 'timeGridDay';
+  }
+
   return {
     ...timeFormats,
-    select: handleSelectSlot,
+
+    rerenderDelay: 0,
+    progressiveEventRendering: true,
+    scrollTimeReset: false,
     views: viewTypes,
-    viewClassNames: 'text-base w-full border-border',
-    eventClassNames: 'break-words text-center bg-secondary',
-    eventBorderColor: 'transparent',
-    eventBackgroundColor: 'inherit',
-    eventResizableFromStart: true,
-    weekNumbers: true,
-    weekNumberFormat: { week: 'numeric' as const },
-    weekNumberContent: (info: WeekNumberContentArg) => `${t.week} ${info.num}`,
+    initialView: view.name,
+    headerToolbar: false,
+    height: 750,
+    scrollTime: '10:00:00',
+    allDaySlot: false,
+    nowIndicator: true,
+    firstDay: 1,
+    snapDuration: '00:15:00',
+    slotDuration: isMember ? '00:30:00' : '00:15:00',
+    slotLabelInterval: isMember ? '01:00:00' : '00:30:00',
     slotMinTime: isMember ? '00:00:00' : '10:00:00',
     slotMaxTime: isMember ? '23:59:59' : '18:00:00',
     weekends: isMember,
-    initialView: view,
-    headerToolbar: false as false,
-    datesSet: handleDatesSet,
-    height: 650,
+
+    // keep this or else reservations/events wont show when logged out
+    businessHours: {
+      startTime: '00:00:00',
+      endTime: '23:59:59',
+      daysOfWeek: 'all',
+    },
+
+    // selection
     selectable: true,
+    select: handleSelectSlot,
+    selectOverlap: false,
     selectMirror: true,
     selectAllow: (info: DateSpanApi) =>
-      Date.now() - info.start.getTime() <= 0 && isLoggedIn,
-    selectOverlap: false,
+      (isMember || isLoggedIn) && info.start.getTime() >= Date.now(),
+    longPressDelay: 200,
+
+    // event/reservations
+    editable: true,
+    eventStartEditable: false,
+    eventDurationEditable: false,
     eventOverlap: false,
-    eventClick: handleEventClick,
-    eventDrop: handleEventDrop,
-    eventResize: handleEventResize,
+    eventClick: (info: EventClickArg) => handleEventClick?.(info),
     eventDataTransform: (eventInfo: EventInput) => ({
       ...eventInfo,
-      editable: eventInfo.extendedProps?.userId === userId,
+      editable: false,
     }),
-    droppable: true,
-    allDaySlot: false,
-    nowIndicator: true,
-    snapDuration: '00:15:00',
-    slotDuration: '00:30:00',
-    slotLabelInterval: '01:00',
-    selectLongPressDelay: 200,
-    firstDay: 1,
+
+    // styling
+    viewClassNames: 'text-base w-full border-border',
+    eventClassNames: 'break-words w-full text-center ',
+    eventBorderColor: 'transparent',
+    eventBackgroundColor: 'inherit',
+    eventTextColor: 'inherit',
+    weekNumbers: true,
+    weekNumberFormat: { week: 'numeric' },
+    weekNumberContent: (info: WeekNumberContentArg) => `${t.week} ${info.num}`,
+
+    datesSet: handleDatesSet,
+
+    // user reservations styling vs other users
     eventDidMount: (info: EventMountArg) => {
-      const isOwn = info.event.extendedProps.userId === userId;
+      const isOwn = info.event.extendedProps.userId === memberId;
       info.el.style.backgroundColor =
-        isOwn && isLoggedIn ? 'var(--primary)' : 'oklch(27.8% 0.033 256.848)';
-      info.el.style.borderColor = 'var(--border)';
-      info.el.style.color =
-        isOwn && isLoggedIn ? 'var(--primary-foreground)' : '';
-      info.el.style.borderRadius = '0.4rem';
-    },
-    dayCellDidMount: (info: DayCellMountArg) => {
-      if (info.isToday) {
-        info.el.style.backgroundColor = 'oklch(from var(--accent) l c h / 0.5)';
-      } else if (info.isPast) {
-        info.el.style.backgroundColor = 'var(--destructive)';
-        info.el.style.opacity = '0.1';
+        (isOwn && (isMember || isLoggedIn)) || info.isMirror
+          ? 'var(--primary)'
+          : 'oklch(27.8% 0.033 256.848)';
+
+      if (info.isPast) {
+        info.el.style.filter = 'brightness(0.75)';
       }
     },
-  };
+
+    // view change
+    windowResize: () => {
+      if (view.manual) return;
+      const api = calendarRef.current?.getApi();
+      if (!api) return;
+      const nextView = decideView();
+
+      if (api.view.type !== nextView) {
+        api.changeView(nextView);
+        onViewChange(nextView);
+      }
+    },
+  } as const;
 }
 
-export { createCalendarConfig };
+export { viewTypes, createCalendarConfig };

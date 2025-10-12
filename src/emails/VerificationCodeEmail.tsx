@@ -5,11 +5,12 @@ import { Header } from '@/components/emails/Header';
 import { Wrapper } from '@/components/emails/Wrapper';
 import { routing } from '@/lib/locale';
 
+// Using default export to support React Email Dev Preview
 export default function VerificationCodeEmail({
   locale = routing.defaultLocale,
   theme = 'dark',
   publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  validationCode = 'ABCD-EFGH',
+  validationCode = 'ABCDEFGH',
 }: {
   locale: Locale;
   theme: 'dark' | 'light';

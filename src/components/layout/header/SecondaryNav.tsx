@@ -13,6 +13,7 @@ type SecondaryNavProps = {
     shiftSchedule: string;
     members: string;
     rules: string;
+    reservations: string;
     applications: string;
     quotes: string;
   };
@@ -37,11 +38,14 @@ function SecondaryNav({
     <Link key={3} variant='nav' onClick={onClick} href='/rules'>
       {t.rules}
     </Link>,
-    <Link key={4} variant='nav' onClick={onClick} href='/quotes'>
+    <Link key={4} variant='nav' onClick={onClick} href='/reservations'>
+      {t.reservations}
+    </Link>,
+    <Link key={5} variant='nav' onClick={onClick} href='/quotes'>
       {t.quotes}
     </Link>,
     viewApplications ? (
-      <Link key={5} variant='nav' onClick={onClick} href='/applications/view'>
+      <Link key={6} variant='nav' onClick={onClick} href='/applications/view'>
         {t.applications}
       </Link>
     ) : null,

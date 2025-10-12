@@ -1,92 +1,52 @@
 'use client';
 
-import { useId, useState } from 'react';
-import { ExpandedToolCard } from '@/components/reservations/ExpandedToolCard';
-import { HorizontalToolCard } from '@/components/reservations/HorizontalToolCard';
+import { PlusIcon } from 'lucide-react';
 import { ToolCard } from '@/components/reservations/ToolCard';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
+import { Link } from '@/components/ui/Link';
+import type { RouterOutput } from '@/server/api';
 
 export type Tool = {
-  type: string;
-  title: string;
-  toolId: string;
-  nickName?: string;
-  krever?: string;
-  photoUrl: string;
-  difficulty?: number;
+  toolId: number;
+  type: '3dprinter' | 'other';
+  name: string;
+  nickName: string;
+  description: string;
+  difficulty: number;
+  requires: string;
+  imageId: number;
+  imageUrl: string | null;
+  status: 'available' | 'unavailable' | 'out_of_order' | 'requires_supervision';
   filamentSize?: string;
   filamentType?: string;
   slicer?: string;
-  available?: boolean;
-  textContent?: string;
 };
 
 type ToolCardGridProps = {
-  tools: Tool[];
+  tools: RouterOutput['tools']['fetchTools'];
+  user?: RouterOutput['auth']['state']['user'];
 };
 
-export function ToolCardGrid({ tools }: ToolCardGridProps) {
-  const isDesktop = useMediaQuery('(min-width: 45.4rem)');
-  const [currentTool, setCurrentTool] = useState<Tool | null>(null);
-  const id = useId();
-
+function ToolCardGrid({ tools, user }: ToolCardGridProps) {
   return (
     <div className='size-full'>
-      {currentTool && (
-        <ExpandedToolCard
-          currentTool={currentTool}
-          open={!!currentTool}
-          onOpenChange={() => setCurrentTool(null)}
-          onCloseButton={() => setCurrentTool(null)}
-        />
-      )}
-      {!isDesktop ? (
-        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-          {tools.map(
-            (tool) =>
-              tool.type === 'printer' && (
-                <HorizontalToolCard
-                  key={`printer-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
+      <div className='mx-auto w-fit max-w-5xl'>
+        <div className='mb-4 flex w-full justify-end'>
+          {user?.groups.some((g) =>
+            ['labops', 'leadership', 'admin'].includes(g),
+          ) && (
+            <Link href='/reservations/tools/new' variant='default' size='icon'>
+              <PlusIcon />
+            </Link>
           )}
-          {tools.map(
-            (tool) =>
-              tool.type === 'annet' && (
-                <HorizontalToolCard
-                  key={`annet-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-        </ul>
-      ) : (
-        <ul className='mx-auto flex w-full max-w-5xl flex-wrap items-center justify-center gap-4'>
-          {tools.map(
-            (tool) =>
-              tool.type === 'printer' && (
-                <ToolCard
-                  key={`printer-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-          {tools.map(
-            (tool) =>
-              tool.type === 'annet' && (
-                <ToolCard
-                  key={`annet-${tool.title}-${id}`}
-                  tool={tool}
-                  onClick={() => setCurrentTool(tool)}
-                />
-              ),
-          )}
-        </ul>
-      )}
+        </div>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+          {tools.map((tool) => (
+            <ToolCard tool={tool as Tool} user={user} key={tool.toolId} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
+
+export { ToolCardGrid };

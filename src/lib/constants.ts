@@ -39,12 +39,21 @@ const timeslotTimes = {
 const studyYears = ['1', '2', '3', '4', '5', 'other'] as const;
 
 const toolDescriptionFields = [
-  'krever',
-  'difficulty',
-  'filamentSize',
-  'filamentType',
-  'slicer',
+  { key: 'requires', label: 'requires' },
+  { key: 'difficulty', label: 'difficulty' },
+  { key: 'filamentSize', label: 'filamentSize' },
+  { key: 'filamentType', label: 'filamentType' },
+  { key: 'slicer', label: 'slicer' },
 ] as const;
+
+const toolStatus = [
+  'available',
+  'unavailable',
+  'out_of_order',
+  'requires_supervision',
+] as const;
+
+const tooltype = ['3dprinter', 'other'] as const;
 
 // All pages where a banner can be shown
 const bannerPages = Object.keys(routing.pathnames)
@@ -60,4 +69,6 @@ export {
   studyYears,
   toolDescriptionFields,
   bannerPages,
+  tooltype,
+  toolStatus,
 };

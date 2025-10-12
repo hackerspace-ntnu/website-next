@@ -1,54 +1,164 @@
-import type { EventContentArg } from '@fullcalendar/core';
-import '@/lib/styles/calendar.css';
-import { ArrowDownToLineIcon, ArrowUpToLineIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/Separator';
+'use client';
 
-type CustomEventStylingProps = {
-  isLoggedIn: boolean;
-  userId: string;
+import type { EventContentArg } from '@fullcalendar/core';
+import {
+  MailIcon,
+  Maximize2Icon,
+  PhoneIcon,
+  StickyNoteIcon,
+} from 'lucide-react';
+import { useFormatter, useTranslations } from 'next-intl';
+import { DeleteReservationButton } from '@/components/reservations/DeleteReservationButton';
+import { Button } from '@/components/ui/Button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/Dialog';
+import { cx } from '@/lib/utils';
+
+type Props = {
   eventInfo: EventContentArg;
+  memberId: number;
+  isPast: boolean;
+  isManagement: boolean;
 };
 
 function CustomEventContent({
-  isLoggedIn,
-  userId,
   eventInfo,
-}: CustomEventStylingProps) {
-  const res = eventInfo;
+  memberId,
+  isPast,
+  isManagement,
+}: Props) {
+  const t = useTranslations('reservations');
+  const format = useFormatter();
+
+  const isOwner = eventInfo.event.extendedProps.userId === memberId;
+
+  const sameDay =
+    eventInfo.event.start &&
+    eventInfo.event.end &&
+    eventInfo.event.start.getDay() === eventInfo.event.end.getDay();
+
+  const start = eventInfo.event.start
+    ? format.dateTime(eventInfo.event.start, {
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : '';
+
+  const end = eventInfo.event.end
+    ? format.dateTime(eventInfo.event.end, {
+        ...(sameDay ? {} : { weekday: 'short' }),
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    : '';
+
   const durationMs =
-    (res.event.end?.getTime() ?? 0) - (res.event.start?.getTime() ?? 0);
+    (eventInfo.event.end?.getTime() ?? 0) -
+    (eventInfo.event.start?.getTime() ?? 0);
   const durationHours = durationMs ? durationMs / (1000 * 60 * 60) : 0;
 
-  const infoBlock = (
-    <div className='w-full'>
-      <span className='font-extrabold'>{eventInfo.timeText}</span> <br />
-      {res.event.extendedProps.name} <br />
-      {res.event.extendedProps.phoneNr} <br />
-      {res.event.extendedProps.email}
+  const InfoBlock = (
+    <div className='flex w-full max-w-md flex-col'>
+      {!eventInfo.isMirror && (
+        <Maximize2Icon
+          className={cx(
+            'ml-auto h-4 w-4',
+            isOwner ? 'text-foreground' : 'text-white',
+          )}
+        />
+      )}
+      <p
+        className={cx(
+          'clamp-[text-lg-sm-clamp] p-2',
+          isOwner || eventInfo.isMirror ? 'text-foreground' : 'text-white',
+        )}
+      >
+        <span className='clamp-[text-lg-sm-clamp] font-extrabold'>
+          {start} - {end}
+        </span>
+        <span className='block break-words'>
+          {eventInfo.event.extendedProps.name}
+        </span>
+      </p>
     </div>
   );
 
-  return (
-    <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
-      {isLoggedIn && userId === res.event.extendedProps.userId && (
-        <div className='flex w-full flex-col'>
-          <ArrowUpToLineIcon className='clamp-[size-base-xs-clamp] self-center' />
-          <Separator className='mb-1 w-full dark:bg-foreground' />
-        </div>
-      )}
-      <div className='clamp-[text-lg-sm-clamp] flex size-full flex-col items-center justify-between gap-64 overflow-hidden px-1 py-2 font-semibold'>
-        {infoBlock}
-        {durationHours >= 6 && infoBlock}
-        {durationHours >= 12 && infoBlock}
-      </div>
-
-      {isLoggedIn && userId === res.event.extendedProps.userId && (
-        <div className='flex w-full flex-col'>
-          <Separator className='mt-1 w-full dark:bg-foreground' />
-          <ArrowDownToLineIcon className='self-center' />
-        </div>
-      )}
+  const ParentDiv = (
+    <div
+      title={
+        isOwner
+          ? t('customEventContent.tooltipUserEvent')
+          : t('customEventContent.tooltipOtherEvents')
+      }
+      className='flex h-full w-full cursor-pointer flex-col items-center justify-between gap-64 overflow-hidden p-1'
+    >
+      {InfoBlock}
+      {durationHours >= 6 && InfoBlock}
+      {durationHours >= 12 && InfoBlock}
     </div>
+  );
+
+  // if current user
+  if (isOwner && !isPast) return ParentDiv;
+
+  // other users
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{ParentDiv}</DialogTrigger>
+
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t('customEventContent.details')}</DialogTitle>
+          <DialogDescription className='sr-only'>
+            {t('customEventContent.details')}
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className='flex flex-col gap-3 py-4'>
+          <div className='flex flex-row items-start gap-2'>
+            <PhoneIcon className='h-4 w-4 flex-shrink-0' />
+            <span className='flex-1 break-all'>
+              {eventInfo.event.extendedProps.phoneNr}
+            </span>
+          </div>
+          <div className='flex flex-row items-start gap-2'>
+            <MailIcon className='h-4 w-4 flex-shrink-0' />
+            <span className='flex-1 break-all'>
+              {eventInfo.event.extendedProps.email}
+            </span>
+          </div>
+          <div className='flex max-w-sm flex-row items-start gap-2'>
+            <StickyNoteIcon className='h-4 w-4 flex-shrink-0' />
+            <span className='flex-1 break-words'>
+              {eventInfo.event.extendedProps.notes}
+            </span>
+          </div>
+        </div>
+
+        <DialogFooter className='sm:justify-between'>
+          {isManagement && (
+            <DeleteReservationButton
+              reservationId={eventInfo.event.extendedProps.reservationId}
+              toolId={eventInfo.event.extendedProps.toolId}
+              userId={eventInfo.event.extendedProps.userId}
+              variant='button'
+            />
+          )}
+          <DialogClose asChild>
+            <Button variant='secondary'>{t('customEventContent.close')}</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 

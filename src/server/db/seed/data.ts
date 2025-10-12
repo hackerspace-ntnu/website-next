@@ -17,11 +17,14 @@ import type {
   InsertNewsArticleLocalization,
   InsertQuote,
   InsertQuoteLocalization,
+  InsertReservation,
   InsertRule,
   InsertRuleLocalization,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
+  InsertTool,
+  InsertToolLocalization,
   InsertUser,
   InsertUserGroup,
   InsertUserSkill,
@@ -1418,6 +1421,356 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   },
 ];
 
+const toolsData: InsertTool[] = [
+  {
+    type: '3dprinter',
+    nickName: 'Geir Ove Mjølsnes',
+    difficulty: 3,
+    requires: 'SD-kort eller sky-overføring',
+    status: 'available',
+  },
+  {
+    type: '3dprinter',
+    nickName: 'Petter',
+    difficulty: 1,
+    requires: 'SD-kort',
+    status: 'available',
+  },
+  {
+    type: '3dprinter',
+    nickName: 'Kurt Kåre Rogers',
+    difficulty: 1,
+    requires: 'USB-stick',
+    status: 'available',
+  },
+  {
+    type: '3dprinter',
+    nickName: 'Gerd Gunda Brunsnes',
+    difficulty: 5,
+    requires: '',
+    status: 'out_of_order',
+  },
+  {
+    type: 'other',
+    nickName: '',
+    difficulty: 5,
+    requires: '',
+    status: 'requires_supervision',
+  },
+  {
+    type: 'other',
+    nickName: '',
+    difficulty: 5,
+    requires: '',
+    status: 'requires_supervision',
+  },
+];
+
+const toolLocalizationsData: InsertToolLocalization[] = [
+  {
+    toolId: 1,
+    locale: 'en-GB',
+    name: 'Bambu lab X1 Carbon',
+    description: `
+      Bambu Lab X1 Carbon FDM 3D printer with multi-color printing capability.
+      Uses 1.75mm filament.
+      Flexible or fragile filaments may only be used with approval from supervising members.
+      Recommended slicer: Bambu Studio.
+    `,
+  },
+  {
+    toolId: 1,
+    locale: 'nb-NO',
+    name: 'Bambu lab X1 Carbon',
+    description: `
+      Bambu lab X1 Carbon FDM 3D-printer med mulighet for flerfarget utskrift.
+      Bruker 1.75mm filament.
+      Bruk av fleksible eller skjøre filamenter skal kun gjøres med klarsignal fra vakthavende medlemmer.
+      Anbefalt slicer: Bambu studio
+    `,
+  },
+
+  {
+    toolId: 2,
+    locale: 'en-GB',
+    name: 'Prusa i3 MK3',
+    description: `
+      The original Prusa i3 MK3. A reliable, high-quality printer.
+      Put the sliced model on an SD card and print it out.
+      You can find SD cards in the workshop
+    `,
+  },
+  {
+    toolId: 2,
+    locale: 'nb-NO',
+    name: 'Prusa i3 MK3',
+    description: `
+      Den originale Prusa i3 MK3. En pålitelig printer av høy kvalitet.
+      Sett slicet modell på SD-kort og print ut.
+      SD-kort finner du på verkstedet.
+    `,
+  },
+
+  {
+    toolId: 3,
+    locale: 'en-GB',
+    name: 'Prusa MK4',
+    description: `
+      The original Prusa MK4.
+      A reliable, high-quality printer.
+      Put the sliced model on a USB stick and start.
+      The USB stick can be found in the workshop.
+    `,
+  },
+  {
+    toolId: 3,
+    locale: 'nb-NO',
+    name: 'Prusa MK4',
+    description: `
+      Den originale Prusa MK4.
+      En pålitelig printer av høy kvalitet.
+      Sett slicet modell på USB og start.
+      USB-stick ligger på verkstedet.
+    `,
+  },
+
+  {
+    toolId: 4,
+    locale: 'en-GB',
+    name: 'Creality Printmill Belt Printer',
+    description: `
+      With Gerd Gunda you have the possibility to 3D print in infinite length,
+      or mass-produce a print thanks to the belt as the build plate.
+      This special infinite-Z belt is the first of its kind in the world.
+      Produce long parts without having to glue several pieces together.
+      It's time to go even further beyond.
+
+      The nozzle is different from other 3D printers as it prints at a 45-degree angle.
+      Note! Only PLA filament can be used.
+    `,
+  },
+  {
+    toolId: 4,
+    locale: 'nb-NO',
+    name: 'Creality Printmill Belt Printer',
+    description: `
+      Med Gerd Gunda har du mulighet for å 3D-printe i uendelig lengde,
+      eller masseprodusere en utskrift takket være belte som byggeplate.
+      Dette spesielle infinite-Z-beltet er det første i sitt slag i verden.
+      Produser lange deler uten å måtte lime sammen flere biter.
+      It's time to go even further beyond.
+
+      Dysen skiller seg ut fra andre 3D-printere ved at den printer i en 45 graders vinkel.
+      NB! Bare PLA-filament kan brukes.
+    `,
+  },
+
+  {
+    toolId: 5,
+    locale: 'en-GB',
+    name: 'Lodding station',
+    description: `
+      We have a wide range of equipment to help you solder.
+      With a heat gun, soldering iron, and solder, you can prototype on a whole new level!
+    `,
+  },
+  {
+    toolId: 5,
+    locale: 'nb-NO',
+    name: 'Loddestasjon',
+    description: `
+      Vi har et stort sortiment med utstyr som hjelper deg å lodde.
+      Med både varmepistol, loddebolt og loddetinn kan du prototype på et nytt nivå!
+    `,
+  },
+
+  { toolId: 6, locale: 'en-GB', name: 'Fiberlaser', description: '' },
+  { toolId: 6, locale: 'nb-NO', name: 'Fiberlaser', description: '' },
+];
+
+const printerSpecsData = [
+  {
+    printerId: 1, // Bambu lab X1 Carbon
+    filamentSize: '1.75mm',
+    filamentType: 'Any',
+    slicer: 'Bambu Studio',
+  },
+  {
+    printerId: 2, // Prusa i3 MK3
+    filamentSize: '1.75mm',
+    filamentType: 'Any',
+    slicer: 'PrusaSlicer',
+  },
+  {
+    printerId: 3, // Prusa MK4
+    filamentSize: '1.75mm',
+    filamentType: 'Any',
+    slicer: 'PrusaSlicer',
+  },
+  {
+    printerId: 4, // Creality Printmill Belt Printer
+    filamentSize: 'Any',
+    filamentType: 'PLA',
+    slicer: '',
+  },
+];
+
+const reservationsData: InsertReservation[] = [
+  // User 1 — past week
+  {
+    toolId: 1,
+    userId: 1,
+    reservedFrom: new Date('2025-09-23T10:00:00+02:00'),
+    reservedUntil: new Date('2025-09-23T14:00:00+02:00'),
+    notes: 'PETG test on X1C',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 2,
+    userId: 1,
+    reservedFrom: new Date('2025-09-26T15:00:00+02:00'),
+    reservedUntil: new Date('2025-09-26T19:00:00+02:00'),
+    notes: 'PLA brackets on MK3',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 1 — current week
+  {
+    toolId: 3,
+    userId: 1,
+    reservedFrom: new Date('2025-09-30T09:00:00+02:00'),
+    reservedUntil: new Date('2025-09-30T12:00:00+02:00'),
+    notes: 'Quick prototype on MK4',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 1,
+    userId: 1,
+    reservedFrom: new Date('2025-10-02T17:00:00+02:00'),
+    reservedUntil: new Date('2025-10-02T21:00:00+02:00'),
+    notes: 'ASA enclosure test',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 1 — next week
+  {
+    toolId: 2,
+    userId: 1,
+    reservedFrom: new Date('2025-10-07T08:00:00+02:00'),
+    reservedUntil: new Date('2025-10-07T12:00:00+02:00'),
+    notes: 'Nylon print; approved',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 3,
+    userId: 1,
+    reservedFrom: new Date('2025-10-09T18:00:00+02:00'),
+    reservedUntil: new Date('2025-10-09T22:00:00+02:00'),
+    notes: 'Evening slot',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 2 — past week
+  {
+    toolId: 2,
+    userId: 2,
+    reservedFrom: new Date('2025-09-22T12:00:00+02:00'),
+    reservedUntil: new Date('2025-09-22T16:00:00+02:00'),
+    notes: 'Calibration cubes',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 3,
+    userId: 2,
+    reservedFrom: new Date('2025-09-27T10:00:00+02:00'),
+    reservedUntil: new Date('2025-09-27T14:00:00+02:00'),
+    notes: 'PETG gears',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 2 — current week
+  {
+    toolId: 1,
+    userId: 2,
+    reservedFrom: new Date('2025-10-01T12:00:00+02:00'),
+    reservedUntil: new Date('2025-10-01T16:00:00+02:00'),
+    notes: 'Functional prototype',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 2,
+    userId: 2,
+    reservedFrom: new Date('2025-10-03T13:00:00+02:00'),
+    reservedUntil: new Date('2025-10-03T17:00:00+02:00'),
+    notes: 'ABS prints (enclosure)',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 2 — next week
+  {
+    toolId: 3,
+    userId: 2,
+    reservedFrom: new Date('2025-10-06T18:00:00+02:00'),
+    reservedUntil: new Date('2025-10-06T22:00:00+02:00'),
+    notes: 'Long print; supervisor notified',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 1,
+    userId: 2,
+    reservedFrom: new Date('2025-10-10T09:00:00+02:00'),
+    reservedUntil: new Date('2025-10-10T13:00:00+02:00'),
+    notes: 'PETG brackets',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 3 — past week
+  {
+    toolId: 3,
+    userId: 3,
+    reservedFrom: new Date('2025-09-24T17:00:00+02:00'),
+    reservedUntil: new Date('2025-09-24T21:00:00+02:00'),
+    notes: 'USB stick provided',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 1,
+    userId: 3,
+    reservedFrom: new Date('2025-09-28T11:00:00+02:00'),
+    reservedUntil: new Date('2025-09-28T15:00:00+02:00'),
+    notes: 'Multi-color logo',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 3 — current week
+  {
+    toolId: 2,
+    userId: 3,
+    reservedFrom: new Date('2025-09-29T08:00:00+02:00'),
+    reservedUntil: new Date('2025-09-29T12:00:00+02:00'),
+    notes: 'Workshop prep',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 3,
+    userId: 3,
+    reservedFrom: new Date('2025-10-04T09:00:00+02:00'),
+    reservedUntil: new Date('2025-10-04T13:00:00+02:00'),
+    notes: 'PLA prototypes',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  // User 3 — next week
+  {
+    toolId: 1,
+    userId: 3,
+    reservedFrom: new Date('2025-10-08T14:00:00+02:00'),
+    reservedUntil: new Date('2025-10-08T18:00:00+02:00'),
+    notes: 'Enclosure panels',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+  {
+    toolId: 2,
+    userId: 3,
+    reservedFrom: new Date('2025-10-11T16:00:00+02:00'),
+    reservedUntil: new Date('2025-10-11T20:00:00+02:00'),
+    notes: 'Evening slot',
+    reservedAt: new Date('2025-10-01T10:27:00+02:00'),
+  },
+];
+
 const quotesData: InsertQuote[] = [
   {
     saidBy: 1,
@@ -1747,26 +2100,30 @@ const bannerLocalizationsData: InsertBannerLocalization[] = [
 ];
 
 export {
-  usersData,
-  groupsData,
-  groupLocalizationsData,
-  usersGroupsData,
-  skillsData,
-  usersSkillsData,
-  homeCarouselSlidesData,
-  homeCarouselSlideLocalizationsData,
-  storageItemCategoriesData,
-  storageItemsData,
-  storageItemLocalizationsData,
-  shiftsData,
-  eventsData,
-  eventLocalizationsData,
   articlesData,
   articleLocalizationsData,
-  quotesData,
-  quoteLocalizationsData,
-  rulesData,
-  ruleLocalizationsData,
-  bannersData,
   bannerLocalizationsData,
+  bannersData,
+  eventLocalizationsData,
+  eventsData,
+  groupLocalizationsData,
+  groupsData,
+  homeCarouselSlideLocalizationsData,
+  homeCarouselSlidesData,
+  printerSpecsData,
+  quoteLocalizationsData,
+  quotesData,
+  reservationsData,
+  ruleLocalizationsData,
+  rulesData,
+  shiftsData,
+  skillsData,
+  storageItemCategoriesData,
+  storageItemLocalizationsData,
+  storageItemsData,
+  toolLocalizationsData,
+  toolsData,
+  usersData,
+  usersGroupsData,
+  usersSkillsData,
 };

@@ -50,7 +50,13 @@ const ResponsiveDialog = ({
   const isDesktop = useMediaQuery(desktop);
   const ResponsiveDialog = isDesktop ? Dialog : Drawer;
 
-  return <ResponsiveDialog {...props}>{children}</ResponsiveDialog>;
+  // noBodyStyles is used to avoid flickering on mount,
+  // and to avoid page scrolling up when dialog is opened
+  return (
+    <ResponsiveDialog noBodyStyles {...props}>
+      {children}
+    </ResponsiveDialog>
+  );
 };
 
 const ResponsiveDialogTrigger = ({

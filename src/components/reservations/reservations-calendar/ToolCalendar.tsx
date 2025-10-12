@@ -1,376 +1,303 @@
 'use client';
 
 import { createCalendarConfig } from '@/components/reservations/reservations-calendar/CalendarConfig';
-import { CalendarConfirmDialog } from '@/components/reservations/reservations-calendar/CalendarConfirmDialog';
 import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import { CustomEventContent } from '@/components/reservations/reservations-calendar/CustomEventContent';
 import CustomToolbar from '@/components/reservations/reservations-calendar/CustomToolbar';
 import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
+import { ToolCalendarSkeleton } from '@/components/reservations/reservations-calendar/ToolCalendarSkeleton';
 import { Button } from '@/components/ui/Button';
-import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
+import { Link } from '@/components/ui/Link';
+import { api } from '@/lib/api/client';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import '@/lib/styles/calendar.css';
 import type {
   DateSelectArg,
   DatesSetArg,
-  EventClickArg,
   EventContentArg,
-  EventDropArg,
 } from '@fullcalendar/core';
-import interactionPlugin, {
-  type EventResizeDoneArg,
-} from '@fullcalendar/interaction';
+import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { Plus } from 'lucide-react';
-import { useFormatter, useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { keepPreviousData } from '@tanstack/react-query';
+import { EditIcon, PlusIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { RouterOutput, RouterOutputs } from '@/server/api';
 
-/** Temporary type for testing functionality till backend */
-type Reservation = {
-  toolType: string;
-  toolName: string;
-  toolId: string;
-  userId: string;
-  reservationId: string;
-  start: Date | string;
-  end: Date | string;
-  name: string | undefined;
-  phoneNr: string | undefined;
-  email: string | undefined;
+type ToolCalendarProps = {
+  tool: NonNullable<RouterOutput['tools']['fetchTool']>;
+  user: RouterOutputs['auth']['state']['user'];
 };
+type CalendarReservation =
+  RouterOutput['reservations']['fetchCalendarReservations'][number];
+type Range = { fromISO: string; untilISO: string };
 
-/**
- * For anyone having to edit or work on the code for the calendar:
- * Fullcalendar has quite a few props and options to work with,
- * but fortunately there is good documentation, examples, and explanations of hooks, props, types, etc., on their website and also in the GitHub repo:
- * https://fullcalendar.io/docs
- * https://github.com/fullcalendar/fullcalendar-examples/tree/main/react18
- * https://github.com/orgs/fullcalendar/repositories?type=all
- * https://github.com/fullcalendar/fullcalendar-react
- * https://stackblitz.com/github/fullcalendar/fullcalendar-examples/tree/main/react18?file=src%2FDemoApp.jsx
- * ^ Demo project made by fullcalendar themselves.
- * @returns ToolCalendar
- */
+function isFinished(reservedUntil: Date | string) {
+  const end =
+    reservedUntil instanceof Date ? reservedUntil : new Date(reservedUntil);
+  return end.getTime() <= Date.now();
+}
 
-export default function ToolCalendar() {
-  const format = useFormatter();
-  const t = useTranslations('reservations');
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [confirmAction, setConfirmAction] = useState<(() => void) | null>(null);
-  const [cancelAction, setCancelAction] = useState<(() => void) | null>(null);
-  const [storedReservations, setStoredReservations] = useLocalStorage<
-    Reservation[]
-  >('reservations', []);
-  const [date, setDate] = useState(new Date());
-  const [reservations, setReservations] = useState<Reservation[]>([]);
-  const calendarEvents = reservations.map((reserv) => ({
-    // id: reserv.reservationId, full calendar also generates unique userID
-    start: reserv.start,
-    end: reserv.end,
+function reservationToCalendarEvent(r: CalendarReservation) {
+  return {
+    id: String(r.reservationId),
+    start: new Date(r.reservedFrom),
+    end: new Date(r.reservedUntil),
     extendedProps: {
-      reservationId: reserv.reservationId,
-      toolType: reserv.toolType,
-      toolName: reserv.toolName,
-      toolId: reserv.toolId, // These are temporary just to ensure that correct reservations end up on the correct calendar, will probably be changed when backend begins
-      userId: reserv.userId, // This is again for testing, userID will not be sent when backend starts
-      name: reserv.name,
-      phoneNr: reserv.phoneNr,
-      email: reserv.email,
+      reservationId: r.reservationId,
+      userId: r.userId,
+      name: r.name,
+      phoneNr: r.phoneNr,
+      email: r.email,
+      notes: r.notes,
+      toolId: r.toolId,
+      finished: isFinished(r.reservedUntil),
     },
-  }));
+  } as const;
+}
+
+function ToolCalendar({ tool, user }: ToolCalendarProps) {
+  const t = useTranslations('reservations');
+  const isLoggedIn = !!user;
+  const isMember = user?.groups && user.groups.length > 0;
+  const isManagement = !!user?.groups.some((g) =>
+    ['management', 'leadership', 'admin'].includes(g),
+  );
+  const memberId = user?.id ?? 0;
+  const isLaptop = useMediaQuery('(min-width: 70rem)');
+  const isIpad = useMediaQuery('(min-width: 41.438rem)');
+
+  const [view, setView] = useState<{
+    name: string;
+    snapToToday: boolean;
+    manual: boolean;
+  } | null>(null);
+  const [range, setRange] = useState<Range | null>(null);
+  const debouncedSetRange = useDebounceCallback(setRange, 500);
+  const calendarRef = useRef<FullCalendar>(null);
+
+  // Used when creating a new reservation
   const [selectedSlot, setSelectedSlot] = useState<{
     start: Date;
     end: Date;
   } | null>(null);
-  const [selectedReservation, setSelectedReservation] =
-    useState<Reservation | null>(null);
-  const [view, setView] = useState<string>('timeGridDay');
-  const isLaptop = useMediaQuery('(min-width: 64.1rem)');
-  const isIPad = useMediaQuery('(min-width: 41.438rem)');
-  const calendarRef = useRef<FullCalendar>(null);
 
-  /**Midlertidig constandterf, endre disse verdiene for å teste ulike handlers, tabellen på main page osv.*/
-  const userId = '0a3b9320-4924-4734-98dc-f44f9144d591'; // miderltidig for å sjekke conditions på egne vs andres reservasjoner
-  const isMember = true;
-  const isLoggedIn = true;
-  const toolType = 'printer';
-  const toolName = 'Prusa i3 MK3';
-  const toolId = 'prusamk3';
-
-  function customEventStyling(eventInfo: EventContentArg) {
-    return (
-      <CustomEventContent
-        eventInfo={eventInfo}
-        userId={userId ?? ''}
-        isLoggedIn={isLoggedIn}
-      />
-    );
-  }
-
+  // Decide initial/auto view
   useEffect(() => {
-    if (isLaptop) {
-      setView('timeGridWeek');
-    } else if (isIPad) {
-      setView('timeGridThreeDay');
-    } else {
-      setView('timeGridDay');
-    }
-  }, [isIPad, isLaptop]);
+    if (view?.manual) return;
 
-  useEffect(() => {
-    // When you start connecting components to the backend, make sure to remove this and send in the data as a prop to this component - Martin
-    if (storedReservations) {
-      setReservations(storedReservations);
-    }
-  }, [storedReservations]);
+    const next = isLaptop
+      ? 'timeGridWeek'
+      : isIpad
+        ? 'timeGridThreeDay'
+        : 'timeGridDay';
 
-  function handleSelectSlot(selected: DateSelectArg) {
-    setSelectedSlot({
-      start: selected.start,
-      end: selected.end,
+    setView({
+      name: next,
+      snapToToday: next === 'timeGridDay' || next === 'timeGridThreeDay',
+      manual: false,
     });
-  }
+  }, [isLaptop, isIpad, view?.manual]);
 
-  function handleEventClick(clicked: EventClickArg) {
-    const event = clicked.event;
-    const isCurrentUsers = event.extendedProps.userId === userId;
-    if (isCurrentUsers) {
-      const exists = reservations.find(
-        (res) => res.reservationId === event.extendedProps.reservationId,
-      );
-      if (exists) {
-        setSelectedReservation(exists);
+  // ---------- Data fetching ----------
+  const reservationsQuery = api.reservations.fetchCalendarReservations.useQuery(
+    {
+      toolId: tool.id,
+      from: range?.fromISO ?? '',
+      until: range?.untilISO ?? '',
+    },
+    {
+      enabled: !!tool.id && !!range && view !== null,
+      refetchOnWindowFocus: false,
+      placeholderData: keepPreviousData,
+    },
+  );
+
+  const calendarReservations = useMemo(
+    () => (reservationsQuery.data ?? []).map(reservationToCalendarEvent),
+    [reservationsQuery.data],
+  );
+
+  // ---------- UI handlers ----------
+  const handleSelectSlot = useCallback((info: DateSelectArg) => {
+    setSelectedSlot({ start: info.start, end: info.end });
+    calendarRef.current?.getApi().unselect();
+  }, []);
+
+  const handleDatesSet = useCallback(
+    (info: DatesSetArg) => {
+      if (
+        view?.snapToToday &&
+        (info.view.type === 'timeGridDay' ||
+          info.view.type === 'timeGridThreeDay')
+      ) {
+        setView((view) => (view ? { ...view, snapToToday: false } : view));
+        calendarRef.current?.getApi().gotoDate(new Date());
       }
-    }
-  }
 
-  function handleUpdateEvent(
-    data: Omit<
-      Reservation,
-      | 'reservationId'
-      | 'toolType'
-      | 'toolName'
-      | 'toolId'
-      | 'reservationId'
-      | 'userId'
-    >,
-  ) {
-    if (!selectedReservation) return;
-    const updated = reservations.map((res) =>
-      res.reservationId === selectedReservation.reservationId
-        ? { ...res, ...data }
-        : res,
-    );
-    setReservations(updated);
-    setStoredReservations(updated);
-    setSelectedReservation(null);
-  }
+      if (view && info.view.type !== view.name) return;
 
-  function handleDeleteEvent(reservationId: string) {
-    const updated = reservations.filter(
-      (r) => r.reservationId !== reservationId,
-    );
-    setReservations(updated);
-    setStoredReservations(updated);
-    setSelectedReservation(null);
-  }
+      const startISO = info.view.activeStart.toISOString();
+      const endISO = info.view.activeEnd.toISOString();
 
-  function handleCreateEvent(
-    data: Omit<
-      Reservation,
-      | 'reservationId'
-      | 'toolType'
-      | 'toolName'
-      | 'toolId'
-      | 'reservationId'
-      | 'userId'
-    >,
-  ) {
-    const newEvent = {
-      toolType: toolType,
-      toolName: toolName,
-      toolId: toolId,
-      reservationId: crypto.randomUUID(),
-      userId: crypto.randomUUID(),
-      name: data.name,
-      phoneNr: data.phoneNr,
-      email: data.email,
-      start: new Date(data.start),
-      end: new Date(data.end),
-    };
-    const updated = [...(storedReservations || []), newEvent];
-    setStoredReservations(updated);
-    setReservations([...reservations, newEvent]);
-    setSelectedSlot(null);
-  }
+      debouncedSetRange({ fromISO: startISO, untilISO: endISO });
+    },
+    [view, debouncedSetRange],
+  );
 
-  function action(action: () => void, cancel?: () => void) {
-    setConfirmAction(() => action);
-    setCancelAction(() => cancel ?? (() => {}));
-    setConfirmOpen(true);
-  }
+  const renderEventContent = useCallback(
+    (eventInfo: EventContentArg) =>
+      eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
+        <CalendarDialog
+          isMember={!!isMember}
+          mode='edit'
+          toolId={eventInfo.event.extendedProps.toolId}
+          reservationId={eventInfo.event.extendedProps.reservationId}
+          userId={memberId}
+          range={{
+            start: eventInfo.event.start,
+            end: eventInfo.event.end,
+          }}
+          notes={eventInfo.event.extendedProps.notes ?? ''}
+          windowRange={{
+            from: eventInfo.view.activeStart.toISOString(),
+            until: eventInfo.view.activeEnd.toISOString(),
+          }}
+        >
+          <CustomEventContent
+            eventInfo={eventInfo}
+            memberId={memberId}
+            isPast={eventInfo.isPast}
+            isManagement={isManagement}
+          />
+        </CalendarDialog>
+      ) : (
+        <CustomEventContent
+          eventInfo={eventInfo}
+          memberId={memberId}
+          isPast={eventInfo.isPast}
+          isManagement={isManagement}
+        />
+      ),
+    [memberId, isMember, isManagement],
+  );
 
-  function handleEventResize(info: EventResizeDoneArg) {
-    action(
-      () => {
-        if (info.event.start && info.event.start < new Date()) {
-          info.revert();
-          return;
-        }
-        const { event } = info;
-        const updated = reservations.map((res) =>
-          res.userId === event.extendedProps?.userId
-            ? {
-                ...res,
-                start: event.start ?? res.start,
-                end: event.end ?? res.end,
-              }
-            : res,
-        );
-        setReservations(updated);
-        setStoredReservations(updated);
+  const calendarConfig = useMemo(() => {
+    if (!view) return null;
+    return createCalendarConfig({
+      calendarRef,
+      isLoggedIn,
+      isMember: !!isMember,
+      memberId,
+      isLaptop,
+      isIpad,
+      view,
+      onViewChange: (view) => {
+        setView({
+          name: view,
+          snapToToday: view === 'timeGridDay' || view === 'timeGridThreeDay',
+          manual: true,
+        });
       },
-      () => info.revert(),
-    );
-  }
-
-  function handleEventDrop(info: EventDropArg) {
-    action(
-      () => {
-        if (info.event.start && info.event.start < new Date()) {
-          info.revert();
-          return;
-        }
-
-        const { event } = info;
-        const updated = reservations.map((res) =>
-          res.userId === event.extendedProps?.userId
-            ? {
-                ...res,
-                start: event.start ?? res.start,
-                end: event.end ?? res.end,
-              }
-            : res,
-        );
-        setReservations(updated);
-        setStoredReservations(updated);
-      },
-      () => info.revert(),
-    );
-  }
-
-  useEffect(() => {
-    if (calendarRef.current) {
-      /**
-       * Bruker queueMicroTask for å unngå flushSync error:
-       * https://github.com/facebook/lexical/discussions/3536#discussioncomment-7441047 */
-      queueMicrotask(() => {
-        calendarRef.current?.getApi().changeView(view);
-      });
-    }
-  }, [view]);
-
-  function handleDatesSet(dateSet: DatesSetArg) {
-    setDate(dateSet.start);
-    if (calendarRef.current) {
-      calendarRef.current
-        ?.getApi()
-        .scrollToTime(
-          format.dateTime(Date.now(), { hour: 'numeric', minute: 'numeric' }),
-        );
-    }
-  }
-
-  const calendarConfig = createCalendarConfig({
-    isLoggedIn,
-    isMember,
-    userId,
+      handleDatesSet,
+      handleSelectSlot,
+      t: { week: t('toolbar.week') },
+    });
+  }, [
     view,
+    isMember,
+    isLoggedIn,
+    memberId,
+    isLaptop,
+    isIpad,
     handleDatesSet,
     handleSelectSlot,
-    handleEventClick,
-    handleEventDrop,
-    handleEventResize,
-    t: { week: t('toolbar.week') },
-  });
+    t,
+  ]);
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
-      <Button
-        variant='default'
-        className='mb-1 w-fit self-center'
-        onClick={() => setSelectedSlot({ start: new Date(), end: new Date() })}
-      >
-        <Plus className='mr-2 size-5' />
-        {t('calendar.createButton')}
-      </Button>
-      <CalendarDialog
-        open={!!selectedSlot}
-        onOpenChange={() => setSelectedSlot(null)}
-        start={selectedSlot?.start ?? new Date()}
-        end={selectedSlot?.end ?? new Date()}
-        mode='create'
-        onSubmit={handleCreateEvent}
-        onCancel={() => setSelectedSlot(null)}
-      />
-      <CalendarDialog
-        open={!!selectedReservation}
-        onOpenChange={() => setSelectedReservation(null)}
-        start={new Date(selectedReservation?.start ?? new Date())}
-        end={new Date(selectedReservation?.end ?? new Date())}
-        mode='view'
-        onSubmit={handleUpdateEvent}
-        onCancel={() => setSelectedReservation(null)}
-        onDelete={() =>
-          selectedReservation &&
-          handleDeleteEvent(selectedReservation.reservationId)
-        }
-        defaultValues={{
-          name: selectedReservation?.name,
-          email: selectedReservation?.email,
-          phoneNr: selectedReservation?.phoneNr,
-        }}
-      />
-      <div className='w-full overflow-hidden rounded-lg rounded-b-none border border-border bg-background text-foreground'>
-        <CustomToolbar
-          view={view}
-          date={date}
-          onViewChange={setView}
-          calendarRef={calendarRef}
-        />
-        <FullCalendar
-          ref={calendarRef}
-          plugins={[timeGridPlugin, interactionPlugin]}
-          events={calendarEvents}
-          {...calendarConfig}
-          locale={t('calendar.locale')}
-          eventContent={customEventStyling}
-        />
+      <div className='relative flex w-full justify-center'>
+        <Button
+          variant={isLoggedIn ? 'default' : 'secondary'}
+          className='mb-3'
+          onClick={() => {
+            setSelectedSlot({ start: new Date(), end: new Date() });
+          }}
+          disabled={!isLoggedIn}
+        >
+          <PlusIcon className='mr-2 size-5' />
+          {isLoggedIn
+            ? t('calendar.createButton')
+            : t('calendar.createButtonLoggedOut')}
+        </Button>
+        {user?.groups.some((g) =>
+          ['labops', 'leadership', 'admin'].includes(g),
+        ) && (
+          <Link
+            href={{
+              pathname: '/reservations/tools/[toolId]/edit',
+              params: { toolId: tool.id },
+            }}
+            variant='default'
+            size='icon'
+            className='absolute top-0 right-0'
+          >
+            <EditIcon />
+          </Link>
+        )}
       </div>
+
+      {selectedSlot && range && (
+        <CalendarDialog
+          isMember={!!isMember}
+          open
+          onOpenChange={(open) => !open && setSelectedSlot(null)}
+          mode='create'
+          toolId={tool.id}
+          userId={memberId}
+          range={{
+            start: selectedSlot.start,
+            end: selectedSlot.end,
+          }}
+          windowRange={{
+            from: range.fromISO,
+            until: range.untilISO,
+          }}
+        />
+      )}
+
       <InformationCard />
-      <CalendarConfirmDialog
-        open={confirmOpen}
-        onOpenChange={setConfirmOpen}
-        onConfirm={() => {
-          confirmAction?.();
-          setConfirmAction(null);
-          setCancelAction(null);
-        }}
-        onCancel={() => {
-          cancelAction?.();
-          setConfirmAction(null);
-          setCancelAction(null);
-        }}
-        t={{
-          title: t('confirmDialog.title'),
-          description: t('confirmDialog.description', {
-            action: 'endre tidspunkt for reservasjonen?',
-          }),
-          confirm: t('confirmDialog.confirm'),
-          cancel: t('confirmDialog.cancel'),
-        }}
-      />
+      {view && calendarConfig ? (
+        <div className='w-full overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
+          <CustomToolbar
+            calendarRef={calendarRef}
+            view={view.name}
+            onViewChange={(v) => {
+              setView((prev) =>
+                prev ? { ...prev, name: v, manual: true } : prev,
+              );
+            }}
+            isLaptop={isLaptop}
+            isIpad={isIpad}
+          />
+          <FullCalendar
+            key={`${view.name}-${memberId}`}
+            ref={calendarRef}
+            plugins={[timeGridPlugin, interactionPlugin]}
+            events={calendarReservations}
+            locale={t('calendar.locale')}
+            eventContent={renderEventContent}
+            {...calendarConfig}
+          />
+        </div>
+      ) : (
+        <ToolCalendarSkeleton />
+      )}
     </div>
   );
 }
+
+export { ToolCalendar };

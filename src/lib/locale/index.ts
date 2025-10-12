@@ -85,6 +85,10 @@ const routing = defineRouting({
       'en-GB': '/auth/forgot-password',
       'nb-NO': '/autentisering/glemt-passord',
     },
+    '/auth/forgot-password/[requestId]': {
+      'en-GB': '/auth/forgot-password/[requestId]',
+      'nb-NO': '/autentisering/glemt-passord/[requestId]',
+    },
     '/auth/verify-email': {
       'en-GB': '/auth/verify-email',
       'nb-NO': '/autentisering/bekreft-epost',
@@ -265,9 +269,17 @@ const routing = defineRouting({
       'en-GB': '/reservations',
       'nb-NO': '/reservasjoner',
     },
-    '/reservations/[reservationId]': {
-      'en-GB': '/reservations/[reservationId]',
-      'nb-NO': '/reservasjoner/[reservationId]',
+    '/reservations/[toolId]': {
+      'en-GB': '/reservations/[toolId]',
+      'nb-NO': '/reservasjoner/[toolId]',
+    },
+    '/reservations/tools/new': {
+      'en-GB': '/reservations/tools/new',
+      'nb-NO': '/reservasjoner/verktøy/ny',
+    },
+    '/reservations/tools/[toolId]/edit': {
+      'en-GB': '/reservations/tools/[toolId]/edit',
+      'nb-NO': '/reservasjoner/verktøy/[toolId]/rediger',
     },
   },
 });

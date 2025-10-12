@@ -4,12 +4,15 @@ import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { SidebarNavLink } from '@/components/settings/SidebarNavLink';
 import { ScrollArea } from '@/components/ui/ScrollArea';
-
+import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
 
-function SidebarNav({ className }: { className?: string }) {
+async function SidebarNav({ className }: { className?: string }) {
   const t = useTranslations('settings');
   const tLayout = useTranslations('layout');
+  const tMatrix = useTranslations('matrixDialog');
+
+  const { user } = await api.auth.state();
 
   return (
     <ScrollArea
@@ -28,7 +31,19 @@ function SidebarNav({ className }: { className?: string }) {
           </SidebarNavLink>
         </nav>
         <div className='flex min-w-fit shrink-0 px-2 lg:px-0 lg:py-2'>
-          <MatrixLink t={{ title: tLayout('goToMatrix') }} />
+          <MatrixLink
+            isLoggedIn={!!user}
+            t={{
+              title: tMatrix('title'),
+              descriptionNotLoggedIn: tMatrix('descriptionNotLoggedIn'),
+              descriptionLoggedIn: tMatrix('descriptionLoggedIn'),
+              iHaveAnAccount: tMatrix('iHaveAnAccount'),
+              createAnAccount: tMatrix('createAnAccount'),
+              dontShowAgain: tMatrix('dontShowAgain'),
+              openMatrix: tMatrix('openMatrix'),
+              invalidValue: tMatrix('api.invalidValue'),
+            }}
+          />
           <LocaleMenu
             t={{
               changeLocale: tLayout('changeLocale'),
