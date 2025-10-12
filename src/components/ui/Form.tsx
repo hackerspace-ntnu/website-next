@@ -51,6 +51,7 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { cx, type VariantProps } from '@/lib/utils';
 import { fileToBase64String } from '@/lib/utils/files';
 
@@ -1050,6 +1051,10 @@ function EditorField({
     value: field.state.value,
     ...props.initOptions,
   });
+  const debouncedOnChange = useDebounceCallback(
+    (value: Value) => field.handleChange(value),
+    500,
+  );
 
   return (
     <BaseField
@@ -1059,7 +1064,11 @@ function EditorField({
       className={className}
       description={description}
     >
-      <Plate editor={editor} {...props.plateOptions}>
+      <Plate
+        editor={editor}
+        onChange={({ value }) => debouncedOnChange(value)}
+        {...props.plateOptions}
+      >
         <EditorContainer
           className={cx(
             'rounded-lg border p-1',
@@ -1067,14 +1076,7 @@ function EditorField({
           )}
           {...props.containerOptions}
         >
-          <Editor
-            variant={props.variant}
-            onBlur={() => {
-              editor?.children && field.handleChange(editor.children);
-              field.handleBlur();
-            }}
-            {...props.editorOptions}
-          />
+          <Editor variant={props.variant} {...props.editorOptions} />
         </EditorContainer>
       </Plate>
     </BaseField>
