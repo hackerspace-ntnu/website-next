@@ -101,6 +101,7 @@ class S3Service {
 
 const directories = [
   'profile-pictures',
+  'home-carousel-slides',
   'news',
   'storage-items',
   'groups',

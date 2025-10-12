@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { endOfWeek } from 'date-fns';
 import { and, eq, gte, isNull, or, sql } from 'drizzle-orm';
-import { days, timeslots } from '@/lib/constants';
+import { days, timeslots, timeslotTimes } from '@/lib/constants';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   leadershipProcedure,
@@ -36,6 +36,60 @@ type Shift = {
 };
 
 const shiftScheduleRouter = createRouter({
+  fetchMembersOnShift: publicProcedure.query(async ({ ctx }) => {
+    const currentDate = new Date();
+
+    const currentDay = (() => {
+      switch (currentDate.getDay()) {
+        case 1:
+          return 'monday';
+        case 2:
+          return 'tuesday';
+        case 3:
+          return 'wednesday';
+        case 4:
+          return 'thursday';
+        case 5:
+          return 'friday';
+        default:
+          return undefined;
+      }
+    })();
+
+    const currentTimeslot = (() => {
+      const currentTime = new Date(
+        0,
+        0,
+        0,
+        currentDate.getHours(),
+        currentDate.getMinutes(),
+        0,
+        0,
+      );
+
+      for (const timeslot of timeslots) {
+        if (
+          timeslotTimes[timeslot].start <= currentTime &&
+          timeslotTimes[timeslot].end > currentTime
+        ) {
+          return timeslot;
+        }
+      }
+
+      return undefined;
+    })();
+
+    if (!currentDay || !currentTimeslot) return 0;
+
+    return (
+      await ctx.db.query.shifts.findMany({
+        where: and(
+          eq(shifts.day, currentDay),
+          eq(shifts.timeslot, currentTimeslot),
+        ),
+      })
+    ).length;
+  }),
   fetchShifts: publicProcedure.query(async ({ ctx }) => {
     const userShifts = await ctx.db
       .select({

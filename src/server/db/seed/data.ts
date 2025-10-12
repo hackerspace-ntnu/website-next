@@ -4,10 +4,14 @@ import type { Value } from 'platejs';
 import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
+  InsertBanner,
+  InsertBannerLocalization,
   InsertEvent,
   InsertEventLocalization,
   InsertGroup,
   InsertGroupLocalization,
+  InsertHomeCarouselSlide,
+  InsertHomeCarouselSlideLocalization,
   InsertItemCategory,
   InsertItemLocalization,
   InsertNewsArticle,
@@ -15,8 +19,8 @@ import type {
   InsertQuote,
   InsertQuoteLocalization,
   InsertReservation,
-  InsertRuleLocalizations,
-  InsertRules,
+  InsertRule,
+  InsertRuleLocalization,
   InsertShift,
   InsertSkill,
   InsertStorageItem,
@@ -390,7 +394,65 @@ const usersSkillsData: InsertUserSkill[] = [
   },
 ];
 
-const storageItemCategories: InsertItemCategory[] = [
+const homeCarouselSlidesData: InsertHomeCarouselSlide[] = [
+  {
+    active: true,
+  },
+  {
+    active: true,
+  },
+  {
+    active: false,
+  },
+];
+
+const homeCarouselSlideLocalizationsData: InsertHomeCarouselSlideLocalization[] =
+  [
+    {
+      slideId: 1,
+      heading: 'Are you a creator?',
+      description:
+        'We have the necessary equipment, facilities, and most importantly, knowledge to assist you in your next project.',
+      locale: 'en-GB',
+    },
+    {
+      slideId: 1,
+      heading: 'Har du en skaper i magen?',
+      description:
+        'Vi disponerer nødvendig utstyr, lokaler og ikke minst kunnskap for å bistå i ditt neste prosjekt.',
+      locale: 'nb-NO',
+    },
+    {
+      slideId: 2,
+      heading: 'Curious about VR?',
+      description:
+        'Whether you just want to try it out or are a veteran in VR development, we have both equipment and expertise in Virtual Reality at Hackerspace.',
+      locale: 'en-GB',
+    },
+    {
+      slideId: 2,
+      heading: 'Nysgjerrig på VR?',
+      description:
+        'Uansett om du bare har lyst til å teste det ut, eller er en veteran på VR-utvikling, har vi både utstyr og kompetanse innenfor Virtual Reality på Hackerspace.',
+      locale: 'nb-NO',
+    },
+    {
+      slideId: 3,
+      heading: 'Creative, innovative, and last but not least, social',
+      description:
+        "Hackerspace offers a venue for projects, whether it's IoT gadgets, software, 3D printing, or other cool things.",
+      locale: 'en-GB',
+    },
+    {
+      slideId: 3,
+      heading: 'Kreativt, innovativt og ikke minst sosialt',
+      description:
+        'Hackerspace tilbyr en arena for prosjekter, enten det er IoT-dingser, programvare, 3D-printing, eller andre kule ting.',
+      locale: 'nb-NO',
+    },
+  ];
+
+const storageItemCategoriesData: InsertItemCategory[] = [
   {
     nameEnglish: 'Cables',
     nameNorwegian: 'Kabler',
@@ -486,7 +548,7 @@ const storageItemsData: InsertStorageItem[] = [
   },
 ];
 
-const storageItemLocalizations: InsertItemLocalization[] = [
+const storageItemLocalizationsData: InsertItemLocalization[] = [
   {
     name: 'Laptop',
     location: 'Storage Room A',
@@ -1000,7 +1062,7 @@ const eventLocalizationsData: InsertEventLocalization[] = [
   },
 ];
 
-const articleData: InsertNewsArticle[] = [
+const articlesData: InsertNewsArticle[] = [
   {
     internal: true,
     createdAt: faker['en-GB'].date.past(),
@@ -1130,276 +1192,322 @@ const articleLocalizationsData: InsertNewsArticleLocalization[] = [
   {
     articleId: 1,
     title: 'Gruppestatus: Prosjekt spill',
+    preamble: 'Litt mer om hva som skjer i gruppa vår',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 1,
     title: 'Group status: Project Game',
+    preamble: 'A bit more about what is happening in our group',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 2,
     title: 'DevOps-møtet',
+    preamble: 'Hva skjedde på DevOps-møtet denne uken?',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 2,
     title: 'DevOps Meeting',
+    preamble: 'What happened at the DevOps meeting this week?',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 3,
     title: 'Jonas er kul',
+    preamble: 'En artikkel om hvor kul Jonas er',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 3,
     title: 'Jonas is cool',
+    preamble: 'An article about how cool Jonas is',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 4,
     title: 'Iskrem er godt',
+    preamble: 'En artikkel om iskrem',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 4,
     title: 'Ice cream is good',
+    preamble: 'An article about ice cream',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 5,
     title: 'Hvorfor er jeg her?',
+    preamble: 'En eksistensiell krise',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 5,
     title: 'Why am I here?',
+    preamble: 'An existential crisis',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 6,
     title: 'Hvorfor er jeg her?',
+    preamble: 'En eksistensiell krise',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 6,
     title: 'Why am I here?',
+    preamble: 'An existential crisis',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 7,
     title: 'Hvorfor er jeg her?',
+    preamble: 'En eksistensiell krise',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 7,
     title: 'Why am I here?',
+    preamble: 'An existential crisis',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 8,
     title: 'Dette er en veeeeldig lang overskrift som skal testes',
+    preamble: 'En artikkel med en veldig lang overskrift',
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 8,
     title: 'This is a veeeery long headline that should be tested',
+    preamble: 'An article with a very long headline',
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 9,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 9,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 10,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 10,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 11,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 11,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 12,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 12,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 13,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 13,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 14,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 14,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 15,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 15,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 16,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 16,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 17,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 17,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 18,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 18,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 19,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 19,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 20,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 20,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 21,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 21,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 22,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 22,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
   {
     articleId: 23,
     title: faker['nb-NO'].lorem.sentence(),
+    preamble: faker['nb-NO'].lorem.sentences(2),
     content: createPlateValue(faker['nb-NO'].lorem.paragraphs(3)),
     locale: 'nb-NO',
   },
   {
     articleId: 23,
     title: faker['en-GB'].lorem.sentence(),
+    preamble: faker['en-GB'].lorem.sentences(2),
     content: createPlateValue(faker['en-GB'].lorem.paragraphs(3)),
     locale: 'en-GB',
   },
@@ -1813,7 +1921,7 @@ for (let i = 3; i < 100; i++) {
   );
 }
 
-const rulesData: InsertRules[] = [
+const rulesData: InsertRule[] = [
   { internal: true },
   { internal: true },
   { internal: false },
@@ -1830,7 +1938,7 @@ const rulesData: InsertRules[] = [
   { internal: true },
 ];
 
-const ruleLocalizationData: InsertRuleLocalizations[] = [
+const ruleLocalizationsData: InsertRuleLocalization[] = [
   {
     ruleId: 1,
     name: 'Regler for regler',
@@ -2057,27 +2165,85 @@ const ruleLocalizationData: InsertRuleLocalizations[] = [
   },
 ];
 
+const bannersData: InsertBanner[] = [
+  {
+    active: false,
+  },
+  {
+    active: false,
+    pagesMatch: '/storage*',
+    pagesRegex: '^/storage.*$',
+  },
+  {
+    active: false,
+    expiresAt: new Date('2025-01-12T17:00:00+02:00'),
+    pagesMatch: '/applications/apply',
+    pagesRegex: '^/applications/apply$',
+  },
+];
+
+const bannerLocalizationsData: InsertBannerLocalization[] = [
+  {
+    bannerId: 1,
+    content:
+      'Vi har nå byttet nettside! Logg inn med Feide for å få bruker og konto i den nye Chat-tjenesten vår, Matrix.',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 1,
+    content:
+      'We have now switched the website! Sign in with Feide to get an account and try our new chat service, Matrix.',
+    locale: 'en-GB',
+  },
+  {
+    bannerId: 2,
+    content:
+      'Vi jobber fortsatt med å føre inn alt på verkstedet til lagersystemet, så det kan hende enkelte ting ikke er oppført. Hvis du lurer på om vi har spesifikt utstyr eller ønsker å låne noe som ikke ligger i lagersystemet kan du komme innom verkstedet og spørre om vi har det likevel!',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 2,
+    content:
+      "We're still in the process of entering everything in the workshop into the storage system, so some items may not be listed. If you're wondering whether we have specific equipment or want to borrow something that's not in the storage system, feel free to stop by the workshop and ask if we have it anyway!",
+    locale: 'en-GB',
+  },
+  {
+    bannerId: 3,
+    content: 'Det er bare lov å søke på DevOps',
+    locale: 'nb-NO',
+  },
+  {
+    bannerId: 3,
+    content: 'You can only apply for DevOps',
+    locale: 'en-GB',
+  },
+];
+
 export {
-  articleData,
+  articlesData,
   articleLocalizationsData,
+  bannerLocalizationsData,
+  bannersData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
   groupsData,
+  homeCarouselSlideLocalizationsData,
+  homeCarouselSlidesData,
   printerSpecsData,
+  quoteLocalizationsData,
+  quotesData,
+  reservationsData,
+  ruleLocalizationsData,
+  rulesData,
   shiftsData,
   skillsData,
-  storageItemCategories,
-  storageItemLocalizations,
+  storageItemCategoriesData,
+  storageItemLocalizationsData,
   storageItemsData,
-  toolsData,
   toolLocalizationsData,
+  toolsData,
   usersData,
   usersGroupsData,
   usersSkillsData,
-  reservationsData,
-  quotesData,
-  quoteLocalizationsData,
-  rulesData,
-  ruleLocalizationData,
 };

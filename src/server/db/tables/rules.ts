@@ -62,18 +62,18 @@ const ruleLocalizationsRelations = relations(ruleLocalizations, ({ one }) => ({
   }),
 }));
 
-type SelectRules = InferSelectModel<typeof rules>;
-type InsertRules = InferInsertModel<typeof rules>;
-type SelectRuleLocalizations = InferSelectModel<typeof ruleLocalizations>;
-type InsertRuleLocalizations = InferInsertModel<typeof ruleLocalizations>;
+type SelectRule = InferSelectModel<typeof rules>;
+type InsertRule = InferInsertModel<typeof rules>;
+type SelectRuleLocalization = InferSelectModel<typeof ruleLocalizations>;
+type InsertRuleLocalization = InferInsertModel<typeof ruleLocalizations>;
 
 export {
   rules,
   ruleLocalizations,
   rulesRelations,
   ruleLocalizationsRelations,
-  type SelectRules,
-  type InsertRules,
-  type SelectRuleLocalizations,
-  type InsertRuleLocalizations,
+  type SelectRule,
+  type InsertRule,
+  type SelectRuleLocalization,
+  type InsertRuleLocalization,
 };

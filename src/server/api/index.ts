@@ -2,6 +2,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import {
   applicationsRouter,
   authRouter,
+  bannersRouter,
   eventsRouter,
   forgotPasswordRouter,
   groupsRouter,
@@ -12,6 +13,7 @@ import {
   settingsRouter,
   shiftScheduleRouter,
   skillsRouter,
+  slidesRouter,
   storageRouter,
   testRouter,
   toolsRouter,
@@ -23,9 +25,11 @@ import { createCallerFactory, createRouter } from '@/server/api/trpc';
 const router = createRouter({
   applications: applicationsRouter,
   auth: authRouter,
+  banners: bannersRouter,
   events: eventsRouter,
   forgotPassword: forgotPasswordRouter,
   groups: groupsRouter,
+  slides: slidesRouter,
   news: newsRouter,
   quotes: quotesRouter,
   reservations: reservationsRouter,

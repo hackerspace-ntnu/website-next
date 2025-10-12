@@ -62,7 +62,7 @@ type BaseFieldProps = {
   className?: string;
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
   labelSibling?: React.ReactNode;
   children: React.ReactNode;
 };
@@ -142,7 +142,7 @@ type TextFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextField({
@@ -181,7 +181,7 @@ type NumberFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function NumberField({
@@ -220,7 +220,7 @@ type TextAreaFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextAreaField({
@@ -257,7 +257,7 @@ type CheckboxFieldProps = Omit<
 > & {
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function CheckboxField({
@@ -337,7 +337,7 @@ type MapFieldProps = {
   zoom?: number;
   coordinates?: Location;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 const DEFAULT_COORDINATES: Location = {
@@ -410,7 +410,7 @@ type SelectFieldProps = {
   options: SelectOption[];
   required?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function SelectField({
@@ -474,7 +474,7 @@ type ComboboxFieldProps = Omit<
   className?: string;
   placeholder: string;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   comboboxDescription: string;
 };
 
@@ -519,7 +519,7 @@ type PhoneFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PhoneField({
@@ -557,7 +557,7 @@ type PasswordFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PasswordField({
@@ -595,7 +595,8 @@ type DateFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
+  required?: boolean;
 };
 
 function DateField({
@@ -604,9 +605,10 @@ function DateField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: DateFieldProps) {
-  const field = useFieldContext<Date>();
+  const field = useFieldContext<Date | null>();
 
   return (
     <BaseField
@@ -616,12 +618,24 @@ function DateField({
       className={className}
       description={description}
     >
-      <DatePicker
-        date={field.state.value}
-        setDate={(date) => field.handleChange(date)}
-        onBlur={field.handleBlur}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <DatePicker
+          date={field.state.value ?? undefined}
+          setDate={(date) => field.handleChange(date)}
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
@@ -633,7 +647,8 @@ type DateTimeFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
+  required?: boolean;
 };
 
 function DateTimeField({
@@ -642,9 +657,10 @@ function DateTimeField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: DateTimeFieldProps) {
-  const field = useFieldContext<Date>();
+  const field = useFieldContext<Date | null>();
 
   return (
     <BaseField
@@ -654,11 +670,23 @@ function DateTimeField({
       className={className}
       description={description}
     >
-      <DateTimePicker
-        onChange={(date) => date && field.handleChange(date)}
-        value={field.state.value}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <DateTimePicker
+          onChange={(date) => date && field.handleChange(date)}
+          value={field.state.value ?? undefined}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
@@ -672,7 +700,7 @@ type OTPFieldProps = Omit<
   labelSibling?: React.ReactNode;
   slots?: number;
   groups?: number[];
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function OTPField({
@@ -750,7 +778,7 @@ type RadioGroupFieldProps = {
   className?: string;
   options: RadioOption[];
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function RadioGroupField({
@@ -794,7 +822,7 @@ type FileUploadFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   className?: string;
   validator?: (value: string) => { success: boolean; error?: ZodError };
 };
@@ -990,7 +1018,7 @@ type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   calendarClassName?: string;
 };
 

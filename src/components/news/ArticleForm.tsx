@@ -73,6 +73,8 @@ function ArticleForm({
       image: null as string | null,
       titleNorwegian: norwegian?.title ?? '',
       titleEnglish: english?.title ?? '',
+      preambleNorwegian: norwegian?.preamble ?? '',
+      preambleEnglish: english?.preamble ?? '',
       contentNorwegian: norwegian?.content ?? [],
       contentEnglish: english?.content ?? [],
       internal: article?.internal ?? false,
@@ -162,6 +164,12 @@ function ArticleForm({
         </form.AppField>
         <form.AppField name='titleEnglish'>
           {(field) => <field.TextField label={t('title.labelEnglish')} />}
+        </form.AppField>
+        <form.AppField name='preambleNorwegian'>
+          {(field) => <field.TextField label={t('preamble.labelNorwegian')} />}
+        </form.AppField>
+        <form.AppField name='preambleEnglish'>
+          {(field) => <field.TextField label={t('preamble.labelEnglish')} />}
         </form.AppField>
         <form.AppField name='contentNorwegian'>
           {(field) => <field.EditorField label={t('content.labelNorwegian')} />}

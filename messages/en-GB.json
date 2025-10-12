@@ -337,6 +337,22 @@
       "invalidValue": "Invalid value for don't show again"
     }
   },
+  "home": {
+    "placeholderAlt": "No image available",
+    "changeSlides": "Change slides",
+    "whoAreWe": "Who are we?",
+    "whoAreWeDescription": "Hackerspace NTNU is a student-run project from IDI and is open to all students regardless of their field of study. Here you will find new technology at your disposal, including 3D printers and virtual reality equipment. Whether you want to make an LED lamp flash or create a 3D model of Trondheim, the members of Hackerspace can offer you a wide range of expertise and help you with your project, regardless of your membership in Hackerspace.",
+    "whoAreWeAlt": "Photo of our members wearing Hackerspace-merch",
+    "stopBy": "Stop by!",
+    "stopByDescription": "If you have any questions, need help with a project, or just want to chat, we welcome you to our workshop. {membersOnShift, plural, =0 {There are no members at the workshop right now, but you can check the shift schedule to find a time we're open that suits you.} one {There is currently one member on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time that suits you better.} other {There are currently # members on shift at the workshop, so feel free to stop by. You can also check the shift schedule to find a time we're open that suits you better.}}",
+    "stopByAlt": "Photo of our workshop",
+    "events": "Events",
+    "eventsDescription": "Sign up for one of our upcoming events to learn new skills or join in on social activities.",
+    "eventsAlt": "Photo from tetris 2 tournament in one of our events",
+    "news": "News",
+    "newsDescription": "See the latest updates from Hackerspace.",
+    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo"
+  },
   "news": {
     "title": "News",
     "internalArticle": "This is an internal article",
@@ -374,6 +390,11 @@
         "labelNorwegian": "Article title (Norwegian)",
         "labelEnglish": "Article title (English)",
         "required": "Article title is required"
+      },
+      "preamble": {
+        "labelNorwegian": "Article preamble (Norwegian)",
+        "labelEnglish": "Article preamble (English)",
+        "required": "Article preamble is required"
       },
       "content": {
         "labelNorwegian": "Article content (Norwegian)",
@@ -1094,7 +1115,7 @@
     "skills": {
       "name": "Skills",
       "title": "Manage Skills",
-      "description": "Manage the skills that members can achieve.",
+      "description": "Manage the skills that members can achieve",
       "backToSkills": "Back to skills",
       "new": {
         "title": "New Skill",
@@ -1132,7 +1153,7 @@
     "users": {
       "name": "Users",
       "title": "Search for Users",
-      "description": "Manage users on the website.",
+      "description": "Manage users on the website",
       "searchUser": "Search user...",
       "table": {
         "name": "Name",
@@ -1146,12 +1167,179 @@
     "files": {
       "name": "Files & Images",
       "title": "Manage Files & Images",
-      "description": "Manage files and images uploaded by members."
+      "description": "Manage files and images uploaded by members"
     },
     "banners": {
       "name": "Banners",
       "title": "Manage Banners",
-      "description": "Manage banners displayed on the website."
+      "description": "Manage banners displayed on the website",
+      "content": "Content",
+      "pages": "Pages",
+      "expiresAt": "Expires at",
+      "active": "Active",
+      "create": "Create new banner",
+      "editBanner": "Edit banner",
+      "edit": {
+        "backToBanners": "Back to banners",
+        "edit": "Edit",
+        "unauthorized": "Unauthorized to edit banners"
+      },
+      "new": {
+        "backToBanners": "Back to banners",
+        "create": "Create",
+        "unauthorized": "Unauthorized to create new banners"
+      },
+      "form": {
+        "contentNorwegian": {
+          "label": "Banner content (Norwegian)",
+          "placeholder": "Velkommen til Hackerspace NTNU!",
+          "required": "Banner content is required"
+        },
+        "contentEnglish": {
+          "label": "Banner content (English)",
+          "placeholder": "Welcome to Hackerspace NTNU!",
+          "required": "Banner content is required"
+        },
+        "active": {
+          "label": "Active",
+          "invalid": "Invalid value for active"
+        },
+        "expiresAt": {
+          "label": "Expires at"
+        },
+        "pagesMatch": {
+          "label": "Selected pages",
+          "placeholder": "/,/storage*,/management/banners/*/edit",
+          "description": "The banner will be shown on the selected pages. You can use * as a wildcard",
+          "required": "Selecting pages is required",
+          "charactersInvalid": "You can only use the following characters: {characters}",
+          "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)",
+          "unsafeRegex": "Unsafe regex pattern detected",
+          "displayLabel": "Show all pages"
+        },
+        "className": {
+          "label": "Tailwind CSS class names",
+          "placeholder": "bg-red-500 text-white py-4",
+          "description": "Optionally, you can set Tailwind CSS class names of your choice. This can be for example used to change <link>the color</link> of the banner. Warning: You are fully responsible for your input, as it may break the website's design or accessibility if used incorrectly.",
+          "charactersInvalid": "Invalid class name. You can only use the following characters: {characters}"
+        },
+        "editSubmit": "Edit banner",
+        "createSubmit": "Create banner",
+        "delete": {
+          "label": "Delete banner",
+          "confirmTitle": "Are you sure you want to delete the banner?",
+          "confirmDescription": "This action cannot be undone"
+        }
+      },
+      "api": {
+        "invalidId": "Invalid ID",
+        "activeInvalid": "Invalid value for active",
+        "successCreate": "Banner created successfully",
+        "successEdit": "Banner edited successfully",
+        "successDelete": "Banner deleted successfully",
+        "changingActive": "Changing banner to {active, select, true {active} other {inactive}}...",
+        "successChangeActive": "Banner is now {active, select, true {active} other {inactive}}",
+        "errorChangingActive": "Couldn't change banner to {active, select, true {active} other {inactive}}",
+        "fetchBannersFailed": "Failed to fetch banners",
+        "insertFailed": "Failed to create banner",
+        "bannerNotFound": "The banner could not be found"
+      },
+      "unauthorized": "Unauthorized to manage banners"
+    },
+    "slides": {
+      "name": "Slides",
+      "title": "Manage Slides",
+      "description": "Manage the slides displayed on the home page carousel",
+      "unauthorized": "Unauthorized to manage home page slides",
+      "placeholderAlt": "No image available",
+      "image": "Image",
+      "overlay": "Overlay",
+      "active": "Active",
+      "create": "Create new slide",
+      "editSlide": "Edit slide",
+      "new": {
+        "unauthorized": "Unauthorized to create new home page slides",
+        "backToSlides": "Back to slides",
+        "create": "Create slide"
+      },
+      "edit": {
+        "unauthorized": "Unauthorized to edit home page slides",
+        "backToSlides": "Back to slides",
+        "edit": "Edit slide"
+      },
+      "api": {
+        "invalidId": "Invalid ID",
+        "insertFailed": "Failed to add slide",
+        "activeInvalid": "Invalid value for active",
+        "slideNotFound": "The slide could not be found",
+        "slideImageNotFound": "The slide image could not be found",
+        "successCreate": "Slide created successfully",
+        "successEdit": "Slide edited successfully",
+        "successDeleteImage": "Slide image deleted successfully",
+        "successDelete": "Slide deleted successfully",
+        "changingActive": "Changing slide to {active, select, true {active} other {inactive}}...",
+        "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}",
+        "errorChangingActive": "Couldn't change slide to {active, select, true {active} other {inactive}}"
+      },
+      "form": {
+        "altNorwegian": {
+          "label": "Image alt text (Norwegian)",
+          "placeholder": "Image alt text",
+          "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "altEnglish": {
+          "label": "Image alt text (English)",
+          "placeholder": "Image alt text",
+          "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "headingNorwegian": {
+          "label": "Heading (Norwegian)",
+          "placeholder": "Heading",
+          "required": "Heading is required",
+          "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "headingEnglish": {
+          "label": "Heading (English)",
+          "placeholder": "Heading",
+          "required": "Heading is required",
+          "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "descriptionNorwegian": {
+          "label": "Description (Norwegian)",
+          "placeholder": "Description",
+          "required": "Description is required",
+          "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "descriptionEnglish": {
+          "label": "Description (English)",
+          "placeholder": "Description",
+          "required": "Description is required",
+          "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "active": {
+          "label": "Active",
+          "invalid": "Invalid value for active"
+        },
+        "image": {
+          "label": "Slide image",
+          "upload": "Upload an image...",
+          "delete": {
+            "label": "Delete image",
+            "confirmTitle": "Are you sure you want to delete the slide image?",
+            "confirmDescription": "This action cannot be undone"
+          },
+          "sizeLimitError": "Home carousel image must be less than {size} MB",
+          "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
+          "fileNotImageError": "The file is not an image"
+        },
+        "editSubmit": "Update slide",
+        "createSubmit": "Create slide",
+        "delete": {
+          "label": "Delete slide",
+          "confirmTitle": "Are you sure you want to delete the slide?",
+          "confirmDescription": "This action cannot be undone"
+        }
+      }
     }
   },
   "applications": {

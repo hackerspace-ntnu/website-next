@@ -225,6 +225,18 @@ const routing = defineRouting({
       'en-GB': '/management',
       'nb-NO': '/administrasjon',
     },
+    '/management/banners': {
+      'en-GB': '/management/banners',
+      'nb-NO': '/administrasjon/bannere',
+    },
+    '/management/banners/[bannerId]/edit': {
+      'en-GB': '/management/banners/[bannerId]/edit',
+      'nb-NO': '/administrasjon/bannere/[bannerId]/rediger',
+    },
+    '/management/banners/new': {
+      'en-GB': '/management/banners/new',
+      'nb-NO': '/administrasjon/bannere/ny',
+    },
     '/management/skills': {
       'en-GB': '/management/skills',
       'nb-NO': '/administrasjon/ferdigheter',
@@ -240,6 +252,18 @@ const routing = defineRouting({
     '/management/users': {
       'en-GB': '/management/users',
       'nb-NO': '/administrasjon/brukere',
+    },
+    '/management/slides': {
+      'en-GB': '/management/slides',
+      'nb-NO': '/management/slides',
+    },
+    '/management/slides/[slideId]/edit': {
+      'en-GB': '/management/slides/[slideId]/edit',
+      'nb-NO': '/management/slides/[slideId]/rediger',
+    },
+    '/management/slides/new': {
+      'en-GB': '/management/slides/new',
+      'nb-NO': '/management/slides/ny',
     },
     '/reservations': {
       'en-GB': '/reservations',

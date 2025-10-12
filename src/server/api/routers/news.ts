@@ -146,6 +146,7 @@ const newsRouter = createRouter({
       await ctx.db.insert(newsArticleLocalizations).values({
         articleId: article.id,
         title: restInput.titleEnglish,
+        preamble: restInput.preambleEnglish,
         content: restInput.contentEnglish,
         locale: 'en-GB',
       });
@@ -153,6 +154,7 @@ const newsRouter = createRouter({
       await ctx.db.insert(newsArticleLocalizations).values({
         articleId: article.id,
         title: restInput.titleNorwegian,
+        preamble: restInput.preambleNorwegian,
         content: restInput.contentNorwegian,
         locale: 'nb-NO',
       });
@@ -186,6 +188,7 @@ const newsRouter = createRouter({
         .update(newsArticleLocalizations)
         .set({
           title: restInput.titleEnglish,
+          preamble: restInput.preambleEnglish,
           content: restInput.contentEnglish,
         })
         .where(
@@ -199,6 +202,7 @@ const newsRouter = createRouter({
         .update(newsArticleLocalizations)
         .set({
           title: restInput.titleNorwegian,
+          preamble: restInput.preambleNorwegian,
           content: restInput.contentNorwegian,
         })
         .where(

@@ -25,7 +25,10 @@ export default async function ArticleLoading() {
           </div>
         </div>
         <div className='my-4 flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <Skeleton className='h-8 w-3/4' />
+          <div className='w-full space-y-2'>
+            <Skeleton className='h-8 w-3/4' />
+            <Skeleton className='h-5 w-1/3' />
+          </div>
         </div>
       </header>
       <section className='mb-6 space-y-4'>

@@ -337,6 +337,22 @@
       "invalidValue": "Ugyldig verdi for ikke vis igjen"
     }
   },
+  "home": {
+    "placeholderAlt": "Ingen bilde tilgjengelig",
+    "changeSlides": "Endre bannere",
+    "whoAreWe": "Hvem er vi?",
+    "whoAreWeDescription": "Hackerspace NTNU er et studentdrevet prosjekt fra IDI og er åpent for alle studenter uavhengig av studieretning. Hos oss finner du ny teknologi til din disposisjon, blant annet 3D-printere og Virtual Reality-utstyr. Enten du ønsker å få en LED-lampe til å blinke eller lage en 3D-modell av Trondheim, kan medlemmene i Hackerspace tilby variert og god kompetanse og hjelpe deg med det, uavhengig av ditt medlemsskap i Hackerspace.",
+    "whoAreWeAlt": "Bilde av medlemmene våre som går med Hackerspace-hettegensere",
+    "stopBy": "Kom innom!",
+    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkuratt nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
+    "stopByAlt": "Bilde av verkstedet vårt",
+    "events": "Arrangementer",
+    "eventsDescription": "Meld deg på noen av våre oppkommende arrangementer for å lære deg nye ferdigheter eller bli med på noe sosialt.",
+    "eventsAlt": "Bilde fra tetris 2-turnering i et av arrangementene våre",
+    "news": "Nyheter",
+    "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
+    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen"
+  },
   "news": {
     "title": "Nyheter",
     "internalArticle": "Dette er en intern artikkel",
@@ -374,6 +390,11 @@
         "labelNorwegian": "Artikkeltittel (norsk)",
         "labelEnglish": "Artikkeltittel (engelsk)",
         "required": "Artikkeltittel er påkrevd"
+      },
+      "preamble": {
+        "labelNorwegian": "Artikkelingress (norsk)",
+        "labelEnglish": "Artikkelingress (engelsk)",
+        "required": "Artikkelingress er påkrevd"
       },
       "content": {
         "labelNorwegian": "Artikkelinnhold (norsk)",
@@ -1094,7 +1115,7 @@
     "skills": {
       "name": "Ferdigheter",
       "title": "Administrer ferdigheter",
-      "description": "Administrer ferdighetene som medlemmene kan oppnå.",
+      "description": "Administrer ferdighetene som medlemmene kan oppnå",
       "backToSkills": "Tilbake til ferdigheter",
       "new": {
         "title": "Ny ferdighet",
@@ -1132,7 +1153,7 @@
     "users": {
       "name": "Brukere",
       "title": "Søk etter brukere",
-      "description": "Administrer brukere på nettsiden.",
+      "description": "Administrer brukere på nettsiden",
       "searchUser": "Søk etter brukere...",
       "table": {
         "name": "Navn",
@@ -1146,12 +1167,180 @@
     "files": {
       "name": "Filer og bilder",
       "title": "Administrer filer og bilder",
-      "description": "Administrer filer og bilder lastet opp av medlemmer."
+      "description": "Administrer filer og bilder lastet opp av medlemmer"
     },
     "banners": {
       "name": "Bannere",
       "title": "Administrer bannere",
-      "description": "Administrer bannere som vises på nettsiden."
+      "description": "Administrer bannerene på nettsiden",
+      "content": "Innhold",
+      "pages": "Sider",
+      "expiresAt": "Utløper",
+      "active": "Aktiv",
+      "create": "Lag nytt banner",
+      "editBanner": "Rediger banner",
+      "edit": {
+        "backToBanners": "Tilbake til bannere",
+        "edit": "Rediger",
+        "unauthorized": "Uautorisert til å redigere bannere"
+      },
+      "new": {
+        "backToBanners": "Tilbake til bannere",
+        "create": "Lag banner",
+        "unauthorized": "Uautorisert til å opprette nye bannere"
+      },
+      "form": {
+        "contentNorwegian": {
+          "label": "Bannerinnhold (norsk)",
+          "placeholder": "Velkommen til Hackerspace NTNU!",
+          "required": "Bannerinnhold er påkrevd"
+        },
+        "contentEnglish": {
+          "label": "Bannerinnhold (engelsk)",
+          "placeholder": "Welcome to Hackerspace NTNU!",
+          "required": "Bannerinnhold er påkrevd"
+        },
+        "active": {
+          "label": "Aktiv",
+          "invalid": "Ugyldig verdi for aktiv"
+        },
+        "expiresAt": {
+          "label": "Utløper"
+        },
+        "pagesMatch": {
+          "label": "Valgte sider",
+          "placeholder": "/,/storage*,/management/banners/*/edit",
+          "description": "Banneret vil bli vist på de valgte sidene. Du kan bruke * som wildcard",
+          "required": "Valg av sider er påkrevd",
+          "charactersInvalid": "Du kan bare bruke følgende tegn: {characters}",
+          "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)",
+          "unsafeRegex": "Utrygt regulært uttrykk",
+          "displayLabel": "Vis alle sider"
+        },
+        "className": {
+          "label": "Tailwind CSS-klassenavn",
+          "placeholder": "bg-red-500 text-white py-4",
+          "description": "Valgfritt: Du kan angi selvvalgte Tailwind CSS-klassenavn. Dette kan brukes til å for eksempel bytte <link>fargen</link> til banneret. Merk: Du er fullt ansvarlig for inputen din, da den kan ødelegge nettstedets design eller tilgjengelighet hvis den brukes feil.",
+          "charactersInvalid": "Ugyldig klassenavn. Du kan bare bruke følgende tegn: {characters}"
+        },
+        "editSubmit": "Rediger banner",
+        "createSubmit": "Lag banner",
+        "delete": {
+          "label": "Slett banner",
+          "confirmTitle": "Er du sikker på at du vil slette banneret?",
+          "confirmDescription": "Denne handlingen kan ikke angres"
+        }
+      },
+      "api": {
+        "invalidId": "Ugyldig ID",
+        "activeInvalid": "Ugyldig verdi for aktiv",
+        "successCreate": "Banner opprettet",
+        "successEdit": "Banner redigert",
+        "successDelete": "Banner slettet",
+        "changingActive": "Endrer banner til {active, select, true {aktiv} other {inaktiv}}...",
+        "successChangeActive": "Banner er nå {active, select, true {aktiv} other {inaktiv}}",
+        "errorChangingActive": "Kunne ikke endre banner til {active, select, true {aktiv} other {inaktiv}}",
+        "fetchBannersFailed": "Kunne ikke hente bannere",
+        "insertFailed": "Kunne ikke opprette banner",
+        "bannerNotFound": "Banneret ble ikke funnet"
+      },
+      "unauthorized": "Uautorisert til å administrere bannere"
+    },
+    "slides": {
+      "name": "Slides",
+      "title": "Administrer slides",
+      "description": "Administrer slides som vises på hjemmesiden",
+      "unauthorized": "Uautorisert til å administrere hjemmesidens bannere",
+      "placeholderAlt": "No image available",
+      "image": "Bilde",
+      "backToManagement": "Tilbake til administrasjon",
+      "overlay": "Innhold",
+      "active": "Aktiv",
+      "create": "Legg til nytt banner",
+      "editSlide": "Rediger banner",
+      "new": {
+        "unauthorized": "Uautorisert til å lage nye bannere til hjemmesiden",
+        "backToSlides": "Tilbake til bannere",
+        "create": "Lag banner"
+      },
+      "edit": {
+        "unauthorized": "Uautorisert til å redigere bannere på hjemmesiden",
+        "backToSlides": "Tilbake til bannere",
+        "edit": "Rediger banner"
+      },
+      "api": {
+        "invalidId": "Ugyldig ID",
+        "insertFailed": "Kunne ikke legge til slide",
+        "activeInvalid": "Ugyldig verdi for aktiv",
+        "slideNotFound": "Kunne ikke finne banneret",
+        "slideImageNotFound": "Kunne ikke finne bilde til banneret",
+        "successCreate": "Banneret har blitt opprettet!",
+        "successEdit": "Banneret har blitt redigert!",
+        "successDeleteImage": "Bildet til banneret ble slettet!",
+        "successDelete": "Banneret ble slettet!",
+        "changingActive": "Endrer sliden til {active, select, true {aktiv} other {inaktiv}}...",
+        "successChangeActive": "Sliden er nå {active, select, true {aktiv} other {inaktiv}}",
+        "errorChangingActive": "Kunne ikke gjøre sliden {active, select, true {aktiv} other {inaktiv}}"
+      },
+      "form": {
+        "altNorwegian": {
+          "label": "Alt-tekst til bilde (Norsk)",
+          "placeholder": "Alt-tekst",
+          "maxLength": "Alt-tekst kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "altEnglish": {
+          "label": "Alt-tekst til bilde (Engelsk)",
+          "placeholder": "Alt-tekst",
+          "maxLength": "Alt-tekst kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "headingNorwegian": {
+          "label": "Overskrift (Norsk)",
+          "placeholder": "Overskrift",
+          "required": "Overskrift kreves",
+          "maxLength": "Overskrift kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "headingEnglish": {
+          "label": "Overskrift (Engelsk)",
+          "placeholder": "Overskrift",
+          "required": "Overskrift kreves",
+          "maxLength": "Overskrift kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "descriptionNorwegian": {
+          "label": "Beskrivelse (Norsk)",
+          "placeholder": "Beskrivelse",
+          "required": "Beskrivelse kreves",
+          "maxLength": "Beskrivelse kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "descriptionEnglish": {
+          "label": "Beskrivelse (Engelsk)",
+          "placeholder": "Beskrivelse",
+          "required": "Beskrivelse kreves",
+          "maxLength": "Beskrivelse kan maks være {count, plural, one {ett tegn} other {# tegn}}"
+        },
+        "active": {
+          "label": "Aktiv",
+          "invalid": "Ugyldig verdi for aktiv"
+        },
+        "image": {
+          "label": "Bilde til banner",
+          "upload": "Last opp et bilde...",
+          "delete": {
+            "label": "Slett bilde",
+            "confirmTitle": "Er du sikker på at du vil slette bildet til banneret?",
+            "confirmDescription": "Denne handlingen kan ikke angres"
+          },
+          "sizeLimitError": "Bildet må være mindre enn {size} MB",
+          "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+          "fileNotImageError": "Filen er ikke et bilde"
+        },
+        "editSubmit": "Oppdater banner",
+        "createSubmit": "Opprett banner",
+        "delete": {
+          "label": "Slett banner",
+          "confirmTitle": "Er du sikker på at du vil slette banneret?",
+          "confirmDescription": "Denne handlingen kan ikke angres"
+        }
+      }
     }
   },
   "applications": {

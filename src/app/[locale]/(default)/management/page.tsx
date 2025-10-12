@@ -53,8 +53,12 @@ export default async function ManagementPage({
     {
       name: t('banners.name'),
       description: t('banners.description'),
-      href: '#' as React.ComponentProps<typeof Link>['href'],
-      className: 'pointer-events-auto cursor-not-allowed',
+      href: '/management/banners',
+    },
+    {
+      name: t('slides.name'),
+      description: t('slides.description'),
+      href: '/management/slides',
     },
   ];
 
