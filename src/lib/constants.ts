@@ -1,5 +1,15 @@
 import { routing } from '@/lib/locale';
 
+const fileDirectories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'events',
+  'groups',
+  'rules',
+  'rich-input',
+] as const;
+
 const groupIdentifiers = [
   'devops',
   'labops',
@@ -61,6 +71,7 @@ const bannerPages = Object.keys(routing.pathnames)
   .filter((path) => path !== '/too-many-requests');
 
 export {
+  fileDirectories,
   groupIdentifiers,
   notificationSettings,
   days,

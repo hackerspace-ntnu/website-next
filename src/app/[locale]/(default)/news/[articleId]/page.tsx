@@ -13,6 +13,7 @@ import { AvatarIcon } from '@/components/profile/AvatarIcon';
 import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
 import { getFileUrl } from '@/server/services/files';
 
@@ -49,7 +50,7 @@ export default async function ArticlePage({
     return notFound();
   }
 
-  const { minutes } = readingTime(article.localization.content);
+  const { minutes } = readingTime(JSON.stringify(article.localization.content));
 
   const { user } = await api.auth.state();
 
@@ -138,7 +139,9 @@ export default async function ArticlePage({
         </div>
         <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
       </section>
-      <section>{article.localization.content}</section>
+      <section>
+        <PlateEditorView value={article.localization.content} />
+      </section>
     </article>
   );
 }

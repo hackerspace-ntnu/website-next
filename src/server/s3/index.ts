@@ -6,6 +6,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { env } from '@/env';
+import type { fileDirectories } from '@/lib/constants';
 
 class S3Service {
   private readonly client: S3Client;
@@ -35,7 +36,7 @@ class S3Service {
   }
 
   async uploadFile(
-    directory: (typeof directories)[number],
+    directory: (typeof fileDirectories)[number],
     key: string,
     file: Buffer,
     contentType: string,
@@ -52,7 +53,7 @@ class S3Service {
     return await this.client.send(command);
   }
 
-  async deleteFile(directory: (typeof directories)[number], key: string) {
+  async deleteFile(directory: (typeof fileDirectories)[number], key: string) {
     const fileKey = `${directory}/${key}`;
 
     const command = new DeleteObjectCommand({
@@ -63,7 +64,7 @@ class S3Service {
     return await this.client.send(command);
   }
 
-  async fileExists(directory: (typeof directories)[number], key: string) {
+  async fileExists(directory: (typeof fileDirectories)[number], key: string) {
     const fileKey = `${directory}/${key}`;
     await this.client.send(
       new GetObjectCommand({
@@ -75,7 +76,7 @@ class S3Service {
   }
 
   async getSignedUrl(
-    directory: (typeof directories)[number],
+    directory: (typeof fileDirectories)[number],
     key: string,
     expiresIn = 3600,
   ) {
@@ -111,4 +112,4 @@ const directories = [
 
 const s3 = new S3Service();
 
-export { s3, directories };
+export { s3 };

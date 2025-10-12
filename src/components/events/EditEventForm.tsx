@@ -26,7 +26,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
-import { fileToBase64String } from '@/lib/utils/files';
+import { deleteUnusedEditorFiles, fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventWithoutIdSchema } from '@/validations/events/editEventWithoutIdSchema';
@@ -96,6 +96,8 @@ function EditEventForm({
     },
   });
 
+  const deleteFile = api.utils.deleteFile.useMutation();
+
   const form = useAppForm({
     validators: {
       onChange: schema,
@@ -106,8 +108,8 @@ function EditEventForm({
       nameEnglish: english?.name ?? '',
       summaryNorwegian: norwegian?.summary ?? '',
       summaryEnglish: english?.summary ?? '',
-      descriptionNorwegian: norwegian?.description ?? '',
-      descriptionEnglish: english?.description ?? '',
+      descriptionNorwegian: norwegian?.description ?? [],
+      descriptionEnglish: english?.description ?? [],
       locationEnglish: english?.location ?? '',
       locationNorwegian: norwegian?.location ?? '',
       startTime: event?.startTime ?? addDays(new Date(), 1),
@@ -118,8 +120,18 @@ function EditEventForm({
       internal: event?.internal ?? false,
       skill: event?.skill?.identifier ?? '',
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (event) {
+        await deleteUnusedEditorFiles(
+          english?.description ?? [],
+          value.descriptionEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.description ?? [],
+          value.descriptionNorwegian,
+          deleteFile.mutateAsync,
+        );
         return editEvent.mutate({ id: event.id, ...value });
       }
       createEvent.mutate(value);
@@ -236,19 +248,11 @@ function EditEventForm({
       </form.AppField>
       <form.AppField name='descriptionNorwegian'>
         {(field) => (
-          <field.TextAreaField
-            label={t('descriptionNorwegian.label')}
-            placeholder={t('descriptionNorwegian.placeholder')}
-          />
+          <field.EditorField label={t('descriptionNorwegian.label')} />
         )}
       </form.AppField>
       <form.AppField name='descriptionEnglish'>
-        {(field) => (
-          <field.TextAreaField
-            label={t('descriptionEnglish.label')}
-            placeholder={t('descriptionEnglish.placeholder')}
-          />
-        )}
+        {(field) => <field.EditorField label={t('descriptionEnglish.label')} />}
       </form.AppField>
       <form.AppField name='locationNorwegian'>
         {(field) => (

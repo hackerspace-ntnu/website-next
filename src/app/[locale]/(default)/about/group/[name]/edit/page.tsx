@@ -50,7 +50,7 @@ export default async function EditGroupPage({
     return notFound();
   }
 
-  const { about, groups, ui } = await getMessages();
+  const { about, groups, ui, error } = await getMessages();
 
   return (
     <>
@@ -68,7 +68,10 @@ export default async function EditGroupPage({
       </div>
       <NextIntlClientProvider
         messages={
-          { about, groups, ui } as Pick<Messages, 'about' | 'groups' | 'ui'>
+          { about, groups, ui, error } as Pick<
+            Messages,
+            'about' | 'groups' | 'ui' | 'error'
+          >
         }
       >
         <div className='mx-auto lg:max-w-2xl'>

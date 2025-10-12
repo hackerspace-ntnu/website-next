@@ -27,7 +27,7 @@ export default async function NewRulePage({
 
   const { user } = await api.auth.state();
   const t = await getTranslations('rules');
-  const { rules, ui } = await getMessages();
+  const { rules, ui, error } = await getMessages();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -51,7 +51,9 @@ export default async function NewRulePage({
         <h1>{t('new.title')}</h1>
       </div>
       <NextIntlClientProvider
-        messages={{ rules, ui } as Pick<Messages, 'rules' | 'ui'>}
+        messages={
+          { rules, ui, error } as Pick<Messages, 'rules' | 'ui' | 'error'>
+        }
       >
         <div className='mx-auto lg:max-w-2xl'>
           <RuleForm />

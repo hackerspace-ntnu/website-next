@@ -19,6 +19,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { deleteUnusedEditorFiles } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { ruleSchema } from '@/validations/rules/ruleSchema';
 
@@ -59,6 +60,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
       router.push('/rules');
     },
   });
+  const deleteFile = api.utils.deleteFile.useMutation();
 
   const norwegian = rule?.localizations.find((loc) => loc.locale === 'nb-NO');
   const english = rule?.localizations.find((loc) => loc.locale === 'en-GB');
@@ -71,12 +73,22 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',
       nameEnglish: english?.name ?? '',
-      contentNorwegian: norwegian?.content ?? '',
-      contentEnglish: english?.content ?? '',
+      contentNorwegian: norwegian?.content ?? [],
+      contentEnglish: english?.content ?? [],
       internal: rule?.internal ?? false,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (rule) {
+        await deleteUnusedEditorFiles(
+          english?.content ?? [],
+          value.contentEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.content ?? [],
+          value.contentNorwegian,
+          deleteFile.mutateAsync,
+        );
         return editRule.mutate({
           ...value,
           id: rule.id,
@@ -161,20 +173,10 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
           )}
         </form.AppField>
         <form.AppField name='contentNorwegian'>
-          {(field) => (
-            <field.TextAreaField
-              label={t('content.labelNorwegian')}
-              placeholder={t('content.placeholderNorwegian')}
-            />
-          )}
+          {(field) => <field.EditorField label={t('content.labelNorwegian')} />}
         </form.AppField>
         <form.AppField name='contentEnglish'>
-          {(field) => (
-            <field.TextAreaField
-              label={t('content.labelEnglish')}
-              placeholder={t('content.placeholderEnglish')}
-            />
-          )}
+          {(field) => <field.EditorField label={t('content.labelEnglish')} />}
         </form.AppField>
         <form.AppField name='internal'>
           {(field) => (

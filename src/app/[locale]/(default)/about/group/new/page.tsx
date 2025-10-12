@@ -27,7 +27,7 @@ export default async function NewGroupPage({
 
   const { user } = await api.auth.state();
   const t = await getTranslations('groups');
-  const { about, groups, ui } = await getMessages();
+  const { about, groups, ui, error } = await getMessages();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -52,7 +52,10 @@ export default async function NewGroupPage({
       </div>
       <NextIntlClientProvider
         messages={
-          { about, groups, ui } as Pick<Messages, 'about' | 'groups' | 'ui'>
+          { about, groups, ui, error } as Pick<
+            Messages,
+            'about' | 'groups' | 'ui' | 'error'
+          >
         }
       >
         <div className='mx-auto lg:max-w-2xl'>

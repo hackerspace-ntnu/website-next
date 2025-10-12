@@ -29,9 +29,9 @@ async function EditEventFormSkeleton() {
       <Label className='mb-2'>{t('summaryEnglish.label')}</Label>
       <Skeleton className='h-16 w-full rounded-lg' />
       <Label className='mb-2'>{t('descriptionNorwegian.label')}</Label>
-      <Skeleton className='h-16 w-full rounded-lg' />
+      <Skeleton className='h-100 w-full rounded-lg' />
       <Label className='mb-2'>{t('descriptionEnglish.label')}</Label>
-      <Skeleton className='h-16 w-full rounded-lg' />
+      <Skeleton className='h-100 w-full rounded-lg' />
       <Label className='mb-2'>{t('locationNorwegian.label')}</Label>
       <Skeleton className='h-10 w-full rounded-lg' />
       <Label className='mb-2'>{t('locationEnglish.label')}</Label>

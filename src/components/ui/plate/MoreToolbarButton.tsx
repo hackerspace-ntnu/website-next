@@ -1,0 +1,82 @@
+'use client';
+
+import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import {
+  KeyboardIcon,
+  MoreHorizontalIcon,
+  SubscriptIcon,
+  SuperscriptIcon,
+} from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { KEYS } from 'platejs';
+import { useEditorRef } from 'platejs/react';
+import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/DropdownMenu';
+import { ToolbarButton } from '@/components/ui/plate/Toolbar';
+
+function MoreToolbarButton(props: DropdownMenuProps) {
+  const editor = useEditorRef();
+  const [open, setOpen] = useState(false);
+  const t = useTranslations('ui.plate');
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
+      <DropdownMenuTrigger asChild>
+        <ToolbarButton pressed={open} tooltip={t('insert')}>
+          <MoreHorizontalIcon />
+        </ToolbarButton>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        className='ignore-click-outside/toolbar flex max-h-[500px] min-w-[180px] flex-col overflow-y-auto'
+        align='start'
+      >
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            onSelect={() => {
+              editor.tf.toggleMark(KEYS.kbd);
+              editor.tf.collapse({ edge: 'end' });
+              editor.tf.focus();
+            }}
+          >
+            <KeyboardIcon />
+            {t('keyboardInput')}
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            onSelect={() => {
+              editor.tf.toggleMark(KEYS.sup, {
+                remove: KEYS.sub,
+              });
+              editor.tf.focus();
+            }}
+          >
+            <SuperscriptIcon />
+            {t('superscript')}
+            {/* (⌘+,) */}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onSelect={() => {
+              editor.tf.toggleMark(KEYS.sub, {
+                remove: KEYS.sup,
+              });
+              editor.tf.focus();
+            }}
+          >
+            <SubscriptIcon />
+            {t('subscript')}
+            {/* (⌘+.) */}
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+export { MoreToolbarButton };

@@ -7,8 +7,13 @@ import {
   Clock,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import * as React from 'react';
-import { useImperativeHandle, useRef } from 'react';
+import {
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { DayPicker, type DayPickerProps } from 'react-day-picker';
 import { Button, buttonVariants } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -254,7 +259,7 @@ function Calendar({
   yearRange = 50,
   ...props
 }: DayPickerProps & { yearRange?: number }) {
-  const MONTHS = React.useMemo(() => {
+  const MONTHS = useMemo(() => {
     let locale: Pick<Locale, 'options' | 'localize' | 'formatLong'> = enGB;
     const { options, localize, formatLong } = props.locale || {};
     if (options && localize && formatLong) {
@@ -267,7 +272,7 @@ function Calendar({
     return genMonths(locale);
   }, [props.locale]);
 
-  const YEARS = React.useMemo(() => genYears(yearRange), [yearRange]);
+  const YEARS = useMemo(() => genYears(yearRange), [yearRange]);
   const disableLeftNavigation = () => {
     const today = new Date();
     const startDate = new Date(today.getFullYear() - yearRange, 0, 1);
@@ -492,14 +497,14 @@ function TimePickerInput({
   ref,
   ...props
 }: TimePickerInputProps) {
-  const [flag, setFlag] = React.useState<boolean>(false);
-  const [prevIntKey, setPrevIntKey] = React.useState<string>('0');
+  const [flag, setFlag] = useState<boolean>(false);
+  const [prevIntKey, setPrevIntKey] = useState<string>('0');
 
   /**
    * allow the user to enter the second digit within 2 seconds
    * otherwise start again with entering first digit
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (flag) {
       const timer = setTimeout(() => {
         setFlag(false);
@@ -509,7 +514,7 @@ function TimePickerInput({
     }
   }, [flag]);
 
-  const calculatedValue = React.useMemo(() => {
+  const calculatedValue = useMemo(() => {
     return getDateByType(date, picker);
   }, [date, picker]);
 
@@ -601,11 +606,11 @@ function TimePicker({
   granularity = 'second',
   ref,
 }: TimePickerProps) {
-  const minuteRef = React.useRef<HTMLInputElement>(null);
-  const hourRef = React.useRef<HTMLInputElement>(null);
-  const secondRef = React.useRef<HTMLInputElement>(null);
-  const periodRef = React.useRef<HTMLButtonElement>(null);
-  const [period, setPeriod] = React.useState<Period>(
+  const minuteRef = useRef<HTMLInputElement>(null);
+  const hourRef = useRef<HTMLInputElement>(null);
+  const secondRef = useRef<HTMLInputElement>(null);
+  const periodRef = useRef<HTMLButtonElement>(null);
+  const [period, setPeriod] = useState<Period>(
     date && date.getHours() >= 12 ? 'PM' : 'AM',
   );
 
@@ -741,9 +746,9 @@ function DateTimePicker({
   ref,
   ...props
 }: DateTimePickerProps) {
-  const [month, setMonth] = React.useState<Date>(value ?? defaultPopupValue);
+  const [month, setMonth] = useState<Date>(value ?? defaultPopupValue);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [displayDate, setDisplayDate] = React.useState<Date | undefined>(
+  const [displayDate, setDisplayDate] = useState<Date | undefined>(
     value ?? undefined,
   );
   const t = useTranslations('ui');
@@ -754,7 +759,7 @@ function DateTimePicker({
    * Makes sure display date updates when value change on
    * parent component
    */
-  React.useEffect(() => {
+  useEffect(() => {
     setDisplayDate(value);
   }, [value]);
 

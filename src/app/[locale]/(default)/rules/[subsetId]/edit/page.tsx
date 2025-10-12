@@ -50,7 +50,7 @@ export default async function EditRulePage({
     return notFound();
   }
 
-  const { about, rules, ui } = await getMessages();
+  const { about, rules, ui, error } = await getMessages();
 
   return (
     <>
@@ -71,7 +71,10 @@ export default async function EditRulePage({
       </div>
       <NextIntlClientProvider
         messages={
-          { about, rules, ui } as Pick<Messages, 'about' | 'rules' | 'ui'>
+          { about, rules, ui, error } as Pick<
+            Messages,
+            'about' | 'rules' | 'ui' | 'error'
+          >
         }
       >
         <div className='mx-auto lg:max-w-2xl'>

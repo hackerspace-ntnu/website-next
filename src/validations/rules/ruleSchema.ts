@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
+import { plateValueSchema } from '@/validations/plate';
 import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 
 function ruleSchema(t: Translations) {
@@ -15,8 +16,8 @@ function ruleSchema(t: Translations) {
     }),
     nameNorwegian: z.string().min(1, t('rules.form.name.required')),
     nameEnglish: z.string().min(1, t('rules.form.name.required')),
-    contentNorwegian: z.string().min(1, t('rules.form.content.required')),
-    contentEnglish: z.string().min(1, t('rules.form.content.required')),
+    contentNorwegian: plateValueSchema,
+    contentEnglish: plateValueSchema,
     internal: z.boolean(),
   });
 }
