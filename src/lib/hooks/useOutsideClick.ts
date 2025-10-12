@@ -9,6 +9,14 @@ function useOutsideClick(
       if (ref.some((r) => r.current?.contains(event.target as Node))) {
         return;
       }
+      if (
+        ref.some((r) =>
+          r.current?.childNodes.forEach((n) =>
+            n.contains(event.target as Node),
+          ),
+        )
+      )
+        return;
       callback(event);
     };
 

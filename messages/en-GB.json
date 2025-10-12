@@ -6,6 +6,7 @@
     "open": "Open",
     "close": "Close",
     "previous": "Previous",
+    "goBack": "Go back",
     "goToPreviousPage": "Go to previous page",
     "next": "Next",
     "goToNextPage": "Go to next page",
@@ -202,6 +203,9 @@
     "signIn": "Sign in",
     "useYourAccount": "Use your account",
     "forgotPassword": "Forgot password",
+    "forgotPasswordDescription": "Enter your Hackerspace account email address to reset your password.",
+    "forgotPasswordInfoToast": "We've sent you a one-time code to reset your password if the email <strong>{email}</strong> is associated with a Hackerspace account.<br></br>If you've used the wrong email, please create a new forgot password request.",
+    "enterTheCode": "Please enter the code we've sent to your email to confirm the password change",
     "submit": "Submit",
     "invalidCredentials": "Invalid credentials",
     "matrixRegistrationFailed": "Matrix user registration failed",
@@ -218,6 +222,8 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
+    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "tryAgain": "Try again",
     "form": {
       "username": {
         "label": "Username",
@@ -231,18 +237,29 @@
         "required": "Password is required",
         "minLength": "Password must be at least {count} characters",
         "maxLength": "Password must be less than {count} characters",
+        "lowercase": "Password must contain at least one lowercase letter",
         "uppercase": "Password must contain at least one uppercase letter",
         "specialChar": "Password must contain at least one special character",
         "confirmLabel": "Confirm password",
         "mismatch": "Passwords do not match",
         "weak": "Password is too weak"
       },
+      "newPassword": {
+        "label": "New password"
+      },
       "otp": {
         "label": "One-time password",
         "required": "One-time password is required",
         "length": "One-time password must be {count} characters long",
         "invalid": "One-time password must only contain digits and characters",
-        "incorrect": "Incorrect one-time password"
+        "incorrect": "Incorrect one-time password",
+        "expired": "One-time password has expired.",
+        "used": "One-time password has already been used. Please create a new forgot password request."
+      },
+      "email": {
+        "label": "Email",
+        "required": "Email is required",
+        "invalid": "Email is invalid"
       }
     },
     "error": {
@@ -252,7 +269,12 @@
       "phoneInUse": "Phone number is already in use",
       "emailInUse": "Email is already in use",
       "invalidUserData": "Invalid user data",
-      "userCreationFailed": "Failed to create user"
+      "userCreationFailed": "Failed to create user",
+      "forgotPasswordRequestCreationFailed": "Failed to create forgot password request",
+      "failedToSendEmail": "Failed to send email",
+      "forgotPasswordRequestIdRequired": "Forgot password request ID is required",
+      "matrixPasswordUpdateFailed": "Failed to update Matrix password",
+      "passwordUpdateFailed": "Failed to update password"
     }
   },
   "layout": {
@@ -267,7 +289,6 @@
     "members": "Members",
     "quotes": "Quotes",
     "desktopNavMenu": "{open, select, true {Open} other {Close}} navigation menu",
-    "goToMatrix": "Go to Matrix",
     "rules": "Rules",
     "applications": "Applications",
     "changeLocale": "Change language",
@@ -278,6 +299,7 @@
     "profile": "Profile",
     "signIn": "Sign in",
     "signOut": "Sign out",
+    "forgotPassword": "Forgot password",
     "settings": "Settings",
     "management": "Management",
     "links": "Links",
@@ -302,6 +324,18 @@
     "allRightsReserved": "All rights reserved",
     "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
     "reservations": "Reservations"
+  },
+  "matrixDialog": {
+    "title": "Matrix Login Information",
+    "descriptionNotLoggedIn": "You must have a Hackerspace Account to use Matrix. Do you have a Hackerspace Account already?",
+    "iHaveAnAccount": "I have an account, take me to Matrix",
+    "createAnAccount": "Create a Hackerspace Account",
+    "descriptionLoggedIn": "When logging in to Matrix, please use your NTNU username (without @ntnu.no) and the Hackerspace Account password. Username and password should be changed here on the Hackerspace website.",
+    "dontShowAgain": "Alright, don't show this again",
+    "openMatrix": "Open Matrix",
+    "api": {
+      "invalidValue": "Invalid value for don't show again"
+    }
   },
   "news": {
     "title": "News",
@@ -399,11 +433,12 @@
       "userRemovedFromGroup": "User removed from group successfully"
     },
     "api": {
+      "invalidOffset": "Invalid offset",
+      "invalidLimit": "Invalid limit",
       "idOrNameRequired": "Either ID or name must be provided",
       "errorFetchingMember": "Error fetching member",
       "errorFetchingMembers": "Error fetching members",
       "pageNumberRequired": "Page number required",
-      "invalidLimit": "Invalid limit",
       "adminGroupRequired": "You must be an admin yourself to edit admin users"
     }
   },
@@ -731,7 +766,7 @@
         "label": "Category",
         "placeholder": "Hardware"
       },
-      "submit": "Submit",
+      "submit": "Save item",
       "deleteItem": "Delete item",
       "deleteItemDescription": "Are you sure you want to delete this item? All loans of this item will also be deleted. This action cannot be undone!",
       "successNew": "New storage item added successfully! Redirecting to storage...",
@@ -1340,33 +1375,122 @@
     "title": "Reservations",
     "backButton": "Back",
     "tools": {
-      "available": "Book item",
+      "available": "Reserve tool",
       "unavailable": "Unavailable",
       "supervision": "Requires supervision",
+      "outOfOrder": "Out of order",
       "tooltip": "Read more about this tool",
-      "myReservations": "My reservations"
+      "myReservations": "My reservations",
+      "requires": "Requires",
+      "difficulty": "Difficulty",
+      "filamentSize": "Filament size",
+      "filamentType": "Filament type",
+      "slicer": "Slicer",
+      "backToReservations": "Back to reservations",
+      "new": {
+        "title": "New Reservation Tool",
+        "createTool": "Create tool",
+        "toolCreated": "Tool created successfully",
+        "unauthorized": "Unauthorized to create new reservation tools"
+      },
+      "edit": {
+        "title": "Edit Reservation Tool",
+        "updateTool": "Update tool",
+        "toolUpdated": "Tool updated successfully",
+        "deleteTool": "Delete tool",
+        "deleteToolTitle": "Are you sure you want to delete this tool?",
+        "deleteToolDescription": "All reservations for this tool will also be deleted. This action cannot be undone.",
+        "toolDeleted": "Tool deleted successfully",
+        "deleteToolImage": "Delete tool image",
+        "deleteToolImageTitle": "Are you sure you want to delete this tool image?",
+        "deleteToolImageDescription": "This action cannot be undone.",
+        "imageDeleted": "Tool image deleted successfully",
+        "unauthorized": "Unauthorized to edit reservation tools"
+      },
+      "form": {
+        "3dprinterOptions": "3D Printer options",
+        "image": {
+          "label": "Tool image",
+          "description": "Upload an image...",
+          "sizeLimitError": "Tool image must be less than {size} MB",
+          "wrongFileTypeError": "Tool image must be a PNG or JPG",
+          "fileNotImageError": "The file is not an image"
+        },
+        "type": {
+          "label": "Tool type",
+          "required": "Tool type is required",
+          "3dprinter": "3D Printer",
+          "other": "Other"
+        },
+        "name": {
+          "labelNorwegian": "Tool name (Norwegian)",
+          "labelEnglish": "Tool name (English)",
+          "placeholder": "3D Printer",
+          "required": "Tool name is required",
+          "maxLength": "Tool name must be less than {count} characters"
+        },
+        "nickName": {
+          "label": "Tool nickname",
+          "placeholder": "Geir Ove Mjølsnes",
+          "maxLength": "Tool nickname must be less than {count} characters"
+        },
+        "description": {
+          "labelNorwegian": "Tool description (Norwegian)",
+          "labelEnglish": "Tool description (English)",
+          "placeholder": "A brief description of the tool",
+          "required": "Tool description is required",
+          "maxLength": "Tool description must be less than {count} characters"
+        },
+        "status": {
+          "label": "Tool status",
+          "description": "Select the current status of the tool.",
+          "required": "Tool status is required",
+          "available": "Available",
+          "unavailable": "Unavailable",
+          "requires_supervision": "Requires supervision",
+          "out_of_order": "Out of order"
+        },
+        "requires": {
+          "label": "Items required to use this tool",
+          "description": "E.g. SD card, USB stick, etc.",
+          "maxLength": "Items required must be less than {count} characters"
+        },
+        "difficultyLevel": {
+          "label": "Difficulty level",
+          "description": "Select the difficulty level for using this tool."
+        },
+        "filamentSize": {
+          "label": "Filament size",
+          "description": "E.g. 1.75mm or 2.85mm",
+          "maxLength": "Filament size must be less than {count} characters"
+        },
+        "filamentType": {
+          "label": "Filament type",
+          "description": "E.g. PLA, ABS, PETG, etc.",
+          "maxLength": "Filament type must be less than {count} characters"
+        },
+        "slicer": {
+          "label": "Slicer software",
+          "description": "E.g. Bambu Studio, PrusaSlicer, etc.",
+          "maxLength": "Slicer software must be less than {count} characters"
+        }
+      }
     },
     "myReservationsTable": {
       "title": "Your reservations",
       "edit": "Edit",
       "cancel": "Cancel",
       "remove": "Remove",
-      "editTitle": "Edit table",
-      "cancelTitle": "Cancel action",
-      "removetitle": "Remove checked reservations",
-      "checkBoxTitle": "Press to check",
-      "checkboxAllTitle": "Press to check all",
       "tool": "Tool",
       "from": "From",
-      "to": "To",
-      "goToCalendar": "Go to calendar",
+      "until": "Until",
       "empty": "You have no reservations",
-      "notLoggedIn": "Please log in to see your reservations."
+      "notLoggedIn": "Please log in to see your reservations.",
+      "deletedSuccess": "Successfully deleted reservation"
     },
     "information": {
       "importantTitle": "Important information!",
-      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked.",
-      "dontShow": "Do not show this again"
+      "importantText": "Read the <link>rules regarding the use of 3D printers</link> before you create a reservation. By using our reservation system, we allocate our resources (both the printer and members on shift who are monitoring it). It is therefore expected that you meet up on time (preferably 5 minutes before your reserved time) and do not exceed the time you have booked."
     },
     "toolbar": {
       "prev": "Prev",
@@ -1374,7 +1498,7 @@
       "next": "Next",
       "day": "Day",
       "week": "Week",
-      "3days": "3-Days",
+      "3days": "3 Days",
       "dayTitle": "Show day view",
       "weekTitle": "Show week view",
       "3daysTitle": "Show 3-day view",
@@ -1396,29 +1520,65 @@
       "delete": "Delete",
       "create": "Create",
       "name": "Name",
-      "namePlaceholder": "Admin Jim",
-      "phoneNr": "Phone number",
-      "phoneNrPlaceholder": "Your phone number",
-      "email": "Email",
-      "emailPlaceholder": "imagine@dragin.com",
-      "startTime": "Start date/time",
-      "endTime": "End date/time",
-      "formSchema": {
-        "nameReq": "Please type in your full name",
-        "phoneNrReq": "Please type in your phone number",
-        "emailReq": "Please type in your Email",
-        "Error": "Somehting went wrong, try again later..."
-      }
+      "notes": "Notes",
+      "reservedFrom": "Start date",
+      "reservedUntil": "End date",
+      "hour": "Hour",
+      "min": "Minute",
+      "specifyTime": "Please fill out start and end time",
+      "endDateAfterStart": "End date must be after start date",
+      "endHourAfterStart": "End hour must be after start hour",
+      "endMinAfterStart": "End minutes be after start minutes",
+      "startDateInPast": "Start date cannot be in the past",
+      "startHourInPast": "Start hour cannot be in the past",
+      "startMinuteInPast": "Start minute cannot be in the past",
+      "cannotChangeOngoingStart": "Cannot change the start time for an ongoing reservation",
+      "specifyStart": "Start date is required",
+      "specifyEnd": "End date is required",
+      "invalidHour": "Invalid hour",
+      "invalidMinute": "Invalid minute",
+      "longerThan15min": "Reservation must be 15 minutes or longer",
+      "successCreate": "Successfully created reservation.",
+      "successUpdate": "Successfully updated reservation.",
+      "successDelete": "Successfully deleted reservation.",
+      "weekendsMemberOnly": "Only members can reserve on weekends"
     },
     "confirmDialog": {
       "confirm": "Confirm",
       "cancel": "Cancel",
       "title": "Confirm action",
-      "description": "Are you certain you want to {action}"
+      "description": "Are you certain you want to delete reservation?"
     },
     "calendar": {
       "createButton": "Create reservation",
+      "createButtonLoggedOut": "Login to create reservation",
       "locale": "en"
+    },
+    "customEventContent": {
+      "details": "Reservation Details",
+      "tooltipUserEvent": "Click to edit",
+      "tooltipOtherEvents": "Click for details",
+      "close": "Close"
+    },
+    "api": {
+      "startBeforeEndError": "End time cannot be before start time",
+      "invalidId": "Invalid id",
+      "reservationNotFound": "Could not find reservation",
+      "toolNotFound": "Could not find tool",
+      "toolUnavailable": "Tool is unavailable",
+      "newMustBeInFuture": "Start/end time cannot be in the past",
+      "specifyStart": "Start date is required",
+      "specifyEnd": "End date is required",
+      "rangeTooLarge": "Specified range is too large",
+      "fetchReservationsFailed": "Failed to fetch reservations",
+      "createReservationTimeConflict": "Start/end time cannot overlap existing reservations",
+      "cannotChangePast": "Finished reservations cannot be changed",
+      "updateFailed": "Failed to update reservation",
+      "createFailed": "Failed to create reservation",
+      "cannotChangeOngoingStart": "Cannot change the start time for an ongoing reservation",
+      "createToolFailed": "Failed to create tool",
+      "editToolFailed": "Failed to edit tool",
+      "weekendsMemberOnly": "Only members can reserve on weekends"
     }
   }
 }

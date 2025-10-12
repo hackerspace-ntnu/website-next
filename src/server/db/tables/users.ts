@@ -14,6 +14,7 @@ import {
 import {
   emailVerificationRequests,
   files,
+  forgotPasswordRequests,
   quotes,
   sessions,
   shifts,
@@ -83,6 +84,7 @@ const usersRelations = relations(users, ({ many }) => ({
   usersSkills: many(usersSkills),
   usersEvents: many(usersEvents),
   emailVerificationRequests: many(emailVerificationRequests),
+  forgotPasswordRequests: many(forgotPasswordRequests),
   files: many(files),
   shifts: many(shifts),
   heardQuotes: many(quotes, { relationName: 'heardQuotes' }),

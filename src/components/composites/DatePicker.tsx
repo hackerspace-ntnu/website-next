@@ -22,6 +22,7 @@ type DatePickerProps = {
   date: Date | undefined;
   setDate: (date: Date) => void;
   disabled?: boolean;
+  disabledDates?: React.ComponentProps<typeof Calendar>['disabled'];
 } & Omit<
   DayPickerProps,
   | 'fixedWeeks'
@@ -41,7 +42,6 @@ type DatePickerProps = {
  * UPDATE: Now supports an input field so it actually works as a date picker in a form. State is passed to it via props
  * so it works in a form. Also included i18n support.
  */
-
 function DatePicker({
   className,
   side,
@@ -56,6 +56,7 @@ function DatePicker({
   showWeekNumber,
   defaultMonth,
   disabled,
+  disabledDates,
   ...props
 }: DatePickerProps) {
   const t = useTranslations('ui');
@@ -139,6 +140,7 @@ function DatePicker({
           showOutsideDays={showOutsideDays}
           showWeekNumber={showWeekNumber}
           defaultMonth={defaultMonth}
+          disabled={disabledDates}
         />
       </PopoverContent>
     </Popover>
