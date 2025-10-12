@@ -38,6 +38,7 @@ const newsArticleLocalizations = pgTable(
       onDelete: 'cascade',
     }),
     title: text('title').notNull(),
+    preamble: text('preamble').notNull(),
     content: json('content').$type<Value>().notNull(),
     locale: localesEnum('locale').notNull(),
   },

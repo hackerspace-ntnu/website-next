@@ -391,6 +391,11 @@
         "labelEnglish": "Artikkeltittel (engelsk)",
         "required": "Artikkeltittel er påkrevd"
       },
+      "preamble": {
+        "labelNorwegian": "Artikkelingress (norsk)",
+        "labelEnglish": "Artikkelingress (engelsk)",
+        "required": "Artikkelingress er påkrevd"
+      },
       "content": {
         "labelNorwegian": "Artikkelinnhold (norsk)",
         "labelEnglish": "Artikkelinnhold (engelsk)",

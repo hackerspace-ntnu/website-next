@@ -18,6 +18,10 @@ async function ArticleFormSkeleton() {
       <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('title.labelEnglish')}</Label>
       <Skeleton className='h-10 w-full rounded-md' />
+      <Label>{t('preamble.labelNorwegian')}</Label>
+      <Skeleton className='h-10 w-full rounded-md' />
+      <Label>{t('preamble.labelEnglish')}</Label>
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('content.labelEnglish')}</Label>
       <Skeleton className='h-100 w-full rounded-md' />
       <Label>{t('content.labelEnglish')}</Label>

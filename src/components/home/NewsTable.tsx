@@ -13,7 +13,7 @@ function NewsTable({ articles }: NewsTableProps) {
           <TableRow key={article.id}>
             <TableCell className='max-w-80 rounded-lg p-2'>
               <h3 className='truncate'>{article.localization.title}</h3>
-              <p className='truncate'>{article.localization.content}</p>
+              <p className='truncate'>{article.localization.preamble}</p>
             </TableCell>
           </TableRow>
         ))}

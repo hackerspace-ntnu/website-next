@@ -16,6 +16,8 @@ function newsArticleSchema(t: Translations) {
     }),
     titleNorwegian: z.string().min(1, t('news.form.title.required')),
     titleEnglish: z.string().min(1, t('news.form.title.required')),
+    preambleNorwegian: z.string().min(1, t('news.form.preamble.required')),
+    preambleEnglish: z.string().min(1, t('news.form.preamble.required')),
     contentNorwegian: plateValueSchema,
     contentEnglish: plateValueSchema,
     internal: z.boolean(),

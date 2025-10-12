@@ -7,7 +7,9 @@ const fileDirectories = [
   'events',
   'groups',
   'rules',
+  'tools',
   'rich-input',
+  'home-carousel-slides',
 ] as const;
 
 const groupIdentifiers = [

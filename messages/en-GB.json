@@ -391,6 +391,11 @@
         "labelEnglish": "Article title (English)",
         "required": "Article title is required"
       },
+      "preamble": {
+        "labelNorwegian": "Article preamble (Norwegian)",
+        "labelEnglish": "Article preamble (English)",
+        "required": "Article preamble is required"
+      },
       "content": {
         "labelNorwegian": "Article content (Norwegian)",
         "labelEnglish": "Article content (English)",

@@ -92,7 +92,10 @@ export default async function ArticlePage({
           )}
         </div>
         <div className='my-4 flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <h2>{article.localization.title}</h2>
+          <div>
+            <h2>{article.localization.title}</h2>
+            <p>{article.localization.preamble}</p>
+          </div>
           {user?.groups && user.groups.length > 0 && (
             <Link
               variant='default'
