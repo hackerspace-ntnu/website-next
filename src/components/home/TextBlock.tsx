@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { cx } from '@/lib/utils';
 
 type TextBlockProps = {
   imgSrc: string;
@@ -10,7 +9,7 @@ type TextBlockProps = {
 
 function TextBlock({ imgSrc, imgAlt, imgSide, children }: TextBlockProps) {
   const image = (
-    <div className='relative min-h-64 lg:w-5/12'>
+    <div className='relative min-h-64 shrink-0 lg:w-1/3'>
       <Image
         className='min-h-fit rounded-xl object-cover lg:object-contain xl:object-cover'
         src={imgSrc}
@@ -23,14 +22,9 @@ function TextBlock({ imgSrc, imgAlt, imgSide, children }: TextBlockProps) {
 
   return (
     <>
-      <div
-        className={cx(
-          imgSide === 'left' ? 'mr-auto' : 'ml-auto',
-          'hidden max-w-6xl justify-between lg:flex',
-        )}
-      >
+      <div className='mx-auto hidden max-w-7xl justify-between lg:flex lg:gap-20'>
         {imgSide === 'left' && image}
-        <div className='my-auto w-1/2 space-y-5 pb-3'>{children}</div>
+        <div className='my-auto flex-1 space-y-5 pb-3'>{children}</div>
         {imgSide === 'right' && image}
       </div>
       <div className='flex flex-col space-y-5 lg:hidden'>
