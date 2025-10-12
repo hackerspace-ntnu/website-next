@@ -6,7 +6,7 @@ import { ArrowUpToLineIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { getEditorDOMFromHtmlString } from 'platejs';
 import { useEditorRef } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
 import {
   DropdownMenu,
@@ -21,7 +21,7 @@ type ImportType = 'html' | 'markdown';
 
 function ImportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations('ui.plate');
 
   const getFileNodes = (text: string, type: ImportType) => {

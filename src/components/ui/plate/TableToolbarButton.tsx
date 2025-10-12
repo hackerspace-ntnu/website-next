@@ -18,7 +18,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { useEditorPlugin, useEditorSelector } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,7 +40,7 @@ function TableToolbarButton(props: DropdownMenuProps) {
   const t = useTranslations('ui.plate');
 
   const { editor, tf } = useEditorPlugin(TablePlugin);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const mergeState = useTableMergeState();
 
   return (
@@ -210,7 +210,7 @@ function TableToolbarButton(props: DropdownMenuProps) {
 function TablePicker() {
   const { editor, tf } = useEditorPlugin(TablePlugin);
 
-  const [tablePicker, setTablePicker] = React.useState({
+  const [tablePicker, setTablePicker] = useState({
     grid: Array.from({ length: 8 }, () => Array.from({ length: 8 }).fill(0)),
     size: { colCount: 0, rowCount: 0 },
   });

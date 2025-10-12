@@ -8,7 +8,7 @@ import {
 import { List, ListOrdered, ListTodoIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorRef, useEditorSelector } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +25,7 @@ import {
 
 function BulletedListToolbarButton() {
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations('ui.plate');
 
   const pressed = useEditorSelector(
@@ -104,7 +104,7 @@ function BulletedListToolbarButton() {
 
 function NumberedListToolbarButton() {
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations('ui.plate');
 
   const pressed = useEditorSelector(

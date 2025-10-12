@@ -1,11 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 export function useIsTouchDevice() {
-  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function onResize() {
       setIsTouchDevice(
         'ontouchstart' in window ||

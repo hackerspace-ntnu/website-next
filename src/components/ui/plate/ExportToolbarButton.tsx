@@ -7,7 +7,7 @@ import { ArrowDownToLineIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { createSlateEditor, serializeHtml } from 'platejs';
 import { useEditorRef } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,7 +26,7 @@ function ExportToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const tError = useTranslations('error');
   const t = useTranslations('ui.plate');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const getCanvas = async () => {
     const { default: html2canvas } = await import('html2canvas-pro');

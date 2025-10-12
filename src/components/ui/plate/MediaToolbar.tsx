@@ -19,7 +19,7 @@ import {
   useRemoveNodeButton,
   useSelected,
 } from 'platejs/react';
-import * as React from 'react';
+import { useEffect } from 'react';
 import { Button, buttonVariants } from '@/components/ui/Button';
 import {
   Popover,
@@ -59,7 +59,7 @@ function MediaToolbar({
   const t = useTranslations('ui.plate');
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open && isEditing) {
       FloatingMediaStore.set('isEditing', false);
     }

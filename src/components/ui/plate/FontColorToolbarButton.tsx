@@ -9,7 +9,15 @@ import debounce from 'lodash/debounce.js';
 import { EraserIcon, PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorRef, useEditorSelector } from 'platejs/react';
-import React from 'react';
+import React, {
+  cloneElement,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { buttonVariants } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -46,18 +54,18 @@ function FontColorToolbarButton({
     [nodeType],
   );
 
-  const [selectedColor, setSelectedColor] = React.useState<string>();
-  const [open, setOpen] = React.useState(false);
+  const [selectedColor, setSelectedColor] = useState<string>();
+  const [open, setOpen] = useState(false);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  const onToggle = React.useCallback(
+  const onToggle = useCallback(
     (value = !open) => {
       setOpen(value);
     },
     [open, setOpen],
   );
 
-  const updateColor = React.useCallback(
+  const updateColor = useCallback(
     (value: string) => {
       if (editor.selection) {
         setSelectedColor(value);
@@ -71,7 +79,7 @@ function FontColorToolbarButton({
     [editor, nodeType],
   );
 
-  const updateColorAndClose = React.useCallback(
+  const updateColorAndClose = useCallback(
     (value: string) => {
       updateColor(value);
       onToggle();
@@ -79,7 +87,7 @@ function FontColorToolbarButton({
     [onToggle, updateColor],
   );
 
-  const clearColor = React.useCallback(() => {
+  const clearColor = useCallback(() => {
     if (editor.selection) {
       editor.tf.select(editor.selection);
       editor.tf.focus();
@@ -92,7 +100,7 @@ function FontColorToolbarButton({
     }
   }, [editor, selectedColor, onToggle, nodeType]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectionDefined) {
       setSelectedColor(color);
     }
@@ -176,7 +184,7 @@ function PureColorPicker({
   );
 }
 
-const ColorPicker = React.memo(
+const ColorPicker = memo(
   PureColorPicker,
   (prev, next) =>
     prev.color === next.color &&
@@ -199,11 +207,11 @@ function ColorCustom({
   updateCustomColor: (color: string) => void;
   color?: string;
 } & React.ComponentPropsWithoutRef<'div'>) {
-  const [customColor, setCustomColor] = React.useState<string>();
-  const [value, setValue] = React.useState<string>(color || '#000000');
+  const [customColor, setCustomColor] = useState<string>();
+  const [value, setValue] = useState<string>(color || '#000000');
   const t = useTranslations('ui');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       !color ||
       customColors.some((c) => c.value === color) ||
@@ -215,7 +223,7 @@ function ColorCustom({
     setCustomColor(color);
   }, [color, colors, customColors]);
 
-  const computedColors = React.useMemo(
+  const computedColors = useMemo(
     () =>
       customColor
         ? [
@@ -231,7 +239,7 @@ function ColorCustom({
   );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  const updateCustomColorDebounced = React.useCallback(
+  const updateCustomColorDebounced = useCallback(
     debounce(updateCustomColor, 100),
     [updateCustomColor],
   );
@@ -277,14 +285,14 @@ function ColorInput({
   value = '#000000',
   ...props
 }: React.ComponentProps<'input'>) {
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <div className='flex flex-col items-center'>
       {React.Children.map(children, (child) => {
         if (!child) return child;
 
-        return React.cloneElement(
+        return cloneElement(
           child as React.ReactElement<{
             onClick: () => void;
           }>,

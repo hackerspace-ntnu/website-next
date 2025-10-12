@@ -26,7 +26,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { type PlateEditor, useEditorRef } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -213,7 +213,7 @@ function getGroups(t: Translations): Group[] {
 
 function InsertToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations();
   const groups = getGroups(t);
 

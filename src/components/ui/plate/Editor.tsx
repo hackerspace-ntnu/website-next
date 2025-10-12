@@ -3,7 +3,7 @@
 import { cva, type VariantProps } from 'cva';
 import type { PlateContentProps, PlateViewProps } from 'platejs/react';
 import { PlateContainer, PlateContent, PlateView } from 'platejs/react';
-import * as React from 'react';
+import { forwardRef } from 'react';
 import { TooltipProvider } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';
 
@@ -82,7 +82,7 @@ const editorVariants = cva({
 
 type EditorProps = PlateContentProps & VariantProps<typeof editorVariants>;
 
-const Editor = React.forwardRef<HTMLDivElement, EditorProps>(
+const Editor = forwardRef<HTMLDivElement, EditorProps>(
   ({ className, disabled, focused, variant, ...props }, ref) => {
     return (
       <TooltipProvider>

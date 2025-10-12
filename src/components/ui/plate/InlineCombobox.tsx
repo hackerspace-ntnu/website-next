@@ -23,7 +23,17 @@ import {
 import { cva } from 'cva';
 import type { Point, TElement } from 'platejs';
 import { useComposedRef, useEditorRef } from 'platejs/react';
-import * as React from 'react';
+import {
+  createContext,
+  forwardRef,
+  startTransition,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { cx } from '@/lib/utils/index';
 
 type FilterFn = (
@@ -41,7 +51,7 @@ interface InlineComboboxContextValue {
   setHasEmpty: (hasEmpty: boolean) => void;
 }
 
-const InlineComboboxContext = React.createContext<InlineComboboxContextValue>(
+const InlineComboboxContext = createContext<InlineComboboxContextValue>(
   null as unknown as InlineComboboxContextValue,
 );
 
@@ -80,14 +90,14 @@ const InlineCombobox = ({
   value: valueProp,
 }: InlineComboboxProps) => {
   const editor = useEditorRef();
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const cursorState = useHTMLInputCursorState(inputRef);
 
-  const [valueState, setValueState] = React.useState('');
+  const [valueState, setValueState] = useState('');
   const hasValueProp = valueProp !== undefined;
   const value = hasValueProp ? valueProp : valueState;
 
-  const setValue = React.useCallback(
+  const setValue = useCallback(
     (newValue: string) => {
       setValueProp?.(newValue);
 
@@ -102,9 +112,9 @@ const InlineCombobox = ({
    * Track the point just before the input element so we know where to
    * insertText if the combobox closes due to a selection change.
    */
-  const insertPoint = React.useRef<Point | null>(null);
+  const insertPoint = useRef<Point | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const path = editor.api.findPath(element);
 
     if (!path) return;
@@ -140,10 +150,10 @@ const InlineCombobox = ({
     },
   });
 
-  const [hasEmpty, setHasEmpty] = React.useState(false);
+  const [hasEmpty, setHasEmpty] = useState(false);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  const contextValue: InlineComboboxContextValue = React.useMemo(
+  const contextValue: InlineComboboxContextValue = useMemo(
     () => ({
       filter,
       inputProps,
@@ -166,7 +176,7 @@ const InlineCombobox = ({
 
   const store = useComboboxStore({
     // open: ,
-    setValue: (newValue) => React.startTransition(() => setValue(newValue)),
+    setValue: (newValue) => startTransition(() => setValue(newValue)),
   });
 
   const items = useStoreState(store, 'items');
@@ -176,7 +186,7 @@ const InlineCombobox = ({
    * item.
    */
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  React.useEffect(() => {
+  useEffect(() => {
     if (!store.getState().activeId) {
       store.setActiveId(store.first());
     }
@@ -199,7 +209,7 @@ const InlineCombobox = ({
   );
 };
 
-const InlineComboboxInput = React.forwardRef<
+const InlineComboboxInput = forwardRef<
   HTMLInputElement,
   React.HTMLAttributes<HTMLInputElement>
 >(({ className, ...props }, propRef) => {
@@ -208,7 +218,7 @@ const InlineComboboxInput = React.forwardRef<
     inputRef: contextRef,
     showTrigger,
     trigger,
-  } = React.useContext(InlineComboboxContext);
+  } = useContext(InlineComboboxContext);
 
   const store = useComboboxContext();
   const value = useStoreState(store, 'value');
@@ -300,13 +310,13 @@ const InlineComboboxItem = ({
   Required<Pick<ComboboxItemProps, 'value'>>) => {
   const { value } = props;
 
-  const { filter, removeInput } = React.useContext(InlineComboboxContext);
+  const { filter, removeInput } = useContext(InlineComboboxContext);
 
   const store = useComboboxContext();
 
   const search = useStoreState(store, 'value');
 
-  const visible = React.useMemo(
+  const visible = useMemo(
     () =>
       !filter || filter({ group, keywords, label, value }, search as string),
     [filter, group, keywords, label, value, search],
@@ -330,11 +340,11 @@ const InlineComboboxEmpty = ({
   children,
   className,
 }: React.HTMLAttributes<HTMLDivElement>) => {
-  const { setHasEmpty } = React.useContext(InlineComboboxContext);
+  const { setHasEmpty } = useContext(InlineComboboxContext);
   const store = useComboboxContext();
   const items = useStoreState(store, 'items');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setHasEmpty(true);
 
     return () => {

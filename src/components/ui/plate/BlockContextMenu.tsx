@@ -8,7 +8,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { KEYS } from 'platejs';
 import { useEditorPlugin, usePlateState } from 'platejs/react';
-import * as React from 'react';
+import { useCallback } from 'react';
 import {
   ContextMenu,
   ContextMenuContent,
@@ -27,7 +27,7 @@ function BlockContextMenu({ children }: { children: React.ReactNode }) {
   const [readOnly] = usePlateState('readOnly');
   const t = useTranslations('ui');
 
-  const handleTurnInto = React.useCallback(
+  const handleTurnInto = useCallback(
     (type: string) => {
       editor
         .getApi(BlockSelectionPlugin)
@@ -45,7 +45,7 @@ function BlockContextMenu({ children }: { children: React.ReactNode }) {
     [editor],
   );
 
-  const handleAlign = React.useCallback(
+  const handleAlign = useCallback(
     (align: 'center' | 'left' | 'right') => {
       editor
         .getTransforms(BlockSelectionPlugin)

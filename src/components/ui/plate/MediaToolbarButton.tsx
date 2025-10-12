@@ -12,7 +12,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { isUrl, KEYS } from 'platejs';
 import { useEditorRef } from 'platejs/react';
-import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
 import { useFilePicker } from 'use-file-picker';
 import {
@@ -85,8 +85,8 @@ function MediaToolbarButton({
   const currentConfig = getMediaConfig(t)[nodeType];
 
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
-  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const { openFilePicker } = useFilePicker({
     accept: currentConfig?.accept,
@@ -173,10 +173,10 @@ function MediaUrlDialogContent({
   setOpen: (value: boolean) => void;
 }) {
   const editor = useEditorRef();
-  const [url, setUrl] = React.useState('');
+  const [url, setUrl] = useState('');
   const t = useTranslations('ui');
 
-  const embedMedia = React.useCallback(() => {
+  const embedMedia = useCallback(() => {
     if (!isUrl(url)) return toast.error(t('plate.invalidUrl'));
 
     setOpen(false);

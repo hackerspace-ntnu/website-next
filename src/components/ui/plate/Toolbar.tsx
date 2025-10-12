@@ -4,7 +4,7 @@ import * as ToolbarPrimitive from '@radix-ui/react-toolbar';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { cva, type VariantProps } from 'cva';
 import { ChevronDown } from 'lucide-react';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import {
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
@@ -296,9 +296,9 @@ function withTooltip<T extends React.ElementType>(Component: T) {
     tooltipTriggerProps,
     ...props
   }: TooltipProps<T>) {
-    const [mounted, setMounted] = React.useState(false);
+    const [mounted, setMounted] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
       setMounted(true);
     }, []);
 

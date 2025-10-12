@@ -27,7 +27,7 @@ import {
   XIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import * as React from 'react';
+import { memo, useCallback } from 'react';
 import { Button } from '@/components/ui/Button';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 import {
@@ -159,7 +159,7 @@ function EmojiPicker({
   );
 }
 
-const EmojiButton = React.memo(function EmojiButton({
+const EmojiButton = memo(function EmojiButton({
   emoji,
   index,
   onMouseOver,
@@ -199,7 +199,7 @@ const EmojiButton = React.memo(function EmojiButton({
   );
 });
 
-const RowOfButtons = React.memo(function RowOfButtons({
+const RowOfButtons = memo(function RowOfButtons({
   emojiLibrary,
   row,
   onMouseOver,
@@ -249,7 +249,7 @@ function EmojiPickerContent({
 >) {
   const getRowWidth = settings.perLine.value * settings.buttonSize.value;
 
-  const isCategoryVisible = React.useCallback(
+  const isCategoryVisible = useCallback(
     (categoryId: EmojiCategoryList) => {
       return visibleCategories.has(categoryId)
         ? visibleCategories.get(categoryId)
@@ -258,7 +258,7 @@ function EmojiPickerContent({
     [visibleCategories],
   );
 
-  const EmojiList = React.useCallback(() => {
+  const EmojiList = useCallback(() => {
     return emojiLibrary
       .getGrid()
       .sections()
@@ -306,7 +306,7 @@ function EmojiPickerContent({
     settings,
   ]);
 
-  const SearchList = React.useCallback(() => {
+  const SearchList = useCallback(() => {
     return (
       <div style={{ width: getRowWidth }} data-id='search'>
         <div className='-top-px sticky z-1 bg-popover/90 p-1 py-2 font-semibold text-card-foreground text-sm backdrop-blur-xs'>

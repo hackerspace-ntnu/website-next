@@ -6,7 +6,7 @@ import { DropdownMenuItemIndicator } from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, WrapText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorRef, useSelectionFragmentProp } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,7 +27,7 @@ function LineHeightToolbarButton(props: DropdownMenuProps) {
     getProp: (node) => node.lineHeight,
   });
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>

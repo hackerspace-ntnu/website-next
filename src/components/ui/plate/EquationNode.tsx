@@ -15,7 +15,7 @@ import {
   useReadOnly,
   useSelected,
 } from 'platejs/react';
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TextareaAutosize, {
   type TextareaAutosizeProps,
 } from 'react-textarea-autosize';
@@ -29,8 +29,8 @@ import { cx } from '@/lib/utils/index';
 
 function EquationElement(props: PlateElementProps<TEquationElement>) {
   const selected = useSelected();
-  const [open, setOpen] = React.useState(selected);
-  const katexRef = React.useRef<HTMLDivElement | null>(null);
+  const [open, setOpen] = useState(selected);
+  const katexRef = useRef<HTMLDivElement | null>(null);
   const t = useTranslations('ui.plate');
 
   useEquationElement({
@@ -91,16 +91,16 @@ function EquationElement(props: PlateElementProps<TEquationElement>) {
 
 function InlineEquationElement(props: PlateElementProps<TEquationElement>) {
   const element = props.element;
-  const katexRef = React.useRef<HTMLDivElement | null>(null);
+  const katexRef = useRef<HTMLDivElement | null>(null);
   const selected = useSelected();
   const isCollapsed = useEditorSelector(
     (editor) => editor.api.isCollapsed(),
     [],
   );
-  const [open, setOpen] = React.useState(selected && isCollapsed);
+  const [open, setOpen] = useState(selected && isCollapsed);
   const t = useTranslations('ui.plate');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selected && isCollapsed) {
       setOpen(true);
     }
@@ -192,7 +192,7 @@ const EquationPopoverContent = ({
   const element = useElement<TEquationElement>();
   const t = useTranslations('ui');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isInline && open) {
       setOpen(true);
     }

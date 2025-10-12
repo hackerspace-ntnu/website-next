@@ -16,7 +16,7 @@ import {
   usePluginOption,
   useSelected,
 } from 'platejs/react';
-import * as React from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -30,7 +30,7 @@ const UNDRAGGABLE_KEYS = [KEYS.column, KEYS.tr, KEYS.td];
 const BlockDraggable: RenderNodeWrapper = (props) => {
   const { editor, element, path } = props;
 
-  const enabled = React.useMemo(() => {
+  const enabled = useMemo(() => {
     if (editor.dom.readOnly) return false;
 
     if (path.length === 1 && !isType(editor, element, UNDRAGGABLE_KEYS)) {
@@ -89,7 +89,7 @@ function Draggable(props: PlateElementProps) {
   const isInColumn = path.length === 3;
   const isInTable = path.length === 4;
 
-  const [previewTop, setPreviewTop] = React.useState(0);
+  const [previewTop, setPreviewTop] = useState(0);
 
   const resetPreview = () => {
     if (previewRef.current) {
@@ -100,20 +100,20 @@ function Draggable(props: PlateElementProps) {
 
   // clear up virtual multiple preview when drag end
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isDragging) {
       resetPreview();
     }
   }, [isDragging]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: off
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAboutToDrag) {
       previewRef.current?.classList.remove('opacity-0');
     }
   }, [isAboutToDrag]);
 
-  const [dragButtonTop, setDragButtonTop] = React.useState(0);
+  const [dragButtonTop, setDragButtonTop] = useState(0);
 
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: Side effects only
@@ -223,7 +223,7 @@ function Gutter({
   );
 }
 
-const DragHandle = React.memo(function DragHandle({
+const DragHandle = memo(function DragHandle({
   isDragging,
   previewRef,
   resetPreview,
@@ -344,7 +344,7 @@ const DragHandle = React.memo(function DragHandle({
   );
 });
 
-const DropLine = React.memo(function DropLine({
+const DropLine = memo(function DropLine({
   className,
   ...props
 }: React.ComponentProps<'div'>) {

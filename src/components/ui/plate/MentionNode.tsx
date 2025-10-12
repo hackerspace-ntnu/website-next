@@ -11,7 +11,7 @@ import {
   useReadOnly,
   useSelected,
 } from 'platejs/react';
-import * as React from 'react';
+import { Fragment, useState } from 'react';
 import {
   InlineCombobox,
   InlineComboboxContent,
@@ -57,18 +57,18 @@ function MentionElement(
     >
       {mounted && IS_APPLE ? (
         // Mac OS IME https://github.com/ianstormtaylor/slate/issues/3490
-        <React.Fragment>
+        <Fragment>
           {props.children}
           {props.prefix}
           {element.value}
-        </React.Fragment>
+        </Fragment>
       ) : (
         // Others like Android https://github.com/ianstormtaylor/slate/pull/5360
-        <React.Fragment>
+        <Fragment>
           {props.prefix}
           {element.value}
           {props.children}
-        </React.Fragment>
+        </Fragment>
       )}
     </PlateElement>
   );
@@ -78,7 +78,7 @@ const onSelectItem = getMentionOnSelectItem();
 
 function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const { editor, element } = props;
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = useState('');
   const debouncedSetSearch = useDebounceCallback(setSearch, 500);
   const t = useTranslations('ui');
   const user = api.auth.state.useQuery().data?.user;

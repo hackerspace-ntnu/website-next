@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorPlugin, useSelectionFragmentProp } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -49,7 +49,7 @@ function AlignToolbarButton(props: DropdownMenuProps) {
     }) ?? 'left';
   const t = useTranslations('ui.plate');
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const IconValue =
     items.find((item) => item.value === value)?.icon ?? AlignLeftIcon;
 

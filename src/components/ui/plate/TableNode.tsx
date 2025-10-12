@@ -57,7 +57,7 @@ import {
   useSelected,
   withHOC,
 } from 'platejs/react';
-import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -377,13 +377,13 @@ function ColorDropdownMenu({
   children: React.ReactNode;
   tooltip: string;
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const editor = useEditorRef();
   const selectedCells = usePluginOption(TablePlugin, 'selectedCells');
   const t = useTranslations('ui');
 
-  const onUpdateColor = React.useCallback(
+  const onUpdateColor = useCallback(
     (color: string) => {
       setOpen(false);
       setCellBackground(editor, { color, selectedCells: selectedCells ?? [] });
@@ -391,7 +391,7 @@ function ColorDropdownMenu({
     [selectedCells, editor],
   );
 
-  const onClearColor = React.useCallback(() => {
+  const onClearColor = useCallback(() => {
     setOpen(false);
     setCellBackground(editor, {
       color: null,

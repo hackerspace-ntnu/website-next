@@ -12,7 +12,7 @@ import type { TPlaceholderElement } from 'platejs';
 import { KEYS } from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, useEditorPlugin, withHOC } from 'platejs/react';
-import * as React from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
 import { toast } from '@/components/ui/Toaster';
 import { fileDirectories } from '@/lib/constants';
@@ -79,7 +79,7 @@ const PlaceholderElement = withHOC(
 
     const isImage = element.mediaType === KEYS.img;
 
-    const imageRef = React.useRef<HTMLImageElement>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     const { openFilePicker } = useFilePicker({
       accept: currentContent?.accept,
@@ -96,7 +96,7 @@ const PlaceholderElement = withHOC(
       },
     });
 
-    const replaceCurrentPlaceholder = React.useCallback(
+    const replaceCurrentPlaceholder = useCallback(
       (file: File) => {
         void uploadFile(file);
         api.placeholder.addUploadingFile(element.id as string, file);
@@ -105,7 +105,7 @@ const PlaceholderElement = withHOC(
     );
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: off
-    React.useEffect(() => {
+    useEffect(() => {
       if (!uploadedFile) return;
 
       const path = editor.api.findPath(element);
@@ -132,12 +132,12 @@ const PlaceholderElement = withHOC(
       api.placeholder.removeUploadingFile(element.id as string);
     }, [uploadedFile, element.id]);
 
-    // React dev mode will call React.useEffect twice
-    const isReplaced = React.useRef(false);
+    // React dev mode will call useEffect twice
+    const isReplaced = useRef(false);
 
     /** Paste and drop */
     // biome-ignore lint/correctness/useExhaustiveDependencies: off
-    React.useEffect(() => {
+    useEffect(() => {
       if (isReplaced.current) return;
 
       isReplaced.current = true;
@@ -209,9 +209,9 @@ function ImageProgress({
   imageRef?: React.RefObject<HTMLImageElement | null>;
   progress?: number;
 }) {
-  const [objectUrl, setObjectUrl] = React.useState<string | null>(null);
+  const [objectUrl, setObjectUrl] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const url = URL.createObjectURL(file);
     setObjectUrl(url);
 

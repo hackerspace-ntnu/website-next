@@ -3,7 +3,7 @@
 import { PlaceholderPlugin, UploadErrorCode } from '@platejs/media/react';
 import { useTranslations } from 'next-intl';
 import { usePluginOption } from 'platejs/react';
-import * as React from 'react';
+import { useEffect } from 'react';
 import { toast } from 'sonner';
 
 function MediaUploadToast() {
@@ -16,7 +16,7 @@ const useUploadErrorToast = () => {
   const uploadError = usePluginOption(PlaceholderPlugin, 'error');
   const t = useTranslations('ui.plate');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!uploadError) return;
 
     const { code, data } = uploadError;

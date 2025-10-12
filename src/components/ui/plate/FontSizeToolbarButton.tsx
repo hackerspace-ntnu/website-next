@@ -6,8 +6,7 @@ import { Minus, Plus } from 'lucide-react';
 import type { TElement } from 'platejs';
 import { KEYS } from 'platejs';
 import { useEditorPlugin, useEditorSelector } from 'platejs/react';
-import * as React from 'react';
-
+import { useState } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -42,8 +41,8 @@ const FONT_SIZES = [
 ] as const;
 
 function FontSizeToolbarButton() {
-  const [inputValue, setInputValue] = React.useState(DEFAULT_FONT_SIZE);
-  const [isFocused, setIsFocused] = React.useState(false);
+  const [inputValue, setInputValue] = useState(DEFAULT_FONT_SIZE);
+  const [isFocused, setIsFocused] = useState(false);
   const { editor, tf } = useEditorPlugin(FontSizePlugin);
 
   const cursorFontSize = useEditorSelector((editor) => {

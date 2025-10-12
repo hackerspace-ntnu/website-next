@@ -7,7 +7,7 @@ import {
 import { CheckIcon, EyeIcon, PencilLineIcon, PenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorRef, usePlateState } from 'platejs/react';
-import * as React from 'react';
+import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 function ModeToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
   const [readOnly, setReadOnly] = usePlateState('readOnly');
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations('ui.plate');
 
   // const isSuggesting = usePluginOption(SuggestionPlugin, 'isSuggesting');

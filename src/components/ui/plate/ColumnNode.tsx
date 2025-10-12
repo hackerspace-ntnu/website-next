@@ -22,7 +22,7 @@ import {
   useSelected,
   withHOC,
 } from 'platejs/react';
-import * as React from 'react';
+import { memo } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   Popover,
@@ -96,7 +96,7 @@ const ColumnElement = withHOC(
   },
 );
 
-const ColumnDragHandle = React.memo(function ColumnDragHandle() {
+const ColumnDragHandle = memo(function ColumnDragHandle() {
   const t = useTranslations('ui.plate');
 
   return (

@@ -23,7 +23,7 @@ import { useTranslations } from 'next-intl';
 import type { TElement } from 'platejs';
 import { KEYS } from 'platejs';
 import { useEditorRef, useSelectionFragmentProp } from 'platejs/react';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -127,7 +127,7 @@ function getTurnIntoItems(t: Translations) {
 
 function TurnIntoToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const t = useTranslations();
   const turnIntoItems = getTurnIntoItems(t);
 
@@ -135,7 +135,7 @@ function TurnIntoToolbarButton(props: DropdownMenuProps) {
     defaultValue: KEYS.p,
     getProp: (node) => getBlockType(node as TElement),
   });
-  const selectedItem = React.useMemo(
+  const selectedItem = useMemo(
     () =>
       turnIntoItems.find((item) => item.value === (value ?? KEYS.p)) ??
       turnIntoItems[0],
