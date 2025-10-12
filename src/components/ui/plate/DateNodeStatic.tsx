@@ -1,6 +1,9 @@
 import type { SlateElementProps, TDateElement } from 'platejs';
 import { SlateElement } from 'platejs';
 
+// Cannot be translated, as next-intl context is unavailable,
+// and the component must be rendered synchronously to work with Plate.js
+// HTML serialization. The lack of translations only affects exported files.
 function DateElementStatic(props: SlateElementProps<TDateElement>) {
   const { element } = props;
 

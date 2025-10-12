@@ -15,6 +15,9 @@ const headingItemVariants = cva({
   },
 });
 
+// Cannot be translated, as next-intl context is unavailable,
+// and the component must be rendered synchronously to work with Plate.js
+// HTML serialization. The lack of translations only affects exported files.
 function TocElementStatic(props: SlateElementProps) {
   const { editor } = props;
   const headingList = getHeadingList(editor);

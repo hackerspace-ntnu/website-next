@@ -144,6 +144,7 @@
       "viewing": "Viewing",
       "suggestion": "Suggestion",
       "editingMode": "Editing mode",
+      "viewingMode": "Viewing mode",
       "keyboardInput": "Keyboard input",
       "superscript": "Superscript",
       "subscript": "Subscript",
@@ -172,7 +173,8 @@
       "colors": "Colors",
       "customColors": "Custom Colors",
       "defaultColors": "Default Colors",
-      "createAHeading": "Create a heading to display the table of contents."
+      "createHeading": "Create a heading to display the table of contents.",
+      "pickADate": "Pick a date"
     }
   },
   "error": {

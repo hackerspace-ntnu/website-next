@@ -77,9 +77,9 @@
       "exportAsPdf": "Eksporter som PDF",
       "exportAsImage": "Eksporter som bilde",
       "exportAsMarkdown": "Eksporter som Markdown",
-      "import": "Import",
-      "importFromHtml": "Import fra HTML",
-      "importFromMarkdown": "Import fra Markdown",
+      "import": "Importer",
+      "importFromHtml": "Importer fra HTML",
+      "importFromMarkdown": "Importer fra Markdown",
       "bold": "Fet (⌘+B)",
       "italic": "Kursiv (⌘+I)",
       "underline": "Understreking (⌘+U)",
@@ -144,6 +144,7 @@
       "viewing": "Visning",
       "suggestion": "Forslag",
       "editingMode": "Redigeringsmodus",
+      "viewingMode": "Visningsmodus",
       "keyboardInput": "Tastaturknapp",
       "superscript": "Hevet skrift",
       "subscript": "Senket skrift",
@@ -172,7 +173,8 @@
       "colors": "Farger",
       "customColors": "Egendefinerte farger",
       "defaultColors": "Standardfarger",
-      "createAHeading": "Lag en overskrift for å vise innholdsfortegnelsen."
+      "createHeading": "Lag en overskrift for å vise innholdsfortegnelsen.",
+      "pickADate": "Velg en dato"
     }
   },
   "error": {

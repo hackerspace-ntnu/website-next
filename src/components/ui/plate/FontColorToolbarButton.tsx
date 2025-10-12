@@ -143,10 +143,10 @@ function PureColorPicker({
   updateCustomColor: (color: string) => void;
   color?: string;
 }) {
-  const t = useTranslations('ui.plate');
+  const t = useTranslations('ui');
   return (
     <div className={cx('flex flex-col', className)} {...props}>
-      <ToolbarMenuGroup label={t('customColors')}>
+      <ToolbarMenuGroup label={t('plate.customColors')}>
         <ColorCustom
           color={color}
           className='px-2'
@@ -156,7 +156,7 @@ function PureColorPicker({
           updateCustomColor={updateCustomColor}
         />
       </ToolbarMenuGroup>
-      <ToolbarMenuGroup label={t('defaultColors')}>
+      <ToolbarMenuGroup label={t('plate.defaultColors')}>
         <ColorDropdownMenuItems
           color={color}
           className='px-2'
@@ -168,7 +168,7 @@ function PureColorPicker({
         <ToolbarMenuGroup>
           <DropdownMenuItem className='p-2' onClick={clearColor}>
             <EraserIcon />
-            <span>Clear</span>
+            <span>{t('clear')}</span>
           </DropdownMenuItem>
         </ToolbarMenuGroup>
       )}

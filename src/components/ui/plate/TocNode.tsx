@@ -42,7 +42,7 @@ function TocElement(props: PlateElementProps) {
             </Button>
           ))
         ) : (
-          <div className='text-gray-500 text-sm'>{t('createAHeading')}</div>
+          <div className='text-gray-500 text-sm'>{t('createHeading')}</div>
         )}
       </div>
       {props.children}

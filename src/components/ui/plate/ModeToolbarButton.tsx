@@ -50,7 +50,11 @@ function ModeToolbarButton(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip={t('editingMode')} isDropdown>
+        <ToolbarButton
+          pressed={open}
+          tooltip={readOnly ? t('viewingMode') : t('editingMode')}
+          isDropdown
+        >
           {item[value]?.icon}
           <span className='hidden lg:inline'>{item[value]?.label}</span>
         </ToolbarButton>

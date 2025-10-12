@@ -4,6 +4,9 @@ import type { SlateElementProps, TEquationElement } from 'platejs';
 import { SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
+// Cannot be translated, as next-intl context is unavailable,
+// and the component must be rendered synchronously to work with Plate.js
+// HTML serialization. The lack of translations only affects exported files.
 function EquationElementStatic(props: SlateElementProps<TEquationElement>) {
   const { element } = props;
 
