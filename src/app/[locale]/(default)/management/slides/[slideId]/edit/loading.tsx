@@ -1,15 +1,15 @@
 import { ArrowLeftIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
-import { SlideFormSkeleton } from '@/components/home/SlideFormSkeleton';
+import { SlideFormSkeleton } from '@/components/management/slides/SlideFormSkeleton';
 import { Link } from '@/components/ui/Link';
 
-export default async function NewSlideLayout() {
-  const t = await getTranslations('home.slides.new');
+export default async function EditSlideLoading() {
+  const t = await getTranslations('management.slides.edit');
 
   return (
     <>
       <Link
-        href='/slides'
+        href='/management/slides'
         className='my-4 flex w-fit gap-2'
         variant='secondary'
         size='default'
@@ -18,9 +18,9 @@ export default async function NewSlideLayout() {
         <ArrowLeftIcon aria-hidden='true' />
         {t('backToSlides')}
       </Link>
-      <h1 className='my-4 text-center'>{t('create')}</h1>
+      <h1 className='my-4 text-center'>{t('edit')}</h1>
       <div className='mx-auto w-full max-w-2xl'>
-        <SlideFormSkeleton />
+        <SlideFormSkeleton slideExists />
       </div>
     </>
   );

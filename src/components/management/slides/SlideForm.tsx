@@ -25,7 +25,7 @@ import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
 import { fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
-import { slideSchema } from '@/validations/home/slideSchema';
+import { slideSchema } from '@/validations/management/slides/slideSchema';
 
 type SlideFormProps = {
   slide?: RouterOutput['home']['fetchSlide'];
@@ -34,8 +34,8 @@ type SlideFormProps = {
 function SlideForm({ slide }: SlideFormProps) {
   const translations = useTranslations();
 
-  const t = useTranslations('home.form');
-  const tApi = useTranslations('home.api');
+  const t = useTranslations('management.slides.form');
+  const tApi = useTranslations('management.slides.api');
   const tUi = useTranslations('ui');
 
   const utils = api.useUtils();
@@ -54,7 +54,7 @@ function SlideForm({ slide }: SlideFormProps) {
     onSuccess: async () => {
       toast.success(tApi('successCreate'));
       await utils.home.invalidate();
-      router.push('/slides');
+      router.push('/management/slides');
     },
   });
 
@@ -62,7 +62,7 @@ function SlideForm({ slide }: SlideFormProps) {
     onSuccess: async () => {
       toast.success(tApi('successEdit'));
       await utils.home.invalidate();
-      router.push('/slides');
+      router.push('/management/slides');
     },
   });
 
@@ -79,7 +79,7 @@ function SlideForm({ slide }: SlideFormProps) {
     onSuccess: async () => {
       toast.success(tApi('successDelete'));
       await utils.home.invalidate();
-      router.push('/slides');
+      router.push('/management/slides');
     },
   });
 

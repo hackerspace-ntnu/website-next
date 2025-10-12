@@ -37,18 +37,6 @@ const routing = defineRouting({
   },
   pathnames: {
     '/': '/',
-    '/slides': {
-      'en-GB': '/slides',
-      'nb-NO': '/bannere',
-    },
-    '/slides/[slideId]/edit': {
-      'en-GB': '/slides/[slideId]/edit',
-      'nb-NO': '/bannere/[slideId]/rediger',
-    },
-    '/slides/new': {
-      'en-GB': '/slides/new',
-      'nb-NO': '/bannere/ny',
-    },
     '/too-many-requests': {
       'en-GB': '/too-many-requests',
       'nb-NO': '/for-mange-forespørsler',
@@ -264,6 +252,18 @@ const routing = defineRouting({
     '/management/users': {
       'en-GB': '/management/users',
       'nb-NO': '/administrasjon/brukere',
+    },
+    '/management/slides': {
+      'en-GB': '/management/slides',
+      'nb-NO': '/management/slides',
+    },
+    '/management/slides/[slideId]/edit': {
+      'en-GB': '/management/slides/[slideId]/edit',
+      'nb-NO': '/management/slides/[slideId]/rediger',
+    },
+    '/management/slides/new': {
+      'en-GB': '/management/slides/new',
+      'nb-NO': '/management/slides/ny',
     },
     '/reservations': {
       'en-GB': '/reservations',

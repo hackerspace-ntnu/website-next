@@ -3,7 +3,7 @@ import { bannerPages } from '@/lib/constants';
 
 function fetchBannersSchema() {
   return z.object({
-    path: z.enum(bannerPages),
+    path: z.enum(bannerPages as [string, ...string[]]),
   });
 }
 

@@ -8,11 +8,11 @@ import {
   homeCarouselSlides,
 } from '@/server/db/tables';
 import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
-import { changeSlideActiveSchema } from '@/validations/home/changeSlideActiveSchema';
-import { editSlideSchema } from '@/validations/home/editSlideSchema';
-import { selectSlideSchema } from '@/validations/home/fetchSlideSchema';
-import { fetchSlidesSchema } from '@/validations/home/fetchSlidesSchema';
-import { slideSchema } from '@/validations/home/slideSchema';
+import { changeSlideActiveSchema } from '@/validations/management/slides/changeSlideActiveSchema';
+import { editSlideSchema } from '@/validations/management/slides/editSlideSchema';
+import { selectSlideSchema } from '@/validations/management/slides/fetchSlideSchema';
+import { fetchSlidesSchema } from '@/validations/management/slides/fetchSlidesSchema';
+import { slideSchema } from '@/validations/management/slides/slideSchema';
 
 const homeRouter = createRouter({
   fetchSlide: publicProcedure
@@ -30,7 +30,7 @@ const homeRouter = createRouter({
       if (!slide) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('home.api.slideNotFound'),
+          message: ctx.t('management.slides.api.slideNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -92,7 +92,7 @@ const homeRouter = createRouter({
       if (!slide)
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('home.api.insertFailed'),
+          message: ctx.t('management.slides.api.insertFailed'),
           cause: { toast: 'error' },
         });
 
@@ -179,7 +179,7 @@ const homeRouter = createRouter({
       if (!slide) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('home.api.slideNotFound'),
+          message: ctx.t('management.slides.api.slideNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -200,7 +200,7 @@ const homeRouter = createRouter({
       if (!slide) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('home.api.slideNotFound'),
+          message: ctx.t('management.slides.api.slideNotFound'),
           cause: { toast: 'error' },
         });
       }
@@ -208,7 +208,7 @@ const homeRouter = createRouter({
       if (!slide?.imageId) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: ctx.t('home.api.slideImageNotFound'),
+          message: ctx.t('management.slides.api.slideImageNotFound'),
           cause: { toast: 'error' },
         });
       }

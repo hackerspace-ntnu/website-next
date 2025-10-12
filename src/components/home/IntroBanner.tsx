@@ -74,7 +74,7 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
 
         {canEditSlides && (
           <Link
-            href='/slides'
+            href='/management/slides'
             variant='nav'
             size='icon'
             className='absolute right-0 bottom-0 m-4'

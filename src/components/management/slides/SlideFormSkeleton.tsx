@@ -11,7 +11,7 @@ type SlideFormSkeletonProps = {
 };
 
 async function SlideFormSkeleton({ slideExists }: SlideFormSkeletonProps) {
-  const t = await getTranslations('home.form');
+  const t = await getTranslations('management.slides.form');
 
   return (
     <form className='my-4 max-w-prose space-y-8'>

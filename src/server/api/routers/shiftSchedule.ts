@@ -79,8 +79,6 @@ const shiftScheduleRouter = createRouter({
       return undefined;
     })();
 
-    console.log(currentDate.toTimeString());
-
     if (!currentDay || !currentTimeslot) return 0;
 
     return (

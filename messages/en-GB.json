@@ -208,98 +208,7 @@
     "eventsAlt": "Photo from tetris 2 tournament in one of our events",
     "news": "News",
     "newsDescription": "See the latest updates from Hackerspace.",
-    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo",
-    "slides": {
-      "unauthorized": "Unauthorized to manage home page slides",
-      "image": "Image",
-      "overlay": "Overlay",
-      "active": "Active",
-      "create": "Create new slide",
-      "editSlide": "Edit slide",
-      "new": {
-        "unauthorized": "Unauthorized to create new home page slides",
-        "backToSlides": "Back to slides",
-        "create": "Create slide"
-      },
-      "edit": {
-        "unauthorized": "Unauthorized to edit home page slides",
-        "backToSlides": "Back to slides",
-        "edit": "Edit slide"
-      }
-    },
-    "api": {
-      "invalidId": "Invalid ID",
-      "insertFailed": "Failed to add slide",
-      "activeInvalid": "Invalid value for active",
-      "slideNotFound": "The slide could not be found",
-      "slideImageNotFound": "The slide image could not be found",
-      "successCreate": "Slide created successfully",
-      "successEdit": "Slide edited successfully",
-      "successDeleteImage": "Slide image deleted successfully",
-      "successDelete": "Slide deleted successfully",
-      "changingActive": "Changing slide to {active, select, true {active} other {inactive}}...",
-      "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}",
-      "errorChangingActive": "Couldn't change slide to {active, select, true {active} other {inactive}}"
-    },
-    "form": {
-      "altNorwegian": {
-        "label": "Image alt text (Norwegian)",
-        "placeholder": "Image alt text",
-        "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "altEnglish": {
-        "label": "Image alt text (English)",
-        "placeholder": "Image alt text",
-        "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "headingNorwegian": {
-        "label": "Heading (Norwegian)",
-        "placeholder": "Heading",
-        "required": "Heading is required",
-        "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "headingEnglish": {
-        "label": "Heading (English)",
-        "placeholder": "Heading",
-        "required": "Heading is required",
-        "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "descriptionNorwegian": {
-        "label": "Description (Norwegian)",
-        "placeholder": "Description",
-        "required": "Description is required",
-        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "descriptionEnglish": {
-        "label": "Description (English)",
-        "placeholder": "Description",
-        "required": "Description is required",
-        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
-      },
-      "active": {
-        "label": "Active",
-        "invalid": "Invalid value for active"
-      },
-      "image": {
-        "label": "Slide image",
-        "upload": "Upload an image...",
-        "delete": {
-          "label": "Delete image",
-          "confirmTitle": "Are you sure you want to delete the slide image?",
-          "confirmDescription": "This action cannot be undone"
-        },
-        "sizeLimitError": "Home carousel image must be less than {size} MB",
-        "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
-        "fileNotImageError": "The file is not an image"
-      },
-      "editSubmit": "Update slide",
-      "createSubmit": "Create slide",
-      "delete": {
-        "label": "Delete slide",
-        "confirmTitle": "Are you sure you want to delete the slide?",
-        "confirmDescription": "This action cannot be undone"
-      }
-    }
+    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo"
   },
   "news": {
     "title": "News",
@@ -1062,7 +971,7 @@
     "skills": {
       "name": "Skills",
       "title": "Manage Skills",
-      "description": "Manage the skills that members can achieve.",
+      "description": "Manage the skills that members can achieve",
       "backToSkills": "Back to skills",
       "new": {
         "title": "New Skill",
@@ -1100,7 +1009,7 @@
     "users": {
       "name": "Users",
       "title": "Search for Users",
-      "description": "Manage users on the website.",
+      "description": "Manage users on the website",
       "searchUser": "Search user...",
       "table": {
         "name": "Name",
@@ -1114,12 +1023,12 @@
     "files": {
       "name": "Files & Images",
       "title": "Manage Files & Images",
-      "description": "Manage files and images uploaded by members."
+      "description": "Manage files and images uploaded by members"
     },
     "banners": {
       "name": "Banners",
       "title": "Manage Banners",
-      "description": "Manage banners displayed on the website.",
+      "description": "Manage banners displayed on the website",
       "content": "Content",
       "pages": "Pages",
       "expiresAt": "Expires at",
@@ -1192,6 +1101,101 @@
         "bannerNotFound": "The banner could not be found"
       },
       "unauthorized": "Unauthorized to manage banners"
+    },
+    "slides": {
+      "name": "Slides",
+      "title": "Manage Slides",
+      "description": "Manage the slides displayed on the home page carousel",
+      "unauthorized": "Unauthorized to manage home page slides",
+      "placeholderAlt": "No image available",
+      "image": "Image",
+      "overlay": "Overlay",
+      "active": "Active",
+      "create": "Create new slide",
+      "editSlide": "Edit slide",
+      "new": {
+        "unauthorized": "Unauthorized to create new home page slides",
+        "backToSlides": "Back to slides",
+        "create": "Create slide"
+      },
+      "edit": {
+        "unauthorized": "Unauthorized to edit home page slides",
+        "backToSlides": "Back to slides",
+        "edit": "Edit slide"
+      },
+      "api": {
+        "invalidId": "Invalid ID",
+        "insertFailed": "Failed to add slide",
+        "activeInvalid": "Invalid value for active",
+        "slideNotFound": "The slide could not be found",
+        "slideImageNotFound": "The slide image could not be found",
+        "successCreate": "Slide created successfully",
+        "successEdit": "Slide edited successfully",
+        "successDeleteImage": "Slide image deleted successfully",
+        "successDelete": "Slide deleted successfully",
+        "changingActive": "Changing slide to {active, select, true {active} other {inactive}}...",
+        "successChangeActive": "Slide is now {active, select, true {active} other {inactive}}",
+        "errorChangingActive": "Couldn't change slide to {active, select, true {active} other {inactive}}"
+      },
+      "form": {
+        "altNorwegian": {
+          "label": "Image alt text (Norwegian)",
+          "placeholder": "Image alt text",
+          "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "altEnglish": {
+          "label": "Image alt text (English)",
+          "placeholder": "Image alt text",
+          "maxLength": "Alt text must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "headingNorwegian": {
+          "label": "Heading (Norwegian)",
+          "placeholder": "Heading",
+          "required": "Heading is required",
+          "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "headingEnglish": {
+          "label": "Heading (English)",
+          "placeholder": "Heading",
+          "required": "Heading is required",
+          "maxLength": "Heading must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "descriptionNorwegian": {
+          "label": "Description (Norwegian)",
+          "placeholder": "Description",
+          "required": "Description is required",
+          "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "descriptionEnglish": {
+          "label": "Description (English)",
+          "placeholder": "Description",
+          "required": "Description is required",
+          "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer"
+        },
+        "active": {
+          "label": "Active",
+          "invalid": "Invalid value for active"
+        },
+        "image": {
+          "label": "Slide image",
+          "upload": "Upload an image...",
+          "delete": {
+            "label": "Delete image",
+            "confirmTitle": "Are you sure you want to delete the slide image?",
+            "confirmDescription": "This action cannot be undone"
+          },
+          "sizeLimitError": "Home carousel image must be less than {size} MB",
+          "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
+          "fileNotImageError": "The file is not an image"
+        },
+        "editSubmit": "Update slide",
+        "createSubmit": "Create slide",
+        "delete": {
+          "label": "Delete slide",
+          "confirmTitle": "Are you sure you want to delete the slide?",
+          "confirmDescription": "This action cannot be undone"
+        }
+      }
     }
   },
   "applications": {

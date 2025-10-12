@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
-import { slideSchema } from '@/validations/home/slideSchema';
+import { slideSchema } from '@/validations/management/slides/slideSchema';
 
 function editSlideSchema(t: Translations) {
   return slideSchema(t).extend({
-    id: z.number({ message: t('home.api.invalidId') }),
+    id: z.number({ message: t('management.slides.api.invalidId') }),
   });
 }
 

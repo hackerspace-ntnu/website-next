@@ -55,6 +55,11 @@ export default async function ManagementPage({
       description: t('banners.description'),
       href: '/management/banners',
     },
+    {
+      name: t('slides.name'),
+      description: t('slides.description'),
+      href: '/management/slides',
+    },
   ];
 
   return (

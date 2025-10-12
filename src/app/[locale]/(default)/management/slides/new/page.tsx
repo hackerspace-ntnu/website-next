@@ -1,25 +1,24 @@
 import { ArrowLeftIcon } from 'lucide-react';
-import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
-import { SlideForm } from '@/components/home/SlideForm';
+import { SlideForm } from '@/components/management/slides/SlideForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
-export default async function EditSlidePage({
+export default async function NewSlidePage({
   params,
 }: {
-  params: Promise<{ locale: string; slideId: string }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale, slideId } = await params;
+  const { locale } = await params;
   setRequestLocale(locale as Locale);
 
-  const t = await getTranslations('home.slides.edit');
-  const { ui, home } = await getMessages();
+  const t = await getTranslations('management.slides.new');
+  const { ui, management } = await getMessages();
 
   const { user } = await api.auth.state();
 
@@ -28,25 +27,10 @@ export default async function EditSlidePage({
     throw new Error(t('unauthorized'));
   }
 
-  const processedSlideId = Number(slideId);
-  if (
-    Number.isNaN(processedSlideId) ||
-    !Number.isInteger(processedSlideId) ||
-    processedSlideId < 1
-  ) {
-    return notFound();
-  }
-
-  const slide = await api.home.fetchSlide({ id: processedSlideId });
-
-  if (!slide) {
-    return notFound();
-  }
-
   return (
     <>
       <Link
-        href='/slides'
+        href='/management/slides'
         className='my-4 flex w-fit gap-2'
         variant='secondary'
         size='default'
@@ -55,12 +39,12 @@ export default async function EditSlidePage({
         <ArrowLeftIcon aria-hidden='true' />
         {t('backToSlides')}
       </Link>
-      <h1 className='my-4 text-center'>{t('edit')}</h1>
+      <h1 className='my-4 text-center'>{t('create')}</h1>
       <NextIntlClientProvider
-        messages={{ ui, home } as Pick<Messages, 'ui' | 'home'>}
+        messages={{ ui, management } as Pick<Messages, 'ui' | 'management'>}
       >
         <div className='mx-auto w-full max-w-2xl'>
-          <SlideForm slide={slide} />
+          <SlideForm />
         </div>
       </NextIntlClientProvider>
     </>
