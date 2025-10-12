@@ -3,6 +3,9 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { Value } from 'platejs';
+import { Plate, usePlateEditor } from 'platejs/react';
 import type React from 'react';
 import {
   Fragment,
@@ -35,6 +38,9 @@ import {
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
+import { Editor, EditorContainer } from '@/components/ui/plate/Editor';
+import { EditorKit } from '@/components/ui/plate/kits/EditorKit';
+import type { PlateEditor } from '@/components/ui/plate/PlateEditor';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import {
   Select,
@@ -45,6 +51,7 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { cx, type VariantProps } from '@/lib/utils';
 import { fileToBase64String } from '@/lib/utils/files';
 
@@ -1019,6 +1026,63 @@ function CalendarField({
   );
 }
 
+type EditorFieldProps = Omit<
+  React.ComponentProps<typeof PlateEditor>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  className?: string;
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
+function EditorField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: EditorFieldProps) {
+  const field = useFieldContext<Value>();
+  const editor = usePlateEditor({
+    plugins: EditorKit(useTranslations()),
+    value: field.state.value,
+    ...props.initOptions,
+  });
+  const debouncedOnChange = useDebounceCallback(
+    (value: Value) => field.handleChange(value),
+    500,
+  );
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Plate
+        editor={editor}
+        onChange={({ value }) => debouncedOnChange(value)}
+        {...props.plateOptions}
+      >
+        <EditorContainer
+          className={cx(
+            'rounded-lg border p-1',
+            props.containerOptions?.className,
+          )}
+          {...props.containerOptions}
+        >
+          <Editor variant={props.variant} {...props.editorOptions} />
+        </EditorContainer>
+      </Plate>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
@@ -1088,6 +1152,7 @@ const { useAppForm } = createFormHook({
     FileUploadField,
     CurrencyField,
     CalendarField,
+    EditorField,
   },
   formComponents: {
     SubmitButton,

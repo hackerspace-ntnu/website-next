@@ -1,3 +1,13 @@
+const fileDirectories = [
+  'profile-pictures',
+  'news',
+  'storage-items',
+  'events',
+  'groups',
+  'rules',
+  'rich-input',
+] as const;
+
 const groupIdentifiers = [
   'devops',
   'labops',
@@ -36,6 +46,7 @@ const toolStatus = [
 const tooltype = ['3dprinter', 'other'] as const;
 
 export {
+  fileDirectories,
   groupIdentifiers,
   days,
   timeslots,

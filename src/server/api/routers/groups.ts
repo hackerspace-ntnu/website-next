@@ -126,7 +126,7 @@ const groupsRouter = createRouter({
           });
         });
 
-      return results.map((userGroup) => userGroup.user);
+      return results.map((usersGroup) => usersGroup.user);
     }),
   fetchGroupsOpenToApps: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.query.groups

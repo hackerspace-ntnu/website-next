@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
+import { plateValueSchema } from '@/validations/plate';
 import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 
 function newsArticleSchema(t: Translations) {
@@ -15,8 +16,8 @@ function newsArticleSchema(t: Translations) {
     }),
     titleNorwegian: z.string().min(1, t('news.form.title.required')),
     titleEnglish: z.string().min(1, t('news.form.title.required')),
-    contentNorwegian: z.string().min(1, t('news.form.content.required')),
-    contentEnglish: z.string().min(1, t('news.form.content.required')),
+    contentNorwegian: plateValueSchema,
+    contentEnglish: plateValueSchema,
     internal: z.boolean(),
   });
 }

@@ -7,7 +7,6 @@ import { Badge } from '@/components/ui/Badge';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -82,7 +81,6 @@ function EventCard({
       >
         <CardHeader>
           <CardTitle>{event.localization.name}</CardTitle>
-          <CardDescription>{event.localization.summary}</CardDescription>
           {event.internal && (
             <Badge className='mx-auto w-fit rounded-full hover:bg-primary'>
               {t.internal}
@@ -92,7 +90,7 @@ function EventCard({
         <CardContent className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-center'>
           <div>
             <p className='line-clamp-5 max-w-96'>
-              {event.localization.description}
+              {event.localization.summary}
             </p>
             <div className='mt-2 flex items-center justify-center gap-2'>
               {event.skill && (

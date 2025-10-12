@@ -4,12 +4,13 @@ import {
   boolean,
   index,
   integer,
+  json,
   pgTable,
   primaryKey,
   serial,
-  text,
   varchar,
 } from 'drizzle-orm/pg-core';
+import type { Value } from 'platejs';
 import { files, users } from '@/server/db/tables';
 import { localesEnum } from '@/server/db/tables/locales';
 
@@ -33,7 +34,7 @@ const groupLocalizations = pgTable(
       .notNull(),
     name: varchar('name', { length: 100 }).notNull(),
     summary: varchar('summary', { length: 255 }).notNull(),
-    description: text('description').notNull(),
+    description: json('description').$type<Value>().notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {
