@@ -15,16 +15,16 @@ function RuleFormSkeleton() {
         <Skeleton className='h-22 w-full rounded-md' />
       </div>
       <Label>{t('name.labelNorwegian')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('name.labelEnglish')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('content.labelNorwegian')}</Label>
-      <Skeleton className='flex h-16 w-full rounded-md' />
+      <Skeleton className='h-100 w-full rounded-md' />
       <Label>{t('content.labelEnglish')}</Label>
-      <Skeleton className='flex h-16 w-full rounded-md' />
+      <Skeleton className='h-100 w-full rounded-md' />
       <div>
         <div className='mb-2 flex items-center gap-2'>
-          <Skeleton className='flex h-4 w-4 rounded-md' />
+          <Skeleton className='h-4 w-4 rounded-md' />
           <Label>{t('internal.label')}</Label>
         </div>
         <p className='text-muted-foreground text-sm'>
