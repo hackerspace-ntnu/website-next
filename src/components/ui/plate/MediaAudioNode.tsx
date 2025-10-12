@@ -15,6 +15,7 @@ const AudioElement = withHOC(
     const { align = 'center', readOnly, unsafeUrl } = useMediaState();
     const t = useTranslations('ui.plate');
 
+    // Elements with a custom fileId need to fetch their S3 URL
     const url = api.utils.getFileUrl.useQuery(
       { fileId: Number(props.element.fileId as string) },
       { enabled: !!props.element.fileId },

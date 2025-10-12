@@ -19,6 +19,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { deleteUnusedEditorFiles } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { newsArticleSchema } from '@/validations/news/newsArticleSchema';
 
@@ -56,6 +57,7 @@ function ArticleForm({
       router.push('/news');
     },
   });
+  const deleteFile = api.utils.deleteFile.useMutation();
 
   const english = article?.localizations.find((loc) => loc.locale === 'en-GB');
 
@@ -75,8 +77,18 @@ function ArticleForm({
       contentEnglish: english?.content ?? [],
       internal: article?.internal ?? false,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (article) {
+        await deleteUnusedEditorFiles(
+          english?.content ?? [],
+          value.contentEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.content ?? [],
+          value.contentNorwegian,
+          deleteFile.mutateAsync,
+        );
         return updateArticle.mutate({
           ...value,
           id: article.id,

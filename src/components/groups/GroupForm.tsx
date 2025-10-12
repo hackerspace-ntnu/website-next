@@ -19,6 +19,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { deleteUnusedEditorFiles } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { groupSchema } from '@/validations/groups/groupSchema';
 
@@ -57,6 +58,7 @@ function GroupForm({
       router.push('/about');
     },
   });
+  const deleteFile = api.utils.deleteFile.useMutation();
 
   const english = group
     ? group.localizations.find(
@@ -86,8 +88,18 @@ function GroupForm({
       internal: group?.internal ?? false,
       openForApplications: group?.openForApplications ?? false,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (group) {
+        await deleteUnusedEditorFiles(
+          english?.description ?? [],
+          value.descriptionEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.description ?? [],
+          value.descriptionNorwegian,
+          deleteFile.mutateAsync,
+        );
         return editGroup.mutate({
           ...value,
           previousIdentifier: group.identifier,

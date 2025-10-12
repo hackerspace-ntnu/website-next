@@ -26,7 +26,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
-import { fileToBase64String } from '@/lib/utils/files';
+import { deleteUnusedEditorFiles, fileToBase64String } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { createEventSchema } from '@/validations/events/createEventSchema';
 import { editEventWithoutIdSchema } from '@/validations/events/editEventWithoutIdSchema';
@@ -96,6 +96,8 @@ function EditEventForm({
     },
   });
 
+  const deleteFile = api.utils.deleteFile.useMutation();
+
   const form = useAppForm({
     validators: {
       onChange: schema,
@@ -118,8 +120,18 @@ function EditEventForm({
       internal: event?.internal ?? false,
       skill: event?.skill?.identifier ?? '',
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (event) {
+        await deleteUnusedEditorFiles(
+          english?.description ?? [],
+          value.descriptionEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.description ?? [],
+          value.descriptionNorwegian,
+          deleteFile.mutateAsync,
+        );
         return editEvent.mutate({ id: event.id, ...value });
       }
       createEvent.mutate(value);
