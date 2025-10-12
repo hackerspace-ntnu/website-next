@@ -14,7 +14,7 @@ import { selectSlideSchema } from '@/validations/management/slides/fetchSlideSch
 import { fetchSlidesSchema } from '@/validations/management/slides/fetchSlidesSchema';
 import { slideSchema } from '@/validations/management/slides/slideSchema';
 
-const homeRouter = createRouter({
+const slidesRouter = createRouter({
   fetchSlide: publicProcedure
     .input((input) =>
       selectSlideSchema(useTranslationsFromContext()).parse(input),
@@ -230,4 +230,4 @@ const homeRouter = createRouter({
     }),
 });
 
-export { homeRouter };
+export { slidesRouter };

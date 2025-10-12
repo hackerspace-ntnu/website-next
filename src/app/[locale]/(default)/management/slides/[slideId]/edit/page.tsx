@@ -37,7 +37,7 @@ export default async function EditSlidePage({
     return notFound();
   }
 
-  const slide = await api.home.fetchSlide({ id: processedSlideId });
+  const slide = await api.slides.fetchSlide({ id: processedSlideId });
 
   if (!slide) {
     return notFound();

@@ -22,7 +22,7 @@ export default async function HomePage({
 
   const { user } = await api.auth.state();
 
-  const slides = await api.home.fetchSlides({ onlyActive: true });
+  const slides = await api.slides.fetchSlides({ onlyActive: true });
   const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
 
   const events = await api.events.fetchEvents({ limit: 3, offset: 0 });

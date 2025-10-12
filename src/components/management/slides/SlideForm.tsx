@@ -28,7 +28,7 @@ import type { RouterOutput } from '@/server/api';
 import { slideSchema } from '@/validations/management/slides/slideSchema';
 
 type SlideFormProps = {
-  slide?: RouterOutput['home']['fetchSlide'];
+  slide?: RouterOutput['slides']['fetchSlide'];
 };
 
 function SlideForm({ slide }: SlideFormProps) {
@@ -50,35 +50,35 @@ function SlideForm({ slide }: SlideFormProps) {
     (localization) => localization.locale === 'nb-NO',
   );
 
-  const createSlide = api.home.createSlide.useMutation({
+  const createSlide = api.slides.createSlide.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successCreate'));
-      await utils.home.invalidate();
+      await utils.slides.invalidate();
       router.push('/management/slides');
     },
   });
 
-  const editSlide = api.home.editSlide.useMutation({
+  const editSlide = api.slides.editSlide.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successEdit'));
-      await utils.home.invalidate();
+      await utils.slides.invalidate();
       router.push('/management/slides');
     },
   });
 
-  const deleteSlideImage = api.home.deleteSlideImage.useMutation({
+  const deleteSlideImage = api.slides.deleteSlideImage.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successDeleteImage'));
       setPreviewImage(undefined);
-      await utils.home.invalidate();
+      await utils.slides.invalidate();
       router.refresh();
     },
   });
 
-  const deleteSlide = api.home.deleteSlide.useMutation({
+  const deleteSlide = api.slides.deleteSlide.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successDelete'));
-      await utils.home.invalidate();
+      await utils.slides.invalidate();
       router.push('/management/slides');
     },
   });

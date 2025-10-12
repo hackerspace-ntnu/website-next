@@ -13,7 +13,7 @@ import { Link } from '@/components/ui/Link';
 import type { RouterOutput } from '@/server/api';
 
 type IntroBannerProps = {
-  slides: RouterOutput['home']['fetchSlides'];
+  slides: RouterOutput['slides']['fetchSlides'];
   locale: Locale;
   canEditSlides: boolean;
   t: {

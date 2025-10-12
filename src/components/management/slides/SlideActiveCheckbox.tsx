@@ -7,7 +7,7 @@ import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 
 type SlideActiveCheckboxProps = {
-  slide: RouterOutput['home']['fetchSlide'];
+  slide: RouterOutput['slides']['fetchSlide'];
   t: {
     changingToActive: string;
     changingToInactive: string;
@@ -22,10 +22,10 @@ function SlideActiveCheckbox({ slide, t }: SlideActiveCheckboxProps) {
   const utils = api.useUtils();
   const router = useRouter();
 
-  const changeSlideActive = api.home.changeSlideActive.useMutation({
+  const changeSlideActive = api.slides.changeSlideActive.useMutation({
     onSuccess: async () => {
-      await utils.home.fetchSlide.invalidate();
-      await utils.home.fetchSlides.invalidate();
+      await utils.slides.fetchSlide.invalidate();
+      await utils.slides.fetchSlides.invalidate();
       router.refresh();
     },
   });

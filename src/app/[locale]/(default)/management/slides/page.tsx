@@ -32,7 +32,7 @@ export default async function SlidesPage({
     throw new Error(t('unauthorized'));
   }
 
-  const slides = await api.home.fetchSlides({});
+  const slides = await api.slides.fetchSlides({});
 
   return (
     <>
