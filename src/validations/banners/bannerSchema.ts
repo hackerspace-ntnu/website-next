@@ -1,3 +1,4 @@
+import safeRegex from 'safe-regex';
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
 
@@ -23,7 +24,10 @@ function bannerSchema(t: Translations) {
       .regex(
         /^(?!.*(\/\/|--|\*\*|,{2,}|\[{2,}|\]{2,})).+$/,
         t('management.banners.form.pagesMatch.doubleSymbolsInvalid'),
-      ),
+      )
+      .refine((val) => safeRegex(RegExp(val)), {
+        message: t('management.banners.form.pagesMatch.unsafeRegex'),
+      }),
     className: z.string().regex(
       /^[a-zA-Z0-9-\s]*$/,
       t('management.banners.form.className.charactersInvalid', {

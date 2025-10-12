@@ -1,5 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, isNull, or, sql } from 'drizzle-orm';
+import safeRegex from 'safe-regex';
 import { pageMatchToRegex } from '@/lib/utils/pageMatch';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { managementProcedure, publicProcedure } from '@/server/api/procedures';
@@ -70,13 +71,22 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
+      const convertedRegex = pageMatchToRegex(input.pagesMatch);
+      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+          cause: { toast: 'error' },
+        });
+      }
+
       const [banner] = await ctx.db
         .insert(banners)
         .values({
           active: input.active,
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
-          pagesRegex: pageMatchToRegex(input.pagesMatch),
+          pagesRegex: convertedRegex,
           className: input.className,
         })
         .returning({ id: banners.id });
@@ -105,13 +115,22 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const convertedRegex = pageMatchToRegex(input.pagesMatch);
+      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+          cause: { toast: 'error' },
+        });
+      }
+
       await ctx.db
         .update(banners)
         .set({
           active: input.active,
           expiresAt: input.expiresAt,
           pagesMatch: input.pagesMatch,
-          pagesRegex: pageMatchToRegex(input.pagesMatch),
+          pagesRegex: convertedRegex,
           className: input.className,
         })
         .where(eq(banners.id, input.id));

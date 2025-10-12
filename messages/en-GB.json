@@ -1126,6 +1126,7 @@
           "required": "Selecting pages is required",
           "charactersInvalid": "You can only use the following characters: {characters}",
           "doubleSymbolsInvalid": "You cannot use the same symbol twice in a row (e.g. // or **)",
+          "unsafeRegex": "Unsafe regex pattern detected",
           "displayLabel": "Show all pages"
         },
         "className": {

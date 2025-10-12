@@ -1126,6 +1126,7 @@
           "required": "Valg av sider er påkrevd",
           "charactersInvalid": "Du kan bare bruke følgende tegn: {characters}",
           "doubleSymbolsInvalid": "Du kan ikke bruke det samme symbolet to ganger på rad (f.eks. // eller **)",
+          "unsafeRegex": "Utrygt regulært uttrykk",
           "displayLabel": "Vis alle sider"
         },
         "className": {
