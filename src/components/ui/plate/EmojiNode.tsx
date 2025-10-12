@@ -5,7 +5,7 @@ import { EmojiPlugin } from '@platejs/emoji/react';
 import { useTranslations } from 'next-intl';
 import type { PlateElementProps } from 'platejs/react';
 import { PlateElement, usePluginOption } from 'platejs/react';
-import * as React from 'react';
+import { useMemo, useState } from 'react';
 import {
   InlineCombobox,
   InlineComboboxContent,
@@ -14,23 +14,22 @@ import {
   InlineComboboxInput,
   InlineComboboxItem,
 } from '@/components/ui/plate/InlineCombobox';
-import { useDebounce } from '@/lib/hooks/useDebounce';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 
 function EmojiInputElement(props: PlateElementProps) {
   const { children, editor, element } = props;
   const data = usePluginOption(EmojiPlugin, 'data');
-  const [value, setValue] = React.useState('');
-  const debouncedValue = useDebounce(value, 100);
-  const isPending = value !== debouncedValue;
+  const [value, setValue] = useState('');
+  const debouncedSetValue = useDebounceCallback(setValue, 100);
   const t = useTranslations('ui');
 
-  const filteredEmojis = React.useMemo(() => {
-    if (debouncedValue.trim().length === 0) return [];
+  const filteredEmojis = useMemo(() => {
+    if (value.trim().length === 0) return [];
 
     return EmojiInlineIndexSearch.getInstance(data)
-      .search(debouncedValue.replace(/:$/, ''))
+      .search(value.replace(/:$/, ''))
       .get();
-  }, [data, debouncedValue]);
+  }, [data, value]);
 
   return (
     <PlateElement as='span' {...props}>
@@ -38,16 +37,14 @@ function EmojiInputElement(props: PlateElementProps) {
         value={value}
         element={element}
         filter={false}
-        setValue={setValue}
+        setValue={debouncedSetValue}
         trigger=':'
         hideWhenNoValue
       >
         <InlineComboboxInput />
 
         <InlineComboboxContent>
-          {!isPending && (
-            <InlineComboboxEmpty>{t('noResults')}</InlineComboboxEmpty>
-          )}
+          <InlineComboboxEmpty>{t('noResults')}</InlineComboboxEmpty>
 
           <InlineComboboxGroup>
             {filteredEmojis.map((emoji) => (
