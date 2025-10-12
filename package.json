@@ -28,12 +28,11 @@
     "db:push": "bunx drizzle-kit push",
     "db:studio": "bunx drizzle-kit studio",
     "db:seed": "bun run src/server/db/seed",
-    "s3:squash": "bun -e \"require('fs').rmSync('src/server/db/migrations/*', { recursive: true, force: true })\" && bun run db:generate",
-    "s3:start": "docker compose -f compose.local.yml up s3 -d",
-    "s3:stop": "docker compose -f compose.local.yml down s3",
+    "db:squash": "bun -e \"require('fs').rmSync('src/server/db/migrations/*', { recursive: true, force: true })\" && bun run db:generate",
+    "s3:start": "docker compose -f compose.local.yml up s3 create-bucket -d",
+    "s3:stop": "docker compose -f compose.local.yml down s3 create-bucket",
     "s3:delete": "bun -e \"require('fs').rmSync('data/s3', { recursive: true, force: true })\"",
     "s3:logs": "docker compose -f compose.local.yml logs -f s3",
-    "s3:buckets": "bun run src/server/s3/buckets.ts",
     "email:dev": "bun run email dev --dir src/emails --port 3080"
   },
   "dependencies": {
