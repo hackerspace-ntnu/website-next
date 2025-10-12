@@ -1,6 +1,7 @@
 import { z } from 'zod';
+import type { Translations } from '@/lib/locale';
 
-function searchMembersSchema() {
+function searchMembersSchema(t: Translations) {
   return z.object({
     name: z.string().optional(),
     limit: z
