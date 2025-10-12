@@ -1333,7 +1333,8 @@
     "notAuthorized": "Not authorized",
     "noFileFound": "No file found",
     "fileUploadFailed": "Failed to upload file",
-    "unableToUpdateMatrix": "Unable to update on Matrix"
+    "unableToUpdateMatrix": "Unable to update on Matrix",
+    "fileDeleteFailed": "Failed to delete file"
   },
   "reservations": {
     "title": "Reservations",

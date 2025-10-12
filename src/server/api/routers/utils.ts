@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { getFileUrl, insertFile } from '@/server/services/files';
+import { deleteFile, getFileUrl, insertFile } from '@/server/services/files';
 
 const utilsRouter = createRouter({
   getFileUrl: publicProcedure
@@ -53,6 +53,24 @@ const utilsRouter = createRouter({
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.fileUploadFailed'),
+          cause: { toast: 'error' },
+        });
+      }
+    }),
+  deleteFile: protectedEditProcedure
+    .input(
+      z.object({
+        fileId: z.number(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      try {
+        await deleteFile(input.fileId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('api.fileDeleteFailed'),
           cause: { toast: 'error' },
         });
       }

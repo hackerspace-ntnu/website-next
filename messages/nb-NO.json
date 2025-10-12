@@ -1333,7 +1333,8 @@
     "notAuthorized": "Ikke autorisert",
     "noFileFound": "Ingen fil funnet",
     "fileUploadFailed": "Kunne ikke laste opp filen",
-    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix"
+    "unableToUpdateMatrix": "Kunne ikke oppdatere på Matrix",
+    "fileDeleteFailed": "Kunne ikke slette filen"
   },
   "reservations": {
     "title": "Reservasjoner",
