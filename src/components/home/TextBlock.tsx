@@ -11,7 +11,7 @@ function TextBlock({ imgSrc, imgAlt, imgSide, children }: TextBlockProps) {
   const image = (
     <div className='relative min-h-64 shrink-0 lg:w-1/3'>
       <Image
-        className='min-h-fit rounded-xl object-cover lg:object-contain xl:object-cover'
+        className='rounded-xl object-cover lg:object-contain xl:object-cover'
         src={imgSrc}
         alt={imgAlt}
         fill
