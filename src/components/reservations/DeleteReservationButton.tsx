@@ -2,7 +2,6 @@
 
 import { Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
