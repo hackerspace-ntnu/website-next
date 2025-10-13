@@ -30,7 +30,7 @@ async function Footer() {
               }}
             />
           </div>
-          <p className='ml-2 leading-tight'>
+          <p className='mt-2 leading-tight'>
             <strong>{t('openingHours')}:</strong>
             <br />
             <span>{t('allWeekdays')}, 10:15-18:00</span>
@@ -51,7 +51,7 @@ async function Footer() {
         </div>
         <div>
           <h4>{t('socialMedia')}</h4>
-          <ul className='grid grid-flow-row grid-cols-[repeat(2,auto)] justify-start text-foreground/80 sm:grid-cols-[repeat(3,auto)] xl:grid-flow-col xl:grid-cols-none'>
+          <ul className='-ml-2 mt-2 grid grid-flow-row grid-cols-[repeat(2,auto)] justify-start text-foreground/80 sm:grid-cols-[repeat(3,auto)] xl:grid-flow-col xl:grid-cols-none'>
             <li>
               <ExternalLink
                 variant='ghost'
@@ -119,7 +119,7 @@ async function Footer() {
         <div>
           <h4>{t('links')}</h4>
           <Nav
-            className='mt-2 ml-2 flex flex-col items-start gap-1.5'
+            className='mt-2 flex flex-col items-start gap-1.5'
             isMember={user?.groups && user.groups.length > 0}
             t={{
               news: t('news'),
@@ -131,7 +131,7 @@ async function Footer() {
         </div>
         <div>
           <h4>{t('utilities')}</h4>
-          <p className='ml-2 [&:not(:first-child)]:mt-0'>
+          <p className='mt-2'>
             <Link variant='link' href='/'>
               {t('signIn')}
             </Link>
