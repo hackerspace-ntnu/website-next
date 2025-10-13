@@ -50,7 +50,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
               .join(', ')}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className='flex flex-col items-center'>
           {user.private && (
             <InternalBadge className='absolute top-2 right-2 h-5 w-5' />
           )}
