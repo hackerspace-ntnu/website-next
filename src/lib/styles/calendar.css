@@ -1,0 +1,81 @@
+/*
+A lot of the styling must be defined in a separate .css file as done here unless
+you want to create custom components for everything in FullCalendar. Then you have to do it like
+I have done with the CustomEventStyling component or CustomToolbar.
+Some styling is also defined in CalendarConfig.ts.
+You can find how to change styling on specific things by checking out FullCalendar's GitHub repo at:
+https://github.com/fullcalendar/fullcalendar/blob/9a0edaeb5eddf2cec8bd2409ecc26c4598b98a48/packages/core/src/styles/vars.css
+All FullCalendar components should have a vars.css file.
+*/
+
+.fc {
+  /* For the calendar itself */
+  --fc-page-bg-color: var(--background);
+  --fc-border-color: var(--border);
+  --fc-neutral-bg-color: var(--muted);
+  --fc-neutral-text-color: var(--muted-foreground);
+
+  /* For events or reservations, some is default here while some is determined in CustomEventStyling.tsx and CalendarConfig.ts */
+  --fc-event-resizer-thickness: 3rem;
+  --fc-event-resizer-dot-total-width: 0.5rem;
+  --fc-event-resizer-dot-border-width: 0.0625rem;
+  --fc-highlight-color: transparent;
+
+  /* Time now indicator, the line and the arrow */
+  --fc-now-indicator-color: var(--destructive);
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.fc .fc-view-harness {
+  background-color: var(--background);
+  border-radius: var(--radius);
+}
+
+.fc .fc-toolbar {
+  display: none;
+}
+
+.fc .fc-col-header-cell {
+  background-color: var(--card);
+  padding: 0.5rem 0;
+  border-right: 0.0625rem solid var(--border);
+}
+
+.fc .fc-col-header-cell-cushion {
+  color: var(--foreground);
+  text-decoration: none;
+  padding: 0.375rem;
+}
+
+.fc .fc-timegrid-slot {
+  height: 2.5rem;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  border-bottom: 0;
+}
+
+.fc .fc-timegrid-slot-label {
+  color: var(--muted-foreground);
+}
+
+.fc .fc-timegrid-axis {
+  background-color: var(--card);
+  width: 4.375rem;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: var(--destructive);
+  width: 100%;
+  border-width: 0.125rem;
+}
+
+.fc-day.fc-day-past .fc-timegrid-col-bg {
+  background-color: var(--secondary);
+  opacity: 0.15;
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+  background-color: oklch(from var(--accent) l c h / 0.5);
+}

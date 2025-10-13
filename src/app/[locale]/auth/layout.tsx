@@ -12,16 +12,8 @@ import { Card, CardHeader } from '@/components/ui/Card';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
-
-export async function generateMetadata() {
-  const t = await getTranslations('layout');
-
-  return {
-    title: t('signIn'),
-  };
-}
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +22,8 @@ export default async function AuthLayout({
   params,
 }: AuthLayoutProps) {
   const { locale } = await params;
-  setRequestLocale(locale);
+  setRequestLocale(locale as Locale);
+
   const t = await getTranslations('layout');
   const { auth, ui } = await getMessages();
 

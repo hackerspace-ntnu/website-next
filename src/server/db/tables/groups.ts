@@ -4,12 +4,13 @@ import {
   boolean,
   index,
   integer,
+  json,
   pgTable,
   primaryKey,
   serial,
-  text,
   varchar,
 } from 'drizzle-orm/pg-core';
+import type { Value } from 'platejs';
 import { files, users } from '@/server/db/tables';
 import { localesEnum } from '@/server/db/tables/locales';
 
@@ -19,7 +20,8 @@ const groups = pgTable('groups', {
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
-  internal: boolean().default(false),
+  openForApplications: boolean('open_for_applications').default(false),
+  internal: boolean('internal').default(false),
 });
 
 const groupLocalizations = pgTable(
@@ -32,7 +34,7 @@ const groupLocalizations = pgTable(
       .notNull(),
     name: varchar('name', { length: 100 }).notNull(),
     summary: varchar('summary', { length: 255 }).notNull(),
-    description: text('description').notNull(),
+    description: json('description').$type<Value>().notNull(),
     locale: localesEnum('locale').notNull(),
   },
   (table) => {
@@ -46,8 +48,8 @@ const groupLocalizations = pgTable(
   },
 );
 
-const userGroups = pgTable(
-  'user_groups',
+const usersGroups = pgTable(
+  'users_groups',
   {
     userId: integer('user_id')
       .references(() => users.id, { onDelete: 'cascade' })
@@ -66,7 +68,7 @@ const userGroups = pgTable(
 );
 
 const groupsRelations = relations(groups, ({ one, many }) => ({
-  usersGroups: many(userGroups),
+  usersGroups: many(usersGroups),
   localizations: many(groupLocalizations),
   image: one(files, {
     fields: [groups.imageId],
@@ -84,13 +86,13 @@ const groupLocalizationsRelations = relations(
   }),
 );
 
-const userGroupsRelations = relations(userGroups, ({ one }) => ({
+const usersGroupsRelations = relations(usersGroups, ({ one }) => ({
   group: one(groups, {
-    fields: [userGroups.groupId],
+    fields: [usersGroups.groupId],
     references: [groups.id],
   }),
   user: one(users, {
-    fields: [userGroups.userId],
+    fields: [usersGroups.userId],
     references: [users.id],
   }),
 }));
@@ -99,16 +101,16 @@ type SelectGroupLocalization = InferSelectModel<typeof groupLocalizations>;
 type InsertGroupLocalization = InferInsertModel<typeof groupLocalizations>;
 type SelectGroup = InferSelectModel<typeof groups>;
 type InsertGroup = InferInsertModel<typeof groups>;
-type SelectUserGroup = InferSelectModel<typeof userGroups>;
-type InsertUserGroup = InferInsertModel<typeof userGroups>;
+type SelectUserGroup = InferSelectModel<typeof usersGroups>;
+type InsertUserGroup = InferInsertModel<typeof usersGroups>;
 
 export {
   groups,
   groupLocalizations,
-  userGroups,
+  usersGroups,
   groupsRelations,
   groupLocalizationsRelations,
-  userGroupsRelations,
+  usersGroupsRelations,
   type SelectGroup,
   type InsertGroup,
   type SelectGroupLocalization,

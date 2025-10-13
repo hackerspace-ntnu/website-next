@@ -15,31 +15,40 @@ async function GroupFormSkeleton() {
         <Skeleton className='h-22 w-full rounded-md' />
       </div>
       <Label>{t('name.labelNorwegian')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('name.labelEnglish')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('summary.labelNorwegian')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('summary.labelEnglish')}</Label>
-      <Skeleton className='flex h-10 w-full rounded-md' />
+      <Skeleton className='h-10 w-full rounded-md' />
       <Label>{t('description.labelNorwegian')}</Label>
-      <Skeleton className='flex h-16 w-full rounded-md' />
+      <Skeleton className='h-100 w-full rounded-md' />
       <Label>{t('description.labelEnglish')}</Label>
-      <Skeleton className='flex h-16 w-full rounded-md' />
+      <Skeleton className='h-100 w-full rounded-md' />
       <div>
         <Label>{t('identifier.label')}</Label>
         <p className='mb-2 text-muted-foreground text-sm'>
           {t('identifier.description')}
         </p>
-        <Skeleton className='flex h-10 w-full rounded-md' />
+        <Skeleton className='h-10 w-full rounded-md' />
       </div>
       <div>
         <div className='mb-2 flex items-center gap-2'>
-          <Skeleton className='flex h-4 w-4 rounded-md' />
+          <Skeleton className='h-4 w-4 rounded-md' />
           <Label>{t('internal.label')}</Label>
         </div>
         <p className='text-muted-foreground text-sm'>
           {t('internal.description')}
+        </p>
+      </div>
+      <div>
+        <div className='mb-2 flex items-center gap-2'>
+          <Skeleton className='h-4 w-4 rounded-md' />
+          <Label>{t('openForApplications.label')}</Label>
+        </div>
+        <p className='text-muted-foreground text-sm'>
+          {t('openForApplications.description')}
         </p>
       </div>
       <div className='flex justify-between'>

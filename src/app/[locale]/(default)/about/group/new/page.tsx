@@ -1,6 +1,10 @@
 import { ArrowLeftIcon } from 'lucide-react';
-import { type Messages, NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
 import { GroupForm } from '@/components/groups/GroupForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -13,10 +17,17 @@ export async function generateMetadata() {
   };
 }
 
-export default async function NewGroupPage() {
+export default async function NewGroupPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale as Locale);
+
   const { user } = await api.auth.state();
   const t = await getTranslations('groups');
-  const { about, groups, ui } = await getMessages();
+  const { about, groups, ui, error } = await getMessages();
 
   if (
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
@@ -41,7 +52,10 @@ export default async function NewGroupPage() {
       </div>
       <NextIntlClientProvider
         messages={
-          { about, groups, ui } as Pick<Messages, 'about' | 'groups' | 'ui'>
+          { about, groups, ui, error } as Pick<
+            Messages,
+            'about' | 'groups' | 'ui' | 'error'
+          >
         }
       >
         <div className='mx-auto lg:max-w-2xl'>

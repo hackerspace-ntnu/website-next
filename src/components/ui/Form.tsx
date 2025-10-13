@@ -3,6 +3,10 @@
 import { Slot } from '@radix-ui/react-slot';
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import { MapPinIcon, XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import type { Value } from 'platejs';
+import { Plate, usePlateEditor } from 'platejs/react';
+import type React from 'react';
 import {
   Fragment,
   useCallback,
@@ -24,6 +28,8 @@ import { PhoneInput } from '@/components/composites/PhoneInput';
 import { Button, type buttonVariants } from '@/components/ui/Button';
 import { Calendar } from '@/components/ui/Calendar';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { Combobox } from '@/components/ui/Combobox';
+import { DateTimePicker } from '@/components/ui/DateTimePicker';
 import { Input } from '@/components/ui/Input';
 import {
   InputOtp,
@@ -32,6 +38,9 @@ import {
   InputOtpSlot,
 } from '@/components/ui/InputOtp';
 import { Label } from '@/components/ui/Label';
+import { Editor, EditorContainer } from '@/components/ui/plate/Editor';
+import { EditorKit } from '@/components/ui/plate/kits/EditorKit';
+import type { PlateEditor } from '@/components/ui/plate/PlateEditor';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup';
 import {
   Select,
@@ -42,6 +51,7 @@ import {
 } from '@/components/ui/Select';
 import { Spinner } from '@/components/ui/Spinner';
 import { Textarea } from '@/components/ui/Textarea';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { cx, type VariantProps } from '@/lib/utils';
 import { fileToBase64String } from '@/lib/utils/files';
 
@@ -52,7 +62,7 @@ type BaseFieldProps = {
   className?: string;
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
   labelSibling?: React.ReactNode;
   children: React.ReactNode;
 };
@@ -132,7 +142,7 @@ type TextFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextField({
@@ -171,7 +181,7 @@ type NumberFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function NumberField({
@@ -210,7 +220,7 @@ type TextAreaFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function TextAreaField({
@@ -247,7 +257,7 @@ type CheckboxFieldProps = Omit<
 > & {
   label: string;
   labelVisible?: boolean;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function CheckboxField({
@@ -327,7 +337,7 @@ type MapFieldProps = {
   zoom?: number;
   coordinates?: Location;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 const DEFAULT_COORDINATES: Location = {
@@ -388,7 +398,7 @@ function MapField({
 }
 
 type SelectOption = {
-  label: string;
+  label: React.ReactNode;
   value: string;
 };
 
@@ -400,7 +410,7 @@ type SelectFieldProps = {
   options: SelectOption[];
   required?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function SelectField({
@@ -455,6 +465,53 @@ function SelectField({
   );
 }
 
+type ComboboxFieldProps = Omit<
+  React.ComponentProps<typeof Combobox>,
+  'defaultDescription' | 'defaultPlaceholder'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  className?: string;
+  placeholder: string;
+  labelSibling?: React.ReactNode;
+  description?: React.ReactNode;
+  comboboxDescription: string;
+};
+
+function ComboboxField({
+  label,
+  labelVisible,
+  className,
+  placeholder,
+  labelSibling,
+  description,
+  comboboxDescription,
+  valueCallback,
+  ...props
+}: ComboboxFieldProps) {
+  const field = useFieldContext<string>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Combobox
+        defaultDescription={comboboxDescription}
+        defaultPlaceholder={placeholder}
+        valueCallback={(value) => {
+          field.handleChange(value);
+          valueCallback?.(value);
+        }}
+        {...props}
+      />
+    </BaseField>
+  );
+}
+
 type PhoneFieldProps = Omit<
   React.ComponentProps<typeof PhoneInput>,
   'value' | 'onChange' | 'onBlur'
@@ -462,7 +519,7 @@ type PhoneFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PhoneField({
@@ -500,7 +557,7 @@ type PasswordFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function PasswordField({
@@ -538,7 +595,8 @@ type DateFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
+  required?: boolean;
 };
 
 function DateField({
@@ -547,9 +605,10 @@ function DateField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: DateFieldProps) {
-  const field = useFieldContext<Date>();
+  const field = useFieldContext<Date | null>();
 
   return (
     <BaseField
@@ -559,12 +618,75 @@ function DateField({
       className={className}
       description={description}
     >
-      <DatePicker
-        date={field.state.value}
-        setDate={(date: Date) => field.handleChange(date)}
-        onBlur={field.handleBlur}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <DatePicker
+          date={field.state.value ?? undefined}
+          setDate={(date) => field.handleChange(date)}
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
+    </BaseField>
+  );
+}
+
+type DateTimeFieldProps = Omit<
+  React.ComponentProps<typeof DateTimePicker>,
+  'onChange'
+> & {
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: React.ReactNode;
+  required?: boolean;
+};
+
+function DateTimeField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  required = true,
+  ...props
+}: DateTimeFieldProps) {
+  const field = useFieldContext<Date | null>();
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <div className='flex gap-2'>
+        <DateTimePicker
+          onChange={(date) => date && field.handleChange(date)}
+          value={field.state.value ?? undefined}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange(null)}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
@@ -578,7 +700,7 @@ type OTPFieldProps = Omit<
   labelSibling?: React.ReactNode;
   slots?: number;
   groups?: number[];
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function OTPField({
@@ -604,7 +726,7 @@ function OTPField({
       );
     }
 
-    return groups.map((groupIndex, groupSize) => (
+    return groups.map((groupSize, groupIndex) => (
       <Fragment key={`group-${field.name}-${groupIndex}`}>
         {groupIndex > 0 && <InputOtpSeparator />}
         <InputOtpGroup>
@@ -656,7 +778,7 @@ type RadioGroupFieldProps = {
   className?: string;
   options: RadioOption[];
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
 };
 
 function RadioGroupField({
@@ -700,7 +822,7 @@ type FileUploadFieldProps = Omit<
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   className?: string;
   validator?: (value: string) => { success: boolean; error?: ZodError };
 };
@@ -874,7 +996,7 @@ function CurrencyField({
   return (
     <BaseField label={label} className={className} labelVisible={labelVisible}>
       <Input
-        ref={inputRef as React.RefObject<HTMLInputElement>}
+        ref={inputRef}
         type='text'
         inputMode='decimal'
         value={inputValue}
@@ -896,7 +1018,7 @@ type CalendarFieldProps = React.ComponentProps<typeof Calendar> & {
   label: string;
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   calendarClassName?: string;
 };
 
@@ -932,10 +1054,68 @@ function CalendarField({
   );
 }
 
+type EditorFieldProps = Omit<
+  React.ComponentProps<typeof PlateEditor>,
+  'value' | 'onChange' | 'onBlur'
+> & {
+  className?: string;
+  label: string;
+  labelVisible?: boolean;
+  labelSibling?: React.ReactNode;
+  description?: string;
+};
+
+function EditorField({
+  className,
+  label,
+  labelVisible,
+  labelSibling,
+  description,
+  ...props
+}: EditorFieldProps) {
+  const field = useFieldContext<Value>();
+  const editor = usePlateEditor({
+    plugins: EditorKit(useTranslations()),
+    value: field.state.value,
+    ...props.initOptions,
+  });
+  const debouncedOnChange = useDebounceCallback(
+    (value: Value) => field.handleChange(value),
+    500,
+  );
+
+  return (
+    <BaseField
+      label={label}
+      labelVisible={labelVisible}
+      labelSibling={labelSibling}
+      className={className}
+      description={description}
+    >
+      <Plate
+        editor={editor}
+        onChange={({ value }) => debouncedOnChange(value)}
+        {...props.plateOptions}
+      >
+        <EditorContainer
+          className={cx(
+            'rounded-lg border p-1',
+            props.containerOptions?.className,
+          )}
+          {...props.containerOptions}
+        >
+          <Editor variant={props.variant} {...props.editorOptions} />
+        </EditorContainer>
+      </Plate>
+    </BaseField>
+  );
+}
+
 type SubmitButtonProps = Omit<React.ComponentProps<typeof Button>, 'type'> &
   VariantProps<typeof buttonVariants> & {
     spinnerClassName?: string;
     loading?: boolean;
+    allowPristine?: boolean;
   };
 
 function SubmitButton({
@@ -943,6 +1123,7 @@ function SubmitButton({
   className,
   spinnerClassName,
   loading,
+  allowPristine = false,
   ...props
 }: SubmitButtonProps) {
   const form = useFormContext();
@@ -958,7 +1139,12 @@ function SubmitButton({
         <Button
           className={cx('min-w-28', className)}
           type='submit'
-          disabled={isSubmitting || isPristine || isValidating || loading}
+          disabled={
+            isSubmitting ||
+            (!allowPristine && isPristine) ||
+            isValidating ||
+            loading
+          }
           {...props}
         >
           {isSubmitting || isValidating || loading ? (
@@ -984,14 +1170,17 @@ const { useAppForm } = createFormHook({
     CheckboxField,
     MapField,
     SelectField,
+    ComboboxField,
     PhoneField,
     PasswordField,
     DateField,
+    DateTimeField,
     OTPField,
     RadioGroupField,
     FileUploadField,
     CurrencyField,
     CalendarField,
+    EditorField,
   },
   formComponents: {
     SubmitButton,

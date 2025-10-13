@@ -1,82 +1,150 @@
+import { ArrowLeftIcon, SquarePenIcon } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import readingTime from 'reading-time';
-import { AvatarIcon } from '@/components/profile/AvatarIcon';
-import { Badge } from '@/components/ui/Badge';
 import {
-  articleMockData as articleData,
-  authorMockData as authorData,
-} from '@/mock-data/article';
+  getFormatter,
+  getTranslations,
+  setRequestLocale,
+} from 'next-intl/server';
+import readingTime from 'reading-time';
+import { HackerspaceLogo } from '@/components/assets/logos';
+import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
+import { Badge } from '@/components/ui/Badge';
+import { Link } from '@/components/ui/Link';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
+import { api } from '@/lib/api/server';
+import { getFileUrl } from '@/server/services/files';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ article: string }>;
+  params: Promise<{ locale: string; articleId: string }>;
 }) {
-  const { article } = await params;
-  const data = articleData.find((a) => a.id === Number(article));
+  const { articleId } = await params;
+  const article = await api.news.fetchArticle({ id: Number(articleId) });
 
   return {
-    title: data?.title,
+    title: article?.localization?.title,
   };
 }
 
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<{ locale: Locale; articleId: string }>;
+  params: Promise<{ locale: string; articleId: string }>;
 }) {
   const { locale, articleId } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations('news');
+  setRequestLocale(locale as Locale);
 
-  const data = articleData.find((a) => a.id === Number(articleId));
-  if (!data) {
+  if (Number.isNaN(Number(articleId))) return notFound();
+
+  const t = await getTranslations('news');
+  const formatter = await getFormatter();
+  const article = await api.news.fetchArticle({
+    id: Number(articleId),
+    incrementViews: true,
+  });
+  if (!article) {
     return notFound();
   }
 
-  const { minutes } = readingTime(data.content as string); // assert because its a mock data file
-  const author = authorData[0] as {
-    name: string;
-    photoUrl: string;
-    initials: string;
-  }; // same as above
+  const { minutes } = readingTime(JSON.stringify(article.localization.content));
+
+  const { user } = await api.auth.state();
+
+  const authorName = article.author
+    ? `${article.author.firstName} ${article.author.lastName}`
+    : 'Hackerspace';
+
+  const imageUrl = article.imageId ? await getFileUrl(article.imageId) : null;
+  const authorImageUrl = article.author?.profilePictureId
+    ? await getFileUrl(article.author.profilePictureId)
+    : null;
+
   return (
     <article>
       <header>
+        <Link
+          className='mb-4 flex w-fit items-center gap-2'
+          href='/news'
+          variant='ghost'
+          size='default'
+        >
+          <ArrowLeftIcon />
+          <span>{t('backToNews')}</span>
+        </Link>
         <div className='mb-10 flex justify-center'>
-          <Image
-            className='h-auto w-full max-w-4xl rounded-lg'
-            src={`/${data.photoUrl}`}
-            alt={data.title}
-            width={1600}
-            height={900}
-            priority
-          />
+          {imageUrl ? (
+            <Image
+              className='h-auto w-full max-w-4xl rounded-lg'
+              src={imageUrl}
+              alt={article.localization.title}
+              width={1600}
+              height={900}
+              priority
+            />
+          ) : (
+            <div className='flex h-96 w-full max-w-4xl items-center justify-center rounded-lg bg-muted'>
+              <HackerspaceLogo className='h-32 w-32' />
+            </div>
+          )}
         </div>
-        <h2 className='my-4'>{data.title}</h2>
+        <div className='my-4 flex flex-col items-center justify-between gap-4 md:flex-row'>
+          <div>
+            <h2>{article.localization.title}</h2>
+            <p>{article.localization.preamble}</p>
+          </div>
+          {user?.groups && user.groups.length > 0 && (
+            <Link
+              variant='default'
+              size='sm'
+              href={{
+                pathname: '/news/[articleId]/edit',
+                params: { articleId },
+              }}
+            >
+              <SquarePenIcon className='mr-2 h-4 w-4' />
+              {t('updateArticle')}
+            </Link>
+          )}
+        </div>
       </header>
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
-          <AvatarIcon
-            photoUrl={`/${author.photoUrl}`}
-            name={author.name}
-            initials={author.initials}
-          />
+          {article.author ? (
+            <AvatarIcon
+              photoUrl={authorImageUrl}
+              name={`${article.author.firstName} ${article.author.lastName}`}
+              initials={`${article.author.firstName.charAt(0)}${article.author.lastName.charAt(0)}`}
+            />
+          ) : (
+            <Avatar>
+              <AvatarFallback>
+                <HackerspaceLogo className='size-6' />
+              </AvatarFallback>
+            </Avatar>
+          )}
           <div className='flex flex-col'>
-            <p className='font-montserrat font-semibold'>{author.name}</p>
+            <p className='font-montserrat font-semibold'>{authorName}</p>
             <small className='text-foreground/60'>
               {t('readTime', { count: Math.ceil(minutes) })}
               &nbsp;&nbsp;•&nbsp;&nbsp;
-              {data.date}
+              {formatter.dateTime(article.createdAt)}
+            </small>
+            <small className='text-foreground/60'>
+              {t('lastUpdated', {
+                date: formatter.dateTime(article.updatedAt),
+              })}
             </small>
           </div>
         </div>
-        <Badge variant='secondary'>{`${data.views} ${t('views')}`}</Badge>
+        <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
       </section>
-      <section>{data.content}</section>
+      <section>
+        <PlateEditorView value={article.localization.content} />
+      </section>
     </article>
   );
 }

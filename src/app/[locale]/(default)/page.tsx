@@ -1,55 +1,94 @@
+import { CornerUpRightIcon } from 'lucide-react';
 import type { Locale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
-import { HelloWorld } from '@/components/home/HelloWorld';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { EventTable } from '@/components/home/EventTable';
+import { IntroBanner } from '@/components/home/IntroBanner';
+import { NewsTable } from '@/components/home/NewsTable';
+import { TextBlock } from '@/components/home/TextBlock';
+import { Link } from '@/components/ui/Link';
+import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 
 export default async function HomePage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
-  const hello = await api.test.helloWorld();
+
+  setRequestLocale(locale as Locale);
+  const t = await getTranslations('home');
+  const tLayout = await getTranslations('layout');
+
+  const { user } = await api.auth.state();
+
+  const slides = await api.slides.fetchSlides({ onlyActive: true });
+  const membersOnShift = await api.shiftSchedule.fetchMembersOnShift();
+
+  const events = await api.events.fetchEvents({ limit: 3, offset: 0 });
+  const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
+
+  const canEditSlides =
+    user?.groups.some((g) => ['leadership', 'admin'].includes(g)) ?? false;
+
   return (
-    <div className='min-h-screen'>
-      <p className='clamp-[text-lg-5xl-clamp--md]'>{hello}</p>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni delectus
-        cupiditate debitis! Fuga minus quod ea eligendi exercitationem. Sequi
-        quia possimus quaerat ipsa iste voluptatibus repudiandae atque cum sunt
-        vitae. Soluta repellendus fuga minima itaque voluptate ad exercitationem
-        dolore unde amet ex atque cum, consectetur dolores qui quas doloribus
-        perferendis architecto optio sed mollitia accusamus tenetur fugiat
-        eveniet quo? Autem! Dolores esse sint ratione consequatur cumque
-        necessitatibus quam corporis perferendis facere consectetur quidem et
-        ex, repudiandae tenetur neque qui. Sequi, odio praesentium. Blanditiis
-        quo facilis natus quia repellat velit eos. Commodi quo minima eveniet
-        voluptates ratione ipsam, a dolore aspernatur alias officiis ex cum
-        laborum, esse culpa laudantium atque! Iure culpa, tenetur ad impedit
-        optio reiciendis maiores delectus accusantium officiis? Quaerat
-        provident laboriosam voluptatibus cum nam asperiores culpa libero totam
-        sapiente quisquam sint exercitationem aliquam quidem, laudantium illo
-        ullam similique. Impedit assumenda dolores, quia blanditiis excepturi
-        qui architecto veritatis quas! Laboriosam illum, possimus nisi dolores,
-        aspernatur quaerat ipsam reprehenderit id obcaecati repellat
-        necessitatibus debitis accusantium modi commodi! Quam fugit et sequi,
-        quibusdam, pariatur ducimus, aut rem quo rerum excepturi quisquam.
-        Minima officiis facere, inventore voluptatem modi atque, in id aut, ab
-        dicta est nesciunt perferendis dolores blanditiis facilis non! Nam,
-        repudiandae. Excepturi et odio fuga pariatur omnis, sunt nobis aut.
-        Reprehenderit, similique laboriosam et eveniet ut ipsa, laudantium non
-        molestias magni quas animi illum modi temporibus, aut rerum earum nihil
-        velit doloremque? Corrupti illum esse at dolore dignissimos ipsum ullam.
-        Repudiandae sequi odio et dicta unde tempore earum nulla magni, dolores
-        recusandae molestiae odit. Quis odit ut, eaque ullam hic rem tempora
-        voluptate reiciendis. Tenetur excepturi nihil quae eaque asperiores! Quo
-        debitis dolores nihil soluta sit optio in officia ducimus voluptates
-        laborum explicabo, laudantium nisi voluptatibus sapiente maxime
-        assumenda sequi dolorem asperiores quidem quis eos quaerat dolor.
-        Excepturi, aspernatur suscipit.
-      </p>
-      <HelloWorld />
+    <div className='space-y-8'>
+      <IntroBanner
+        slides={slides}
+        locale={locale as Locale}
+        canEditSlides={canEditSlides}
+        t={{
+          placeholderAlt: t('placeholderAlt'),
+          editSlides: t('changeSlides'),
+        }}
+      />
+      <TextBlock
+        imgSrc='/whoAreWe.jpg'
+        imgAlt={t('whoAreWeAlt')}
+        imgSide='right'
+      >
+        <h2>{t('whoAreWe')}</h2>
+        <p>{t('whoAreWeDescription')}</p>
+      </TextBlock>
+      <Separator />
+      <TextBlock imgSrc='/workshop.jpg' imgAlt={t('stopByAlt')} imgSide='left'>
+        <h2>{t('stopBy')}</h2>
+        <p>{t('stopByDescription', { membersOnShift })}</p>
+        <Link
+          variant='link'
+          href='/shift-schedule'
+          className='flex w-fit gap-3'
+        >
+          {tLayout('shiftSchedule')}
+          <CornerUpRightIcon size={16} />
+        </Link>
+      </TextBlock>
+      <Separator />
+      <TextBlock imgSrc='/events.jpg' imgAlt={t('eventsAlt')} imgSide='right'>
+        <h2>{t('events')}</h2>
+        <div className='flex flex-col gap-3 md:flex-row'>
+          <div className='flex flex-col gap-3 lg:w-1/2'>
+            <p className='mt-2'>{t('eventsDescription')}</p>
+            <Link variant='link' href='/events' className='flex w-fit gap-3'>
+              {tLayout('events')} <CornerUpRightIcon size={16} />
+            </Link>
+          </div>
+          <EventTable events={events} />
+        </div>
+      </TextBlock>
+      <Separator />
+      <TextBlock imgSrc='/ducks.jpg' imgAlt={t('newsAlt')} imgSide='left'>
+        <h2>{t('news')}</h2>
+        <div className='flex flex-col gap-3 md:flex-row '>
+          <div className='flex flex-col gap-3 lg:w-1/2'>
+            <p className='mt-2'>{t('newsDescription')}</p>
+            <Link variant='link' href='/news' className='flex w-fit gap-3'>
+              {tLayout('news')} <CornerUpRightIcon size={16} />
+            </Link>
+          </div>
+          <NewsTable articles={articles} />
+        </div>
+      </TextBlock>
     </div>
   );
 }

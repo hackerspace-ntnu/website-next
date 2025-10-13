@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
+import { plateValueSchema } from '@/validations/plate';
 import { fileUploadZodString } from '@/validations/utils/fileUploadZodString';
 
 function groupSchema(t: Translations) {
@@ -29,12 +30,8 @@ function groupSchema(t: Translations) {
       .string()
       .min(1, t('groups.form.summary.required'))
       .max(255, t('groups.form.summary.maxLength', { count: 255 })),
-    descriptionNorwegian: z
-      .string()
-      .min(1, t('groups.form.description.required')),
-    descriptionEnglish: z
-      .string()
-      .min(1, t('groups.form.description.required')),
+    descriptionNorwegian: plateValueSchema,
+    descriptionEnglish: plateValueSchema,
     identifier: z
       .string()
       .min(1, t('groups.form.identifier.required'))
@@ -44,6 +41,7 @@ function groupSchema(t: Translations) {
         t('groups.form.identifier.isReserved'),
       ),
     internal: z.boolean(),
+    openForApplications: z.boolean(),
   });
 }
 

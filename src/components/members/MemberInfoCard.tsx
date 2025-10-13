@@ -1,5 +1,4 @@
-import { MailIcon, UserCircle2Icon } from 'lucide-react';
-import Image from 'next/image';
+import { MailIcon } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import {
   GitHubIcon,
@@ -8,6 +7,7 @@ import {
 } from '@/components/assets/icons';
 import { DiscordMemberTag } from '@/components/members/DiscordMemberTag';
 import { InternalBadge } from '@/components/members/InternalBadge';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { Card } from '@/components/ui/Card';
 import { ExternalLink } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -16,7 +16,7 @@ import type { RouterOutput } from '@/server/api';
 async function MemberInfoCard({
   user,
 }: {
-  user: NonNullable<RouterOutput['users']['fetchUser']>;
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
 }) {
   const t = await getTranslations('layout');
   const tMembers = await getTranslations('members');
@@ -25,10 +25,10 @@ async function MemberInfoCard({
     ? await api.utils.getFileUrl({
         fileId: user.profilePictureId,
       })
-    : null;
+    : undefined;
 
   const groupNames = user.usersGroups
-    .map(
+    ?.map(
       (row) =>
         row.group.localizations.find(
           (localization) => localization.locale === locale,
@@ -37,27 +37,26 @@ async function MemberInfoCard({
     .filter((item) => item !== undefined)
     .join(', ');
 
+  const userInfo = {
+    firstName: user.firstName ?? '',
+    lastName: user.lastName ?? '',
+  };
+
   return (
     <Card className='relative flex w-full overflow-hidden rounded-xl p-4 lg:w-fit lg:min-w-96'>
       {user.private && <InternalBadge />}
       <div className='flex w-full flex-col items-center justify-center'>
-        <div className='relative my-2 size-48 lg:size-64'>
-          {profilePictureUrl ? (
-            <Image
-              className='rounded-full object-cover'
-              src={profilePictureUrl}
-              alt={`${user.firstName} ${user.lastName}`}
-              fill
-            />
-          ) : (
-            <UserCircle2Icon className='h-full w-full object-cover' />
-          )}
-        </div>
+        <MemberAvatar
+          size='2xl'
+          user={userInfo}
+          profilePictureUrl={profilePictureUrl}
+          className='relative my-2'
+        />
         <h3 className='mt-4 text-center'>
           {user.firstName} {user.lastName}
         </h3>
         <h5 className='text-center'>
-          {groupNames.length > 0 ? groupNames : tMembers('guest')}
+          {groupNames && groupNames.length > 0 ? groupNames : tMembers('guest')}
         </h5>
         {user.bio && user.bio.length > 0 && (
           <p className='my-8 max-w-prose text-center'>{user.bio}</p>

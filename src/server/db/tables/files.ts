@@ -1,5 +1,8 @@
-import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import { relations } from 'drizzle-orm';
+import {
+  type InferInsertModel,
+  type InferSelectModel,
+  relations,
+} from 'drizzle-orm';
 import {
   type AnyPgColumn,
   integer,
@@ -9,11 +12,10 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
-
+import { fileDirectories } from '@/lib/constants';
 import { users } from '@/server/db/tables';
-import { directories } from '@/server/s3';
 
-const directoriesEnum = pgEnum('directories', directories);
+const directoriesEnum = pgEnum('directories', fileDirectories);
 
 const files = pgTable('files', {
   id: serial('id').primaryKey(),

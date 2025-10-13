@@ -1,0 +1,53 @@
+'use client';
+
+import { useTocElement, useTocElementState } from '@platejs/toc/react';
+import { cva } from 'cva';
+import { useTranslations } from 'next-intl';
+import type { PlateElementProps } from 'platejs/react';
+import { PlateElement } from 'platejs/react';
+import { Button } from '@/components/ui/Button';
+
+const headingItemVariants = cva({
+  base: 'block h-auto w-full cursor-pointer truncate rounded-none px-0.5 py-1.5 text-left font-medium text-muted-foreground underline decoration-[0.5px] underline-offset-4 hover:bg-accent hover:text-muted-foreground',
+  variants: {
+    depth: {
+      1: 'pl-0.5',
+      2: 'pl-[26px]',
+      3: 'pl-[50px]',
+    },
+  },
+});
+
+function TocElement(props: PlateElementProps) {
+  const state = useTocElementState();
+  const { props: btnProps } = useTocElement(state);
+  const { headingList } = state;
+  const t = useTranslations('ui.plate');
+
+  return (
+    <PlateElement {...props} className='mb-1 p-0'>
+      <div contentEditable={false}>
+        {headingList.length > 0 ? (
+          headingList.map((item) => (
+            <Button
+              key={item.id}
+              variant='ghost'
+              className={headingItemVariants({
+                depth: item.depth as 1 | 2 | 3,
+              })}
+              onClick={(e) => btnProps.onClick(e, item, 'smooth')}
+              aria-current
+            >
+              {item.title}
+            </Button>
+          ))
+        ) : (
+          <div className='text-gray-500 text-sm'>{t('createHeading')}</div>
+        )}
+      </div>
+      {props.children}
+    </PlateElement>
+  );
+}
+
+export { TocElement };

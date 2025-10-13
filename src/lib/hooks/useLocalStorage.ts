@@ -41,7 +41,11 @@ function useLocalStorage<T>(
         return;
       }
       const newValue = value instanceof Function ? value(storedValue) : value;
-      if (!newValue || (Array.isArray(newValue) && newValue.length === 0)) {
+      if (
+        newValue === null ||
+        newValue === undefined ||
+        (Array.isArray(newValue) && newValue.length === 0)
+      ) {
         localStorage.removeItem(key);
         let defaultValue: T | undefined;
         if (typeof initialValue === 'function') {

@@ -73,6 +73,10 @@ const routing = defineRouting({
       'en-GB': '/auth/forgot-password',
       'nb-NO': '/autentisering/glemt-passord',
     },
+    '/auth/forgot-password/[requestId]': {
+      'en-GB': '/auth/forgot-password/[requestId]',
+      'nb-NO': '/autentisering/glemt-passord/[requestId]',
+    },
     '/auth/verify-email': {
       'en-GB': '/auth/verify-email',
       'nb-NO': '/autentisering/bekreft-epost',
@@ -93,17 +97,21 @@ const routing = defineRouting({
       'en-GB': '/settings/notifications',
       'nb-NO': '/innstillinger/notifikasjoner',
     },
-    '/settings/administrator': {
-      'en-GB': '/settings/administrator',
-      'nb-NO': '/innstillinger/administrator',
-    },
     '/events': {
       'en-GB': '/events',
       'nb-NO': '/arrangementer',
     },
+    '/events/new': {
+      'en-GB': '/events/new',
+      'nb-NO': '/arrangementer/ny',
+    },
     '/events/[eventId]': {
       'en-GB': '/events/[eventId]',
       'nb-NO': '/arrangementer/[eventId]',
+    },
+    '/events/[eventId]/edit': {
+      'en-GB': '/events/[eventId]/edit',
+      'nb-NO': '/arrangementer/[eventId]/rediger',
     },
     '/news': {
       'en-GB': '/news',
@@ -116,6 +124,10 @@ const routing = defineRouting({
     '/news/[articleId]': {
       'en-GB': '/news/[articleId]',
       'nb-NO': '/nyheter/[articleId]',
+    },
+    '/news/[articleId]/edit': {
+      'en-GB': '/news/[articleId]/edit',
+      'nb-NO': '/nyheter/[articleId]/rediger',
     },
     '/members': {
       'en-GB': '/members',
@@ -165,13 +177,109 @@ const routing = defineRouting({
       'en-GB': '/rules/[subsetId]',
       'nb-NO': '/regler/[subsetId]',
     },
+    '/rules/new': {
+      'en-GB': '/rules/new',
+      'nb-NO': '/regler/ny',
+    },
+    '/rules/[subsetId]/edit': {
+      'en-GB': '/rules/[subsetId]/edit',
+      'nb-NO': '/regler/[subsetId]/rediger',
+    },
     '/shift-schedule': {
       'en-GB': '/shift-schedule',
       'nb-NO': '/vaktliste',
     },
+    '/applications/apply': {
+      'en-GB': '/applications/apply',
+      'nb-NO': '/opptak/søk',
+    },
+    '/applications/thank-you': {
+      'en-GB': '/applications/thank-you',
+      'nb-NO': '/opptak/takk',
+    },
+    '/applications/view': {
+      'en-GB': '/applications/view',
+      'nb-NO': '/opptak/vis',
+    },
+    '/applications/view/[appId]': {
+      'en-GB': '/applications/view/[appId]',
+      'nb-NO': '/opptak/vis/[appId]',
+    },
+    '/quotes': {
+      'en-GB': '/quotes',
+      'nb-NO': '/sitater',
+    },
+    '/quotes/new': {
+      'en-GB': '/quotes/new',
+      'nb-NO': '/sitater/ny',
+    },
+    '/quotes/[quoteId]/edit': {
+      'en-GB': '/quotes/[quoteId]/edit',
+      'nb-NO': '/sitater/[quoteId]/rediger',
+    },
     '/privacy-policy': {
       'en-GB': '/privacy-policy',
       'nb-NO': '/personvern',
+    },
+    '/management': {
+      'en-GB': '/management',
+      'nb-NO': '/administrasjon',
+    },
+    '/management/banners': {
+      'en-GB': '/management/banners',
+      'nb-NO': '/administrasjon/bannere',
+    },
+    '/management/banners/[bannerId]/edit': {
+      'en-GB': '/management/banners/[bannerId]/edit',
+      'nb-NO': '/administrasjon/bannere/[bannerId]/rediger',
+    },
+    '/management/banners/new': {
+      'en-GB': '/management/banners/new',
+      'nb-NO': '/administrasjon/bannere/ny',
+    },
+    '/management/skills': {
+      'en-GB': '/management/skills',
+      'nb-NO': '/administrasjon/ferdigheter',
+    },
+    '/management/skills/[skillIdentifier]': {
+      'en-GB': '/management/skills/[skillIdentifier]',
+      'nb-NO': '/administrasjon/ferdigheter/[skillIdentifier]',
+    },
+    '/management/skills/new': {
+      'en-GB': '/management/skills/new',
+      'nb-NO': '/administrasjon/ferdigheter/ny',
+    },
+    '/management/users': {
+      'en-GB': '/management/users',
+      'nb-NO': '/administrasjon/brukere',
+    },
+    '/management/slides': {
+      'en-GB': '/management/slides',
+      'nb-NO': '/management/slides',
+    },
+    '/management/slides/[slideId]/edit': {
+      'en-GB': '/management/slides/[slideId]/edit',
+      'nb-NO': '/management/slides/[slideId]/rediger',
+    },
+    '/management/slides/new': {
+      'en-GB': '/management/slides/new',
+      'nb-NO': '/management/slides/ny',
+    },
+    '/reservations': {
+      'en-GB': '/reservations',
+      'nb-NO': '/reservasjoner',
+    },
+    '/reservations/[toolId]': {
+      'en-GB': '/reservations/[toolId]',
+      'nb-NO': '/reservasjoner/[toolId]',
+    },
+    '/reservations/tools/new': {
+      'en-GB': '/reservations/tools/new',
+      'nb-NO': '/reservasjoner/verktøy/ny',
+    },
+    '/reservations/tools/[toolId]/edit': {
+      'en-GB': '/reservations/tools/[toolId]/edit',
+      'nb-NO': '/reservasjoner/verktøy/[toolId]/rediger',
     },
   },
 });

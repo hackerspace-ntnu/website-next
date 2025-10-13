@@ -6,17 +6,40 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getLocale, getTranslations } from 'next-intl/server';
+import type { Locale } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/components/ui/Link';
+import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
 import type { SelectUser } from '@/server/db/tables';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; name: string }>;
+}) {
+  const { locale, name } = await params;
+
+  const group = await api.groups.fetchGroup(name);
+  const groupLocalization = group?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!group || !groupLocalization) return;
+
+  return {
+    title: groupLocalization.name,
+  };
+}
 
 export default async function GroupPage({
   params,
 }: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ locale: string; name: string }>;
 }) {
-  const { name } = await params;
+  const { locale, name } = await params;
+  setRequestLocale(locale as Locale);
+
   const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
   const tAbout = await getTranslations('about');
@@ -25,7 +48,6 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const locale = await getLocale();
   const groupLocalization = group.localizations.find(
     (localization) => localization.locale === locale,
   );
@@ -68,7 +90,7 @@ export default async function GroupPage({
           ['labops', 'leadership', 'admin'].includes(g),
         ) && (
           <Link
-            className='absolute top-0 right-0'
+            className='-translate-y-1/2 absolute top-1/2 right-0'
             href={{
               pathname: '/about/group/[name]/edit',
               params: { name: group.identifier },
@@ -93,14 +115,14 @@ export default async function GroupPage({
             />
           </div>
         )}
-        <p className='max-w-prose'>{groupLocalization.description}</p>
+        <PlateEditorView value={groupLocalization.description} />
         {members.length === 0 && (
           <div className='flex w-full items-center justify-center gap-2'>
             <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
             <p className='text-center'>{tAbout('noMembers')}</p>
           </div>
         )}
-        <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
+        <div className='my-6 grid grid-cols-1 content-end gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {members.map((member) => {
             return (
               <Link
@@ -109,7 +131,7 @@ export default async function GroupPage({
                   pathname: '/members/[memberId]',
                   params: { memberId: member.id },
                 }}
-                className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (

@@ -6,9 +6,10 @@ import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDial
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
-import type { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import type { days, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 import type { RouterOutputs } from '@/server/api';
+import type { SelectSkill } from '@/server/db/tables';
 
 type ScheduleCellProps = {
   formattedShift: {
@@ -18,7 +19,7 @@ type ScheduleCellProps = {
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
   members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
-  skills: (typeof skillIdentifiers)[number][];
+  skills: SelectSkill[];
   user: RouterOutputs['auth']['state']['user'];
 };
 
@@ -73,8 +74,8 @@ function ScheduleCell({
               <span className='m-1'>{t('closed')}</span>
             ) : (
               <div className='ml-1 flex flex-wrap gap-1.5'>
-                {skills.map((identifier) => (
-                  <SkillIcon key={identifier} identifier={identifier} />
+                {skills.map((skill) => (
+                  <SkillIcon key={skill.identifier} skill={skill} />
                 ))}
               </div>
             )}

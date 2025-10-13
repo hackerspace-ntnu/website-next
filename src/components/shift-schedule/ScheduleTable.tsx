@@ -1,4 +1,4 @@
-import { getFormatter, getTranslations } from 'next-intl/server';
+import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
 import { ScheduleCell } from '@/components/shift-schedule/ScheduleCell';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import {
@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
-import { days, skillIdentifiers, timeslots } from '@/lib/constants';
+import { days, timeslots, timeslotTimes } from '@/lib/constants';
 import type { RouterOutputs } from '@/server/api';
 
 type ScheduleTableProps = {
@@ -20,45 +20,21 @@ type ScheduleTableProps = {
 
 async function ScheduleTable({ user }: ScheduleTableProps) {
   const t = await getTranslations('shiftSchedule.table');
-  const tSkills = await getTranslations('skills');
   const format = await getFormatter();
+  const locale = await getLocale();
   const shifts = await api.shiftSchedule.fetchShifts();
+  const skills = await api.skills.fetchAllSkills();
 
-  function getDateTimeRange(timeslot: string) {
-    let firstDate: Date;
-    let secondDate: Date;
-
-    switch (timeslot) {
-      case timeslots[0]:
-        firstDate = new Date(0, 0, 0, 10, 15, 0, 0);
-        secondDate = new Date(0, 0, 0, 12, 0, 0, 0);
-        break;
-
-      case timeslots[1]:
-        firstDate = new Date(0, 0, 0, 12, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 14, 0, 0, 0);
-        break;
-
-      case timeslots[2]:
-        firstDate = new Date(0, 0, 0, 14, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 16, 0, 0, 0);
-        break;
-
-      case timeslots[3]:
-        firstDate = new Date(0, 0, 0, 16, 0, 0, 0);
-        secondDate = new Date(0, 0, 0, 18, 0, 0, 0);
-        break;
-
-      default:
-        firstDate = new Date();
-        secondDate = new Date();
-    }
-
-    return format.dateTimeRange(firstDate, secondDate, {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    });
+  function getDateTimeRange(timeslot: (typeof timeslots)[number]) {
+    return format.dateTimeRange(
+      timeslotTimes[timeslot].start,
+      timeslotTimes[timeslot].end,
+      {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      },
+    );
   }
 
   return (
@@ -107,13 +83,17 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         <Table>
           <TableCaption>
             <div className='grid grid-cols-2 gap-x-3 gap-y-3'>
-              {skillIdentifiers.map((identifier) => (
+              {skills.map((skill) => (
                 <div
-                  key={identifier}
+                  key={skill.identifier}
                   className='flex items-center gap-3 text-left'
                 >
-                  <SkillIcon identifier={identifier} size='large' />
-                  <span className='text-xs'>{tSkills(identifier)}</span>
+                  <SkillIcon skill={skill} size='large' />
+                  <span className='text-xs'>
+                    {locale === 'en-GB'
+                      ? skill.nameEnglish
+                      : skill.nameNorwegian}
+                  </span>
                 </div>
               ))}
             </div>
@@ -163,10 +143,12 @@ async function ScheduleTable({ user }: ScheduleTableProps) {
         </TableBody>
         <TableCaption className='h-fit min-h-12 pb-4'>
           <div className='flex flex-wrap justify-center gap-8'>
-            {skillIdentifiers.map((identifier) => (
-              <div key={identifier} className='flex items-center gap-3'>
-                <SkillIcon identifier={identifier} size='large' />
-                <span className='text-xs'>{tSkills(identifier)}</span>
+            {skills.map((skill) => (
+              <div key={skill.identifier} className='flex items-center gap-3'>
+                <SkillIcon skill={skill} size='large' />
+                <span className='text-xs'>
+                  {locale === 'en-GB' ? skill.nameEnglish : skill.nameNorwegian}
+                </span>
               </div>
             ))}
           </div>

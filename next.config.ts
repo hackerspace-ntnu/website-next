@@ -13,6 +13,9 @@ const config: NextConfig = {
         hostname: new URL(env.NEXT_PUBLIC_SITE_URL).hostname,
       },
     ],
+    // Most of our images are stored on our S3 instance and cannot be optimized.
+    // Additional URL parameters added by next/image break the signed URLs.
+    unoptimized: true
   },
   async rewrites() {
     return {

@@ -8,6 +8,7 @@ services:
       s3:
         condition: service_healthy
     restart: unless-stopped
+    container_name: website-app
     networks:
       - nginx_default
   migrator:
@@ -20,11 +21,13 @@ services:
       s3:
         condition: service_healthy
     restart: no
+    container_name: website-migrator
     networks:
       - nginx_default
   db:
     image: postgres:16
     restart: unless-stopped
+    container_name: website-db
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -39,19 +42,35 @@ services:
     networks:
       - nginx_default
   s3:
-    image: bitnami/minio:2024
+    image: minio/minio
     restart: unless-stopped
+    container_name: website-minio
+    command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: ${S3_USER}
       MINIO_ROOT_PASSWORD: ${S3_PASSWORD}
-      MINIO_DEFAULT_BUCKETS: ${S3_NAME}
     volumes:
-      - ./data/s3:/bitnami/minio/data
+      - ./data/s3:/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - nginx_default
+  create-bucket:
+    image: minio/mc
+    depends_on:
+      s3:
+        condition: service_healthy
+    restart: no
+    container_name: website-create-bucket
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set minio http://website-minio:9000 ${S3_USER} ${S3_PASSWORD};
+      /usr/bin/mc mb minio/${S3_NAME} --ignore-existing;
+      exit 0;
+      "
     networks:
       - nginx_default
 networks:

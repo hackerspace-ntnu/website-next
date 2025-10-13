@@ -19,6 +19,7 @@ import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import { useRouter } from '@/lib/locale/navigation';
+import { deleteUnusedEditorFiles } from '@/lib/utils/files';
 import type { RouterOutput } from '@/server/api';
 import { groupSchema } from '@/validations/groups/groupSchema';
 
@@ -57,6 +58,7 @@ function GroupForm({
       router.push('/about');
     },
   });
+  const deleteFile = api.utils.deleteFile.useMutation();
 
   const english = group
     ? group.localizations.find(
@@ -80,13 +82,24 @@ function GroupForm({
       nameEnglish: english?.name ?? '',
       summaryNorwegian: norwegian?.summary ?? '',
       summaryEnglish: english?.summary ?? '',
-      descriptionNorwegian: norwegian?.description ?? '',
-      descriptionEnglish: english?.description ?? '',
+      descriptionNorwegian: norwegian?.description ?? [],
+      descriptionEnglish: english?.description ?? [],
       identifier: group?.identifier ?? '',
       internal: group?.internal ?? false,
+      openForApplications: group?.openForApplications ?? false,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (group) {
+        await deleteUnusedEditorFiles(
+          english?.description ?? [],
+          value.descriptionEnglish,
+          deleteFile.mutateAsync,
+        );
+        await deleteUnusedEditorFiles(
+          norwegian?.description ?? [],
+          value.descriptionNorwegian,
+          deleteFile.mutateAsync,
+        );
         return editGroup.mutate({
           ...value,
           previousIdentifier: group.identifier,
@@ -189,12 +202,12 @@ function GroupForm({
         </form.AppField>
         <form.AppField name='descriptionNorwegian'>
           {(field) => (
-            <field.TextAreaField label={t('description.labelNorwegian')} />
+            <field.EditorField label={t('description.labelNorwegian')} />
           )}
         </form.AppField>
         <form.AppField name='descriptionEnglish'>
           {(field) => (
-            <field.TextAreaField label={t('description.labelEnglish')} />
+            <field.EditorField label={t('description.labelEnglish')} />
           )}
         </form.AppField>
         <form.AppField name='identifier'>
@@ -211,6 +224,14 @@ function GroupForm({
             <field.CheckboxField
               label={t('internal.label')}
               description={t('internal.description')}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='openForApplications'>
+          {(field) => (
+            <field.CheckboxField
+              label={t('openForApplications.label')}
+              description={t('openForApplications.description')}
             />
           )}
         </form.AppField>
