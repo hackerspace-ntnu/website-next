@@ -85,7 +85,7 @@ function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
   const users = api.users.searchMembers.useQuery(
     {
       name: search,
-      limit: 2,
+      limit: 5,
     },
     {
       enabled: !!user?.groups.some((group) =>

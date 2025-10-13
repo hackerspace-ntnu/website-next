@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
+import { and, asc, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
@@ -155,6 +155,7 @@ const usersRouter = createRouter({
               },
             },
           },
+          orderBy: asc(users.firstName),
         })
         .catch((error) => {
           console.error('Error fetching users:', error);
@@ -211,6 +212,7 @@ const usersRouter = createRouter({
           ),
           limit: input.limit,
           offset: input.offset,
+          orderBy: asc(users.firstName),
         })
         .catch((error) => {
           console.error('Error fetching users:', error);
@@ -303,6 +305,7 @@ const usersRouter = createRouter({
               },
             },
           },
+          orderBy: asc(users.firstName),
         })
         .catch((error) => {
           console.error('Error fetching users:', error);
