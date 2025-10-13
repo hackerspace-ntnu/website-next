@@ -122,7 +122,7 @@ export default async function GroupPage({
             <p className='text-center'>{tAbout('noMembers')}</p>
           </div>
         )}
-        <div className='my-6 grid grid-cols-3 grid-rows-auto content-end gap-8'>
+        <div className='my-6 grid grid-cols-1 content-end gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {members.map((member) => {
             return (
               <Link
@@ -131,7 +131,7 @@ export default async function GroupPage({
                   pathname: '/members/[memberId]',
                   params: { memberId: member.id },
                 }}
-                className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (
