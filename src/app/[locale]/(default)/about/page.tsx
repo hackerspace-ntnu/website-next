@@ -83,7 +83,7 @@ export default async function AboutPage({
             </Link>
           )}
         </div>
-        <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3'>
+        <div className='mx-auto grid w-fit grid-cols-1 items-center justify-center gap-x-4 gap-y-8 md:grid-cols-2 2xl:grid-cols-3'>
           {groups.map((group) => (
             <GroupCard key={group.id} group={group} />
           ))}
