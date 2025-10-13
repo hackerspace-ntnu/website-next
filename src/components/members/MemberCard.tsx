@@ -54,7 +54,11 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
           {user.private && (
             <InternalBadge className='absolute top-2 right-2 h-5 w-5' />
           )}
-          <MemberAvatar size='xl' user={user} />
+          <MemberAvatar
+            size='xl'
+            user={user}
+            profilePictureUrl={user.profilePictureUrl ?? undefined}
+          />
         </CardContent>
         <CardFooter>
           {user.memberSince && (

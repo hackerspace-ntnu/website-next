@@ -30,7 +30,7 @@ function MemberAvatar({
   return (
     <div className={cx(memberAvatarVariants({ size }), className)}>
       <Avatar className='h-full w-full'>
-        <AvatarImage src={profilePictureUrl} />
+        <AvatarImage src={profilePictureUrl} className='object-cover' />
         <AvatarFallback>
           {user.firstName[0]?.toUpperCase()}
           {user.lastName[0]?.toUpperCase()}

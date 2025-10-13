@@ -167,12 +167,21 @@ const usersRouter = createRouter({
 
       const { user } = await ctx.auth();
 
+      const fullResults = await Promise.all(
+        results.map(async (result) => ({
+          ...result,
+          profilePictureUrl: result?.profilePictureId
+            ? await getFileUrl(result.profilePictureId)
+            : null,
+        })),
+      );
+
       // Internal groups can be shown to management and admin
       if (user?.groups.some((g) => ['management', 'admin'].includes(g))) {
-        return results;
+        return fullResults;
       }
 
-      return results.map((user) => {
+      return fullResults.map((user) => {
         const { usersGroups, ...rest } = user;
 
         return {
