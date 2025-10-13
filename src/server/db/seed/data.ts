@@ -1,7 +1,6 @@
 import { fakerEN, fakerNB_NO } from '@faker-js/faker';
 import type { Locale } from 'next-intl';
 import type { Value } from 'platejs';
-import { groupIdentifiers } from '@/lib/constants';
 import { hashPassword } from '@/server/auth/password';
 import type {
   InsertBanner,
@@ -124,8 +123,21 @@ const usersData: InsertUser[] = [
   },
 ];
 
+const groupIdentifiers = [
+  'devops',
+  'labops',
+  'leadership',
+  'management',
+  'representative',
+  'ttrpg',
+  'breadboard',
+  'pang',
+  'admin',
+];
+
 const groupsData: InsertGroup[] = groupIdentifiers.map((identifier) => ({
   identifier,
+  internal: identifier === 'admin',
 }));
 
 const groupLocalizationsData: InsertGroupLocalization[] = [
@@ -272,6 +284,24 @@ const groupLocalizationsData: InsertGroupLocalization[] = [
       'Medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace.',
     description: createPlateValue(
       'Pang-gruppen består av medlemmer som har fullført sine plikter og er nå pensjonert fra Hackerspace. De anerkjennes for sine bidrag og fortsetter å være en del av fellesskapet.',
+    ),
+    locale: 'nb-NO',
+  },
+  {
+    groupId: 9,
+    name: 'Admin',
+    summary: 'Administrators with full access to the system.',
+    description: createPlateValue(
+      'The Admin group consists of administrators who have full access to the system. They are responsible for managing users, groups, and overall settings.',
+    ),
+    locale: 'en-GB',
+  },
+  {
+    groupId: 9,
+    name: 'Admin',
+    summary: 'Administratorer med full tilgang til systemet.',
+    description: createPlateValue(
+      'Admin-gruppen består av administratorer som har full tilgang til systemet. De er ansvarlige for å administrere brukere, grupper og overordnede innstillinger.',
     ),
     locale: 'nb-NO',
   },

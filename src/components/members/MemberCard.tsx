@@ -47,7 +47,6 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
                   )?.name,
               )
               .filter((item) => item !== undefined)
-              .filter((item) => item !== 'Admin')
               .join(', ')}
           </CardDescription>
         </CardHeader>

@@ -71,11 +71,27 @@ const usersRouter = createRouter({
           });
         });
 
-      return {
+      const { user } = await ctx.auth();
+
+      const fullResult = {
         ...result,
         profilePictureUrl: result?.profilePictureId
           ? await getFileUrl(result.profilePictureId)
           : null,
+      };
+
+      // Internal groups can be shown to management and admin
+      if (user?.groups.some((g) => ['management', 'admin'].includes(g))) {
+        return fullResult;
+      }
+
+      const { usersGroups, ...rest } = fullResult;
+
+      return {
+        ...rest,
+        usersGroups: usersGroups?.filter(
+          (usersGroup) => !usersGroup.group.internal,
+        ),
       };
     }),
   fetchMembers: publicProcedure
@@ -109,7 +125,7 @@ const usersRouter = createRouter({
 
       const offset = input.page ? (input.page - 1) * input.limit : 0;
 
-      return await ctx.db.query.users
+      const results = await ctx.db.query.users
         .findMany({
           where,
           offset,
@@ -148,6 +164,24 @@ const usersRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+
+      const { user } = await ctx.auth();
+
+      // Internal groups can be shown to management and admin
+      if (user?.groups.some((g) => ['management', 'admin'].includes(g))) {
+        return results;
+      }
+
+      return results.map((user) => {
+        const { usersGroups, ...rest } = user;
+
+        return {
+          ...rest,
+          usersGroups: usersGroups.filter(
+            (usersGroup) => !usersGroup.group.internal,
+          ),
+        };
+      });
     }),
   searchMembers: protectedProcedure
     .input((input) =>

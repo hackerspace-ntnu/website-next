@@ -12,18 +12,6 @@ const fileDirectories = [
   'home-carousel-slides',
 ] as const;
 
-const groupIdentifiers = [
-  'devops',
-  'labops',
-  'leadership',
-  'management',
-  'representative',
-  'ttrpg',
-  'breadboard',
-  'pang',
-  'admin',
-] as const;
-
 const notificationSettings = ['all', 'useful', 'essential'] as const;
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as const;
@@ -74,7 +62,6 @@ const bannerPages = Object.keys(routing.pathnames)
 
 export {
   fileDirectories,
-  groupIdentifiers,
   notificationSettings,
   days,
   timeslots,
