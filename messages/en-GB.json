@@ -497,7 +497,6 @@
       },
       "birthDate": {
         "label": "Birth date",
-        "required": "Birth date is required",
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"

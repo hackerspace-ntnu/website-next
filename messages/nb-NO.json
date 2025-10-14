@@ -497,7 +497,6 @@
       },
       "birthDate": {
         "label": "Fødselsdato",
-        "required": "Fødselsdato er påkrevd",
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"

@@ -31,7 +31,6 @@ function profileSchema(t: Translations) {
       .regex(/^(?!.*(.)\1{2}).*$/, t('settings.profile.lastName.general')),
     birthDate: z
       .date({
-        required_error: t('settings.profile.birthDate.required'),
         invalid_type_error: t('settings.profile.birthDate.invalid'),
       })
       .refine(
@@ -41,7 +40,8 @@ function profileSchema(t: Translations) {
       .refine(
         (date) => date >= oneHundredTwentyYearsAgo,
         t('settings.profile.birthDate.maxAge', { age: 120 }),
-      ),
+      )
+      .nullable(),
   });
 }
 
