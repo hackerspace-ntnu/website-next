@@ -34,9 +34,9 @@ const users = pgTable(
     })
       .notNull()
       .defaultNow(),
-    username: varchar('username', { length: 8 }).unique().notNull(),
-    firstName: varchar('first_name', { length: 30 }).notNull(),
-    lastName: varchar('last_name', { length: 30 }).notNull(),
+    username: varchar('username', { length: 32 }).unique().notNull(),
+    firstName: varchar('first_name', { length: 64 }).notNull(),
+    lastName: varchar('last_name', { length: 64 }).notNull(),
     profilePictureId: integer('profile_picture_id'),
     email: varchar('email', { length: 254 }).unique().notNull(),
     emailVerifiedAt: timestamp('email_verified_at', {
