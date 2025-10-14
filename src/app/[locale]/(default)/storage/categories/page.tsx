@@ -1,5 +1,6 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { CategoriesTable } from '@/components/storage/CategoriesTable';
 import { api } from '@/lib/api/server';
 
@@ -29,7 +30,7 @@ export default async function StorageCategoriesPage({
     )
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const categories = await api.storage.fetchItemCategories();

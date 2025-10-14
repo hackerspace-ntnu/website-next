@@ -11,6 +11,7 @@ import {
   parseAsBoolean,
   type SearchParams,
 } from 'nuqs/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { GroupManagementTable } from '@/components/members/GroupManagementTable';
 import { MemberInfoCard } from '@/components/members/MemberInfoCard';
 import { SkillCard } from '@/components/members/SkillCard';
@@ -80,7 +81,7 @@ export default async function MemberPage({
     !(auth.user && auth.user.id === user.id)
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const groups = await api.groups.fetchGroups();

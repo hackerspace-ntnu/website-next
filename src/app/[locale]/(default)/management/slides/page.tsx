@@ -2,6 +2,7 @@ import { ArrowLeftIcon, EditIcon, PlusIcon } from 'lucide-react';
 import Image from 'next/image';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SlideActiveCheckbox } from '@/components/management/slides/SlideActiveCheckbox';
 import { Link } from '@/components/ui/Link';
 import {
@@ -29,7 +30,7 @@ export default async function SlidesPage({
 
   if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const slides = await api.slides.fetchSlides({});

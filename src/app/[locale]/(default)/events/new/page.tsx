@@ -6,6 +6,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { EditEventForm } from '@/components/events/EditEventForm';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
@@ -35,7 +36,7 @@ export default async function NewEventPage({
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unathorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   return (
