@@ -520,6 +520,7 @@ type PhoneFieldProps = Omit<
   labelVisible?: boolean;
   labelSibling?: React.ReactNode;
   description?: React.ReactNode;
+  required?: boolean;
 };
 
 function PhoneField({
@@ -528,6 +529,7 @@ function PhoneField({
   labelVisible,
   labelSibling,
   description,
+  required = true,
   ...props
 }: PhoneFieldProps) {
   const field = useFieldContext<string>();
@@ -540,12 +542,24 @@ function PhoneField({
       className={className}
       description={description}
     >
-      <PhoneInput
-        value={field.state.value}
-        onChange={(value) => field.handleChange(value)}
-        onBlur={field.handleBlur}
-        {...props}
-      />
+      <div className='flex gap-2'>
+        <PhoneInput
+          value={field.state.value}
+          onChange={(value) => field.handleChange(value)}
+          onBlur={field.handleBlur}
+          {...props}
+        />
+        {!required && field.state.value && (
+          <Button
+            type='button'
+            variant='outline'
+            size='icon'
+            onClick={() => field.handleChange('')}
+          >
+            <XIcon className='h-4 w-4' />
+          </Button>
+        )}
+      </div>
     </BaseField>
   );
 }
