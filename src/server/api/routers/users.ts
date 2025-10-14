@@ -193,9 +193,7 @@ const usersRouter = createRouter({
         };
       });
 
-      return allMembers.filter((member) => {
-        return member.usersGroups.length > 0;
-      });
+      return allMembers.filter((member) => member.usersGroups.length > 0);
     }),
   searchMembers: protectedProcedure
     .input((input) =>
