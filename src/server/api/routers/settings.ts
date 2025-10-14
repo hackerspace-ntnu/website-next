@@ -184,7 +184,7 @@ const settingsRouter = createRouter({
           await ctx.db
             .update(users)
             .set({
-              phoneNumber: input.phoneNumber,
+              phoneNumber: input.phoneNumber !== '' ? input.phoneNumber : null,
             })
             .where(eq(users.id, ctx.user.id));
         }

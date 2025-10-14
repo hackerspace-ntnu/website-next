@@ -11,7 +11,7 @@ import { useRouter } from '@/lib/locale/navigation';
 import { accountSchema } from '@/validations/settings/accountSchema';
 
 type AccountFormProps = {
-  phoneNumber: string;
+  phoneNumber: string | null;
   email: string;
 };
 
@@ -35,7 +35,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
       onChange: formSchema,
     },
     defaultValues: {
-      phoneNumber,
+      phoneNumber: phoneNumber ?? '',
       email,
       confirmEmail: email,
       theme: resolvedTheme as 'light' | 'dark',
@@ -73,13 +73,14 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
           name='phoneNumber'
           validators={{
             onSubmitAsync: async ({ value }) => {
-              if (value !== phoneNumber) {
-                const result = await checkPhoneAvailability.mutateAsync({
-                  phoneNumber: value,
-                });
-                if (!result) {
-                  return { message: t('phoneNumber.inUse') };
-                }
+              if (value === phoneNumber || !value) return;
+
+              const result = await checkPhoneAvailability.mutateAsync({
+                phoneNumber: value,
+              });
+
+              if (!result) {
+                return { message: t('phoneNumber.inUse') };
               }
             },
           }}
@@ -91,6 +92,8 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
               placeholder='+47 420 69 420'
               autoComplete='tel'
               international
+              className='[&_div]:w-full'
+              required={false}
             />
           )}
         </form.AppField>

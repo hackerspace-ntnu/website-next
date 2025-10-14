@@ -9,7 +9,7 @@ function accountSchema(t: Translations) {
       theme: z.enum(['dark', 'light']),
     })
     .merge(emailSchema(t))
-    .merge(phoneNumberSchema(t));
+    .merge(phoneNumberSchema(t, false));
 }
 
 export { accountSchema };
