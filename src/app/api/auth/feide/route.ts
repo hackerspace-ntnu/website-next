@@ -93,8 +93,11 @@ export async function GET(request: NextRequest) {
   const username =
     userInfo['https://n.feide.no/claims/eduPersonPrincipalName'].split('@')[0];
 
-  if (!username) {
-    console.error('Feide: Username missing');
+  if (!username || !userInfo.email) {
+    console.error(
+      'Feide: Username or email missing. Received user info:',
+      userInfo,
+    );
     return NextResponse.redirect(
       new URL('/auth?error=userInfoMissing', env.NEXT_PUBLIC_SITE_URL),
     );
@@ -102,26 +105,37 @@ export async function GET(request: NextRequest) {
 
   let user = await getUserFromUsername(username);
 
-  if (!user) {
-    const extendedUserInfoResponse = await fetch(
-      env.FEIDE_EXTENDED_USERINFO_ENDPOINT,
-      {
-        headers: {
-          Authorization: `Bearer ${tokens.accessToken}`,
-        },
-      },
+  // If user already exists, log them in and skip the account creation process
+  if (user) {
+    const sessionToken = generateSessionToken();
+    const session = await createSession(sessionToken, user.id);
+    await setSessionTokenCookie(sessionToken, session.expiresAt);
+
+    return NextResponse.redirect(
+      new URL(redirectTo ?? '/', env.NEXT_PUBLIC_SITE_URL),
     );
+  }
 
-    if (!extendedUserInfoResponse.ok) {
-      console.error('Feide: Failed to fetch extended user info');
-      return NextResponse.redirect(
-        new URL('/auth?error=userInfoFailed', env.NEXT_PUBLIC_SITE_URL),
-      );
-    }
+  const extendedUserInfoResponse = await fetch(
+    env.FEIDE_EXTENDED_USERINFO_ENDPOINT,
+    {
+      headers: {
+        Authorization: `Bearer ${tokens.accessToken}`,
+      },
+    },
+  );
 
-    const extendedUserInfo: ExtendedFeideUserInfo =
-      await extendedUserInfoResponse.json();
+  if (!extendedUserInfoResponse.ok) {
+    console.error('Feide: Failed to fetch extended user info');
+    return NextResponse.redirect(
+      new URL('/auth?error=userInfoFailed', env.NEXT_PUBLIC_SITE_URL),
+    );
+  }
 
+  const extendedUserInfo: ExtendedFeideUserInfo =
+    await extendedUserInfoResponse.json();
+
+  if (extendedUserInfo.mobile && extendedUserInfo.mobile.length > 0) {
     const isPhoneNumberAvailable = await checkPhoneAvailability(
       extendedUserInfo.mobile[0],
     );
@@ -132,53 +146,53 @@ export async function GET(request: NextRequest) {
         new URL('/auth?error=phoneInUse', env.NEXT_PUBLIC_SITE_URL),
       );
     }
+  }
 
-    const isEmailAvailable = await checkEmailAvailability(userInfo.email);
-    if (!isEmailAvailable) {
-      console.error('Feide: Email in use');
-      return NextResponse.redirect(
-        new URL('/auth?error=emailInUse', env.NEXT_PUBLIC_SITE_URL),
-      );
-    }
-
-    const birthDate = new Date(
-      `${extendedUserInfo.norEduPersonBirthDate.slice(0, 4)}-${extendedUserInfo.norEduPersonBirthDate.slice(4, 6)}-${extendedUserInfo.norEduPersonBirthDate.slice(6, 8)}`,
-    );
-    const emailVerifiedAt = userInfo.email_verified ? new Date() : null;
-
-    const userValues = {
-      username: username,
-      firstName: extendedUserInfo.givenName[0],
-      lastName: extendedUserInfo.sn[0],
-      email: userInfo.email,
-      emailVerifiedAt,
-      birthDate,
-      phoneNumber: extendedUserInfo.mobile[0],
-    };
-
-    const insertUserSchemaResult = insertUserSchema.safeParse(userValues);
-
-    if (!insertUserSchemaResult.success) {
-      console.error('Feide: Invalid user data');
-      return NextResponse.redirect(
-        new URL('/auth?error=invalidUserData', env.NEXT_PUBLIC_SITE_URL),
-      );
-    }
-    user = await createUser(userValues);
-
-    if (!user) {
-      console.error('Feide: Failed to create user');
-      return NextResponse.redirect(
-        new URL('/auth?error=userCreationFailed', env.NEXT_PUBLIC_SITE_URL),
-      );
-    }
-
-    const sessionToken = generateSessionToken();
-    const session = await createSession(sessionToken, user.id);
-    await setSessionTokenCookie(sessionToken, session.expiresAt);
-
+  const isEmailAvailable = await checkEmailAvailability(userInfo.email);
+  if (!isEmailAvailable) {
+    console.error('Feide: Email in use');
     return NextResponse.redirect(
-      new URL('/auth/create-account', env.NEXT_PUBLIC_SITE_URL),
+      new URL('/auth?error=emailInUse', env.NEXT_PUBLIC_SITE_URL),
+    );
+  }
+  const rawBirthDate = extendedUserInfo.norEduPersonBirthDate;
+  const birthDate = rawBirthDate
+    ? new Date(
+        `${rawBirthDate.slice(0, 4)}-${rawBirthDate.slice(4, 6)}-${rawBirthDate.slice(6, 8)}`,
+      )
+    : null;
+  const emailVerifiedAt = userInfo.email_verified ? new Date() : null;
+
+  const userValues = {
+    username,
+    firstName: extendedUserInfo.givenName[0],
+    lastName: extendedUserInfo.sn[0],
+    email: userInfo.email,
+    emailVerifiedAt,
+    birthDate,
+    phoneNumber: extendedUserInfo.mobile?.[0],
+  };
+
+  console.log(userValues);
+
+  const insertUserSchemaResult = insertUserSchema.safeParse(userValues);
+
+  if (!insertUserSchemaResult.success) {
+    console.error(insertUserSchemaResult.error);
+    console.error(
+      'Feide: Invalid user data. Prepared user values:',
+      userValues,
+    );
+    return NextResponse.redirect(
+      new URL('/auth?error=invalidUserData', env.NEXT_PUBLIC_SITE_URL),
+    );
+  }
+  user = await createUser(userValues);
+
+  if (!user) {
+    console.error('Feide: Failed to create user');
+    return NextResponse.redirect(
+      new URL('/auth?error=userCreationFailed', env.NEXT_PUBLIC_SITE_URL),
     );
   }
 
@@ -187,6 +201,6 @@ export async function GET(request: NextRequest) {
   await setSessionTokenCookie(sessionToken, session.expiresAt);
 
   return NextResponse.redirect(
-    new URL(redirectTo ?? '/', env.NEXT_PUBLIC_SITE_URL),
+    new URL('/auth/create-account', env.NEXT_PUBLIC_SITE_URL),
   );
 }

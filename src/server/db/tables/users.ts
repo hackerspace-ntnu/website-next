@@ -46,8 +46,8 @@ const users = pgTable(
     birthDate: timestamp('birth_date', {
       withTimezone: true,
       mode: 'date',
-    }).notNull(),
-    phoneNumber: varchar('phone_number', { length: 20 }).unique().notNull(),
+    }),
+    phoneNumber: varchar('phone_number', { length: 20 }).unique(),
     passwordHash: text('password_hash'),
     memberSince: timestamp('member_since', {
       withTimezone: true,

@@ -35,8 +35,8 @@ type ExtendedFeideUserInfo = {
   eduPersonPrincipalName: string;
   givenName: [string];
   mail: [string];
-  mobile: [string];
-  norEduPersonBirthDate: string;
+  mobile?: [string];
+  norEduPersonBirthDate?: string;
   norEduPersonLegalName: string;
   sn: [string];
   uid: [string];
