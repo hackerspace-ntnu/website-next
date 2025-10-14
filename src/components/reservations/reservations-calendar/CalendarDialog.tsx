@@ -17,15 +17,15 @@ import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import type { RouterOutput } from '@/server/api';
 import { reservationFormSchema } from '@/validations/reservations';
 
 type CalendarDialogProps = {
-  isMember: boolean;
+  user: RouterOutput['auth']['state']['user'];
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 
   mode: 'create' | 'edit';
-  userId: number;
   toolId: number;
   reservationId?: number;
 
@@ -60,13 +60,12 @@ function withHM(date: Date, h: number, m: number) {
 }
 
 function CalendarDialog({
-  isMember,
+  user,
   open: openProp,
   onOpenChange,
   mode,
   toolId,
   reservationId,
-  userId,
   range,
   notes,
   windowRange,
@@ -75,6 +74,7 @@ function CalendarDialog({
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const utils = api.useUtils();
+  const isMember = !!(user?.groups && user.groups.length > 0);
   const schema = reservationFormSchema(
     translations,
     range.start,
@@ -185,6 +185,8 @@ function CalendarDialog({
       handleOpenChange(false);
     },
   });
+
+  if (!user) return null;
 
   return (
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
@@ -302,7 +304,7 @@ function CalendarDialog({
                     isLoading={deleteMutation.isPending}
                     onConfirm={async () => {
                       await deleteMutation.mutateAsync(
-                        { reservationId, toolId, userId },
+                        { reservationId, toolId, userId: user.id },
                         {
                           onSuccess: () =>
                             toast.success(t('form.successDelete')),

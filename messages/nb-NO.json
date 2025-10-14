@@ -1729,7 +1729,9 @@
       "successCreate": "Reservasjonen er opprettet.",
       "successUpdate": "Reservasjonen er oppdatert.",
       "successDelete": "Reservasjonen er slettet.",
-      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger",
+      "phoneNumberRequired": "Du må ha knyttet et mobilnummer til kontoen din for å kunne reservere. Det kan du gjøre i innstillingene dine.",
+      "setPhoneNumber": "Sett mobilnummer"
     },
     "confirmDialog": {
       "confirm": "Bekreft",

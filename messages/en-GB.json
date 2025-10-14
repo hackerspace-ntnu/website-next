@@ -1728,7 +1728,9 @@
       "successCreate": "Successfully created reservation.",
       "successUpdate": "Successfully updated reservation.",
       "successDelete": "Successfully deleted reservation.",
-      "weekendsMemberOnly": "Only members can reserve on weekends"
+      "weekendsMemberOnly": "Only members can reserve on weekends",
+      "phoneNumberRequired": "Your profile must have a phone number to create a reservation. You can set it in your settings.",
+      "setPhoneNumber": "Set phone number"
     },
     "confirmDialog": {
       "confirm": "Confirm",
