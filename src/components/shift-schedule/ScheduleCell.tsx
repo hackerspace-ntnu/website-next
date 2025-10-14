@@ -1,5 +1,5 @@
 import { UserIcon, UsersIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ResponsiveDialogTrigger } from '@/components/composites/ResponsiveDialog';
 import { ResponsiveDialogWrapper } from '@/components/shift-schedule/ResponsiveDialogWrapper';
 import { ScheduleCellDialog } from '@/components/shift-schedule/ScheduleCellDialog';
@@ -23,7 +23,7 @@ type ScheduleCellProps = {
   user: RouterOutputs['auth']['state']['user'];
 };
 
-function ScheduleCell({
+async function ScheduleCell({
   formattedShift,
   day,
   timeslot,
@@ -31,7 +31,7 @@ function ScheduleCell({
   skills,
   user,
 }: ScheduleCellProps) {
-  const t = useTranslations('shiftSchedule.table.cell');
+  const t = await getTranslations('shiftSchedule.table.cell');
   const memberId = user && user.groups.length > 0 ? user.id : 0;
   const userOnShift = !!members.find((member) => member.id === user?.id);
 

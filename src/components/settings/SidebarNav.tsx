@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { DarkModeMenu } from '@/components/layout/header/DarkModeMenu';
 import { LocaleMenu } from '@/components/layout/header/LocaleMenu';
 import { MatrixLink } from '@/components/layout/header/MatrixLink';
@@ -8,9 +8,9 @@ import { api } from '@/lib/api/server';
 import { cx } from '@/lib/utils';
 
 async function SidebarNav({ className }: { className?: string }) {
-  const t = useTranslations('settings');
-  const tLayout = useTranslations('layout');
-  const tMatrix = useTranslations('matrixDialog');
+  const t = await getTranslations('settings');
+  const tLayout = await getTranslations('layout');
+  const tMatrix = await getTranslations('matrixDialog');
 
   const { user } = await api.auth.state();
 

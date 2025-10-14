@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Label } from '@/components/ui/Label';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function QuoteFormSkeleton() {
-  const t = useTranslations('quotes.form');
+async function QuoteFormSkeleton() {
+  const t = await getTranslations('quotes.form');
 
   return (
     <form className='mx-auto max-w-2xl space-y-8'>

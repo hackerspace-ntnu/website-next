@@ -1,5 +1,5 @@
 import { ShieldAlertIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/Button';
 import {
   Tooltip,
@@ -14,8 +14,8 @@ type InternalBadgeProps = {
   internal: boolean;
 };
 
-function InternalBadge({ className, internal }: InternalBadgeProps) {
-  const t = useTranslations('news');
+async function InternalBadge({ className, internal }: InternalBadgeProps) {
+  const t = await getTranslations('news');
   if (!internal) return null;
   return (
     <TooltipProvider>

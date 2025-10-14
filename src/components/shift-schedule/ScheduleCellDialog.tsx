@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import {
   ResponsiveDialogContent,
   ResponsiveDialogDescription,
@@ -22,7 +22,7 @@ type ScheduleCellDialogProps = {
   userOnShift: boolean;
 };
 
-function ScheduleCellDialog({
+async function ScheduleCellDialog({
   formattedShift,
   day,
   timeslot,
@@ -30,7 +30,7 @@ function ScheduleCellDialog({
   memberId,
   userOnShift,
 }: ScheduleCellDialogProps) {
-  const t = useTranslations('shiftSchedule.table.cell.dialog');
+  const t = await getTranslations('shiftSchedule.table.cell.dialog');
 
   return (
     <ResponsiveDialogContent className='mb-8 w-full min-w-80 p-5 md:mb-0 md:w-fit lg:w-2/5 lg:min-w-96'>
