@@ -8,6 +8,7 @@ import {
   type SearchParams,
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { UserSearchTable } from '@/components/management/users/UserSearchTable';
 import { MembersSearchBar } from '@/components/members/MembersSearchBar';
 import { Link } from '@/components/ui/Link';
@@ -42,7 +43,7 @@ export default async function UsersManagementPage({
     !user?.groups.some((g) => ['leadership', 'management', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const searchParamsCache = createSearchParamsCache({
