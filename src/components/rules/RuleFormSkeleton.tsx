@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Label } from '@/components/ui/Label';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function RuleFormSkeleton() {
-  const t = useTranslations('rules.form');
+async function RuleFormSkeleton() {
+  const t = await getTranslations('rules.form');
 
   return (
     <form className='relative my-6 space-y-10'>

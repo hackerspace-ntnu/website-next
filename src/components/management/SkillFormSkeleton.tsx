@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Label } from '@/components/ui/Label';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function SkillFormSkeleton({ editable }: { editable: boolean }) {
-  const t = useTranslations('management.skills.form');
+async function SkillFormSkeleton({ editable }: { editable: boolean }) {
+  const t = await getTranslations('management.skills.form');
 
   return (
     <form className='my-4 max-w-prose space-y-8'>

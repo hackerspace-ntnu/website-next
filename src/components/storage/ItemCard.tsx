@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { AddToCartButton } from '@/components/storage/AddToCartButton';
 import {
   Card,
@@ -11,15 +11,15 @@ import {
 import { Link } from '@/components/ui/Link';
 import type { RouterOutput } from '@/server/api';
 
-function ItemCard({
+async function ItemCard({
   item,
   imageUrl,
 }: {
   item: RouterOutput['storage']['fetchMany'][number];
   imageUrl: string | null;
 }) {
-  const t = useTranslations('storage');
-  const tUi = useTranslations('ui');
+  const t = await getTranslations('storage');
+  const tUi = await getTranslations('ui');
 
   return (
     <Card

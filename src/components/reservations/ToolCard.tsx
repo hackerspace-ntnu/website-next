@@ -1,7 +1,7 @@
 import { EditIcon, Maximize2Icon } from 'lucide-react';
 import { m } from 'motion/react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ToolCardDetails } from '@/components/reservations/ToolCardDetails';
 import type { Tool } from '@/components/reservations/ToolCardGrid';
 import { Button } from '@/components/ui/Button';
@@ -21,8 +21,8 @@ type ToolCardProps = {
   user?: RouterOutput['auth']['state']['user'];
 };
 
-function ToolCard({ tool, user }: ToolCardProps) {
-  const t = useTranslations('reservations');
+async function ToolCard({ tool, user }: ToolCardProps) {
+  const t = await getTranslations('reservations');
 
   const button = (() => {
     switch (tool.status) {

@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ShoppingCartTableSkeleton } from '@/components/storage/ShoppingCartTableSkeleton';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-export default function ShoppingCartLoading() {
-  const t = useTranslations('storage.shoppingCart');
+export default async function ShoppingCartLoading() {
+  const t = await getTranslations('storage.shoppingCart');
   const tableMessages = {
     productId: t('productId'),
     productName: t('productName'),
