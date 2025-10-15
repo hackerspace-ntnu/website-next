@@ -173,8 +173,6 @@ export async function GET(request: NextRequest) {
     phoneNumber: extendedUserInfo.mobile?.[0],
   };
 
-  console.log(userValues);
-
   const insertUserSchemaResult = insertUserSchema.safeParse(userValues);
 
   if (!insertUserSchemaResult.success) {
