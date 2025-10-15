@@ -182,7 +182,7 @@ const usersRouter = createRouter({
         return fullResults;
       }
 
-      return fullResults.map((user) => {
+      const allMembers = fullResults.map((user) => {
         const { usersGroups, ...rest } = user;
 
         return {
@@ -192,6 +192,8 @@ const usersRouter = createRouter({
           ),
         };
       });
+
+      return allMembers.filter((member) => member.usersGroups.length > 0);
     }),
   searchMembers: protectedProcedure
     .input((input) =>
