@@ -24,7 +24,7 @@ type FeideUserInfo = {
   'https://n.feide.no/claims/userid_sec': [string];
   'https://n.feide.no/claims/eduPersonPrincipalName': string;
   name: string;
-  email: string;
+  email?: string;
   email_verified: boolean;
   picture: string;
 };
