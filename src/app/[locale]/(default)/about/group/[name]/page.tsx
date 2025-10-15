@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
@@ -43,6 +44,7 @@ export default async function GroupPage({
   const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
   const tAbout = await getTranslations('about');
+  const tLayout = await getTranslations('layout');
 
   if (!group) {
     return notFound();
@@ -86,6 +88,11 @@ export default async function GroupPage({
       </Link>
       <div className='relative'>
         <h1 className='mb-4 text-center'>{groupLocalization.name}</h1>
+        {group.internal && (
+          <Badge className='mx-auto block w-fit rounded-full'>
+            {tLayout('internal')}
+          </Badge>
+        )}
         {user?.groups.some((g) =>
           ['labops', 'leadership', 'admin'].includes(g),
         ) && (

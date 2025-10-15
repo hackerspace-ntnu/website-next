@@ -580,6 +580,7 @@
   },
   "groups": {
     "backToAbout": "Tilbake til Om oss",
+    "internalGroup": "Dette er en intern gruppe",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
