@@ -126,7 +126,7 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
             onChangeListenTo: ['email'],
             onChange: ({ value, fieldApi }) => {
               if (value !== fieldApi.form.getFieldValue('email')) {
-                return { message: t('password.mismatch') };
+                return { message: t('email.mismatch') };
               }
             },
           }}
