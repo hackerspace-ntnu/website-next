@@ -522,7 +522,7 @@ async function matrixChangeAvatar(username: string, matrixMediaId: string) {
 async function matrixChangeEmailAndPhoneNumber(
   username: string,
   email: string,
-  phoneNumber: string,
+  phoneNumber: string | null,
 ) {
   if (!isMatrixConfigured()) {
     return console.log(
@@ -542,7 +542,9 @@ async function matrixChangeEmailAndPhoneNumber(
     const body = {
       threepids: [
         { medium: 'email', address: `${email}` },
-        { medium: 'msisdn', address: `${phoneNumber}` },
+        ...(phoneNumber
+          ? [{ medium: 'msisdn', address: `${phoneNumber}` }]
+          : []),
       ],
     };
 

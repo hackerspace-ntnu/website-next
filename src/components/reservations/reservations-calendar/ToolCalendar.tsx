@@ -24,6 +24,8 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { EditIcon, PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { toast } from '@/components/ui/Toaster';
+import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
 type ToolCalendarProps = {
@@ -60,6 +62,7 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
+  const router = useRouter();
   const isLoggedIn = !!user;
   const isMember = user?.groups && user.groups.length > 0;
   const isManagement = !!user?.groups.some((g) =>
@@ -121,10 +124,27 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
   );
 
   // ---------- UI handlers ----------
-  const handleSelectSlot = useCallback((info: DateSelectArg) => {
-    setSelectedSlot({ start: info.start, end: info.end });
-    calendarRef.current?.getApi().unselect();
-  }, []);
+  const requirePhoneNumber = useCallback(() => {
+    if (!user?.phoneNumber || user.phoneNumber.length === 0) {
+      toast.error(t('form.phoneNumberRequired'), {
+        action: {
+          label: t('form.setPhoneNumber'),
+          onClick: () => router.push('/settings/account'),
+        },
+      });
+      return false;
+    }
+    return true;
+  }, [router, t, user]);
+
+  const handleSelectSlot = useCallback(
+    (info: DateSelectArg) => {
+      calendarRef.current?.getApi().unselect();
+      if (!requirePhoneNumber()) return;
+      setSelectedSlot({ start: info.start, end: info.end });
+    },
+    [requirePhoneNumber],
+  );
 
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
@@ -151,11 +171,10 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     (eventInfo: EventContentArg) =>
       eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
         <CalendarDialog
-          isMember={!!isMember}
+          user={user}
           mode='edit'
           toolId={eventInfo.event.extendedProps.toolId}
           reservationId={eventInfo.event.extendedProps.reservationId}
-          userId={memberId}
           range={{
             start: eventInfo.event.start,
             end: eventInfo.event.end,
@@ -181,7 +200,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           isManagement={isManagement}
         />
       ),
-    [memberId, isMember, isManagement],
+    [memberId, user, isManagement],
   );
 
   const calendarConfig = useMemo(() => {
@@ -224,6 +243,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           variant={isLoggedIn ? 'default' : 'secondary'}
           className='mb-3'
           onClick={() => {
+            if (!requirePhoneNumber()) return;
             setSelectedSlot({ start: new Date(), end: new Date() });
           }}
           disabled={!isLoggedIn}
@@ -252,12 +272,11 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
       {selectedSlot && range && (
         <CalendarDialog
-          isMember={!!isMember}
+          user={user}
           open
           onOpenChange={(open) => !open && setSelectedSlot(null)}
           mode='create'
           toolId={tool.id}
-          userId={memberId}
           range={{
             start: selectedSlot.start,
             end: selectedSlot.end,

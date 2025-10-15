@@ -264,11 +264,11 @@
     },
     "error": {
       "authenticationFailed": "Autentisering mislyktes",
-      "userInfoFailed": "Kunne ikke hente brukerinformasjon",
-      "userInfoMissing": "Brukerinformasjon mangler",
+      "userInfoFailed": "Kunne ikke hente brukerinformasjon fra Feide",
+      "userInfoMissing": "Brukerinformasjon fra Feide mangler",
       "phoneInUse": "Telefonnummeret er allerede i bruk",
       "emailInUse": "E-postadressen er allerede i bruk",
-      "invalidUserData": "Ugyldig brukerdata",
+      "invalidUserData": "Ugyldig Feide-brukerdata",
       "userCreationFailed": "Kunne ikke opprette bruker",
       "forgotPasswordRequestCreationFailed": "Kunne ikke opprette forespørsel om tilbakestilling av passord",
       "failedToSendEmail": "Kunne ikke sende e-post",
@@ -497,7 +497,6 @@
       },
       "birthDate": {
         "label": "Fødselsdato",
-        "required": "Fødselsdato er påkrevd",
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"
@@ -1730,7 +1729,9 @@
       "successCreate": "Reservasjonen er opprettet.",
       "successUpdate": "Reservasjonen er oppdatert.",
       "successDelete": "Reservasjonen er slettet.",
-      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
+      "weekendsMemberOnly": "Bare medlemmer kan reservere på helger",
+      "phoneNumberRequired": "Du må ha knyttet et mobilnummer til kontoen din for å kunne reservere. Det kan du gjøre i innstillingene dine.",
+      "setPhoneNumber": "Sett mobilnummer"
     },
     "confirmDialog": {
       "confirm": "Bekreft",

@@ -11,14 +11,23 @@ import { accountSignUpSchema } from '@/validations/auth/accountSignUpSchema';
 function AccountSignUpForm() {
   const router = useRouter();
   const t = useTranslations('auth');
+  const utils = api.useUtils();
+
   const formSchema = accountSignUpSchema(useTranslations()).extend({
     confirmPassword: z.string(),
   });
+
   const { isPending, setPending } = usePending();
+
   const signUpMutation = api.auth.signUp.useMutation({
     onMutate: () => setPending(true),
     onSettled: () => setPending(false),
-    onSuccess: () => router.push('/auth/success'),
+    onSuccess: async () => {
+      await utils.auth.state.invalidate();
+      router.push('/auth/success');
+      // Refresh so the invalidated auth state is refetched in the header, avoiding infinite redirects to create-account
+      router.refresh();
+    },
   });
 
   const form = useAppForm({

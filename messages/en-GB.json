@@ -264,11 +264,11 @@
     },
     "error": {
       "authenticationFailed": "Authentication failed",
-      "userInfoFailed": "Failed to get user info",
-      "userInfoMissing": "User info is missing",
+      "userInfoFailed": "Failed to get user info from Feide",
+      "userInfoMissing": "User info from Feide is missing",
       "phoneInUse": "Phone number is already in use",
       "emailInUse": "Email is already in use",
-      "invalidUserData": "Invalid user data",
+      "invalidUserData": "Invalid Feide user data",
       "userCreationFailed": "Failed to create user",
       "forgotPasswordRequestCreationFailed": "Failed to create forgot password request",
       "failedToSendEmail": "Failed to send email",
@@ -497,7 +497,6 @@
       },
       "birthDate": {
         "label": "Birth date",
-        "required": "Birth date is required",
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"
@@ -1729,7 +1728,9 @@
       "successCreate": "Successfully created reservation.",
       "successUpdate": "Successfully updated reservation.",
       "successDelete": "Successfully deleted reservation.",
-      "weekendsMemberOnly": "Only members can reserve on weekends"
+      "weekendsMemberOnly": "Only members can reserve on weekends",
+      "phoneNumberRequired": "Your profile must have a phone number to create a reservation. You can set it in your settings.",
+      "setPhoneNumber": "Set phone number"
     },
     "confirmDialog": {
       "confirm": "Confirm",

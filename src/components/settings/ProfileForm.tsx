@@ -1,17 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
-
 import { api } from '@/lib/api/client';
 import { profileSchema } from '@/validations/settings/profileSchema';
 
 type ProfileFormProps = {
   firstName: string;
   lastName: string;
-  birthDate: Date;
+  birthDate: Date | null;
 };
 
 function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
@@ -72,7 +70,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
               side='top'
               captionLayout='dropdown'
               avoidCollisions={false}
-              defaultMonth={birthDate}
+              defaultMonth={birthDate ?? new Date()}
             />
           )}
         </form.AppField>

@@ -145,6 +145,14 @@ const reservationsRouter = createRouter({
       const reservedUntil = input.reservedUntil;
       const isMember = !!input.isMember;
 
+      if (!ctx.user.phoneNumber || ctx.user.phoneNumber.length === 0) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('reservations.form.phoneNumberRequired'),
+          cause: { toast: 'error' },
+        });
+      }
+
       if (!isMember && intervalHasWeekend(reservedFrom, reservedUntil)) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
