@@ -5,6 +5,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { BannerActiveCheckbox } from '@/components/management/banners/BannerActiveCheckbox';
 import { Link } from '@/components/ui/Link';
 import {
@@ -32,7 +33,7 @@ export default async function BannersPage({
 
   if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const banners = await api.banners.fetchAllBanners();

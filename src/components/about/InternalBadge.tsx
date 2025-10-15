@@ -1,4 +1,4 @@
-import { ShieldAlertIcon } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/Button';
 import {
@@ -11,12 +11,11 @@ import { cx } from '@/lib/utils';
 
 type InternalBadgeProps = {
   className?: string;
-  internal: boolean;
 };
 
-async function InternalBadge({ className, internal }: InternalBadgeProps) {
-  const t = await getTranslations('news');
-  if (!internal) return null;
+async function InternalBadge({ className }: InternalBadgeProps) {
+  const t = await getTranslations('groups');
+
   return (
     <TooltipProvider>
       <Tooltip>
@@ -24,19 +23,19 @@ async function InternalBadge({ className, internal }: InternalBadgeProps) {
           <Button
             className={cx(
               className,
-              'absolute z-10 m-1 bg-accent/95 p-0.5 backdrop-blur-sm focus-visible:ring-offset-0 supports-[backdrop-filter]:bg-accent/60',
+              'absolute z-10 m-1 bg-accent/95 p-0.5 backdrop-blur focus-visible:ring-offset-0 supports-[backdrop-filter]:bg-accent/60',
             )}
             asChild
             variant='ghost'
             size='xs-icon'
           >
             <span>
-              <ShieldAlertIcon />
+              <ShieldAlert />
             </span>
           </Button>
         </TooltipTrigger>
         <TooltipContent sideOffset={3}>
-          <p>{t('internalArticle')}</p>
+          <p>{t('internalGroup')}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import {
   Pagination,
   PaginationContent,
@@ -12,10 +12,10 @@ type PaginationCarouselSkeletonProps = {
   className?: string;
 };
 
-function PaginationCarouselSkeleton({
+async function PaginationCarouselSkeleton({
   className,
 }: PaginationCarouselSkeletonProps) {
-  const t = useTranslations('ui');
+  const t = await getTranslations('ui');
 
   return (
     <Pagination className={className}>

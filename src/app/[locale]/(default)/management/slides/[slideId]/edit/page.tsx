@@ -6,6 +6,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SlideForm } from '@/components/management/slides/SlideForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -25,7 +26,7 @@ export default async function EditSlidePage({
 
   if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const processedSlideId = Number(slideId);

@@ -6,6 +6,7 @@ import {
   type SearchParams,
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
 
@@ -38,7 +39,7 @@ export default async function StorageLoansPage({
     )
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('unauthorized'));
+    return <ErrorPageContent message={t('unauthorized')} />;
   }
 
   const searchParamsCache = createSearchParamsCache({

@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
@@ -59,10 +58,8 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
             user={user}
             profilePictureUrl={user.profilePictureUrl ?? undefined}
           />
-        </CardContent>
-        <CardFooter>
           {user.memberSince && (
-            <span className='text-muted-foreground text-sm'>
+            <span className='pt-4 text-muted-foreground text-sm'>
               {t('memberSince', {
                 date: format.dateTime(user.memberSince, {
                   dateStyle: 'short',
@@ -70,7 +67,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
               })}
             </span>
           )}
-        </CardFooter>
+        </CardContent>
       </Card>
     </Link>
   );

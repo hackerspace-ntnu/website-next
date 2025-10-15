@@ -1,6 +1,7 @@
 import { UsersRoundIcon } from 'lucide-react';
 import Image from 'next/image';
 import { getLocale } from 'next-intl/server';
+import { InternalBadge } from '@/components/about/InternalBadge';
 import { Meteors } from '@/components/fancy/Meteors';
 import { Link } from '@/components/ui/Link';
 import { cx } from '@/lib/utils';
@@ -35,6 +36,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
       size='none'
     >
       <div className='clamp-[h-80-96-clamp] clamp-[w-80-96-clamp] relative flex flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
+        {group.internal && <InternalBadge className='top-2 right-2' />}
         <div className='absolute inset-0 z-0 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
           <Meteors number={15} className={'absolute inset-0 z-10'} />
         </div>

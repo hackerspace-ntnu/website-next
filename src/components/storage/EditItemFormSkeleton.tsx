@@ -1,13 +1,13 @@
 import { EditIcon, UploadIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Label } from '@/components/ui/Label';
 import { Link } from '@/components/ui/Link';
 import { Skeleton } from '@/components/ui/Skeleton';
 
-function EditItemFormSkeleton({ editing }: { editing: boolean }) {
-  const t = useTranslations('storage.edit');
+async function EditItemFormSkeleton({ editing }: { editing: boolean }) {
+  const t = await getTranslations('storage.edit');
 
   return (
     <div className='max-w-prose space-y-8'>

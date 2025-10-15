@@ -5,6 +5,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { QuoteForm } from '@/components/quotes/QuoteForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -31,7 +32,7 @@ export default async function NewQuotePage({
 
   if (!user?.groups || user.groups.length === 0) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(tNew('unauthorized'));
+    return <ErrorPageContent message={tNew('unauthorized')} />;
   }
 
   const { quotes, ui } = await getMessages();

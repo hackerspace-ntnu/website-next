@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import type { RouterOutputs } from '@/server/api';
 
@@ -6,8 +6,9 @@ type MemberListProps = {
   members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
 };
 
-function MemberList({ members }: MemberListProps) {
-  const t = useTranslations('shiftSchedule.table.cell.dialog');
+async function MemberList({ members }: MemberListProps) {
+  const t = await getTranslations('shiftSchedule.table.cell.dialog');
+
   return (
     <>
       {members.length === 0 ? (

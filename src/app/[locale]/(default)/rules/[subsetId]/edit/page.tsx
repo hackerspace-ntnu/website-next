@@ -6,6 +6,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { RuleForm } from '@/components/rules/RuleForm';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
@@ -41,7 +42,7 @@ export default async function EditRulePage({
     !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    throw new Error(t('update.unauthorized'));
+    return <ErrorPageContent message={t('update.unauthorized')} />;
   }
 
   const rule = await api.rules.fetchRule(processedSubsetId);
