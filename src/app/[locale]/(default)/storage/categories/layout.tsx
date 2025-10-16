@@ -19,8 +19,8 @@ export default async function StorageCategoriesLayout({
 
   return (
     <>
+      <BackToStorageButton />
       <div className='mb-8 flex items-center justify-between md:relative'>
-        <BackToStorageButton variant='absolute' />
         <h1 className='mx-auto my-4 text-center'>
           {t('title')}: {tEdit('title')}
         </h1>
