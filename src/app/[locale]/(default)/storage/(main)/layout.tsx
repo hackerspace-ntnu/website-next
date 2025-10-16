@@ -36,25 +36,32 @@ export default async function StorageLayout({
     { name: t('select.sortAscending'), urlName: t('searchParams.ascending') },
   ];
 
+  const UtilityButtons = (
+    <div className='flex gap-2'>
+      {user?.groups.some((group) =>
+        ['labops', 'leadership', 'admin'].includes(group),
+      ) && (
+        <>
+          <ItemLoansButton label={t('loans.view')} />
+          <AddItemButton label={t('addNewItem')} />
+        </>
+      )}
+      {user && <MyLoansButton label={t('viewLoans')} />}
+      <ShoppingCartLink
+        t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
+      />
+    </div>
+  );
+
   return (
     <>
       <div className='relative'>
         <h1 className='text-center'>{t('title')}</h1>
-        <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
-          {user?.groups.some((group) =>
-            ['labops', 'leadership', 'admin'].includes(group),
-          ) && (
-            <>
-              <ItemLoansButton label={t('loans.view')} />
-              <AddItemButton label={t('addNewItem')} />
-            </>
-          )}
-          {user && <MyLoansButton label={t('viewLoans')} />}
-          <ShoppingCartLink
-            t={{ viewShoppingCart: t('tooltips.viewShoppingCart') }}
-          />
+        <div className='absolute right-5 bottom-0 hidden md:block'>
+          {UtilityButtons}
         </div>
       </div>
+      <div className='mr-5 flex justify-end md:hidden'>{UtilityButtons}</div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <StorageSearchBar
           placeholder={t('searchPlaceholder')}
