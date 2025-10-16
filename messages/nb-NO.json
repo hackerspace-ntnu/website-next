@@ -768,7 +768,7 @@
       },
       "description": {
         "labelEnglish": "Beskrivelse (engelsk)",
-        "labelNorwegian": "Beskrivelse (norwegian)",
+        "labelNorwegian": "Beskrivelse (norsk)",
         "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
       },
       "location": {
