@@ -70,15 +70,15 @@ function EditItemForm({
       categoryName: categoryName ?? itemCategories[0] ?? '',
       quantity: prefilledItem?.quantity ?? 1,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (prefilledItem) {
-        editItemMutation.mutate({ id: prefilledItem.id, ...value });
+        await editItemMutation.mutateAsync({ id: prefilledItem.id, ...value });
         router.push({
           pathname: '/storage/item/[itemId]',
           params: { itemId: prefilledItem.id },
         });
       } else {
-        newItemMutation.mutate(value);
+        await newItemMutation.mutateAsync(value);
         router.push('/storage');
       }
       router.refresh();
