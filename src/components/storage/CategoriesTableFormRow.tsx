@@ -64,7 +64,7 @@ function CategoriesTableFormRow({
       <TableCell>{category?.id || null}</TableCell>
       <TableCell>
         <form
-          className='grid grid-cols-4 gap-4'
+          className='flex gap-4'
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();
@@ -76,7 +76,7 @@ function CategoriesTableFormRow({
                 label='Kategorinavn'
                 labelVisible={false}
                 placeholder='Kategorinavn'
-                className='space-y-0'
+                className='w-32 space-y-0'
               />
             )}
           </form.AppField>
@@ -86,13 +86,13 @@ function CategoriesTableFormRow({
                 label='Category name'
                 labelVisible={false}
                 placeholder='Category name'
-                className='space-y-0'
+                className='w-32 space-y-0'
               />
             )}
           </form.AppField>
           <form.AppForm>
             <form.SubmitButton
-              className='flex w-32 gap-2'
+              className='ml-auto w-fit min-w-0 gap-2 sm:w-28'
               variant='secondary'
               loading={
                 addItemCategoryMutation.isPending ||
@@ -100,8 +100,8 @@ function CategoriesTableFormRow({
               }
               spinnerClassName='text-primary'
             >
-              <CheckIcon className='h-8 w-8' />
-              <span>{tUi('save')}</span>
+              <CheckIcon className='h-6 w-6 sm:h-8 sm:w-8' />
+              <span className='hidden sm:inline'>{tUi('save')}</span>
             </form.SubmitButton>
           </form.AppForm>
           {category && <DeleteItemCategoryButton category={category} />}

@@ -35,7 +35,7 @@ function DeleteItemCategoryButton({
 
   return (
     <Button
-      className='flex w-32 gap-2'
+      className='w-fit min-w-0 gap-2 sm:w-28'
       type='button'
       variant='destructive'
       onClick={handleDelete}
@@ -45,8 +45,8 @@ function DeleteItemCategoryButton({
         <Spinner />
       ) : (
         <>
-          <XIcon className='h-8 w-8' />
-          <span>{tUi('delete')}</span>
+          <XIcon className='h-6 w-6 sm:h-8 sm:w-8' />
+          <span className='hidden sm:inline'>{tUi('delete')}</span>
         </>
       )}
     </Button>
