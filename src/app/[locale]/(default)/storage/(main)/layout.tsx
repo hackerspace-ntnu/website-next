@@ -10,6 +10,7 @@ import { SelectorsSkeleton } from '@/components/storage/SelectorsSkeleton';
 import { ShoppingCartLink } from '@/components/storage/ShoppingCartLink';
 import { StorageSearchBar } from '@/components/storage/StorageSearchBar';
 import { api } from '@/lib/api/server';
+import { cx } from '@/lib/utils';
 
 type StorageLayoutProps = {
   children: React.ReactNode;
@@ -29,6 +30,9 @@ export default async function StorageLayout({
 
   const categories = await api.storage.fetchItemCategoryNames();
   const categoriesWithLabel = categories.map((c) => ({ label: c, value: c }));
+  const canManageStorage = user?.groups.some((group) =>
+    ['labops', 'leadership', 'admin'].includes(group),
+  );
 
   const filters = [
     { name: t('select.name'), urlName: t('searchParams.name') },
@@ -38,9 +42,7 @@ export default async function StorageLayout({
 
   const UtilityButtons = (
     <div className='flex gap-2'>
-      {user?.groups.some((group) =>
-        ['labops', 'leadership', 'admin'].includes(group),
-      ) && (
+      {canManageStorage && (
         <>
           <ItemLoansButton label={t('loans.view')} />
           <AddItemButton label={t('addNewItem')} />
@@ -56,12 +58,31 @@ export default async function StorageLayout({
   return (
     <>
       <div className='relative'>
-        <h1 className='text-center'>{t('title')}</h1>
-        <div className='absolute right-5 bottom-0 hidden md:block'>
+        <h1
+          className={cx('text-center', {
+            'text-left sm:text-center': !canManageStorage,
+          })}
+        >
+          {t('title')}
+        </h1>
+        <div
+          className={cx(
+            'absolute right-5 bottom-1/2 hidden translate-y-1/2 md:block',
+            {
+              block: !canManageStorage,
+            },
+          )}
+        >
           {UtilityButtons}
         </div>
       </div>
-      <div className='mr-5 flex justify-end md:hidden'>{UtilityButtons}</div>
+      <div
+        className={cx('mr-5 flex justify-end md:hidden', {
+          hidden: !canManageStorage,
+        })}
+      >
+        {UtilityButtons}
+      </div>
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <StorageSearchBar
           placeholder={t('searchPlaceholder')}
