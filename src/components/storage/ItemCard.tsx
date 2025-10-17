@@ -47,7 +47,9 @@ async function ItemCard({
           <CardTitle className='mt-2 truncate leading-tight' level='h2'>
             {item.name}
           </CardTitle>
-          <CardDescription>{item.location}</CardDescription>
+          <CardDescription className='truncate'>
+            {item.location}
+          </CardDescription>
         </CardHeader>
       </Link>
       <CardFooter className='justify-center gap-2'>
