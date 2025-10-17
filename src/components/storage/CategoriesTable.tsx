@@ -27,7 +27,6 @@ async function CategoriesTable({
     >
       <ScrollArea className='w-full' orientation='horizontal'>
         <Table>
-          <TableCaption>{t('categoryTableDescription')}</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
@@ -43,6 +42,7 @@ async function CategoriesTable({
             ))}
             <CategoriesTableFormRow />
           </TableBody>
+          <TableCaption>{t('categoryTableDescription')}</TableCaption>
         </Table>
       </ScrollArea>
     </NextIntlClientProvider>
