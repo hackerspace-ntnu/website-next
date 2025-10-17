@@ -35,18 +35,20 @@ function EditItemForm({
   const [previewImage, setPreviewImage] = useState(imageUrl);
 
   const schema = itemSchema(useTranslations(), itemCategories);
-  const newItemMutation = api.storage.newItem.useMutation({
+  const createItem = api.storage.newItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successNew'));
-      await utils.storage.fetchMany.invalidate();
-      await utils.storage.itemsTotal.invalidate();
+      await Promise.all([
+        utils.storage.fetchMany.invalidate(),
+        utils.storage.itemsTotal.invalidate(),
+      ]);
     },
   });
-  const editItemMutation = api.storage.editItem.useMutation({
+  const editItem = api.storage.editItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successEdit'));
       await utils.storage.fetchOne.invalidate();
-      await utils.storage.fetchMany.invalidate();
+      utils.storage.fetchMany.invalidate();
     },
   });
 
@@ -72,13 +74,13 @@ function EditItemForm({
     },
     onSubmit: async ({ value }) => {
       if (prefilledItem) {
-        await editItemMutation.mutateAsync({ id: prefilledItem.id, ...value });
+        await editItem.mutateAsync({ id: prefilledItem.id, ...value });
         router.push({
           pathname: '/storage/item/[itemId]',
           params: { itemId: prefilledItem.id },
         });
       } else {
-        await newItemMutation.mutateAsync(value);
+        await createItem.mutateAsync(value);
         router.push('/storage');
       }
       router.refresh();

@@ -24,8 +24,7 @@ function SlideActiveCheckbox({ slide, t }: SlideActiveCheckboxProps) {
 
   const changeSlideActive = api.slides.changeSlideActive.useMutation({
     onSuccess: async () => {
-      await utils.slides.fetchSlide.invalidate();
-      await utils.slides.fetchSlides.invalidate();
+      await utils.slides.invalidate();
       router.refresh();
     },
   });

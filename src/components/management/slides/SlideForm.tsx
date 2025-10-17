@@ -53,8 +53,9 @@ function SlideForm({ slide }: SlideFormProps) {
   const createSlide = api.slides.createSlide.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successCreate'));
-      await utils.slides.invalidate();
+      await utils.slides.fetchSlide.invalidate();
       router.push('/management/slides');
+      router.refresh();
     },
   });
 
@@ -63,6 +64,7 @@ function SlideForm({ slide }: SlideFormProps) {
       toast.success(tApi('successEdit'));
       await utils.slides.invalidate();
       router.push('/management/slides');
+      router.refresh();
     },
   });
 
@@ -80,6 +82,7 @@ function SlideForm({ slide }: SlideFormProps) {
       toast.success(tApi('successDelete'));
       await utils.slides.invalidate();
       router.push('/management/slides');
+      router.refresh();
     },
   });
 

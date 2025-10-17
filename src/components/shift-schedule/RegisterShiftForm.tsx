@@ -52,7 +52,7 @@ function RegisterShiftForm({
       async function success(message: string) {
         closeDialog();
         toast.success(message);
-        await utils.shiftSchedule.fetchShifts.invalidate();
+        await utils.shiftSchedule.invalidate();
         router.refresh();
       }
 

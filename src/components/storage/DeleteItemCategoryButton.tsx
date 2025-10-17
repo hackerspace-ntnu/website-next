@@ -17,31 +17,26 @@ function DeleteItemCategoryButton({
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
   const router = useRouter();
-  const apiUtils = api.useUtils();
+  const utils = api.useUtils();
 
-  const deleteItemCategoryMutation = api.storage.deleteItemCategory.useMutation(
-    {
-      onSuccess: async () => {
-        toast.success(t('successDeleteMessage'));
-        await apiUtils.storage.fetchItemCategories.invalidate();
-        router.refresh();
-      },
+  const deleteItemCategory = api.storage.deleteItemCategory.useMutation({
+    onSuccess: async () => {
+      toast.success(t('successDeleteMessage'));
+      await utils.storage.fetchItemCategories.invalidate();
+      utils.storage.fetchItemCategoryNames.invalidate();
+      router.refresh();
     },
-  );
-
-  async function handleDelete() {
-    await deleteItemCategoryMutation.mutateAsync(category);
-  }
+  });
 
   return (
     <Button
       className='flex w-32 gap-2'
       type='button'
       variant='destructive'
-      onClick={handleDelete}
-      disabled={deleteItemCategoryMutation.isPending}
+      onClick={() => deleteItemCategory.mutate(category)}
+      disabled={deleteItemCategory.isPending}
     >
-      {deleteItemCategoryMutation.isPending ? (
+      {deleteItemCategory.isPending ? (
         <Spinner />
       ) : (
         <>

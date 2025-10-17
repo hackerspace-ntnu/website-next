@@ -40,16 +40,24 @@ function QuoteForm({
   const createQuote = api.quotes.createQuote.useMutation({
     onSuccess: async () => {
       toast.success(tNew('success'));
-      await utils.quotes.fetchQuotes.invalidate();
+      await Promise.all([
+        utils.quotes.fetchQuotes.invalidate(),
+        utils.quotes.totalQuotesAvailable.invalidate(),
+      ]);
       router.push('/quotes');
+      router.refresh();
     },
   });
 
   const updateQuote = api.quotes.updateQuote.useMutation({
     onSuccess: async () => {
       toast.success(tUpdate('success'));
-      await utils.quotes.invalidate();
+      await Promise.all([
+        utils.quotes.fetchQuote.invalidate(),
+        utils.quotes.fetchQuotes.invalidate(),
+      ]);
       router.push('/quotes');
+      router.refresh();
     },
   });
 

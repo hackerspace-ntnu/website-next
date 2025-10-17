@@ -56,8 +56,12 @@ function BannerForm({ banner }: BannerFormProps) {
   const createBanner = api.banners.createBanner.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successCreate'));
-      await utils.banners.invalidate();
+      await Promise.all([
+        utils.banners.fetchAllBanners.invalidate(),
+        utils.banners.fetchBanners.invalidate(),
+      ]);
       router.push('/management/banners');
+      router.refresh();
     },
   });
 
@@ -66,6 +70,7 @@ function BannerForm({ banner }: BannerFormProps) {
       toast.success(tApi('successEdit'));
       await utils.banners.invalidate();
       router.push('/management/banners');
+      router.refresh();
     },
   });
 
@@ -74,6 +79,7 @@ function BannerForm({ banner }: BannerFormProps) {
       toast.success(tApi('successDelete'));
       await utils.banners.invalidate();
       router.push('/management/banners');
+      router.refresh();
     },
   });
 

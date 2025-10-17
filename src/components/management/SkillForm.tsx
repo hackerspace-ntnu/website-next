@@ -38,8 +38,8 @@ function SkillForm({
   const createSkill = api.skills.createSkill.useMutation({
     onSuccess: async () => {
       toast.success(tNew('success'));
+      await utils.skills.fetchAllSkills.invalidate();
       router.push('/management/skills');
-      await utils.skills.invalidate();
       router.refresh();
     },
   });
@@ -47,8 +47,8 @@ function SkillForm({
   const editSkill = api.skills.editSkill.useMutation({
     onSuccess: async () => {
       toast.success(tEdit('successEdit'));
-      router.push('/management/skills');
       await utils.skills.invalidate();
+      router.push('/management/skills');
       router.refresh();
     },
   });
@@ -56,8 +56,8 @@ function SkillForm({
   const deleteSkill = api.skills.deleteSkill.useMutation({
     onSuccess: async () => {
       toast.success(tEdit('successDelete'));
-      router.push('/management/skills');
       await utils.skills.invalidate();
+      router.push('/management/skills');
       router.refresh();
     },
   });

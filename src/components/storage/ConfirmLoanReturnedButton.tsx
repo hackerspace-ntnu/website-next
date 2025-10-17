@@ -17,11 +17,13 @@ function ConfirmLoanReturnedButton({
   successMessage: string;
 }) {
   const router = useRouter();
-  const apiUtils = api.useUtils();
-  const confirmLoanMutation = api.storage.confirmLoanReturned.useMutation({
+  const utils = api.useUtils();
+  const confirmLoan = api.storage.confirmLoanReturned.useMutation({
     onSuccess: async () => {
       toast.success(successMessage);
-      await apiUtils.storage.fetchLoans.invalidate();
+      await utils.storage.fetchLoans.invalidate();
+      utils.storage.userLoans.invalidate();
+      utils.storage.userLoansTotal.invalidate();
       router.refresh();
     },
   });
@@ -29,16 +31,16 @@ function ConfirmLoanReturnedButton({
   return (
     <Button
       className='w-40'
-      disabled={confirmLoanMutation.isPending}
-      onClick={async () => {
-        await confirmLoanMutation.mutateAsync({
+      disabled={confirmLoan.isPending}
+      onClick={() => {
+        confirmLoan.mutate({
           loanId: loan.id,
           itemId: loan.itemId,
           lenderId: loan.lenderId,
         });
       }}
     >
-      {confirmLoanMutation.isPending ? <Spinner /> : label}
+      {confirmLoan.isPending ? <Spinner /> : label}
     </Button>
   );
 }
