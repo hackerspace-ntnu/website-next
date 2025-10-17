@@ -39,7 +39,10 @@ function itemSchema(t: Translations, categories: string[]) {
       categories.length > 1
         ? z.enum(categories as [string, ...string[]])
         : z.literal(''),
-    quantity: z.coerce.number().min(0, t('storage.edit.quantity.negative')),
+    quantity: z.coerce
+      .number()
+      .min(0, t('storage.edit.quantity.negative'))
+      .max(1000, t('storage.edit.quantity.max', { count: 1000 })),
   });
 }
 
