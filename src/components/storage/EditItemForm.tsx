@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { EditIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -57,8 +58,12 @@ function EditItemForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: prefilledItem?.norwegian?.name ?? '',

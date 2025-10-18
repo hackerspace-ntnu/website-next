@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import { useTranslations } from 'next-intl';
 import { usePending } from '@/components/auth/PendingBar';
@@ -48,7 +49,7 @@ function NewPasswordForm({ requestId }: { requestId: string }) {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
       onSubmitAsync: async ({ value }) => {
         try {
           const state = await createRequestMutation.mutateAsync(value);
@@ -63,10 +64,15 @@ function NewPasswordForm({ requestId }: { requestId: string }) {
           if (!TRPCError.data?.toast) {
             return { fields: { email: { message: TRPCError.message } } };
           }
+          // We return something (not undefined) here so it will block the onSubmit handler when a Toast error is shown
           return ' ';
         }
       },
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       forgotPasswordRequestId: requestId,
       code: '',

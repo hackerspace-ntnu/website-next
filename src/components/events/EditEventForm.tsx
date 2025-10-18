@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { addDays } from 'date-fns';
 import { enGB, nb } from 'date-fns/locale';
 import { ImageIcon, UploadIcon } from 'lucide-react';
@@ -100,8 +101,12 @@ function EditEventForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',

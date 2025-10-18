@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
@@ -64,8 +65,12 @@ function SkillForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       nameNorwegian: skill?.nameNorwegian ?? '',
       nameEnglish: skill?.nameEnglish ?? '',

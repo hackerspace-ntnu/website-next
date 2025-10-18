@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useState } from 'react';
 import { MatrixLogo } from '@/components/assets/logos';
 import {
@@ -41,8 +42,12 @@ function MatrixLink({ className, isLoggedIn, t }: MatrixLinkProps) {
 
   const form = useAppForm({
     validators: {
-      onChange: matrixDialogSchema({ invalidValue: t.invalidValue }),
+      onDynamic: matrixDialogSchema({ invalidValue: t.invalidValue }),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       dontShowAgain: !showMatrixDialog,
     },

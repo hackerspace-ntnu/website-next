@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useResponsiveDialog } from '@/components/shift-schedule/ResponsiveDialogWrapper';
 import { useAppForm } from '@/components/ui/Form';
@@ -43,8 +43,12 @@ function RegisterShiftForm({
   });
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       recurring: user.onShift ? user.recurring : true,
     },

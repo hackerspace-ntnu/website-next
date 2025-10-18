@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
@@ -101,8 +102,12 @@ function QuoteForm({
 
   const form = useAppForm({
     validators: {
-      onChange: quoteSchema(useTranslations()),
+      onDynamic: quoteSchema(useTranslations()),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       username:
         (quote && `${quote.saidBy.firstName} ${quote.saidBy.lastName}`) ?? '',

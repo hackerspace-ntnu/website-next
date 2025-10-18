@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import {
   Accordion,
@@ -79,8 +79,12 @@ function BannerForm({ banner }: BannerFormProps) {
 
   const form = useAppForm({
     validators: {
-      onChange: bannerSchema(translations),
+      onDynamic: bannerSchema(translations),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       contentNorwegian: norwegian?.content ?? '',
       contentEnglish: english?.content ?? '',

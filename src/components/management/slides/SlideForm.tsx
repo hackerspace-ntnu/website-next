@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { ImageIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -85,8 +86,12 @@ function SlideForm({ slide }: SlideFormProps) {
 
   const form = useAppForm({
     validators: {
-      onChange: slideSchema(translations),
+      onDynamic: slideSchema(translations),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       altNorwegian: norwegian?.imgAlt ?? '',
