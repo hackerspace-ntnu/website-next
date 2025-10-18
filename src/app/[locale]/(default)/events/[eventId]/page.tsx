@@ -1,5 +1,4 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
 import {
   ArrowLeftIcon,
   BookImageIcon,
