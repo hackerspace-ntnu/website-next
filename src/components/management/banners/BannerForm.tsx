@@ -28,7 +28,7 @@ import { api } from '@/lib/api/client';
 import { bannerPages } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { pageMatchToRegex } from '@/lib/utils/pageMatch';
+import { pagesMatchToRegex } from '@/lib/utils/pagesMatch';
 import type { RouterOutput } from '@/server/api';
 import { bannerSchema } from '@/validations/banners/bannerSchema';
 
@@ -99,7 +99,7 @@ function BannerForm({ banner }: BannerFormProps) {
 
   const pagesRegex = useStore(form.store, (state) => {
     if (state.fieldMeta.pagesMatch?.errors?.length === 0) {
-      return pageMatchToRegex(state.values.pagesMatch);
+      return pagesMatchToRegex(state.values.pagesMatch);
     }
   });
 
