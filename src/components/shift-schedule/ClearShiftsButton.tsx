@@ -28,7 +28,11 @@ function ClearShiftsButton() {
 
   const utils = api.useUtils();
   const clearShifts = api.shiftSchedule.clearShifts.useMutation({
-    onSuccess: () => toast.success(t('clearSuccess')),
+    onSuccess: async () => {
+      toast.success(t('clearSuccess'));
+      await utils.shiftSchedule.invalidate();
+      router.refresh();
+    },
   });
 
   return (
@@ -52,13 +56,7 @@ function ClearShiftsButton() {
           <AlertDialogCancel onClick={() => setIsOpen(false)}>
             {t('cancel')}
           </AlertDialogCancel>
-          <AlertDialogActionDestructive
-            onClick={async () => {
-              clearShifts.mutate();
-              await utils.shiftSchedule.fetchShifts.invalidate();
-              router.refresh();
-            }}
-          >
+          <AlertDialogActionDestructive onClick={() => clearShifts.mutate()}>
             {t('confirm')}
           </AlertDialogActionDestructive>
         </AlertDialogFooter>

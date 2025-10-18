@@ -22,8 +22,9 @@ function ApplyForm({
   const sendApplication = api.applications.sendApplication.useMutation({
     onSuccess: async () => {
       toast.success(t('applicationSubmitted'));
-      await utils.applications.invalidate();
+      await utils.applications.fetchApplications.invalidate();
       router.push('/applications/thank-you');
+      router.refresh();
     },
   });
 

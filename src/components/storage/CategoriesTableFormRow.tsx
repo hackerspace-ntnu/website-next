@@ -17,25 +17,31 @@ function CategoriesTableFormRow({
 }: {
   category?: RouterOutput['storage']['fetchItemCategories'][number];
 }) {
-  const apiUtils = api.useUtils();
+  const utils = api.useUtils();
   const router = useRouter();
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
   const id = useId();
 
-  const addItemCategoryMutation = api.storage.addItemCategory.useMutation({
+  const addItemCategory = api.storage.addItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successAddMessage'));
-      await apiUtils.storage.fetchItemCategories.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },
   });
 
-  const editItemCategoryMutation = api.storage.editItemCategory.useMutation({
+  const editItemCategory = api.storage.editItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successEditMessage'));
-      await apiUtils.storage.fetchItemCategories.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },
@@ -52,9 +58,9 @@ function CategoriesTableFormRow({
     },
     onSubmit: ({ value }) => {
       if (category) {
-        editItemCategoryMutation.mutate({ id: category.id, ...value });
+        editItemCategory.mutate({ id: category.id, ...value });
       } else {
-        addItemCategoryMutation.mutate(value);
+        addItemCategory.mutate(value);
       }
     },
   });
@@ -94,10 +100,7 @@ function CategoriesTableFormRow({
             <form.SubmitButton
               className='flex w-32 gap-2'
               variant='secondary'
-              loading={
-                addItemCategoryMutation.isPending ||
-                editItemCategoryMutation.isPending
-              }
+              loading={addItemCategory.isPending || editItemCategory.isPending}
               spinnerClassName='text-primary'
             >
               <CheckIcon className='h-8 w-8' />

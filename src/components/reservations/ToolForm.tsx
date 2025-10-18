@@ -32,42 +32,50 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
   const router = useRouter();
   const utils = api.useUtils();
 
-  const newTool = api.tools.createTool.useMutation({
+  const createTool = api.tools.createTool.useMutation({
     onSuccess: async (id) => {
       toast.success(tNew('toolCreated'));
       await utils.tools.fetchTools.invalidate();
-      await utils.tools.fetchTool.invalidate(id);
       router.push({
         pathname: '/reservations/[toolId]',
         params: { toolId: id },
       });
+      router.refresh();
     },
   });
   const editTool = api.tools.editTool.useMutation({
     onSuccess: async (id) => {
       toast.success(tEdit('toolUpdated'));
-      await utils.tools.fetchTools.invalidate();
-      await utils.tools.fetchTool.invalidate(id);
+      await Promise.all([
+        utils.tools.fetchTool.invalidate(id),
+        utils.tools.fetchTools.invalidate(),
+      ]);
       router.push({
         pathname: '/reservations/[toolId]',
         params: { toolId: id },
       });
+      router.refresh();
     },
   });
   const deleteToolImage = api.tools.deleteToolImage.useMutation({
     onSuccess: async (id) => {
       toast.success(tEdit('imageDeleted'));
-      await utils.tools.fetchTools.invalidate();
-      await utils.tools.fetchTool.invalidate(id);
+      await Promise.all([
+        utils.tools.fetchTool.invalidate(id),
+        utils.tools.fetchTools.invalidate(),
+      ]);
       router.refresh();
     },
   });
   const deleteTool = api.tools.deleteTool.useMutation({
     onSuccess: async (id) => {
       toast.success(tEdit('toolDeleted'));
-      await utils.tools.fetchTools.invalidate();
-      await utils.tools.fetchTool.invalidate(id);
+      await Promise.all([
+        utils.tools.fetchTools.invalidate(),
+        utils.tools.fetchTool.invalidate(id),
+      ]);
       router.push('/reservations');
+      router.refresh();
     },
   });
 
@@ -113,7 +121,7 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
         });
       }
 
-      newTool.mutate({
+      createTool.mutate({
         ...rest,
         difficulty: Number(difficulty),
       });
@@ -320,7 +328,9 @@ function ToolForm({ tool }: { tool?: RouterOutput['tools']['fetchTool'] }) {
               </AlertDialogContent>
             </AlertDialog>
           )}
-          <form.SubmitButton loading={newTool.isPending || editTool.isPending}>
+          <form.SubmitButton
+            loading={createTool.isPending || editTool.isPending}
+          >
             {tool ? tEdit('updateTool') : tNew('createTool')}
           </form.SubmitButton>
         </div>

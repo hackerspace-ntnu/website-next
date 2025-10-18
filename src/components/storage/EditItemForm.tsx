@@ -35,18 +35,22 @@ function EditItemForm({
   const [previewImage, setPreviewImage] = useState(imageUrl);
 
   const schema = itemSchema(useTranslations(), itemCategories);
-  const newItemMutation = api.storage.newItem.useMutation({
+  const createItem = api.storage.newItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successNew'));
-      await utils.storage.fetchMany.invalidate();
-      await utils.storage.itemsTotal.invalidate();
+      await Promise.all([
+        utils.storage.fetchMany.invalidate(),
+        utils.storage.itemsTotal.invalidate(),
+      ]);
     },
   });
-  const editItemMutation = api.storage.editItem.useMutation({
+  const editItem = api.storage.editItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successEdit'));
-      await utils.storage.fetchOne.invalidate();
-      await utils.storage.fetchMany.invalidate();
+      await Promise.all([
+        utils.storage.fetchOne.invalidate(),
+        utils.storage.fetchMany.invalidate(),
+      ]);
     },
   });
 
@@ -70,15 +74,15 @@ function EditItemForm({
       categoryName: categoryName ?? itemCategories[0] ?? '',
       quantity: prefilledItem?.quantity ?? 1,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (prefilledItem) {
-        editItemMutation.mutate({ id: prefilledItem.id, ...value });
+        await editItem.mutateAsync({ id: prefilledItem.id, ...value });
         router.push({
           pathname: '/storage/item/[itemId]',
           params: { itemId: prefilledItem.id },
         });
       } else {
-        newItemMutation.mutate(value);
+        await createItem.mutateAsync(value);
         router.push('/storage');
       }
       router.refresh();

@@ -38,10 +38,10 @@ function DeleteReservationButton({
   const router = useRouter();
   const utils = api.useUtils();
 
-  const mutation = api.reservations.deleteReservation.useMutation({
+  const deleteReservation = api.reservations.deleteReservation.useMutation({
     onSuccess: async () => {
       toast.success(t('myReservationsTable.deletedSuccess'));
-      await utils.reservations.fetchCalendarReservations.invalidate();
+      await utils.reservations.invalidate();
       router.refresh();
     },
   });
@@ -51,18 +51,18 @@ function DeleteReservationButton({
       <Button
         size='icon'
         variant='ghost'
-        disabled={mutation.isPending}
+        disabled={deleteReservation.isPending}
         title={tUi('delete')}
       >
-        {mutation.isPending ? (
+        {deleteReservation.isPending ? (
           <Spinner />
         ) : (
           <Trash2Icon className='h-4 w-4 text-destructive' />
         )}
       </Button>
     ) : (
-      <Button variant='destructive' disabled={mutation.isPending}>
-        {mutation.isPending ? <Spinner /> : tUi('delete')}
+      <Button variant='destructive' disabled={deleteReservation.isPending}>
+        {deleteReservation.isPending ? <Spinner /> : tUi('delete')}
       </Button>
     );
 
@@ -78,12 +78,14 @@ function DeleteReservationButton({
         </AlertDialogHeader>
         <AlertDialogFooter className='flex flex-row justify-between'>
           <AlertDialogActionDestructive
-            onClick={() => mutation.mutate({ reservationId, toolId, userId })}
-            disabled={mutation.isPending}
+            onClick={() =>
+              deleteReservation.mutate({ reservationId, toolId, userId })
+            }
+            disabled={deleteReservation.isPending}
           >
             {tUi('delete')}
           </AlertDialogActionDestructive>
-          <AlertDialogCancel disabled={mutation.isPending}>
+          <AlertDialogCancel disabled={deleteReservation.isPending}>
             {tUi('cancel')}
           </AlertDialogCancel>
         </AlertDialogFooter>

@@ -52,7 +52,7 @@ function GroupManagementTableRow({
   const t = useTranslations('members.groupManagement');
   const locale = useLocale();
   const router = useRouter();
-  const apiUtils = api.useUtils();
+  const utils = api.useUtils();
 
   const localization = group.localizations.find((loc) => loc.locale === locale);
   const hasGroup = user.usersGroups?.some(
@@ -61,13 +61,21 @@ function GroupManagementTableRow({
 
   const addToGroup = api.groups.addUserToGroup.useMutation({
     onSuccess: async () => {
-      await apiUtils.auth.state.invalidate();
+      await Promise.all([
+        utils.auth.state.invalidate(),
+        utils.groups.fetchGroups.invalidate(),
+        utils.groups.fetchGroupMembers.invalidate(),
+      ]);
       router.refresh();
     },
   });
   const removeFromGroup = api.groups.removeUserFromGroup.useMutation({
     onSuccess: async () => {
-      await apiUtils.auth.state.invalidate();
+      await Promise.all([
+        utils.auth.state.invalidate(),
+        utils.groups.fetchGroups.invalidate(),
+        utils.groups.fetchGroupMembers.invalidate(),
+      ]);
       router.refresh();
     },
   });
