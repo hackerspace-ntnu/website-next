@@ -26,7 +26,7 @@ async function CategoriesTable({
       messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}
     >
       <ScrollArea className='w-full' orientation='horizontal'>
-        <Table>
+        <Table className='mb-2'>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>

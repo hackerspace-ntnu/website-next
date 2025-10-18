@@ -25,8 +25,7 @@ export default async function StorageCategoriesLoading() {
   return (
     <div className='mx-auto max-w-prose space-y-8'>
       <ScrollArea className='w-full' orientation='horizontal'>
-        <Table>
-          <TableCaption>{t('categoryTableDescription')}</TableCaption>
+        <Table className='mb-2'>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
@@ -52,6 +51,7 @@ export default async function StorageCategoriesLoading() {
               </TableRow>
             ))}
           </TableBody>
+          <TableCaption>{t('categoryTableDescription')}</TableCaption>
         </Table>
       </ScrollArea>
     </div>
