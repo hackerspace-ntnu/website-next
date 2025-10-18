@@ -58,16 +58,8 @@ const newsRouter = createRouter({
       selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const { user } = await ctx.auth();
-
-      let where = eq(newsArticles.id, input.id);
-
-      if (!user?.groups || user.groups.length === 0) {
-        where = and(where, eq(newsArticles.internal, false)) as SQL;
-      }
-
       const article = await ctx.db.query.newsArticles.findFirst({
-        where,
+        where: eq(newsArticles.id, input.id),
         with: {
           author: true,
           localizations: true,
@@ -75,6 +67,16 @@ const newsRouter = createRouter({
       });
 
       if (!article) return null;
+
+      const { user } = await ctx.auth();
+
+      if ((!user || user.groups.length === 0) && article.internal) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('news.internalUnauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
 
       const localization =
         await ctx.db.query.newsArticleLocalizations.findFirst({

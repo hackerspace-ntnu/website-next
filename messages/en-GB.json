@@ -365,6 +365,7 @@
     "lastUpdated": "Last updated: {date}",
     "newArticlesUnauthorized": "Unauthorized to create new articles",
     "updateArticlesUnauthorized": "Unauthorized to update articles",
+    "internalUnauthorized": "Unauthorized to view internal articles",
     "form": {
       "createArticle": "Create article",
       "updateArticle": "Update article",

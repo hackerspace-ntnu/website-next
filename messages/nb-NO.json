@@ -365,6 +365,7 @@
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
     "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "internalUnauthorized": "Du har ikke rettigheter til å se interne artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
