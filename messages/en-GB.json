@@ -764,24 +764,27 @@
         "labelEnglish": "Item name (English)",
         "labelNorwegian": "Item name (Norwegian)",
         "placeholder": "Raspberry Pi 5",
-        "required": "Item name is required."
+        "required": "Item name is required.",
+        "maxLength": "Item name must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "description": {
         "labelEnglish": "Description (English)",
         "labelNorwegian": "Description (Norwegian)",
-        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
+        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components.",
+        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "location": {
         "labelEnglish": "Location (English)",
         "labelNorwegian": "Location (Norwegian)",
         "placeholder": "Box 2A",
         "required": "Item location is required.",
-        "invalid": "Please provide a short and concise location."
+        "maxLength": "Item locations must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "quantity": {
         "label": "Quantity",
         "placeholder": "4",
-        "negative": "Quantity cannot be negative."
+        "negative": "Quantity cannot be negative.",
+        "max": "The maximum quantity is {count}."
       },
       "category": {
         "label": "Category",

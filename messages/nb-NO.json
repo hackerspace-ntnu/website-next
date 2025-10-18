@@ -764,24 +764,27 @@
         "labelEnglish": "Navn (engelsk)",
         "labelNorwegian": "Navn (norsk)",
         "placeholder": "Raspberry Pi 5",
-        "required": "Navn er påkrevd."
+        "required": "Navn er påkrevd.",
+        "maxLength": "Navn kan maks være {count, plural, one {ett tegn} other {# tegn}}."
       },
       "description": {
         "labelEnglish": "Beskrivelse (engelsk)",
         "labelNorwegian": "Beskrivelse (norsk)",
-        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter."
+        "placeholder": "En mini-PC som kan blant annet kjøre scripts og kontrollere elektroniske komponenter.",
+        "maxLength": "Beskrivelse kan maks være {count, plural, one {ett tegn} other {# tegn}}."
       },
       "location": {
         "labelEnglish": "Plassering (engelsk)",
         "labelNorwegian": "Plassering (norsk)",
         "placeholder": "Boks 2A",
         "required": "Plassering er påkrevd.",
-        "invalid": "Vennligst oppgi en kort og konsis plassering."
+        "maxLength": "Plassering kan maks være {count, plural, one {ett tegn} other {# tegn}}."
       },
       "quantity": {
         "label": "Antall",
         "placeholder": "4",
-        "negative": "Antallet kan ikke være negativt."
+        "negative": "Antallet kan ikke være negativt.",
+        "max": "Antallet kan maks være {count}."
       },
       "category": {
         "label": "Kategori",
