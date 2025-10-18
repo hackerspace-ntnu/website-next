@@ -66,7 +66,7 @@ function ProfilePictureForm({
                   <field.BaseField label={t('profilePicture.label')}>
                     <TooltipTrigger asChild>
                       <Input
-                        className='peer h-24 w-24 cursor-pointer rounded-full'
+                        className='peer h-24 w-24 cursor-pointer rounded-full opacity-0'
                         type='file'
                         accept='image/jpeg,image/png'
                         onChange={async (e) => {
