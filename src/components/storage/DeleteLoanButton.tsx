@@ -36,9 +36,11 @@ function DeleteLoanButton({ loan, t }: DeleteLoanButtonProps) {
   const deleteLoan = api.storage.deleteLoan.useMutation({
     onSuccess: async () => {
       toast.success(t.successMessage);
-      await utils.storage.fetchLoans.invalidate();
-      utils.storage.userLoans.invalidate();
-      utils.storage.userLoansTotal.invalidate();
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+        utils.storage.userLoansTotal.invalidate(),
+      ]);
       router.refresh();
     },
   });

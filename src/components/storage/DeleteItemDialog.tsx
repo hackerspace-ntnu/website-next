@@ -38,8 +38,8 @@ function DeleteItemDialog({ item, t }: DeleteItemDialogProps) {
       await Promise.all([
         utils.storage.fetchMany.invalidate(),
         utils.storage.itemsTotal.invalidate(),
+        utils.storage.fetchOne.invalidate(),
       ]);
-      utils.storage.fetchOne.invalidate();
       router.push('/storage');
       router.refresh();
     },

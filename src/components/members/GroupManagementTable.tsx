@@ -64,8 +64,8 @@ function GroupManagementTableRow({
       await Promise.all([
         utils.auth.state.invalidate(),
         utils.groups.fetchGroups.invalidate(),
+        utils.groups.fetchGroupMembers.invalidate(),
       ]);
-      utils.groups.fetchGroupMembers.invalidate();
       router.refresh();
     },
   });
@@ -74,8 +74,8 @@ function GroupManagementTableRow({
       await Promise.all([
         utils.auth.state.invalidate(),
         utils.groups.fetchGroups.invalidate(),
+        utils.groups.fetchGroupMembers.invalidate(),
       ]);
-      utils.groups.fetchGroupMembers.invalidate();
       router.refresh();
     },
   });

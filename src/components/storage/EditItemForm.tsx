@@ -47,8 +47,10 @@ function EditItemForm({
   const editItem = api.storage.editItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successEdit'));
-      await utils.storage.fetchOne.invalidate();
-      utils.storage.fetchMany.invalidate();
+      await Promise.all([
+        utils.storage.fetchOne.invalidate(),
+        utils.storage.fetchMany.invalidate(),
+      ]);
     },
   });
 

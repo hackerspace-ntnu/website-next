@@ -21,9 +21,11 @@ function ConfirmLoanReturnedButton({
   const confirmLoan = api.storage.confirmLoanReturned.useMutation({
     onSuccess: async () => {
       toast.success(successMessage);
-      await utils.storage.fetchLoans.invalidate();
-      utils.storage.userLoans.invalidate();
-      utils.storage.userLoansTotal.invalidate();
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+        utils.storage.userLoansTotal.invalidate(),
+      ]);
       router.refresh();
     },
   });

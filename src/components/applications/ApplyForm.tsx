@@ -20,10 +20,11 @@ function ApplyForm({
   const utils = api.useUtils();
 
   const sendApplication = api.applications.sendApplication.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(t('applicationSubmitted'));
-      utils.applications.fetchApplications.invalidate();
+      await utils.applications.fetchApplications.invalidate();
       router.push('/applications/thank-you');
+      router.refresh();
     },
   });
 

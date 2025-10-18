@@ -21,8 +21,10 @@ function ApproveLoanButton({
   const approveLoan = api.storage.approveLoan.useMutation({
     onSuccess: async () => {
       toast.success(successMessage);
-      await utils.storage.fetchLoans.invalidate();
-      utils.storage.userLoans.invalidate();
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+      ]);
       router.refresh();
     },
   });

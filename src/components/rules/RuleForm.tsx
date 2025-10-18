@@ -33,17 +33,20 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
   const utils = api.useUtils();
 
   const createRule = api.rules.createRule.useMutation({
-    onSuccess: (id) => {
+    onSuccess: async (id) => {
       toast.success(tNew('ruleCreated'));
-      utils.rules.fetchRules.invalidate();
+      await utils.rules.fetchRules.invalidate();
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
+      router.refresh();
     },
   });
   const editRule = api.rules.editRule.useMutation({
     onSuccess: async (id) => {
       toast.success(tUpdate('ruleUpdated'));
-      await utils.rules.fetchRule.invalidate(id);
-      utils.rules.fetchRules.invalidate();
+      await Promise.all([
+        utils.rules.fetchRule.invalidate(id),
+        utils.rules.fetchRules.invalidate(),
+      ]);
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
       router.refresh();
     },

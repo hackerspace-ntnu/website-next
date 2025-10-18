@@ -26,8 +26,10 @@ function CategoriesTableFormRow({
   const addItemCategory = api.storage.addItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successAddMessage'));
-      await utils.storage.fetchItemCategories.invalidate();
-      utils.storage.fetchItemCategoryNames.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },
@@ -36,8 +38,10 @@ function CategoriesTableFormRow({
   const editItemCategory = api.storage.editItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successEditMessage'));
-      await utils.storage.fetchItemCategories.invalidate();
-      utils.storage.fetchItemCategoryNames.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },

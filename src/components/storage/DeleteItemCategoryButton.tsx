@@ -22,8 +22,10 @@ function DeleteItemCategoryButton({
   const deleteItemCategory = api.storage.deleteItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successDeleteMessage'));
-      await utils.storage.fetchItemCategories.invalidate();
-      utils.storage.fetchItemCategoryNames.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       router.refresh();
     },
   });
