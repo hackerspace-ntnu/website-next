@@ -7,7 +7,7 @@ type EventTableProps = {
 
 function EventTable({ events }: EventTableProps) {
   return (
-    <Table>
+    <Table className='table-fixed'>
       <TableBody>
         {events.map((event) => (
           <TableRow key={event.id}>

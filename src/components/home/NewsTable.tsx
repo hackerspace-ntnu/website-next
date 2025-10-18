@@ -7,7 +7,7 @@ type NewsTableProps = {
 
 function NewsTable({ articles }: NewsTableProps) {
   return (
-    <Table>
+    <Table className='table-fixed'>
       <TableBody>
         {articles.map((article) => (
           <TableRow key={article.id}>
