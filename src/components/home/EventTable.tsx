@@ -20,7 +20,7 @@ function EventTable({ events }: EventTableProps) {
                   pathname: '/events/[eventId]',
                   params: { eventId: event.id },
                 }}
-                className='block p-2'
+                className='block rounded-xl p-2 focus-visible:ring-inset'
               >
                 <h3 className='truncate'>{event.localization.name}</h3>
                 <p className='truncate'>{event.localization.summary}</p>

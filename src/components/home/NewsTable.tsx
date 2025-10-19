@@ -20,7 +20,7 @@ function NewsTable({ articles }: NewsTableProps) {
                   pathname: '/news/[articleId]',
                   params: { articleId: article.id },
                 }}
-                className='block p-2'
+                className='block rounded-xl p-2 focus-visible:ring-inset'
               >
                 <h3 className='truncate'>{article.localization.title}</h3>
                 <p className='truncate'>{article.localization.preamble}</p>
