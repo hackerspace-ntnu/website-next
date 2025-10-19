@@ -107,7 +107,7 @@ function EditItemForm({
           <div className='group relative h-64 w-64 rounded-lg'>
             <field.BaseField label={t('image.label')}>
               <Input
-                className='h-58 w-full cursor-pointer rounded-lg border-none'
+                className='h-58 w-full cursor-pointer rounded-lg border-none opacity-0'
                 type='file'
                 accept='image/jpeg,image/png'
                 onChange={async (e) => {
