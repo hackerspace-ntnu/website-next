@@ -23,7 +23,7 @@ function LoadingChoices() {
   );
 }
 
-type BasicUserInfo = RouterOutput['users']['searchMembers'][number];
+type BasicUserInfo = RouterOutput['users']['searchMembers'][number] | null;
 
 function QuoteForm({
   quote,
