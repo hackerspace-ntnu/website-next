@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
@@ -50,8 +51,12 @@ function CategoriesTableFormRow({
   const formSchema = itemCategoryFormSchema(useTranslations());
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       nameEnglish: category?.nameEnglish ?? '',
       nameNorwegian: category?.nameNorwegian ?? '',

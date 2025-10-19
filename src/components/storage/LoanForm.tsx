@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import type { DateRange } from 'react-day-picker';
@@ -39,8 +40,12 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
 
   const form = useAppForm({
     validators: {
-      onChange: loanFormSchema(useTranslations()),
+      onDynamic: loanFormSchema(useTranslations()),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       dates: {
         from: new Date(),

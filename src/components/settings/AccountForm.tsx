@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { z } from 'zod';
@@ -32,8 +33,12 @@ function AccountForm({ phoneNumber, email }: AccountFormProps) {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       phoneNumber: phoneNumber ?? '',
       email,

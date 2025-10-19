@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
@@ -134,7 +135,11 @@ function CalendarDialog({
   });
 
   const form = useAppForm({
-    validators: { onSubmit: schema },
+    validators: { onDynamic: schema },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       fromDate: range.start ?? null,
       untilDate: range.end ?? null,
