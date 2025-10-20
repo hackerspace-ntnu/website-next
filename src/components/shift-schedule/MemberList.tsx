@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import type { RouterOutputs } from '@/server/api';
+import type { RouterOutput } from '@/server/api';
 
 type MemberListProps = {
-  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
+  members: RouterOutput['shiftSchedule']['fetchShifts'][number]['members'];
 };
 
 async function MemberList({ members }: MemberListProps) {

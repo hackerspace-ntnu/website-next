@@ -12,10 +12,10 @@ import {
 } from '@/components/ui/Table';
 import { api } from '@/lib/api/server';
 import { days, timeslots, timeslotTimes } from '@/lib/constants';
-import type { RouterOutputs } from '@/server/api';
+import type { RouterOutput } from '@/server/api';
 
 type ScheduleTableProps = {
-  user: RouterOutputs['auth']['state']['user'];
+  user: RouterOutput['auth']['state']['user'];
 };
 
 async function ScheduleTable({ user }: ScheduleTableProps) {

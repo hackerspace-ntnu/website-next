@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, count, desc, eq, inArray, type SQL, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, sql } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { protectedProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -21,15 +21,24 @@ const newsRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       const { user } = await ctx.auth();
 
-      const articles = await ctx.db.query.newsArticles.findMany({
-        where:
-          user?.groups && user.groups.length > 0
-            ? undefined
-            : eq(newsArticles.internal, false),
-        orderBy: desc(newsArticles.createdAt),
-        limit: input.limit,
-        offset: input.offset,
-      });
+      const articles = await ctx.db.query.newsArticles
+        .findMany({
+          where:
+            user?.groups && user.groups.length > 0
+              ? undefined
+              : eq(newsArticles.internal, false),
+          orderBy: desc(newsArticles.createdAt),
+          limit: input.limit,
+          offset: input.offset,
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('news.api.fetchFailed'),
+            cause: { toast: 'error' },
+          });
+        });
 
       const localizations =
         await ctx.db.query.newsArticleLocalizations.findMany({
@@ -58,23 +67,34 @@ const newsRouter = createRouter({
       selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const { user } = await ctx.auth();
-
-      let where = eq(newsArticles.id, input.id);
-
-      if (!user?.groups || user.groups.length === 0) {
-        where = and(where, eq(newsArticles.internal, false)) as SQL;
-      }
-
-      const article = await ctx.db.query.newsArticles.findFirst({
-        where,
-        with: {
-          author: true,
-          localizations: true,
-        },
-      });
+      const article = await ctx.db.query.newsArticles
+        .findFirst({
+          where: eq(newsArticles.id, input.id),
+          with: {
+            author: true,
+            localizations: true,
+          },
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('news.api.fetchFailed'),
+            cause: { toast: 'error' },
+          });
+        });
 
       if (!article) return null;
+
+      const { user } = await ctx.auth();
+
+      if ((!user || user.groups.length === 0) && article.internal) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('news.internalUnauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
 
       const localization =
         await ctx.db.query.newsArticleLocalizations.findFirst({

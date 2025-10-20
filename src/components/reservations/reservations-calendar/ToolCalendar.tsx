@@ -26,11 +26,11 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from '@/components/ui/Toaster';
 import { useRouter } from '@/lib/locale/navigation';
-import type { RouterOutput, RouterOutputs } from '@/server/api';
+import type { RouterOutput } from '@/server/api';
 
 type ToolCalendarProps = {
   tool: NonNullable<RouterOutput['tools']['fetchTool']>;
-  user: RouterOutputs['auth']['state']['user'];
+  user: RouterOutput['auth']['state']['user'];
 };
 type CalendarReservation =
   RouterOutput['reservations']['fetchCalendarReservations'][number];
