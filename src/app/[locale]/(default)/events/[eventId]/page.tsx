@@ -95,8 +95,19 @@ export default async function EventDetailsPage({
     event = await api.events.fetchEvent(processedEventId);
   } catch (error) {
     console.error(error);
-    if (error instanceof TRPCError) {
-      return <ErrorPageContent message={(error as TRPCError)?.message} />;
+    if (
+      error instanceof TRPCError &&
+      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
+    ) {
+      return (
+        <ErrorPageContent
+          message={
+            error.code === 'FORBIDDEN'
+              ? t('api.unauthorized')
+              : t('api.fetchEventFailed')
+          }
+        />
+      );
     }
   }
 

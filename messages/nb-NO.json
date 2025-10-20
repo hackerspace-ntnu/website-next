@@ -412,6 +412,7 @@
       "invalidLimit": "Ugyldig limit",
       "invalidOffset": "Ugyldig offset",
       "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "fetchFailed": "Kunne ikke hente nyhetsartikkel",
       "insertFailed": "Kunne ikke legge til nyhetsartikkel",
       "articleNotFound": "Artikkel ikke funnet",
       "articleImageNotFound": "Artikkelbilde ikke funnet"

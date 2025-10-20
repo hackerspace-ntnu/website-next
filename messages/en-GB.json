@@ -412,6 +412,7 @@
       "invalidLimit": "Invalid limit",
       "invalidOffset": "Invalid offset",
       "tooManyArticles": "Too many articles requested. Cannot fetch more than {count} articles.",
+      "fetchFailed": "Failed to fetch news article",
       "insertFailed": "Failed to add news article",
       "articleNotFound": "Article not found",
       "articleImageNotFound": "Article image not found"

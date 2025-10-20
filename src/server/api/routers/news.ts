@@ -21,15 +21,24 @@ const newsRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       const { user } = await ctx.auth();
 
-      const articles = await ctx.db.query.newsArticles.findMany({
-        where:
-          user?.groups && user.groups.length > 0
-            ? undefined
-            : eq(newsArticles.internal, false),
-        orderBy: desc(newsArticles.createdAt),
-        limit: input.limit,
-        offset: input.offset,
-      });
+      const articles = await ctx.db.query.newsArticles
+        .findMany({
+          where:
+            user?.groups && user.groups.length > 0
+              ? undefined
+              : eq(newsArticles.internal, false),
+          orderBy: desc(newsArticles.createdAt),
+          limit: input.limit,
+          offset: input.offset,
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('news.api.fetchFailed'),
+            cause: { toast: 'error' },
+          });
+        });
 
       const localizations =
         await ctx.db.query.newsArticleLocalizations.findMany({
@@ -58,13 +67,22 @@ const newsRouter = createRouter({
       selectNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const article = await ctx.db.query.newsArticles.findFirst({
-        where: eq(newsArticles.id, input.id),
-        with: {
-          author: true,
-          localizations: true,
-        },
-      });
+      const article = await ctx.db.query.newsArticles
+        .findFirst({
+          where: eq(newsArticles.id, input.id),
+          with: {
+            author: true,
+            localizations: true,
+          },
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('news.api.fetchFailed'),
+            cause: { toast: 'error' },
+          });
+        });
 
       if (!article) return null;
 

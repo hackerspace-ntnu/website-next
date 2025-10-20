@@ -70,8 +70,19 @@ export default async function ArticlePage({
       incrementViews: true,
     });
   } catch (error) {
-    if (error instanceof TRPCError) {
-      return <ErrorPageContent message={(error as TRPCError).message} />;
+    if (
+      error instanceof TRPCError &&
+      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
+    ) {
+      return (
+        <ErrorPageContent
+          message={
+            error.code === 'FORBIDDEN'
+              ? t('internalUnauthorized')
+              : t('api.fetchFailed')
+          }
+        />
+      );
     }
   }
 
