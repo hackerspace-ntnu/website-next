@@ -63,12 +63,7 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
   const router = useRouter();
-  const isLoggedIn = !!user;
-  const isMember = user?.groups && user.groups.length > 0;
-  const isManagement = !!user?.groups.some((g) =>
-    ['management', 'leadership', 'admin'].includes(g),
-  );
-  const memberId = user?.id ?? 0;
+
   const isLaptop = useMediaQuery('(min-width: 70rem)');
   const isIpad = useMediaQuery('(min-width: 41.438rem)');
 
@@ -149,7 +144,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) =>
-      eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
+      eventInfo.event.extendedProps.userId === user?.id && !eventInfo.isPast ? (
         <CalendarDialog
           mode='edit'
           user={user}
@@ -162,60 +157,39 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
           }}
           notes={eventInfo.event.extendedProps.notes ?? ''}
         >
-          <CustomEventContent
-            eventInfo={eventInfo}
-            memberId={memberId}
-            isPast={eventInfo.isPast}
-            isManagement={isManagement}
-          />
+          <CustomEventContent eventInfo={eventInfo} user={user} />
         </CalendarDialog>
       ) : (
-        <CustomEventContent
-          eventInfo={eventInfo}
-          memberId={memberId}
-          isPast={eventInfo.isPast}
-          isManagement={isManagement}
-        />
+        <CustomEventContent eventInfo={eventInfo} user={user} />
       ),
-    [memberId, user, isManagement],
+    [user],
   );
 
   const calendarConfig = useMemo(() => {
     return createCalendarConfig({
-      isLoggedIn,
-      isMember: !!isMember,
-      memberId,
+      user,
       isLaptop,
       isIpad,
       handleDatesSet,
       handleSelectSlot,
       t: { week: t('toolbar.week') },
     });
-  }, [
-    isLoggedIn,
-    isMember,
-    memberId,
-    isLaptop,
-    isIpad,
-    handleDatesSet,
-    handleSelectSlot,
-    t,
-  ]);
+  }, [user, isLaptop, isIpad, handleDatesSet, handleSelectSlot, t]);
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <div className='relative flex w-full justify-center'>
         <Button
-          variant={isLoggedIn ? 'default' : 'secondary'}
+          variant={user ? 'default' : 'secondary'}
           className='mb-3'
           onClick={() => {
             if (!requirePhoneNumber()) return;
             setSelectedSlot({ start: new Date(), end: new Date() });
           }}
-          disabled={!isLoggedIn || !range || reservationsQuery.isLoading}
+          disabled={!user || !range || reservationsQuery.isLoading}
         >
           <PlusIcon className='mr-2 size-5' />
-          {isLoggedIn
+          {user
             ? t('calendar.createButton')
             : t('calendar.createButtonLoggedOut')}
         </Button>

@@ -8,6 +8,7 @@ import type {
   FormatDateOptions,
   WeekNumberContentArg,
 } from '@fullcalendar/core';
+import type { RouterOutput } from '@/server/api';
 
 const viewTypes = {
   timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
@@ -28,9 +29,7 @@ const timeFormats: {
 };
 
 type CalendarConfigProps = {
-  isLoggedIn: boolean;
-  isMember: boolean;
-  memberId: number;
+  user: RouterOutput['auth']['state']['user'];
   isLaptop: boolean;
   isIpad: boolean;
   handleDatesSet: (info: DatesSetArg) => void;
@@ -40,9 +39,7 @@ type CalendarConfigProps = {
 };
 
 function createCalendarConfig({
-  isLoggedIn,
-  isMember,
-  memberId,
+  user,
   isLaptop,
   isIpad,
   handleDatesSet,
@@ -55,6 +52,9 @@ function createCalendarConfig({
     if (isIpad) return 'timeGridThreeDay';
     return 'timeGridDay';
   }
+
+  const isMember = !!(user && user.groups.length > 0);
+  const isLoggedIn = !!user;
 
   return {
     ...timeFormats,
@@ -118,7 +118,7 @@ function createCalendarConfig({
 
     // user reservations styling vs other users
     eventDidMount: (info: EventMountArg) => {
-      const isOwn = info.event.extendedProps.userId === memberId;
+      const isOwn = info.event.extendedProps.userId === user?.id;
       info.el.style.backgroundColor =
         (isOwn && (isMember || isLoggedIn)) || info.isMirror
           ? 'var(--primary)'
