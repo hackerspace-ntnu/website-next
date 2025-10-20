@@ -8,8 +8,6 @@ import type {
   FormatDateOptions,
   WeekNumberContentArg,
 } from '@fullcalendar/core';
-import type { RefObject } from '@fullcalendar/core/preact';
-import type FullCalendar from '@fullcalendar/react';
 
 const viewTypes = {
   timeGridDay: { type: 'timeGrid', duration: { days: 1 } },
@@ -30,18 +28,11 @@ const timeFormats: {
 };
 
 type CalendarConfigProps = {
-  calendarRef: RefObject<FullCalendar | null>;
   isLoggedIn: boolean;
   isMember: boolean;
   memberId: number;
   isLaptop: boolean;
   isIpad: boolean;
-  view: {
-    name: string;
-    snapToToday: boolean;
-    manual: boolean;
-  };
-  onViewChange: (view: string) => void;
   handleDatesSet: (info: DatesSetArg) => void;
   handleSelectSlot: (info: DateSelectArg) => void;
   handleEventClick?: (info: EventClickArg) => void;
@@ -49,14 +40,11 @@ type CalendarConfigProps = {
 };
 
 function createCalendarConfig({
-  calendarRef,
   isLoggedIn,
   isMember,
   memberId,
   isLaptop,
   isIpad,
-  view,
-  onViewChange,
   handleDatesSet,
   handleSelectSlot,
   handleEventClick,
@@ -75,7 +63,7 @@ function createCalendarConfig({
     progressiveEventRendering: true,
     scrollTimeReset: false,
     views: viewTypes,
-    initialView: view.name,
+    initialView: decideView(),
     headerToolbar: false,
     height: 750,
     scrollTime: '10:00:00',
@@ -138,19 +126,6 @@ function createCalendarConfig({
 
       if (info.isPast) {
         info.el.style.filter = 'brightness(0.75)';
-      }
-    },
-
-    // view change
-    windowResize: () => {
-      if (view.manual) return;
-      const api = calendarRef.current?.getApi();
-      if (!api) return;
-      const nextView = decideView();
-
-      if (api.view.type !== nextView) {
-        api.changeView(nextView);
-        onViewChange(nextView);
       }
     },
   } as const;

@@ -32,7 +32,6 @@ type CalendarDialogProps = {
   reservationId?: number;
 
   range: { start: Date | null; end: Date | null };
-  windowRange: { from: string; until: string };
   notes?: string;
 
   children?: React.ReactNode;
