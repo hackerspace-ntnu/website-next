@@ -1,3 +1,4 @@
+import { HomeIcon } from 'lucide-react';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
@@ -8,6 +9,7 @@ import { Banner } from '@/components/layout/Banner';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Main } from '@/components/layout/Main';
 import { SidebarNav } from '@/components/settings/SidebarNav';
+import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
@@ -39,6 +41,13 @@ export default async function SettingsLayout({
   return (
     <>
       <Banner />
+      <Link
+        href='/'
+        variant='ghost'
+        className='clamp-[top-2-5-clamp] clamp-[left-2-5-clamp] absolute p-1'
+      >
+        <HomeIcon className='text-primary' />
+      </Link>
       <Main className='h-full'>
         <div className='h-full w-full gap-6 p-10 pb-16'>
           <div className='flex gap-3 space-y-0.5'>
