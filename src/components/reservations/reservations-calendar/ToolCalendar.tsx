@@ -151,8 +151,9 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     (eventInfo: EventContentArg) =>
       eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
         <CalendarDialog
-          user={user}
           mode='edit'
+          user={user}
+          calendarRef={calendarRef}
           toolId={eventInfo.event.extendedProps.toolId}
           reservationId={eventInfo.event.extendedProps.reservationId}
           range={{
@@ -237,10 +238,11 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
       {selectedSlot && (
         <CalendarDialog
-          user={user}
           open
           onOpenChange={(open) => !open && setSelectedSlot(null)}
           mode='create'
+          user={user}
+          calendarRef={calendarRef}
           toolId={tool.id}
           range={{
             start: selectedSlot.start,
