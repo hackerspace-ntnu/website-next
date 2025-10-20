@@ -3,6 +3,7 @@
 import { CheckIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { RemoveGroupDialog } from '@/components/members/RemoveGroupDialog';
 import { Button } from '@/components/ui/Button';
 import {
   Table,
@@ -15,32 +16,6 @@ import {
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
 import type { RouterOutput } from '@/server/api';
-
-function GroupManagementTable({
-  user,
-  groups,
-}: {
-  user: NonNullable<RouterOutput['users']['fetchMember']>;
-  groups: RouterOutput['groups']['fetchGroups'];
-}) {
-  const t = useTranslations('members.groupManagement');
-
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className='w-full'>{t('group')}</TableHead>
-          <TableHead>{t('actions')}</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {groups.map((group) => (
-          <GroupManagementTableRow key={group.id} group={group} user={user} />
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
 
 function GroupManagementTableRow({
   group,
@@ -80,6 +55,58 @@ function GroupManagementTableRow({
     },
   });
 
+  function handleChange() {
+    if (!user.id) return;
+    if (hasGroup) {
+      toast.promise(
+        removeFromGroup.mutateAsync({
+          userId: user.id,
+          groupId: group.id,
+        }),
+        {
+          loading: t('removingFromGroup'),
+          success: t('userRemovedFromGroup'),
+          error: t('removingFromGroupFailed'),
+        },
+      );
+    } else {
+      toast.promise(
+        addToGroup.mutateAsync({
+          userId: user.id,
+          groupId: group.id,
+        }),
+        {
+          loading: t('addingToGroup'),
+          success: t('userAddedToGroup'),
+          error: t('addingToGroupFailed'),
+        },
+      );
+    }
+  }
+
+  const isAdmin = user.usersGroups?.some(
+    (userGroup) => userGroup.group.identifier === 'admin',
+  );
+
+  // Always warn when removing from admin group
+  // Warn when removing management group if it's the only elevated group left
+  const shouldWarn =
+    (group.identifier === 'admin' && hasGroup) ||
+    (group.identifier === 'management' && hasGroup && !isAdmin);
+
+  const button = (
+    <Button
+      className='w-40 disabled:pointer-events-auto disabled:cursor-not-allowed'
+      disabled={addToGroup.isPending || removeFromGroup.isPending}
+      variant={hasGroup ? 'destructive' : 'default'}
+      onClick={() => {
+        if (!shouldWarn) handleChange();
+      }}
+    >
+      {hasGroup ? t('removeFromGroup') : t('addToGroup')}
+    </Button>
+  );
+
   if (!localization) return null;
 
   return (
@@ -91,43 +118,41 @@ function GroupManagementTableRow({
         </div>
       </TableCell>
       <TableCell className='flex flex-col gap-2 md:flex-row'>
-        <Button
-          className='w-40 disabled:pointer-events-auto disabled:cursor-not-allowed'
-          disabled={addToGroup.isPending || removeFromGroup.isPending}
-          variant={hasGroup ? 'destructive' : 'default'}
-          onClick={() => {
-            if (!user.id) return;
-            if (hasGroup) {
-              toast.promise(
-                removeFromGroup.mutateAsync({
-                  userId: user.id,
-                  groupId: group.id,
-                }),
-                {
-                  loading: t('removingFromGroup'),
-                  success: t('userRemovedFromGroup'),
-                  error: t('removingFromGroupFailed'),
-                },
-              );
-            } else {
-              toast.promise(
-                addToGroup.mutateAsync({
-                  userId: user.id,
-                  groupId: group.id,
-                }),
-                {
-                  loading: t('addingToGroup'),
-                  success: t('userAddedToGroup'),
-                  error: t('addingToGroupFailed'),
-                },
-              );
-            }
-          }}
-        >
-          {hasGroup ? t('removeFromGroup') : t('addToGroup')}
-        </Button>
+        {shouldWarn ? (
+          <RemoveGroupDialog user={user} group={group} onConfirm={handleChange}>
+            {button}
+          </RemoveGroupDialog>
+        ) : (
+          button
+        )}
       </TableCell>
     </TableRow>
+  );
+}
+
+function GroupManagementTable({
+  user,
+  groups,
+}: {
+  user: NonNullable<RouterOutput['users']['fetchMember']>;
+  groups: RouterOutput['groups']['fetchGroups'];
+}) {
+  const t = useTranslations('members.groupManagement');
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className='w-full'>{t('group')}</TableHead>
+          <TableHead>{t('actions')}</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {groups.map((group) => (
+          <GroupManagementTableRow key={group.id} group={group} user={user} />
+        ))}
+      </TableBody>
+    </Table>
   );
 }
 
