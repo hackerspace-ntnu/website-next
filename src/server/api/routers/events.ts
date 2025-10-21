@@ -6,6 +6,8 @@ import {
   desc,
   eq,
   gte,
+  inArray,
+  isNotNull,
   lte,
   notInArray,
   or,
@@ -17,6 +19,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
+import type { db as drizzleDb } from '@/server/db';
 import {
   eventLocalizations,
   events,
@@ -32,6 +35,38 @@ import { fetchEventSchema } from '@/validations/events/fetchEventSchema';
 import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
 import { giveParticipantSkillSchema } from '@/validations/events/giveParticipantSkillSchema';
 import { participantAttendanceSchema } from '@/validations/events/participantAttendanceSchema';
+
+async function promoteFromEventWaitlist(
+  db: typeof drizzleDb,
+  eventId: number,
+  delta: number,
+) {
+  const firstOnWaitlist = await db.query.usersEvents.findMany({
+    where: and(
+      eq(usersEvents.eventId, eventId),
+      isNotNull(usersEvents.waitlistedAt),
+    ),
+    orderBy: asc(usersEvents.waitlistedAt),
+    limit: delta,
+  });
+
+  if (firstOnWaitlist.length === 0) {
+    return;
+  }
+
+  await db
+    .update(usersEvents)
+    .set({ waitlistedAt: null })
+    .where(
+      and(
+        eq(usersEvents.eventId, eventId),
+        inArray(
+          usersEvents.userId,
+          firstOnWaitlist.map((ue) => ue.userId),
+        ),
+      ),
+    );
+}
 
 const eventsRouter = createRouter({
   fetchEvent: publicProcedure
@@ -398,6 +433,15 @@ const eventsRouter = createRouter({
           ),
         );
 
+      const maxParticipantsDelta = event.maxParticipants
+        ? input.maxParticipants - event.maxParticipants
+        : 0;
+
+      // Promote users from waitlist if maxParticipants increased
+      if (maxParticipantsDelta > 0) {
+        await promoteFromEventWaitlist(ctx.db, event.id, maxParticipantsDelta);
+      }
+
       return event;
     }),
   deleteEvent: protectedEditProcedure
@@ -509,6 +553,7 @@ const eventsRouter = createRouter({
               eq(usersEvents.userId, ctx.user.id),
             ),
           );
+        await promoteFromEventWaitlist(ctx.db, event.id, 1);
         return false;
       }
 
