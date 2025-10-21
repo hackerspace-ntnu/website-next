@@ -41,9 +41,7 @@ function ParticipantsTable({
               <div className='flex items-center gap-4'>
                 <MemberAvatar
                   user={participant.user}
-                  profilePictureUrl={
-                    participant.user.profilePictureUrl ?? undefined
-                  }
+                  profilePictureUrl={participant.user.profilePictureUrl}
                   size='md'
                 />
                 <span>

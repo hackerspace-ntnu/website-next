@@ -1,7 +1,7 @@
 import { EditIcon } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { DeleteQuoteButton } from '@/components/quotes/DeleteQuoteButton';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
@@ -40,18 +40,10 @@ async function QuoteCard({
       <CardHeader className='bg-muted/50 p-4'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-2'>
-            <Avatar>
-              {profileImageUrl && (
-                <AvatarImage
-                  src={profileImageUrl}
-                  alt={`${saidByName}'s profile`}
-                />
-              )}
-              <AvatarFallback>
-                {quote.saidBy.firstName.charAt(0).toUpperCase() +
-                  quote.saidBy.lastName.charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+            <MemberAvatar
+              user={quote.saidBy}
+              profilePictureUrl={profileImageUrl}
+            />
             <div>
               <p className='font-medium'>{saidByName}</p>
             </div>

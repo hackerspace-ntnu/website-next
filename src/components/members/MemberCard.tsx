@@ -56,7 +56,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
           <MemberAvatar
             size='xl'
             user={user}
-            profilePictureUrl={user.profilePictureUrl ?? undefined}
+            profilePictureUrl={user.profilePictureUrl}
           />
           {user.memberSince && (
             <span className='pt-4 text-muted-foreground text-sm'>

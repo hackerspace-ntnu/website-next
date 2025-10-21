@@ -9,7 +9,7 @@ import {
 } from 'next-intl/server';
 import readingTime from 'reading-time';
 import { HackerspaceLogo } from '@/components/assets/logos';
-import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
@@ -114,10 +114,9 @@ export default async function ArticlePage({
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
           {article.author ? (
-            <AvatarIcon
-              photoUrl={authorImageUrl}
-              name={`${article.author.firstName} ${article.author.lastName}`}
-              initials={`${article.author.firstName.charAt(0)}${article.author.lastName.charAt(0)}`}
+            <MemberAvatar
+              user={article.author}
+              profilePictureUrl={authorImageUrl}
             />
           ) : (
             <Avatar>
