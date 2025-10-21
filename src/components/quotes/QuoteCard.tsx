@@ -87,7 +87,7 @@ async function QuoteCard({
         </div>
       </CardHeader>
       <CardContent className='flex flex-col gap-4 p-6'>
-        <blockquote className='border-primary/30 border-l-4 pl-4 text-lg italic'>
+        <blockquote className='max-w-prose border-primary/30 border-l-4 pl-4 text-lg italic'>
           {quote.localization.content}
         </blockquote>
         {heardByName !== saidByName && (
