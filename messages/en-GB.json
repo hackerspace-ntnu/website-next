@@ -949,6 +949,12 @@
         "required": "Event location is required",
         "maxLength": "Event location must be less than {count} characters"
       },
+      "locationMapLink": {
+        "label": "Location map link",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Link to a map showing the event location",
+        "invalid": "Invalid map link format. Must be a URL"
+      },
       "startTime": {
         "label": "Start time",
         "required": "Start time is required",
@@ -968,11 +974,12 @@
         "required": "End time is required",
         "dateBeforeStart": "The end time must be after the start time"
       },
-      "locationMapLink": {
-        "label": "Location map link",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Link to a map showing the event location",
-        "invalid": "Invalid map link format. Must be a URL"
+      "setMaxParticipants": {
+        "label": "Set maximum participants",
+        "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist."
+      },
+      "maxParticipants": {
+        "label": "Maximum participants"
       },
       "internal": {
         "label": "Internal event",

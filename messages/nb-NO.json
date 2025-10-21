@@ -949,6 +949,12 @@
         "required": "Location is required",
         "maxLength": "Sted må være mindre enn {count} tegn"
       },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
       "startTime": {
         "label": "Starttidspunkt",
         "required": "Starttidspunkt er påkrevd",
@@ -968,11 +974,12 @@
         "required": "Sluttidspunkt er påkrevd",
         "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
       },
-      "locationMapLink": {
-        "label": "Lenke til kart",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Lenke til et kart som viser arrangementsstedet",
-        "invalid": "Ugyldig kartlenke. Må være en URL"
+      "setMaxParticipants": {
+        "label": "Sett maks antall deltakere",
+        "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste."
+      },
+      "maxParticipants": {
+        "label": "Maximum participants"
       },
       "internal": {
         "label": "Internt arrangement",
