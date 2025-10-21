@@ -301,12 +301,30 @@ const eventsRouter = createRouter({
     .mutation(async ({ ctx, input }) => {
       const event = await ctx.db.query.events.findFirst({
         where: eq(events.id, input.id),
+        with: {
+          usersEvents: true,
+        },
       });
 
       if (!event) {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const confirmedParticipantsCount = event.usersEvents.filter(
+        (userEvent) => !userEvent.waitlistedAt,
+      ).length;
+
+      if (
+        input.setMaxParticipants &&
+        confirmedParticipantsCount > input.maxParticipants
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('events.api.maxParticipantsTooLow'),
           cause: { toast: 'error' },
         });
       }

@@ -1056,7 +1056,8 @@
       "userNotFound": "Kunne ikke finne brukeren",
       "alreadyHasSkill": "Brukeren {user} har allerede ferdigheten {skill}",
       "participantNotFound": "Kunne ikke finne deltakeren",
-      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet",
+      "maxParticipantsTooLow": "Maks antall deltakere kan ikke være lavere enn det nåværende antallet påmeldte personer"
     }
   },
   "rules": {

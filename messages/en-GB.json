@@ -1056,7 +1056,8 @@
       "userNotFound": "User not found",
       "alreadyHasSkill": "User {user} already has the skill {skill}",
       "participantNotFound": "Participant not found",
-      "noImage": "There is no image for this event"
+      "noImage": "There is no image for this event",
+      "maxParticipantsTooLow": "Maximum participants cannot be lower than the number of already signed-up participants"
     }
   },
   "rules": {
