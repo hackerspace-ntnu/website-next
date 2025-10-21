@@ -976,7 +976,7 @@
       },
       "setMaxParticipants": {
         "label": "Set maximum participants",
-        "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist."
+        "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist"
       },
       "maxParticipants": {
         "label": "Maximum participants"
@@ -1003,19 +1003,26 @@
     "attendance": {
       "signUp": "Sign up",
       "cancelSignUp": "Cancel sign-up",
+      "cancelWaitlistSignUp": "Cancel waitlist sign-up",
+      "signUpForWaitlist": "Sign up for waitlist",
       "signUpSuccess": "Successfully signed up for the event!",
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
+      "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
+      "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
       "mustBeLoggedIn": "You must be logged in to sign up",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
       "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
+      "signedUpTotal": "Total signed up: {count} {count, plural, one {participant} other {participants}}",
+      "signedUpTotalWithMax": "Total signed up: {count}/{max} {count, plural, one {participant} other {participants}}",
+      "waitlistTotal": "Total on waitlist: {count} {count, plural, one {person} other {people}}",
       "attendance": "Attendance",
       "attended": "Attended",
-      "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
+      "attendanceDescription": "Check the attendance of those who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
-      "member": "Member",
+      "person": "Person",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",
@@ -1029,6 +1036,11 @@
       "givingSkill": "Giving skill {skill} to {name}...",
       "successSkill": "Skill {skill} given to {name}!",
       "errorSkill": "Failed to give skill {skill} to {name}"
+    },
+    "waitlist": {
+      "name": "Waitlist",
+      "waitlistedAt": "Added to waitlist",
+      "noWaitlisted": "No one is currently on the waitlist for this event"
     },
     "api": {
       "invalidId": "Invalid event ID",

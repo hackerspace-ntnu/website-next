@@ -1,11 +1,8 @@
-import { getTranslations } from 'next-intl/server';
-import { AttendanceCheckbox } from '@/components/events/AttendanceCheckbox';
-import { GiveSkillButton } from '@/components/events/GiveSkillButton';
+import { getFormatter, getTranslations } from 'next-intl/server';
 import { MemberAvatar } from '@/components/members/MemberAvatar';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -14,26 +11,32 @@ import {
 import { api } from '@/lib/api/server';
 import type { RouterOutput } from '@/server/api';
 
-async function ParticipantsTable({
+async function WaitlistTable({
   event,
 }: {
   event: NonNullable<RouterOutput['events']['fetchEvent']>;
 }) {
-  const t = await getTranslations('events.attendance');
+  const t = await getTranslations('events');
+  const formatter = await getFormatter();
   const participants = await api.events.fetchEventParticipants(event.id);
+
+  const formatterOptions = {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  } as const;
 
   return (
     <Table className='my-4'>
-      <TableCaption>{t('attendeesList')}</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-full'>{t('person')}</TableHead>
-          <TableHead className='text-center'>{t('attended')}</TableHead>
-          <TableHead className='min-w-40 text-center'>{t('actions')}</TableHead>
+          <TableHead className='w-full'>{t('attendance.person')}</TableHead>
+          <TableHead className='min-w-40'>
+            {t('waitlist.waitlistedAt')}
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {participants.confirmed.map((participant) => (
+        {participants.waitlisted.map((participant) => (
           <TableRow key={participant.userId}>
             <TableCell>
               <div className='flex items-center gap-4'>
@@ -51,21 +54,17 @@ async function ParticipantsTable({
               </div>
             </TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
-              <div className='flex items-center gap-2'>
-                <AttendanceCheckbox participant={participant} event={event} />
-              </div>
-            </TableCell>
-            <TableCell>
-              {participant.attended && event.skill && (
-                <GiveSkillButton event={event} participant={participant} />
+              {formatter.dateTime(
+                participant.waitlistedAt ?? new Date(),
+                formatterOptions,
               )}
             </TableCell>
           </TableRow>
         ))}
-        {participants.confirmed.length === 0 && (
+        {participants.waitlisted.length === 0 && (
           <TableRow>
             <TableCell colSpan={3} className='text-center'>
-              {t('noParticipants')}
+              {t('waitlist.noWaitlisted')}
             </TableCell>
           </TableRow>
         )}
@@ -74,4 +73,4 @@ async function ParticipantsTable({
   );
 }
 
-export { ParticipantsTable };
+export { WaitlistTable };

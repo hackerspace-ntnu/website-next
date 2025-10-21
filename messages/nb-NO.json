@@ -976,7 +976,7 @@
       },
       "setMaxParticipants": {
         "label": "Sett maks antall deltakere",
-        "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste."
+        "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste"
       },
       "maxParticipants": {
         "label": "Maximum participants"
@@ -1003,19 +1003,26 @@
     "attendance": {
       "signUp": "Meld meg på",
       "cancelSignUp": "Meld meg av",
+      "cancelWaitlistSignUp": "Meld meg av ventelisten",
+      "signUpForWaitlist": "Meld meg på ventelisten",
       "signUpSuccess": "Du har blitt meldt på arrangementet!",
       "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "confirmLeave": "Er du sikker på at du vil melde deg av dette arrangementet?",
+      "confirmLeaveDescription": "Dette arrangementet er fullt. Ved å melde deg av, vil den første personen fra ventelisten få en plass.",
       "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
       "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
       "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
       "eventStartedAlready": "Arrangementet har allerede startet",
       "eventFinishedAlready": "Arrangementet er ferdig",
       "signUpDeadline": "Påmeldingsfrist: {date}",
+      "signedUpTotal": "Totalt påmeldte: {count} {count, plural, one {deltaker} other {deltakere}}",
+      "signedUpTotalWithMax": "Totalt påmeldte: {count}/{max} {count, plural, one {deltaker} other {deltakere}}",
+      "waitlistTotal": "Totalt på venteliste: {count} {count, plural, one {person} other {personer}}",
       "attendance": "Oppmøte",
       "attended": "Møtte opp",
-      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendanceDescription": "Sjekk oppmøtet til dem som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
-      "member": "Medlem",
+      "person": "Person",
       "actions": "Handlinger",
       "present": "Til stede",
       "absent": "Fraværende",
@@ -1029,6 +1036,11 @@
       "givingSkill": "Gir ferdighet {skill} til {name}...",
       "successSkill": "Ferdighet {skill} gitt til {name}!",
       "errorSkill": "Kunne ikke gi ferdighet {skill} til {name}"
+    },
+    "waitlist": {
+      "name": "Venteliste",
+      "waitlistedAt": "Lagt til venteliste",
+      "noWaitlisted": "Det er ingen på venteliste for dette arrangementet"
     },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
