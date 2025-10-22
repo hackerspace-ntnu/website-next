@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import type { Value } from 'platejs';
 import { useState } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { withForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
@@ -15,6 +16,25 @@ function LoadingChoices() {
     <div className='flex items-center justify-center gap-2'>
       <Spinner className='text-primary' />
       <span>{t('loadingMembers')}</span>
+    </div>
+  );
+}
+
+function createChoiceLabel(
+  user: RouterOutput['users']['searchMembers'][number],
+) {
+  return (
+    <div className='flex items-center gap-2'>
+      <Avatar className='h-8 w-8'>
+        <AvatarImage src={user.profilePictureUrl ?? undefined} />
+        <AvatarFallback>
+          {user.firstName.charAt(0)}
+          {user.lastName.charAt(0)}
+        </AvatarFallback>
+      </Avatar>
+      <span>
+        {user.firstName} {user.lastName}
+      </span>
     </div>
   );
 }
@@ -96,13 +116,13 @@ const LeaderSelection = withForm({
 
     const leaderChoices =
       leaderSearch.data?.map((member) => ({
-        label: `${member.firstName} ${member.lastName}`,
+        label: createChoiceLabel(member),
         value: member.id.toString(),
       })) ?? [];
 
     const deputyChoices =
       deputySearch.data?.map((member) => ({
-        label: `${member.firstName} ${member.lastName}`,
+        label: createChoiceLabel(member),
         value: member.id.toString(),
       })) ?? [];
 
