@@ -187,8 +187,12 @@ const groupsRouter = createRouter({
         .values({
           identifier: input.identifier,
           imageId,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .returning({ id: groups.id });
 
@@ -255,8 +259,12 @@ const groupsRouter = createRouter({
         .set({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 
