@@ -23,6 +23,7 @@ const events = pgTable('events', {
   locationMapLink: text('location_map_link'),
   internal: boolean('internal').notNull().default(false),
   signUpDeadline: timestamp('sign_up_deadline'),
+  maxParticipants: integer('max_participants'),
   imageId: integer('image_id').references(() => files.id, {
     onDelete: 'set null',
   }),
@@ -74,6 +75,7 @@ const usersEvents = pgTable(
     eventId: integer('event_id')
       .references(() => events.id, { onDelete: 'cascade' })
       .notNull(),
+    waitlistedAt: timestamp('waitlisted_at'),
     attended: boolean('attended').notNull().default(false),
   },
   (table) => {

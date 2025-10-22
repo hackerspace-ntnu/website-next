@@ -31,14 +31,16 @@ function eventSchema(t: Translations) {
       .string()
       .min(1, t('events.form.locationEnglish.required'))
       .max(255, t('events.form.locationEnglish.maxLength', { count: 255 })),
-    startTime: z.date({ message: t('events.form.startTime.required') }),
-    setSignUpDeadline: z.boolean(),
-    signUpDeadline: z.date().nullable(),
-    endTime: z.date({ message: t('events.form.endTime.required') }),
     locationMapLink: z
       .string()
       .url(t('events.form.locationMapLink.invalid'))
       .or(z.literal('')),
+    startTime: z.date({ message: t('events.form.startTime.required') }),
+    setSignUpDeadline: z.boolean(),
+    signUpDeadline: z.date().nullable(),
+    endTime: z.date({ message: t('events.form.endTime.required') }),
+    setMaxParticipants: z.boolean(),
+    maxParticipants: z.number().int().positive(),
     internal: z.boolean(),
     image: fileUploadZodString({
       allowedMediaType: 'image',

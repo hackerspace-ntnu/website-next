@@ -13,7 +13,7 @@ function GiveSkillButton({
   participant,
 }: {
   event: NonNullable<RouterOutput['events']['fetchEvent']>;
-  participant: RouterOutput['events']['fetchEventParticipants'][number];
+  participant: RouterOutput['events']['fetchEventParticipants']['confirmed'][number];
 }) {
   const t = useTranslations('events.attendance');
   const router = useRouter();

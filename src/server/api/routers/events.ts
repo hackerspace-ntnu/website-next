@@ -6,6 +6,8 @@ import {
   desc,
   eq,
   gte,
+  inArray,
+  isNotNull,
   lte,
   notInArray,
   or,
@@ -17,6 +19,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
+import type { db as drizzleDb } from '@/server/db';
 import {
   eventLocalizations,
   events,
@@ -33,6 +36,38 @@ import { fetchEventsSchema } from '@/validations/events/fetchEventsSchema';
 import { giveParticipantSkillSchema } from '@/validations/events/giveParticipantSkillSchema';
 import { participantAttendanceSchema } from '@/validations/events/participantAttendanceSchema';
 
+async function promoteFromEventWaitlist(
+  db: typeof drizzleDb,
+  eventId: number,
+  delta: number,
+) {
+  const firstOnWaitlist = await db.query.usersEvents.findMany({
+    where: and(
+      eq(usersEvents.eventId, eventId),
+      isNotNull(usersEvents.waitlistedAt),
+    ),
+    orderBy: asc(usersEvents.waitlistedAt),
+    limit: delta,
+  });
+
+  if (firstOnWaitlist.length === 0) {
+    return;
+  }
+
+  await db
+    .update(usersEvents)
+    .set({ waitlistedAt: null })
+    .where(
+      and(
+        eq(usersEvents.eventId, eventId),
+        inArray(
+          usersEvents.userId,
+          firstOnWaitlist.map((ue) => ue.userId),
+        ),
+      ),
+    );
+}
+
 const eventsRouter = createRouter({
   fetchEvent: publicProcedure
     .input((input) =>
@@ -45,6 +80,7 @@ const eventsRouter = createRouter({
           with: {
             localizations: true,
             skill: true,
+            usersEvents: true,
           },
         })
         .catch((error) => {
@@ -71,7 +107,15 @@ const eventsRouter = createRouter({
         });
       }
 
-      return event;
+      const { usersEvents, ...rest } = event;
+
+      return {
+        ...rest,
+        participantsCount: usersEvents.length,
+        participantsWaitlisted: usersEvents.filter(
+          (userEvent) => userEvent.waitlistedAt,
+        ).length,
+      };
     }),
   fetchEvents: publicProcedure
     .input((input) =>
@@ -196,17 +240,26 @@ const eventsRouter = createRouter({
         });
       }
 
-      const participants = event.usersEvents.map(async (userEvent) => ({
-        ...userEvent,
-        user: {
-          ...userEvent.user,
-          profilePictureUrl: userEvent.user.profilePictureId
-            ? await getFileUrl(userEvent.user.profilePictureId)
-            : null,
-        },
-      }));
+      const usersWithPictures = await Promise.all(
+        event.usersEvents.map(async (userEvent) => ({
+          ...userEvent,
+          user: {
+            ...userEvent.user,
+            profilePictureUrl: userEvent.user.profilePictureId
+              ? await getFileUrl(userEvent.user.profilePictureId)
+              : null,
+          },
+        })),
+      );
 
-      return Promise.all(participants);
+      return {
+        confirmed: usersWithPictures.filter(
+          (userEvent) => !userEvent.waitlistedAt,
+        ),
+        waitlisted: usersWithPictures.filter(
+          (userEvent) => userEvent.waitlistedAt,
+        ),
+      };
     }),
   createEvent: protectedEditProcedure
     .input((input) =>
@@ -240,6 +293,9 @@ const eventsRouter = createRouter({
           locationMapLink: input.locationMapLink,
           internal: input.internal,
           signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
+          maxParticipants: input.setMaxParticipants
+            ? input.maxParticipants
+            : null,
           imageId: imageId,
           skillId: skill?.id,
         })
@@ -280,12 +336,30 @@ const eventsRouter = createRouter({
     .mutation(async ({ ctx, input }) => {
       const event = await ctx.db.query.events.findFirst({
         where: eq(events.id, input.id),
+        with: {
+          usersEvents: true,
+        },
       });
 
       if (!event) {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const confirmedParticipantsCount = event.usersEvents.filter(
+        (userEvent) => !userEvent.waitlistedAt,
+      ).length;
+
+      if (
+        input.setMaxParticipants &&
+        confirmedParticipantsCount > input.maxParticipants
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('events.api.maxParticipantsTooLow'),
           cause: { toast: 'error' },
         });
       }
@@ -321,6 +395,9 @@ const eventsRouter = createRouter({
           locationMapLink: input.locationMapLink,
           internal: input.internal,
           signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
+          maxParticipants: input.setMaxParticipants
+            ? input.maxParticipants
+            : null,
           imageId: imageId,
           skillId: skill?.id,
         })
@@ -355,6 +432,15 @@ const eventsRouter = createRouter({
             eq(eventLocalizations.locale, 'nb-NO'),
           ),
         );
+
+      const maxParticipantsDelta = event.maxParticipants
+        ? input.maxParticipants - event.maxParticipants
+        : 0;
+
+      // Promote users from waitlist if maxParticipants increased
+      if (maxParticipantsDelta > 0) {
+        await promoteFromEventWaitlist(ctx.db, event.id, maxParticipantsDelta);
+      }
 
       return event;
     }),
@@ -408,7 +494,7 @@ const eventsRouter = createRouter({
 
       await deleteFile(event.imageId);
     }),
-  isSignedUpToEvent: authenticatedProcedure
+  fetchUserSignUp: authenticatedProcedure
     .input((input) =>
       fetchEventSchema(useTranslationsFromContext()).parse(input),
     )
@@ -416,7 +502,7 @@ const eventsRouter = createRouter({
       const { user } = await ctx.auth();
 
       if (!user) {
-        return false;
+        return null;
       }
 
       const participant = await ctx.db.query.usersEvents.findFirst({
@@ -426,7 +512,10 @@ const eventsRouter = createRouter({
         ),
       });
 
-      return !!participant;
+      return {
+        signedUp: !!participant,
+        waitlisted: !!participant?.waitlistedAt,
+      };
     }),
   toggleEventSignUp: authenticatedProcedure
     .input((input) =>
@@ -435,6 +524,9 @@ const eventsRouter = createRouter({
     .mutation(async ({ ctx, input }) => {
       const event = await ctx.db.query.events.findFirst({
         where: eq(events.id, input),
+        with: {
+          usersEvents: true,
+        },
       });
 
       if (!event) {
@@ -461,12 +553,18 @@ const eventsRouter = createRouter({
               eq(usersEvents.userId, ctx.user.id),
             ),
           );
+        await promoteFromEventWaitlist(ctx.db, event.id, 1);
         return false;
       }
+
+      const toBeWaitlisted =
+        event.maxParticipants &&
+        event.usersEvents.length >= event.maxParticipants;
 
       await ctx.db.insert(usersEvents).values({
         eventId: input,
         userId: ctx.user.id,
+        waitlistedAt: toBeWaitlisted ? new Date() : null,
       });
       return true;
     }),
