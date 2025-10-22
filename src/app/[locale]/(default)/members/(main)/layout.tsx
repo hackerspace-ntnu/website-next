@@ -23,7 +23,7 @@ export default async function MembersLayout({
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <MembersSearchBar
           placeholder={t('searchPlaceholder')}
-          t={{ name: tUi('name') }}
+          t={{ name: tUi('name'), page: tUi('page') }}
         />
       </div>
       {children}

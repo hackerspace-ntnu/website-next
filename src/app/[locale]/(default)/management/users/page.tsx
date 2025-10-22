@@ -80,7 +80,7 @@ export default async function UsersManagementPage({
         <h1 className='text-center'>{t('title')}</h1>
         <MembersSearchBar
           placeholder={t('searchUser')}
-          t={{ name: tUi('name') }}
+          t={{ name: tUi('name'), page: tUi('page') }}
           className='w-full'
         />
         <UserSearchTable users={users} />

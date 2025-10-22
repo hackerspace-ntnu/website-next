@@ -26,7 +26,11 @@ const publicProcedure = procedureWithContext.use(async ({ next, path }) => {
   const result = await next();
 
   const end = Date.now();
-  console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
+  const delta = end - start;
+
+  if (delta > 1000 || trpc._config.isDev) {
+    console.warn(`[TRPC] ${path} took ${delta}ms to execute`);
+  }
 
   return result;
 });

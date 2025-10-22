@@ -1,6 +1,7 @@
 import safeRegex from 'safe-regex';
 import { z } from 'zod';
 import type { Translations } from '@/lib/locale';
+import { pagesMatchToRegex } from '@/lib/utils/pagesMatch';
 
 function bannerSchema(t: Translations) {
   return z.object({
@@ -25,7 +26,7 @@ function bannerSchema(t: Translations) {
         /^(?!.*(\/\/|--|\*\*|,{2,}|\[{2,}|\]{2,})).+$/,
         t('management.banners.form.pagesMatch.doubleSymbolsInvalid'),
       )
-      .refine((val) => safeRegex(RegExp(val)), {
+      .refine((val) => safeRegex(pagesMatchToRegex(val)), {
         message: t('management.banners.form.pagesMatch.unsafeRegex'),
       }),
     className: z.string().regex(

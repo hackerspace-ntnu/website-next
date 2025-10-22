@@ -39,6 +39,7 @@ function DeleteApplicationButton({
       toast.success(t.success);
       await utils.applications.invalidate();
       router.push('/applications/view');
+      router.refresh();
     },
   });
 

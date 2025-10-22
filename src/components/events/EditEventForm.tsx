@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { addDays } from 'date-fns';
 import { enGB, nb } from 'date-fns/locale';
 import { ImageIcon, UploadIcon } from 'lucide-react';
@@ -100,8 +101,12 @@ function EditEventForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',
@@ -151,7 +156,7 @@ function EditEventForm({
           <div className='group relative h-64 w-64 rounded-lg'>
             <field.BaseField label={t('image.label')}>
               <Input
-                className='h-58 w-full cursor-pointer rounded-lg border-none'
+                className='h-58 w-full cursor-pointer rounded-lg border-none opacity-0'
                 type='file'
                 accept='image/jpeg,image/png,image/gif,image/webp'
                 onChange={async (e) => {

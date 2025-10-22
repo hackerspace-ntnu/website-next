@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { and, asc, eq, isNull, or, sql } from 'drizzle-orm';
 import safeRegex from 'safe-regex';
-import { pageMatchToRegex } from '@/lib/utils/pageMatch';
+import { pagesMatchToRegex } from '@/lib/utils/pagesMatch';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -71,7 +71,7 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const convertedRegex = pageMatchToRegex(input.pagesMatch);
+      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
       if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -115,7 +115,7 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const convertedRegex = pageMatchToRegex(input.pagesMatch);
+      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
       if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
         throw new TRPCError({
           code: 'BAD_REQUEST',

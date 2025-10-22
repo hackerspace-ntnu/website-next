@@ -204,7 +204,7 @@ function NumberField({
     >
       <Input
         type='number'
-        value={field.state.value}
+        value={field.state.value.toString()}
         onChange={(e) => field.handleChange(Number(e.target.value))}
         onBlur={field.handleBlur}
         {...props}

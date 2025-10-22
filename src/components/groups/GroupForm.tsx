@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { LeaderSelection } from '@/components/groups/LeaderSelection';
 import {
@@ -80,8 +80,12 @@ function GroupForm({
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',

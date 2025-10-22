@@ -1,8 +1,6 @@
-'use client';
-
 import { Minimize2Icon } from 'lucide-react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import {
   ResponsiveDialogClose,
   ResponsiveDialogContent,
@@ -23,8 +21,8 @@ type ExpandedToolCardProps = {
   children: React.ReactNode;
 };
 
-function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
-  const t = useTranslations('reservations');
+async function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
+  const t = await getTranslations('reservations');
 
   const footerButton = (() => {
     switch (tool.status) {
@@ -85,9 +83,8 @@ function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
               fill
               className='object-cover'
             />
-
             <ResponsiveDialogClose asChild>
-              <Button className='absolute top-2 right-2 z-10 size-11 rounded-full bg-stone-500 p-0 opacity-90 transition hover:scale-105'>
+              <Button className='absolute top-2 right-2 z-10 size-10 rounded-full bg-stone-500/70 p-0 transition hover:scale-105'>
                 <Minimize2Icon className='size-7 stroke-stone-300 transition hover:stroke-stone-200' />
               </Button>
             </ResponsiveDialogClose>

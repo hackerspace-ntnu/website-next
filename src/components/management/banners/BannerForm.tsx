@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import {
   Accordion,
@@ -28,7 +28,7 @@ import { api } from '@/lib/api/client';
 import { bannerPages } from '@/lib/constants';
 import { useRouter } from '@/lib/locale/navigation';
 import { cx } from '@/lib/utils';
-import { pageMatchToRegex } from '@/lib/utils/pageMatch';
+import { pagesMatchToRegex } from '@/lib/utils/pagesMatch';
 import type { RouterOutput } from '@/server/api';
 import { bannerSchema } from '@/validations/banners/bannerSchema';
 
@@ -56,8 +56,12 @@ function BannerForm({ banner }: BannerFormProps) {
   const createBanner = api.banners.createBanner.useMutation({
     onSuccess: async () => {
       toast.success(tApi('successCreate'));
-      await utils.banners.invalidate();
+      await Promise.all([
+        utils.banners.fetchAllBanners.invalidate(),
+        utils.banners.fetchBanners.invalidate(),
+      ]);
       router.push('/management/banners');
+      router.refresh();
     },
   });
 
@@ -66,6 +70,7 @@ function BannerForm({ banner }: BannerFormProps) {
       toast.success(tApi('successEdit'));
       await utils.banners.invalidate();
       router.push('/management/banners');
+      router.refresh();
     },
   });
 
@@ -74,13 +79,18 @@ function BannerForm({ banner }: BannerFormProps) {
       toast.success(tApi('successDelete'));
       await utils.banners.invalidate();
       router.push('/management/banners');
+      router.refresh();
     },
   });
 
   const form = useAppForm({
     validators: {
-      onChange: bannerSchema(translations),
+      onDynamic: bannerSchema(translations),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       contentNorwegian: norwegian?.content ?? '',
       contentEnglish: english?.content ?? '',
@@ -99,7 +109,7 @@ function BannerForm({ banner }: BannerFormProps) {
 
   const pagesRegex = useStore(form.store, (state) => {
     if (state.fieldMeta.pagesMatch?.errors?.length === 0) {
-      return pageMatchToRegex(state.values.pagesMatch);
+      return pagesMatchToRegex(state.values.pagesMatch);
     }
   });
 

@@ -23,17 +23,22 @@ function MemberAvatar({
     firstName: string;
     lastName: string;
   };
-  profilePictureUrl?: string;
+  profilePictureUrl?: string | null;
   className?: string;
   size?: VariantProps<typeof memberAvatarVariants>['size'];
 }) {
+  const { firstName, lastName } = user;
+
   return (
     <div className={cx(memberAvatarVariants({ size }), className)}>
       <Avatar className='h-full w-full'>
-        <AvatarImage src={profilePictureUrl} className='object-cover' />
+        <AvatarImage
+          src={profilePictureUrl ?? undefined}
+          className='object-cover'
+        />
         <AvatarFallback>
-          {user.firstName[0]?.toUpperCase()}
-          {user.lastName[0]?.toUpperCase()}
+          {firstName[0]?.toUpperCase()}
+          {lastName[0]?.toUpperCase()}
         </AvatarFallback>
       </Avatar>
     </div>

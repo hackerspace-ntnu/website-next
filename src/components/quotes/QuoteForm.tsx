@@ -1,8 +1,9 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { useAppForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
 import { toast } from '@/components/ui/Toaster';
@@ -40,16 +41,24 @@ function QuoteForm({
   const createQuote = api.quotes.createQuote.useMutation({
     onSuccess: async () => {
       toast.success(tNew('success'));
-      await utils.quotes.fetchQuotes.invalidate();
+      await Promise.all([
+        utils.quotes.fetchQuotes.invalidate(),
+        utils.quotes.totalQuotesAvailable.invalidate(),
+      ]);
       router.push('/quotes');
+      router.refresh();
     },
   });
 
   const updateQuote = api.quotes.updateQuote.useMutation({
     onSuccess: async () => {
       toast.success(tUpdate('success'));
-      await utils.quotes.invalidate();
+      await Promise.all([
+        utils.quotes.fetchQuote.invalidate(),
+        utils.quotes.fetchQuotes.invalidate(),
+      ]);
       router.push('/quotes');
+      router.refresh();
     },
   });
 
@@ -85,13 +94,11 @@ function QuoteForm({
     value: `${user.firstName} ${user.lastName}`,
     label: (
       <div className='flex items-center gap-2'>
-        <Avatar className='h-8 w-8'>
-          <AvatarImage src={user.profilePictureUrl ?? undefined} />
-          <AvatarFallback>
-            {user.firstName.charAt(0)}
-            {user.lastName.charAt(0)}
-          </AvatarFallback>
-        </Avatar>
+        <MemberAvatar
+          user={user}
+          profilePictureUrl={user.profilePictureUrl}
+          size='sm'
+        />
         <span>
           {user.firstName} {user.lastName}
         </span>
@@ -101,8 +108,12 @@ function QuoteForm({
 
   const form = useAppForm({
     validators: {
-      onChange: quoteSchema(useTranslations()),
+      onDynamic: quoteSchema(useTranslations()),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       username:
         (quote && `${quote.saidBy.firstName} ${quote.saidBy.lastName}`) ?? '',

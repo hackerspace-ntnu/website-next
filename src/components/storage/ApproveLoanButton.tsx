@@ -17,11 +17,14 @@ function ApproveLoanButton({
   successMessage: string;
 }) {
   const router = useRouter();
-  const apiUtils = api.useUtils();
-  const approveLoanMutation = api.storage.approveLoan.useMutation({
+  const utils = api.useUtils();
+  const approveLoan = api.storage.approveLoan.useMutation({
     onSuccess: async () => {
       toast.success(successMessage);
-      await apiUtils.storage.fetchLoans.invalidate();
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+      ]);
       router.refresh();
     },
   });
@@ -29,16 +32,16 @@ function ApproveLoanButton({
   return (
     <Button
       className='w-32'
-      disabled={approveLoanMutation.isPending}
-      onClick={async () => {
-        approveLoanMutation.mutateAsync({
+      disabled={approveLoan.isPending}
+      onClick={() => {
+        approveLoan.mutate({
           loanId: loan.id,
           itemId: loan.itemId,
           lenderId: loan.lenderId,
         });
       }}
     >
-      {approveLoanMutation.isPending ? <Spinner /> : label}
+      {approveLoan.isPending ? <Spinner /> : label}
     </Button>
   );
 }

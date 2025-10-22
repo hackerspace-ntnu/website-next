@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
@@ -22,15 +23,20 @@ function ApplyForm({
   const sendApplication = api.applications.sendApplication.useMutation({
     onSuccess: async () => {
       toast.success(t('applicationSubmitted'));
-      await utils.applications.invalidate();
+      await utils.applications.fetchApplications.invalidate();
       router.push('/applications/thank-you');
+      router.refresh();
     },
   });
 
   const form = useAppForm({
     validators: {
-      onChange: applicationSchema(useTranslations()),
+      onDynamic: applicationSchema(useTranslations()),
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       name: '',
       email: '',

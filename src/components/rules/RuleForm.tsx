@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
@@ -37,13 +37,18 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
       toast.success(tNew('ruleCreated'));
       await utils.rules.fetchRules.invalidate();
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
+      router.refresh();
     },
   });
   const editRule = api.rules.editRule.useMutation({
     onSuccess: async (id) => {
       toast.success(tUpdate('ruleUpdated'));
-      await utils.rules.invalidate();
+      await Promise.all([
+        utils.rules.fetchRule.invalidate(id),
+        utils.rules.fetchRules.invalidate(),
+      ]);
       router.push({ pathname: '/rules/[subsetId]', params: { subsetId: id } });
+      router.refresh();
     },
   });
   const deleteRuleImage = api.rules.deleteRuleImage.useMutation({
@@ -58,6 +63,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
       toast.success(tUpdate('ruleDeleted'));
       await utils.rules.invalidate();
       router.push('/rules');
+      router.refresh();
     },
   });
   const deleteFile = api.utils.deleteFile.useMutation();
@@ -67,8 +73,12 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',

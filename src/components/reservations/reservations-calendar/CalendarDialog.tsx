@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ConfirmDeleteButton } from '@/components/reservations/reservations-calendar/ConfirmDeleteButton';
@@ -17,6 +18,7 @@ import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
+import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { reservationFormSchema } from '@/validations/reservations';
 
@@ -68,12 +70,13 @@ function CalendarDialog({
   reservationId,
   range,
   notes,
-  windowRange,
   children,
 }: CalendarDialogProps) {
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const utils = api.useUtils();
+  const router = useRouter();
+
   const isMember = !!(user?.groups && user.groups.length > 0);
   const schema = reservationFormSchema(
     translations,
@@ -92,28 +95,51 @@ function CalendarDialog({
     onOpenChange?.(open);
   }
 
-  async function onMutationSuccess() {
-    await utils.reservations.fetchCalendarReservations.invalidate({
-      toolId,
-      from: windowRange.from,
-      until: windowRange.until,
-    });
-    handleOpenChange(false);
-  }
-
-  const createMutation = api.reservations.createReservation.useMutation({
-    onSuccess: onMutationSuccess,
+  const createReservation = api.reservations.createReservation.useMutation({
+    onSuccess: async () => {
+      toast.success(t('form.successCreate'));
+      await Promise.all([
+        utils.reservations.fetchCalendarReservations.invalidate({
+          toolId,
+        }),
+        utils.reservations.fetchUserReservations.invalidate(),
+      ]);
+      handleOpenChange(false);
+      router.refresh();
+    },
   });
-  const updateMutation = api.reservations.updateReservation.useMutation({
-    onSuccess: onMutationSuccess,
+  const updateReservation = api.reservations.updateReservation.useMutation({
+    onSuccess: async () => {
+      toast.success(t('form.successUpdate'));
+      await Promise.all([
+        utils.reservations.fetchCalendarReservations.invalidate({ toolId }),
+        utils.reservations.fetchOneReservation.invalidate(),
+        utils.reservations.fetchUserReservations.invalidate(),
+      ]);
+      handleOpenChange(false);
+      router.refresh();
+    },
   });
 
-  const deleteMutation = api.reservations.deleteReservation.useMutation({
-    onSuccess: onMutationSuccess,
+  const deleteReservation = api.reservations.deleteReservation.useMutation({
+    onSuccess: async () => {
+      toast.success(t('form.successDelete'));
+      await Promise.all([
+        utils.reservations.fetchCalendarReservations.invalidate({ toolId }),
+        utils.reservations.fetchOneReservation.invalidate(),
+        utils.reservations.fetchUserReservations.invalidate(),
+      ]);
+      handleOpenChange(false);
+      router.refresh();
+    },
   });
 
   const form = useAppForm({
-    validators: { onSubmit: schema },
+    validators: { onDynamic: schema },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       fromDate: range.start ?? null,
       untilDate: range.end ?? null,
@@ -164,25 +190,24 @@ function CalendarDialog({
       );
 
       if (mode === 'create') {
-        await createMutation.mutateAsync(
-          { toolId, reservedFrom, reservedUntil, notes, isMember },
-          { onSuccess: () => toast.success(t('form.successCreate')) },
-        );
+        createReservation.mutate({
+          toolId,
+          reservedFrom,
+          reservedUntil,
+          notes,
+          isMember,
+        });
       } else {
         if (!reservationId) return;
-        await updateMutation.mutateAsync(
-          {
-            reservationId,
-            toolId,
-            reservedFrom,
-            reservedUntil,
-            notes,
-            isMember,
-          },
-          { onSuccess: () => toast.success(t('form.successUpdate')) },
-        );
+        updateReservation.mutate({
+          reservationId,
+          toolId,
+          reservedFrom,
+          reservedUntil,
+          notes,
+          isMember,
+        });
       }
-      handleOpenChange(false);
     },
   });
 
@@ -212,9 +237,9 @@ function CalendarDialog({
 
         <form.AppForm>
           <form
-            onSubmit={async (e) => {
+            onSubmit={(e) => {
               e.preventDefault();
-              await form.handleSubmit();
+              form.handleSubmit();
             }}
           >
             <form.AppField name='fromDate'>
@@ -301,22 +326,19 @@ function CalendarDialog({
               <div className='flex items-center gap-2'>
                 {mode === 'edit' && reservationId != null && (
                   <ConfirmDeleteButton
-                    isLoading={deleteMutation.isPending}
-                    onConfirm={async () => {
-                      await deleteMutation.mutateAsync(
-                        { reservationId, toolId, userId: user.id },
-                        {
-                          onSuccess: () =>
-                            toast.success(t('form.successDelete')),
-                        },
-                      );
-                      handleOpenChange(false);
+                    isLoading={deleteReservation.isPending}
+                    onConfirm={() => {
+                      deleteReservation.mutate({
+                        reservationId,
+                        toolId,
+                        userId: user.id,
+                      });
                     }}
                   />
                 )}
                 <form.SubmitButton
                   allowPristine={mode === 'create'}
-                  loading={updateMutation.isPending}
+                  loading={updateReservation.isPending}
                   className='min-w-28'
                 >
                   {t('form.save')}
