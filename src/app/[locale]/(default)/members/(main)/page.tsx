@@ -57,16 +57,9 @@ export default async function MembersPage({
       {users.length > 0 && (
         <div className='relative mx-auto mt-12 grid w-fit grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4'>
           <Separator className='-top-6 -translate-x-1/2 absolute left-1/2 hidden w-full lg:block' />
-          {users
-            .filter(
-              (user) =>
-                !user.usersGroups.every(
-                  (userGroup) => userGroup.group.internal,
-                ),
-            )
-            .map((user) => (
-              <MemberCard key={user.id} user={user} />
-            ))}
+          {users.map((user) => (
+            <MemberCard key={user.id} user={user} />
+          ))}
         </div>
       )}
       {users.length === 0 && (

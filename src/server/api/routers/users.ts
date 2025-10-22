@@ -127,7 +127,7 @@ const usersRouter = createRouter({
 
       const { user } = await ctx.auth();
 
-      if (!user || user.groups.length <= 0) {
+      if (!user || user.groups.length <= 0 || !input.includeInternal) {
         where.push(
           exists(
             ctx.db
