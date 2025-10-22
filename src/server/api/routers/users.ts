@@ -81,6 +81,13 @@ const usersRouter = createRouter({
 
       const { user } = await ctx.auth();
 
+      if (!user || user.groups.length <= 0) {
+        // Do not show internal groups to users which aren't members
+        result.usersGroups = result.usersGroups.filter(
+          (userGroup) => !userGroup.group.internal,
+        );
+      }
+
       // Do not show the user if they're not a member and we're not admin/management
       // But we allow seeing our own profile
       if (
@@ -189,49 +196,22 @@ const usersRouter = createRouter({
           });
         });
 
-      console.log(
-        ctx.db.query.users
-          .findMany({
-            where: and(...where),
-            offset,
-            limit: input.limit,
-            columns: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              bio: true,
-              gitHubUsername: true,
-              discordUsername: true,
-              linkedInUsername: true,
-              instagramUsername: true,
-              private: true,
-              profilePictureId: true,
-              email: true,
-              memberSince: true,
-            },
-            with: {
-              usersGroups: {
-                with: {
-                  group: {
-                    with: {
-                      localizations: true,
-                    },
-                  },
-                },
-              },
-            },
-            orderBy: asc(users.firstName),
-          })
-          .toSQL(),
-      );
-
       return await Promise.all(
-        results.map(async (result) => ({
-          ...result,
-          profilePictureUrl: result?.profilePictureId
-            ? await getFileUrl(result.profilePictureId)
-            : null,
-        })),
+        results.map(async (result) => {
+          // Do not show internal groups to users which aren't members
+          if (!user || user.groups.length <= 0) {
+            result.usersGroups = result.usersGroups.filter(
+              (userGroup) => !userGroup.group.internal,
+            );
+          }
+
+          return {
+            ...result,
+            profilePictureUrl: result?.profilePictureId
+              ? await getFileUrl(result.profilePictureId)
+              : null,
+          };
+        }),
       );
     }),
   searchMembers: protectedProcedure
