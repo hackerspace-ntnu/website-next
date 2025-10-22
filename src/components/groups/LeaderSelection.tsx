@@ -72,13 +72,10 @@ const LeaderSelection = withForm({
       leader: '',
       deputy: '',
     });
-    const debouncedSetName = useDebounceCallback(setSearch, 500);
-    const [chosenLeader, setChosenLeader] = useState<BasicUserInfo>(
-      leader ?? null,
-    );
-    const [chosenDeputy, setChosenDeputy] = useState<BasicUserInfo>(
-      deputyLeader ?? null,
-    );
+    const debouncedSetSearch = useDebounceCallback(setSearch, 500);
+    const [chosenLeader, setChosenLeader] = useState<BasicUserInfo>(leader);
+    const [chosenDeputy, setChosenDeputy] =
+      useState<BasicUserInfo>(deputyLeader);
 
     const leaderSearch = api.users.searchMembers.useQuery({
       name: search.leader,
@@ -90,6 +87,8 @@ const LeaderSelection = withForm({
       limit: 5,
     });
 
+    // The chosen value must always be in the list of choices
+    // Otherwise, it won't be displayed as selected
     if (
       chosenLeader &&
       !leaderSearch.data?.some(
@@ -135,21 +134,16 @@ const LeaderSelection = withForm({
               choices={leaderChoices}
               buttonClassName='w-64'
               contentClassName='w-64'
-              initialValue={
-                chosenLeader
-                  ? `${chosenLeader.firstName} ${chosenLeader.lastName}`
-                  : ''
-              }
+              initialValue={chosenLeader ? chosenLeader.id.toString() : null}
               valueCallback={(value) =>
                 setChosenLeader(
                   leaderSearch.data?.find(
-                    (member) =>
-                      `${member.firstName} ${member.lastName}` === value,
+                    (member) => member.id.toString() === value,
                   ) ?? null,
                 )
               }
               searchCallback={(value) =>
-                debouncedSetName({ ...search, leader: value })
+                debouncedSetSearch({ ...search, leader: value })
               }
               emptyMessage={
                 leaderSearch.isLoading ? (
@@ -171,21 +165,16 @@ const LeaderSelection = withForm({
               choices={deputyChoices}
               buttonClassName='w-64'
               contentClassName='w-64'
-              initialValue={
-                chosenDeputy
-                  ? `${chosenDeputy.firstName} ${chosenDeputy.lastName}`
-                  : ''
-              }
+              initialValue={chosenDeputy ? chosenDeputy.id.toString() : null}
               valueCallback={(value) =>
                 setChosenDeputy(
                   deputySearch.data?.find(
-                    (member) =>
-                      `${member.firstName} ${member.lastName}` === value,
+                    (member) => member.id.toString() === value,
                   ) ?? null,
                 )
               }
               searchCallback={(value) =>
-                debouncedSetName({ ...search, deputy: value })
+                debouncedSetSearch({ ...search, deputy: value })
               }
               emptyMessage={
                 deputySearch.isLoading ? (
