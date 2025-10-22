@@ -73,7 +73,7 @@ function ProfilePictureForm({
                       <Input
                         className='peer h-24 w-24 cursor-pointer rounded-full opacity-0'
                         type='file'
-                        accept='image/jpeg,image/png'
+                        accept='image/jpeg,image/png,image/webp'
                         onChange={async (e) => {
                           const file = e.target.files?.[0];
                           if (file) {

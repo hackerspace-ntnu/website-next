@@ -16,16 +16,6 @@ function editEventSchema(t: Translations) {
       (data) =>
         !data.setSignUpDeadline ||
         !data.signUpDeadline ||
-        data.signUpDeadline > new Date(),
-      {
-        message: t('events.form.signUpDeadline.timeInPast'),
-        path: ['signUpDeadline'],
-      },
-    )
-    .refine(
-      (data) =>
-        !data.setSignUpDeadline ||
-        !data.signUpDeadline ||
         data.signUpDeadline < data.startTime,
       {
         message: t('events.form.signUpDeadline.beforeStartTime'),
