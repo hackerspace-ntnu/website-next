@@ -86,7 +86,7 @@ export default async function StorageLayout({
       <div className='my-4 flex flex-col justify-center gap-2 lg:flex-row'>
         <StorageSearchBar
           placeholder={t('searchPlaceholder')}
-          t={{ name: t('searchParams.name') }}
+          t={{ name: t('searchParams.name'), page: tUi('page') }}
         />
         <Suspense fallback={<SelectorsSkeleton />}>
           <SortSelector
