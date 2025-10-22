@@ -20,9 +20,11 @@ import type { RouterOutput } from '@/server/api';
 function GroupManagementTableRow({
   group,
   user,
+  isOwnProfile,
 }: {
   group: RouterOutput['groups']['fetchGroups'][number];
   user: NonNullable<RouterOutput['users']['fetchMember']>;
+  isOwnProfile: boolean;
 }) {
   const t = useTranslations('members.groupManagement');
   const locale = useLocale();
@@ -119,7 +121,12 @@ function GroupManagementTableRow({
       </TableCell>
       <TableCell className='flex flex-col gap-2 md:flex-row'>
         {shouldWarn ? (
-          <RemoveGroupDialog user={user} group={group} onConfirm={handleChange}>
+          <RemoveGroupDialog
+            user={user}
+            group={group}
+            isOwnProfile={isOwnProfile}
+            onConfirm={handleChange}
+          >
             {button}
           </RemoveGroupDialog>
         ) : (
@@ -133,9 +140,11 @@ function GroupManagementTableRow({
 function GroupManagementTable({
   user,
   groups,
+  isOwnProfile,
 }: {
   user: NonNullable<RouterOutput['users']['fetchMember']>;
   groups: RouterOutput['groups']['fetchGroups'];
+  isOwnProfile: boolean;
 }) {
   const t = useTranslations('members.groupManagement');
 
@@ -149,7 +158,12 @@ function GroupManagementTable({
       </TableHeader>
       <TableBody>
         {groups.map((group) => (
-          <GroupManagementTableRow key={group.id} group={group} user={user} />
+          <GroupManagementTableRow
+            key={group.id}
+            group={group}
+            user={user}
+            isOwnProfile={isOwnProfile}
+          />
         ))}
       </TableBody>
     </Table>

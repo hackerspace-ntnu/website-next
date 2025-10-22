@@ -452,8 +452,10 @@
       "removingFromGroupFailed": "Kunne ikke fjerne bruker fra gruppe",
       "userAddedToGroup": "Bruker lagt til gruppe",
       "userRemovedFromGroup": "Bruker fjernet fra gruppe",
+      "yourself": "deg selv",
       "confirmTitle": "Er du sikker på at du vil fjerne {user} fra {group}?",
-      "confirmDescription": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden. Denne handlingen kan ikke angres hvis du redigerer din egen profil."
+      "confirmDescription": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden.",
+      "confirmDescriptionIrreversible": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden. Siden du redigerer din egen profil, så vil du ikke kunne angre denne handlingen."
     },
     "api": {
       "invalidOffset": "Ugyldig offset",

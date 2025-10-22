@@ -15,15 +15,17 @@ import { Button } from '@/components/ui/Button';
 import type { RouterOutput } from '@/server/api';
 
 function RemoveGroupDialog({
-  children,
   user,
   group,
+  isOwnProfile,
   onConfirm,
+  children,
 }: {
-  children: React.ReactNode;
   user: NonNullable<RouterOutput['users']['fetchMember']>;
   group: RouterOutput['groups']['fetchGroups'][number];
+  isOwnProfile: boolean;
   onConfirm: () => void;
+  children: React.ReactNode;
 }) {
   const t = useTranslations('members.groupManagement');
   const tUi = useTranslations('ui');
@@ -41,12 +43,16 @@ function RemoveGroupDialog({
         <ResponsiveDialogHeader>
           <ResponsiveDialogTitle>
             {t('confirmTitle', {
-              user: `${user.firstName} ${user.lastName}`,
+              user: !isOwnProfile
+                ? `${user.firstName} ${user.lastName}`
+                : t('yourself'),
               group: groupLocalization?.name,
             })}
           </ResponsiveDialogTitle>
           <ResponsiveDialogDescription>
-            {t('confirmDescription')}
+            {isOwnProfile
+              ? t('confirmDescriptionIrreversible')
+              : t('confirmDescription')}
           </ResponsiveDialogDescription>
         </ResponsiveDialogHeader>
         <ResponsiveDialogFooter>
