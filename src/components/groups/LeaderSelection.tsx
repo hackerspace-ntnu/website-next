@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import type { Value } from 'platejs';
 import { useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { withForm } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
@@ -25,13 +25,11 @@ function createChoiceLabel(
 ) {
   return (
     <div className='flex items-center gap-2'>
-      <Avatar className='h-8 w-8'>
-        <AvatarImage src={user.profilePictureUrl ?? undefined} />
-        <AvatarFallback>
-          {user.firstName.charAt(0)}
-          {user.lastName.charAt(0)}
-        </AvatarFallback>
-      </Avatar>
+      <MemberAvatar
+        user={user}
+        profilePictureUrl={user.profilePictureUrl}
+        size='sm'
+      />
       <span>
         {user.firstName} {user.lastName}
       </span>
