@@ -8,7 +8,7 @@ function newsArticleSchema(t: Translations) {
     image: fileUploadZodString({
       allowedMediaType: 'image',
       allowedFileTypes: ['jpeg', 'png'],
-      maxFileSize: 5,
+      maxFileSize: 50,
       sizeLimitError: t('news.form.image.sizeLimitError', { size: 50 }),
       wrongFileTypeError: t('news.form.image.wrongFileTypeError'),
       fileNotImageError: t('news.form.image.fileNotImageError'),
