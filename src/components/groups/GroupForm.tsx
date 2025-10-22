@@ -2,6 +2,7 @@
 
 import { useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
+import { LeaderSelection } from '@/components/groups/LeaderSelection';
 import {
   AlertDialog,
   AlertDialogActionDestructive,
@@ -25,8 +26,12 @@ import { groupSchema } from '@/validations/groups/groupSchema';
 
 function GroupForm({
   group,
+  leader,
+  deputyLeader,
 }: {
   group?: RouterOutput['groups']['fetchGroup'];
+  leader?: RouterOutput['users']['searchMembers'][number];
+  deputyLeader?: RouterOutput['users']['searchMembers'][number];
 }) {
   const t = useTranslations('groups.form');
   const tNew = useTranslations('groups.new');
@@ -34,6 +39,7 @@ function GroupForm({
   const tUi = useTranslations('ui');
   const formSchema = groupSchema(useTranslations());
   const router = useRouter();
+
   const newGroup = api.groups.newGroup.useMutation({
     onSuccess: (id) => {
       toast.success(tNew('groupCreated'));
@@ -84,6 +90,8 @@ function GroupForm({
       summaryEnglish: english?.summary ?? '',
       descriptionNorwegian: norwegian?.description ?? [],
       descriptionEnglish: english?.description ?? [],
+      leaderId: group?.leaderId?.toString() ?? null,
+      deputyLeaderId: group?.deputyLeaderId?.toString() ?? null,
       identifier: group?.identifier ?? '',
       internal: group?.internal ?? false,
       openForApplications: group?.openForApplications ?? false,
@@ -212,6 +220,11 @@ function GroupForm({
             <field.EditorField label={t('description.labelEnglish')} />
           )}
         </form.AppField>
+        <LeaderSelection
+          form={form}
+          leader={leader ?? null}
+          deputyLeader={deputyLeader ?? null}
+        />
         <form.AppField name='identifier'>
           {(field) => (
             <field.TextField

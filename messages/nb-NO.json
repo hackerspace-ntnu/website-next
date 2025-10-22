@@ -631,6 +631,16 @@
         "labelEnglish": "Beskrivelse (engelsk)",
         "required": "Gruppebeskrivelse er påkrevd"
       },
+      "leader": {
+        "label": "Leder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en leder"
+      },
+      "deputyLeader": {
+        "label": "Nestleder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en nestleder"
+      },
       "identifier": {
         "label": "Gruppe-identifikator",
         "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
@@ -646,7 +656,9 @@
       "openForApplications": {
         "label": "Åpen for søknader",
         "description": "Hvis valgt, vil alle kunne sende en søknad om å bli med i denne gruppen."
-      }
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",

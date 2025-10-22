@@ -38,6 +38,8 @@ const groupsRouter = createRouter({
           where,
           with: {
             localizations: true,
+            leader: true,
+            deputyLeader: true,
             usersGroups: {
               with: {
                 user: true,
