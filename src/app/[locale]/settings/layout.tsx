@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, HomeIcon } from 'lucide-react';
+import { ArrowLeftIcon } from 'lucide-react';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
