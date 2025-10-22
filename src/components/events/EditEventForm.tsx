@@ -153,7 +153,7 @@ function EditEventForm({
               <Input
                 className='h-58 w-full cursor-pointer rounded-lg border-none'
                 type='file'
-                accept='image/jpeg,image/png'
+                accept='image/jpeg,image/png,image/gif,image/webp'
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (file) {

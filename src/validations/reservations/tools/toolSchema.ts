@@ -7,7 +7,7 @@ function toolSchema(t: Translations) {
   return z.object({
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png'],
+      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
       maxFileSize: 50,
       sizeLimitError: t('reservations.tools.form.image.sizeLimitError', {
         size: 50,

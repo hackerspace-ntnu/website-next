@@ -120,6 +120,8 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
               accept={{
                 'image/jpeg': ['.jpeg', '.jpg'],
                 'image/png': ['.png'],
+                'image/gif': ['.gif'],
+                'image/webp': ['.webp'],
               }}
               validator={(value) => formSchema.shape.image.safeParse(value)}
             />
