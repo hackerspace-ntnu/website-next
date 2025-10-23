@@ -516,23 +516,50 @@ const storageRouter = createRouter({
       cartItemsSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ input, ctx }) => {
-      const loans = await ctx.db.query.itemLoans.findMany({
+      const items = await ctx.db.query.storageItems.findMany({
         where: and(
           inArray(
-            itemLoans.itemId,
+            storageItems.id,
             input.map((i) => i.id),
           ),
-          isNull(itemLoans.returnedAt),
         ),
+        with: {
+          itemLoans: {
+            where: isNull(itemLoans.returnedAt),
+          },
+        },
       });
 
       const disabledDays: Matcher[] = [];
 
-      for (const loan of loans) {
-        disabledDays.push({
-          from: loan.borrowFrom,
-          to: loan.borrowUntil,
-        });
+      for (const item of items) {
+        const loanTimeline = item.itemLoans.flatMap((loan) => [
+          {
+            date: loan.borrowFrom,
+            amount: loan.unitsBorrowed,
+          },
+          {
+            date: loan.borrowUntil,
+            amount: -loan.unitsBorrowed,
+          },
+        ]);
+
+        loanTimeline.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+        let unitsLoaned = 0;
+        let previousDate: Date | null = null;
+
+        for (const loanEvent of loanTimeline) {
+          if (previousDate && unitsLoaned >= item.quantity) {
+            disabledDays.push({
+              from: previousDate,
+              to: loanEvent.date,
+            });
+          }
+
+          unitsLoaned += loanEvent.amount;
+          previousDate = loanEvent.date;
+        }
       }
 
       if (disabledDays.length === 0) {
