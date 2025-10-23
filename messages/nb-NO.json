@@ -500,6 +500,11 @@
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"
+      },
+      "foodPreferences": {
+        "label": "Matpreferanser",
+        "description": "Allergier, matpreferanser eller annen relevant informasjon. Vises kun til arrangementsansvarlige.",
+        "maxLength": "Matpreferanser må være mindre enn {count} tegn"
       }
     },
     "account": {
@@ -1009,6 +1014,7 @@
       "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
       "member": "Medlem",
+      "foodPreferences": "Matpreferanser",
       "actions": "Handlinger",
       "present": "Til stede",
       "absent": "Fraværende",

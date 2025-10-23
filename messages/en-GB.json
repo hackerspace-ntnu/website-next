@@ -500,6 +500,11 @@
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"
+      },
+      "foodPreferences": {
+        "label": "Food preferences",
+        "description": "Allergies, food preferences, or other relevant information. Shown only to event organizers.",
+        "maxLength": "Food preferences must be less than {count} characters"
       }
     },
     "account": {
@@ -1009,6 +1014,7 @@
       "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
       "member": "Member",
+      "foodPreferences": "Food preferences",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",

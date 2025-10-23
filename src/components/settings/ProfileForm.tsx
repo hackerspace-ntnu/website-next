@@ -11,9 +11,15 @@ type ProfileFormProps = {
   firstName: string;
   lastName: string;
   birthDate: Date | null;
+  foodPreferences: string | null;
 };
 
-function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
+function ProfileForm({
+  firstName,
+  lastName,
+  birthDate,
+  foodPreferences,
+}: ProfileFormProps) {
   const t = useTranslations('settings.profile');
   const formSchema = profileSchema(useTranslations());
 
@@ -35,6 +41,7 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
       firstName,
       lastName,
       birthDate,
+      foodPreferences: foodPreferences ?? '',
     },
     onSubmit: ({ value }) => {
       updateProfileSettingsMutation.mutate(value);
@@ -76,6 +83,15 @@ function ProfileForm({ firstName, lastName, birthDate }: ProfileFormProps) {
               captionLayout='dropdown'
               avoidCollisions={false}
               defaultMonth={birthDate ?? new Date()}
+            />
+          )}
+        </form.AppField>
+        <form.AppField name='foodPreferences'>
+          {(field) => (
+            <field.TextField
+              label={t('foodPreferences.label')}
+              description={t('foodPreferences.description')}
+              placeholder={foodPreferences ?? ''}
             />
           )}
         </form.AppField>

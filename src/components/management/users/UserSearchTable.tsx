@@ -59,7 +59,6 @@ async function UserSearchTable({
                     user={user}
                     profilePictureUrl={user.profilePictureUrl}
                     size='md'
-                    className='shrink-0'
                   />
                   <span>{`${user.firstName} ${user.lastName}`}</span>
                 </Link>

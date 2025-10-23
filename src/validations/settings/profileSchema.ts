@@ -42,6 +42,12 @@ function profileSchema(t: Translations) {
         t('settings.profile.birthDate.maxAge', { age: 120 }),
       )
       .nullable(),
+    foodPreferences: z
+      .string()
+      .max(
+        128,
+        t('settings.profile.foodPreferences.maxLength', { count: 128 }),
+      ),
   });
 }
 

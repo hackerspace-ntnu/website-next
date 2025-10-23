@@ -54,6 +54,7 @@ export default async function ProfilePage({
         firstName={user.firstName}
         lastName={user.lastName}
         birthDate={user.birthDate}
+        foodPreferences={user.foodPreferences}
       />
     </>
   );
