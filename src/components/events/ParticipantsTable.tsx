@@ -29,9 +29,10 @@ function ParticipantsTable({
       <TableCaption>{t('attendeesList')}</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-full'>{t('member')}</TableHead>
-          <TableHead className='text-center'>{t('attended')}</TableHead>
-          <TableHead className='min-w-40 text-center'>{t('actions')}</TableHead>
+          <TableHead className='min-w-64'>{t('member')}</TableHead>
+          <TableHead className='min-w-64'>{t('foodPreferences')}</TableHead>
+          <TableHead className='min-w-24'>{t('attended')}</TableHead>
+          <TableHead className='min-w-40'>{t('actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -43,12 +44,14 @@ function ParticipantsTable({
                   user={participant.user}
                   profilePictureUrl={participant.user.profilePictureUrl}
                   size='md'
+                  className='shrink-0'
                 />
                 <span>
                   {participant.user.firstName} {participant.user.lastName}
                 </span>
               </div>
             </TableCell>
+            <TableCell>{participant.user.foodPreferences}</TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
               <div className='flex items-center gap-2'>
                 <AttendanceCheckbox participant={participant} event={event} />
@@ -63,7 +66,7 @@ function ParticipantsTable({
         ))}
         {participants.length === 0 && (
           <TableRow>
-            <TableCell colSpan={3} className='text-center'>
+            <TableCell colSpan={4} className='text-center'>
               {t('noParticipants')}
             </TableCell>
           </TableRow>
