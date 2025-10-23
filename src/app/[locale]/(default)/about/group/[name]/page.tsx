@@ -65,9 +65,16 @@ export default async function GroupPage({
     }
     return row.user;
   });
-  const members = (await Promise.all(memberPromises)) as (SelectUser & {
+
+  let members = (await Promise.all(memberPromises)) as (SelectUser & {
     profilePictureUrl?: string;
   })[];
+
+  members = members.sort((a, b) => {
+    if (a.id === group.leaderId || a.id === group.deputyLeaderId) return -1;
+    if (b.id === group.leaderId || b.id === group.deputyLeaderId) return 1;
+    return 0;
+  });
 
   const { user } = await api.auth.state();
 
@@ -155,6 +162,12 @@ export default async function GroupPage({
                 <p className='mt-2 duration-200 group-hover:text-primary'>
                   {member.firstName} {member.lastName}
                 </p>
+                {member.id === group.leaderId && (
+                  <Badge className='rounded-full'>{t('leader')}</Badge>
+                )}
+                {member.id === group.deputyLeaderId && (
+                  <Badge className='rounded-full'>{t('deputyLeader')}</Badge>
+                )}
               </Link>
             );
           })}

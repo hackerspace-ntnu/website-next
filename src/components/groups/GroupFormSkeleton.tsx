@@ -26,6 +26,16 @@ async function GroupFormSkeleton() {
       <Skeleton className='h-100 w-full rounded-md' />
       <Label>{t('description.labelEnglish')}</Label>
       <Skeleton className='h-100 w-full rounded-md' />
+      <div className='flex flex-col gap-8 md:flex-row'>
+        <div>
+          <Label>{t('leader.label')}</Label>
+          <Skeleton className='h-10 w-64 rounded-md' />
+        </div>
+        <div>
+          <Label>{t('deputyLeader.label')}</Label>
+          <Skeleton className='h-10 w-64 rounded-md' />
+        </div>
+      </div>
       <div>
         <Label>{t('identifier.label')}</Label>
         <p className='mb-2 text-muted-foreground text-sm'>

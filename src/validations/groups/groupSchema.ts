@@ -32,6 +32,8 @@ function groupSchema(t: Translations) {
       .max(255, t('groups.form.summary.maxLength', { count: 255 })),
     descriptionNorwegian: plateValueSchema,
     descriptionEnglish: plateValueSchema,
+    leaderId: z.string().nullable(),
+    deputyLeaderId: z.string().nullable(),
     identifier: z
       .string()
       .min(1, t('groups.form.identifier.required'))

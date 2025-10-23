@@ -79,6 +79,8 @@ function QuoteForm({
 
   const allUsers = users.data ?? [];
 
+  // The chosen value must always be in the list of choices
+  // Otherwise, it won't be displayed as selected
   if (
     chosenUser &&
     !allUsers.some(

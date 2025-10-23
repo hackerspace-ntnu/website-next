@@ -38,6 +38,8 @@ const groupsRouter = createRouter({
           where,
           with: {
             localizations: true,
+            leader: true,
+            deputyLeader: true,
             usersGroups: {
               with: {
                 user: true,
@@ -56,15 +58,22 @@ const groupsRouter = createRouter({
 
       if (!group) return null;
 
+      const groupData = {
+        ...group,
+        usersGroups: group.usersGroups.sort((a, b) =>
+          a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
+        ),
+      };
+
       if (group.imageId) {
         return {
-          ...group,
+          ...groupData,
           imageUrl: await getFileUrl(group.imageId),
         };
       }
 
       return {
-        ...group,
+        ...groupData,
         imageUrl: null,
       };
     }),
@@ -185,8 +194,12 @@ const groupsRouter = createRouter({
         .values({
           identifier: input.identifier,
           imageId,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .returning({ id: groups.id });
 
@@ -253,8 +266,12 @@ const groupsRouter = createRouter({
         .set({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 

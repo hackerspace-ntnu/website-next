@@ -21,6 +21,12 @@ const groups = pgTable('groups', {
     onDelete: 'set null',
   }),
   openForApplications: boolean('open_for_applications').default(false),
+  leaderId: integer('leader_id').references(() => users.id, {
+    onDelete: 'set null',
+  }),
+  deputyLeaderId: integer('deputy_leader_id').references(() => users.id, {
+    onDelete: 'set null',
+  }),
   internal: boolean('internal').default(false),
 });
 
@@ -73,6 +79,14 @@ const groupsRelations = relations(groups, ({ one, many }) => ({
   image: one(files, {
     fields: [groups.imageId],
     references: [files.id],
+  }),
+  leader: one(users, {
+    fields: [groups.leaderId],
+    references: [users.id],
+  }),
+  deputyLeader: one(users, {
+    fields: [groups.deputyLeaderId],
+    references: [users.id],
   }),
 }));
 

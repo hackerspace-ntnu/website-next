@@ -53,6 +53,13 @@ export default async function EditGroupPage({
 
   const { about, groups, ui, error } = await getMessages();
 
+  const leader = group.leaderId
+    ? await api.users.fetchMember({ id: group.leaderId })
+    : undefined;
+  const deputyLeader = group.deputyLeaderId
+    ? await api.users.fetchMember({ id: group.deputyLeaderId })
+    : undefined;
+
   return (
     <>
       <div className='relative flex w-full justify-center'>
@@ -76,7 +83,27 @@ export default async function EditGroupPage({
         }
       >
         <div className='mx-auto lg:max-w-2xl'>
-          <GroupForm group={group} />
+          <GroupForm
+            group={group}
+            leader={
+              leader && {
+                id: leader.id as number,
+                firstName: leader.firstName as string,
+                lastName: leader.lastName as string,
+                profilePictureId: leader.profilePictureId as number,
+                profilePictureUrl: leader.profilePictureUrl,
+              }
+            }
+            deputyLeader={
+              deputyLeader && {
+                id: deputyLeader.id as number,
+                firstName: deputyLeader.firstName as string,
+                lastName: deputyLeader.lastName as string,
+                profilePictureId: deputyLeader.profilePictureId as number,
+                profilePictureUrl: deputyLeader.profilePictureUrl,
+              }
+            }
+          />
         </div>
       </NextIntlClientProvider>
     </>
