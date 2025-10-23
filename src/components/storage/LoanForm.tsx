@@ -1,7 +1,13 @@
 'use client';
 
 import { revalidateLogic } from '@tanstack/react-form';
-import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
+import {
+  addDays,
+  addWeeks,
+  differenceInDays,
+  endOfWeek,
+  startOfToday,
+} from 'date-fns';
 import { useTranslations } from 'next-intl';
 import type { DateRange, Matcher } from 'react-day-picker';
 import type { CartItem } from '@/components/storage/types';
@@ -50,8 +56,8 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
     defaultValues: {
       dates: (!disabledDays
         ? {
-            from: new Date(),
-            to: addDays(new Date(), 7),
+            from: startOfToday(),
+            to: addDays(startOfToday(), 7),
           }
         : {}) as DateRange,
       autoapprove: userIsMember,
