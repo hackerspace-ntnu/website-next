@@ -14,8 +14,8 @@ const reservations = pgTable('tool_reservations', {
   userId: integer('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  reservedFrom: timestamp('reservered_from').notNull(),
-  reservedUntil: timestamp('reserved_till').notNull(),
+  reservedFrom: timestamp('reserved_from').notNull(),
+  reservedUntil: timestamp('reserved_until').notNull(),
   notes: text('notes'),
   reservedAt: timestamp('reserved_at').notNull().defaultNow(),
 });

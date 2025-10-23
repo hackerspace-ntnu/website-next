@@ -127,6 +127,13 @@
       "when": 1760467396248,
       "tag": "0017_worthless_speed_demon",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1761219870381,
+      "tag": "0018_talented_iron_lad",
+      "breakpoints": true
     }
   ]
 }
