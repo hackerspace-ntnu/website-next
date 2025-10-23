@@ -124,7 +124,7 @@ const LeaderSelection = withForm({
       })) ?? [];
 
     return (
-      <>
+      <div className='flex flex-col gap-8 md:flex-row'>
         <form.AppField name='leaderId'>
           {(field) => (
             <field.ComboboxField
@@ -187,7 +187,7 @@ const LeaderSelection = withForm({
             />
           )}
         </form.AppField>
-      </>
+      </div>
     );
   },
 });
