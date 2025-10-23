@@ -46,7 +46,7 @@ function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
   );
 
   const disabledDays = api.storage.calculateDisabledDays.useQuery(cart ?? [], {
-    enabled: loanInAdvance && !!cart,
+    enabled: isLoggedIn && itemsInCart.data && loanInAdvance && !!cart,
   });
 
   return (

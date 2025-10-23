@@ -97,7 +97,7 @@ const storageRouter = createRouter({
           ?.localization,
         norwegian: rawSelect.find((s) => s.localization.locale === 'nb-NO')
           ?.localization,
-        availableUnits: item.quantity - unitsBorrowed,
+        availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
       };
     }),
   fetchMany: publicProcedure
@@ -147,7 +147,7 @@ const storageRouter = createRouter({
           items.push({
             ...itemWithoutLoans,
             ...localizationOnly,
-            availableUnits: item.quantity - unitsBorrowed,
+            availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
           });
         }
 
@@ -216,7 +216,7 @@ const storageRouter = createRouter({
         items.push({
           ...item,
           ...localization,
-          availableUnits: item.quantity - unitsBorrowed,
+          availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
         });
       }
 
@@ -560,15 +560,48 @@ const storageRouter = createRouter({
         });
       }
 
+      const loans = await ctx.db.query.itemLoans.findMany({
+        where: and(
+          inArray(
+            itemLoans.itemId,
+            itemsToBorrow.map((i) => i.id),
+          ),
+          isNull(itemLoans.returnedAt),
+          lt(itemLoans.borrowFrom, new Date()),
+        ),
+      });
+
+      const itemsWithLoans = itemsToBorrow.map((item) => {
+        const itemLoans = loans.filter((loan) => loan.itemId === item.id);
+        const unitsBorrowed = itemLoans
+          .map((loan) => loan.unitsBorrowed)
+          .reduce((a, b) => a + b, 0);
+        return {
+          ...item,
+          availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
+        };
+      });
+
       // Map the items so that the ids are keys and values are storage items
       const items = Object.fromEntries(
-        itemIds.map((id) => [id, itemsToBorrow.find((i) => i.id === id)]),
+        itemIds.map((id) => [id, itemsWithLoans.find((i) => i.id === id)]),
       );
 
       if (input.some((i) => i.amount > (items[i.id]?.quantity as number))) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('storage.api.borrowingMoreThanQuantity'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (
+        ctx.user.groups.length <= 0 &&
+        input.some((i) => (items[i.id]?.availableUnits as number) <= 0)
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.unauthorizedBorrowInAdvance'),
           cause: { toast: 'error' },
         });
       }

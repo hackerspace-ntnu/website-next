@@ -833,6 +833,7 @@
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
       "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "unauthorizedBorrowInAdvance": "At least one of the items you're trying to borrow is not available right now. Only Hackerspace members can borrow items in advance.",
       "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
       "borrowPositiveAmount": "Must borrow a positive amount.",
       "limitNotInRange": "limit must be between 1 and 50."

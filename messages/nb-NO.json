@@ -344,7 +344,7 @@
     "whoAreWeDescription": "Hackerspace NTNU er et studentdrevet prosjekt fra IDI og er åpent for alle studenter uavhengig av studieretning. Hos oss finner du ny teknologi til din disposisjon, blant annet 3D-printere og Virtual Reality-utstyr. Enten du ønsker å få en LED-lampe til å blinke eller lage en 3D-modell av Trondheim, kan medlemmene i Hackerspace tilby variert og god kompetanse og hjelpe deg med det, uavhengig av ditt medlemsskap i Hackerspace.",
     "whoAreWeAlt": "Bilde av medlemmene våre som går med Hackerspace-hettegensere",
     "stopBy": "Kom innom!",
-    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkuratt nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
+    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkurat nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
     "stopByAlt": "Bilde av verkstedet vårt",
     "events": "Arrangementer",
     "eventsDescription": "Meld deg på noen av våre oppkommende arrangementer for å lære deg nye ferdigheter eller bli med på noe sosialt.",
@@ -833,6 +833,7 @@
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
       "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "unauthorizedBorrowInAdvance": "Minst en av gjenstandene du prøver å låne er ikke tilgjengelig akkurat nå. Kun Hackerspace-medlemmer kan låne gjenstander på forhånd.",
       "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
       "borrowPositiveAmount": "Må låne et positivt antall.",
       "limitNotInRange": "limit må være mellom 1 og 50."
