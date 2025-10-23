@@ -22,6 +22,7 @@ type BorrowDialogProps = {
     loanInAdvanceDescription: string;
     loanPeriod: string;
     loanPeriodDescription: string;
+    notes: string;
     autoapprove: string;
     autoapproveDescription: string;
     submit: string;

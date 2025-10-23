@@ -26,6 +26,7 @@ type LoanFormProps = {
     title: string;
     loanPeriod: string;
     loanPeriodDescription: string;
+    notes: string;
     autoapprove: string;
     autoapproveDescription: string;
     submit: string;
@@ -60,6 +61,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
             to: addDays(startOfToday(), 7),
           }
         : {}) as DateRange,
+      notes: '',
       autoapprove: userIsMember,
     },
     onSubmit: ({ value }) => {
@@ -70,6 +72,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
           amount: i.amount,
           borrowFrom: value.dates.from ?? new Date(),
           borrowUntil: value.dates.to ?? addDays(new Date(), 1),
+          notes: value.notes,
           autoapprove: value.autoapprove,
         })),
       );
@@ -81,7 +84,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
 
   return (
     <form
-      className='xs:space-y-3'
+      className='xs:space-y-4'
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -111,6 +114,9 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
             excludeDisabled
           />
         )}
+      </form.AppField>
+      <form.AppField name='notes'>
+        {(field) => <field.TextField label={t.notes} />}
       </form.AppField>
       {userIsMember && (
         <form.AppField name='autoapprove'>

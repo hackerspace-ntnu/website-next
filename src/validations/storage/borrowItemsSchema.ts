@@ -9,6 +9,7 @@ function borrowItemsSchema(t: Translations) {
       borrowFrom: z.date(),
       borrowUntil: z.date(),
       autoapprove: z.boolean(),
+      notes: z.string().max(512, t('storage.loanForm.notesTooLong')),
     }),
   );
 }

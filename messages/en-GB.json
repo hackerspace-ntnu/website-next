@@ -730,10 +730,12 @@
     "loanForm": {
       "loanPeriod": "Select loan period",
       "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "notes": "Notes (optional)",
       "autoapprove": "Approve immediately",
       "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
+      "notesTooLong": "Notes must be less than {count} characters",
       "success": "Loan request sent! Redirecting to loans..."
     },
     "categories": {
@@ -823,6 +825,7 @@
       "loanReturnSuccess": "Loan has been registered as returned!",
       "loanApproved": "This loan has been approved",
       "borrowTimeline": "Borrowing from {from} until {until}",
+      "noNotes": "No notes were provided",
       "requestedAt": "Requested at {date}",
       "noPendingLoans": "No pending loans 🎉",
       "noLoansFound": "No loans found",

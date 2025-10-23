@@ -643,6 +643,7 @@ const storageRouter = createRouter({
           unitsBorrowed: borrowing.amount as number,
           borrowFrom: borrowing.borrowFrom,
           borrowUntil: borrowing.borrowUntil as Date,
+          notes: borrowing.notes ?? null,
           // Do not approve automatically unless user is actually a Hackerspace member
           approvedAt:
             borrowing.autoapprove && ctx.user.groups.length > 0

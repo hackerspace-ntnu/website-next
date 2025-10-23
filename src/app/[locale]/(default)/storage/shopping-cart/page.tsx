@@ -46,6 +46,7 @@ export default async function StorageShoppingCartPage({
     loanInAdvanceDescription: t('loanInAdvanceDescription'),
     loanPeriod: tLoanForm('loanPeriod'),
     loanPeriodDescription: tLoanForm('loanPeriodDescription'),
+    notes: tLoanForm('notes'),
     autoapprove: tLoanForm('autoapprove'),
     autoapproveDescription: tLoanForm('autoapproveDescription'),
     submit: tLoanForm('submit'),

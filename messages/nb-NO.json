@@ -730,10 +730,12 @@
     "loanForm": {
       "loanPeriod": "Velg låneperiode",
       "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "notes": "Notater (valgfritt)",
       "autoapprove": "Godkjenn umiddelbart",
       "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
       "submit": "Send",
       "dateInFuture": "Datoen for levering må være i framtiden",
+      "notesTooLong": "Notater må være mindre enn {count} tegn",
       "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
     },
     "categories": {
@@ -823,6 +825,7 @@
       "loanReturnSuccess": "Lånet har blitt registrert som levert!",
       "loanApproved": "Dette lånet har blitt godkjent",
       "borrowTimeline": "Lån fra {from} til {until}",
+      "noNotes": "Ingen notater ble lagt til",
       "requestedAt": "Forespørsel sendt {date}",
       "noPendingLoans": "Ingen utestående lån 🎉",
       "noLoansFound": "Ingen lån funnet",
