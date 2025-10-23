@@ -808,6 +808,7 @@
       "titleApproved": "Approved loans",
       "pendingLoan": "Pending loan",
       "notReturned": "Not returned yet",
+      "overdue": "overdue",
       "returned": "Returned {date}",
       "loanSubheader": "This loan is waiting for approval",
       "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",

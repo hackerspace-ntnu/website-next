@@ -808,6 +808,7 @@
       "titleApproved": "Godkjente lån",
       "pendingLoan": "Utestående lån",
       "notReturned": "Ikke levert tilbake enda",
+      "overdue": "forfalt",
       "returned": "Levert tilbake {date}",
       "loanSubheader": "Dette lånet venter på godkjenning",
       "loanItem": "{units, plural, other {# stk.}} av {name}",

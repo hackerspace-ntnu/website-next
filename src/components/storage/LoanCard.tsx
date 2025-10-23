@@ -98,7 +98,16 @@ async function LoanCard({
             ) : (
               <li>
                 <XIcon className='h-6 w-6 text-red-700' />
-                <span>{t('notReturned')}</span>
+                <div>
+                  {t('notReturned')}
+                  {loan.borrowUntil < new Date() && (
+                    <>
+                      <span className='ml-1'>(</span>
+                      <span className='text-red-700'>{t('overdue')}</span>
+                      <span>)</span>
+                    </>
+                  )}
+                </div>
               </li>
             )
           ) : null}
