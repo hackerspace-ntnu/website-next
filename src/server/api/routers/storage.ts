@@ -5,13 +5,14 @@ import {
   count,
   desc,
   eq,
-  getTableColumns,
   ilike,
   inArray,
   isNotNull,
   isNull,
+  lt,
   or,
 } from 'drizzle-orm';
+import type { Matcher } from 'react-day-picker';
 import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
@@ -32,6 +33,7 @@ import { itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
+  cartItemsSchema,
   deleteItemSchema,
   editItemSchema,
   fetchLoansSchema,
@@ -73,7 +75,11 @@ const storageRouter = createRouter({
       const item = rawSelect[0].item;
 
       const loans = await ctx.db.query.itemLoans.findMany({
-        where: eq(itemLoans.itemId, item.id),
+        where: and(
+          eq(itemLoans.itemId, item.id),
+          isNull(itemLoans.returnedAt),
+          lt(itemLoans.borrowFrom, new Date()),
+        ),
         columns: {
           unitsBorrowed: true,
           returnedAt: true,
@@ -81,7 +87,6 @@ const storageRouter = createRouter({
       });
 
       const unitsBorrowed = loans
-        .filter((loan) => loan.returnedAt === null)
         .map((loan) => loan.unitsBorrowed)
         .reduce((a, b) => a + b, 0);
 
@@ -115,7 +120,15 @@ const storageRouter = createRouter({
           with: {
             item: {
               with: {
-                itemLoans: true,
+                itemLoans: {
+                  columns: {
+                    unitsBorrowed: true,
+                  },
+                  where: and(
+                    isNull(itemLoans.returnedAt),
+                    lt(itemLoans.borrowFrom, new Date()),
+                  ),
+                },
               },
             },
           },
@@ -125,7 +138,6 @@ const storageRouter = createRouter({
         // and remove item loans to avoid leaking more information than necessary
         for (const localization of rawLocalizations) {
           const unitsBorrowed = localization.item.itemLoans
-            .filter((loan) => loan.returnedAt === null)
             .map((loan) => loan.unitsBorrowed)
             .reduce((a, b) => a + b, 0);
 
@@ -179,10 +191,17 @@ const storageRouter = createRouter({
 
       const loansToItems = await ctx.db
         .select({
-          ...getTableColumns(itemLoans),
+          itemId: itemLoans.itemId,
+          unitsBorrowed: itemLoans.unitsBorrowed,
         })
         .from(itemLoans)
-        .where(inArray(itemLoans.itemId, fetchedItemIds));
+        .where(
+          and(
+            inArray(itemLoans.itemId, fetchedItemIds),
+            isNull(itemLoans.returnedAt),
+            lt(itemLoans.borrowFrom, new Date()),
+          ),
+        );
 
       for (const selected of rawSelect) {
         const { item, localization } = selected;
@@ -191,7 +210,6 @@ const storageRouter = createRouter({
         );
 
         const unitsBorrowed = itemLoans
-          .filter((loan) => loan.returnedAt === null)
           .map((loan) => loan.unitsBorrowed)
           .reduce((a, b) => a + b, 0);
 
@@ -492,6 +510,32 @@ const storageRouter = createRouter({
             cause: { toast: 'error' },
           });
         });
+    }),
+  calculateDisabledDays: authenticatedProcedure
+    .input((input) =>
+      cartItemsSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ input, ctx }) => {
+      const loans = await ctx.db.query.itemLoans.findMany({
+        where: and(
+          inArray(
+            itemLoans.itemId,
+            input.map((i) => i.id),
+          ),
+          isNull(itemLoans.returnedAt),
+        ),
+      });
+
+      const disabledDays: Matcher[] = [];
+
+      for (const loan of loans) {
+        disabledDays.push({
+          from: loan.borrowFrom,
+          to: loan.borrowUntil,
+        });
+      }
+
+      return disabledDays;
     }),
   borrowItems: authenticatedProcedure
     .input((input) =>

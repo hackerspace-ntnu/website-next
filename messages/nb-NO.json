@@ -669,7 +669,8 @@
     "card": {
       "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",
-      "removeFromCart": "Fjern fra handlekurven"
+      "removeFromCart": "Fjern fra handlekurven",
+      "loanInAdvance": "Lån på forhånd"
     },
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
@@ -721,6 +722,8 @@
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "requestLoan": "Send låneforespørsel",
+      "loanInAdvance": "Lån på forhånd",
+      "loanInAdvanceDescription": "Noen av gjenstandene er ikke tilgjengelige akkurat nå. Du sender inn en lånesøknad på forhånd. Du vil kunne velge datoer som ikke overlapper med andre låneforespørsler.",
       "amountOfItemAria": "Velg antallet av denne gjenstanden",
       "mustBeLoggedIn": "Du må være logget inn for å låne"
     },

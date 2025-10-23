@@ -42,12 +42,14 @@ export default async function StorageShoppingCartPage({
 
   const requestLoanMessages = {
     title: t('requestLoan'),
+    loanInAdvance: t('loanInAdvance'),
+    loanInAdvanceDescription: t('loanInAdvanceDescription'),
     loanPeriod: tLoanForm('loanPeriod'),
     loanPeriodDescription: tLoanForm('loanPeriodDescription'),
     autoapprove: tLoanForm('autoapprove'),
     autoapproveDescription: tLoanForm('autoapproveDescription'),
     submit: tLoanForm('submit'),
-    mustbeLoggedIn: t('mustBeLoggedIn'),
+    mustBeLoggedIn: t('mustBeLoggedIn'),
     success: tLoanForm('success'),
   };
 
@@ -55,7 +57,10 @@ export default async function StorageShoppingCartPage({
 
   return (
     <>
-      <ShoppingCartTable t={tableMessages} />
+      <ShoppingCartTable
+        isMember={user?.groups && user.groups.length > 0}
+        t={tableMessages}
+      />
       <div className='relative flex flex-col gap-4'>
         <NextIntlClientProvider
           messages={{ storage, ui } as Pick<Messages, 'storage' | 'ui'>}

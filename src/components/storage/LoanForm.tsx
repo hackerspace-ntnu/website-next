@@ -3,7 +3,7 @@
 import { revalidateLogic } from '@tanstack/react-form';
 import { addDays, addWeeks, differenceInDays, endOfWeek } from 'date-fns';
 import { useTranslations } from 'next-intl';
-import type { DateRange } from 'react-day-picker';
+import type { DateRange, Matcher } from 'react-day-picker';
 import type { CartItem } from '@/components/storage/types';
 import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
@@ -14,6 +14,8 @@ import { useRouter } from '@/lib/locale/navigation';
 import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 
 type LoanFormProps = {
+  setOpen: (newState: boolean) => void;
+  disabledDays: Matcher[];
   t: {
     title: string;
     loanPeriod: string;
@@ -23,10 +25,9 @@ type LoanFormProps = {
     submit: string;
     success: string;
   };
-  setOpen: (newState: boolean) => void;
 };
 
-function LoanForm({ t, setOpen }: LoanFormProps) {
+function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
   const router = useRouter();
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
@@ -47,10 +48,12 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
       modeAfterSubmission: 'change',
     }),
     defaultValues: {
-      dates: {
-        from: new Date(),
-        to: addDays(new Date(), 7),
-      } as DateRange,
+      dates: (!disabledDays
+        ? {
+            from: new Date(),
+            to: addDays(new Date(), 7),
+          }
+        : {}) as DateRange,
       autoapprove: userIsMember,
     },
     onSubmit: ({ value }) => {
@@ -93,9 +96,13 @@ function LoanForm({ t, setOpen }: LoanFormProps) {
               addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
               new Date(),
             )}
-            disabled={{
-              before: new Date(),
-            }}
+            disabled={[
+              {
+                before: new Date(),
+              },
+              ...disabledDays,
+            ]}
+            excludeDisabled
           />
         )}
       </form.AppField>

@@ -17,6 +17,7 @@ import { api } from '@/lib/api/client';
 import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 
 type ShoppingCartTableProps = {
+  isMember?: boolean;
   t: {
     tableDescription: string;
     productId: string;
@@ -28,7 +29,7 @@ type ShoppingCartTableProps = {
   };
 };
 
-function ShoppingCartTable({ t }: ShoppingCartTableProps) {
+function ShoppingCartTable({ isMember, t }: ShoppingCartTableProps) {
   const [cart, setCart, isLoading] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     [],
@@ -81,7 +82,9 @@ function ShoppingCartTable({ t }: ShoppingCartTableProps) {
               <Input
                 type='number'
                 min={1}
-                max={Math.min(item.availableUnits, 5)}
+                max={
+                  isMember ? item.quantity : Math.min(item.availableUnits, 5)
+                }
                 defaultValue={
                   cart.find((cartItem) => cartItem.id === item.id)?.amount || 0
                 }

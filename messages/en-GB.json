@@ -669,7 +669,8 @@
     "card": {
       "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
-      "removeFromCart": "Remove from cart"
+      "removeFromCart": "Remove from cart",
+      "loanInAdvance": "Loan in advance"
     },
     "select": {
       "ariaLabel": "Select how to filter the storage items",
@@ -721,6 +722,8 @@
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
+      "loanInAdvance": "Loan in advance",
+      "loanInAdvanceDescription": "Some of your items aren't available right now. You are requesting to borrow items in advance. You will be able to choose a loan period that does not overlap other loan requests.",
       "amountOfItemAria": "Select number of this item",
       "mustBeLoggedIn": "You must be logged in to borrow items"
     },
