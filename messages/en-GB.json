@@ -581,6 +581,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "leader": "Leader",
+    "deputyLeader": "Deputy Leader",
     "new": {
       "title": "New Group",
       "createGroup": "Create group",

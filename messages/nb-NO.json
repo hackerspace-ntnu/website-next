@@ -581,6 +581,8 @@
   "groups": {
     "backToAbout": "Tilbake til Om oss",
     "internalGroup": "Dette er en intern gruppe",
+    "leader": "Leder",
+    "deputyLeader": "Nestleder",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",

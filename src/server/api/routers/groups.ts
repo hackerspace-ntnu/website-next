@@ -58,15 +58,22 @@ const groupsRouter = createRouter({
 
       if (!group) return null;
 
+      const groupData = {
+        ...group,
+        usersGroups: group.usersGroups.sort((a, b) =>
+          a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
+        ),
+      };
+
       if (group.imageId) {
         return {
-          ...group,
+          ...groupData,
           imageUrl: await getFileUrl(group.imageId),
         };
       }
 
       return {
-        ...group,
+        ...groupData,
         imageUrl: null,
       };
     }),
