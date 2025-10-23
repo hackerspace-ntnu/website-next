@@ -535,6 +535,10 @@ const storageRouter = createRouter({
         });
       }
 
+      if (disabledDays.length === 0) {
+        return null;
+      }
+
       return disabledDays;
     }),
   borrowItems: authenticatedProcedure

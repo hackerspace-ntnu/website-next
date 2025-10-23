@@ -75,11 +75,7 @@ function BorrowDialog({ t, className, isLoggedIn }: BorrowDialogProps) {
         <DialogHeader>
           <DialogTitle>{t.title}</DialogTitle>
         </DialogHeader>
-        <LoanForm
-          setOpen={setOpen}
-          disabledDays={disabledDays.data ?? []}
-          t={t}
-        />
+        <LoanForm setOpen={setOpen} disabledDays={disabledDays.data} t={t} />
       </DialogContent>
     </Dialog>
   );

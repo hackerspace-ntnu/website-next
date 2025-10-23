@@ -15,7 +15,7 @@ import { loanFormSchema } from '@/validations/storage/loanFormSchema';
 
 type LoanFormProps = {
   setOpen: (newState: boolean) => void;
-  disabledDays: Matcher[];
+  disabledDays?: Matcher[] | null;
   t: {
     title: string;
     loanPeriod: string;
@@ -100,7 +100,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
               {
                 before: new Date(),
               },
-              ...disabledDays,
+              ...(disabledDays ?? []),
             ]}
             excludeDisabled
           />
