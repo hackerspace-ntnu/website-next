@@ -44,7 +44,6 @@ function ParticipantsTable({
                   user={participant.user}
                   profilePictureUrl={participant.user.profilePictureUrl}
                   size='md'
-                  className='shrink-0'
                 />
                 <span>
                   {participant.user.firstName} {participant.user.lastName}
