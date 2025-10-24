@@ -48,10 +48,11 @@ export default async function StorageItemPage({
   const addToCartTranslations = {
     addToCart: t('card.addToCart'),
     removeFromCart: t('card.removeFromCart'),
+    loanInAdvance: t('card.loanInAdvance'),
   };
 
-  const auth = await api.auth.state();
-  const canManageItems = auth.user?.groups.some((g) =>
+  const { user } = await api.auth.state();
+  const canManageItems = user?.groups.some((g) =>
     ['labops', 'leadership', 'admin'].includes(g),
   );
 
@@ -90,7 +91,11 @@ export default async function StorageItemPage({
           <div className='max-w-prose'>
             <p>{itemLocale.description ?? t('item.noDescription')}</p>
             <div className='mt-2 flex justify-center gap-2 md:justify-start'>
-              <AddToCartButton item={item} t={addToCartTranslations} />
+              <AddToCartButton
+                item={item}
+                isMember={user?.groups && user.groups.length > 0}
+                t={addToCartTranslations}
+              />
               {canManageItems && (
                 <Link
                   href={{

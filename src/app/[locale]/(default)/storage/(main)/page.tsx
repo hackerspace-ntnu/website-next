@@ -47,6 +47,8 @@ export default async function StoragePage({
     [t('name')]: name,
   } = searchParamsCache.parse(awaitedSearchParams);
 
+  const { user } = await api.auth.state();
+
   const items = await api.storage.fetchMany({
     limit: itemsPerPage,
     offset: ((page as number) - 1) * itemsPerPage,
@@ -75,6 +77,7 @@ export default async function StoragePage({
                 ? await api.utils.getFileUrl({ fileId: item.imageId })
                 : null
             }
+            isMember={user?.groups && user.groups.length > 0}
           />
         ))}
       </div>
