@@ -6,6 +6,7 @@ function fetchMembersSchema(t: Translations) {
     page: z.number().min(1, t('members.api.pageNumberRequired')).optional(),
     name: z.string().optional(),
     limit: z.number().min(1, t('members.api.invalidLimit')),
+    includeInternal: z.boolean().optional(),
   });
 }
 

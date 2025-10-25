@@ -8,7 +8,7 @@ import {
   publicProcedure,
 } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { users, usersGroups } from '@/server/db/tables';
+import { groups, users, usersGroups } from '@/server/db/tables';
 import { getFileUrl } from '@/server/services/files';
 import { fetchMemberSchema } from '@/validations/users/fetchMemberSchema';
 import { fetchMembersSchema } from '@/validations/users/fetchMembersSchema';
@@ -21,16 +21,20 @@ const usersRouter = createRouter({
       fetchMemberSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      let where: SQL;
-      if (input.id) {
-        where = eq(users.id, input.id ? input.id : -1);
-      } else {
-        where = ilike(users.firstName, input.name ? `%${input.name}%` : '%%');
+      const where = [eq(users.id, input.id), eq(users.private, false)];
+
+      if (input.name) {
+        where.push(
+          or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          ) as SQL,
+        );
       }
 
       const result = await ctx.db.query.users
         .findFirst({
-          where: and(where, eq(users.private, false)),
+          where: and(...where),
           columns: {
             id: true,
             firstName: true,
@@ -71,27 +75,38 @@ const usersRouter = createRouter({
           });
         });
 
+      if (!result || !result.id) {
+        return null;
+      }
+
       const { user } = await ctx.auth();
 
-      const fullResult = {
+      if (!user || user.groups.length <= 0) {
+        // Do not show internal groups to users which aren't members
+        result.usersGroups = result.usersGroups.filter(
+          (userGroup) => !userGroup.group.internal,
+        );
+      }
+
+      // Do not show the user if they're not a member and we're not admin/management
+      // But we allow seeing our own profile
+      if (
+        (!result.usersGroups || result.usersGroups.length === 0) &&
+        !user?.groups.some((g) => ['admin', 'management'].includes(g)) &&
+        !(user && user.id === result.id)
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('members.unauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      return {
         ...result,
         profilePictureUrl: result?.profilePictureId
           ? await getFileUrl(result.profilePictureId)
           : null,
-      };
-
-      // Internal groups can be shown to management and admin
-      if (user?.groups.some((g) => ['management', 'admin'].includes(g))) {
-        return fullResult;
-      }
-
-      const { usersGroups, ...rest } = fullResult;
-
-      return {
-        ...rest,
-        usersGroups: usersGroups?.filter(
-          (usersGroup) => !usersGroup.group.internal,
-        ),
       };
     }),
   fetchMembers: publicProcedure
@@ -99,35 +114,50 @@ const usersRouter = createRouter({
       fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      const where = input.name
-        ? and(
-            eq(users.private, false),
-            or(
-              ilike(users.firstName, `%${input.name}%`),
-              ilike(users.lastName, `%${input.name}%`),
-            ),
-            exists(
-              ctx.db
-                .select()
-                .from(usersGroups)
-                .where(eq(usersGroups.userId, users.id)),
-            ),
-          )
-        : and(
-            eq(users.private, false),
-            exists(
-              ctx.db
-                .select()
-                .from(usersGroups)
-                .where(eq(usersGroups.userId, users.id)),
-            ),
-          );
+      const where = [eq(users.private, false)];
+
+      if (input.name) {
+        where.push(
+          or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          ) as SQL,
+        );
+      }
+
+      const { user } = await ctx.auth();
+
+      if (!user || user.groups.length <= 0 || !input.includeInternal) {
+        where.push(
+          exists(
+            ctx.db
+              .select()
+              .from(usersGroups)
+              .innerJoin(groups, eq(usersGroups.groupId, groups.id))
+              .where(
+                and(
+                  eq(usersGroups.userId, users.id),
+                  eq(groups.internal, false),
+                ),
+              ),
+          ),
+        );
+      } else {
+        where.push(
+          exists(
+            ctx.db
+              .select()
+              .from(usersGroups)
+              .where(eq(usersGroups.userId, users.id)),
+          ),
+        );
+      }
 
       const offset = input.page ? (input.page - 1) * input.limit : 0;
 
       const results = await ctx.db.query.users
         .findMany({
-          where,
+          where: and(...where),
           offset,
           limit: input.limit,
           columns: {
@@ -166,34 +196,23 @@ const usersRouter = createRouter({
           });
         });
 
-      const { user } = await ctx.auth();
+      return await Promise.all(
+        results.map(async (result) => {
+          // Do not show internal groups to users which aren't members
+          if (!user || user.groups.length <= 0) {
+            result.usersGroups = result.usersGroups.filter(
+              (userGroup) => !userGroup.group.internal,
+            );
+          }
 
-      const fullResults = await Promise.all(
-        results.map(async (result) => ({
-          ...result,
-          profilePictureUrl: result?.profilePictureId
-            ? await getFileUrl(result.profilePictureId)
-            : null,
-        })),
+          return {
+            ...result,
+            profilePictureUrl: result?.profilePictureId
+              ? await getFileUrl(result.profilePictureId)
+              : null,
+          };
+        }),
       );
-
-      // Internal groups can be shown to management and admin
-      if (user?.groups.some((g) => ['management', 'admin'].includes(g))) {
-        return fullResults;
-      }
-
-      const allMembers = fullResults.map((user) => {
-        const { usersGroups, ...rest } = user;
-
-        return {
-          ...rest,
-          usersGroups: usersGroups.filter(
-            (usersGroup) => !usersGroup.group.internal,
-          ),
-        };
-      });
-
-      return allMembers.filter((member) => member.usersGroups.length > 0);
     }),
   searchMembers: protectedProcedure
     .input((input) =>
