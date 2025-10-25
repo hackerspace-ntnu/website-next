@@ -465,6 +465,7 @@
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
+    "backToHome": "Back to home",
     "profile": {
       "title": "Profile",
       "username": "Username",

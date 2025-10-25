@@ -16,11 +16,11 @@ async function SidebarNav({ className }: { className?: string }) {
 
   return (
     <ScrollArea
-      className={cx('flex h-full w-[80vw] flex-col lg:w-full', className)}
+      className={cx('flex h-full w-full flex-col', className)}
       scrollBarClassName='h-2 b-0'
       orientation='horizontal'
     >
-      <div className='flex h-full w-max p-2 lg:block lg:w-auto'>
+      <div className='flex h-full w-full justify-between gap-4 p-2 lg:block lg:w-auto'>
         <nav className='mb-auto flex lg:flex-col'>
           <SidebarNavLink href='/settings'>{t('profile.title')}</SidebarNavLink>
           <SidebarNavLink href='/settings/account'>
@@ -30,7 +30,7 @@ async function SidebarNav({ className }: { className?: string }) {
             {t('notifications.title')}
           </SidebarNavLink>
         </nav>
-        <div className='flex min-w-fit shrink-0 px-2 lg:px-0 lg:py-2'>
+        <div className='flex min-w-fit shrink-0 lg:py-2'>
           <MatrixLink
             isLoggedIn={!!user}
             t={{
