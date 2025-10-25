@@ -149,7 +149,11 @@ export default async function MemberPage({
               >
             }
           >
-            <GroupManagementTable user={user} groups={groups} />
+            <GroupManagementTable
+              user={user}
+              groups={groups}
+              isOwnProfile={auth.user?.id === user.id}
+            />
           </NextIntlClientProvider>
         </>
       )}
