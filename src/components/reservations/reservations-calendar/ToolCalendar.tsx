@@ -3,13 +3,12 @@
 import { createCalendarConfig } from '@/components/reservations/reservations-calendar/CalendarConfig';
 import { CalendarDialog } from '@/components/reservations/reservations-calendar/CalendarDialog';
 import { CustomEventContent } from '@/components/reservations/reservations-calendar/CustomEventContent';
-import CustomToolbar from '@/components/reservations/reservations-calendar/CustomToolbar';
+import { CustomToolbar } from '@/components/reservations/reservations-calendar/CustomToolbar';
 import { InformationCard } from '@/components/reservations/reservations-calendar/InformationCard';
 import { ToolCalendarSkeleton } from '@/components/reservations/reservations-calendar/ToolCalendarSkeleton';
 import { Button } from '@/components/ui/Button';
 import { Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/client';
-import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
 import '@/lib/styles/calendar.css';
 import type {
@@ -25,6 +24,7 @@ import { EditIcon, PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from '@/components/ui/Toaster';
+import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput, RouterOutputs } from '@/server/api';
 
@@ -63,23 +63,14 @@ function reservationToCalendarEvent(r: CalendarReservation) {
 function ToolCalendar({ tool, user }: ToolCalendarProps) {
   const t = useTranslations('reservations');
   const router = useRouter();
-  const isLoggedIn = !!user;
-  const isMember = user?.groups && user.groups.length > 0;
-  const isManagement = !!user?.groups.some((g) =>
-    ['management', 'leadership', 'admin'].includes(g),
-  );
-  const memberId = user?.id ?? 0;
+
   const isLaptop = useMediaQuery('(min-width: 70rem)');
   const isIpad = useMediaQuery('(min-width: 41.438rem)');
 
-  const [view, setView] = useState<{
-    name: string;
-    snapToToday: boolean;
-    manual: boolean;
-  } | null>(null);
   const [range, setRange] = useState<Range | null>(null);
   const debouncedSetRange = useDebounceCallback(setRange, 500);
   const calendarRef = useRef<FullCalendar>(null);
+  const calendarApi = calendarRef.current?.getApi();
 
   // Used when creating a new reservation
   const [selectedSlot, setSelectedSlot] = useState<{
@@ -87,22 +78,17 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
     end: Date;
   } | null>(null);
 
-  // Decide initial/auto view
+  // Decide automatic view
   useEffect(() => {
-    if (view?.manual) return;
-
     const next = isLaptop
       ? 'timeGridWeek'
       : isIpad
         ? 'timeGridThreeDay'
         : 'timeGridDay';
 
-    setView({
-      name: next,
-      snapToToday: next === 'timeGridDay' || next === 'timeGridThreeDay',
-      manual: false,
-    });
-  }, [isLaptop, isIpad, view?.manual]);
+    if (!calendarApi || calendarApi.view.type === next) return;
+    queueMicrotask(() => calendarApi.changeView(next, new Date()));
+  }, [isLaptop, isIpad, calendarApi]);
 
   // ---------- Data fetching ----------
   const reservationsQuery = api.reservations.fetchCalendarReservations.useQuery(
@@ -112,7 +98,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       until: range?.untilISO ?? '',
     },
     {
-      enabled: !!tool.id && !!range && view !== null,
+      enabled: !!range,
       refetchOnWindowFocus: false,
       placeholderData: keepPreviousData,
     },
@@ -139,40 +125,30 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
 
   const handleSelectSlot = useCallback(
     (info: DateSelectArg) => {
-      calendarRef.current?.getApi().unselect();
+      calendarApi?.unselect();
       if (!requirePhoneNumber()) return;
       setSelectedSlot({ start: info.start, end: info.end });
     },
-    [requirePhoneNumber],
+    [requirePhoneNumber, calendarApi],
   );
 
   const handleDatesSet = useCallback(
     (info: DatesSetArg) => {
-      if (
-        view?.snapToToday &&
-        (info.view.type === 'timeGridDay' ||
-          info.view.type === 'timeGridThreeDay')
-      ) {
-        setView((view) => (view ? { ...view, snapToToday: false } : view));
-        calendarRef.current?.getApi().gotoDate(new Date());
-      }
-
-      if (view && info.view.type !== view.name) return;
-
-      const startISO = info.view.activeStart.toISOString();
-      const endISO = info.view.activeEnd.toISOString();
-
-      debouncedSetRange({ fromISO: startISO, untilISO: endISO });
+      debouncedSetRange({
+        fromISO: info.view.activeStart.toISOString(),
+        untilISO: info.view.activeEnd.toISOString(),
+      });
     },
-    [view, debouncedSetRange],
+    [debouncedSetRange],
   );
 
   const renderEventContent = useCallback(
     (eventInfo: EventContentArg) =>
-      eventInfo.event.extendedProps.userId === memberId && !eventInfo.isPast ? (
+      eventInfo.event.extendedProps.userId === user?.id && !eventInfo.isPast ? (
         <CalendarDialog
-          user={user}
           mode='edit'
+          user={user}
+          calendarRef={calendarRef}
           toolId={eventInfo.event.extendedProps.toolId}
           reservationId={eventInfo.event.extendedProps.reservationId}
           range={{
@@ -180,76 +156,40 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             end: eventInfo.event.end,
           }}
           notes={eventInfo.event.extendedProps.notes ?? ''}
-          windowRange={{
-            from: eventInfo.view.activeStart.toISOString(),
-            until: eventInfo.view.activeEnd.toISOString(),
-          }}
         >
-          <CustomEventContent
-            eventInfo={eventInfo}
-            memberId={memberId}
-            isPast={eventInfo.isPast}
-            isManagement={isManagement}
-          />
+          <CustomEventContent eventInfo={eventInfo} user={user} />
         </CalendarDialog>
       ) : (
-        <CustomEventContent
-          eventInfo={eventInfo}
-          memberId={memberId}
-          isPast={eventInfo.isPast}
-          isManagement={isManagement}
-        />
+        <CustomEventContent eventInfo={eventInfo} user={user} />
       ),
-    [memberId, user, isManagement],
+    [user],
   );
 
   const calendarConfig = useMemo(() => {
-    if (!view) return null;
     return createCalendarConfig({
-      calendarRef,
-      isLoggedIn,
-      isMember: !!isMember,
-      memberId,
+      user,
       isLaptop,
       isIpad,
-      view,
-      onViewChange: (view) => {
-        setView({
-          name: view,
-          snapToToday: view === 'timeGridDay' || view === 'timeGridThreeDay',
-          manual: true,
-        });
-      },
       handleDatesSet,
       handleSelectSlot,
       t: { week: t('toolbar.week') },
     });
-  }, [
-    view,
-    isMember,
-    isLoggedIn,
-    memberId,
-    isLaptop,
-    isIpad,
-    handleDatesSet,
-    handleSelectSlot,
-    t,
-  ]);
+  }, [user, isLaptop, isIpad, handleDatesSet, handleSelectSlot, t]);
 
   return (
     <div className='m-auto flex w-full flex-col items-center justify-center overscroll-none'>
       <div className='relative flex w-full justify-center'>
         <Button
-          variant={isLoggedIn ? 'default' : 'secondary'}
+          variant={user ? 'default' : 'secondary'}
           className='mb-3'
           onClick={() => {
             if (!requirePhoneNumber()) return;
             setSelectedSlot({ start: new Date(), end: new Date() });
           }}
-          disabled={!isLoggedIn}
+          disabled={!user || !range || reservationsQuery.isLoading}
         >
           <PlusIcon className='mr-2 size-5' />
-          {isLoggedIn
+          {user
             ? t('calendar.createButton')
             : t('calendar.createButtonLoggedOut')}
         </Button>
@@ -270,51 +210,42 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
         )}
       </div>
 
-      {selectedSlot && range && (
+      {selectedSlot && (
         <CalendarDialog
-          user={user}
           open
           onOpenChange={(open) => !open && setSelectedSlot(null)}
           mode='create'
+          user={user}
+          calendarRef={calendarRef}
           toolId={tool.id}
           range={{
             start: selectedSlot.start,
             end: selectedSlot.end,
           }}
-          windowRange={{
-            from: range.fromISO,
-            until: range.untilISO,
-          }}
         />
       )}
 
-      <InformationCard />
-      {view && calendarConfig ? (
-        <div className='w-full overflow-hidden rounded-lg rounded-t-none border border-border bg-background text-foreground'>
-          <CustomToolbar
-            calendarRef={calendarRef}
-            view={view.name}
-            onViewChange={(v) => {
-              setView((prev) =>
-                prev ? { ...prev, name: v, manual: true } : prev,
-              );
-            }}
-            isLaptop={isLaptop}
-            isIpad={isIpad}
-          />
-          <FullCalendar
-            key={`${view.name}-${memberId}`}
-            ref={calendarRef}
-            plugins={[timeGridPlugin, interactionPlugin]}
-            events={calendarReservations}
-            locale={t('calendar.locale')}
-            eventContent={renderEventContent}
-            {...calendarConfig}
-          />
-        </div>
-      ) : (
-        <ToolCalendarSkeleton />
-      )}
+      <div className='relative w-full overflow-hidden rounded-lg border border-border bg-background text-foreground'>
+        <InformationCard />
+        <CustomToolbar
+          calendarRef={calendarRef}
+          isLaptop={isLaptop}
+          isIpad={isIpad}
+        />
+        <FullCalendar
+          ref={calendarRef}
+          plugins={[timeGridPlugin, interactionPlugin]}
+          events={calendarReservations}
+          locale={t('calendar.locale')}
+          eventContent={renderEventContent}
+          {...calendarConfig}
+        />
+        {(!range || reservationsQuery.isLoading) && (
+          <div className='pointer-events-none absolute inset-0 z-10'>
+            <ToolCalendarSkeleton />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
