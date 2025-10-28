@@ -365,6 +365,7 @@
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
     "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "internalUnauthorized": "Du har ikke rettigheter til å se interne artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
@@ -411,6 +412,7 @@
       "invalidLimit": "Ugyldig limit",
       "invalidOffset": "Ugyldig offset",
       "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "fetchFailed": "Kunne ikke hente nyhetsartikkel",
       "insertFailed": "Kunne ikke legge til nyhetsartikkel",
       "articleNotFound": "Artikkel ikke funnet",
       "articleImageNotFound": "Artikkelbilde ikke funnet"

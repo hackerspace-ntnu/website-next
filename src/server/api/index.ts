@@ -49,14 +49,4 @@ const createCaller = createCallerFactory(router);
 type RouterInput = inferRouterInputs<typeof router>;
 type RouterOutput = inferRouterOutputs<typeof router>;
 
-type RouterInputs = inferRouterInputs<typeof router>;
-type RouterOutputs = inferRouterOutputs<typeof router>;
-
-export {
-  router,
-  createCaller,
-  type RouterInput,
-  type RouterOutput,
-  type RouterInputs,
-  type RouterOutputs,
-};
+export { router, createCaller, type RouterInput, type RouterOutput };
