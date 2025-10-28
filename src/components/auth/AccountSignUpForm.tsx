@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { usePending } from '@/components/auth/PendingBar';
@@ -32,8 +33,12 @@ function AccountSignUpForm() {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       password: '',
       confirmPassword: '',

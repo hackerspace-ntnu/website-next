@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
@@ -24,8 +25,12 @@ function NotificationsForm({
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       notifications: notifications ?? 'all',
     },

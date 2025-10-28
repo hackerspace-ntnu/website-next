@@ -7,8 +7,8 @@ function groupSchema(t: Translations) {
   return z.object({
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png'],
-      maxFileSize: 5,
+      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
+      maxFileSize: 50,
       sizeLimitError: t('groups.form.image.sizeLimitError', { size: 50 }),
       wrongFileTypeError: t('groups.form.image.wrongFileTypeError'),
       fileNotImageError: t('groups.form.image.fileNotImageError'),

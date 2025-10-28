@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
@@ -36,7 +37,7 @@ function VerifyEmailForm() {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
       onSubmitAsync: async ({ value }) => {
         try {
           await verifyEmailMutation.mutateAsync({
@@ -51,6 +52,10 @@ function VerifyEmailForm() {
         }
       },
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       otp: '',
       theme: resolvedTheme as 'light' | 'dark',

@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { EditIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -61,8 +62,12 @@ function EditItemForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: prefilledItem?.norwegian?.name ?? '',
@@ -102,9 +107,9 @@ function EditItemForm({
           <div className='group relative h-64 w-64 rounded-lg'>
             <field.BaseField label={t('image.label')}>
               <Input
-                className='h-58 w-full cursor-pointer rounded-lg border-none'
+                className='h-58 w-full cursor-pointer rounded-lg border-none opacity-0'
                 type='file'
-                accept='image/jpeg,image/png'
+                accept='image/jpeg,image/png,image/gif,image/webp'
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (file) {

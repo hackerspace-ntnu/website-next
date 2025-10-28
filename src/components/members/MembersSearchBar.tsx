@@ -1,6 +1,6 @@
 'use client';
 
-import { parseAsString, useQueryState } from 'nuqs';
+import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
 import { SearchBar } from '@/components/composites/SearchBar';
 import { useDebounceCallback } from '@/lib/hooks/useDebounceCallback';
 import { cx } from '@/lib/utils';
@@ -13,6 +13,7 @@ function MembersSearchBar({
   placeholder: string;
   t: {
     name: string;
+    page: string;
   };
   className?: string;
 }) {
@@ -22,15 +23,26 @@ function MembersSearchBar({
       .withDefault('')
       .withOptions({ shallow: false, clearOnDefault: true }),
   );
+  const [, setPage] = useQueryState(
+    t.page,
+    parseAsInteger
+      .withDefault(1)
+      .withOptions({ shallow: false, clearOnDefault: true }),
+  );
 
-  const debouncedSetSearch = useDebounceCallback(setSearch, 500);
+  function handleChange(value: string) {
+    setSearch(value);
+    setPage(1);
+  }
+
+  const debouncedHandleChange = useDebounceCallback(handleChange, 500);
 
   return (
     <SearchBar
       className={cx('lg:max-w-2xl', className)}
       placeholder={placeholder}
       defaultValue={search}
-      onChange={(e) => debouncedSetSearch(e.target.value)}
+      onChange={(e) => debouncedHandleChange(e.target.value)}
     />
   );
 }

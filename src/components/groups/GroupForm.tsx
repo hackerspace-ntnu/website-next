@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '@tanstack/react-form';
+import { revalidateLogic, useStore } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import {
   AlertDialog,
@@ -74,8 +74,12 @@ function GroupForm({
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: norwegian?.name ?? '',
@@ -132,6 +136,8 @@ function GroupForm({
               accept={{
                 'image/jpeg': ['.jpeg', '.jpg'],
                 'image/png': ['.png'],
+                'image/gif': ['.gif'],
+                'image/webp': ['.webp'],
               }}
               validator={(value) => formSchema.shape.image.safeParse(value)}
             />

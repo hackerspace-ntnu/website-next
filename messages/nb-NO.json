@@ -467,6 +467,7 @@
   },
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "backToHome": "Tilbake til forsiden",
     "profile": {
       "title": "Profil",
       "username": "Brukernavn",

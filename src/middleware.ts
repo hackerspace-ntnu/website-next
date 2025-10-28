@@ -9,6 +9,10 @@ import {
 } from '@/server/api/rate-limit';
 
 const BYPASS_PATHS = ['/s3/', '/api/'] as const;
+const NO_RATE_LIMIT_PATHS = [
+  encodeURIComponent('for-mange-forespørsler'),
+  'too-many-requests',
+];
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -27,8 +31,13 @@ function handleI18nResponse(request: NextRequest) {
 }
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
   if (request.method === 'GET') {
-    if (!(await globalGETRateLimit())) {
+    if (
+      !(await globalGETRateLimit()) &&
+      !NO_RATE_LIMIT_PATHS.some((path) => pathname.endsWith(path))
+    ) {
       return NextResponse.redirect(
         new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
       );
@@ -46,19 +55,26 @@ export async function middleware(request: NextRequest) {
     }
     return response;
   }
-  if (!(await globalPOSTRateLimit())) {
+
+  if (
+    !(await globalPOSTRateLimit()) &&
+    !NO_RATE_LIMIT_PATHS.some((path) => pathname.endsWith(path))
+  ) {
     return NextResponse.redirect(
       new URL('/too-many-requests', process.env.NEXT_PUBLIC_SITE_URL),
     );
   }
+
   const originHeader = request.headers.get('Origin');
   const hostHeader = request.headers.get('Host');
+
   if (originHeader === null || hostHeader === null) {
     return NextResponse.json(
       { error: 'Missing Origin or Host header' },
       { status: 403 },
     );
   }
+
   let origin: URL;
   try {
     origin = new URL(originHeader);
@@ -68,12 +84,14 @@ export async function middleware(request: NextRequest) {
       { status: 403 },
     );
   }
+
   if (origin.host !== hostHeader) {
     return NextResponse.json(
       { error: 'Origin and Host headers do not match' },
       { status: 403 },
     );
   }
+
   return handleI18nResponse(request);
 }
 

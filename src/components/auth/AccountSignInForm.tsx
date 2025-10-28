@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { usePending } from '@/components/auth/PendingBar';
 import { useAppForm } from '@/components/ui/Form';
@@ -21,7 +22,7 @@ function AccountSignInForm({ redirectTo }: { redirectTo?: string }) {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
       onSubmitAsync: async ({ value }) => {
         try {
           await signInMutation.mutateAsync(value);
@@ -31,10 +32,15 @@ function AccountSignInForm({ redirectTo }: { redirectTo?: string }) {
           if (!TRPCError.data?.toast) {
             return { fields: { password: { message: TRPCError.message } } };
           }
+          // We return something (not undefined) here so it will block the onSubmit handler when a Toast error is shown
           return ' ';
         }
       },
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       username: '',
       password: '',
