@@ -453,7 +453,11 @@
       "removingFromGroup": "Removing from group...",
       "removingFromGroupFailed": "Failed to remove user from group",
       "userAddedToGroup": "User added to group successfully",
-      "userRemovedFromGroup": "User removed from group successfully"
+      "userRemovedFromGroup": "User removed from group successfully",
+      "yourself": "yourself",
+      "confirmTitle": "Are you sure you want to remove {user} from {group}?",
+      "confirmDescription": "This change will result in an immediate removal of permissions.",
+      "confirmDescriptionIrreversible": "This change will result in an immediate removal of permissions. Since you're editing your own profile, this action will be irreversible."
     },
     "api": {
       "invalidOffset": "Invalid offset",
