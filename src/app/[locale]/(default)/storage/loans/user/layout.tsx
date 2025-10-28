@@ -19,8 +19,8 @@ export default async function UserLoansLayout({
 
   return (
     <>
+      <BackToStorageButton />
       <div className='relative mb-8 flex items-center justify-between'>
-        <BackToStorageButton variant='absolute' />
         <h1 className='mx-auto text-center'>
           {t('title')}: {tLoans('title')}
         </h1>

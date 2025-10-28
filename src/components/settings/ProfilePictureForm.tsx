@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { CameraIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -39,8 +40,12 @@ function ProfilePictureForm({
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       profilePicture: '',
     },
@@ -66,7 +71,7 @@ function ProfilePictureForm({
                   <field.BaseField label={t('profilePicture.label')}>
                     <TooltipTrigger asChild>
                       <Input
-                        className='peer h-24 w-24 cursor-pointer rounded-full'
+                        className='peer h-24 w-24 cursor-pointer rounded-full opacity-0'
                         type='file'
                         accept='image/jpeg,image/png,image/webp'
                         onChange={async (e) => {

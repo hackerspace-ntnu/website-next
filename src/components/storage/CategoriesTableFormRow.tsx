@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useId } from 'react';
@@ -17,25 +18,31 @@ function CategoriesTableFormRow({
 }: {
   category?: RouterOutput['storage']['fetchItemCategories'][number];
 }) {
-  const apiUtils = api.useUtils();
+  const utils = api.useUtils();
   const router = useRouter();
   const tUi = useTranslations('ui');
   const t = useTranslations('storage.categories');
   const id = useId();
 
-  const addItemCategoryMutation = api.storage.addItemCategory.useMutation({
+  const addItemCategory = api.storage.addItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successAddMessage'));
-      await apiUtils.storage.fetchItemCategories.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },
   });
 
-  const editItemCategoryMutation = api.storage.editItemCategory.useMutation({
+  const editItemCategory = api.storage.editItemCategory.useMutation({
     onSuccess: async () => {
       toast.success(t('successEditMessage'));
-      await apiUtils.storage.fetchItemCategories.invalidate();
+      await Promise.all([
+        utils.storage.fetchItemCategories.invalidate(),
+        utils.storage.fetchItemCategoryNames.invalidate(),
+      ]);
       form.reset();
       router.refresh();
     },
@@ -44,17 +51,21 @@ function CategoriesTableFormRow({
   const formSchema = itemCategoryFormSchema(useTranslations());
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       nameEnglish: category?.nameEnglish ?? '',
       nameNorwegian: category?.nameNorwegian ?? '',
     },
     onSubmit: ({ value }) => {
       if (category) {
-        editItemCategoryMutation.mutate({ id: category.id, ...value });
+        editItemCategory.mutate({ id: category.id, ...value });
       } else {
-        addItemCategoryMutation.mutate(value);
+        addItemCategory.mutate(value);
       }
     },
   });
@@ -64,7 +75,7 @@ function CategoriesTableFormRow({
       <TableCell>{category?.id || null}</TableCell>
       <TableCell>
         <form
-          className='grid grid-cols-4 gap-4'
+          className='flex gap-4'
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();
@@ -76,7 +87,7 @@ function CategoriesTableFormRow({
                 label='Kategorinavn'
                 labelVisible={false}
                 placeholder='Kategorinavn'
-                className='space-y-0'
+                className='w-32 space-y-0'
               />
             )}
           </form.AppField>
@@ -86,22 +97,19 @@ function CategoriesTableFormRow({
                 label='Category name'
                 labelVisible={false}
                 placeholder='Category name'
-                className='space-y-0'
+                className='w-32 space-y-0'
               />
             )}
           </form.AppField>
           <form.AppForm>
             <form.SubmitButton
-              className='flex w-32 gap-2'
+              className='ml-auto w-fit min-w-0 gap-2 sm:w-28'
               variant='secondary'
-              loading={
-                addItemCategoryMutation.isPending ||
-                editItemCategoryMutation.isPending
-              }
+              loading={addItemCategory.isPending || editItemCategory.isPending}
               spinnerClassName='text-primary'
             >
-              <CheckIcon className='h-8 w-8' />
-              <span>{tUi('save')}</span>
+              <CheckIcon className='h-6 w-6 sm:h-8 sm:w-8' />
+              <span className='hidden sm:inline'>{tUi('save')}</span>
             </form.SubmitButton>
           </form.AppForm>
           {category && <DeleteItemCategoryButton category={category} />}

@@ -1,4 +1,6 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
+
+import { useTranslations } from 'next-intl';
 import {
   Card,
   CardContent,
@@ -8,8 +10,8 @@ import {
 } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
 
-async function InformationCard() {
-  const t = await getTranslations('reservations');
+function InformationCard() {
+  const t = useTranslations('reservations');
 
   return (
     <Card className='rounded-b-none'>

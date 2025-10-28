@@ -1,5 +1,4 @@
 import { EditIcon, Maximize2Icon } from 'lucide-react';
-import { m } from 'motion/react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ToolCardDetails } from '@/components/reservations/ToolCardDetails';
@@ -12,8 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/Card';
+import { Link } from '@/components/ui/Link';
 import { toolDescriptionFields } from '@/lib/constants';
-import { Link } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 
 type ToolCardProps = {
@@ -84,21 +83,21 @@ async function ToolCard({ tool, user }: ToolCardProps) {
             className='object-cover duration-150 group-hover:scale-105'
           />
           <ToolCardDetails tool={tool}>
-            <m.button
-              className='absolute top-2 right-2 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm hover:bg-primary'
+            <Button
+              className='absolute top-2 right-2 z-10 size-10 rounded-full bg-stone-500/70 p-0 backdrop-blur-sm transition-transform duration-150 ease-in-out hover:scale-105 hover:bg-primary'
               key={`cardHeaderButton-${tool.name}`}
-              whileHover={{ scale: 1.05 }}
               title={t('tools.tooltip')}
             >
               <Maximize2Icon className='size-6 stroke-stone-300' />
-            </m.button>
+            </Button>
           </ToolCardDetails>
           {user?.groups.some((g) =>
             ['labops', 'leadership', 'admin'].includes(g),
           ) && (
             <Link
-              className='absolute top-14 right-2 z-10 inline-flex size-11 items-center justify-center rounded-full bg-stone-500/50 backdrop-blur-sm duration-150 ease-in-out hover:scale-105 hover:bg-primary'
+              className='absolute top-14 right-2 z-10 size-10 rounded-full bg-stone-500/70 backdrop-blur-sm transition-transform duration-150 ease-in-out hover:scale-105 hover:bg-primary'
               key={`cardHeaderEditButton-${tool.name}`}
+              variant='default'
               href={{
                 pathname: '/reservations/tools/[toolId]/edit',
                 params: { toolId: tool.toolId },

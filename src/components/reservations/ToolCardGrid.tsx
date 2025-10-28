@@ -1,5 +1,3 @@
-'use client';
-
 import { PlusIcon } from 'lucide-react';
 import { ToolCard } from '@/components/reservations/ToolCard';
 import { Link } from '@/components/ui/Link';

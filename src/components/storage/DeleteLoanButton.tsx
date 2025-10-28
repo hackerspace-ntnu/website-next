@@ -32,11 +32,15 @@ type DeleteLoanButtonProps = {
 function DeleteLoanButton({ loan, t }: DeleteLoanButtonProps) {
   const tUi = useTranslations('ui');
   const router = useRouter();
-  const apiUtils = api.useUtils();
-  const deleteLoanMutation = api.storage.deleteLoan.useMutation({
+  const utils = api.useUtils();
+  const deleteLoan = api.storage.deleteLoan.useMutation({
     onSuccess: async () => {
       toast.success(t.successMessage);
-      await apiUtils.storage.fetchLoans.invalidate();
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+        utils.storage.userLoansTotal.invalidate(),
+      ]);
       router.refresh();
     },
   });
@@ -47,9 +51,9 @@ function DeleteLoanButton({ loan, t }: DeleteLoanButtonProps) {
         <Button
           className='w-28'
           variant='destructive'
-          disabled={deleteLoanMutation.isPending}
+          disabled={deleteLoan.isPending}
         >
-          {deleteLoanMutation.isPending ? <Spinner /> : t.buttonLabel}
+          {deleteLoan.isPending ? <Spinner /> : t.buttonLabel}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className='sm:max-w-md'>
@@ -60,7 +64,7 @@ function DeleteLoanButton({ loan, t }: DeleteLoanButtonProps) {
         <AlertDialogFooter>
           <AlertDialogActionDestructive
             onClick={async () => {
-              await deleteLoanMutation.mutateAsync({
+              await deleteLoan.mutateAsync({
                 loanId: loan.id,
                 itemId: loan.itemId,
                 lenderId: loan.lenderId,

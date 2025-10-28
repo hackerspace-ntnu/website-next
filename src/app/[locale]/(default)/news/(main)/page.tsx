@@ -57,7 +57,9 @@ export default async function NewsPage({
       </Suspense>
       <PaginationCarousel
         className='mt-6'
-        totalPages={Math.ceil(availableArticles / GRID_ARTICLES)}
+        totalPages={Math.ceil(
+          availableArticles / (TOP_ARTICLES + GRID_ARTICLES),
+        )}
       />
     </>
   );

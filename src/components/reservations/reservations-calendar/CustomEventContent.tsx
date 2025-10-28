@@ -21,24 +21,21 @@ import {
   DialogTrigger,
 } from '@/components/ui/Dialog';
 import { cx } from '@/lib/utils';
+import type { RouterOutput } from '@/server/api';
 
-type Props = {
+type CustomEventContentProps = {
   eventInfo: EventContentArg;
-  memberId: number;
-  isPast: boolean;
-  isManagement: boolean;
+  user: RouterOutput['auth']['state']['user'];
 };
 
-function CustomEventContent({
-  eventInfo,
-  memberId,
-  isPast,
-  isManagement,
-}: Props) {
+function CustomEventContent({ eventInfo, user }: CustomEventContentProps) {
   const t = useTranslations('reservations');
   const format = useFormatter();
+  const isManagement = !!user?.groups.some((g) =>
+    ['management', 'leadership', 'admin'].includes(g),
+  );
 
-  const isOwner = eventInfo.event.extendedProps.userId === memberId;
+  const isOwner = eventInfo.event.extendedProps.userId === user?.id;
 
   const sameDay =
     eventInfo.event.start &&
@@ -50,6 +47,7 @@ function CustomEventContent({
         weekday: 'short',
         hour: '2-digit',
         minute: '2-digit',
+        timeZone: 'Europe/Oslo',
       })
     : '';
 
@@ -58,6 +56,7 @@ function CustomEventContent({
         ...(sameDay ? {} : { weekday: 'short' }),
         hour: '2-digit',
         minute: '2-digit',
+        timeZone: 'Europe/Oslo',
       })
     : '';
 
@@ -108,7 +107,7 @@ function CustomEventContent({
   );
 
   // if current user
-  if (isOwner && !isPast) return ParentDiv;
+  if (isOwner && !eventInfo.isPast) return ParentDiv;
 
   // other users
   return (

@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { useAppForm } from '@/components/ui/Form';
@@ -22,7 +23,7 @@ function PasswordForm() {
 
   const form = useAppForm({
     validators: {
-      onChange: formSchema,
+      onDynamic: formSchema,
       onSubmitAsync: async ({ value }) => {
         try {
           await updatePasswordMutation.mutateAsync({
@@ -41,6 +42,10 @@ function PasswordForm() {
         }
       },
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       currentPassword: '',
       newPassword: '',

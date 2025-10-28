@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { TableCell } from '@/components/ui/Table';
 import type { days, timeslots } from '@/lib/constants';
 import { cx } from '@/lib/utils';
-import type { RouterOutputs } from '@/server/api';
+import type { RouterOutput } from '@/server/api';
 import type { SelectSkill } from '@/server/db/tables';
 
 type ScheduleCellProps = {
@@ -18,9 +18,9 @@ type ScheduleCellProps = {
   };
   day: (typeof days)[number];
   timeslot: (typeof timeslots)[number];
-  members: RouterOutputs['shiftSchedule']['fetchShifts'][number]['members'];
+  members: RouterOutput['shiftSchedule']['fetchShifts'][number]['members'];
   skills: SelectSkill[];
-  user: RouterOutputs['auth']['state']['user'];
+  user: RouterOutput['auth']['state']['user'];
 };
 
 async function ScheduleCell({

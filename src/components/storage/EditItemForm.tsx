@@ -1,5 +1,6 @@
 'use client';
 
+import { revalidateLogic } from '@tanstack/react-form';
 import { EditIcon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
@@ -35,18 +36,22 @@ function EditItemForm({
   const [previewImage, setPreviewImage] = useState(imageUrl);
 
   const schema = itemSchema(useTranslations(), itemCategories);
-  const newItemMutation = api.storage.newItem.useMutation({
+  const createItem = api.storage.newItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successNew'));
-      await utils.storage.fetchMany.invalidate();
-      await utils.storage.itemsTotal.invalidate();
+      await Promise.all([
+        utils.storage.fetchMany.invalidate(),
+        utils.storage.itemsTotal.invalidate(),
+      ]);
     },
   });
-  const editItemMutation = api.storage.editItem.useMutation({
+  const editItem = api.storage.editItem.useMutation({
     onSuccess: async () => {
       toast.success(t('successEdit'));
-      await utils.storage.fetchOne.invalidate();
-      await utils.storage.fetchMany.invalidate();
+      await Promise.all([
+        utils.storage.fetchOne.invalidate(),
+        utils.storage.fetchMany.invalidate(),
+      ]);
     },
   });
 
@@ -57,8 +62,12 @@ function EditItemForm({
 
   const form = useAppForm({
     validators: {
-      onChange: schema,
+      onDynamic: schema,
     },
+    validationLogic: revalidateLogic({
+      mode: 'submit',
+      modeAfterSubmission: 'change',
+    }),
     defaultValues: {
       image: null as string | null,
       nameNorwegian: prefilledItem?.norwegian?.name ?? '',
@@ -70,15 +79,15 @@ function EditItemForm({
       categoryName: categoryName ?? itemCategories[0] ?? '',
       quantity: prefilledItem?.quantity ?? 1,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (prefilledItem) {
-        editItemMutation.mutate({ id: prefilledItem.id, ...value });
+        await editItem.mutateAsync({ id: prefilledItem.id, ...value });
         router.push({
           pathname: '/storage/item/[itemId]',
           params: { itemId: prefilledItem.id },
         });
       } else {
-        newItemMutation.mutate(value);
+        await createItem.mutateAsync(value);
         router.push('/storage');
       }
       router.refresh();
@@ -98,7 +107,7 @@ function EditItemForm({
           <div className='group relative h-64 w-64 rounded-lg'>
             <field.BaseField label={t('image.label')}>
               <Input
-                className='h-58 w-full cursor-pointer rounded-lg border-none'
+                className='h-58 w-full cursor-pointer rounded-lg border-none opacity-0'
                 type='file'
                 accept='image/jpeg,image/png,image/gif,image/webp'
                 onChange={async (e) => {

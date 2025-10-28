@@ -17,9 +17,9 @@ export default async function ShoppingCartLayout({
   const t = await getTranslations('storage');
   return (
     <>
+      <BackToStorageButton />
       <div className='relative flex items-center'>
         <h1 className='mx-auto text-center'>{t('shoppingCart.title')}</h1>
-        <BackToStorageButton variant='absolute' />
       </div>
       {children}
     </>

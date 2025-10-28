@@ -8,8 +8,7 @@ function getLocaleFromRequest(request: Request) {
     return routing.defaultLocale;
   }
   const preferredLocale =
-    acceptLanguage.split(',').at(0)?.split(';').at(0)?.toLowerCase().trim() ??
-    '';
+    acceptLanguage.split(',').at(0)?.split(';').at(0)?.trim() ?? '';
 
   return routing.locales.includes(preferredLocale as Locale)
     ? (preferredLocale as Locale)

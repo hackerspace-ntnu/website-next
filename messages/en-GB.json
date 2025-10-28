@@ -365,6 +365,7 @@
     "lastUpdated": "Last updated: {date}",
     "newArticlesUnauthorized": "Unauthorized to create new articles",
     "updateArticlesUnauthorized": "Unauthorized to update articles",
+    "internalUnauthorized": "Unauthorized to view internal articles",
     "form": {
       "createArticle": "Create article",
       "updateArticle": "Update article",
@@ -411,6 +412,7 @@
       "invalidLimit": "Invalid limit",
       "invalidOffset": "Invalid offset",
       "tooManyArticles": "Too many articles requested. Cannot fetch more than {count} articles.",
+      "fetchFailed": "Failed to fetch news article",
       "insertFailed": "Failed to add news article",
       "articleNotFound": "Article not found",
       "articleImageNotFound": "Article image not found"
@@ -451,7 +453,11 @@
       "removingFromGroup": "Removing from group...",
       "removingFromGroupFailed": "Failed to remove user from group",
       "userAddedToGroup": "User added to group successfully",
-      "userRemovedFromGroup": "User removed from group successfully"
+      "userRemovedFromGroup": "User removed from group successfully",
+      "yourself": "yourself",
+      "confirmTitle": "Are you sure you want to remove {user} from {group}?",
+      "confirmDescription": "This change will result in an immediate removal of permissions.",
+      "confirmDescriptionIrreversible": "This change will result in an immediate removal of permissions. Since you're editing your own profile, this action will be irreversible."
     },
     "api": {
       "invalidOffset": "Invalid offset",
@@ -465,6 +471,7 @@
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
+    "backToHome": "Back to home",
     "profile": {
       "title": "Profile",
       "username": "Username",
@@ -764,24 +771,27 @@
         "labelEnglish": "Item name (English)",
         "labelNorwegian": "Item name (Norwegian)",
         "placeholder": "Raspberry Pi 5",
-        "required": "Item name is required."
+        "required": "Item name is required.",
+        "maxLength": "Item name must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "description": {
         "labelEnglish": "Description (English)",
         "labelNorwegian": "Description (Norwegian)",
-        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components."
+        "placeholder": "A mini-PC capable of, among other things, running scripts and controlling electronic components.",
+        "maxLength": "Description must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "location": {
         "labelEnglish": "Location (English)",
         "labelNorwegian": "Location (Norwegian)",
         "placeholder": "Box 2A",
         "required": "Item location is required.",
-        "invalid": "Please provide a short and concise location."
+        "maxLength": "Item locations must be {count, plural, one {one character} other {# characters}} or fewer."
       },
       "quantity": {
         "label": "Quantity",
         "placeholder": "4",
-        "negative": "Quantity cannot be negative."
+        "negative": "Quantity cannot be negative.",
+        "max": "The maximum quantity is {count}."
       },
       "category": {
         "label": "Category",
