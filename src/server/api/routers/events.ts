@@ -335,7 +335,15 @@ const eventsRouter = createRouter({
       const event = await ctx.db.query.events.findFirst({
         where: eq(events.id, input.id),
         with: {
-          usersEvents: true,
+          usersEvents: {
+            with: {
+              user: {
+                with: {
+                  usersGroups: true,
+                },
+              },
+            },
+          },
         },
       });
 
@@ -438,6 +446,28 @@ const eventsRouter = createRouter({
       // Promote users from waitlist if maxParticipants increased
       if (maxParticipantsDelta > 0) {
         await promoteFromEventWaitlist(ctx.db, event.id, maxParticipantsDelta);
+      }
+
+      // If event is made internal, remove non-member participants.
+      // Also promote users from waitlist to fill vacant spots.
+      if (!event.internal && input.internal) {
+        const nonMembersSignedUp = event.usersEvents
+          .filter((userEvent) => userEvent.user.usersGroups.length === 0)
+          .map((userEvent) => userEvent.userId);
+
+        const removed = await ctx.db
+          .delete(usersEvents)
+          .where(
+            and(
+              eq(usersEvents.eventId, event.id),
+              inArray(usersEvents.userId, nonMembersSignedUp),
+            ),
+          )
+          .returning({ userId: usersEvents.userId });
+
+        if (removed.length > 0) {
+          await promoteFromEventWaitlist(ctx.db, event.id, removed.length);
+        }
       }
 
       return event;
