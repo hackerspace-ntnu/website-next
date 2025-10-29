@@ -15,7 +15,11 @@ import { useLocalStorage } from '@/lib/hooks/useLocalStorage';
 import { cx } from '@/lib/utils';
 
 type CookieConsentProps = JSX.IntrinsicElements['div'] & {
-  description: React.ReactNode;
+  t: {
+    description: React.ReactNode;
+    accept: React.ReactNode;
+    decline: React.ReactNode;
+  };
   variant?: 'default' | 'small' | 'mini';
   demo?: boolean;
   onAcceptCallback?: () => void;
@@ -26,10 +30,10 @@ type CookieConsentProps = JSX.IntrinsicElements['div'] & {
 function CookieConsent({
   variant = 'default',
   demo = false,
-  onAcceptCallback = () => {},
-  onDeclineCallback = () => {},
+  onAcceptCallback,
+  onDeclineCallback,
   className,
-  description,
+  t,
   learnMoreHref = '#',
   ref,
   ...props
@@ -50,7 +54,7 @@ function CookieConsent({
     setTimeout(() => {
       setHide(true);
     }, 700);
-    onAcceptCallback();
+    onAcceptCallback?.();
   }, [onAcceptCallback]);
 
   const handleDecline = useCallback(() => {
@@ -59,7 +63,7 @@ function CookieConsent({
       setHide(true);
     }, 700);
     setOptedOut(true);
-    onDeclineCallback();
+    onDeclineCallback?.();
   }, [onDeclineCallback, setOptedOut]);
 
   useEffect(() => {
@@ -108,7 +112,9 @@ function CookieConsent({
             <CookieIcon className='h-5 w-5' />
           </CardHeader>
           <CardContent className='space-y-2'>
-            <CardDescription className='text-sm'>{description}</CardDescription>
+            <CardDescription className='text-sm'>
+              {t.description}
+            </CardDescription>
             <p className='text-muted-foreground text-xs'>
               By clicking <span className='font-medium'>"Accept"</span>, you
               agree to our use of cookies.
@@ -126,10 +132,10 @@ function CookieConsent({
               variant='secondary'
               className='flex-1'
             >
-              Decline
+              {t.decline}
             </Button>
             <Button onClick={handleAccept} className='flex-1'>
-              Accept
+              {t.accept}
             </Button>
           </CardFooter>
         </Card>
@@ -146,7 +152,9 @@ function CookieConsent({
             <CookieIcon className='h-4 w-4' />
           </CardHeader>
           <CardContent className='px-4 pt-0 pb-2'>
-            <CardDescription className='text-sm'>{description}</CardDescription>
+            <CardDescription className='text-sm'>
+              {t.description}
+            </CardDescription>
           </CardContent>
           <CardFooter className='flex h-0 gap-2 px-4 py-2'>
             <Button
@@ -155,14 +163,14 @@ function CookieConsent({
               size='sm'
               className='flex-1 rounded-full'
             >
-              Decline
+              {t.decline}
             </Button>
             <Button
               onClick={handleAccept}
               size='sm'
               className='flex-1 rounded-full'
             >
-              Accept
+              {t.accept}
             </Button>
           </CardFooter>
         </Card>
@@ -176,7 +184,7 @@ function CookieConsent({
         <Card className='mx-3 p-0 py-3 shadow-lg'>
           <CardContent className='grid gap-4 p-0 px-3.5 sm:flex'>
             <CardDescription className='flex-1 text-xs sm:text-sm'>
-              {description}
+              {t.description}
             </CardDescription>
             <div className='flex items-center justify-end gap-2 sm:gap-3'>
               <Button
@@ -185,12 +193,12 @@ function CookieConsent({
                 variant='secondary'
                 className='h-7 text-xs'
               >
-                Decline
-                <span className='sr-only sm:hidden'>Decline</span>
+                {t.decline}
+                <span className='sr-only sm:hidden'>{t.decline}</span>
               </Button>
               <Button onClick={handleAccept} size='sm' className='h-7 text-xs'>
-                Accept
-                <span className='sr-only sm:hidden'>Accept</span>
+                {t.accept}
+                <span className='sr-only sm:hidden'>{t.accept}</span>
               </Button>
             </div>
           </CardContent>
@@ -204,4 +212,3 @@ function CookieConsent({
 
 CookieConsent.displayName = 'CookieConsent';
 export { CookieConsent };
-export default CookieConsent;
