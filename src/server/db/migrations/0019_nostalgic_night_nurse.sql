@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "food_preferences" varchar(128);
