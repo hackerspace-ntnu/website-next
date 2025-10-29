@@ -29,7 +29,10 @@ async function WaitlistTable({
     <Table className='my-4'>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-full'>{t('attendance.person')}</TableHead>
+          <TableHead className='min-w-64'>{t('attendance.person')}</TableHead>
+          <TableHead className='min-w-64'>
+            {t('attendance.foodPreferences')}
+          </TableHead>
           <TableHead className='min-w-40'>
             {t('waitlist.waitlistedAt')}
           </TableHead>
@@ -53,6 +56,7 @@ async function WaitlistTable({
                 </span>
               </div>
             </TableCell>
+            <TableCell>{participant.user.foodPreferences}</TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
               {formatter.dateTime(
                 participant.waitlistedAt ?? new Date(),
