@@ -53,12 +53,17 @@ export default async function EditGroupPage({
 
   const { about, groups, ui, error } = await getMessages();
 
-  const leader = group.leaderId
-    ? await api.users.fetchMember({ id: group.leaderId })
-    : undefined;
-  const deputyLeader = group.deputyLeaderId
-    ? await api.users.fetchMember({ id: group.deputyLeaderId })
-    : undefined;
+  const leaderProfilePictureUrl = group.leader?.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: group.leader.profilePictureId,
+      })
+    : null;
+
+  const deputyLeaderProfilePictureUrl = group.deputyLeader?.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: group.deputyLeader.profilePictureId,
+      })
+    : null;
 
   return (
     <>
@@ -86,21 +91,15 @@ export default async function EditGroupPage({
           <GroupForm
             group={group}
             leader={
-              leader && {
-                id: leader.id as number,
-                firstName: leader.firstName as string,
-                lastName: leader.lastName as string,
-                profilePictureId: leader.profilePictureId as number,
-                profilePictureUrl: leader.profilePictureUrl,
+              group.leader && {
+                ...group.leader,
+                profilePictureUrl: leaderProfilePictureUrl,
               }
             }
             deputyLeader={
-              deputyLeader && {
-                id: deputyLeader.id as number,
-                firstName: deputyLeader.firstName as string,
-                lastName: deputyLeader.lastName as string,
-                profilePictureId: deputyLeader.profilePictureId as number,
-                profilePictureUrl: deputyLeader.profilePictureUrl,
+              group.deputyLeader && {
+                ...group.deputyLeader,
+                profilePictureUrl: deputyLeaderProfilePictureUrl,
               }
             }
           />

@@ -30,8 +30,8 @@ function GroupForm({
   deputyLeader,
 }: {
   group?: RouterOutput['groups']['fetchGroup'];
-  leader?: RouterOutput['users']['searchMembers'][number];
-  deputyLeader?: RouterOutput['users']['searchMembers'][number];
+  leader?: RouterOutput['users']['searchMembers'][number] | null;
+  deputyLeader?: RouterOutput['users']['searchMembers'][number] | null;
 }) {
   const t = useTranslations('groups.form');
   const tNew = useTranslations('groups.new');
