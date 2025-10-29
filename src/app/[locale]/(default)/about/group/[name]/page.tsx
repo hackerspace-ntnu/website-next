@@ -71,8 +71,10 @@ export default async function GroupPage({
   })[];
 
   members = members.sort((a, b) => {
-    if (a.id === group.leaderId || a.id === group.deputyLeaderId) return -1;
-    if (b.id === group.leaderId || b.id === group.deputyLeaderId) return 1;
+    if (a.id === group.leaderId) return -1;
+    if (b.id === group.leaderId) return 1;
+    if (a.id === group.deputyLeaderId) return -1;
+    if (b.id === group.deputyLeaderId) return 1;
     return 0;
   });
 
