@@ -483,6 +483,8 @@
       "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
       "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
       "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "consents": "Samtykker",
+      "showCookieConsent": "Juster informasjonskapselsamtykke",
       "profilePicture": {
         "label": "Profilbilde",
         "mustBeImage": "Profilbilde må være et bilde",

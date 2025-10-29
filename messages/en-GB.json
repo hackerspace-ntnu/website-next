@@ -483,6 +483,8 @@
       "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
       "updateProfilePictureTooltip": "Click to change profile picture",
+      "consents": "Consents",
+      "showCookieConsent": "Adjust cookie consent",
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",
