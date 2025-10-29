@@ -226,6 +226,32 @@ const groupsRouter = createRouter({
         locale: 'en-GB',
       });
 
+      const leadersToInsert = [];
+
+      if (input.leaderId) {
+        leadersToInsert.push({
+          groupId: group.id,
+          userId: Number(input.leaderId),
+        });
+      }
+
+      if (input.deputyLeaderId) {
+        leadersToInsert.push({
+          groupId: group.id,
+          userId: Number(input.deputyLeaderId),
+        });
+      }
+
+      // Group leader and deputy leader should always be members of the group.
+      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+      // avoids database errors
+      if (leadersToInsert.length > 0) {
+        await ctx.db
+          .insert(usersGroups)
+          .values(leadersToInsert)
+          .onConflictDoNothing();
+      }
+
       return input.identifier;
     }),
   editGroup: protectedEditProcedure
@@ -304,6 +330,32 @@ const groupsRouter = createRouter({
             eq(groupLocalizations.locale, 'en-GB'),
           ),
         );
+
+      const leadersToInsert = [];
+
+      if (input.leaderId) {
+        leadersToInsert.push({
+          groupId: existingGroup.id,
+          userId: Number(input.leaderId),
+        });
+      }
+
+      if (input.deputyLeaderId) {
+        leadersToInsert.push({
+          groupId: existingGroup.id,
+          userId: Number(input.deputyLeaderId),
+        });
+      }
+
+      // Group leader and deputy leader should always be members of the group.
+      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+      // avoids database errors
+      if (leadersToInsert.length > 0) {
+        await ctx.db
+          .insert(usersGroups)
+          .values(leadersToInsert)
+          .onConflictDoNothing();
+      }
 
       return input.identifier;
     }),
