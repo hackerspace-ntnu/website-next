@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { cva, cx, type VariantProps } from '@/lib/utils';
 
 const memberAvatarVariants = cva({
+  base: 'shrink-0',
   variants: {
     size: {
       sm: 'h-8 w-8',

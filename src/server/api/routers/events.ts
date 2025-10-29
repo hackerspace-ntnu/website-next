@@ -172,9 +172,10 @@ const eventsRouter = createRouter({
               user: {
                 columns: {
                   id: true,
+                  profilePictureId: true,
                   firstName: true,
                   lastName: true,
-                  profilePictureId: true,
+                  foodPreferences: true,
                 },
                 with: {
                   usersSkills: true,
