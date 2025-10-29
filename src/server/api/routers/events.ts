@@ -84,11 +84,10 @@ const eventsRouter = createRouter({
           },
         })
         .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('events.api.fetchEventFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('events.api.fetchEventFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -100,9 +99,7 @@ const eventsRouter = createRouter({
       if ((!user || user.groups.length <= 0) && event.internal) {
         throw new TRPCError({
           code: 'FORBIDDEN',
-          message: ctx.t('events.api.unauthorized', {
-            eventId: event.id,
-          }),
+          message: ctx.t('events.api.unauthorized'),
           cause: { toast: 'error' },
         });
       }
@@ -219,9 +216,10 @@ const eventsRouter = createRouter({
               user: {
                 columns: {
                   id: true,
+                  profilePictureId: true,
                   firstName: true,
                   lastName: true,
-                  profilePictureId: true,
+                  foodPreferences: true,
                 },
                 with: {
                   usersSkills: true,

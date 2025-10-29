@@ -57,9 +57,8 @@ async function UserSearchTable({
                 >
                   <MemberAvatar
                     user={user}
-                    profilePictureUrl={user.profilePictureUrl ?? undefined}
+                    profilePictureUrl={user.profilePictureUrl}
                     size='md'
-                    className='shrink-0'
                   />
                   <span>{`${user.firstName} ${user.lastName}`}</span>
                 </Link>

@@ -1,5 +1,6 @@
 'use client';
 
+import type FullCalendar from '@fullcalendar/react';
 import { revalidateLogic } from '@tanstack/react-form';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -18,21 +19,20 @@ import { Button } from '@/components/ui/Button';
 import { useAppForm } from '@/components/ui/Form';
 import { toast } from '@/components/ui/Toaster';
 import { api } from '@/lib/api/client';
-import { useRouter } from '@/lib/locale/navigation';
 import type { RouterOutput } from '@/server/api';
 import { reservationFormSchema } from '@/validations/reservations';
 
 type CalendarDialogProps = {
-  user: RouterOutput['auth']['state']['user'];
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 
   mode: 'create' | 'edit';
+  calendarRef: React.RefObject<FullCalendar | null>;
+  user: RouterOutput['auth']['state']['user'];
   toolId: number;
   reservationId?: number;
 
   range: { start: Date | null; end: Date | null };
-  windowRange: { from: string; until: string };
   notes?: string;
 
   children?: React.ReactNode;
@@ -62,10 +62,11 @@ function withHM(date: Date, h: number, m: number) {
 }
 
 function CalendarDialog({
-  user,
   open: openProp,
   onOpenChange,
   mode,
+  calendarRef,
+  user,
   toolId,
   reservationId,
   range,
@@ -75,7 +76,6 @@ function CalendarDialog({
   const t = useTranslations('reservations');
   const translations = useTranslations();
   const utils = api.useUtils();
-  const router = useRouter();
 
   const isMember = !!(user?.groups && user.groups.length > 0);
   const schema = reservationFormSchema(
@@ -95,42 +95,35 @@ function CalendarDialog({
     onOpenChange?.(open);
   }
 
+  async function onMutationSuccess() {
+    await Promise.all([
+      utils.reservations.fetchCalendarReservations.invalidate({ toolId }),
+      utils.reservations.fetchOneReservation.invalidate(),
+      utils.reservations.fetchUserReservations.invalidate(),
+    ]);
+    handleOpenChange(false);
+    // The page with the calendar is client-side, so we don't refresh using router,
+    // but rather ask FullCalendar to update events
+    calendarRef.current?.getApi().refetchEvents();
+  }
+
   const createReservation = api.reservations.createReservation.useMutation({
     onSuccess: async () => {
       toast.success(t('form.successCreate'));
-      await Promise.all([
-        utils.reservations.fetchCalendarReservations.invalidate({
-          toolId,
-        }),
-        utils.reservations.fetchUserReservations.invalidate(),
-      ]);
-      handleOpenChange(false);
-      router.refresh();
+      onMutationSuccess();
     },
   });
   const updateReservation = api.reservations.updateReservation.useMutation({
     onSuccess: async () => {
       toast.success(t('form.successUpdate'));
-      await Promise.all([
-        utils.reservations.fetchCalendarReservations.invalidate({ toolId }),
-        utils.reservations.fetchOneReservation.invalidate(),
-        utils.reservations.fetchUserReservations.invalidate(),
-      ]);
-      handleOpenChange(false);
-      router.refresh();
+      onMutationSuccess();
     },
   });
 
   const deleteReservation = api.reservations.deleteReservation.useMutation({
     onSuccess: async () => {
       toast.success(t('form.successDelete'));
-      await Promise.all([
-        utils.reservations.fetchCalendarReservations.invalidate({ toolId }),
-        utils.reservations.fetchOneReservation.invalidate(),
-        utils.reservations.fetchUserReservations.invalidate(),
-      ]);
-      handleOpenChange(false);
-      router.refresh();
+      onMutationSuccess();
     },
   });
 

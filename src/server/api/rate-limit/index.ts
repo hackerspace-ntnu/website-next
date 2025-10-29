@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 
 import { RefillingTokenBucket } from '@/server/api/rate-limit/refillingTokenBucket';
 
-const globalBucket = new RefillingTokenBucket<string>(100, 1);
+const globalBucket = new RefillingTokenBucket<string>(500, 1);
 
 async function getClientIP() {
   const headerStore = await headers();

@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 import {
   ArrowLeftIcon,
   BookImageIcon,
@@ -18,6 +18,7 @@ import {
 import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
 import { WaitlistTable } from '@/components/events/WaitlistTable';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
@@ -25,8 +26,7 @@ import { ExternalLink, Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { db } from '@/server/db';
-import { eventLocalizations } from '@/server/db/tables';
+import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
   params,
@@ -35,15 +35,29 @@ export async function generateMetadata({
 }) {
   const { eventId } = await params;
   const locale = await getLocale();
-  if (Number.isNaN(Number(eventId))) return;
-  const localization = await db.query.eventLocalizations.findFirst({
-    where: and(
-      eq(eventLocalizations.eventId, Number(eventId)),
-      eq(eventLocalizations.locale, locale),
-    ),
-  });
+  const processedEventId = Number(eventId);
 
-  if (!localization?.name) return;
+  if (
+    !eventId ||
+    Number.isNaN(processedEventId) ||
+    !Number.isInteger(processedEventId)
+  ) {
+    return notFound();
+  }
+
+  let event: RouterOutput['events']['fetchEvent'] | null = null;
+
+  try {
+    event = await api.events.fetchEvent(processedEventId);
+  } catch {
+    return;
+  }
+
+  const localization = event?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!event || !localization) return;
 
   return {
     title: `${localization.name}`,
@@ -66,9 +80,37 @@ export default async function EventDetailsPage({
   const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   const { ui, events } = await getMessages();
-  if (Number.isNaN(Number(eventId))) return notFound();
+  const processedEventId = Number(eventId);
 
-  const event = await api.events.fetchEvent(Number(eventId));
+  if (
+    !eventId ||
+    Number.isNaN(processedEventId) ||
+    !Number.isInteger(processedEventId)
+  ) {
+    return notFound();
+  }
+
+  let event: RouterOutput['events']['fetchEvent'] | null = null;
+
+  try {
+    event = await api.events.fetchEvent(processedEventId);
+  } catch (error) {
+    console.error(error);
+    if (
+      error instanceof TRPCError &&
+      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
+    ) {
+      return (
+        <ErrorPageContent
+          message={
+            error.code === 'FORBIDDEN'
+              ? t('api.unauthorized')
+              : t('api.fetchEventFailed')
+          }
+        />
+      );
+    }
+  }
 
   const localization = event?.localizations.find(
     (localization) => localization.locale === locale,

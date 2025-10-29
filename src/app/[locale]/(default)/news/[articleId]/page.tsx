@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 import { ArrowLeftIcon, SquarePenIcon } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -9,12 +10,14 @@ import {
 } from 'next-intl/server';
 import readingTime from 'reading-time';
 import { HackerspaceLogo } from '@/components/assets/logos';
-import { AvatarIcon } from '@/components/profile/AvatarIcon';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
+import { MemberAvatar } from '@/components/members/MemberAvatar';
 import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
+import type { RouterOutput } from '@/server/api';
 import { getFileUrl } from '@/server/services/files';
 
 export async function generateMetadata({
@@ -23,10 +26,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string; articleId: string }>;
 }) {
   const { articleId } = await params;
-  const article = await api.news.fetchArticle({ id: Number(articleId) });
+
+  let article: RouterOutput['news']['fetchArticle'] | null = null;
+  try {
+    article = await api.news.fetchArticle({ id: Number(articleId) });
+  } catch {
+    return;
+  }
+
+  if (!article) return;
 
   return {
-    title: article?.localization?.title,
+    title: article.localization.title ?? '',
   };
 }
 
@@ -38,14 +49,43 @@ export default async function ArticlePage({
   const { locale, articleId } = await params;
   setRequestLocale(locale as Locale);
 
-  if (Number.isNaN(Number(articleId))) return notFound();
+  const processedArticleId = Number(articleId);
+
+  if (
+    !articleId ||
+    Number.isNaN(processedArticleId) ||
+    !Number.isInteger(processedArticleId)
+  ) {
+    return notFound();
+  }
 
   const t = await getTranslations('news');
+  const tLayout = await getTranslations('layout');
   const formatter = await getFormatter();
-  const article = await api.news.fetchArticle({
-    id: Number(articleId),
-    incrementViews: true,
-  });
+
+  let article: RouterOutput['news']['fetchArticle'] | null = null;
+  try {
+    article = await api.news.fetchArticle({
+      id: processedArticleId,
+      incrementViews: true,
+    });
+  } catch (error) {
+    if (
+      error instanceof TRPCError &&
+      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
+    ) {
+      return (
+        <ErrorPageContent
+          message={
+            error.code === 'FORBIDDEN'
+              ? t('internalUnauthorized')
+              : t('api.fetchFailed')
+          }
+        />
+      );
+    }
+  }
+
   if (!article) {
     return notFound();
   }
@@ -114,10 +154,9 @@ export default async function ArticlePage({
       <section className='mb-6 space-y-4'>
         <div className='flex items-center gap-4'>
           {article.author ? (
-            <AvatarIcon
-              photoUrl={authorImageUrl}
-              name={`${article.author.firstName} ${article.author.lastName}`}
-              initials={`${article.author.firstName.charAt(0)}${article.author.lastName.charAt(0)}`}
+            <MemberAvatar
+              user={article.author}
+              profilePictureUrl={authorImageUrl}
             />
           ) : (
             <Avatar>
@@ -140,7 +179,12 @@ export default async function ArticlePage({
             </small>
           </div>
         </div>
-        <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
+        <div className='flex gap-4'>
+          <Badge variant='secondary'>{`${article.views} ${t('views')}`}</Badge>
+          {article.internal && (
+            <Badge className='rounded-full'>{tLayout('internal')}</Badge>
+          )}
+        </div>
       </section>
       <section>
         <PlateEditorView value={article.localization.content} />

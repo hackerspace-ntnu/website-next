@@ -10,7 +10,7 @@ import {
 
 const BYPASS_PATHS = ['/s3/', '/api/'] as const;
 const NO_RATE_LIMIT_PATHS = [
-  `${encodeURIComponent('for-mange-forespørsler')}`,
+  encodeURIComponent('for-mange-forespørsler'),
   'too-many-requests',
 ];
 

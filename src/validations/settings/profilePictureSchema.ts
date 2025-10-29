@@ -6,7 +6,7 @@ function profilePictureSchema(t: Translations) {
   return z.object({
     profilePicture: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png'],
+      allowedFileTypes: ['jpeg', 'png', 'webp'],
       maxFileSize: 50,
       fileNotImageError: t('settings.profile.profilePicture.mustBeImage'),
       wrongFileTypeError: t('settings.profile.profilePicture.mustbePngOrJpg'),

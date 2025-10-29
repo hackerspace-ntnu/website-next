@@ -365,6 +365,7 @@
     "lastUpdated": "Last updated: {date}",
     "newArticlesUnauthorized": "Unauthorized to create new articles",
     "updateArticlesUnauthorized": "Unauthorized to update articles",
+    "internalUnauthorized": "Unauthorized to view internal articles",
     "form": {
       "createArticle": "Create article",
       "updateArticle": "Update article",
@@ -411,6 +412,7 @@
       "invalidLimit": "Invalid limit",
       "invalidOffset": "Invalid offset",
       "tooManyArticles": "Too many articles requested. Cannot fetch more than {count} articles.",
+      "fetchFailed": "Failed to fetch news article",
       "insertFailed": "Failed to add news article",
       "articleNotFound": "Article not found",
       "articleImageNotFound": "Article image not found"
@@ -451,7 +453,11 @@
       "removingFromGroup": "Removing from group...",
       "removingFromGroupFailed": "Failed to remove user from group",
       "userAddedToGroup": "User added to group successfully",
-      "userRemovedFromGroup": "User removed from group successfully"
+      "userRemovedFromGroup": "User removed from group successfully",
+      "yourself": "yourself",
+      "confirmTitle": "Are you sure you want to remove {user} from {group}?",
+      "confirmDescription": "This change will result in an immediate removal of permissions.",
+      "confirmDescriptionIrreversible": "This change will result in an immediate removal of permissions. Since you're editing your own profile, this action will be irreversible."
     },
     "api": {
       "invalidOffset": "Invalid offset",
@@ -465,6 +471,7 @@
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
+    "backToHome": "Back to home",
     "profile": {
       "title": "Profile",
       "username": "Username",
@@ -500,6 +507,11 @@
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"
+      },
+      "foodPreferences": {
+        "label": "Food preferences",
+        "description": "Allergies, food preferences, or other relevant information. Shown only to event organizers.",
+        "maxLength": "Food preferences must be less than {count} characters"
       }
     },
     "account": {
@@ -1023,6 +1035,7 @@
       "attendanceDescription": "Check the attendance of those who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
       "person": "Person",
+      "foodPreferences": "Food preferences",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",

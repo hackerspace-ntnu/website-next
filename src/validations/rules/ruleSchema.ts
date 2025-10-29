@@ -7,7 +7,7 @@ function ruleSchema(t: Translations) {
   return z.object({
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png'],
+      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
       maxFileSize: 10,
       sizeLimitError: t('rules.form.image.sizeLimitError', { size: 10 }),
       wrongFileTypeError: t('rules.form.image.wrongFileTypeError'),
