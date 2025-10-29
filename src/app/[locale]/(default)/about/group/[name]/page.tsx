@@ -12,7 +12,6 @@ import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
-import type { SelectUser } from '@/server/db/tables';
 
 export async function generateMetadata({
   params,
@@ -54,27 +53,11 @@ export default async function GroupPage({
     (localization) => localization.locale === locale,
   );
 
-  const memberPromises = group.usersGroups.map(async (row) => {
-    if (row.user.profilePictureId) {
-      return {
-        ...row.user,
-        profilePictureUrl: await api.utils.getFileUrl({
-          fileId: row.user.profilePictureId,
-        }),
-      };
-    }
-    return row.user;
-  });
-
-  let members = (await Promise.all(memberPromises)) as (SelectUser & {
-    profilePictureUrl?: string;
-  })[];
-
-  members = members.sort((a, b) => {
-    if (a.id === group.leaderId) return -1;
-    if (b.id === group.leaderId) return 1;
-    if (a.id === group.deputyLeaderId) return -1;
-    if (b.id === group.deputyLeaderId) return 1;
+  group.usersGroups = group.usersGroups.sort((a, b) => {
+    if (a.user.id === group.leaderId) return -1;
+    if (b.user.id === group.leaderId) return 1;
+    if (a.user.id === group.deputyLeaderId) return -1;
+    if (b.user.id === group.deputyLeaderId) return 1;
     return 0;
   });
 
@@ -132,14 +115,14 @@ export default async function GroupPage({
           </div>
         )}
         <PlateEditorView value={groupLocalization.description} />
-        {members.length === 0 && (
+        {group.usersGroups.length === 0 && (
           <div className='flex w-full items-center justify-center gap-2'>
             <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
             <p className='text-center'>{tAbout('noMembers')}</p>
           </div>
         )}
         <div className='my-6 grid grid-cols-1 content-end gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {members.map((member) => {
+          {group.usersGroups.map(({ user: member }) => {
             return (
               <Link
                 key={member.id}

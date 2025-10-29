@@ -58,23 +58,26 @@ const groupsRouter = createRouter({
 
       if (!group) return null;
 
-      const groupData = {
-        ...group,
-        usersGroups: group.usersGroups.sort((a, b) =>
-          a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
-        ),
-      };
+      const sortedUsersGroups = group.usersGroups.sort((a, b) =>
+        a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
+      );
 
-      if (group.imageId) {
-        return {
-          ...groupData,
-          imageUrl: await getFileUrl(group.imageId),
-        };
-      }
+      const usersGroupsWithProfilePictures = await Promise.all(
+        sortedUsersGroups.map(async (row) => ({
+          ...row,
+          user: {
+            ...row.user,
+            profilePictureUrl: row.user.profilePictureId
+              ? await getFileUrl(row.user.profilePictureId)
+              : null,
+          },
+        })),
+      );
 
       return {
-        ...groupData,
-        imageUrl: null,
+        ...group,
+        usersGroups: usersGroupsWithProfilePictures,
+        imageUrl: group.imageId ? await getFileUrl(group.imageId) : null,
       };
     }),
   fetchGroups: publicProcedure.query(async ({ ctx }) => {
