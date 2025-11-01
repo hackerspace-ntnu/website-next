@@ -26,6 +26,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=true
 ENV SKIP_ENV_VALIDATION=true
+ENV TZ=Europe/Oslo
 
 RUN addgroup --system --gid 1002 nodejs && \
   adduser --system --uid 1002 nextjs
