@@ -53,6 +53,18 @@ export default async function EditGroupPage({
 
   const { about, groups, ui, error } = await getMessages();
 
+  const leaderProfilePictureUrl = group.leader?.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: group.leader.profilePictureId,
+      })
+    : null;
+
+  const deputyLeaderProfilePictureUrl = group.deputyLeader?.profilePictureId
+    ? await api.utils.getFileUrl({
+        fileId: group.deputyLeader.profilePictureId,
+      })
+    : null;
+
   return (
     <>
       <div className='relative flex w-full justify-center'>
@@ -76,7 +88,21 @@ export default async function EditGroupPage({
         }
       >
         <div className='mx-auto lg:max-w-2xl'>
-          <GroupForm group={group} />
+          <GroupForm
+            group={group}
+            leader={
+              group.leader && {
+                ...group.leader,
+                profilePictureUrl: leaderProfilePictureUrl,
+              }
+            }
+            deputyLeader={
+              group.deputyLeader && {
+                ...group.deputyLeader,
+                profilePictureUrl: deputyLeaderProfilePictureUrl,
+              }
+            }
+          />
         </div>
       </NextIntlClientProvider>
     </>

@@ -38,6 +38,8 @@ const groupsRouter = createRouter({
           where,
           with: {
             localizations: true,
+            leader: true,
+            deputyLeader: true,
             usersGroups: {
               with: {
                 user: true,
@@ -56,16 +58,26 @@ const groupsRouter = createRouter({
 
       if (!group) return null;
 
-      if (group.imageId) {
-        return {
-          ...group,
-          imageUrl: await getFileUrl(group.imageId),
-        };
-      }
+      const sortedUsersGroups = group.usersGroups.sort((a, b) =>
+        a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
+      );
+
+      const usersGroupsWithProfilePictures = await Promise.all(
+        sortedUsersGroups.map(async (row) => ({
+          ...row,
+          user: {
+            ...row.user,
+            profilePictureUrl: row.user.profilePictureId
+              ? await getFileUrl(row.user.profilePictureId)
+              : null,
+          },
+        })),
+      );
 
       return {
         ...group,
-        imageUrl: null,
+        usersGroups: usersGroupsWithProfilePictures,
+        imageUrl: group.imageId ? await getFileUrl(group.imageId) : null,
       };
     }),
   fetchGroups: publicProcedure.query(async ({ ctx }) => {
@@ -185,8 +197,12 @@ const groupsRouter = createRouter({
         .values({
           identifier: input.identifier,
           imageId,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .returning({ id: groups.id });
 
@@ -212,6 +228,32 @@ const groupsRouter = createRouter({
         description: input.descriptionEnglish,
         locale: 'en-GB',
       });
+
+      const leadersToInsert = [];
+
+      if (input.leaderId) {
+        leadersToInsert.push({
+          groupId: group.id,
+          userId: Number(input.leaderId),
+        });
+      }
+
+      if (input.deputyLeaderId) {
+        leadersToInsert.push({
+          groupId: group.id,
+          userId: Number(input.deputyLeaderId),
+        });
+      }
+
+      // Group leader and deputy leader should always be members of the group.
+      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+      // avoids database errors
+      if (leadersToInsert.length > 0) {
+        await ctx.db
+          .insert(usersGroups)
+          .values(leadersToInsert)
+          .onConflictDoNothing();
+      }
 
       return input.identifier;
     }),
@@ -253,8 +295,12 @@ const groupsRouter = createRouter({
         .set({
           identifier: input.identifier,
           imageId: input.image ? imageId : undefined,
-          internal: input.internal,
           openForApplications: input.openForApplications,
+          leaderId: input.leaderId ? Number(input.leaderId) : null,
+          deputyLeaderId: input.deputyLeaderId
+            ? Number(input.deputyLeaderId)
+            : null,
+          internal: input.internal,
         })
         .where(eq(groups.identifier, input.previousIdentifier));
 
@@ -287,6 +333,32 @@ const groupsRouter = createRouter({
             eq(groupLocalizations.locale, 'en-GB'),
           ),
         );
+
+      const leadersToInsert = [];
+
+      if (input.leaderId) {
+        leadersToInsert.push({
+          groupId: existingGroup.id,
+          userId: Number(input.leaderId),
+        });
+      }
+
+      if (input.deputyLeaderId) {
+        leadersToInsert.push({
+          groupId: existingGroup.id,
+          userId: Number(input.deputyLeaderId),
+        });
+      }
+
+      // Group leader and deputy leader should always be members of the group.
+      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+      // avoids database errors
+      if (leadersToInsert.length > 0) {
+        await ctx.db
+          .insert(usersGroups)
+          .values(leadersToInsert)
+          .onConflictDoNothing();
+      }
 
       return input.identifier;
     }),

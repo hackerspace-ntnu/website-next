@@ -593,6 +593,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "leader": "Leader",
+    "deputyLeader": "Deputy Leader",
     "new": {
       "title": "New Group",
       "createGroup": "Create group",
@@ -643,6 +645,16 @@
         "labelEnglish": "Description (English)",
         "required": "Group description is required"
       },
+      "leader": {
+        "label": "Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a leader"
+      },
+      "deputyLeader": {
+        "label": "Deputy Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a deputy leader"
+      },
       "identifier": {
         "label": "Group identifier",
         "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
@@ -658,7 +670,9 @@
       "openForApplications": {
         "label": "Open for applications",
         "description": "If selected, anyone will be able to send an application to join this group."
-      }
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
