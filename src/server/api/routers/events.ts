@@ -213,150 +213,158 @@ const eventsRouter = createRouter({
       createEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      let imageId: number | null = null;
+      return await ctx.db.transaction(async (tx) => {
+        let imageId: number | null = null;
 
-      if (input.image) {
-        const image = await insertFile(
-          input.image,
-          'events',
-          ctx.user.id,
-          false,
-        );
-        imageId = image.id;
-      }
+        if (input.image) {
+          const image = await insertFile(
+            input.image,
+            'events',
+            ctx.user.id,
+            false,
+          );
+          imageId = image.id;
+        }
 
-      const skill =
-        input.skill.length > 0
-          ? await ctx.db.query.skills.findFirst({
-              where: eq(skills.identifier, input.skill),
-            })
-          : null;
+        const skill =
+          input.skill.length > 0
+            ? await ctx.db.query.skills.findFirst({
+                where: eq(skills.identifier, input.skill),
+              })
+            : null;
 
-      const event = await ctx.db
-        .insert(events)
-        .values({
-          startTime: input.startTime,
-          endTime: input.endTime,
-          locationMapLink: input.locationMapLink,
-          internal: input.internal,
-          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
-          imageId: imageId,
-          skillId: skill?.id,
-        })
-        .returning({ id: events.id });
+        const event = await tx
+          .insert(events)
+          .values({
+            startTime: input.startTime,
+            endTime: input.endTime,
+            locationMapLink: input.locationMapLink,
+            internal: input.internal,
+            signUpDeadline: input.setSignUpDeadline
+              ? input.signUpDeadline
+              : null,
+            imageId: imageId,
+            skillId: skill?.id,
+          })
+          .returning({ id: events.id });
 
-      if (!event[0]?.id) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('events.api.insertFailed'),
-          cause: { toast: 'error' },
+        if (!event[0]?.id) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('events.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        }
+
+        await tx.insert(eventLocalizations).values({
+          eventId: event[0].id,
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          location: input.locationEnglish,
+          locale: 'en-GB',
         });
-      }
 
-      await ctx.db.insert(eventLocalizations).values({
-        eventId: event[0].id,
-        name: input.nameEnglish,
-        summary: input.summaryEnglish,
-        description: input.descriptionEnglish,
-        location: input.locationEnglish,
-        locale: 'en-GB',
+        await tx.insert(eventLocalizations).values({
+          eventId: event[0].id,
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          location: input.locationNorwegian,
+          locale: 'nb-NO',
+        });
+
+        return event[0];
       });
-
-      await ctx.db.insert(eventLocalizations).values({
-        eventId: event[0].id,
-        name: input.nameNorwegian,
-        summary: input.summaryNorwegian,
-        description: input.descriptionNorwegian,
-        location: input.locationNorwegian,
-        locale: 'nb-NO',
-      });
-
-      return event[0];
     }),
   editEvent: protectedEditProcedure
     .input((input) =>
       editEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const event = await ctx.db.query.events.findFirst({
-        where: eq(events.id, input.id),
-      });
-
-      if (!event) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('events.api.notFound'),
-          cause: { toast: 'error' },
+      return await ctx.db.transaction(async (tx) => {
+        const event = await ctx.db.query.events.findFirst({
+          where: eq(events.id, input.id),
         });
-      }
 
-      let imageId: number | null = null;
-
-      if (input.image && input.image.length > 0) {
-        if (event.imageId) {
-          await deleteFile(event.imageId);
+        if (!event) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('events.api.notFound'),
+            cause: { toast: 'error' },
+          });
         }
 
-        const image = await insertFile(
-          input.image,
-          'events',
-          ctx.user.id,
-          false,
-        );
-        imageId = image.id;
-      }
+        let imageId: number | null = null;
 
-      const skill =
-        input.skill.length > 0
-          ? await ctx.db.query.skills.findFirst({
-              where: eq(skills.identifier, input.skill),
-            })
-          : null;
+        if (input.image && input.image.length > 0) {
+          if (event.imageId) {
+            await deleteFile(event.imageId);
+          }
 
-      await ctx.db
-        .update(events)
-        .set({
-          startTime: input.startTime,
-          endTime: input.endTime,
-          locationMapLink: input.locationMapLink,
-          internal: input.internal,
-          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
-          imageId: imageId,
-          skillId: skill?.id,
-        })
-        .where(eq(events.id, input.id));
+          const image = await insertFile(
+            input.image,
+            'events',
+            ctx.user.id,
+            false,
+          );
+          imageId = image.id;
+        }
 
-      await ctx.db
-        .update(eventLocalizations)
-        .set({
-          name: input.nameEnglish,
-          summary: input.summaryEnglish,
-          description: input.descriptionEnglish,
-          location: input.locationEnglish,
-        })
-        .where(
-          and(
-            eq(eventLocalizations.eventId, input.id),
-            eq(eventLocalizations.locale, 'en-GB'),
-          ),
-        );
+        const skill =
+          input.skill.length > 0
+            ? await ctx.db.query.skills.findFirst({
+                where: eq(skills.identifier, input.skill),
+              })
+            : null;
 
-      await ctx.db
-        .update(eventLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          summary: input.summaryNorwegian,
-          description: input.descriptionNorwegian,
-          location: input.locationNorwegian,
-        })
-        .where(
-          and(
-            eq(eventLocalizations.eventId, input.id),
-            eq(eventLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(events)
+          .set({
+            startTime: input.startTime,
+            endTime: input.endTime,
+            locationMapLink: input.locationMapLink,
+            internal: input.internal,
+            signUpDeadline: input.setSignUpDeadline
+              ? input.signUpDeadline
+              : null,
+            imageId: imageId,
+            skillId: skill?.id,
+          })
+          .where(eq(events.id, input.id));
 
-      return event;
+        await tx
+          .update(eventLocalizations)
+          .set({
+            name: input.nameEnglish,
+            summary: input.summaryEnglish,
+            description: input.descriptionEnglish,
+            location: input.locationEnglish,
+          })
+          .where(
+            and(
+              eq(eventLocalizations.eventId, input.id),
+              eq(eventLocalizations.locale, 'en-GB'),
+            ),
+          );
+
+        await tx
+          .update(eventLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            summary: input.summaryNorwegian,
+            description: input.descriptionNorwegian,
+            location: input.locationNorwegian,
+          })
+          .where(
+            and(
+              eq(eventLocalizations.eventId, input.id),
+              eq(eventLocalizations.locale, 'nb-NO'),
+            ),
+          );
+
+        return event;
+      });
     }),
   deleteEvent: protectedEditProcedure
     .input((input) =>
