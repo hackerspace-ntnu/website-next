@@ -7,6 +7,7 @@ import {
   eq,
   gte,
   inArray,
+  isNotNull,
   lte,
   notInArray,
   or,
@@ -506,6 +507,19 @@ const eventsRouter = createRouter({
             removedFromConfirmed.length,
           );
         }
+      }
+
+      // If the event no longer has a max participants limit, clear the waitlist
+      if (event.maxParticipants && !input.setMaxParticipants) {
+        await ctx.db
+          .update(usersEvents)
+          .set({ waitlistedAt: null })
+          .where(
+            and(
+              eq(usersEvents.eventId, event.id),
+              isNotNull(usersEvents.waitlistedAt),
+            ),
+          );
       }
 
       return event;
