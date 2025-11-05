@@ -154,141 +154,145 @@ const groupsRouter = createRouter({
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const existingGroup = await ctx.db.query.groups.findFirst({
-        where: eq(groups.identifier, input.identifier),
-      });
+      return await ctx.db.transaction(async (tx) => {
+        const existingGroup = await ctx.db.query.groups.findFirst({
+          where: eq(groups.identifier, input.identifier),
+        });
 
-      if (existingGroup) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('groups.api.groupWithIdExists', {
+        if (existingGroup) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: ctx.t('groups.api.groupWithIdExists', {
+              identifier: input.identifier,
+            }),
+            cause: { toast: 'error' },
+          });
+        }
+
+        let imageId: number | null = null;
+
+        if (input.image) {
+          const file = await insertFile(
+            input.image,
+            'groups',
+            ctx.user.id,
+            false,
+          );
+          imageId = file.id;
+        }
+
+        const [group] = await tx
+          .insert(groups)
+          .values({
             identifier: input.identifier,
-          }),
-          cause: { toast: 'error' },
-        });
-      }
+            imageId,
+            internal: input.internal,
+            openForApplications: input.openForApplications,
+          })
+          .returning({ id: groups.id });
 
-      let imageId: number | null = null;
+        if (!group)
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('groups.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
 
-      if (input.image) {
-        const file = await insertFile(
-          input.image,
-          'groups',
-          ctx.user.id,
-          false,
-        );
-        imageId = file.id;
-      }
-
-      const [group] = await ctx.db
-        .insert(groups)
-        .values({
-          identifier: input.identifier,
-          imageId,
-          internal: input.internal,
-          openForApplications: input.openForApplications,
-        })
-        .returning({ id: groups.id });
-
-      if (!group)
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('groups.api.insertFailed'),
-          cause: { toast: 'error' },
+        await tx.insert(groupLocalizations).values({
+          groupId: group.id,
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          locale: 'nb-NO',
         });
 
-      await ctx.db.insert(groupLocalizations).values({
-        groupId: group.id,
-        name: input.nameNorwegian,
-        summary: input.summaryNorwegian,
-        description: input.descriptionNorwegian,
-        locale: 'nb-NO',
-      });
+        await tx.insert(groupLocalizations).values({
+          groupId: group.id,
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          locale: 'en-GB',
+        });
 
-      await ctx.db.insert(groupLocalizations).values({
-        groupId: group.id,
-        name: input.nameEnglish,
-        summary: input.summaryEnglish,
-        description: input.descriptionEnglish,
-        locale: 'en-GB',
+        return input.identifier;
       });
-
-      return input.identifier;
     }),
   editGroup: protectedEditProcedure
     .input((input) =>
       editGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const existingGroup = await ctx.db.query.groups.findFirst({
-        where: eq(groups.id, input.id),
-      });
-
-      if (!existingGroup) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('groups.api.groupNotFound'),
-          cause: { toast: 'error' },
+      return await ctx.db.transaction(async (tx) => {
+        const existingGroup = await ctx.db.query.groups.findFirst({
+          where: eq(groups.id, input.id),
         });
-      }
 
-      let imageId: number | null = null;
-
-      if (input.image) {
-        if (existingGroup?.imageId) {
-          await deleteFile(existingGroup.imageId);
+        if (!existingGroup) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('groups.api.groupNotFound'),
+            cause: { toast: 'error' },
+          });
         }
 
-        const file = await insertFile(
-          input.image,
-          'groups',
-          ctx.user.id,
-          false,
-        );
-        imageId = file.id;
-      }
+        let imageId: number | null = null;
 
-      await ctx.db
-        .update(groups)
-        .set({
-          identifier: input.identifier,
-          imageId: input.image ? imageId : undefined,
-          internal: input.internal,
-          openForApplications: input.openForApplications,
-        })
-        .where(eq(groups.identifier, input.previousIdentifier));
+        if (input.image) {
+          if (existingGroup?.imageId) {
+            await deleteFile(existingGroup.imageId);
+          }
 
-      await ctx.db
-        .update(groupLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          summary: input.summaryNorwegian,
-          description: input.descriptionNorwegian,
-          locale: 'nb-NO',
-        })
-        .where(
-          and(
-            eq(groupLocalizations.groupId, input.id),
-            eq(groupLocalizations.locale, 'nb-NO'),
-          ),
-        );
+          const file = await insertFile(
+            input.image,
+            'groups',
+            ctx.user.id,
+            false,
+          );
+          imageId = file.id;
+        }
 
-      await ctx.db
-        .update(groupLocalizations)
-        .set({
-          name: input.nameEnglish,
-          summary: input.summaryEnglish,
-          description: input.descriptionEnglish,
-          locale: 'en-GB',
-        })
-        .where(
-          and(
-            eq(groupLocalizations.groupId, input.id),
-            eq(groupLocalizations.locale, 'en-GB'),
-          ),
-        );
+        await tx
+          .update(groups)
+          .set({
+            identifier: input.identifier,
+            imageId: input.image ? imageId : undefined,
+            internal: input.internal,
+            openForApplications: input.openForApplications,
+          })
+          .where(eq(groups.identifier, input.previousIdentifier));
 
-      return input.identifier;
+        await tx
+          .update(groupLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            summary: input.summaryNorwegian,
+            description: input.descriptionNorwegian,
+            locale: 'nb-NO',
+          })
+          .where(
+            and(
+              eq(groupLocalizations.groupId, input.id),
+              eq(groupLocalizations.locale, 'nb-NO'),
+            ),
+          );
+
+        await tx
+          .update(groupLocalizations)
+          .set({
+            name: input.nameEnglish,
+            summary: input.summaryEnglish,
+            description: input.descriptionEnglish,
+            locale: 'en-GB',
+          })
+          .where(
+            and(
+              eq(groupLocalizations.groupId, input.id),
+              eq(groupLocalizations.locale, 'en-GB'),
+            ),
+          );
+
+        return input.identifier;
+      });
     }),
   deleteGroupImage: protectedEditProcedure
     .input((input) =>
