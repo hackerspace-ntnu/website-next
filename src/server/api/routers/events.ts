@@ -7,7 +7,6 @@ import {
   eq,
   gte,
   inArray,
-  isNotNull,
   lte,
   notInArray,
   or,
@@ -41,14 +40,43 @@ async function promoteFromEventWaitlist(
   eventId: number,
   delta: number,
 ) {
-  const firstOnWaitlist = await db.query.usersEvents.findMany({
-    where: and(
-      eq(usersEvents.eventId, eventId),
-      isNotNull(usersEvents.waitlistedAt),
-    ),
-    orderBy: asc(usersEvents.waitlistedAt),
-    limit: delta,
+  const event = await db.query.events.findFirst({
+    where: eq(events.id, eventId),
+    with: {
+      usersEvents: true,
+    },
   });
+
+  if (!event || !event?.maxParticipants) {
+    return;
+  }
+
+  const confirmedCount = event?.usersEvents.filter(
+    (ue) => ue.waitlistedAt === null,
+  ).length;
+
+  let participantsDelta: number = delta;
+
+  if (confirmedCount + delta > event.maxParticipants) {
+    console.error(
+      'Trying to promote more users for event than available spots',
+    );
+    console.error(`Trying to promote ${delta} users for event ID ${eventId}.`);
+    console.error(
+      `Currently confirmed participants: ${confirmedCount}. Max participants: ${event.maxParticipants}`,
+    );
+    participantsDelta = event.maxParticipants - confirmedCount;
+  }
+
+  const firstOnWaitlist = event.usersEvents
+    .filter((userEvent) => userEvent.waitlistedAt)
+    .sort((a, b) => {
+      if (a.waitlistedAt && b.waitlistedAt) {
+        return a.waitlistedAt.getTime() - b.waitlistedAt.getTime();
+      }
+      return 0;
+    })
+    .slice(0, participantsDelta);
 
   if (firstOnWaitlist.length === 0) {
     return;
@@ -463,10 +491,20 @@ const eventsRouter = createRouter({
               inArray(usersEvents.userId, nonMembersSignedUp),
             ),
           )
-          .returning({ userId: usersEvents.userId });
+          .returning({
+            userId: usersEvents.userId,
+            waitlistedAt: usersEvents.waitlistedAt,
+          });
 
         if (removed.length > 0) {
-          await promoteFromEventWaitlist(ctx.db, event.id, removed.length);
+          const removedFromConfirmed = removed.filter(
+            (r) => r.waitlistedAt === null,
+          );
+          await promoteFromEventWaitlist(
+            ctx.db,
+            event.id,
+            removedFromConfirmed.length,
+          );
         }
       }
 
