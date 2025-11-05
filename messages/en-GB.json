@@ -991,7 +991,8 @@
         "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist"
       },
       "maxParticipants": {
-        "label": "Maximum participants"
+        "label": "Maximum participants",
+        "positive": "Maximum participants must be a positive number"
       },
       "internal": {
         "label": "Internal event",

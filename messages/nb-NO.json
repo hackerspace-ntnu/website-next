@@ -991,7 +991,8 @@
         "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste"
       },
       "maxParticipants": {
-        "label": "Maximum participants"
+        "label": "Maximum participants",
+        "positive": "Maks antall deltakere må være et positivt tall"
       },
       "internal": {
         "label": "Internt arrangement",

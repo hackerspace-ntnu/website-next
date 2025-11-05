@@ -40,7 +40,7 @@ function eventSchema(t: Translations) {
     signUpDeadline: z.date().nullable(),
     endTime: z.date({ message: t('events.form.endTime.required') }),
     setMaxParticipants: z.boolean(),
-    maxParticipants: z.number().int().positive(),
+    maxParticipants: z.number().int(),
     internal: z.boolean(),
     image: fileUploadZodString({
       allowedMediaType: 'image',
