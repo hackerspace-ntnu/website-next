@@ -258,34 +258,49 @@ const usersRouter = createRouter({
       fetchMembersSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      const where = input.name
-        ? and(
-            eq(users.private, false),
-            or(
-              ilike(users.firstName, `%${input.name}%`),
-              ilike(users.lastName, `%${input.name}%`),
-            ),
-            exists(
-              ctx.db
-                .select()
-                .from(usersGroups)
-                .where(eq(usersGroups.userId, users.id)),
-            ),
-          )
-        : and(
-            eq(users.private, false),
-            exists(
-              ctx.db
-                .select()
-                .from(usersGroups)
-                .where(eq(usersGroups.userId, users.id)),
-            ),
-          );
+      const where = [eq(users.private, false)];
+
+      if (input.name) {
+        where.push(
+          or(
+            ilike(users.firstName, `%${input.name}%`),
+            ilike(users.lastName, `%${input.name}%`),
+          ) as SQL,
+        );
+      }
+
+      const { user } = await ctx.auth();
+
+      if (!user || user.groups.length <= 0 || !input.includeInternal) {
+        where.push(
+          exists(
+            ctx.db
+              .select()
+              .from(usersGroups)
+              .innerJoin(groups, eq(usersGroups.groupId, groups.id))
+              .where(
+                and(
+                  eq(usersGroups.userId, users.id),
+                  eq(groups.internal, false),
+                ),
+              ),
+          ),
+        );
+      } else {
+        where.push(
+          exists(
+            ctx.db
+              .select()
+              .from(usersGroups)
+              .where(eq(usersGroups.userId, users.id)),
+          ),
+        );
+      }
 
       const totalCount = await ctx.db
         .select({ count: count() })
         .from(users)
-        .where(where);
+        .where(and(...where));
 
       if (!totalCount[0]) return Number.NaN;
 
