@@ -1,11 +1,11 @@
 import { TRPCError } from '@trpc/server';
 import {
   ArrowLeftIcon,
-  BookImageIcon,
   CalendarIcon,
   EditIcon,
   MapPinIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
@@ -19,7 +19,6 @@ import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
 import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
@@ -203,8 +202,8 @@ export default async function EventDetailsPage({
         <NextIntlClientProvider
           messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
         >
-          <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
-            <div className='max-w-prose'>
+          <div className='flex flex-col-reverse items-center gap-6 md:flex-row'>
+            <div className='w-prose'>
               <PlateEditorView value={localization.description} />
               <SignUpButton
                 event={event}
@@ -219,12 +218,16 @@ export default async function EventDetailsPage({
                 })}
               </p>
             </div>
-            <Avatar className='h-48 w-48'>
-              <AvatarImage src={imageUrl} alt='' className='object-cover' />
-              <AvatarFallback>
-                <BookImageIcon />
-              </AvatarFallback>
-            </Avatar>
+            {imageUrl && (
+              <div className='relative h-96 w-full max-w-144'>
+                <Image
+                  src={imageUrl}
+                  fill
+                  className='rounded-lg object-contain lg:object-cover'
+                  alt=''
+                />
+              </div>
+            )}
           </div>
           {canEdit && (
             <>
