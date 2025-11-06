@@ -319,7 +319,7 @@ const eventsRouter = createRouter({
           locationMapLink: input.locationMapLink,
           internal: input.internal,
           signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
-          imageId: imageId,
+          imageId: input.image ? imageId : undefined,
           skillId: skill?.id,
         })
         .where(eq(events.id, input.id));
