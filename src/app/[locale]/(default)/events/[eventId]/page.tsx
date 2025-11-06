@@ -202,7 +202,7 @@ export default async function EventDetailsPage({
         <NextIntlClientProvider
           messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
         >
-          <div className='flex flex-col-reverse items-center gap-6 md:flex-row'>
+          <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
             <div className='w-prose'>
               <PlateEditorView value={localization.description} />
               <SignUpButton
