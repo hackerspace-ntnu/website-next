@@ -26,7 +26,9 @@
   --input: oklch(91.97% 0.004 286.32); /* #e4e4e7 */
   --ring: oklch(62.73% 0.17 149.2); /* #16a34a */
   --radius: 0.3rem;
-  --brand: oklch(0.623 0.214 259.815);
+  
+  /* Used by Plate.js */
+  --brand: var(--primary);
   --highlight: oklch(0.852 0.199 91.936);
 }
 
@@ -50,7 +52,9 @@
   --border: oklch(27.41% 0.0055 286.03); /* #27272a */
   --input: oklch(27.41% 0.0055 286.03); /* #27272a */
   --ring: oklch(52.71% 0.1371 150.05); /* #15803d */
-  --brand: oklch(0.707 0.165 254.624);
+
+  /* Used by Plate.js */
+  --brand: var(--primary); 
   --highlight: oklch(0.852 0.199 91.936);
 }
 
