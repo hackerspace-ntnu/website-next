@@ -433,7 +433,7 @@ const eventsRouter = createRouter({
           maxParticipants: input.setMaxParticipants
             ? input.maxParticipants
             : null,
-          imageId: imageId,
+          imageId: input.image ? imageId : undefined,
           skillId: skill?.id,
         })
         .where(eq(events.id, input.id));
