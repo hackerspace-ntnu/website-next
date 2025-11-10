@@ -99,16 +99,6 @@ function CookieConsent({
                 <CardDescription className='text-sm'>
                   {t.description}
                 </CardDescription>
-                <p className='text-muted-foreground text-xs'>
-                  By clicking <span className='font-medium'>"Accept"</span>, you
-                  agree to our use of cookies.
-                </p>
-                <a
-                  href={learnMoreHref}
-                  className='text-primary text-xs underline underline-offset-4 hover:no-underline'
-                >
-                  Learn more
-                </a>
               </CardContent>
               <CardFooter className='flex gap-2 pt-2'>
                 <Button
