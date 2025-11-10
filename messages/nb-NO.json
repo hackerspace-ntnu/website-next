@@ -323,8 +323,11 @@
     "internal": "Intern",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
-    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
-    "reservations": "Reservasjoner"
+    "reservations": "Reservasjoner",
+    "cookieConsent": {
+      "title": "Vi bruker informasjonskapsler",
+      "description": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>."
+    }
   },
   "matrixDialog": {
     "title": "Innlogging på Matrix",

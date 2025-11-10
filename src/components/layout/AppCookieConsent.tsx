@@ -7,6 +7,7 @@ function AppCookieConsent({
   t,
 }: {
   t: {
+    title: React.ReactNode;
     description: React.ReactNode;
     accept: React.ReactNode;
     decline: React.ReactNode;

@@ -17,6 +17,7 @@ import { cx } from '@/lib/utils';
 
 type CookieConsentProps = HTMLMotionProps<'div'> & {
   t: {
+    title: React.ReactNode;
     description: React.ReactNode;
     accept: React.ReactNode;
     decline: React.ReactNode;
@@ -25,7 +26,6 @@ type CookieConsentProps = HTMLMotionProps<'div'> & {
   demo?: boolean;
   onAcceptCallback?: () => void;
   onDeclineCallback?: () => void;
-  learnMoreHref?: string;
 };
 
 function CookieConsent({
@@ -35,7 +35,6 @@ function CookieConsent({
   onDeclineCallback,
   className,
   t,
-  learnMoreHref = '#',
   ref,
   ...props
 }: CookieConsentProps) {
@@ -92,7 +91,7 @@ function CookieConsent({
           <m.div {...commonWrapperProps}>
             <Card className='m-3 shadow-lg'>
               <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                <CardTitle className='text-lg'>We use cookies</CardTitle>
+                <CardTitle className='text-lg'>{t.title}</CardTitle>
                 <CookieIcon className='h-5 w-5' />
               </CardHeader>
               <CardContent className='space-y-2'>
@@ -125,8 +124,8 @@ function CookieConsent({
         {isOpen && (
           <m.div {...commonWrapperProps}>
             <Card className='m-3 shadow-lg'>
-              <CardHeader className='flex h-0 flex-row items-center justify-between space-y-0 px-4 pb-2'>
-                <CardTitle className='text-base'>We use cookies</CardTitle>
+              <CardHeader className='flex flex-row items-center justify-between space-y-0 px-4 py-2'>
+                <CardTitle className='text-base'>{t.title}</CardTitle>
                 <CookieIcon className='h-4 w-4' />
               </CardHeader>
               <CardContent className='px-4 pt-0 pb-2'>
@@ -134,7 +133,7 @@ function CookieConsent({
                   {t.description}
                 </CardDescription>
               </CardContent>
-              <CardFooter className='flex h-0 gap-2 px-4 py-2'>
+              <CardFooter className='flex gap-2 px-4 py-2'>
                 <Button
                   onClick={handleDecline}
                   variant='secondary'

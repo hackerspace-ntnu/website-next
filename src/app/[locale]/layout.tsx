@@ -77,7 +77,8 @@ export default async function LocaleLayout({
   const tUi = await getTranslations('ui');
 
   const cookieConsentMessages = {
-    description: t.rich('cookieConsent', {
+    title: t('cookieConsent.title'),
+    description: t.rich('cookieConsent.description', {
       link: (chunks) => (
         <Link href='/privacy-policy' variant='link'>
           {chunks}
