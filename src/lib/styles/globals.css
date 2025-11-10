@@ -26,7 +26,7 @@
   --input: oklch(91.97% 0.004 286.32); /* #e4e4e7 */
   --ring: oklch(62.73% 0.17 149.2); /* #16a34a */
   --radius: 0.3rem;
-  
+
   /* Used by Plate.js */
   --brand: var(--primary);
   --highlight: oklch(0.852 0.199 91.936);
@@ -54,7 +54,7 @@
   --ring: oklch(52.71% 0.1371 150.05); /* #15803d */
 
   /* Used by Plate.js */
-  --brand: var(--primary); 
+  --brand: var(--primary);
   --highlight: oklch(0.852 0.199 91.936);
 }
 
