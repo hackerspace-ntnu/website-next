@@ -57,7 +57,7 @@ export default async function ProfilePage({
         birthDate={user.birthDate}
         foodPreferences={user.foodPreferences}
       />
-      <h2 className='my-6 font-semibold text-2xl'>{t('consents')}</h2>
+      <h2 className='mt-12 mb-6 font-semibold text-2xl'>{t('consents')}</h2>
       <CookieConsentTrigger />
     </>
   );
