@@ -11,7 +11,7 @@ function AttendanceCheckbox({
   participant,
   event,
 }: {
-  participant: RouterOutput['events']['fetchEventParticipants'][number];
+  participant: RouterOutput['events']['fetchEventParticipants']['confirmed'][number];
   event: NonNullable<RouterOutput['events']['fetchEvent']>;
 }) {
   const t = useTranslations('events.attendance');

@@ -17,6 +17,7 @@ import {
 } from 'next-intl/server';
 import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
+import { WaitlistTable } from '@/components/events/WaitlistTable';
 import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SkillIcon } from '@/components/skills/SkillIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
@@ -119,13 +120,11 @@ export default async function EventDetailsPage({
 
   const { user } = await api.auth.state();
 
-  const signedUp = user ? await api.events.isSignedUpToEvent(event.id) : false;
+  const signUpInfo = user ? await api.events.fetchUserSignUp(event.id) : null;
+
   const canEdit = user?.groups.some((group) =>
     ['labops', 'leadership', 'admin'].includes(group),
   );
-  const participants = canEdit
-    ? await api.events.fetchEventParticipants(processedEventId)
-    : [];
 
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })
@@ -204,20 +203,40 @@ export default async function EventDetailsPage({
           messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
         >
           <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
-            <div className='max-w-prose'>
+            <div className='w-full max-w-prose'>
               <PlateEditorView value={localization.description} />
-              <SignUpButton
-                event={event}
-                signedUp={signedUp}
-                disabled={!user}
-              />
-              <p>
+              <SignUpButton event={event} signUpInfo={signUpInfo} user={user} />
+              <p className='mb-2'>
                 {t('attendance.signUpDeadline', {
                   date: event.signUpDeadline
                     ? formatter.dateTime(event.signUpDeadline, formatterOptions)
                     : formatter.dateTime(event.startTime, formatterOptions),
                 })}
               </p>
+              {!event.maxParticipants ? (
+                <p>
+                  {t('attendance.signedUpTotal', {
+                    count: event.participantsCount,
+                  })}
+                </p>
+              ) : (
+                <>
+                  <p className='mb-4'>
+                    {t('attendance.signedUpTotalWithMax', {
+                      count:
+                        event.participantsCount - event.participantsWaitlisted,
+                      max: event.maxParticipants,
+                    })}
+                  </p>
+                  {event.participantsWaitlisted !== 0 && (
+                    <p>
+                      {t('attendance.waitlistTotal', {
+                        count: event.participantsWaitlisted,
+                      })}
+                    </p>
+                  )}
+                </>
+              )}
             </div>
             <Avatar className='h-48 w-48'>
               <AvatarImage src={imageUrl} alt='' className='object-cover' />
@@ -233,7 +252,10 @@ export default async function EventDetailsPage({
               <p className='text-muted-foreground text-sm'>
                 {t('attendance.attendanceDescription')}
               </p>
-              <ParticipantsTable participants={participants} event={event} />
+              <ParticipantsTable event={event} />
+              <Separator />
+              <h3>{t('waitlist.name')}</h3>
+              <WaitlistTable event={event} />
             </>
           )}
         </NextIntlClientProvider>
