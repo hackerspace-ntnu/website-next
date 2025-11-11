@@ -47,7 +47,6 @@ function CustomEventContent({ eventInfo, user }: CustomEventContentProps) {
         weekday: 'short',
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: 'Europe/Oslo',
       })
     : '';
 
@@ -56,7 +55,6 @@ function CustomEventContent({ eventInfo, user }: CustomEventContentProps) {
         ...(sameDay ? {} : { weekday: 'short' }),
         hour: '2-digit',
         minute: '2-digit',
-        timeZone: 'Europe/Oslo',
       })
     : '';
 

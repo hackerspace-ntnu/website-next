@@ -121,6 +121,8 @@ function EditEventForm({
       setSignUpDeadline: !!event?.signUpDeadline,
       signUpDeadline: event?.signUpDeadline ?? null,
       endTime: event?.endTime ?? addDays(new Date(), 1),
+      setMaxParticipants: !!event?.maxParticipants,
+      maxParticipants: event?.maxParticipants ?? 0,
       locationMapLink: event?.locationMapLink ?? '',
       internal: event?.internal ?? false,
       skill: event?.skill?.identifier ?? '',
@@ -325,6 +327,25 @@ function EditEventForm({
           />
         )}
       </form.AppField>
+      <form.AppField name='setMaxParticipants'>
+        {(field) => (
+          <field.CheckboxField
+            label={t('setMaxParticipants.label')}
+            description={t('setMaxParticipants.description')}
+          />
+        )}
+      </form.AppField>
+      <form.Subscribe selector={(state) => state.values.setMaxParticipants}>
+        {(setMaxParticipants) =>
+          setMaxParticipants && (
+            <form.AppField name='maxParticipants'>
+              {(field) => (
+                <field.NumberField label={t('maxParticipants.label')} />
+              )}
+            </form.AppField>
+          )
+        }
+      </form.Subscribe>
       <form.AppField name='internal'>
         {(field) => (
           <field.CheckboxField

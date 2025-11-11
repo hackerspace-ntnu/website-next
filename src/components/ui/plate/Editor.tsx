@@ -8,7 +8,7 @@ import { TooltipProvider } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';
 
 const editorContainerVariants = cva({
-  base: 'relative w-full cursor-text select-text overflow-y-auto caret-primary selection:bg-brand/25 focus-visible:outline-none [&_.slate-selection-area]:z-50 [&_.slate-selection-area]:border [&_.slate-selection-area]:border-brand/25 [&_.slate-selection-area]:bg-brand/15',
+  base: 'relative w-full cursor-text select-text overflow-y-auto caret-primary selection:bg-brand/50 focus-visible:outline-none [&_.slate-selection-area]:z-50 [&_.slate-selection-area]:border [&_.slate-selection-area]:border-brand/25 [&_.slate-selection-area]:bg-brand/15',
   defaultVariants: {
     variant: 'default',
   },

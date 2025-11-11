@@ -46,6 +46,8 @@ const settingsRouter = createRouter({
           firstName: input.firstName,
           lastName: input.lastName,
           birthDate: input.birthDate,
+          foodPreferences:
+            input.foodPreferences.length > 0 ? input.foodPreferences : null,
         })
         .where(eq(users.id, ctx.user.id))
         .catch((error) => {

@@ -1175,7 +1175,7 @@ function SubmitButton({
   );
 }
 
-const { useAppForm } = createFormHook({
+const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
     BaseField,
     TextField,
@@ -1203,4 +1203,4 @@ const { useAppForm } = createFormHook({
   formContext,
 });
 
-export { useAppForm };
+export { useAppForm, withForm };

@@ -5,6 +5,7 @@ import { hashPassword } from '@/server/auth/password';
 import type {
   InsertBanner,
   InsertBannerLocalization,
+  InsertDoorStatus,
   InsertEvent,
   InsertEventLocalization,
   InsertGroup,
@@ -2249,6 +2250,12 @@ const bannerLocalizationsData: InsertBannerLocalization[] = [
   },
 ];
 
+const doorStatusData: InsertDoorStatus[] = [
+  {
+    open: true,
+  },
+];
+
 export {
   articlesData,
   articleLocalizationsData,
@@ -2276,4 +2283,5 @@ export {
   usersData,
   usersGroupsData,
   usersSkillsData,
+  doorStatusData,
 };

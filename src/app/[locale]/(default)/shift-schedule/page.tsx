@@ -4,6 +4,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { WorkshopStatusBadge } from '@/components/home/WorkshopStatusBadge';
 import { ClearShiftsButton } from '@/components/shift-schedule/ClearShiftsButton';
 import { ScheduleTable } from '@/components/shift-schedule/ScheduleTable';
 import { api } from '@/lib/api/server';
@@ -28,6 +29,8 @@ export default async function ShiftSchedulePage({
   const { shiftSchedule, ui } = await getMessages();
   const t = await getTranslations('shiftSchedule');
 
+  const doorStatus = await api.office.fetchDoorStatus();
+
   const canClear = user?.groups.some((group) =>
     ['admin', 'leadership'].includes(group),
   );
@@ -44,6 +47,9 @@ export default async function ShiftSchedulePage({
             {clearShiftsButton}
           </div>
         )}
+      </div>
+      <div className='flex justify-end'>
+        <WorkshopStatusBadge status={doorStatus} />
       </div>
       <ScheduleTable user={user} />
       {canClear && (

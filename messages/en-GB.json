@@ -351,7 +351,9 @@
     "eventsAlt": "Photo from tetris 2 tournament in one of our events",
     "news": "News",
     "newsDescription": "See the latest updates from Hackerspace.",
-    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo"
+    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo",
+    "workshopOpen": "Workshop open",
+    "workshopClosed": "Workshop closed"
   },
   "news": {
     "title": "News",
@@ -507,6 +509,11 @@
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"
+      },
+      "foodPreferences": {
+        "label": "Food preferences",
+        "description": "Allergies, food preferences, or other relevant information. Shown only to event organizers.",
+        "maxLength": "Food preferences must be less than {count} characters"
       }
     },
     "account": {
@@ -588,6 +595,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "leader": "Leader",
+    "deputyLeader": "Deputy Leader",
     "new": {
       "title": "New Group",
       "createGroup": "Create group",
@@ -638,6 +647,16 @@
         "labelEnglish": "Description (English)",
         "required": "Group description is required"
       },
+      "leader": {
+        "label": "Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a leader"
+      },
+      "deputyLeader": {
+        "label": "Deputy Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a deputy leader"
+      },
       "identifier": {
         "label": "Group identifier",
         "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
@@ -653,7 +672,9 @@
       "openForApplications": {
         "label": "Open for applications",
         "description": "If selected, anyone will be able to send an application to join this group."
-      }
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
@@ -956,6 +977,12 @@
         "required": "Event location is required",
         "maxLength": "Event location must be less than {count} characters"
       },
+      "locationMapLink": {
+        "label": "Location map link",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Link to a map showing the event location",
+        "invalid": "Invalid map link format. Must be a URL"
+      },
       "startTime": {
         "label": "Start time",
         "required": "Start time is required",
@@ -975,11 +1002,13 @@
         "required": "End time is required",
         "dateBeforeStart": "The end time must be after the start time"
       },
-      "locationMapLink": {
-        "label": "Location map link",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Link to a map showing the event location",
-        "invalid": "Invalid map link format. Must be a URL"
+      "setMaxParticipants": {
+        "label": "Set maximum participants",
+        "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist"
+      },
+      "maxParticipants": {
+        "label": "Maximum participants",
+        "positive": "Maximum participants must be a positive number"
       },
       "internal": {
         "label": "Internal event",
@@ -1003,19 +1032,27 @@
     "attendance": {
       "signUp": "Sign up",
       "cancelSignUp": "Cancel sign-up",
+      "cancelWaitlistSignUp": "Cancel waitlist sign-up",
+      "signUpForWaitlist": "Sign up for waitlist",
       "signUpSuccess": "Successfully signed up for the event!",
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
+      "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
+      "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
       "mustBeLoggedIn": "You must be logged in to sign up",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
       "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
+      "signedUpTotal": "Total signed up: {count} {count, plural, one {participant} other {participants}}",
+      "signedUpTotalWithMax": "Total signed up: {count}/{max} {count, plural, one {participant} other {participants}}",
+      "waitlistTotal": "Total on waitlist: {count} {count, plural, one {person} other {people}}",
       "attendance": "Attendance",
       "attended": "Attended",
-      "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
+      "attendanceDescription": "Check the attendance of those who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
-      "member": "Member",
+      "person": "Person",
+      "foodPreferences": "Food preferences",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",
@@ -1029,6 +1066,11 @@
       "givingSkill": "Giving skill {skill} to {name}...",
       "successSkill": "Skill {skill} given to {name}!",
       "errorSkill": "Failed to give skill {skill} to {name}"
+    },
+    "waitlist": {
+      "name": "Waitlist",
+      "waitlistedAt": "Added to waitlist",
+      "noWaitlisted": "No one is currently on the waitlist for this event"
     },
     "api": {
       "invalidId": "Invalid event ID",
@@ -1044,7 +1086,8 @@
       "userNotFound": "User not found",
       "alreadyHasSkill": "User {user} already has the skill {skill}",
       "participantNotFound": "Participant not found",
-      "noImage": "There is no image for this event"
+      "noImage": "There is no image for this event",
+      "maxParticipantsTooLow": "Maximum participants cannot be lower than the number of already signed-up participants"
     }
   },
   "rules": {

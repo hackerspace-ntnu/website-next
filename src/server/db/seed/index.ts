@@ -5,6 +5,7 @@ import {
   articlesData,
   bannerLocalizationsData,
   bannersData,
+  doorStatusData,
   eventLocalizationsData,
   eventsData,
   groupLocalizationsData,
@@ -32,6 +33,7 @@ import * as schema from '@/server/db/tables';
 import {
   bannerLocalizations,
   banners,
+  doorStatus,
   eventLocalizations,
   events,
   groupLocalizations,
@@ -183,6 +185,10 @@ async function main() {
   console.log('Inserting banner localizations...');
   await db.insert(bannerLocalizations).values(bannerLocalizationsData);
   console.log('Banner localizations inserted');
+
+  console.log('Inserting door status...');
+  await db.insert(doorStatus).values(doorStatusData);
+  console.log('Door status inserted');
 }
 
 await main();

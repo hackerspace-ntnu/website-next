@@ -351,7 +351,9 @@
     "eventsAlt": "Bilde fra tetris 2-turnering i et av arrangementene våre",
     "news": "Nyheter",
     "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
-    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen"
+    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen",
+    "workshopOpen": "Verkstedet er åpent",
+    "workshopClosed": "Verkstedet er stengt"
   },
   "news": {
     "title": "Nyheter",
@@ -507,6 +509,11 @@
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"
+      },
+      "foodPreferences": {
+        "label": "Matpreferanser",
+        "description": "Allergier, matpreferanser eller annen relevant informasjon. Vises kun til arrangementsansvarlige.",
+        "maxLength": "Matpreferanser må være mindre enn {count} tegn"
       }
     },
     "account": {
@@ -588,6 +595,8 @@
   "groups": {
     "backToAbout": "Tilbake til Om oss",
     "internalGroup": "Dette er en intern gruppe",
+    "leader": "Leder",
+    "deputyLeader": "Nestleder",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
@@ -638,6 +647,16 @@
         "labelEnglish": "Beskrivelse (engelsk)",
         "required": "Gruppebeskrivelse er påkrevd"
       },
+      "leader": {
+        "label": "Leder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en leder"
+      },
+      "deputyLeader": {
+        "label": "Nestleder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en nestleder"
+      },
       "identifier": {
         "label": "Gruppe-identifikator",
         "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
@@ -653,7 +672,9 @@
       "openForApplications": {
         "label": "Åpen for søknader",
         "description": "Hvis valgt, vil alle kunne sende en søknad om å bli med i denne gruppen."
-      }
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
@@ -956,6 +977,12 @@
         "required": "Location is required",
         "maxLength": "Sted må være mindre enn {count} tegn"
       },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
       "startTime": {
         "label": "Starttidspunkt",
         "required": "Starttidspunkt er påkrevd",
@@ -975,11 +1002,13 @@
         "required": "Sluttidspunkt er påkrevd",
         "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
       },
-      "locationMapLink": {
-        "label": "Lenke til kart",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Lenke til et kart som viser arrangementsstedet",
-        "invalid": "Ugyldig kartlenke. Må være en URL"
+      "setMaxParticipants": {
+        "label": "Sett maks antall deltakere",
+        "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste"
+      },
+      "maxParticipants": {
+        "label": "Maximum participants",
+        "positive": "Maks antall deltakere må være et positivt tall"
       },
       "internal": {
         "label": "Internt arrangement",
@@ -1003,19 +1032,27 @@
     "attendance": {
       "signUp": "Meld meg på",
       "cancelSignUp": "Meld meg av",
+      "cancelWaitlistSignUp": "Meld meg av ventelisten",
+      "signUpForWaitlist": "Meld meg på ventelisten",
       "signUpSuccess": "Du har blitt meldt på arrangementet!",
       "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "confirmLeave": "Er du sikker på at du vil melde deg av dette arrangementet?",
+      "confirmLeaveDescription": "Dette arrangementet er fullt. Ved å melde deg av, vil den første personen fra ventelisten få en plass.",
       "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
       "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
       "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
       "eventStartedAlready": "Arrangementet har allerede startet",
       "eventFinishedAlready": "Arrangementet er ferdig",
       "signUpDeadline": "Påmeldingsfrist: {date}",
+      "signedUpTotal": "Totalt påmeldte: {count} {count, plural, one {deltaker} other {deltakere}}",
+      "signedUpTotalWithMax": "Totalt påmeldte: {count}/{max} {count, plural, one {deltaker} other {deltakere}}",
+      "waitlistTotal": "Totalt på venteliste: {count} {count, plural, one {person} other {personer}}",
       "attendance": "Oppmøte",
       "attended": "Møtte opp",
-      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendanceDescription": "Sjekk oppmøtet til dem som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
-      "member": "Medlem",
+      "person": "Person",
+      "foodPreferences": "Matpreferanser",
       "actions": "Handlinger",
       "present": "Til stede",
       "absent": "Fraværende",
@@ -1029,6 +1066,11 @@
       "givingSkill": "Gir ferdighet {skill} til {name}...",
       "successSkill": "Ferdighet {skill} gitt til {name}!",
       "errorSkill": "Kunne ikke gi ferdighet {skill} til {name}"
+    },
+    "waitlist": {
+      "name": "Venteliste",
+      "waitlistedAt": "Lagt til venteliste",
+      "noWaitlisted": "Det er ingen på venteliste for dette arrangementet"
     },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
@@ -1044,7 +1086,8 @@
       "userNotFound": "Kunne ikke finne brukeren",
       "alreadyHasSkill": "Brukeren {user} har allerede ferdigheten {skill}",
       "participantNotFound": "Kunne ikke finne deltakeren",
-      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet",
+      "maxParticipantsTooLow": "Maks antall deltakere kan ikke være lavere enn det nåværende antallet påmeldte personer"
     }
   },
   "rules": {
