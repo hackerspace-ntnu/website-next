@@ -74,6 +74,20 @@ export default async function LocaleLayout({
   const { locale } = await params;
   setRequestLocale(locale as Locale);
   const t = await getTranslations('layout');
+  const tUi = await getTranslations('ui');
+
+  const cookieConsentMessages = {
+    title: t('cookieConsent.title'),
+    description: t.rich('cookieConsent.description', {
+      link: (chunks) => (
+        <Link href='/privacy-policy' variant='link'>
+          {chunks}
+        </Link>
+      ),
+    }),
+    accept: tUi('accept'),
+    decline: tUi('decline'),
+  };
 
   return (
     <html
@@ -92,15 +106,7 @@ export default async function LocaleLayout({
             <div className='flex h-full w-full flex-col'>
               {children}
               <Toaster />
-              <AppCookieConsent
-                description={t.rich('cookieConsent', {
-                  link: (chunks) => (
-                    <Link href='/privacy-policy' variant='link'>
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              />
+              <AppCookieConsent t={cookieConsentMessages} />
             </div>
           </ScrollArea>
         </RootProviders>

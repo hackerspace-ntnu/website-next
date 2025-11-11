@@ -36,6 +36,7 @@
     "confirm": "Confirm",
     "delete": "Delete",
     "cancel": "Cancel",
+    "decline": "Decline",
     "save": "Save",
     "copy": "Copy",
     "done": "Done",
@@ -322,8 +323,11 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved",
-    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
-    "reservations": "Reservations"
+    "reservations": "Reservations",
+    "cookieConsent": {
+      "title": "We use cookies",
+      "description": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+    }
   },
   "matrixDialog": {
     "title": "Matrix Login Information",
@@ -484,6 +488,8 @@
       "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
       "updateProfilePictureTooltip": "Click to change profile picture",
+      "consents": "Consents",
+      "showCookieConsent": "Adjust cookie consent",
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",
