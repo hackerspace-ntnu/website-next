@@ -17,9 +17,17 @@ export async function POST(request: NextRequest) {
 
     if (typeof open !== 'boolean') {
       return NextResponse.json(
-        { error: '"status" must be a boolean' },
+        { error: '"open" must be a boolean' },
         { status: 400 },
       );
+    }
+
+    const latest = await db.query.doorStatus.findFirst({
+      orderBy: (doorStatus, { desc }) => [desc(doorStatus.createdAt)],
+    });
+
+    if (latest && latest.open === open) {
+      return NextResponse.json({ message: 'No status change' });
     }
 
     await db.insert(doorStatus).values({
