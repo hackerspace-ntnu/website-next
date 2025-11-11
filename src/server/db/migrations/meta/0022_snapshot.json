@@ -1,5 +1,5 @@
 {
-  "id": "8d41c803-8ce5-4a1a-8f41-8123a9d5ac92",
+  "id": "826b007f-8156-43b9-8bc4-5cdcd67a34fd",
   "prevId": "e1e4334a-9daf-4029-a216-7534e42d0e1d",
   "version": "7",
   "dialect": "postgresql",
@@ -1299,8 +1299,8 @@
           "notNull": true,
           "default": "now()"
         },
-        "status": {
-          "name": "status",
+        "open": {
+          "name": "open",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true

@@ -9,7 +9,7 @@ const coffee = pgTable('coffee', {
 const doorStatus = pgTable('door_status', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  status: boolean('status').notNull(),
+  open: boolean('open').notNull(),
 });
 
 type SelectCoffee = InferSelectModel<typeof coffee>;

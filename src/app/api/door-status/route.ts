@@ -12,10 +12,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body: { status?: boolean } = await request.json();
-    const { status } = body;
+    const body: { open?: boolean } = await request.json();
+    const { open } = body;
 
-    if (typeof status !== 'boolean') {
+    if (typeof open !== 'boolean') {
       return NextResponse.json(
         { error: '"status" must be a boolean' },
         { status: 400 },
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     await db.insert(doorStatus).values({
-      status,
+      open,
     });
 
     return NextResponse.json({ message: 'Door status updated successfully' });
