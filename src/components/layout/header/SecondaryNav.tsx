@@ -42,7 +42,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/shift-schedule'
     >
-      <CalendarClockIcon className='size-4 text-white' />
+      <CalendarClockIcon className='size-4 text-foreground' />
       {t.shiftSchedule}
     </Link>,
     <Link
@@ -52,7 +52,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/members'
     >
-      <BookUserIcon className='size-4 text-white' />
+      <BookUserIcon className='size-4 text-foreground' />
       {t.members}
     </Link>,
 
@@ -63,7 +63,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/reservations'
     >
-      <CalendarRangeIcon className='size-4 text-white' />
+      <CalendarRangeIcon className='size-4 text-foreground' />
       {t.reservations}
     </Link>,
     <Link
@@ -73,7 +73,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/storage'
     >
-      <ArchiveIcon className='size-4 text-white' />
+      <ArchiveIcon className='size-4 text-foreground' />
       {t.storage}
     </Link>,
     <Link
@@ -83,7 +83,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/quotes'
     >
-      <QuoteIcon className='size-4 text-white' />
+      <QuoteIcon className='size-4 text-foreground' />
       {t.quotes}
     </Link>,
     <Link
@@ -93,7 +93,7 @@ function SecondaryNav({
       onClick={onClick}
       href='/rules'
     >
-      <SectionIcon className='size-4 text-white' />
+      <SectionIcon className='size-4 text-foreground' />
       {t.rules}
     </Link>,
     viewApplications ? (
@@ -104,7 +104,7 @@ function SecondaryNav({
         onClick={onClick}
         href='/applications/view'
       >
-        <FileUserIcon className='size-4 text-white' />
+        <FileUserIcon className='size-4 text-foreground' />
         {t.applications}
       </Link>
     ) : null,
