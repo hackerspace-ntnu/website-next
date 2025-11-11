@@ -5,6 +5,7 @@ export * from './events';
 export * from './forgotPassword';
 export * from './groups';
 export * from './news';
+export * from './office';
 export * from './quotes';
 export * from './reservations';
 export * from './rules';
