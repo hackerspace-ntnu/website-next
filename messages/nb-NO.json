@@ -351,7 +351,9 @@
     "eventsAlt": "Bilde fra tetris 2-turnering i et av arrangementene våre",
     "news": "Nyheter",
     "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
-    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen"
+    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen",
+    "workshopOpen": "Verkstedet er åpent",
+    "workshopClosed": "Verkstedet er stengt"
   },
   "news": {
     "title": "Nyheter",

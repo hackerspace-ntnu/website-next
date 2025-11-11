@@ -351,7 +351,9 @@
     "eventsAlt": "Photo from tetris 2 tournament in one of our events",
     "news": "News",
     "newsDescription": "See the latest updates from Hackerspace.",
-    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo"
+    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo",
+    "workshopOpen": "Workshop open",
+    "workshopClosed": "Workshop closed"
   },
   "news": {
     "title": "News",
