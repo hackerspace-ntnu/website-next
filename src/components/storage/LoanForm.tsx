@@ -36,11 +36,21 @@ type LoanFormProps = {
 
 function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
   const router = useRouter();
+  const utils = api.useUtils();
+
   const [cart, setCart, isLoading] =
     useLocalStorage<CartItem[]>('shopping-cart');
 
   const borrowItemsMutation = api.storage.borrowItems.useMutation({
-    onSuccess: () => toast.success(t.success),
+    onSuccess: async () => {
+      toast.success(t.success);
+      await Promise.all([
+        utils.storage.fetchLoans.invalidate(),
+        utils.storage.userLoans.invalidate(),
+      ]);
+      router.push('/storage/loans/user');
+      router.refresh();
+    },
   });
 
   const user = api.auth.state.useQuery().data?.user;
@@ -78,7 +88,6 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
       );
       setCart(null);
       setOpen(false);
-      router.push('/storage/loans/user');
     },
   });
 
