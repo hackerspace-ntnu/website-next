@@ -551,7 +551,8 @@ const storageRouter = createRouter({
 
         for (const loanEvent of loanTimeline) {
           const toBeBorrowed = input.find((i) => i.id === item.id)?.amount ?? 0;
-          if (previousDate && unitsLoaned + toBeBorrowed >= item.quantity) {
+
+          if (previousDate && unitsLoaned + toBeBorrowed > item.quantity) {
             disabledDays.push({
               from: previousDate,
               to: loanEvent.date,
