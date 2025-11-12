@@ -777,6 +777,8 @@
       "successEditMessage": "Kategorien har blitt redigert!",
       "successDeleteMessage": "Kategorien har blitt slettet!",
       "invalidName": "Ugyldig kategorinavn",
+      "required": "Kategorinavn er påkrevd",
+      "maxLength": "Kategorinavn kan maks være {count, plural, one {ett tegn} other {# tegn}}.",
       "api": {
         "insertFailed": "Feilet å legge til kategori",
         "updateFailed": "Feilet å redigere kategori",

@@ -777,6 +777,9 @@
       "successEditMessage": "Item category edited successfully!",
       "successDeleteMessage": "Item category deleted successfully!",
       "invalidName": "Invalid category name",
+      "required": "Category name is required",
+      "maxLength": "Category name must be {count, plural, one {one character} other {# characters}} or fewer.",
+      "addNewCategory": "Add new category",
       "api": {
         "insertFailed": "Failed to add category",
         "updateFailed": "Failed to update category",
