@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server';
+import { endOfDay } from 'date-fns';
 import {
   and,
   asc,
@@ -539,7 +540,7 @@ const storageRouter = createRouter({
             amount: loan.unitsBorrowed,
           },
           {
-            date: loan.borrowUntil,
+            date: endOfDay(loan.borrowUntil),
             amount: -loan.unitsBorrowed,
           },
         ]);
