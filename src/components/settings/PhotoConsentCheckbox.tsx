@@ -42,7 +42,7 @@ function PhotoConsentCheckbox({
         disabled={updatePhotoConsentSetting.isPending}
         onCheckedChange={(value) => {
           const promise = updatePhotoConsentSetting.mutateAsync({
-            photoConsentSetting: value !== 'indeterminate' ? value : false,
+            photoConsent: value !== 'indeterminate' ? value : false,
           });
 
           toast.promise(promise, {

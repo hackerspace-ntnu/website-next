@@ -127,7 +127,7 @@ const settingsRouter = createRouter({
     .mutation(async ({ input, ctx }) => {
       await ctx.db
         .update(users)
-        .set({ photoConsentSetting: input.photoConsentSetting })
+        .set({ photoConsent: input.photoConsent })
         .where(eq(users.id, ctx.user.id));
     }),
   updatePassword: authenticatedProcedure

@@ -3,7 +3,7 @@ import type { Translations } from '@/lib/locale';
 
 function photoConsentSchema(t: Translations) {
   return z.object({
-    photoConsentSetting: z.boolean({
+    photoConsent: z.boolean({
       message: t('settings.profile.photoConsent.invalid'),
     }),
   });

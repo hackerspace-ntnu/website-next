@@ -249,6 +249,7 @@ const eventsRouter = createRouter({
                   firstName: true,
                   lastName: true,
                   foodPreferences: true,
+                  photoConsent: true,
                 },
                 with: {
                   usersSkills: true,

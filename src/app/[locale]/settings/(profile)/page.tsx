@@ -62,7 +62,7 @@ export default async function ProfilePage({
       <div className='flex flex-col gap-5'>
         <CookieConsentTrigger />
         <PhotoConsentCheckbox
-          photoConsentSetting={user.photoConsentSetting}
+          photoConsentSetting={user.photoConsent}
           t={{
             label: t('photoConsent.label'),
             consenting: t('photoConsent.consenting'),

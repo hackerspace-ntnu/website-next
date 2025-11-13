@@ -492,13 +492,13 @@
       "showCookieConsent": "Juster informasjonskapselsamtykke",
       "photoConsent": {
         "label": "Jeg samtykker til at bilder av meg brukes i Hackerspace medier (nettside, sosiale medier, osv.)",
-        "consenting": "Gir bildesamtykke...",
-        "retractingConsent": "Trekker tilbake bildesamtykke...",
-        "successConsenting": "Bildesamtykke gitt",
-        "successRetractingConsent": "Bildesamtykke trukket tilbake",
-        "errorConsenting": "Kunne ikke gi bildesamtykke",
-        "errorRetractingConsent": "Kunne ikke trekke tilbake bildesamtykke",
-        "invalid": "Ugyldig verdi for bildesamtykke"
+        "consenting": "Gir samtykke til bilder...",
+        "retractingConsent": "Trekker tilbake samtykke til bilder...",
+        "successConsenting": "Samtykke til bilder gitt",
+        "successRetractingConsent": "Samtykke til bilder trukket tilbake",
+        "errorConsenting": "Kunne ikke gi samtykke til bilder",
+        "errorRetractingConsent": "Kunne ikke trekke tilbake samtykke til bilder",
+        "invalid": "Ugyldig verdi for samtykke til bilder"
       },
       "profilePicture": {
         "label": "Profilbilde",
@@ -1071,6 +1071,7 @@
       "attendeesList": "Deltakerliste",
       "person": "Person",
       "foodPreferences": "Matpreferanser",
+      "photoConsent": "Samtykke til bilder",
       "actions": "Handlinger",
       "present": "Til stede",
       "absent": "Fraværende",

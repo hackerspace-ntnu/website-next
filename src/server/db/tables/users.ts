@@ -61,12 +61,10 @@ const users = pgTable(
     linkedInUsername: varchar('linkedin_username', { length: 52 }),
     foodPreferences: varchar('food_preferences', { length: 128 }),
     private: boolean('private').notNull().default(false),
+    photoConsent: boolean('photo_consent').notNull().default(true),
     notificationSetting: notificationsEnum('notification_setting')
       .notNull()
       .default('all'),
-    photoConsentSetting: boolean('photo_consent_setting')
-      .notNull()
-      .default(true),
   },
   (table) => [
     index('users_email_idx').on(table.email),
