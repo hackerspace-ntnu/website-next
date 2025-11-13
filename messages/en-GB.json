@@ -223,7 +223,7 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
-    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "passwordUpdateSuccess": "Password updated successfully! You may now sign in using your new password.",
     "tryAgain": "Try again",
     "form": {
       "username": {
@@ -766,7 +766,7 @@
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
       "amountOfItemAria": "Select number of this item",
-      "mustBeLoggedIn": "You must be logged in to borrow items"
+      "mustBeLoggedIn": "You must be signed in to borrow items"
     },
     "loanForm": {
       "loanPeriod": "Select loan period",
@@ -1057,7 +1057,7 @@
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
       "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
       "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
-      "mustBeLoggedIn": "You must be logged in to sign up",
+      "mustBeLoggedIn": "You must be signed in in to sign up",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
@@ -1746,7 +1746,7 @@
       "from": "From",
       "until": "Until",
       "empty": "You have no reservations",
-      "notLoggedIn": "Please log in to see your reservations.",
+      "notLoggedIn": "Please sign in to see your reservations.",
       "deletedSuccess": "Successfully deleted reservation"
     },
     "information": {
