@@ -490,6 +490,16 @@
       "updateProfilePictureTooltip": "Click to change profile picture",
       "consents": "Consents",
       "showCookieConsent": "Adjust cookie consent",
+      "photoConsent": {
+        "label": "I consent to photos containing me being used in Hackerspace media (website, social media, etc.)",
+        "consenting": "Giving photo consent...",
+        "retractingConsent": "Retracting photo consent...",
+        "successConsenting": "Photo consent given successfully",
+        "successRetractingConsent": "Photo consent retracted successfully",
+        "errorConsenting": "Failed to give photo consent",
+        "errorRetractingConsent": "Failed to retract photo consent",
+        "invalid": "Invalid value for photo consent"
+      },
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",

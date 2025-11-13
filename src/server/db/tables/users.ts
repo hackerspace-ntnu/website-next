@@ -64,6 +64,9 @@ const users = pgTable(
     notificationSetting: notificationsEnum('notification_setting')
       .notNull()
       .default('all'),
+    photoConsentSetting: boolean('photo_consent_setting')
+      .notNull()
+      .default(true),
   },
   (table) => [
     index('users_email_idx').on(table.email),

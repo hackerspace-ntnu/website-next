@@ -21,6 +21,7 @@ function CookieConsentTrigger() {
         setOptedOut(undefined);
         router.refresh();
       }}
+      className='w-fit'
     >
       {t('showCookieConsent')}
     </Button>

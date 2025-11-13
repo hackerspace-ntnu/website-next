@@ -490,6 +490,16 @@
       "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
       "consents": "Samtykker",
       "showCookieConsent": "Juster informasjonskapselsamtykke",
+      "photoConsent": {
+        "label": "Jeg samtykker til at bilder av meg brukes i Hackerspace medier (nettside, sosiale medier, osv.)",
+        "consenting": "Gir bildesamtykke...",
+        "retractingConsent": "Trekker tilbake bildesamtykke...",
+        "successConsenting": "Bildesamtykke gitt",
+        "successRetractingConsent": "Bildesamtykke trukket tilbake",
+        "errorConsenting": "Kunne ikke gi bildesamtykke",
+        "errorRetractingConsent": "Kunne ikke trekke tilbake bildesamtykke",
+        "invalid": "Ugyldig verdi for bildesamtykke"
+      },
       "profilePicture": {
         "label": "Profilbilde",
         "mustBeImage": "Profilbilde må være et bilde",
