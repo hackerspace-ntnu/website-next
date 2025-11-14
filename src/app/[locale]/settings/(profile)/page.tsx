@@ -59,7 +59,7 @@ export default async function ProfilePage({
         foodPreferences={user.foodPreferences}
       />
       <h2 className='mt-12 mb-6 font-semibold text-2xl'>{t('consents')}</h2>
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col gap-8'>
         <CookieConsentTrigger />
         <PhotoConsentCheckbox
           photoConsentSetting={user.photoConsent}
