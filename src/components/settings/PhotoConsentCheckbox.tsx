@@ -34,12 +34,15 @@ function PhotoConsentCheckbox({
       },
     });
 
+  const id = 'photo-consent-checkbox';
+
   return (
     <div className='flex items-center gap-2'>
       <Checkbox
         checked={photoConsentSetting}
         className='mx-auto cursor-pointer'
         disabled={updatePhotoConsentSetting.isPending}
+        id={id}
         onCheckedChange={(value) => {
           const promise = updatePhotoConsentSetting.mutateAsync({
             photoConsent: value !== 'indeterminate' ? value : false,
@@ -52,7 +55,7 @@ function PhotoConsentCheckbox({
           });
         }}
       />
-      <Label>{t.label}</Label>
+      <Label htmlFor={id}>{t.label}</Label>
     </div>
   );
 }
