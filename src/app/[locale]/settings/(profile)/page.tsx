@@ -1,6 +1,7 @@
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CookieConsentTrigger } from '@/components/settings/CookieConsentTrigger';
+import { PhotoConsentCheckbox } from '@/components/settings/PhotoConsentCheckbox';
 import { ProfileForm } from '@/components/settings/ProfileForm';
 import { ProfilePictureForm } from '@/components/settings/ProfilePictureForm';
 import { Badge } from '@/components/ui/Badge';
@@ -58,7 +59,23 @@ export default async function ProfilePage({
         foodPreferences={user.foodPreferences}
       />
       <h2 className='mt-12 mb-6 font-semibold text-2xl'>{t('consents')}</h2>
-      <CookieConsentTrigger />
+      <div className='flex flex-col gap-8'>
+        <CookieConsentTrigger />
+        <PhotoConsentCheckbox
+          photoConsentSetting={user.photoConsent}
+          t={{
+            label: t('photoConsent.label'),
+            consenting: t('photoConsent.consenting'),
+            retractingConsent: t('photoConsent.retractingConsent'),
+            successConsenting: t('photoConsent.successConsenting'),
+            successRetractingConsent: t(
+              'photoConsent.successRetractingConsent',
+            ),
+            errorConsenting: t('photoConsent.errorConsenting'),
+            errorRetractingConsent: t('photoConsent.errorRetractingConsent'),
+          }}
+        />
+      </div>
     </>
   );
 }

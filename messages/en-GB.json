@@ -223,7 +223,7 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
-    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "passwordUpdateSuccess": "Password updated successfully! You may now sign in using your new password.",
     "tryAgain": "Try again",
     "form": {
       "username": {
@@ -490,6 +490,16 @@
       "updateProfilePictureTooltip": "Click to change profile picture",
       "consents": "Consents",
       "showCookieConsent": "Adjust cookie consent",
+      "photoConsent": {
+        "label": "I consent to photos containing me being used in Hackerspace media (website, social media, etc.)",
+        "consenting": "Giving photo consent...",
+        "retractingConsent": "Retracting photo consent...",
+        "successConsenting": "Photo consent given successfully",
+        "successRetractingConsent": "Photo consent retracted successfully",
+        "errorConsenting": "Failed to give photo consent",
+        "errorRetractingConsent": "Failed to retract photo consent",
+        "invalid": "Invalid value for photo consent"
+      },
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",
@@ -756,7 +766,7 @@
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
       "amountOfItemAria": "Select number of this item",
-      "mustBeLoggedIn": "You must be logged in to borrow items"
+      "mustBeLoggedIn": "You must be signed in to borrow items"
     },
     "loanForm": {
       "loanPeriod": "Select loan period",
@@ -1047,7 +1057,7 @@
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
       "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
       "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
-      "mustBeLoggedIn": "You must be logged in to sign up",
+      "mustBeLoggedIn": "You must be signed in to sign up to the event",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
@@ -1062,6 +1072,7 @@
       "attendeesList": "Attendees list",
       "person": "Person",
       "foodPreferences": "Food preferences",
+      "photoConsent": "Photo consent",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",
@@ -1735,7 +1746,7 @@
       "from": "From",
       "until": "Until",
       "empty": "You have no reservations",
-      "notLoggedIn": "Please log in to see your reservations.",
+      "notLoggedIn": "Please sign in to see your reservations.",
       "deletedSuccess": "Successfully deleted reservation"
     },
     "information": {

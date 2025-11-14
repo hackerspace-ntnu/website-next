@@ -1,3 +1,4 @@
+import { CheckIcon, XIcon } from 'lucide-react';
 import { getFormatter, getTranslations } from 'next-intl/server';
 import { MemberAvatar } from '@/components/members/MemberAvatar';
 import {
@@ -33,6 +34,9 @@ async function WaitlistTable({
           <TableHead className='min-w-64'>
             {t('attendance.foodPreferences')}
           </TableHead>
+          <TableHead className='min-w-24'>
+            {t('attendance.photoConsent')}
+          </TableHead>
           <TableHead className='min-w-40'>
             {t('waitlist.waitlistedAt')}
           </TableHead>
@@ -57,6 +61,13 @@ async function WaitlistTable({
               </div>
             </TableCell>
             <TableCell>{participant.user.foodPreferences}</TableCell>
+            <TableCell>
+              {participant.user.photoConsent ? (
+                <CheckIcon className='mx-auto' />
+              ) : (
+                <XIcon className='mx-auto text-destructive' />
+              )}
+            </TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
               {formatter.dateTime(
                 participant.waitlistedAt ?? new Date(),
@@ -67,7 +78,7 @@ async function WaitlistTable({
         ))}
         {participants.waitlisted.length === 0 && (
           <TableRow>
-            <TableCell colSpan={3} className='text-center'>
+            <TableCell colSpan={4} className='text-center'>
               {t('waitlist.noWaitlisted')}
             </TableCell>
           </TableRow>
