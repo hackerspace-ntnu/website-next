@@ -48,6 +48,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
         utils.storage.fetchLoans.invalidate(),
         utils.storage.userLoans.invalidate(),
       ]);
+      setCart(null);
       router.push('/storage/loans/user');
       router.refresh();
     },
@@ -86,7 +87,6 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
           autoapprove: value.autoapprove,
         })),
       );
-      setCart(null);
       setOpen(false);
     },
   });
