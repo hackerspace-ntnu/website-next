@@ -1057,7 +1057,7 @@
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
       "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
       "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
-      "mustBeLoggedIn": "You must be signed in in to sign up",
+      "mustBeLoggedIn": "You must be signed in to sign up to the event",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
