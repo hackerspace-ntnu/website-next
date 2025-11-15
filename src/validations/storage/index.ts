@@ -1,4 +1,5 @@
 export * from '@/validations/storage/borrowItemsSchema';
+export * from '@/validations/storage/cartItemsSchema';
 export * from '@/validations/storage/deleteItemSchema';
 export * from '@/validations/storage/editItemSchema';
 export * from '@/validations/storage/fetchLoansSchema';

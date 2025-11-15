@@ -2,6 +2,7 @@ import {
   CalendarIcon,
   CheckIcon,
   CircleUserIcon,
+  NotebookPenIcon,
   ShoppingBasketIcon,
   XIcon,
 } from 'lucide-react';
@@ -82,9 +83,13 @@ async function LoanCard({
               })}
             </span>
           </li>
+          <li>
+            <NotebookPenIcon className='h-6 w-6 text-primary' />
+            <span className='max-w-prose'>{loan.notes ?? t('noNotes')}</span>
+          </li>
           {/* Only show loan return info if loan is already approved */}
-          {status === 'approved' ? (
-            loan.returnedAt ? (
+          {status === 'approved' &&
+            (loan.returnedAt ? (
               <li>
                 <CheckIcon className='h-6 w-6 text-primary' />
                 <span>
@@ -98,10 +103,18 @@ async function LoanCard({
             ) : (
               <li>
                 <XIcon className='h-6 w-6 text-red-700' />
-                <span>{t('notReturned')}</span>
+                <div>
+                  {t('notReturned')}
+                  {loan.borrowUntil < new Date() && (
+                    <>
+                      <span className='ml-1'>(</span>
+                      <span className='text-red-700'>{t('overdue')}</span>
+                      <span>)</span>
+                    </>
+                  )}
+                </div>
               </li>
-            )
-          ) : null}
+            ))}
         </ul>
         {status === 'pending' && admin && (
           <p className='pt-6'>{t('askForApproval')}</p>

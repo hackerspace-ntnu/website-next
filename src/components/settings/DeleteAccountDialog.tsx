@@ -3,17 +3,17 @@
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/Button';
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/Dialog';
+  ResponsiveDialog,
+  ResponsiveDialogClose,
+  ResponsiveDialogContent,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogTrigger,
+} from '@/components/composites/ResponsiveDialog';
+import { Button } from '@/components/ui/Button';
 import { Spinner } from '@/components/ui/Spinner';
 import { api } from '@/lib/api/client';
 
@@ -34,24 +34,25 @@ function DeleteAccountDialog() {
     onSuccess: () => router.push('/'),
   });
 
-  // TODO: Use ResponsiveDialog
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <ResponsiveDialog>
+      <ResponsiveDialogTrigger asChild>
         <Button variant='destructive' onClick={() => setTimeoutLeft(10)}>
           {t('delete.buttonLabel')}
         </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t('delete.dialogTitle')}</DialogTitle>
-          <DialogDescription>
+      </ResponsiveDialogTrigger>
+      <ResponsiveDialogContent>
+        <ResponsiveDialogHeader>
+          <ResponsiveDialogTitle>
+            {t('delete.dialogTitle')}
+          </ResponsiveDialogTitle>
+          <ResponsiveDialogDescription>
             {t.rich('delete.dialogDescription', {
               bold: (chunks) => <b>{chunks}</b>,
             })}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className='flex sm:justify-between'>
+          </ResponsiveDialogDescription>
+        </ResponsiveDialogHeader>
+        <ResponsiveDialogFooter className='flex sm:justify-between'>
           <Button
             className='md:w-1/3'
             variant='destructive'
@@ -67,14 +68,14 @@ function DeleteAccountDialog() {
               </>
             )}
           </Button>
-          <DialogClose asChild>
+          <ResponsiveDialogClose asChild>
             <Button disabled={deleteAccountMutation.isPending}>
               {tUi('close')}
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </ResponsiveDialogClose>
+        </ResponsiveDialogFooter>
+      </ResponsiveDialogContent>
+    </ResponsiveDialog>
   );
 }
 
