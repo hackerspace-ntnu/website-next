@@ -37,6 +37,7 @@ function Banner() {
         <Carousel
           opts={{
             loop: true,
+            watchDrag: false,
             duration: 50,
           }}
           plugins={[

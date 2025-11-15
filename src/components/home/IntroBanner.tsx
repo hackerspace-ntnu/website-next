@@ -51,7 +51,7 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
                       src={slide.imageUrl ?? '/bg.jpg'}
                       alt={slideLocalization?.imgAlt ?? t.placeholderAlt}
                       fill
-                      className='object-cover'
+                      className='object-cover brightness-75'
                     />
                     <div className='-translate-x-1/2 absolute top-1/2 left-1/2 flex w-full transform flex-col gap-3 px-8 text-center'>
                       <h2 className='text-shadow-foreground text-shadow-md text-xl-3xl-clamp dark:text-foreground dark:text-shadow-background'>

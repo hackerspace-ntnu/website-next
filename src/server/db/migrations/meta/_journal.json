@@ -162,6 +162,13 @@
       "when": 1762867423598,
       "tag": "0022_parched_the_renegades",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1763134222704,
+      "tag": "0023_lyrical_shriek",
+      "breakpoints": true
     }
   ]
 }

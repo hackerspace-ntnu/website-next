@@ -1,3 +1,4 @@
+import { CheckIcon, XIcon } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import { AttendanceCheckbox } from '@/components/events/AttendanceCheckbox';
 import { GiveSkillButton } from '@/components/events/GiveSkillButton';
@@ -29,6 +30,7 @@ async function ParticipantsTable({
         <TableRow>
           <TableHead className='min-w-64'>{t('person')}</TableHead>
           <TableHead className='min-w-64'>{t('foodPreferences')}</TableHead>
+          <TableHead className='min-w-24'>{t('photoConsent')}</TableHead>
           <TableHead className='min-w-24'>{t('attended')}</TableHead>
           <TableHead className='min-w-40'>{t('actions')}</TableHead>
         </TableRow>
@@ -50,6 +52,13 @@ async function ParticipantsTable({
               </div>
             </TableCell>
             <TableCell>{participant.user.foodPreferences}</TableCell>
+            <TableCell>
+              {participant.user.photoConsent ? (
+                <CheckIcon className='mx-auto' />
+              ) : (
+                <XIcon className='mx-auto text-destructive' />
+              )}
+            </TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
               <div className='flex items-center gap-2'>
                 <AttendanceCheckbox participant={participant} event={event} />
@@ -64,7 +73,7 @@ async function ParticipantsTable({
         ))}
         {participants.confirmed.length === 0 && (
           <TableRow>
-            <TableCell colSpan={4} className='text-center'>
+            <TableCell colSpan={5} className='text-center'>
               {t('noParticipants')}
             </TableCell>
           </TableRow>
