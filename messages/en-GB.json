@@ -847,7 +847,8 @@
       "unauthorizedBorrowInAdvance": "At least one of the items you're trying to borrow is not available right now. Only Hackerspace members can borrow items in advance.",
       "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
       "borrowPositiveAmount": "Must borrow a positive amount.",
-      "limitNotInRange": "limit must be between 1 and 50."
+      "limitNotInRange": "limit must be between 1 and 50.",
+      "nonMemberLimitExceeded": "Non-members can only borrow up to {count, plural, =1 {# piece} other {# pieces}} of an item at a time."
     }
   },
   "shiftSchedule": {

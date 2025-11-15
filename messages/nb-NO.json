@@ -847,7 +847,8 @@
       "unauthorizedBorrowInAdvance": "Minst en av gjenstandene du prøver å låne er ikke tilgjengelig akkurat nå. Kun Hackerspace-medlemmer kan låne gjenstander på forhånd.",
       "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
       "borrowPositiveAmount": "Må låne et positivt antall.",
-      "limitNotInRange": "limit må være mellom 1 og 50."
+      "limitNotInRange": "limit må være mellom 1 og 50.",
+      "nonMemberLimitExceeded": "Som ikke-medlem kan du ikke låne flere enn {count} stk. av en gjenstand om gangen."
     }
   },
   "shiftSchedule": {

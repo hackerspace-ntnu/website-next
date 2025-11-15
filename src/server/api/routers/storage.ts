@@ -582,6 +582,17 @@ const storageRouter = createRouter({
         .from(storageItems)
         .where(inArray(storageItems.id, itemIds));
 
+      if (
+        input.some((item) => item.amount > 5) &&
+        ctx.user.groups.length <= 0
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('storage.api.nonMemberLimitExceeded', { count: 5 }),
+          cause: { toast: 'error' },
+        });
+      }
+
       if (itemIds.length !== itemsToBorrow.length) {
         throw new TRPCError({
           code: 'NOT_FOUND',
