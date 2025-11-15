@@ -365,6 +365,7 @@
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
     "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "internalUnauthorized": "Du har ikke rettigheter til å se interne artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
@@ -411,6 +412,7 @@
       "invalidLimit": "Ugyldig limit",
       "invalidOffset": "Ugyldig offset",
       "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "fetchFailed": "Kunne ikke hente nyhetsartikkel",
       "insertFailed": "Kunne ikke legge til nyhetsartikkel",
       "articleNotFound": "Artikkel ikke funnet",
       "articleImageNotFound": "Artikkelbilde ikke funnet"
@@ -451,7 +453,11 @@
       "removingFromGroup": "Fjerner fra gruppe...",
       "removingFromGroupFailed": "Kunne ikke fjerne bruker fra gruppe",
       "userAddedToGroup": "Bruker lagt til gruppe",
-      "userRemovedFromGroup": "Bruker fjernet fra gruppe"
+      "userRemovedFromGroup": "Bruker fjernet fra gruppe",
+      "yourself": "deg selv",
+      "confirmTitle": "Er du sikker på at du vil fjerne {user} fra {group}?",
+      "confirmDescription": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden.",
+      "confirmDescriptionIrreversible": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden. Siden du redigerer din egen profil, så vil du ikke kunne angre denne handlingen."
     },
     "api": {
       "invalidOffset": "Ugyldig offset",
@@ -465,6 +471,7 @@
   },
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "backToHome": "Tilbake til forsiden",
     "profile": {
       "title": "Profil",
       "username": "Brukernavn",

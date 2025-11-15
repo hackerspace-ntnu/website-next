@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from 'lucide-react';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
@@ -8,6 +9,7 @@ import { Banner } from '@/components/layout/Banner';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { Main } from '@/components/layout/Main';
 import { SidebarNav } from '@/components/settings/SidebarNav';
+import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
 import { redirect } from '@/lib/locale/navigation';
@@ -41,6 +43,15 @@ export default async function SettingsLayout({
       <Banner />
       <Main className='h-full'>
         <div className='h-full w-full gap-6 p-10 pb-16'>
+          <Link
+            href='/'
+            variant='ghost'
+            size='default'
+            className='mb-6 flex w-fit items-center gap-2'
+          >
+            <ArrowLeftIcon />
+            <span>{t('backToHome')}</span>
+          </Link>
           <div className='flex gap-3 space-y-0.5'>
             <LogoLink
               logoClassName='clamp-[h-12-16-clamp] clamp-[w-12-16-clamp] min-w-fit'
