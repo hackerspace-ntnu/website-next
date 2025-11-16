@@ -109,7 +109,7 @@ function LoanForm({ setOpen, disabledDays, t }: LoanFormProps) {
             required={true}
             selected={field.state.value ?? addDays(new Date(), 1)}
             showOutsideDays={false}
-            min={1}
+            min={0}
             max={differenceInDays(
               addDays(endOfWeek(addWeeks(new Date(), 2)), 2),
               new Date(),
