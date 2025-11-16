@@ -1057,9 +1057,7 @@ function CalendarField({
     >
       <Calendar
         // @ts-expect-error We cannot be sure of what mode we're using
-        onSelect={(selected) => {
-          field.handleChange(selected);
-        }}
+        onSelect={(selected) => field.handleChange(selected)}
         className={cx('rounded-md border', calendarClassName)}
         onDayBlur={field.handleBlur}
         {...props}

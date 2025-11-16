@@ -713,7 +713,8 @@
     "card": {
       "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
-      "removeFromCart": "Remove from cart"
+      "removeFromCart": "Remove from cart",
+      "loanInAdvance": "Loan in advance"
     },
     "select": {
       "ariaLabel": "Select how to filter the storage items",
@@ -765,16 +766,20 @@
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
+      "loanInAdvance": "Loan in advance",
+      "loanInAdvanceDescription": "Some of your items aren't available right now. You are requesting to borrow items in advance. You will be able to choose a loan period that does not overlap other loan requests.",
       "amountOfItemAria": "Select number of this item",
       "mustBeLoggedIn": "You must be signed in to borrow items"
     },
     "loanForm": {
       "loanPeriod": "Select loan period",
       "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "notes": "Notes (optional)",
       "autoapprove": "Approve immediately",
       "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
+      "notesTooLong": "Notes must be less than {count} characters",
       "success": "Loan request sent! Redirecting to loans..."
     },
     "categories": {
@@ -852,6 +857,7 @@
       "titleApproved": "Approved loans",
       "pendingLoan": "Pending loan",
       "notReturned": "Not returned yet",
+      "overdue": "overdue",
       "returned": "Returned {date}",
       "loanSubheader": "This loan is waiting for approval",
       "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",
@@ -866,6 +872,7 @@
       "loanReturnSuccess": "Loan has been registered as returned!",
       "loanApproved": "This loan has been approved",
       "borrowTimeline": "Borrowing from {from} until {until}",
+      "noNotes": "No notes were provided",
       "requestedAt": "Requested at {date}",
       "noPendingLoans": "No pending loans 🎉",
       "noLoansFound": "No loans found",
@@ -877,9 +884,11 @@
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
       "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "unauthorizedBorrowInAdvance": "At least one of the items you're trying to borrow is not available right now. Only Hackerspace members can borrow items in advance.",
       "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
       "borrowPositiveAmount": "Must borrow a positive amount.",
-      "limitNotInRange": "limit must be between 1 and 50."
+      "limitNotInRange": "limit must be between 1 and 50.",
+      "nonMemberLimitExceeded": "Non-members can only borrow up to {count, plural, =1 {# piece} other {# pieces}} of an item at a time."
     }
   },
   "shiftSchedule": {
