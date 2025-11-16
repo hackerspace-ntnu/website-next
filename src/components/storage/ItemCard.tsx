@@ -14,9 +14,11 @@ import type { RouterOutput } from '@/server/api';
 async function ItemCard({
   item,
   imageUrl,
+  isMember,
 }: {
   item: RouterOutput['storage']['fetchMany'][number];
   imageUrl: string | null;
+  isMember?: boolean;
 }) {
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');
@@ -64,7 +66,9 @@ async function ItemCard({
           t={{
             addToCart: t('card.addToCart'),
             removeFromCart: t('card.removeFromCart'),
+            loanInAdvance: t('card.loanInAdvance'),
           }}
+          isMember={isMember}
         />
       </CardFooter>
     </Card>

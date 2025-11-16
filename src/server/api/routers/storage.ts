@@ -1,17 +1,19 @@
 import { TRPCError } from '@trpc/server';
+import { endOfDay } from 'date-fns';
 import {
   and,
   asc,
   count,
   desc,
   eq,
-  getTableColumns,
   ilike,
   inArray,
   isNotNull,
   isNull,
+  lt,
   or,
 } from 'drizzle-orm';
+import type { Matcher } from 'react-day-picker';
 import { getItemCategoriesFromContext } from '@/server/api/context';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
@@ -32,6 +34,7 @@ import { itemLoans } from '@/server/db/tables/loans';
 import { insertFile } from '@/server/services/files';
 import {
   borrowItemsSchema,
+  cartItemsSchema,
   deleteItemSchema,
   editItemSchema,
   fetchLoansSchema,
@@ -73,7 +76,11 @@ const storageRouter = createRouter({
       const item = rawSelect[0].item;
 
       const loans = await ctx.db.query.itemLoans.findMany({
-        where: eq(itemLoans.itemId, item.id),
+        where: and(
+          eq(itemLoans.itemId, item.id),
+          isNull(itemLoans.returnedAt),
+          lt(itemLoans.borrowFrom, new Date()),
+        ),
         columns: {
           unitsBorrowed: true,
           returnedAt: true,
@@ -81,7 +88,6 @@ const storageRouter = createRouter({
       });
 
       const unitsBorrowed = loans
-        .filter((loan) => loan.returnedAt === null)
         .map((loan) => loan.unitsBorrowed)
         .reduce((a, b) => a + b, 0);
 
@@ -92,7 +98,7 @@ const storageRouter = createRouter({
           ?.localization,
         norwegian: rawSelect.find((s) => s.localization.locale === 'nb-NO')
           ?.localization,
-        availableUnits: item.quantity - unitsBorrowed,
+        availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
       };
     }),
   fetchMany: publicProcedure
@@ -115,7 +121,15 @@ const storageRouter = createRouter({
           with: {
             item: {
               with: {
-                itemLoans: true,
+                itemLoans: {
+                  columns: {
+                    unitsBorrowed: true,
+                  },
+                  where: and(
+                    isNull(itemLoans.returnedAt),
+                    lt(itemLoans.borrowFrom, new Date()),
+                  ),
+                },
               },
             },
           },
@@ -125,7 +139,6 @@ const storageRouter = createRouter({
         // and remove item loans to avoid leaking more information than necessary
         for (const localization of rawLocalizations) {
           const unitsBorrowed = localization.item.itemLoans
-            .filter((loan) => loan.returnedAt === null)
             .map((loan) => loan.unitsBorrowed)
             .reduce((a, b) => a + b, 0);
 
@@ -135,7 +148,7 @@ const storageRouter = createRouter({
           items.push({
             ...itemWithoutLoans,
             ...localizationOnly,
-            availableUnits: item.quantity - unitsBorrowed,
+            availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
           });
         }
 
@@ -179,10 +192,17 @@ const storageRouter = createRouter({
 
       const loansToItems = await ctx.db
         .select({
-          ...getTableColumns(itemLoans),
+          itemId: itemLoans.itemId,
+          unitsBorrowed: itemLoans.unitsBorrowed,
         })
         .from(itemLoans)
-        .where(inArray(itemLoans.itemId, fetchedItemIds));
+        .where(
+          and(
+            inArray(itemLoans.itemId, fetchedItemIds),
+            isNull(itemLoans.returnedAt),
+            lt(itemLoans.borrowFrom, new Date()),
+          ),
+        );
 
       for (const selected of rawSelect) {
         const { item, localization } = selected;
@@ -191,14 +211,13 @@ const storageRouter = createRouter({
         );
 
         const unitsBorrowed = itemLoans
-          .filter((loan) => loan.returnedAt === null)
           .map((loan) => loan.unitsBorrowed)
           .reduce((a, b) => a + b, 0);
 
         items.push({
           ...item,
           ...localization,
-          availableUnits: item.quantity - unitsBorrowed,
+          availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
         });
       }
 
@@ -493,6 +512,65 @@ const storageRouter = createRouter({
           });
         });
     }),
+  calculateDisabledDays: authenticatedProcedure
+    .input((input) =>
+      cartItemsSchema(useTranslationsFromContext()).parse(input),
+    )
+    .query(async ({ input, ctx }) => {
+      const items = await ctx.db.query.storageItems.findMany({
+        where: and(
+          inArray(
+            storageItems.id,
+            input.map((i) => i.id),
+          ),
+        ),
+        with: {
+          itemLoans: {
+            where: isNull(itemLoans.returnedAt),
+          },
+        },
+      });
+
+      const disabledDays: Matcher[] = [];
+
+      for (const item of items) {
+        const loanTimeline = item.itemLoans.flatMap((loan) => [
+          {
+            date: loan.borrowFrom,
+            amount: loan.unitsBorrowed,
+          },
+          {
+            date: endOfDay(loan.borrowUntil),
+            amount: -loan.unitsBorrowed,
+          },
+        ]);
+
+        loanTimeline.sort((a, b) => a.date.getTime() - b.date.getTime());
+
+        let unitsLoaned = 0;
+        let previousDate: Date | null = null;
+
+        for (const loanEvent of loanTimeline) {
+          const toBeBorrowed = input.find((i) => i.id === item.id)?.amount ?? 0;
+
+          if (previousDate && unitsLoaned + toBeBorrowed > item.quantity) {
+            disabledDays.push({
+              from: previousDate,
+              to: loanEvent.date,
+            });
+          }
+
+          unitsLoaned += loanEvent.amount;
+          previousDate = loanEvent.date;
+        }
+      }
+
+      if (disabledDays.length === 0) {
+        return null;
+      }
+
+      return disabledDays;
+    }),
   borrowItems: authenticatedProcedure
     .input((input) =>
       borrowItemsSchema(useTranslationsFromContext()).parse(input),
@@ -504,6 +582,17 @@ const storageRouter = createRouter({
         .from(storageItems)
         .where(inArray(storageItems.id, itemIds));
 
+      if (
+        input.some((item) => item.amount > 5) &&
+        ctx.user.groups.length <= 0
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('storage.api.nonMemberLimitExceeded', { count: 5 }),
+          cause: { toast: 'error' },
+        });
+      }
+
       if (itemIds.length !== itemsToBorrow.length) {
         throw new TRPCError({
           code: 'NOT_FOUND',
@@ -512,15 +601,48 @@ const storageRouter = createRouter({
         });
       }
 
+      const loans = await ctx.db.query.itemLoans.findMany({
+        where: and(
+          inArray(
+            itemLoans.itemId,
+            itemsToBorrow.map((i) => i.id),
+          ),
+          isNull(itemLoans.returnedAt),
+          lt(itemLoans.borrowFrom, new Date()),
+        ),
+      });
+
+      const itemsWithLoans = itemsToBorrow.map((item) => {
+        const itemLoans = loans.filter((loan) => loan.itemId === item.id);
+        const unitsBorrowed = itemLoans
+          .map((loan) => loan.unitsBorrowed)
+          .reduce((a, b) => a + b, 0);
+        return {
+          ...item,
+          availableUnits: Math.max(item.quantity - unitsBorrowed, 0),
+        };
+      });
+
       // Map the items so that the ids are keys and values are storage items
       const items = Object.fromEntries(
-        itemIds.map((id) => [id, itemsToBorrow.find((i) => i.id === id)]),
+        itemIds.map((id) => [id, itemsWithLoans.find((i) => i.id === id)]),
       );
 
       if (input.some((i) => i.amount > (items[i.id]?.quantity as number))) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: ctx.t('storage.api.borrowingMoreThanQuantity'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (
+        ctx.user.groups.length <= 0 &&
+        input.some((i) => (items[i.id]?.availableUnits as number) <= 0)
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('storage.api.unauthorizedBorrowInAdvance'),
           cause: { toast: 'error' },
         });
       }
@@ -535,6 +657,7 @@ const storageRouter = createRouter({
           unitsBorrowed: borrowing.amount as number,
           borrowFrom: borrowing.borrowFrom,
           borrowUntil: borrowing.borrowUntil as Date,
+          notes: borrowing.notes.length > 0 ? borrowing.notes : null,
           // Do not approve automatically unless user is actually a Hackerspace member
           approvedAt:
             borrowing.autoapprove && ctx.user.groups.length > 0

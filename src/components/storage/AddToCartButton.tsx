@@ -13,13 +13,20 @@ type AddToCartButtonProps = {
   item:
     | RouterOutput['storage']['fetchOne']
     | RouterOutput['storage']['fetchMany'][number];
+  isMember?: boolean;
   t: {
     addToCart: string;
     removeFromCart: string;
+    loanInAdvance: string;
   };
 };
 
-function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
+function AddToCartButton({
+  className,
+  item,
+  isMember,
+  t,
+}: AddToCartButtonProps) {
   const [cart, setCart, isLoading] = useLocalStorage<CartItem[]>(
     'shopping-cart',
     [],
@@ -52,9 +59,13 @@ function AddToCartButton({ className, item, t }: AddToCartButtonProps) {
       className={cx('whitespace-break-spaces', className)}
       variant={isInCart ? 'destructive' : 'default'}
       onClick={updateCart}
-      disabled={item.availableUnits <= 0}
+      disabled={item.availableUnits <= 0 && !isMember}
     >
-      {isInCart ? t.removeFromCart : t.addToCart}
+      {isInCart
+        ? t.removeFromCart
+        : item.availableUnits <= 0 && isMember
+          ? t.loanInAdvance
+          : t.addToCart}
     </Button>
   );
 }
