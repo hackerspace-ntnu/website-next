@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, inArray, type SQL } from 'drizzle-orm';
+import { and, desc, eq, inArray, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
@@ -78,6 +78,7 @@ const applicationsRouter = createRouter({
           },
         },
       },
+      // TODO: order by oldest first
     });
 
     return applicationsData.map((app) => {
