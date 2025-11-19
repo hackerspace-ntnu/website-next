@@ -1,17 +1,17 @@
 import { DoorClosedIcon, DoorOpenIcon } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/Badge';
 import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
 
-async function WorkshopStatusBadge({
+function WorkshopStatusBadge({
   status,
   className,
 }: {
   status: RouterOutput['office']['fetchDoorStatus'];
   className?: string;
 }) {
-  const t = await getTranslations('home');
+  const t = useTranslations('home');
 
   return (
     <Badge
