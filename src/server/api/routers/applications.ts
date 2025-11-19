@@ -177,7 +177,8 @@ const applicationsRouter = createRouter({
       await ctx.db
         .delete(applications)
         .where(and(where, eq(applications.id, input.applicationId)))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('applications.api.deleteAppFailed'),

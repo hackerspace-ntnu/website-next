@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, or } from 'drizzle-orm';
+import { and, eq, or } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -29,11 +29,10 @@ const rulesRouter = createRouter({
           },
         })
         .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.fetchRulesFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.fetchRulesFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -68,9 +67,7 @@ const rulesRouter = createRouter({
         console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('rules.api.fetchRulesFailed', {
-            error: error.message,
-          }),
+          message: ctx.t('rules.api.fetchRulesFailed'),
           cause: { toast: 'error' },
         });
       });
@@ -128,9 +125,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.insertFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.insertFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -163,9 +158,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.insertFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.insertFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -225,9 +218,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.updateFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -248,9 +239,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.updateFailed'),
             cause: { toast: 'error' },
           });
         });

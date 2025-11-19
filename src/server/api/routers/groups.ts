@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, type SQL } from 'drizzle-orm';
+import { and, eq, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   managementProcedure,
@@ -164,11 +164,10 @@ const groupsRouter = createRouter({
         },
       })
       .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('groups.api.fetchGroupsFailed', {
-            error: error.message,
-          }),
+          message: ctx.t('groups.api.fetchGroupsFailed'),
           cause: { toast: 'error' },
         });
       });
