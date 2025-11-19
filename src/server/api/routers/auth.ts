@@ -173,7 +173,8 @@ const authRouter = createRouter({
           ctx.user.lastName,
           input.password,
         );
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('auth.matrixRegistrationFailed'),
@@ -265,7 +266,8 @@ const authRouter = createRouter({
           emailVerificationRequest.email,
           ctx.user.phoneNumber,
         );
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('api.unableToUpdateMatrix'),

@@ -59,11 +59,10 @@ const bannersRouter = createRouter({
           orderBy: [asc(banners.id)],
         })
         .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('management.banners.api.fetchBannersFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('management.banners.api.fetchBannersFailed'),
             cause: { toast: 'error' },
           });
         });
