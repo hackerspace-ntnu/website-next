@@ -75,7 +75,7 @@ const authenticatedProcedure = registrationProcedure.use(
 );
 
 /**
- * Checks if the user is part of a group (is a member).
+ * Checks if the user is part of any group, and is therefore a member of Hackerspace.
  * Should be used for features like news and shift schedule.
  * Every member should be able to create news articles.
  */
@@ -113,7 +113,8 @@ const managementProcedure = protectedProcedure.use(async ({ next, ctx }) => {
 
 /**
  * Checks if the user is part of the leadership.
- * Should be used for administrator menu access.
+ *
+ * WARNING: Most features should be available to management. Use this procedure sparingly.
  */
 const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
@@ -132,13 +133,13 @@ const leadershipProcedure = protectedProcedure.use(async ({ next, ctx }) => {
 
 /**
  * Checks if the user is allowed to edit the website.
- * Limited to labops, leadership, and admin groups.
+ * Limited to LabOps, management, and admin groups.
  */
 const protectedEditProcedure = protectedProcedure.use(async ({ next, ctx }) => {
   if (
     !ctx.user.groups.some(
       (group) =>
-        group === 'labops' || group === 'leadership' || group === 'admin',
+        group === 'labops' || group === 'management' || group === 'admin',
     )
   ) {
     throw new TRPCError({

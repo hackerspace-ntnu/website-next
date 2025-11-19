@@ -22,16 +22,16 @@ export default async function StorageLayout({
   children,
 }: StorageLayoutProps) {
   const { locale } = await params;
-  const { user } = await api.auth.state();
   setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage');
   const tUi = await getTranslations('ui');
+  const { user } = await api.auth.state();
 
   const categories = await api.storage.fetchItemCategoryNames();
   const categoriesWithLabel = categories.map((c) => ({ label: c, value: c }));
   const canManageStorage = user?.groups.some((group) =>
-    ['labops', 'leadership', 'admin'].includes(group),
+    ['labops', 'management', 'admin'].includes(group),
   );
 
   const filters = [

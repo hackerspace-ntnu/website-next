@@ -36,15 +36,16 @@ export default async function NewQuotePage({
     Number.isNaN(processedQuoteId) ||
     !Number.isInteger(processedQuoteId) ||
     processedQuoteId < 1
-  )
+  ) {
     return notFound();
+  }
 
   const quote = await api.quotes.fetchQuote(processedQuoteId);
 
   if (!quote) return notFound();
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g)) &&
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g)) &&
     quote.saidBy.id !== user?.id &&
     quote.heardBy.id !== user?.id
   ) {

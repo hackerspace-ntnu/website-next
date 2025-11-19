@@ -31,7 +31,7 @@ export default async function NewRulePage({
   const { rules, ui, error } = await getMessages();
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('new.unauthorized')} />;

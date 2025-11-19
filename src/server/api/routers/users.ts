@@ -92,7 +92,7 @@ const usersRouter = createRouter({
       // But we allow seeing our own profile
       if (
         (!result.usersGroups || result.usersGroups.length === 0) &&
-        !user?.groups.some((g) => ['admin', 'management'].includes(g)) &&
+        !user?.groups.some((g) => ['management', 'admin'].includes(g)) &&
         !(user && user.id === result.id)
       ) {
         throw new TRPCError({
