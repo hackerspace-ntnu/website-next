@@ -33,8 +33,9 @@ export async function generateMetadata({
     !memberId ||
     Number.isNaN(processedMemberId) ||
     !Number.isInteger(processedMemberId)
-  )
+  ) {
     return;
+  }
 
   const user = await api.users.fetchMember({
     id: processedMemberId,
@@ -85,7 +86,7 @@ export default async function MemberPage({
   const groups = await api.groups.fetchGroups();
   const skills = await api.skills.fetchAllSkills();
   const canEdit = auth.user?.groups.some((g) =>
-    ['admin', 'management'].includes(g),
+    ['management', 'admin'].includes(g),
   );
   const { about, members, ui } = await getMessages();
 

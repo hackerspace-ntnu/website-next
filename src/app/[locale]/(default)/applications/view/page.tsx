@@ -35,15 +35,14 @@ export default async function ApplicationsPage({
   setRequestLocale(locale as Locale);
 
   const t = await getTranslations('applications.view');
-  const applications = await api.applications.fetchApplications();
-  const formatter = await getFormatter();
-
   const { user } = await api.auth.state();
 
   if (!user?.groups.some((group) => ['management', 'admin'].includes(group))) {
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 
+  const applications = await api.applications.fetchApplications();
+  const formatter = await getFormatter();
   const canViewAll =
     user?.groups.includes('leadership') || user?.groups.includes('admin');
 

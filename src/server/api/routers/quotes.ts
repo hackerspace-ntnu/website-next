@@ -78,7 +78,7 @@ const quotesRouter = createRouter({
       if (
         quote.internal &&
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id
@@ -219,7 +219,7 @@ const quotesRouter = createRouter({
       // check here instead of using a more strict procedure
       if (
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id
@@ -325,7 +325,7 @@ const quotesRouter = createRouter({
       // check here instead of using a more strict procedure
       if (
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id

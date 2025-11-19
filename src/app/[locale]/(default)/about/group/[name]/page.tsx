@@ -86,7 +86,7 @@ export default async function GroupPage({
           </Badge>
         )}
         {user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) && (
           <Link
             className='-translate-y-1/2 absolute top-1/2 right-0'

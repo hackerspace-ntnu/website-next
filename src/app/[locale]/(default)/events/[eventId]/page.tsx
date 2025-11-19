@@ -122,7 +122,7 @@ export default async function EventDetailsPage({
   const signUpInfo = user ? await api.events.fetchUserSignUp(event.id) : null;
 
   const canEdit = user?.groups.some((group) =>
-    ['labops', 'leadership', 'admin'].includes(group),
+    ['labops', 'management', 'admin'].includes(group),
   );
 
   const imageUrl = event.imageId

@@ -21,7 +21,7 @@ async function Header() {
   }
 
   const viewApplications = !!user?.groups.some((g) =>
-    ['admin', 'leadership', 'management'].includes(g),
+    ['management', 'leadership', 'admin'].includes(g),
   );
 
   return (
@@ -132,7 +132,7 @@ async function Header() {
               hasUser={Boolean(user)}
               userId={user?.id}
               isLeadership={
-                !!user?.groups.some((g) => ['admin', 'leadership'].includes(g))
+                !!user?.groups.some((g) => ['leadership', 'admin'].includes(g))
               }
               t={{
                 profile: t('profile'),
