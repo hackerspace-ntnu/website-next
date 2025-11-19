@@ -58,7 +58,6 @@ const rulesRouter = createRouter({
     const rulesData = await ctx.db.query.rules
       .findMany({
         where: !session || !isMember ? eq(rules.internal, false) : undefined,
-        orderBy: asc(rules.createdAt),
         with: {
           localizations: {
             where: eq(ruleLocalizations.locale, ctx.locale),
@@ -66,6 +65,7 @@ const rulesRouter = createRouter({
         },
       })
       .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('rules.api.fetchRulesFailed', {
@@ -75,7 +75,15 @@ const rulesRouter = createRouter({
         });
       });
 
-    return rulesData.map((rule) => {
+    // TODO: Remove this sorting and replace it with orderBy when it can be used with relations in Drizzle
+    // See GitHub issue: https://github.com/drizzle-team/drizzle-orm/issues/2650
+    const sortedRules = rulesData.sort((a, b) => {
+      const nameA = a.localizations[0]?.name ?? '';
+      const nameB = b.localizations[0]?.name ?? '';
+      return nameA.localeCompare(nameB, ctx.locale);
+    });
+
+    return sortedRules.map((rule) => {
       const { localizations, ...ruleData } = rule;
 
       return {
