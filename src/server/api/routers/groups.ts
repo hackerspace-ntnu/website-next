@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, type SQL } from 'drizzle-orm';
+import { and, asc, eq, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   managementProcedure,
@@ -100,7 +100,17 @@ const groupsRouter = createRouter({
         });
       });
 
-    const promises = results.map(async (group) => {
+    // TODO: Remove this sorting and replace it with orderBy when it can be used with relations in Drizzle
+    // See GitHub issue: https://github.com/drizzle-team/drizzle-orm/issues/2650
+    const sortedResults = results.sort((a, b) => {
+      const nameA =
+        a.localizations.find((loc) => loc.locale === ctx.locale)?.name ?? '';
+      const nameB =
+        b.localizations.find((loc) => loc.locale === ctx.locale)?.name ?? '';
+      return nameA.localeCompare(nameB, ctx.locale);
+    });
+
+    const promises = sortedResults.map(async (group) => {
       if (group.imageId) {
         return {
           ...group,
