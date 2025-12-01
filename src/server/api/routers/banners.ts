@@ -3,7 +3,7 @@ import { and, asc, eq, isNull, or, sql } from 'drizzle-orm';
 import safeRegex from 'safe-regex';
 import { pagesMatchToRegex } from '@/lib/utils/pagesMatch';
 import { useTranslationsFromContext } from '@/server/api/locale';
-import { leadershipProcedure, publicProcedure } from '@/server/api/procedures';
+import { managementProcedure, publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
 import { bannerLocalizations, banners } from '@/server/db/tables';
 import { bannerSchema } from '@/validations/banners/bannerSchema';
@@ -68,7 +68,7 @@ const bannersRouter = createRouter({
           });
         });
     }),
-  createBanner: leadershipProcedure
+  createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
       const convertedRegex = pagesMatchToRegex(input.pagesMatch);
@@ -110,7 +110,7 @@ const bannersRouter = createRouter({
         locale: 'nb-NO',
       });
     }),
-  editBanner: leadershipProcedure
+  editBanner: managementProcedure
     .input((input) =>
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
@@ -159,7 +159,7 @@ const bannersRouter = createRouter({
           ),
         );
     }),
-  deleteBanner: leadershipProcedure
+  deleteBanner: managementProcedure
     .input((input) =>
       selectBannerSchema(useTranslationsFromContext()).parse(input),
     )
@@ -178,7 +178,7 @@ const bannersRouter = createRouter({
 
       await ctx.db.delete(banners).where(eq(banners.id, input.id));
     }),
-  changeBannerActive: leadershipProcedure
+  changeBannerActive: managementProcedure
     .input((input) =>
       changeBannerActiveSchema(useTranslationsFromContext()).parse(input),
     )

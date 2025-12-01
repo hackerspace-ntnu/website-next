@@ -3,7 +3,7 @@ import { and, asc, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
-  leadershipProcedure,
+  managementProcedure,
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
@@ -306,7 +306,7 @@ const usersRouter = createRouter({
 
       return Math.ceil(totalCount[0].count);
     }),
-  fetchUsers: leadershipProcedure
+  fetchUsers: managementProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )
@@ -361,7 +361,7 @@ const usersRouter = createRouter({
 
       return await Promise.all(usersDataPromises);
     }),
-  totalResultsForUsersQuery: leadershipProcedure
+  totalResultsForUsersQuery: managementProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )
