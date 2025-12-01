@@ -1503,7 +1503,8 @@
       "deleteApplication": "Slett søknad",
       "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
       "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
-      "applicationDeleted": "Søknad slettet"
+      "applicationDeleted": "Søknad slettet",
+      "unauthorized": "Du har ikke rettigheter til å se søknader"
     },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",

@@ -92,7 +92,7 @@ async function ToolCard({ tool, user }: ToolCardProps) {
             </Button>
           </ToolCardDetails>
           {user?.groups.some((g) =>
-            ['labops', 'leadership', 'admin'].includes(g),
+            ['labops', 'management', 'admin'].includes(g),
           ) && (
             <Link
               className='absolute top-14 right-2 z-10 size-10 rounded-full bg-stone-500/70 backdrop-blur-sm transition-transform duration-150 ease-in-out hover:scale-105 hover:bg-primary'

@@ -18,6 +18,7 @@ export default async function DefaultLayout({
 }: DefaultLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
+
   return (
     <>
       <Header />

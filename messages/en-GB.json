@@ -1503,7 +1503,8 @@
       "deleteApplication": "Delete application",
       "deleteApplicationTitle": "Are you sure you want to delete this application?",
       "deleteApplicationDescription": "This action cannot be undone.",
-      "applicationDeleted": "Application deleted successfully"
+      "applicationDeleted": "Application deleted successfully",
+      "unauthorized": "Unauthorized to view applications"
     },
     "api": {
       "fetchGroupFailed": "Failed to retrieve group",

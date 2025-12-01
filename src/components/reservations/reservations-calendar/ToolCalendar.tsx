@@ -194,7 +194,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
             : t('calendar.createButtonLoggedOut')}
         </Button>
         {user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) && (
           <Link
             href={{

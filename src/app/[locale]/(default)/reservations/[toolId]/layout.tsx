@@ -22,8 +22,9 @@ export async function generateMetadata({
     Number.isNaN(processedToolId) ||
     !Number.isInteger(processedToolId) ||
     processedToolId < 1
-  )
+  ) {
     return;
+  }
 
   const tool = await api.tools.fetchTool(processedToolId);
 
@@ -54,8 +55,9 @@ export default async function ReservationItemLayout({
     Number.isNaN(processedToolId) ||
     !Number.isInteger(processedToolId) ||
     processedToolId < 1
-  )
+  ) {
     return notFound();
+  }
 
   const tool = await api.tools.fetchTool(processedToolId);
 

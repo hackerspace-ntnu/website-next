@@ -12,9 +12,10 @@ export default async function ShoppingCartLayout({
   children,
 }: ShoppingCartLayoutProps) {
   const { locale } = await params;
-
   setRequestLocale(locale as Locale);
+
   const t = await getTranslations('storage');
+
   return (
     <>
       <BackToStorageButton />

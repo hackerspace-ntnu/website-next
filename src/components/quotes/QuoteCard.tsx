@@ -27,11 +27,12 @@ async function QuoteCard({
   const saidByName = `${quote.saidBy.firstName} ${quote.saidBy.lastName}`;
   const heardByName = `${quote.heardBy.firstName} ${quote.heardBy.lastName}`;
 
-  const canEdit =
+  const userInvolved =
     quote.saidBy.id === currentUser?.id || quote.heardBy.id === currentUser?.id;
-  const isAdmin = currentUser?.groups.some((g) =>
-    ['labops', 'leadership', 'admin'].includes(g),
+  const hasEditPermissions = currentUser?.groups.some((g) =>
+    ['labops', 'management', 'admin'].includes(g),
   );
+  const canEdit = userInvolved || hasEditPermissions;
 
   if (!quote.localization) return null;
 
@@ -49,7 +50,7 @@ async function QuoteCard({
             </div>
           </div>
           <div className='flex items-center gap-2'>
-            {(canEdit || isAdmin) && (
+            {canEdit && (
               <>
                 <Link
                   href={{

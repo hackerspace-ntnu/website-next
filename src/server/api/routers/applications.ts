@@ -57,7 +57,7 @@ const applicationsRouter = createRouter({
     // their own group (e.g. DevOps or LabOps)
     if (!canViewAll) {
       const normalGroups = ctx.user.groups.filter(
-        (g) => !['admin', 'management', 'leadership'].includes(g),
+        (g) => !['management', 'leadership', 'admin'].includes(g),
       );
       const normalGroupIds = ctx.db
         .select({ id: groups.id })
@@ -110,7 +110,7 @@ const applicationsRouter = createRouter({
       // their own group (e.g. DevOps or LabOps)
       if (!canViewAll) {
         const normalGroups = ctx.user.groups.filter(
-          (g) => !['admin', 'management', 'leadership'].includes(g),
+          (g) => !['management', 'leadership', 'admin'].includes(g),
         );
         const normalGroupIds = ctx.db
           .select({ id: groups.id })
@@ -163,7 +163,7 @@ const applicationsRouter = createRouter({
       // their own group (e.g. DevOps or LabOps)
       if (!canViewAll) {
         const normalGroups = ctx.user.groups.filter(
-          (g) => !['admin', 'management', 'leadership'].includes(g),
+          (g) => !['management', 'leadership', 'admin'].includes(g),
         );
         const normalGroupIds = ctx.db
           .select({ id: groups.id })

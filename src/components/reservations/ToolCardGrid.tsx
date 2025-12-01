@@ -30,7 +30,7 @@ function ToolCardGrid({ tools, user }: ToolCardGridProps) {
       <div className='mx-auto w-fit max-w-5xl'>
         <div className='mb-4 flex w-full justify-end'>
           {user?.groups.some((g) =>
-            ['labops', 'leadership', 'admin'].includes(g),
+            ['labops', 'management', 'admin'].includes(g),
           ) && (
             <Link href='/reservations/tools/new' variant='default' size='icon'>
               <PlusIcon />
