@@ -124,7 +124,7 @@
     "lucide-react": "^0.536.0",
     "maplibre-gl": "^5.9.0",
     "motion": "^11.18.2",
-    "next": "15.4.8",
+    "next": "15.4.10",
     "next-intl": "^4.3.12",
     "next-themes": "1.0.0-beta.0",
     "nodemailer": "^6.10.1",
