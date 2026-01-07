@@ -174,7 +174,7 @@ export default async function EventDetailsPage({
             variant='link'
             href={event.locationMapLink}
           >
-            <MapPinIcon className='h-8 w-8 text-black group-hover:text-primary dark:text-white' />
+            <MapPinIcon className='h-8 w-8 text-foreground group-hover:text-primary' />
             <span>{localization.location}</span>
           </ExternalLink>
         ) : (

@@ -130,7 +130,7 @@ export default async function GroupPage({
                   pathname: '/members/[memberId]',
                   params: { memberId: member.id },
                 }}
-                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (
