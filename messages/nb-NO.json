@@ -613,6 +613,7 @@
     "internalGroup": "Dette er en intern gruppe",
     "leader": "Leder",
     "deputyLeader": "Nestleder",
+    "unauthorized": "Du har ikke rettigheter til å se denne gruppen",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
@@ -1503,7 +1504,8 @@
       "deleteApplication": "Slett søknad",
       "deleteApplicationTitle": "Er du sikker på at du vil slette denne søknaden?",
       "deleteApplicationDescription": "Denne handlingen kan ikke angres.",
-      "applicationDeleted": "Søknad slettet"
+      "applicationDeleted": "Søknad slettet",
+      "unauthorized": "Du har ikke rettigheter til å se søknader"
     },
     "api": {
       "fetchGroupFailed": "Kunne ikke hente gruppe",
@@ -1657,6 +1659,7 @@
       "filamentType": "Filament type",
       "slicer": "Slicer",
       "backToReservations": "Tilbake til reservasjoner",
+      "unavailableError": "Dette verktøyet er for øyeblikket utilgjengelig for reservasjoner.",
       "new": {
         "title": "Nytt reservasjonsverktøy",
         "createTool": "Opprett verktøy",

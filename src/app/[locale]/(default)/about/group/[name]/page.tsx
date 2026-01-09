@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 import {
   ArrowLeftIcon,
   CircleUserRoundIcon,
@@ -8,10 +9,12 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
+import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
   params,
@@ -20,7 +23,13 @@ export async function generateMetadata({
 }) {
   const { locale, name } = await params;
 
-  const group = await api.groups.fetchGroup(name);
+  let group: RouterOutput['groups']['fetchGroup'] | null = null;
+  try {
+    group = await api.groups.fetchGroup(name);
+  } catch {
+    return;
+  }
+
   const groupLocalization = group?.localizations.find(
     (localization) => localization.locale === locale,
   );
@@ -40,10 +49,21 @@ export default async function GroupPage({
   const { locale, name } = await params;
   setRequestLocale(locale as Locale);
 
-  const group = await api.groups.fetchGroup(name);
   const t = await getTranslations('groups');
   const tAbout = await getTranslations('about');
   const tLayout = await getTranslations('layout');
+
+  let group: RouterOutput['groups']['fetchGroup'] | null = null;
+  try {
+    group = await api.groups.fetchGroup(name);
+  } catch (error) {
+    if (error instanceof TRPCError) {
+      if (error.code === 'FORBIDDEN') {
+        return <ErrorPageContent message={t('unauthorized')} />;
+      }
+      console.error(error);
+    }
+  }
 
   if (!group) {
     return notFound();

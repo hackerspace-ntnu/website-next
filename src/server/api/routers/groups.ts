@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, type SQL } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   managementProcedure,
@@ -26,16 +26,11 @@ const groupsRouter = createRouter({
       fetchGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      let where: SQL = eq(groups.identifier, input);
-
-      const { user, session } = await ctx.auth();
-      if (!user || !session) {
-        where = and(where, eq(groups.internal, false)) as SQL;
-      }
+      const { user } = await ctx.auth();
 
       const group = await ctx.db.query.groups
         .findFirst({
-          where,
+          where: eq(groups.identifier, input),
           with: {
             localizations: true,
             leader: true,
@@ -57,6 +52,14 @@ const groupsRouter = createRouter({
         });
 
       if (!group) return null;
+
+      if (group.internal && (!user || user.groups.length === 0)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('groups.unauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
 
       const sortedUsersGroups = group.usersGroups.sort((a, b) =>
         a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
