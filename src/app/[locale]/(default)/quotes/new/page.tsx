@@ -31,7 +31,7 @@ export default async function NewQuotePage({
   const tNew = await getTranslations('quotes.new');
 
   if (!user?.groups || user.groups.length === 0) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={tNew('unauthorized')} />;
   }
 

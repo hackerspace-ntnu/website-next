@@ -48,7 +48,7 @@ export default async function NewQuotePage({
     quote.saidBy.id !== user?.id &&
     quote.heardBy.id !== user?.id
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={tUpdate('unauthorized')} />;
   }
 
