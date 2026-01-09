@@ -40,8 +40,12 @@ const rulesRouter = createRouter({
 
       if (!rule) return null;
 
-      if ((!session || !isMember) && rule?.internal) {
-        throw new Error(ctx.t('rules.api.unauthorizedInternalRule'));
+      if ((!session || !isMember) && rule.internal) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('rules.api.unauthorizedInternalRule'),
+          cause: { toast: 'error' },
+        });
       }
 
       return {
