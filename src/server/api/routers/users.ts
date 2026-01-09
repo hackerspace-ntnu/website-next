@@ -69,7 +69,7 @@ const usersRouter = createRouter({
         .catch((error) => {
           console.error('Error fetching user:', error);
           throw new TRPCError({
-            code: 'NOT_FOUND',
+            code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('members.api.errorFetchingMember'),
             cause: { toast: 'error' },
           });

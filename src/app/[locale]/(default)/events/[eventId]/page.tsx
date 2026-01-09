@@ -94,20 +94,19 @@ export default async function EventDetailsPage({
   try {
     event = await api.events.fetchEvent(processedEventId);
   } catch (error) {
-    console.error(error);
-    if (
-      error instanceof TRPCError &&
-      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
-    ) {
-      return (
-        <ErrorPageContent
-          message={
-            error.code === 'FORBIDDEN'
-              ? t('api.unauthorized')
-              : t('api.fetchEventFailed')
-          }
-        />
-      );
+    if (error instanceof TRPCError) {
+      if (error.code !== 'FORBIDDEN') console.error(error);
+      if (['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)) {
+        return (
+          <ErrorPageContent
+            message={
+              error.code === 'FORBIDDEN'
+                ? t('api.unauthorized')
+                : t('api.fetchEventFailed')
+            }
+          />
+        );
+      }
     }
   }
 
