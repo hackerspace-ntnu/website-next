@@ -191,7 +191,7 @@ const routing = defineRouting({
     },
     '/applications/apply': {
       'en-GB': '/applications/apply',
-      'nb-NO': '/opptak/søk her',
+      'nb-NO': '/opptak/søk',
     },
     '/applications/thank-you': {
       'en-GB': '/applications/thank-you',
