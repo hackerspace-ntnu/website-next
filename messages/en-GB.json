@@ -1124,6 +1124,7 @@
     "publicRules": "Public rules",
     "internalRules": "Internal rules",
     "backToRules": "Back to Rules",
+    "statutesInfo": "In addition to the rules, you can also read the Hackerspace NTNU <link>statutes</link>.",
     "new": {
       "title": "New Rule",
       "createRule": "Create rule",
