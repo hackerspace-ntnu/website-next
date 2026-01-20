@@ -67,49 +67,51 @@ const slidesRouter = createRouter({
   createSlide: leadershipProcedure
     .input((input) => slideSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const { image, ...restInput } = input;
+      return await ctx.db.transaction(async (tx) => {
+        const { image, ...restInput } = input;
 
-      let fileId: number | null = null;
+        let fileId: number | null = null;
 
-      if (image && image.length > 0) {
-        const file = await insertFile(
-          image,
-          'home-carousel-slides',
-          ctx.user.id,
-          false,
-        );
-        fileId = file.id;
-      }
+        if (image && image.length > 0) {
+          const file = await insertFile(
+            image,
+            'home-carousel-slides',
+            ctx.user.id,
+            false,
+          );
+          fileId = file.id;
+        }
 
-      const [slide] = await ctx.db
-        .insert(homeCarouselSlides)
-        .values({
-          imageId: fileId,
-          active: input.active,
-        })
-        .returning({ id: homeCarouselSlides.id });
+        const [slide] = await tx
+          .insert(homeCarouselSlides)
+          .values({
+            imageId: fileId,
+            active: input.active,
+          })
+          .returning({ id: homeCarouselSlides.id });
 
-      if (!slide)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('management.slides.api.insertFailed'),
-          cause: { toast: 'error' },
+        if (!slide)
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('management.slides.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+
+        await tx.insert(homeCarouselSlideLocalizations).values({
+          slideId: slide.id,
+          imgAlt: restInput.altEnglish,
+          heading: restInput.headingEnglish,
+          description: restInput.descriptionEnglish,
+          locale: 'en-GB',
         });
 
-      await ctx.db.insert(homeCarouselSlideLocalizations).values({
-        slideId: slide.id,
-        imgAlt: restInput.altEnglish,
-        heading: restInput.headingEnglish,
-        description: restInput.descriptionEnglish,
-        locale: 'en-GB',
-      });
-
-      await ctx.db.insert(homeCarouselSlideLocalizations).values({
-        slideId: slide.id,
-        imgAlt: restInput.altNorwegian,
-        heading: restInput.headingNorwegian,
-        description: restInput.descriptionNorwegian,
-        locale: 'nb-NO',
+        await tx.insert(homeCarouselSlideLocalizations).values({
+          slideId: slide.id,
+          imgAlt: restInput.altNorwegian,
+          heading: restInput.headingNorwegian,
+          description: restInput.descriptionNorwegian,
+          locale: 'nb-NO',
+        });
       });
     }),
   editSlide: leadershipProcedure
@@ -117,55 +119,57 @@ const slidesRouter = createRouter({
       editSlideSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const { image, ...restInput } = input;
+      return await ctx.db.transaction(async (tx) => {
+        const { image, ...restInput } = input;
 
-      let imageId: number | null = null;
+        let imageId: number | null = null;
 
-      if (image && image.length > 0) {
-        const file = await insertFile(
-          image,
-          'home-carousel-slides',
-          ctx.user.id,
-          false,
-        );
-        imageId = file.id;
-      }
+        if (image && image.length > 0) {
+          const file = await insertFile(
+            image,
+            'home-carousel-slides',
+            ctx.user.id,
+            false,
+          );
+          imageId = file.id;
+        }
 
-      await ctx.db
-        .update(homeCarouselSlides)
-        .set({
-          imageId: input.image ? imageId : undefined,
-          active: input.active,
-        })
-        .where(eq(homeCarouselSlides.id, input.id));
+        await tx
+          .update(homeCarouselSlides)
+          .set({
+            imageId: input.image ? imageId : undefined,
+            active: input.active,
+          })
+          .where(eq(homeCarouselSlides.id, input.id));
 
-      await ctx.db
-        .update(homeCarouselSlideLocalizations)
-        .set({
-          imgAlt: restInput.altEnglish,
-          heading: restInput.headingEnglish,
-          description: restInput.descriptionEnglish,
-        })
-        .where(
-          and(
-            eq(homeCarouselSlideLocalizations.slideId, input.id),
-            eq(homeCarouselSlideLocalizations.locale, 'en-GB'),
-          ),
-        );
+        await tx
+          .update(homeCarouselSlideLocalizations)
+          .set({
+            imgAlt: restInput.altEnglish,
+            heading: restInput.headingEnglish,
+            description: restInput.descriptionEnglish,
+          })
+          .where(
+            and(
+              eq(homeCarouselSlideLocalizations.slideId, input.id),
+              eq(homeCarouselSlideLocalizations.locale, 'en-GB'),
+            ),
+          );
 
-      await ctx.db
-        .update(homeCarouselSlideLocalizations)
-        .set({
-          imgAlt: restInput.altNorwegian,
-          heading: restInput.headingNorwegian,
-          description: restInput.descriptionNorwegian,
-        })
-        .where(
-          and(
-            eq(homeCarouselSlideLocalizations.slideId, input.id),
-            eq(homeCarouselSlideLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(homeCarouselSlideLocalizations)
+          .set({
+            imgAlt: restInput.altNorwegian,
+            heading: restInput.headingNorwegian,
+            description: restInput.descriptionNorwegian,
+          })
+          .where(
+            and(
+              eq(homeCarouselSlideLocalizations.slideId, input.id),
+              eq(homeCarouselSlideLocalizations.locale, 'nb-NO'),
+            ),
+          );
+      });
     }),
   deleteSlide: leadershipProcedure
     .input((input) =>
