@@ -86,7 +86,7 @@ function AccountSignInForm({ redirectTo }: { redirectTo?: string }) {
             )}
           </form.AppField>
           <div className='absolute bottom-0 flex w-full xs:flex-row-reverse flex-col justify-between gap-2'>
-            <form.SubmitButton>{t('submit')}</form.SubmitButton>
+            <form.SubmitButton>{t('signIn')}</form.SubmitButton>
             <Link variant='link' size='default' href='/auth/forgot-password'>
               {`${t('forgotPassword')}?`}
             </Link>
