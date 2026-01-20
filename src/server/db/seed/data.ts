@@ -5,6 +5,7 @@ import { hashPassword } from '@/server/auth/password';
 import type {
   InsertBanner,
   InsertBannerLocalization,
+  InsertDoorStatus,
   InsertEvent,
   InsertEventLocalization,
   InsertGroup,
@@ -382,6 +383,11 @@ const skillsData: InsertSkill[] = [
     identifier: 'webdevelopment',
     nameEnglish: 'Web Development',
     nameNorwegian: 'Webutvikling',
+  },
+  {
+    identifier: 'modeling',
+    nameEnglish: '3D Modeling',
+    nameNorwegian: '3D-modellering',
   },
 ] as const;
 
@@ -2249,6 +2255,12 @@ const bannerLocalizationsData: InsertBannerLocalization[] = [
   },
 ];
 
+const doorStatusData: InsertDoorStatus[] = [
+  {
+    open: true,
+  },
+];
+
 export {
   articlesData,
   articleLocalizationsData,
@@ -2276,4 +2288,5 @@ export {
   usersData,
   usersGroupsData,
   usersSkillsData,
+  doorStatusData,
 };

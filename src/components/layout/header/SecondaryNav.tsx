@@ -1,4 +1,13 @@
 import {
+  ArchiveIcon,
+  BookUserIcon,
+  CalendarClockIcon,
+  CalendarRangeIcon,
+  FileUserIcon,
+  QuoteIcon,
+  SectionIcon,
+} from 'lucide-react';
+import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/DropdownMenu';
@@ -26,26 +35,76 @@ function SecondaryNav({
   t,
 }: SecondaryNavProps) {
   const items = [
-    <Link key={0} variant='nav' onClick={onClick} href='/storage'>
-      {t.storage}
-    </Link>,
-    <Link key={1} variant='nav' onClick={onClick} href='/shift-schedule'>
+    <Link
+      key={0}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/shift-schedule'
+    >
+      <CalendarClockIcon className='size-4 text-foreground' />
       {t.shiftSchedule}
     </Link>,
-    <Link key={2} variant='nav' onClick={onClick} href='/members'>
+    <Link
+      key={1}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/members'
+    >
+      <BookUserIcon className='size-4 text-foreground' />
       {t.members}
     </Link>,
-    <Link key={3} variant='nav' onClick={onClick} href='/rules'>
-      {t.rules}
-    </Link>,
-    <Link key={4} variant='nav' onClick={onClick} href='/reservations'>
+
+    <Link
+      key={2}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/reservations'
+    >
+      <CalendarRangeIcon className='size-4 text-foreground' />
       {t.reservations}
     </Link>,
-    <Link key={5} variant='nav' onClick={onClick} href='/quotes'>
+    <Link
+      key={3}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/storage'
+    >
+      <ArchiveIcon className='size-4 text-foreground' />
+      {t.storage}
+    </Link>,
+    <Link
+      key={4}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/quotes'
+    >
+      <QuoteIcon className='size-4 text-foreground' />
       {t.quotes}
     </Link>,
+    <Link
+      key={5}
+      className='gap-2'
+      variant='nav'
+      onClick={onClick}
+      href='/rules'
+    >
+      <SectionIcon className='size-4 text-foreground' />
+      {t.rules}
+    </Link>,
     viewApplications ? (
-      <Link key={6} variant='nav' onClick={onClick} href='/applications/view'>
+      <Link
+        key={6}
+        className='gap-2'
+        variant='nav'
+        onClick={onClick}
+        href='/applications/view'
+      >
+        <FileUserIcon className='size-4 text-foreground' />
         {t.applications}
       </Link>
     ) : null,

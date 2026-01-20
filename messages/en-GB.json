@@ -36,6 +36,7 @@
     "confirm": "Confirm",
     "delete": "Delete",
     "cancel": "Cancel",
+    "decline": "Decline",
     "save": "Save",
     "copy": "Copy",
     "done": "Done",
@@ -222,7 +223,7 @@
     "noVerificationRequest": "No verification request found",
     "verificationCodeExpired": "The verification code was expired. We sent another code to your inbox",
     "emailUpdateSuccess": "Email updated successfully",
-    "passwordUpdateSuccess": "Password updated successfully! You may now log in using your new password.",
+    "passwordUpdateSuccess": "Password updated successfully! You may now sign in using your new password.",
     "tryAgain": "Try again",
     "form": {
       "username": {
@@ -322,8 +323,11 @@
     "internal": "Internal",
     "copyright": "Copyright",
     "allRightsReserved": "All rights reserved",
-    "cookieConsent": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>.",
-    "reservations": "Reservations"
+    "reservations": "Reservations",
+    "cookieConsent": {
+      "title": "We use cookies",
+      "description": "We use cookies to ensure you get the best experience on our website. For more information on how we use cookies, please see our <link>Privacy Policy</link>."
+    }
   },
   "matrixDialog": {
     "title": "Matrix Login Information",
@@ -351,7 +355,9 @@
     "eventsAlt": "Photo from tetris 2 tournament in one of our events",
     "news": "News",
     "newsDescription": "See the latest updates from Hackerspace.",
-    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo"
+    "newsAlt": "Photo of rubber ducks labeled with the Hackerspace logo",
+    "workshopOpen": "Workshop open",
+    "workshopClosed": "Workshop closed"
   },
   "news": {
     "title": "News",
@@ -365,6 +371,7 @@
     "lastUpdated": "Last updated: {date}",
     "newArticlesUnauthorized": "Unauthorized to create new articles",
     "updateArticlesUnauthorized": "Unauthorized to update articles",
+    "internalUnauthorized": "Unauthorized to view internal articles",
     "form": {
       "createArticle": "Create article",
       "updateArticle": "Update article",
@@ -411,6 +418,7 @@
       "invalidLimit": "Invalid limit",
       "invalidOffset": "Invalid offset",
       "tooManyArticles": "Too many articles requested. Cannot fetch more than {count} articles.",
+      "fetchFailed": "Failed to fetch news article",
       "insertFailed": "Failed to add news article",
       "articleNotFound": "Article not found",
       "articleImageNotFound": "Article image not found"
@@ -451,7 +459,11 @@
       "removingFromGroup": "Removing from group...",
       "removingFromGroupFailed": "Failed to remove user from group",
       "userAddedToGroup": "User added to group successfully",
-      "userRemovedFromGroup": "User removed from group successfully"
+      "userRemovedFromGroup": "User removed from group successfully",
+      "yourself": "yourself",
+      "confirmTitle": "Are you sure you want to remove {user} from {group}?",
+      "confirmDescription": "This change will result in an immediate removal of permissions.",
+      "confirmDescriptionIrreversible": "This change will result in an immediate removal of permissions. Since you're editing your own profile, this action will be irreversible."
     },
     "api": {
       "invalidOffset": "Invalid offset",
@@ -465,6 +477,7 @@
   },
   "settings": {
     "manageAccountSettings": "Manage your account settings and set preferences.",
+    "backToHome": "Back to home",
     "profile": {
       "title": "Profile",
       "username": "Username",
@@ -475,6 +488,18 @@
       "updateProfilePictureFailed": "Failed to update profile picture",
       "updateProfilePictureSuccess": "Profile picture updated successfully",
       "updateProfilePictureTooltip": "Click to change profile picture",
+      "consents": "Consents",
+      "showCookieConsent": "Adjust cookie consent",
+      "photoConsent": {
+        "label": "I consent to photos containing me being used in Hackerspace media (website, social media, etc.)",
+        "consenting": "Giving photo consent...",
+        "retractingConsent": "Retracting photo consent...",
+        "successConsenting": "Photo consent given successfully",
+        "successRetractingConsent": "Photo consent retracted successfully",
+        "errorConsenting": "Failed to give photo consent",
+        "errorRetractingConsent": "Failed to retract photo consent",
+        "invalid": "Invalid value for photo consent"
+      },
       "profilePicture": {
         "label": "Profile picture",
         "mustBeImage": "Profile picture must be an image",
@@ -500,6 +525,11 @@
         "invalid": "Birth date is invalid",
         "minAge": "You must be at least {age} years old",
         "maxAge": "You must be less than {age} years old"
+      },
+      "foodPreferences": {
+        "label": "Food preferences",
+        "description": "Allergies, food preferences, or other relevant information. Shown only to event organizers.",
+        "maxLength": "Food preferences must be less than {count} characters"
       }
     },
     "account": {
@@ -581,6 +611,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "leader": "Leader",
+    "deputyLeader": "Deputy Leader",
     "new": {
       "title": "New Group",
       "createGroup": "Create group",
@@ -631,6 +663,16 @@
         "labelEnglish": "Description (English)",
         "required": "Group description is required"
       },
+      "leader": {
+        "label": "Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a leader"
+      },
+      "deputyLeader": {
+        "label": "Deputy Leader",
+        "placeholder": "Search for a member...",
+        "description": "Choose a deputy leader"
+      },
       "identifier": {
         "label": "Group identifier",
         "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
@@ -646,7 +688,9 @@
       "openForApplications": {
         "label": "Open for applications",
         "description": "If selected, anyone will be able to send an application to join this group."
-      }
+      },
+      "loadingMembers": "Loading members...",
+      "noMembersFound": "No members found"
     },
     "api": {
       "fetchGroupsFailed": "Failed to fetch active groups",
@@ -669,7 +713,8 @@
     "card": {
       "availableUnits": "{units}/{total} {total, plural, =1 {unit} other {units}}",
       "addToCart": "Add to cart",
-      "removeFromCart": "Remove from cart"
+      "removeFromCart": "Remove from cart",
+      "loanInAdvance": "Loan in advance"
     },
     "select": {
       "ariaLabel": "Select how to filter the storage items",
@@ -721,16 +766,20 @@
       "clear": "Clear",
       "clearCartDescription": "Are you sure you want to clear your shopping cart? All items will be removed.",
       "requestLoan": "Request loan",
+      "loanInAdvance": "Loan in advance",
+      "loanInAdvanceDescription": "Some of your items aren't available right now. You are requesting to borrow items in advance. You will be able to choose a loan period that does not overlap other loan requests.",
       "amountOfItemAria": "Select number of this item",
-      "mustBeLoggedIn": "You must be logged in to borrow items"
+      "mustBeLoggedIn": "You must be signed in to borrow items"
     },
     "loanForm": {
       "loanPeriod": "Select loan period",
       "loanPeriodDescription": "Select how long you would like to borrow the item for.",
+      "notes": "Notes (optional)",
       "autoapprove": "Approve immediately",
       "autoapproveDescription": "As a Hackerspace member, you can approve this request immediately!",
       "submit": "Submit",
       "dateInFuture": "The return date must be in the future",
+      "notesTooLong": "Notes must be less than {count} characters",
       "success": "Loan request sent! Redirecting to loans..."
     },
     "categories": {
@@ -743,6 +792,9 @@
       "successEditMessage": "Item category edited successfully!",
       "successDeleteMessage": "Item category deleted successfully!",
       "invalidName": "Invalid category name",
+      "required": "Category name is required",
+      "maxLength": "Category name must be {count, plural, one {one character} other {# characters}} or fewer.",
+      "addNewCategory": "Add new category",
       "api": {
         "insertFailed": "Failed to add category",
         "updateFailed": "Failed to update category",
@@ -805,6 +857,7 @@
       "titleApproved": "Approved loans",
       "pendingLoan": "Pending loan",
       "notReturned": "Not returned yet",
+      "overdue": "overdue",
       "returned": "Returned {date}",
       "loanSubheader": "This loan is waiting for approval",
       "loanItem": "{units, plural, =1 {# unit} other {# units}} of {name}",
@@ -819,6 +872,7 @@
       "loanReturnSuccess": "Loan has been registered as returned!",
       "loanApproved": "This loan has been approved",
       "borrowTimeline": "Borrowing from {from} until {until}",
+      "noNotes": "No notes were provided",
       "requestedAt": "Requested at {date}",
       "noPendingLoans": "No pending loans 🎉",
       "noLoansFound": "No loans found",
@@ -830,9 +884,11 @@
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "One or more of the selected storage items to borrow was not found.",
       "borrowingMoreThanQuantity": "Cannot borrow more items than the number of available units.",
+      "unauthorizedBorrowInAdvance": "At least one of the items you're trying to borrow is not available right now. Only Hackerspace members can borrow items in advance.",
       "itemIsBorrowed": "Cannot delete an item which is borrowed by someone! Delete and/or check all loans of this item first.",
       "borrowPositiveAmount": "Must borrow a positive amount.",
-      "limitNotInRange": "limit must be between 1 and 50."
+      "limitNotInRange": "limit must be between 1 and 50.",
+      "nonMemberLimitExceeded": "Non-members can only borrow up to {count, plural, =1 {# piece} other {# pieces}} of an item at a time."
     }
   },
   "shiftSchedule": {
@@ -949,6 +1005,12 @@
         "required": "Event location is required",
         "maxLength": "Event location must be less than {count} characters"
       },
+      "locationMapLink": {
+        "label": "Location map link",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Link to a map showing the event location",
+        "invalid": "Invalid map link format. Must be a URL"
+      },
       "startTime": {
         "label": "Start time",
         "required": "Start time is required",
@@ -968,11 +1030,13 @@
         "required": "End time is required",
         "dateBeforeStart": "The end time must be after the start time"
       },
-      "locationMapLink": {
-        "label": "Location map link",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Link to a map showing the event location",
-        "invalid": "Invalid map link format. Must be a URL"
+      "setMaxParticipants": {
+        "label": "Set maximum participants",
+        "description": "Optionally, you can set a maximum number of participants for this event. When this number is reached, new sign-ups will be placed on a waitlist"
+      },
+      "maxParticipants": {
+        "label": "Maximum participants",
+        "positive": "Maximum participants must be a positive number"
       },
       "internal": {
         "label": "Internal event",
@@ -996,19 +1060,28 @@
     "attendance": {
       "signUp": "Sign up",
       "cancelSignUp": "Cancel sign-up",
+      "cancelWaitlistSignUp": "Cancel waitlist sign-up",
+      "signUpForWaitlist": "Sign up for waitlist",
       "signUpSuccess": "Successfully signed up for the event!",
       "cancelSignUpSuccess": "Successfully canceled sign-up for the event!",
-      "mustBeLoggedIn": "You must be logged in to sign up",
+      "confirmLeave": "Are you sure you want to cancel your sign-up for this event?",
+      "confirmLeaveDescription": "This event is full. By canceling your sign-up, the first person on the waitlist will be given a spot to attend the event.",
+      "mustBeLoggedIn": "You must be signed in to sign up to the event",
       "signUpClosed": "Sign-up for this event is closed",
       "pastSignUpDeadline": "The sign-up deadline has passed",
       "eventStartedAlready": "The event has already started",
       "eventFinishedAlready": "The event has already finished",
       "signUpDeadline": "Sign-up deadline: {date}",
+      "signedUpTotal": "Total signed up: {count} {count, plural, one {participant} other {participants}}",
+      "signedUpTotalWithMax": "Total signed up: {count}/{max} {count, plural, one {participant} other {participants}}",
+      "waitlistTotal": "Total on waitlist: {count} {count, plural, one {person} other {people}}",
       "attendance": "Attendance",
       "attended": "Attended",
-      "attendanceDescription": "Check the attendance of members who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
+      "attendanceDescription": "Check the attendance of those who signed up for this event. If a skill can be achieved by attending this event, you may give it to a participant after confirming their attendance.",
       "attendeesList": "Attendees list",
-      "member": "Member",
+      "person": "Person",
+      "foodPreferences": "Food preferences",
+      "photoConsent": "Photo consent",
       "actions": "Actions",
       "present": "Present",
       "absent": "Absent",
@@ -1022,6 +1095,11 @@
       "givingSkill": "Giving skill {skill} to {name}...",
       "successSkill": "Skill {skill} given to {name}!",
       "errorSkill": "Failed to give skill {skill} to {name}"
+    },
+    "waitlist": {
+      "name": "Waitlist",
+      "waitlistedAt": "Added to waitlist",
+      "noWaitlisted": "No one is currently on the waitlist for this event"
     },
     "api": {
       "invalidId": "Invalid event ID",
@@ -1037,7 +1115,8 @@
       "userNotFound": "User not found",
       "alreadyHasSkill": "User {user} already has the skill {skill}",
       "participantNotFound": "Participant not found",
-      "noImage": "There is no image for this event"
+      "noImage": "There is no image for this event",
+      "maxParticipantsTooLow": "Maximum participants cannot be lower than the number of already signed-up participants"
     }
   },
   "rules": {
@@ -1676,7 +1755,7 @@
       "from": "From",
       "until": "Until",
       "empty": "You have no reservations",
-      "notLoggedIn": "Please log in to see your reservations.",
+      "notLoggedIn": "Please sign in to see your reservations.",
       "deletedSuccess": "Successfully deleted reservation"
     },
     "information": {

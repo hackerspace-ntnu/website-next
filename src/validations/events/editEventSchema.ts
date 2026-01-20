@@ -8,6 +8,10 @@ function editEventSchema(t: Translations) {
       id: z.number(),
       startTime: z.date({ message: t('events.form.startTime.required') }),
     })
+    .refine((data) => !data.setMaxParticipants || data.maxParticipants > 0, {
+      message: t('events.form.maxParticipants.positive'),
+      path: ['maxParticipants'],
+    })
     .refine((data) => data.endTime > data.startTime, {
       message: t('events.form.endTime.dateBeforeStart'),
       path: ['endTime'],

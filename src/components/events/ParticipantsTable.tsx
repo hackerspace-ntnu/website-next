@@ -1,6 +1,5 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { CheckIcon, XIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 import { AttendanceCheckbox } from '@/components/events/AttendanceCheckbox';
 import { GiveSkillButton } from '@/components/events/GiveSkillButton';
 import { MemberAvatar } from '@/components/members/MemberAvatar';
@@ -13,29 +12,31 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/Table';
+import { api } from '@/lib/api/server';
 import type { RouterOutput } from '@/server/api';
 
-function ParticipantsTable({
-  participants,
+async function ParticipantsTable({
   event,
 }: {
-  participants: RouterOutput['events']['fetchEventParticipants'];
   event: NonNullable<RouterOutput['events']['fetchEvent']>;
 }) {
-  const t = useTranslations('events.attendance');
+  const t = await getTranslations('events.attendance');
+  const participants = await api.events.fetchEventParticipants(event.id);
 
   return (
     <Table className='my-4'>
       <TableCaption>{t('attendeesList')}</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-full'>{t('member')}</TableHead>
-          <TableHead className='text-center'>{t('attended')}</TableHead>
-          <TableHead className='min-w-40 text-center'>{t('actions')}</TableHead>
+          <TableHead className='min-w-64'>{t('person')}</TableHead>
+          <TableHead className='min-w-64'>{t('foodPreferences')}</TableHead>
+          <TableHead className='min-w-24'>{t('photoConsent')}</TableHead>
+          <TableHead className='min-w-24'>{t('attended')}</TableHead>
+          <TableHead className='min-w-40'>{t('actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {participants.map((participant) => (
+        {participants.confirmed.map((participant) => (
           <TableRow key={participant.userId}>
             <TableCell>
               <div className='flex items-center gap-4'>
@@ -43,11 +44,20 @@ function ParticipantsTable({
                   user={participant.user}
                   profilePictureUrl={participant.user.profilePictureUrl}
                   size='md'
+                  className='shrink-0'
                 />
                 <span>
                   {participant.user.firstName} {participant.user.lastName}
                 </span>
               </div>
+            </TableCell>
+            <TableCell>{participant.user.foodPreferences}</TableCell>
+            <TableCell>
+              {participant.user.photoConsent ? (
+                <CheckIcon className='mx-auto' />
+              ) : (
+                <XIcon className='mx-auto text-destructive' />
+              )}
             </TableCell>
             <TableCell className='[&:has([role=checkbox])]:pr-4'>
               <div className='flex items-center gap-2'>
@@ -61,9 +71,9 @@ function ParticipantsTable({
             </TableCell>
           </TableRow>
         ))}
-        {participants.length === 0 && (
+        {participants.confirmed.length === 0 && (
           <TableRow>
-            <TableCell colSpan={3} className='text-center'>
+            <TableCell colSpan={5} className='text-center'>
               {t('noParticipants')}
             </TableCell>
           </TableRow>

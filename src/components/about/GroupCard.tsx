@@ -35,7 +35,7 @@ async function GroupCard({ className, group }: GroupCardProps) {
       variant='none'
       size='none'
     >
-      <div className='clamp-[h-80-96-clamp] clamp-[w-80-96-clamp] relative flex flex-col gap-1 overflow-hidden rounded-lg bg-card px-10 py-7 transition-colors group-hover:bg-accent group-hover:dark:bg-card'>
+      <div className='clamp-[h-80-96-clamp] clamp-[w-80-96-clamp] relative flex flex-col gap-1 overflow-hidden rounded-lg bg-accent/70 px-10 py-7 transition-colors group-hover:bg-accent dark:bg-card group-hover:dark:bg-card'>
         {group.internal && <InternalBadge className='top-2 right-2' />}
         <div className='absolute inset-0 z-0 animate-meteors opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
           <Meteors number={15} className={'absolute inset-0 z-10'} />

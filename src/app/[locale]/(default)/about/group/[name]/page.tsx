@@ -12,7 +12,6 @@ import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
-import type { SelectUser } from '@/server/db/tables';
 
 export async function generateMetadata({
   params,
@@ -54,20 +53,13 @@ export default async function GroupPage({
     (localization) => localization.locale === locale,
   );
 
-  const memberPromises = group.usersGroups.map(async (row) => {
-    if (row.user.profilePictureId) {
-      return {
-        ...row.user,
-        profilePictureUrl: await api.utils.getFileUrl({
-          fileId: row.user.profilePictureId,
-        }),
-      };
-    }
-    return row.user;
+  group.usersGroups = group.usersGroups.sort((a, b) => {
+    if (a.user.id === group.leaderId) return -1;
+    if (b.user.id === group.leaderId) return 1;
+    if (a.user.id === group.deputyLeaderId) return -1;
+    if (b.user.id === group.deputyLeaderId) return 1;
+    return 0;
   });
-  const members = (await Promise.all(memberPromises)) as (SelectUser & {
-    profilePictureUrl?: string;
-  })[];
 
   const { user } = await api.auth.state();
 
@@ -123,14 +115,14 @@ export default async function GroupPage({
           </div>
         )}
         <PlateEditorView value={groupLocalization.description} />
-        {members.length === 0 && (
+        {group.usersGroups.length === 0 && (
           <div className='flex w-full items-center justify-center gap-2'>
             <TriangleAlertIcon className='h-6 w-6 text-yellow-500' />
             <p className='text-center'>{tAbout('noMembers')}</p>
           </div>
         )}
         <div className='my-6 grid grid-cols-1 content-end gap-8 md:grid-cols-2 lg:grid-cols-3'>
-          {members.map((member) => {
+          {group.usersGroups.map(({ user: member }) => {
             return (
               <Link
                 key={member.id}
@@ -138,7 +130,7 @@ export default async function GroupPage({
                   pathname: '/members/[memberId]',
                   params: { memberId: member.id },
                 }}
-                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (
@@ -152,9 +144,15 @@ export default async function GroupPage({
                     <CircleUserRoundIcon className='h-full w-full duration-200 group-hover:scale-105' />
                   )}
                 </div>
-                <p className='mt-2 duration-200 group-hover:text-primary'>
+                <p className='mt-2 text-center duration-200 group-hover:text-primary'>
                   {member.firstName} {member.lastName}
                 </p>
+                {member.id === group.leaderId && (
+                  <Badge className='rounded-full'>{t('leader')}</Badge>
+                )}
+                {member.id === group.deputyLeaderId && (
+                  <Badge className='rounded-full'>{t('deputyLeader')}</Badge>
+                )}
               </Link>
             );
           })}

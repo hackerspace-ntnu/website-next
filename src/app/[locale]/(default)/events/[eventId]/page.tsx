@@ -1,11 +1,11 @@
-import { and, eq } from 'drizzle-orm';
+import { TRPCError } from '@trpc/server';
 import {
   ArrowLeftIcon,
-  BookImageIcon,
   CalendarIcon,
   EditIcon,
   MapPinIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import {
@@ -17,15 +17,15 @@ import {
 } from 'next-intl/server';
 import { ParticipantsTable } from '@/components/events/ParticipantsTable';
 import { SignUpButton } from '@/components/events/SignUpButton';
+import { WaitlistTable } from '@/components/events/WaitlistTable';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import { ExternalLink, Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
-import { db } from '@/server/db';
-import { eventLocalizations } from '@/server/db/tables';
+import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
   params,
@@ -34,15 +34,29 @@ export async function generateMetadata({
 }) {
   const { eventId } = await params;
   const locale = await getLocale();
-  if (Number.isNaN(Number(eventId))) return;
-  const localization = await db.query.eventLocalizations.findFirst({
-    where: and(
-      eq(eventLocalizations.eventId, Number(eventId)),
-      eq(eventLocalizations.locale, locale),
-    ),
-  });
+  const processedEventId = Number(eventId);
 
-  if (!localization?.name) return;
+  if (
+    !eventId ||
+    Number.isNaN(processedEventId) ||
+    !Number.isInteger(processedEventId)
+  ) {
+    return notFound();
+  }
+
+  let event: RouterOutput['events']['fetchEvent'] | null = null;
+
+  try {
+    event = await api.events.fetchEvent(processedEventId);
+  } catch {
+    return;
+  }
+
+  const localization = event?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
+
+  if (!event || !localization) return;
 
   return {
     title: `${localization.name}`,
@@ -65,9 +79,37 @@ export default async function EventDetailsPage({
   const t = await getTranslations('events');
   const tLayout = await getTranslations('layout');
   const { ui, events } = await getMessages();
-  if (Number.isNaN(Number(eventId))) return notFound();
+  const processedEventId = Number(eventId);
 
-  const event = await api.events.fetchEvent(Number(eventId));
+  if (
+    !eventId ||
+    Number.isNaN(processedEventId) ||
+    !Number.isInteger(processedEventId)
+  ) {
+    return notFound();
+  }
+
+  let event: RouterOutput['events']['fetchEvent'] | null = null;
+
+  try {
+    event = await api.events.fetchEvent(processedEventId);
+  } catch (error) {
+    console.error(error);
+    if (
+      error instanceof TRPCError &&
+      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
+    ) {
+      return (
+        <ErrorPageContent
+          message={
+            error.code === 'FORBIDDEN'
+              ? t('api.unauthorized')
+              : t('api.fetchEventFailed')
+          }
+        />
+      );
+    }
+  }
 
   const localization = event?.localizations.find(
     (localization) => localization.locale === locale,
@@ -77,14 +119,11 @@ export default async function EventDetailsPage({
 
   const { user } = await api.auth.state();
 
-  const signedUp = user ? await api.events.isSignedUpToEvent(event.id) : false;
+  const signUpInfo = user ? await api.events.fetchUserSignUp(event.id) : null;
 
   const canEdit = user?.groups.some((group) =>
     ['labops', 'leadership', 'admin'].includes(group),
   );
-  const participants = canEdit
-    ? await api.events.fetchEventParticipants(Number(eventId))
-    : [];
 
   const imageUrl = event.imageId
     ? await api.utils.getFileUrl({ fileId: event.imageId })
@@ -135,7 +174,7 @@ export default async function EventDetailsPage({
             variant='link'
             href={event.locationMapLink}
           >
-            <MapPinIcon className='h-8 w-8 text-black group-hover:text-primary dark:text-white' />
+            <MapPinIcon className='h-8 w-8 text-foreground group-hover:text-primary' />
             <span>{localization.location}</span>
           </ExternalLink>
         ) : (
@@ -163,27 +202,51 @@ export default async function EventDetailsPage({
           messages={{ ui, events } as Pick<Messages, 'ui' | 'events'>}
         >
           <div className='flex flex-col-reverse items-center gap-6 md:flex-row md:justify-between'>
-            <div className='max-w-prose'>
+            <div className='w-prose'>
               <PlateEditorView value={localization.description} />
-              <SignUpButton
-                event={event}
-                signedUp={signedUp}
-                disabled={!user}
-              />
-              <p>
+              <SignUpButton event={event} signUpInfo={signUpInfo} user={user} />
+              <p className='mb-2'>
                 {t('attendance.signUpDeadline', {
                   date: event.signUpDeadline
                     ? formatter.dateTime(event.signUpDeadline, formatterOptions)
                     : formatter.dateTime(event.startTime, formatterOptions),
                 })}
               </p>
+              {!event.maxParticipants ? (
+                <p>
+                  {t('attendance.signedUpTotal', {
+                    count: event.participantsCount,
+                  })}
+                </p>
+              ) : (
+                <>
+                  <p className='mb-4'>
+                    {t('attendance.signedUpTotalWithMax', {
+                      count:
+                        event.participantsCount - event.participantsWaitlisted,
+                      max: event.maxParticipants,
+                    })}
+                  </p>
+                  {event.participantsWaitlisted !== 0 && (
+                    <p>
+                      {t('attendance.waitlistTotal', {
+                        count: event.participantsWaitlisted,
+                      })}
+                    </p>
+                  )}
+                </>
+              )}
             </div>
-            <Avatar className='h-48 w-48'>
-              <AvatarImage src={imageUrl} alt='' className='object-cover' />
-              <AvatarFallback>
-                <BookImageIcon />
-              </AvatarFallback>
-            </Avatar>
+            {imageUrl && (
+              <div className='relative h-96 w-full max-w-144'>
+                <Image
+                  src={imageUrl}
+                  fill
+                  className='rounded-lg object-contain lg:object-cover'
+                  alt=''
+                />
+              </div>
+            )}
           </div>
           {canEdit && (
             <>
@@ -192,7 +255,10 @@ export default async function EventDetailsPage({
               <p className='text-muted-foreground text-sm'>
                 {t('attendance.attendanceDescription')}
               </p>
-              <ParticipantsTable participants={participants} event={event} />
+              <ParticipantsTable event={event} />
+              <Separator />
+              <h3>{t('waitlist.name')}</h3>
+              <WaitlistTable event={event} />
             </>
           )}
         </NextIntlClientProvider>

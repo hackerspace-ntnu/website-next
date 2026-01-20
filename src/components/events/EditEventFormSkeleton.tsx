@@ -57,6 +57,15 @@ async function EditEventFormSkeleton() {
       <div>
         <div className='flex gap-2'>
           <Skeleton className='h-4 w-4 rounded-lg' />
+          <Label className='mb-2'>{t('setMaxParticipants.label')}</Label>
+        </div>
+        <span className='text-muted-foreground text-sm'>
+          {t('setMaxParticipants.description')}
+        </span>
+      </div>
+      <div>
+        <div className='flex gap-2'>
+          <Skeleton className='h-4 w-4 rounded-lg' />
           <Label className='mb-2'>{t('internal.label')}</Label>
         </div>
         <span className='text-muted-foreground text-sm'>

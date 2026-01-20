@@ -1057,9 +1057,7 @@ function CalendarField({
     >
       <Calendar
         // @ts-expect-error We cannot be sure of what mode we're using
-        onSelect={(selected) => {
-          field.handleChange(selected);
-        }}
+        onSelect={(selected) => field.handleChange(selected)}
         className={cx('rounded-md border', calendarClassName)}
         onDayBlur={field.handleBlur}
         {...props}
@@ -1175,7 +1173,7 @@ function SubmitButton({
   );
 }
 
-const { useAppForm } = createFormHook({
+const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
     BaseField,
     TextField,
@@ -1203,4 +1201,4 @@ const { useAppForm } = createFormHook({
   formContext,
 });
 
-export { useAppForm };
+export { useAppForm, withForm };

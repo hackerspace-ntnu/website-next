@@ -36,6 +36,7 @@
     "confirm": "Bekreft",
     "delete": "Slett",
     "cancel": "Avbryt",
+    "decline": "Avslå",
     "save": "Lagre",
     "copy": "Kopier",
     "done": "Ferdig",
@@ -322,8 +323,11 @@
     "internal": "Intern",
     "copyright": "Opphavsrett",
     "allRightsReserved": "Alle rettigheter reservert",
-    "cookieConsent": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>.",
-    "reservations": "Reservasjoner"
+    "reservations": "Reservasjoner",
+    "cookieConsent": {
+      "title": "Vi bruker informasjonskapsler",
+      "description": "Vi bruker informasjonskapsler for å sikre at du får den beste opplevelsen på nettsiden vår. For mer informasjon om hvordan vi bruker informasjonskapsler, vennligst se vår <link>personvernerklæring</link>."
+    }
   },
   "matrixDialog": {
     "title": "Innlogging på Matrix",
@@ -344,14 +348,16 @@
     "whoAreWeDescription": "Hackerspace NTNU er et studentdrevet prosjekt fra IDI og er åpent for alle studenter uavhengig av studieretning. Hos oss finner du ny teknologi til din disposisjon, blant annet 3D-printere og Virtual Reality-utstyr. Enten du ønsker å få en LED-lampe til å blinke eller lage en 3D-modell av Trondheim, kan medlemmene i Hackerspace tilby variert og god kompetanse og hjelpe deg med det, uavhengig av ditt medlemsskap i Hackerspace.",
     "whoAreWeAlt": "Bilde av medlemmene våre som går med Hackerspace-hettegensere",
     "stopBy": "Kom innom!",
-    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkuratt nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
+    "stopByDescription": "Om du lurer på noe, har et prosjekt du ønsker hjelp med, eller bare vil slå av en prat, tar vi deg varmt imot på verkstedet vårt. {membersOnShift, plural, =0 {Det er ingen på verkstedet akkurat nå, men du kan sjekke vaktlisten for å finne en tid vi har åpent som passer deg.} one {Det er nå ett medlem på vakt på verkstedet, så det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.} other {Det er nå # medlemmer på vakt på verkstedet, så du det er bare å komme innom. Du kan også sjekke vaktlisten for å finne en tid vi har åpent som passer deg bedre.}}",
     "stopByAlt": "Bilde av verkstedet vårt",
     "events": "Arrangementer",
     "eventsDescription": "Meld deg på noen av våre oppkommende arrangementer for å lære deg nye ferdigheter eller bli med på noe sosialt.",
     "eventsAlt": "Bilde fra tetris 2-turnering i et av arrangementene våre",
     "news": "Nyheter",
     "newsDescription": "Se de nyeste oppdateringene fra Hackerspace.",
-    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen"
+    "newsAlt": "Bilde av gummiender merket med Hackerspace-logoen",
+    "workshopOpen": "Verkstedet er åpent",
+    "workshopClosed": "Verkstedet er stengt"
   },
   "news": {
     "title": "Nyheter",
@@ -365,6 +371,7 @@
     "lastUpdated": "Sist oppdatert: {date}",
     "newArticlesUnauthorized": "Du har ikke rettigheter til å opprette nye artikler",
     "updateArticlesUnauthorized": "Du har ikke rettigheter til å oppdatere artikler",
+    "internalUnauthorized": "Du har ikke rettigheter til å se interne artikler",
     "form": {
       "createArticle": "Opprett artikkel",
       "updateArticle": "Oppdater artikkel",
@@ -411,6 +418,7 @@
       "invalidLimit": "Ugyldig limit",
       "invalidOffset": "Ugyldig offset",
       "tooManyArticles": "For mange artikler ble forespurt. Kan ikke hente mer enn {count} artikler.",
+      "fetchFailed": "Kunne ikke hente nyhetsartikkel",
       "insertFailed": "Kunne ikke legge til nyhetsartikkel",
       "articleNotFound": "Artikkel ikke funnet",
       "articleImageNotFound": "Artikkelbilde ikke funnet"
@@ -451,7 +459,11 @@
       "removingFromGroup": "Fjerner fra gruppe...",
       "removingFromGroupFailed": "Kunne ikke fjerne bruker fra gruppe",
       "userAddedToGroup": "Bruker lagt til gruppe",
-      "userRemovedFromGroup": "Bruker fjernet fra gruppe"
+      "userRemovedFromGroup": "Bruker fjernet fra gruppe",
+      "yourself": "deg selv",
+      "confirmTitle": "Er du sikker på at du vil fjerne {user} fra {group}?",
+      "confirmDescription": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden.",
+      "confirmDescriptionIrreversible": "Denne endringen vil medføre umiddelbar fjerning av tillatelser på nettsiden. Siden du redigerer din egen profil, så vil du ikke kunne angre denne handlingen."
     },
     "api": {
       "invalidOffset": "Ugyldig offset",
@@ -465,6 +477,7 @@
   },
   "settings": {
     "manageAccountSettings": "Administrer kontoinnstillingene dine og angi preferanser.",
+    "backToHome": "Tilbake til forsiden",
     "profile": {
       "title": "Profil",
       "username": "Brukernavn",
@@ -475,6 +488,18 @@
       "updateProfilePictureFailed": "Kunne ikke oppdatere profilbilde",
       "updateProfilePictureSuccess": "Profilbilde ble oppdatert",
       "updateProfilePictureTooltip": "Klikk for å endre profilbilde",
+      "consents": "Samtykker",
+      "showCookieConsent": "Juster informasjonskapselsamtykke",
+      "photoConsent": {
+        "label": "Jeg samtykker til at bilder av meg brukes i Hackerspace medier (nettside, sosiale medier, osv.)",
+        "consenting": "Gir samtykke til bilder...",
+        "retractingConsent": "Trekker tilbake samtykke til bilder...",
+        "successConsenting": "Samtykke til bilder gitt",
+        "successRetractingConsent": "Samtykke til bilder trukket tilbake",
+        "errorConsenting": "Kunne ikke gi samtykke til bilder",
+        "errorRetractingConsent": "Kunne ikke trekke tilbake samtykke til bilder",
+        "invalid": "Ugyldig verdi for samtykke til bilder"
+      },
       "profilePicture": {
         "label": "Profilbilde",
         "mustBeImage": "Profilbilde må være et bilde",
@@ -500,6 +525,11 @@
         "invalid": "Ugyldig fødselsdato",
         "minAge": "Du må være minst {age} år",
         "maxAge": "Du må være under {age} år"
+      },
+      "foodPreferences": {
+        "label": "Matpreferanser",
+        "description": "Allergier, matpreferanser eller annen relevant informasjon. Vises kun til arrangementsansvarlige.",
+        "maxLength": "Matpreferanser må være mindre enn {count} tegn"
       }
     },
     "account": {
@@ -581,6 +611,8 @@
   "groups": {
     "backToAbout": "Tilbake til Om oss",
     "internalGroup": "Dette er en intern gruppe",
+    "leader": "Leder",
+    "deputyLeader": "Nestleder",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
@@ -631,6 +663,16 @@
         "labelEnglish": "Beskrivelse (engelsk)",
         "required": "Gruppebeskrivelse er påkrevd"
       },
+      "leader": {
+        "label": "Leder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en leder"
+      },
+      "deputyLeader": {
+        "label": "Nestleder",
+        "placeholder": "Søk etter en bruker...",
+        "description": "Velg en nestleder"
+      },
       "identifier": {
         "label": "Gruppe-identifikator",
         "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
@@ -646,7 +688,9 @@
       "openForApplications": {
         "label": "Åpen for søknader",
         "description": "Hvis valgt, vil alle kunne sende en søknad om å bli med i denne gruppen."
-      }
+      },
+      "loadingMembers": "Laster inn medlemmer...",
+      "noMembersFound": "Ingen medlemmer funnet"
     },
     "api": {
       "fetchGroupsFailed": "Kunne ikke hente aktive grupper",
@@ -669,7 +713,8 @@
     "card": {
       "availableUnits": "{units}/{total} stk.",
       "addToCart": "Legg i handlekurven",
-      "removeFromCart": "Fjern fra handlekurven"
+      "removeFromCart": "Fjern fra handlekurven",
+      "loanInAdvance": "Lån på forhånd"
     },
     "select": {
       "ariaLabel": "Velg hvordan du vil filtrere varene i lageret",
@@ -721,16 +766,20 @@
       "clear": "Tøm",
       "clearCartDescription": "Er du sikker på at du vil tømme handlekurven? Alle varer vil bli slettet.",
       "requestLoan": "Send låneforespørsel",
+      "loanInAdvance": "Lån på forhånd",
+      "loanInAdvanceDescription": "Noen av gjenstandene er ikke tilgjengelige akkurat nå. Du sender inn en lånesøknad på forhånd. Du vil kunne velge datoer som ikke overlapper med andre låneforespørsler.",
       "amountOfItemAria": "Velg antallet av denne gjenstanden",
       "mustBeLoggedIn": "Du må være logget inn for å låne"
     },
     "loanForm": {
       "loanPeriod": "Velg låneperiode",
       "loanPeriodDescription": "Velg hvor lenge du ønsker å låne gjenstanden(e)",
+      "notes": "Notater (valgfritt)",
       "autoapprove": "Godkjenn umiddelbart",
       "autoapproveDescription": "Som et Hackerspace-medlem kan du godkjenne denne forespørselen umiddelbart!",
       "submit": "Send",
       "dateInFuture": "Datoen for levering må være i framtiden",
+      "notesTooLong": "Notater må være mindre enn {count} tegn",
       "success": "Låneforespørsel sendt! Videresender deg til låneoversikten..."
     },
     "categories": {
@@ -743,6 +792,8 @@
       "successEditMessage": "Kategorien har blitt redigert!",
       "successDeleteMessage": "Kategorien har blitt slettet!",
       "invalidName": "Ugyldig kategorinavn",
+      "required": "Kategorinavn er påkrevd",
+      "maxLength": "Kategorinavn kan maks være {count, plural, one {ett tegn} other {# tegn}}.",
       "api": {
         "insertFailed": "Feilet å legge til kategori",
         "updateFailed": "Feilet å redigere kategori",
@@ -805,6 +856,7 @@
       "titleApproved": "Godkjente lån",
       "pendingLoan": "Utestående lån",
       "notReturned": "Ikke levert tilbake enda",
+      "overdue": "forfalt",
       "returned": "Levert tilbake {date}",
       "loanSubheader": "Dette lånet venter på godkjenning",
       "loanItem": "{units, plural, other {# stk.}} av {name}",
@@ -819,6 +871,7 @@
       "loanReturnSuccess": "Lånet har blitt registrert som levert!",
       "loanApproved": "Dette lånet har blitt godkjent",
       "borrowTimeline": "Lån fra {from} til {until}",
+      "noNotes": "Ingen notater ble lagt til",
       "requestedAt": "Forespørsel sendt {date}",
       "noPendingLoans": "Ingen utestående lån 🎉",
       "noLoansFound": "Ingen lån funnet",
@@ -830,9 +883,11 @@
       "categoryNotFound": "The selected category was not found.",
       "wantedItemNotFound": "Én eller flere av de valgte gjenstandene ble ikke funnet.",
       "borrowingMoreThanQuantity": "Kan ikke låne flere gjenstander enn det som er tilgjengelig.",
+      "unauthorizedBorrowInAdvance": "Minst en av gjenstandene du prøver å låne er ikke tilgjengelig akkurat nå. Kun Hackerspace-medlemmer kan låne gjenstander på forhånd.",
       "itemIsBorrowed": "Kan ikke slette en gjenstand som er lånt av noen! Slett og/eller sjekk alle lånene av denne gjenstanden først.",
       "borrowPositiveAmount": "Må låne et positivt antall.",
-      "limitNotInRange": "limit må være mellom 1 og 50."
+      "limitNotInRange": "limit må være mellom 1 og 50.",
+      "nonMemberLimitExceeded": "Som ikke-medlem kan du ikke låne flere enn {count} stk. av en gjenstand om gangen."
     }
   },
   "shiftSchedule": {
@@ -949,6 +1004,12 @@
         "required": "Location is required",
         "maxLength": "Sted må være mindre enn {count} tegn"
       },
+      "locationMapLink": {
+        "label": "Lenke til kart",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "Lenke til et kart som viser arrangementsstedet",
+        "invalid": "Ugyldig kartlenke. Må være en URL"
+      },
       "startTime": {
         "label": "Starttidspunkt",
         "required": "Starttidspunkt er påkrevd",
@@ -968,11 +1029,13 @@
         "required": "Sluttidspunkt er påkrevd",
         "dateBeforeStart": "Sluttidspunktet må være etter starttidspunktet"
       },
-      "locationMapLink": {
-        "label": "Lenke til kart",
-        "placeholder": "https://use.mazemap.com/...",
-        "description": "Lenke til et kart som viser arrangementsstedet",
-        "invalid": "Ugyldig kartlenke. Må være en URL"
+      "setMaxParticipants": {
+        "label": "Sett maks antall deltakere",
+        "description": "Du kan sette et maks antall deltakere for dette arrangementet. Når dette antallet oppnås, vil nye påmeldinger settes på en venteliste"
+      },
+      "maxParticipants": {
+        "label": "Maximum participants",
+        "positive": "Maks antall deltakere må være et positivt tall"
       },
       "internal": {
         "label": "Internt arrangement",
@@ -996,19 +1059,28 @@
     "attendance": {
       "signUp": "Meld meg på",
       "cancelSignUp": "Meld meg av",
+      "cancelWaitlistSignUp": "Meld meg av ventelisten",
+      "signUpForWaitlist": "Meld meg på ventelisten",
       "signUpSuccess": "Du har blitt meldt på arrangementet!",
       "cancelSignUpSuccess": "Du har meldt deg av arrangementet!",
+      "confirmLeave": "Er du sikker på at du vil melde deg av dette arrangementet?",
+      "confirmLeaveDescription": "Dette arrangementet er fullt. Ved å melde deg av, vil den første personen fra ventelisten få en plass.",
       "mustBeLoggedIn": "Du må være logget inn for å melde deg på",
       "signUpClosed": "Påmeldingen for dette arrangementet er stengt",
       "pastSignUpDeadline": "Påmeldingsfristen har gått ut",
       "eventStartedAlready": "Arrangementet har allerede startet",
       "eventFinishedAlready": "Arrangementet er ferdig",
       "signUpDeadline": "Påmeldingsfrist: {date}",
+      "signedUpTotal": "Totalt påmeldte: {count} {count, plural, one {deltaker} other {deltakere}}",
+      "signedUpTotalWithMax": "Totalt påmeldte: {count}/{max} {count, plural, one {deltaker} other {deltakere}}",
+      "waitlistTotal": "Totalt på venteliste: {count} {count, plural, one {person} other {personer}}",
       "attendance": "Oppmøte",
       "attended": "Møtte opp",
-      "attendanceDescription": "Sjekk oppmøtet til medlemmene som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
+      "attendanceDescription": "Sjekk oppmøtet til dem som har meldt seg på. Hvis en ferdighet kan bli oppnådd ved å delta på dette arrangementet, kan du gi den til deltakeren etter å ha bekreftet oppmøtet deres.",
       "attendeesList": "Deltakerliste",
-      "member": "Medlem",
+      "person": "Person",
+      "foodPreferences": "Matpreferanser",
+      "photoConsent": "Samtykke til bilder",
       "actions": "Handlinger",
       "present": "Til stede",
       "absent": "Fraværende",
@@ -1022,6 +1094,11 @@
       "givingSkill": "Gir ferdighet {skill} til {name}...",
       "successSkill": "Ferdighet {skill} gitt til {name}!",
       "errorSkill": "Kunne ikke gi ferdighet {skill} til {name}"
+    },
+    "waitlist": {
+      "name": "Venteliste",
+      "waitlistedAt": "Lagt til venteliste",
+      "noWaitlisted": "Det er ingen på venteliste for dette arrangementet"
     },
     "api": {
       "invalidId": "Ugyldig arrangement-ID",
@@ -1037,7 +1114,8 @@
       "userNotFound": "Kunne ikke finne brukeren",
       "alreadyHasSkill": "Brukeren {user} har allerede ferdigheten {skill}",
       "participantNotFound": "Kunne ikke finne deltakeren",
-      "noImage": "Det finnes ikke noe bilde for dette arrangementet"
+      "noImage": "Det finnes ikke noe bilde for dette arrangementet",
+      "maxParticipantsTooLow": "Maks antall deltakere kan ikke være lavere enn det nåværende antallet påmeldte personer"
     }
   },
   "rules": {

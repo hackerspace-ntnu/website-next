@@ -31,6 +31,7 @@ import { emailSchema } from '@/validations/settings/emailSchema';
 import { notificationsSchema } from '@/validations/settings/notificationsSchema';
 import { passwordSchema } from '@/validations/settings/passwordSchema';
 import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
+import { photoConsentSchema } from '@/validations/settings/photoConsentSchema';
 import { profilePictureSchema } from '@/validations/settings/profilePictureSchema';
 import { profileSchema } from '@/validations/settings/profileSchema';
 
@@ -46,6 +47,8 @@ const settingsRouter = createRouter({
           firstName: input.firstName,
           lastName: input.lastName,
           birthDate: input.birthDate,
+          foodPreferences:
+            input.foodPreferences.length > 0 ? input.foodPreferences : null,
         })
         .where(eq(users.id, ctx.user.id))
         .catch((error) => {
@@ -116,6 +119,16 @@ const settingsRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
+    }),
+  updatePhotoConsentSetting: authenticatedProcedure
+    .input((input) =>
+      photoConsentSchema(useTranslationsFromContext()).parse(input),
+    )
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db
+        .update(users)
+        .set({ photoConsent: input.photoConsent })
+        .where(eq(users.id, ctx.user.id));
     }),
   updatePassword: authenticatedProcedure
     .input((input) => passwordSchema(useTranslationsFromContext()).parse(input))

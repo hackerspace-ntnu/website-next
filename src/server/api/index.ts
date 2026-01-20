@@ -7,6 +7,7 @@ import {
   forgotPasswordRouter,
   groupsRouter,
   newsRouter,
+  officeRouter,
   quotesRouter,
   reservationsRouter,
   rulesRouter,
@@ -31,6 +32,7 @@ const router = createRouter({
   groups: groupsRouter,
   slides: slidesRouter,
   news: newsRouter,
+  office: officeRouter,
   quotes: quotesRouter,
   reservations: reservationsRouter,
   rules: rulesRouter,
@@ -49,14 +51,4 @@ const createCaller = createCallerFactory(router);
 type RouterInput = inferRouterInputs<typeof router>;
 type RouterOutput = inferRouterOutputs<typeof router>;
 
-type RouterInputs = inferRouterInputs<typeof router>;
-type RouterOutputs = inferRouterOutputs<typeof router>;
-
-export {
-  router,
-  createCaller,
-  type RouterInput,
-  type RouterOutput,
-  type RouterInputs,
-  type RouterOutputs,
-};
+export { router, createCaller, type RouterInput, type RouterOutput };

@@ -59,7 +59,9 @@ const users = pgTable(
     discordUsername: varchar('discord_username', { length: 52 }),
     instagramUsername: varchar('instagram_username', { length: 52 }),
     linkedInUsername: varchar('linkedin_username', { length: 52 }),
+    foodPreferences: varchar('food_preferences', { length: 128 }),
     private: boolean('private').notNull().default(false),
+    photoConsent: boolean('photo_consent').notNull().default(true),
     notificationSetting: notificationsEnum('notification_setting')
       .notNull()
       .default('all'),

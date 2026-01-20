@@ -30,7 +30,7 @@ export default async function GroupLoading() {
               <div
                 // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
                 key={index}
-                className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 text-white duration-200 hover:border-primary'
+                className='group relative box-border flex h-80 w-80 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   <Skeleton className='h-full w-full object-cover' />

@@ -36,6 +36,7 @@ jobs:
           port: ${{ secrets.port }}
           key: ${{ secrets.key }}
           username: ${{ secrets.username }}
+          command_timeout: 45m
           script: |
             cd ${{ inputs.path }}
             git checkout ${{ inputs.branch }}

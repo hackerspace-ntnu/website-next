@@ -1,3 +1,4 @@
+import { TRPCError } from '@trpc/server';
 import { ArrowLeftIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
@@ -18,6 +19,7 @@ import { SkillCard } from '@/components/members/SkillCard';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
+import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
   params,
@@ -60,29 +62,25 @@ export default async function MemberPage({
 
   const processedMemberId = Number(memberId);
 
-  if (Number.isNaN(processedMemberId) || !Number.isInteger(processedMemberId))
+  if (Number.isNaN(processedMemberId) || !Number.isInteger(processedMemberId)) {
     return notFound();
+  }
 
-  const user = await api.users.fetchMember({
-    id: processedMemberId,
-  });
+  let user: RouterOutput['users']['fetchMember'] | null = null;
+  try {
+    user = await api.users.fetchMember({
+      id: processedMemberId,
+    });
+  } catch (error) {
+    console.log(error);
+    if (error instanceof TRPCError && error.code === 'FORBIDDEN') {
+      return <ErrorPageContent message={t('unauthorized')} />;
+    }
+  }
 
   if (!user) return notFound();
 
   const auth = await api.auth.state();
-
-  // If the user is not a member, only allow access if we're a part of management
-  // But allow if we're looking at our own profile
-  if (
-    (!user.usersGroups || user.usersGroups.length === 0) &&
-    !auth.user?.groups.some((g) =>
-      ['leadership', 'management', 'admin'].includes(g),
-    ) &&
-    !(auth.user && auth.user.id === user.id)
-  ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
-    return <ErrorPageContent message={t('unauthorized')} />;
-  }
 
   const groups = await api.groups.fetchGroups();
   const skills = await api.skills.fetchAllSkills();
@@ -149,7 +147,11 @@ export default async function MemberPage({
               >
             }
           >
-            <GroupManagementTable user={user} groups={groups} />
+            <GroupManagementTable
+              user={user}
+              groups={groups}
+              isOwnProfile={auth.user?.id === user.id}
+            />
           </NextIntlClientProvider>
         </>
       )}

@@ -1,8 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useFormatter, useLocale } from 'next-intl';
 import { SkillIcon } from '@/components/skills/SkillIcon';
-import { Avatar, AvatarImage } from '@/components/ui/Avatar';
 import { Badge } from '@/components/ui/Badge';
 import {
   Card,
@@ -106,13 +106,13 @@ function EventCard({
             </div>
           </div>
           {imageUrl && (
-            <Avatar className='h-48 w-48 shrink-0'>
-              <AvatarImage
-                src={imageUrl}
-                alt={t.photoOf}
-                className='object-cover'
-              />
-            </Avatar>
+            <Image
+              src={imageUrl}
+              width={192}
+              height={192}
+              className='h-48 w-48 shrink-0 rounded-lg object-cover'
+              alt={t.photoOf}
+            />
           )}
         </CardContent>
         <CardFooter className='mt-auto flex-col'>

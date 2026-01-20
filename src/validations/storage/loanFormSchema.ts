@@ -12,6 +12,9 @@ function loanFormSchema(t: Translations) {
         .date()
         .min(startOfDay(new Date()), t('storage.loanForm.dateInFuture')),
     }),
+    notes: z
+      .string()
+      .max(512, t('storage.loanForm.notesTooLong', { count: 512 })),
     autoapprove: z.boolean(),
   });
 }

@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     container_name: website-app
     networks:
-      - nginx_default
+      - nginx_proxy
   migrator:
     build:
       context: .
@@ -23,7 +23,7 @@ services:
     restart: no
     container_name: website-migrator
     networks:
-      - nginx_default
+      - nginx_proxy
   db:
     image: postgres:16
     restart: unless-stopped
@@ -40,7 +40,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - nginx_default
+      - nginx_proxy
   s3:
     image: minio/minio
     restart: unless-stopped
@@ -57,7 +57,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - nginx_default
+      - nginx_proxy
   create-bucket:
     image: minio/mc
     depends_on:
@@ -72,7 +72,8 @@ services:
       exit 0;
       "
     networks:
-      - nginx_default
+      - nginx_proxy
+
 networks:
-  nginx_default:
+  nginx_proxy:
     external: true
