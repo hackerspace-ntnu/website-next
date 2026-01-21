@@ -50,7 +50,10 @@ export default async function EventsPage({
   });
   const totalResults = await api.events.nonActiveEventsTotal();
 
-  const upcomingEvents = events.filter((event) => event.startTime > new Date());
+  // Reverse to show upcoming events first
+  const upcomingEvents = events
+    .filter((event) => event.startTime > new Date())
+    .reverse();
   const pastEvents = events.filter((event) => event.endTime < new Date());
 
   const translations = {
