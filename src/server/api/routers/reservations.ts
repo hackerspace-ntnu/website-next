@@ -335,7 +335,7 @@ const reservationsRouter = createRouter({
     .input((input) => deleteReservationSchema().parse(input))
     .mutation(async ({ input, ctx }) => {
       const isManagement = ctx.user.groups.some((g) =>
-        ['management', 'leadership', 'admin'].includes(g),
+        ['management', 'admin'].includes(g),
       );
 
       // We allow deleting other people's reservations if you're management

@@ -21,7 +21,7 @@ async function Header() {
   }
 
   const viewApplications = !!user?.groups.some((g) =>
-    ['management', 'leadership', 'admin'].includes(g),
+    ['management', 'admin'].includes(g),
   );
 
   return (

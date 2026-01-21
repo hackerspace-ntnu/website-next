@@ -31,9 +31,7 @@ export default async function ShiftSchedulePage({
 
   const doorStatus = await api.office.fetchDoorStatus();
 
-  const canClear = user?.groups.some((group) =>
-    ['leadership', 'admin'].includes(group),
-  );
+  const canClear = user?.groups.includes('admin');
   const clearShiftsButton = <ClearShiftsButton />;
 
   return (

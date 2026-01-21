@@ -43,8 +43,7 @@ export default async function ApplicationsPage({
 
   const applications = await api.applications.fetchApplications();
   const formatter = await getFormatter();
-  const canViewAll =
-    user?.groups.includes('leadership') || user?.groups.includes('admin');
+  const canViewAll = user?.groups.includes('admin');
 
   if (!applications) return notFound();
 

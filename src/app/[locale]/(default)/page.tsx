@@ -30,8 +30,7 @@ export default async function HomePage({
   const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
   const doorStatus = await api.office.fetchDoorStatus();
 
-  const canEditSlides =
-    user?.groups.some((g) => ['leadership', 'admin'].includes(g)) ?? false;
+  const canEditSlides = user?.groups.includes('admin') ?? false;
 
   return (
     <div className='space-y-8'>

@@ -58,7 +58,7 @@ export default async function ManagementPage({
     },
   ];
 
-  if (user.groups.some((g) => ['leadership', 'admin'].includes(g))) {
+  if (user.groups.includes('admin')) {
     cards.push({
       name: t('slides.name'),
       description: t('slides.description'),
