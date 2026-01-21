@@ -431,7 +431,11 @@ const storageRouter = createRouter({
     return await ctx.db
       .select()
       .from(itemCategories)
-      .orderBy(asc(itemCategories.id));
+      .orderBy(
+        ctx.locale === 'en-GB'
+          ? asc(itemCategories.nameEnglish)
+          : asc(itemCategories.nameNorwegian),
+      );
   }),
   fetchItemCategoryNames: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.db
@@ -441,7 +445,13 @@ const storageRouter = createRouter({
             ? itemCategories.nameEnglish
             : itemCategories.nameNorwegian,
       })
-      .from(itemCategories);
+      .from(itemCategories)
+      .orderBy(
+        ctx.locale === 'en-GB'
+          ? asc(itemCategories.nameEnglish)
+          : asc(itemCategories.nameNorwegian),
+      );
+
     return categories.map((c) => c.name);
   }),
   addItemCategory: protectedEditProcedure
