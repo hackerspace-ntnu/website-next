@@ -16,6 +16,14 @@ import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { GroupManagementTable } from '@/components/members/GroupManagementTable';
 import { MemberInfoCard } from '@/components/members/MemberInfoCard';
 import { SkillCard } from '@/components/members/SkillCard';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/Card';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
@@ -106,34 +114,50 @@ export default async function MemberPage({
   return (
     <>
       <div className='relative'>
-        <h2 className='mx-auto text-center text-3xl sm:text-4xl'>
-          {user.firstName} {user.lastName}
-        </h2>
-        <Link
-          className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
-          href={management ? '/management/users' : '/members'}
-          aria-label={
-            management ? tManagement('backToManagement') : t('backToMember')
-          }
-          variant='ghost'
-          size='default'
-        >
-          <ArrowLeftIcon aria-hidden='true' />
-          <span className='hidden sm:inline'>
-            {management ? tManagement('backToManagement') : t('backToMember')}
-          </span>
-        </Link>
-      </div>
-      <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
-        <MemberInfoCard user={user} />
-        <SkillCard
-          user={user}
-          allSkills={skills}
-          editableSkills={userSkills.map(
-            (userSkill) => userSkill.skill.identifier,
-          )}
-          isManagement={!!canEdit}
-        />
+        <div className='relative w-full'>
+          <h2 className='mx-auto text-center text-3xl sm:text-4xl'>
+            {user.firstName} {user.lastName}
+          </h2>
+          <Link
+            className='-translate-y-1/2 absolute top-1/2 left-0 flex gap-2'
+            href={management ? '/management/users' : '/members'}
+            aria-label={
+              management ? tManagement('backToManagement') : t('backToMember')
+            }
+            variant='ghost'
+            size='default'
+          >
+            <ArrowLeftIcon aria-hidden='true' />
+            <span className='hidden sm:inline'>
+              {management ? tManagement('backToManagement') : t('backToMember')}
+            </span>
+          </Link>
+        </div>
+        <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
+          <MemberInfoCard user={user} />
+          <SkillCard
+            user={user}
+            allSkills={skills}
+            editableSkills={userSkills.map(
+              (userSkill) => userSkill.skill.identifier,
+            )}
+            isManagement={!!canEdit}
+          />
+        </div>
+        <div className='my-10 flex flex-col items-center justify-center gap-6 lg:flex-row'>
+          <Card className='relative w-1/2 overflow-hidden rounded-xl px-6 py-4'>
+            <CardHeader className='relative content-center'>
+              <CardTitle>Dine Custom Achievements!</CardTitle>
+              <CardDescription>Hello World</CardDescription>
+            </CardHeader>
+            <CardContent className='content-center'>
+              <p className='content-center'>Card Content</p>
+            </CardContent>
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
       {canEdit && (
         <>

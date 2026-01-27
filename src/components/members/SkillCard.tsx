@@ -20,7 +20,6 @@ async function SkillCard({
   const t = await getTranslations('ui');
   const { about, members, skills, ui } = await getMessages();
   const locale = await getLocale();
-
   return (
     <NextIntlClientProvider
       messages={
