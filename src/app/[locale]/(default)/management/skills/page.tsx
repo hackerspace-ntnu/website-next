@@ -45,7 +45,7 @@ export default async function SkillsManagementPage({
         {t('backToManagement')}
       </Link>
       <div className='relative'>
-        <h1 className='text-center'>{t('skills.title')}</h1>
+        <h1 className='md:text-center'>{t('skills.title')}</h1>
         <div className='-translate-y-1/2 absolute top-1/2 right-0 flex gap-2'>
           <Link variant='default' size='icon' href='/management/skills/new'>
             <PlusIcon />
