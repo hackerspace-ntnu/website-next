@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, or } from 'drizzle-orm';
+import { and, eq, ilike, or } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -296,6 +296,25 @@ const rulesRouter = createRouter({
 
       await ctx.db.delete(rules).where(eq(rules.id, input.id));
     }),
+  fetch3dPrinterRuleId: publicProcedure.query(async ({ ctx }) => {
+    const ruleLocalization = await ctx.db.query.ruleLocalizations
+      .findFirst({
+        where: ilike(ruleLocalizations.name, '%3D printer%'),
+        columns: {
+          ruleId: true,
+        },
+      })
+      .catch((error) => {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('rules.api.fetchRulesFailed'),
+          cause: { toast: 'error' },
+        });
+      });
+
+    return ruleLocalization?.ruleId ?? null;
+  }),
 });
 
 export { rulesRouter };
