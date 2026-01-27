@@ -1,10 +1,13 @@
+import { TRPCError } from '@trpc/server';
 import { ArrowLeftIcon, EditIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
+import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
   params,
@@ -21,7 +24,12 @@ export async function generateMetadata({
   )
     return;
 
-  const rule = await api.rules.fetchRule(processedSubsetId);
+  let rule: RouterOutput['rules']['fetchRule'] | null = null;
+  try {
+    rule = await api.rules.fetchRule(processedSubsetId);
+  } catch {
+    return;
+  }
 
   if (!rule || !rule.localization) return;
 
@@ -43,14 +51,26 @@ export default async function RuleSubsetPage({
     Number.isNaN(processedSubsetId) ||
     !Number.isInteger(processedSubsetId) ||
     processedSubsetId < 1
-  )
+  ) {
     return;
+  }
 
-  const rule = await api.rules.fetchRule(processedSubsetId);
+  const t = await getTranslations('rules');
+
+  let rule: RouterOutput['rules']['fetchRule'] | null = null;
+  try {
+    rule = await api.rules.fetchRule(processedSubsetId);
+  } catch (error) {
+    if (error instanceof TRPCError) {
+      if (error.code === 'FORBIDDEN') {
+        return <ErrorPageContent message={t('api.unauthorizedInternalRule')} />;
+      }
+      console.error(error);
+    }
+  }
 
   if (!rule || !rule.localization) return notFound();
 
-  const t = await getTranslations('rules');
   const { user } = await api.auth.state();
 
   return (
