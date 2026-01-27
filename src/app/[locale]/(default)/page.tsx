@@ -15,8 +15,8 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
   setRequestLocale(locale as Locale);
+
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
 
@@ -28,8 +28,7 @@ export default async function HomePage({
   const events = await api.events.fetchEvents({ limit: 3, offset: 0 });
   const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
 
-  const canEditSlides =
-    user?.groups.some((g) => ['leadership', 'admin'].includes(g)) ?? false;
+  const canEditSlides = user?.groups.includes('admin') ?? false;
 
   return (
     <div className='space-y-8'>

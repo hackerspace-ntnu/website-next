@@ -17,8 +17,9 @@ export default async function ToolCalendarPage({
     Number.isNaN(processedToolId) ||
     !Number.isInteger(processedToolId) ||
     processedToolId < 1
-  )
+  ) {
     return notFound();
+  }
 
   const tool = await api.tools.fetchTool(processedToolId);
 

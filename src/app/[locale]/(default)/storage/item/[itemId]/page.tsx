@@ -53,7 +53,7 @@ export default async function StorageItemPage({
 
   const { user } = await api.auth.state();
   const canManageItems = user?.groups.some((g) =>
-    ['labops', 'leadership', 'admin'].includes(g),
+    ['labops', 'management', 'admin'].includes(g),
   );
 
   const itemLocale = locale === 'en-GB' ? item.english : item.norwegian;

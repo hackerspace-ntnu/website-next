@@ -7,6 +7,7 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 import { DeleteApplicationButton } from '@/components/applications/DeleteApplicationButton';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { ExternalLink, Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
@@ -31,10 +32,18 @@ export default async function ApplicationPage({
     Number.isNaN(processedAppId) ||
     !Number.isInteger(processedAppId) ||
     processedAppId < 1
-  )
+  ) {
     return notFound();
+  }
+
+  const { user } = await api.auth.state();
 
   const t = await getTranslations('applications.view');
+
+  if (!user?.groups.some((group) => ['management', 'admin'].includes(group))) {
+    return <ErrorPageContent message={t('unauthorized')} />;
+  }
+
   const tUi = await getTranslations('ui');
   const tApply = await getTranslations('applications.apply');
   const formatter = await getFormatter();

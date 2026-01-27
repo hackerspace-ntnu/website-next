@@ -6,6 +6,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import {
   Card,
   CardContent,
@@ -34,13 +35,15 @@ export default async function ApplicationsPage({
   setRequestLocale(locale as Locale);
 
   const t = await getTranslations('applications.view');
-  const applications = await api.applications.fetchApplications();
-  const formatter = await getFormatter();
-
   const { user } = await api.auth.state();
 
-  const canViewAll =
-    user?.groups.includes('admin') || user?.groups.includes('leadership');
+  if (!user?.groups.some((group) => ['management', 'admin'].includes(group))) {
+    return <ErrorPageContent message={t('unauthorized')} />;
+  }
+
+  const applications = await api.applications.fetchApplications();
+  const formatter = await getFormatter();
+  const canViewAll = user?.groups.includes('admin');
 
   if (!applications) return notFound();
 

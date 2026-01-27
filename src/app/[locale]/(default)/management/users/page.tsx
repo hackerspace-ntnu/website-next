@@ -39,9 +39,7 @@ export default async function UsersManagementPage({
   const tUi = await getTranslations('ui');
   const { user } = await api.auth.state();
 
-  if (
-    !user?.groups.some((g) => ['leadership', 'management', 'admin'].includes(g))
-  ) {
+  if (!user?.groups.some((g) => ['management', 'admin'].includes(g))) {
     // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }

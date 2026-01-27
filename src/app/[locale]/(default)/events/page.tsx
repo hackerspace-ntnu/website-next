@@ -72,7 +72,7 @@ export default async function EventsPage({
         <h1 className='my-4 text-center'>{t('title')}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
           {user?.groups.some((group) =>
-            ['labops', 'leadership', 'admin'].includes(group),
+            ['labops', 'management', 'admin'].includes(group),
           ) && (
             <Link variant='default' size='icon' href='/events/new'>
               <PlusIcon />

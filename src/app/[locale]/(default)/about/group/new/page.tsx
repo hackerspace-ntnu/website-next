@@ -31,7 +31,7 @@ export default async function NewGroupPage({
   const { about, groups, ui, error } = await getMessages();
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g))
   ) {
     // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('new.unauthorized')} />;

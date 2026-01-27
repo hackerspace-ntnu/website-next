@@ -24,7 +24,7 @@ export default async function EditSlidePage({
 
   const { user } = await api.auth.state();
 
-  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
+  if (!user?.groups.includes('admin')) {
     // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }

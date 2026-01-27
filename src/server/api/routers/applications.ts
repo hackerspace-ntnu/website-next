@@ -46,18 +46,15 @@ const applicationsRouter = createRouter({
         });
     }),
   fetchApplications: managementProcedure.query(async ({ ctx }) => {
-    const canViewAll =
-      ctx.user.groups.includes('admin') ||
-      ctx.user.groups.includes('leadership');
+    const canViewAll = ctx.user.groups.includes('admin');
 
     let where: SQL | undefined;
 
-    // If the user is not an admin or a part of leadership,
-    // they should only see applications that went to
+    // If the user is not an admin, they should only see applications that went to
     // their own group (e.g. DevOps or LabOps)
     if (!canViewAll) {
       const normalGroups = ctx.user.groups.filter(
-        (g) => !['admin', 'management', 'leadership'].includes(g),
+        (g) => !['management', 'admin'].includes(g),
       );
       const normalGroupIds = ctx.db
         .select({ id: groups.id })
@@ -100,18 +97,15 @@ const applicationsRouter = createRouter({
       fetchApplicationSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ input, ctx }) => {
-      const canViewAll =
-        ctx.user.groups.includes('admin') ||
-        ctx.user.groups.includes('leadership');
+      const canViewAll = ctx.user.groups.includes('admin');
 
       let where: SQL | undefined;
 
-      // If the user is not an admin or a part of leadership,
-      // they should only see applications that went to
+      // If the user is not an admin, they should only see applications that went to
       // their own group (e.g. DevOps or LabOps)
       if (!canViewAll) {
         const normalGroups = ctx.user.groups.filter(
-          (g) => !['admin', 'management', 'leadership'].includes(g),
+          (g) => !['management', 'admin'].includes(g),
         );
         const normalGroupIds = ctx.db
           .select({ id: groups.id })
@@ -153,18 +147,15 @@ const applicationsRouter = createRouter({
       fetchApplicationSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const canViewAll =
-        ctx.user.groups.includes('admin') ||
-        ctx.user.groups.includes('leadership');
+      const canViewAll = ctx.user.groups.includes('admin');
 
       let where: SQL | undefined;
 
-      // If the user is not an admin or a part of leadership,
-      // they should only see applications that went to
+      // If the user is not an admin, they should only see applications that went to
       // their own group (e.g. DevOps or LabOps)
       if (!canViewAll) {
         const normalGroups = ctx.user.groups.filter(
-          (g) => !['admin', 'management', 'leadership'].includes(g),
+          (g) => !['management', 'admin'].includes(g),
         );
         const normalGroupIds = ctx.db
           .select({ id: groups.id })

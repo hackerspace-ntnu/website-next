@@ -21,8 +21,9 @@ export async function generateMetadata({
     Number.isNaN(processedSubsetId) ||
     !Number.isInteger(processedSubsetId) ||
     processedSubsetId < 1
-  )
+  ) {
     return;
+  }
 
   let rule: RouterOutput['rules']['fetchRule'] | null = null;
   try {
@@ -87,7 +88,7 @@ export default async function RuleSubsetPage({
       <div className='relative'>
         <h1 className='text-center'>{rule.localization.name}</h1>
         {user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) && (
           <Link
             className='-translate-y-1/2 absolute top-1/2 right-0'
