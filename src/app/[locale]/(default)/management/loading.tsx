@@ -7,7 +7,7 @@ export default async function ManagementLoading() {
   return (
     <div className='min-h-screen'>
       <h1 className='text-center'>{t('title')}</h1>
-      <div className='my-4 grid grid-cols-2 gap-4'>
+      <div className='my-4 grid grid-cols-1 gap-4 lg:grid-cols-2 '>
         {Array.from({ length: 5 }).map((_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
           <Skeleton className='h-24 w-full' key={index} />

@@ -52,7 +52,7 @@ export default async function SkillsManagementPage({
           </Link>
         </div>
       </div>
-      <div className='my-4 grid grid-cols-2 gap-4'>
+      <div className='my-4 grid grid-cols-1 gap-4 lg:grid-cols-2'>
         {skills.map((skill) => (
           <Link
             href={{

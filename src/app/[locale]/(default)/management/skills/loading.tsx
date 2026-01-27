@@ -26,7 +26,7 @@ export default async function SkillsManagementLoading() {
           </Link>
         </div>
       </div>
-      <div className='my-4 grid grid-cols-2 gap-4'>
+      <div className='my-4 grid grid-cols-1 gap-4 lg:grid-cols-2 '>
         {Array.from({ length: 8 }).map((_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton
           <Skeleton className='h-18 w-full' key={index} />
