@@ -31,6 +31,7 @@ import type { RouterOutput } from '@/server/api';
 type ToolCalendarProps = {
   tool: NonNullable<RouterOutput['tools']['fetchTool']>;
   user: RouterOutput['auth']['state']['user'];
+  printerRuleId: RouterOutput['rules']['fetch3dPrinterRuleId'];
 };
 type CalendarReservation =
   RouterOutput['reservations']['fetchCalendarReservations'][number];
@@ -60,7 +61,7 @@ function reservationToCalendarEvent(r: CalendarReservation) {
   } as const;
 }
 
-function ToolCalendar({ tool, user }: ToolCalendarProps) {
+function ToolCalendar({ tool, user, printerRuleId }: ToolCalendarProps) {
   const t = useTranslations('reservations');
   const router = useRouter();
 
@@ -226,7 +227,7 @@ function ToolCalendar({ tool, user }: ToolCalendarProps) {
       )}
 
       <div className='relative w-full overflow-hidden rounded-lg border border-border bg-background text-foreground'>
-        <InformationCard />
+        <InformationCard printerRuleId={printerRuleId} />
         <CustomToolbar
           calendarRef={calendarRef}
           isLaptop={isLaptop}

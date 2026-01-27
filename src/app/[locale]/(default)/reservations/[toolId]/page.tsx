@@ -25,6 +25,8 @@ export default async function ToolCalendarPage({
 
   if (!tool) return notFound();
 
+  const printerRuleId = await api.rules.fetch3dPrinterRuleId();
+
   const t = await getTranslations('reservations.tools');
 
   if (tool.status === 'out_of_order' || tool.status === 'unavailable') {
@@ -32,5 +34,5 @@ export default async function ToolCalendarPage({
     return <ErrorPageContent message={t('unavailableError')} />;
   }
 
-  return <ToolCalendar tool={tool} user={user} />;
+  return <ToolCalendar tool={tool} user={user} printerRuleId={printerRuleId} />;
 }
