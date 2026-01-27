@@ -5,7 +5,6 @@ import { EventTable } from '@/components/home/EventTable';
 import { IntroBanner } from '@/components/home/IntroBanner';
 import { NewsTable } from '@/components/home/NewsTable';
 import { TextBlock } from '@/components/home/TextBlock';
-import { WorkshopStatusBadge } from '@/components/home/WorkshopStatusBadge';
 import { Link } from '@/components/ui/Link';
 import { Separator } from '@/components/ui/Separator';
 import { api } from '@/lib/api/server';
@@ -28,16 +27,11 @@ export default async function HomePage({
 
   const events = await api.events.fetchEvents({ limit: 3, offset: 0 });
   const articles = await api.news.fetchArticles({ limit: 3, offset: 0 });
-  const doorStatus = await api.office.fetchDoorStatus();
 
   const canEditSlides = user?.groups.includes('admin') ?? false;
 
   return (
     <div className='space-y-8'>
-      <WorkshopStatusBadge
-        status={doorStatus}
-        className='absolute top-16 right-8 z-10'
-      />
       <IntroBanner
         slides={slides}
         locale={locale as Locale}

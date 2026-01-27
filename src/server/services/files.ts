@@ -1,3 +1,4 @@
+import { createCache } from 'cache-manager';
 import { eq } from 'drizzle-orm';
 import type { fileDirectories } from '@/lib/constants';
 import { db } from '@/server/db';
@@ -87,7 +88,17 @@ async function deleteFile(fileId: number) {
   return deletedFile;
 }
 
+const urlCache = createCache({
+  ttl: SIGNED_URL_EXPIRATION * 1000,
+});
+
 async function getFileUrl(fileId: number) {
+  const cached = await urlCache.get<string>(fileId.toString());
+
+  if (cached) {
+    return cached;
+  }
+
   const file = await db.query.files.findFirst({
     where: eq(files.id, fileId),
   });
@@ -98,11 +109,15 @@ async function getFileUrl(fileId: number) {
     throw new Error(error);
   }
 
-  return s3.getSignedUrl(
+  const result = s3.getSignedUrl(
     file.directory,
     String(file.id),
     SIGNED_URL_EXPIRATION,
   );
+
+  urlCache.set(fileId.toString(), result);
+
+  return result;
 }
 
 export { insertFile, deleteFile, getFileUrl };

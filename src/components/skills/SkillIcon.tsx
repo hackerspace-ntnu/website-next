@@ -7,6 +7,7 @@ import {
   CodeIcon,
   CoffeeIcon,
   CpuIcon,
+  FileBoxIcon,
   TerminalIcon,
   WrenchIcon,
   ZapIcon,
@@ -77,6 +78,10 @@ const skillIconsConfig: Record<
   webdevelopment: {
     icon: CodeIcon,
     className: 'bg-violet-100 text-violet-600',
+  },
+  modeling: {
+    icon: FileBoxIcon,
+    className: 'bg-orange-100 text-orange-600',
   },
 };
 

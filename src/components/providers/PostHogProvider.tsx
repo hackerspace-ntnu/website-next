@@ -20,7 +20,6 @@ function PostHogProvider({ children }: { children: React.ReactNode }) {
   }, [posthogKey]);
 
   if (!posthogKey) {
-    console.warn('PostHog key is not set. PostHogProvider will be skipped.');
     return children;
   }
 

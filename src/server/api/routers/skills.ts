@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   managementProcedure,
@@ -15,7 +15,12 @@ import { userToSkillSchema } from '@/validations/skills/userToSkillSchema';
 
 const skillsRouter = createRouter({
   fetchAllSkills: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.query.skills.findMany();
+    return await ctx.db.query.skills.findMany({
+      orderBy:
+        ctx.locale === 'en-GB'
+          ? asc(skills.nameEnglish)
+          : asc(skills.nameNorwegian),
+    });
   }),
   fetchSkill: publicProcedure
     .input((input) =>
