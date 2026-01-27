@@ -25,7 +25,7 @@ export default async function EditBannerPage({
   const { user } = await api.auth.state();
 
   if (!user?.groups.some((g) => ['management', 'admin'].includes(g))) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 

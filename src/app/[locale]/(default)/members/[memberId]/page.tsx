@@ -37,9 +37,14 @@ export async function generateMetadata({
     return;
   }
 
-  const user = await api.users.fetchMember({
-    id: processedMemberId,
-  });
+  let user: RouterOutput['users']['fetchMember'] | null = null;
+  try {
+    user = await api.users.fetchMember({
+      id: processedMemberId,
+    });
+  } catch {
+    return;
+  }
 
   if (!user) return;
 
@@ -73,9 +78,11 @@ export default async function MemberPage({
       id: processedMemberId,
     });
   } catch (error) {
-    console.log(error);
-    if (error instanceof TRPCError && error.code === 'FORBIDDEN') {
-      return <ErrorPageContent message={t('unauthorized')} />;
+    if (error instanceof TRPCError) {
+      if (error.code === 'FORBIDDEN') {
+        return <ErrorPageContent message={t('unauthorized')} />;
+      }
+      console.error(error);
     }
   }
 

@@ -9,10 +9,10 @@ import { cx } from '@/lib/utils';
 
 /**
  * The content of the Error Page.
+ * When used to display a custom error message, provide the `message` prop only.
+ *
  * When used to display an uncaught exception (in error.tsx), the `error` and `reset` props must be provided.
  * Do not provide the `message` prop in this case.
- *
- * When used to display a custom error message, provide the `message` prop only.
  */
 function ErrorPageContent({
   error,

@@ -47,7 +47,7 @@ export default async function ReservationItemLayout({
   const { locale, toolId } = await params;
   setRequestLocale(locale as Locale);
 
-  const { reservations, ui } = await getMessages();
+  const { reservations, ui, error } = await getMessages();
   const t = await getTranslations('reservations');
   const processedToolId = Number(toolId);
 
@@ -77,7 +77,12 @@ export default async function ReservationItemLayout({
       </Link>
       <h1 className='my-4 text-center'>{tool.name}</h1>
       <NextIntlClientProvider
-        messages={{ reservations, ui } as Pick<Messages, 'reservations' | 'ui'>}
+        messages={
+          { reservations, ui, error } as Pick<
+            Messages,
+            'reservations' | 'ui' | 'error'
+          >
+        }
       >
         {children}
       </NextIntlClientProvider>

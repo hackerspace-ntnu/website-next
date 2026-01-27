@@ -34,7 +34,7 @@ export default async function EditArticlePage({
   if (Number.isNaN(Number(articleId))) return notFound();
 
   if (!user || user.groups.length === 0) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('updateArticlesUnauthorized')} />;
   }
 

@@ -31,7 +31,7 @@ export default async function NewArticlePage({
   const { news, ui, error } = await getMessages();
 
   if (!user || user.groups.length === 0) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('newArticlesUnauthorized')} />;
   }
 

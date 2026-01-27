@@ -613,6 +613,7 @@
     "internalGroup": "Dette er en intern gruppe",
     "leader": "Leder",
     "deputyLeader": "Nestleder",
+    "unauthorized": "Du har ikke rettigheter til å se denne gruppen",
     "new": {
       "title": "Ny gruppe",
       "createGroup": "Opprett gruppe",
@@ -794,6 +795,7 @@
       "invalidName": "Ugyldig kategorinavn",
       "required": "Kategorinavn er påkrevd",
       "maxLength": "Kategorinavn kan maks være {count, plural, one {ett tegn} other {# tegn}}.",
+      "addNewCategory": "Legg til ny kategori",
       "api": {
         "insertFailed": "Feilet å legge til kategori",
         "updateFailed": "Feilet å redigere kategori",
@@ -1123,6 +1125,7 @@
     "publicRules": "Offentlige regler",
     "internalRules": "Interne regler",
     "backToRules": "Tilbake til regler",
+    "statutesInfo": "I tillegg til reglene, kan du også lese Hackerspace NTNU sine <link>statutter</link>.",
     "new": {
       "title": "Ny regel",
       "createRule": "Opprett regel",
@@ -1334,7 +1337,6 @@
       "unauthorized": "Uautorisert til å administrere hjemmesidens bannere",
       "placeholderAlt": "No image available",
       "image": "Bilde",
-      "backToManagement": "Tilbake til administrasjon",
       "overlay": "Innhold",
       "active": "Aktiv",
       "create": "Legg til nytt banner",
@@ -1658,6 +1660,7 @@
       "filamentType": "Filament type",
       "slicer": "Slicer",
       "backToReservations": "Tilbake til reservasjoner",
+      "unavailableError": "Dette verktøyet er for øyeblikket utilgjengelig for reservasjoner.",
       "new": {
         "title": "Nytt reservasjonsverktøy",
         "createTool": "Opprett verktøy",
