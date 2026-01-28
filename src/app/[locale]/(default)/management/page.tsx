@@ -24,8 +24,8 @@ export default async function ManagementPage({
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
 
-  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+  if (!user?.groups.some((g) => ['management', 'admin'].includes(g))) {
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 
@@ -56,17 +56,20 @@ export default async function ManagementPage({
       description: t('banners.description'),
       href: '/management/banners',
     },
-    {
+  ];
+
+  if (user.groups.includes('admin')) {
+    cards.push({
       name: t('slides.name'),
       description: t('slides.description'),
       href: '/management/slides',
-    },
-  ];
+    });
+  }
 
   return (
     <div className='min-h-screen'>
       <h1 className='text-center'>{t('title')}</h1>
-      <div className='my-4 grid grid-cols-2 gap-4'>
+      <div className='my-4 grid grid-cols-1 gap-4 lg:grid-cols-2'>
         {cards.map(({ name, description, href, className }) => (
           <CategoryCard
             key={name}

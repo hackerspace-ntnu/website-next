@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq, type SQL } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   managementProcedure,
@@ -26,16 +26,11 @@ const groupsRouter = createRouter({
       fetchGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .query(async ({ ctx, input }) => {
-      let where: SQL = eq(groups.identifier, input);
-
-      const { user, session } = await ctx.auth();
-      if (!user || !session) {
-        where = and(where, eq(groups.internal, false)) as SQL;
-      }
+      const { user } = await ctx.auth();
 
       const group = await ctx.db.query.groups
         .findFirst({
-          where,
+          where: eq(groups.identifier, input),
           with: {
             localizations: true,
             leader: true,
@@ -57,6 +52,14 @@ const groupsRouter = createRouter({
         });
 
       if (!group) return null;
+
+      if (group.internal && (!user || user.groups.length === 0)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('groups.unauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
 
       const sortedUsersGroups = group.usersGroups.sort((a, b) =>
         a.user.firstName.localeCompare(b.user.firstName, ctx.locale),
@@ -100,7 +103,17 @@ const groupsRouter = createRouter({
         });
       });
 
-    const promises = results.map(async (group) => {
+    // TODO: Remove this sorting and replace it with orderBy when it can be used with relations in Drizzle
+    // See GitHub issue: https://github.com/drizzle-team/drizzle-orm/issues/2650
+    const sortedResults = results.sort((a, b) => {
+      const nameA =
+        a.localizations.find((loc) => loc.locale === ctx.locale)?.name ?? '';
+      const nameB =
+        b.localizations.find((loc) => loc.locale === ctx.locale)?.name ?? '';
+      return nameA.localeCompare(nameB, ctx.locale);
+    });
+
+    const promises = sortedResults.map(async (group) => {
       if (group.imageId) {
         return {
           ...group,
@@ -154,11 +167,10 @@ const groupsRouter = createRouter({
         },
       })
       .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('groups.api.fetchGroupsFailed', {
-            error: error.message,
-          }),
+          message: ctx.t('groups.api.fetchGroupsFailed'),
           cause: { toast: 'error' },
         });
       });

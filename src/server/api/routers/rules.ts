@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import { and, asc, eq, or } from 'drizzle-orm';
+import { and, eq, ilike, or } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   protectedEditProcedure,
@@ -29,19 +29,22 @@ const rulesRouter = createRouter({
           },
         })
         .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.fetchRulesFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.fetchRulesFailed'),
             cause: { toast: 'error' },
           });
         });
 
       if (!rule) return null;
 
-      if ((!session || !isMember) && rule?.internal) {
-        throw new Error(ctx.t('rules.api.unauthorizedInternalRule'));
+      if ((!session || !isMember) && rule.internal) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('rules.api.unauthorizedInternalRule'),
+          cause: { toast: 'error' },
+        });
       }
 
       return {
@@ -58,7 +61,6 @@ const rulesRouter = createRouter({
     const rulesData = await ctx.db.query.rules
       .findMany({
         where: !session || !isMember ? eq(rules.internal, false) : undefined,
-        orderBy: asc(rules.createdAt),
         with: {
           localizations: {
             where: eq(ruleLocalizations.locale, ctx.locale),
@@ -66,16 +68,23 @@ const rulesRouter = createRouter({
         },
       })
       .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('rules.api.fetchRulesFailed', {
-            error: error.message,
-          }),
+          message: ctx.t('rules.api.fetchRulesFailed'),
           cause: { toast: 'error' },
         });
       });
 
-    return rulesData.map((rule) => {
+    // TODO: Remove this sorting and replace it with orderBy when it can be used with relations in Drizzle
+    // See GitHub issue: https://github.com/drizzle-team/drizzle-orm/issues/2650
+    const sortedRules = rulesData.sort((a, b) => {
+      const nameA = a.localizations[0]?.name ?? '';
+      const nameB = b.localizations[0]?.name ?? '';
+      return nameA.localeCompare(nameB, ctx.locale);
+    });
+
+    return sortedRules.map((rule) => {
       const { localizations, ...ruleData } = rule;
 
       return {
@@ -120,9 +129,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.insertFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.insertFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -155,9 +162,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.insertFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.insertFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -217,9 +222,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.updateFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -240,9 +243,7 @@ const rulesRouter = createRouter({
           console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed', {
-              error: error.message,
-            }),
+            message: ctx.t('rules.api.updateFailed'),
             cause: { toast: 'error' },
           });
         });
@@ -295,6 +296,25 @@ const rulesRouter = createRouter({
 
       await ctx.db.delete(rules).where(eq(rules.id, input.id));
     }),
+  fetch3dPrinterRuleId: publicProcedure.query(async ({ ctx }) => {
+    const ruleLocalization = await ctx.db.query.ruleLocalizations
+      .findFirst({
+        where: ilike(ruleLocalizations.name, '%3D printer%'),
+        columns: {
+          ruleId: true,
+        },
+      })
+      .catch((error) => {
+        console.error(error);
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('rules.api.fetchRulesFailed'),
+          cause: { toast: 'error' },
+        });
+      });
+
+    return ruleLocalization?.ruleId ?? null;
+  }),
 });
 
 export { rulesRouter };

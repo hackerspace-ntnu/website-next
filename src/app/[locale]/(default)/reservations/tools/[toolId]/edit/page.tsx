@@ -31,9 +31,9 @@ export default async function EditToolPage({
   const t = await getTranslations('reservations.tools.edit');
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g))
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g))
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 
@@ -45,8 +45,9 @@ export default async function EditToolPage({
     Number.isNaN(processedToolId) ||
     !Number.isInteger(processedToolId) ||
     processedToolId < 1
-  )
+  ) {
     return notFound();
+  }
 
   const tool = await api.tools.fetchTool(processedToolId);
 

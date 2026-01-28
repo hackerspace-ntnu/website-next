@@ -33,12 +33,18 @@ export async function generateMetadata({
     !memberId ||
     Number.isNaN(processedMemberId) ||
     !Number.isInteger(processedMemberId)
-  )
+  ) {
     return;
+  }
 
-  const user = await api.users.fetchMember({
-    id: processedMemberId,
-  });
+  let user: RouterOutput['users']['fetchMember'] | null = null;
+  try {
+    user = await api.users.fetchMember({
+      id: processedMemberId,
+    });
+  } catch {
+    return;
+  }
 
   if (!user) return;
 
@@ -72,9 +78,11 @@ export default async function MemberPage({
       id: processedMemberId,
     });
   } catch (error) {
-    console.log(error);
-    if (error instanceof TRPCError && error.code === 'FORBIDDEN') {
-      return <ErrorPageContent message={t('unauthorized')} />;
+    if (error instanceof TRPCError) {
+      if (error.code === 'FORBIDDEN') {
+        return <ErrorPageContent message={t('unauthorized')} />;
+      }
+      console.error(error);
     }
   }
 
@@ -85,7 +93,7 @@ export default async function MemberPage({
   const groups = await api.groups.fetchGroups();
   const skills = await api.skills.fetchAllSkills();
   const canEdit = auth.user?.groups.some((g) =>
-    ['admin', 'management'].includes(g),
+    ['management', 'admin'].includes(g),
   );
   const { about, members, ui } = await getMessages();
 

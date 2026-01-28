@@ -9,8 +9,13 @@ import {
   CardTitle,
 } from '@/components/ui/Card';
 import { Link } from '@/lib/locale/navigation';
+import type { RouterOutput } from '@/server/api';
 
-function InformationCard() {
+function InformationCard({
+  printerRuleId,
+}: {
+  printerRuleId: RouterOutput['rules']['fetch3dPrinterRuleId'];
+}) {
   const t = useTranslations('reservations');
 
   return (
@@ -19,19 +24,23 @@ function InformationCard() {
         <CardHeader>
           <CardTitle>{t('information.importantTitle')}</CardTitle>
           <CardDescription className='clamp-[text-sm-lg-clamp] text-balance'>
-            {t.rich('information.importantText', {
-              link: (chunks) => (
-                <Link
-                  href={{
-                    pathname: '/rules/[subsetId]',
-                    params: { subsetId: 5 },
-                  }}
-                  className='text-primary'
-                >
-                  {chunks}
-                </Link>
-              ),
-            })}
+            {printerRuleId
+              ? t.rich('information.importantText', {
+                  link: (chunks) => (
+                    <Link
+                      href={{
+                        pathname: '/rules/[subsetId]',
+                        params: { subsetId: printerRuleId },
+                      }}
+                      className='text-primary'
+                    >
+                      {chunks}
+                    </Link>
+                  ),
+                })
+              : t.rich('information.importantText', {
+                  link: (chunks) => chunks,
+                })}
           </CardDescription>
         </CardHeader>
       </CardContent>

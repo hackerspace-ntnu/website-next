@@ -384,6 +384,11 @@ const skillsData: InsertSkill[] = [
     nameEnglish: 'Web Development',
     nameNorwegian: 'Webutvikling',
   },
+  {
+    identifier: 'modeling',
+    nameEnglish: '3D Modeling',
+    nameNorwegian: '3D-modellering',
+  },
 ] as const;
 
 const usersSkillsData: InsertUserSkill[] = [

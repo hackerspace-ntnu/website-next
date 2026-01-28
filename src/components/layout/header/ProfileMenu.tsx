@@ -17,7 +17,7 @@ import { cx } from '@/lib/utils';
 type ProfileMenuProps = {
   hasUser: boolean;
   userId?: number;
-  isLeadership: boolean;
+  isManagement: boolean;
   t: {
     profile: string;
     signIn: string;
@@ -27,7 +27,7 @@ type ProfileMenuProps = {
   };
 };
 
-function ProfileMenu({ hasUser, userId, isLeadership, t }: ProfileMenuProps) {
+function ProfileMenu({ hasUser, userId, isManagement, t }: ProfileMenuProps) {
   const router = useRouter();
   // We use the pathname from next/navigation instead of next-intl.
   // If we used pathname from next-intl, the dynamic sections wouldn't be filled out,
@@ -76,7 +76,7 @@ function ProfileMenu({ hasUser, userId, isLeadership, t }: ProfileMenuProps) {
                 {t.settings}
               </Link>
             </DropdownMenuItem>
-            {isLeadership && (
+            {isManagement && (
               <DropdownMenuItem asChild>
                 <Link
                   href='/management'

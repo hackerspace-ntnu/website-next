@@ -25,14 +25,12 @@ export default async function NewStorageItemPage({
   setRequestLocale(locale as Locale);
 
   const t = await getTranslations('storage.edit');
-  const auth = await api.auth.state();
+  const { user } = await api.auth.state();
 
   if (
-    !auth.user?.groups.some((g) =>
-      ['labops', 'leadership', 'admin'].includes(g),
-    )
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g))
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 

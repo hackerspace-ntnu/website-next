@@ -32,7 +32,8 @@ const quotesRouter = createRouter({
             heardBy: true,
           },
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('quotes.api.failedToFetchQuotes'),
@@ -61,7 +62,8 @@ const quotesRouter = createRouter({
             localizations: true,
           },
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('quotes.api.failedToFetchQuotes'),
@@ -78,7 +80,7 @@ const quotesRouter = createRouter({
       if (
         quote.internal &&
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id
@@ -96,7 +98,8 @@ const quotesRouter = createRouter({
       .select({ count: count() })
       .from(quotes)
       .where(!isMember ? eq(quotes.internal, false) : undefined)
-      .catch(() => {
+      .catch((error) => {
+        console.error(error);
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: ctx.t('quotes.api.failedToFetchQuotes'),
@@ -119,7 +122,8 @@ const quotesRouter = createRouter({
         })
         .from(users)
         .where(eq(users.id, Number(input.userId)))
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('api.internalServerError'),
@@ -197,7 +201,8 @@ const quotesRouter = createRouter({
             heardBy: true,
           },
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('quotes.api.failedToFetchQuotes'),
@@ -219,7 +224,7 @@ const quotesRouter = createRouter({
       // check here instead of using a more strict procedure
       if (
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id
@@ -303,7 +308,8 @@ const quotesRouter = createRouter({
             heardBy: true,
           },
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('quotes.api.failedToFetchQuotes'),
@@ -325,7 +331,7 @@ const quotesRouter = createRouter({
       // check here instead of using a more strict procedure
       if (
         !user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) &&
         quote.saidBy.id !== user?.id &&
         quote.heardBy.id !== user?.id

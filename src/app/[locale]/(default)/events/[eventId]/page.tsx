@@ -94,20 +94,19 @@ export default async function EventDetailsPage({
   try {
     event = await api.events.fetchEvent(processedEventId);
   } catch (error) {
-    console.error(error);
-    if (
-      error instanceof TRPCError &&
-      ['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)
-    ) {
-      return (
-        <ErrorPageContent
-          message={
-            error.code === 'FORBIDDEN'
-              ? t('api.unauthorized')
-              : t('api.fetchEventFailed')
-          }
-        />
-      );
+    if (error instanceof TRPCError) {
+      if (error.code !== 'FORBIDDEN') console.error(error);
+      if (['INTERNAL_SERVER_ERROR', 'FORBIDDEN'].includes(error.code)) {
+        return (
+          <ErrorPageContent
+            message={
+              error.code === 'FORBIDDEN'
+                ? t('api.unauthorized')
+                : t('api.fetchEventFailed')
+            }
+          />
+        );
+      }
     }
   }
 
@@ -122,7 +121,7 @@ export default async function EventDetailsPage({
   const signUpInfo = user ? await api.events.fetchUserSignUp(event.id) : null;
 
   const canEdit = user?.groups.some((group) =>
-    ['labops', 'leadership', 'admin'].includes(group),
+    ['labops', 'management', 'admin'].includes(group),
   );
 
   const imageUrl = event.imageId
@@ -174,7 +173,7 @@ export default async function EventDetailsPage({
             variant='link'
             href={event.locationMapLink}
           >
-            <MapPinIcon className='h-8 w-8 text-black group-hover:text-primary dark:text-white' />
+            <MapPinIcon className='h-8 w-8 text-foreground group-hover:text-primary' />
             <span>{localization.location}</span>
           </ExternalLink>
         ) : (

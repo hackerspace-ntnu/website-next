@@ -50,7 +50,10 @@ export default async function EventsPage({
   });
   const totalResults = await api.events.nonActiveEventsTotal();
 
-  const upcomingEvents = events.filter((event) => event.startTime > new Date());
+  // Reverse to show upcoming events first
+  const upcomingEvents = events
+    .filter((event) => event.startTime > new Date())
+    .reverse();
   const pastEvents = events.filter((event) => event.endTime < new Date());
 
   const translations = {
@@ -69,7 +72,7 @@ export default async function EventsPage({
         <h1 className='my-4 text-center'>{t('title')}</h1>
         <div className='absolute right-0 xs:right-5 bottom-0 flex gap-2'>
           {user?.groups.some((group) =>
-            ['labops', 'leadership', 'admin'].includes(group),
+            ['labops', 'management', 'admin'].includes(group),
           ) && (
             <Link variant='default' size='icon' href='/events/new'>
               <PlusIcon />

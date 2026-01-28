@@ -6,6 +6,7 @@ import {
   type SearchParams,
 } from 'nuqs/server';
 import { PaginationCarousel } from '@/components/composites/PaginationCarousel';
+import { ErrorPageContent } from '@/components/layout/ErrorPageContent';
 import { LoanCard } from '@/components/storage/LoanCard';
 import { api } from '@/lib/api/server';
 
@@ -29,6 +30,12 @@ export default async function UserLoansPage({
 
   const t = await getTranslations('storage.loans');
   const tUi = await getTranslations('ui');
+  const { user } = await api.auth.state();
+
+  if (!user) {
+    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    return <ErrorPageContent message={t('unauthorized')} />;
+  }
 
   const searchParamsCache = createSearchParamsCache({
     [tUi('page')]: parseAsInteger.withDefault(1),
