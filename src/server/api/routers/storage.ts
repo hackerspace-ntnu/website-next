@@ -349,62 +349,64 @@ const storageRouter = createRouter({
       ).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const category = await ctx.db.query.itemCategories.findFirst({
-        where: or(
-          eq(itemCategories.nameEnglish, input.categoryName),
-          eq(itemCategories.nameNorwegian, input.categoryName),
-        ),
-      });
-      if (!category) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('storage.api.categoryNotFound'),
-          cause: { toast: 'error' },
+      return await ctx.db.transaction(async (tx) => {
+        const category = await ctx.db.query.itemCategories.findFirst({
+          where: or(
+            eq(itemCategories.nameEnglish, input.categoryName),
+            eq(itemCategories.nameNorwegian, input.categoryName),
+          ),
         });
-      }
+        if (!category) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('storage.api.categoryNotFound'),
+            cause: { toast: 'error' },
+          });
+        }
 
-      const insertValues: InsertStorageItem = {
-        categoryId: category.id,
-        ...input,
-      };
-      if (input.image) {
-        const file = await insertFile(
-          input.image,
-          'storage-items',
-          ctx.user.id,
-        );
-        insertValues.imageId = file.id;
-      }
-      await ctx.db
-        .update(storageItems)
-        .set(insertValues)
-        .where(eq(storageItems.id, input.id));
-      await ctx.db
-        .update(itemLocalizations)
-        .set({
-          name: input.nameEnglish,
-          description: input.descriptionEnglish,
-          location: input.locationEnglish,
-        })
-        .where(
-          and(
-            eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'en-GB'),
-          ),
-        );
-      await ctx.db
-        .update(itemLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          description: input.descriptionNorwegian,
-          location: input.locationNorwegian,
-        })
-        .where(
-          and(
-            eq(itemLocalizations.itemId, input.id),
-            eq(itemLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        const insertValues: InsertStorageItem = {
+          categoryId: category.id,
+          ...input,
+        };
+        if (input.image) {
+          const file = await insertFile(
+            input.image,
+            'storage-items',
+            ctx.user.id,
+          );
+          insertValues.imageId = file.id;
+        }
+        await tx
+          .update(storageItems)
+          .set(insertValues)
+          .where(eq(storageItems.id, input.id));
+        await tx
+          .update(itemLocalizations)
+          .set({
+            name: input.nameEnglish,
+            description: input.descriptionEnglish,
+            location: input.locationEnglish,
+          })
+          .where(
+            and(
+              eq(itemLocalizations.itemId, input.id),
+              eq(itemLocalizations.locale, 'en-GB'),
+            ),
+          );
+        await tx
+          .update(itemLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            description: input.descriptionNorwegian,
+            location: input.locationNorwegian,
+          })
+          .where(
+            and(
+              eq(itemLocalizations.itemId, input.id),
+              eq(itemLocalizations.locale, 'nb-NO'),
+            ),
+          );
+      });
     }),
   deleteItem: protectedEditProcedure
     .input((input) => deleteItemSchema().parse(input))
