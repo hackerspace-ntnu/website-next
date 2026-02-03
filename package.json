@@ -169,6 +169,7 @@
     "@types/postcss-load-config": "^3.0.1",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
+    "baseline-browser-mapping": "^2.9.19",
     "client-only": "^0.0.1",
     "drizzle-kit": "^0.30.6",
     "drizzle-seed": "^0.3.1",
