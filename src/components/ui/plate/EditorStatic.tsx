@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from 'cva';
-import { PlateStatic, type PlateStaticProps } from 'platejs';
+import { PlateStatic, type PlateStaticProps } from 'platejs/static';
 import { cx } from '@/lib/utils/index';
 
 const editorVariants = cva({
