@@ -1,10 +1,7 @@
-import type {
-  SlateElementProps,
-  TCaptionElement,
-  TResizableProps,
-  TVideoElement,
-} from 'platejs';
-import { NodeApi, SlateElement } from 'platejs';
+import type { TCaptionElement, TResizableProps, TVideoElement } from 'platejs';
+import { NodeApi } from 'platejs';
+import type { SlateElementProps } from 'platejs/static';
+import { SlateElement } from 'platejs/static';
 
 function VideoElementStatic(
   props: SlateElementProps<TVideoElement & TCaptionElement & TResizableProps>,

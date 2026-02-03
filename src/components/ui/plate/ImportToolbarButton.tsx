@@ -4,8 +4,8 @@ import { MarkdownPlugin } from '@platejs/markdown';
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
 import { ArrowUpToLineIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { getEditorDOMFromHtmlString } from 'platejs';
 import { useEditorRef } from 'platejs/react';
+import { getEditorDOMFromHtmlString } from 'platejs/static';
 import { useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
 import {
