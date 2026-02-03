@@ -30,7 +30,7 @@ function handleI18nResponse(request: NextRequest) {
   return handleI18nRouting(request);
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (request.method === 'GET') {
