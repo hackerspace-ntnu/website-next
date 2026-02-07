@@ -21,6 +21,7 @@ import {
   usersRouter,
   utilsRouter,
 } from '@/server/api/routers';
+import { counterRouter } from '@/server/api/routers/counter';
 import { createCallerFactory, createRouter } from '@/server/api/trpc';
 
 const router = createRouter({
@@ -44,6 +45,7 @@ const router = createRouter({
   tools: toolsRouter,
   users: usersRouter,
   utils: utilsRouter,
+  counter: counterRouter,
 });
 
 const createCaller = createCallerFactory(router);
