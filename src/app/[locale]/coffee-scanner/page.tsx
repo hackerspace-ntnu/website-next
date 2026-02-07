@@ -6,7 +6,7 @@ import { api } from '@/lib/api/client';
 export default function CoffeePage() {
   const [currentNumber, setNumber] = useState<number>(0);
 
-  const result = api.counter.count.useSubscription(undefined, {
+  api.counter.count.useSubscription(undefined, {
     onData: (num) => {
       setNumber(num);
     },
