@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { api } from '@/lib/api/client';
 
 export default function CoffeePage() {
-  const [currentNumber, setNumber] = useState<number>(0);
+  const [currentCardId, setCardId] = useState<string>('');
 
-  api.counter.count.useSubscription(undefined, {
-    onData: (num) => {
-      setNumber(num);
+  api.coffeeScanner.scan.useSubscription(undefined, {
+    onData: (data) => {
+      setCardId(data);
     },
   });
 
   return (
     <div>
       <h1>Hi there, this is the coffee page.</h1>
-      <div>This is the current number: {currentNumber}</div>
+      <div>This is the current id: {currentCardId}</div>
     </div>
   );
 }

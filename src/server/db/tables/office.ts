@@ -1,9 +1,16 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import { boolean, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
-const coffee = pgTable('coffee', {
+const coffeeScanner = pgTable('coffee', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  cardId: varchar('card_id', { length: 32 }).notNull(),
 });
 
 const doorStatus = pgTable('door_status', {
@@ -12,14 +19,14 @@ const doorStatus = pgTable('door_status', {
   open: boolean('open').notNull(),
 });
 
-type SelectCoffee = InferSelectModel<typeof coffee>;
-type InsertCoffee = InferInsertModel<typeof coffee>;
+type SelectCoffee = InferSelectModel<typeof coffeeScanner>;
+type InsertCoffee = InferInsertModel<typeof coffeeScanner>;
 
 type SelectDoorStatus = InferSelectModel<typeof doorStatus>;
 type InsertDoorStatus = InferInsertModel<typeof doorStatus>;
 
 export {
-  coffee,
+  coffeeScanner,
   doorStatus,
   type SelectCoffee,
   type InsertCoffee,
