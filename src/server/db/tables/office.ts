@@ -10,6 +10,7 @@ import {
 const coffeeScanner = pgTable('coffee', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  drinkType: varchar('drink_type', { length: 64 }).notNull(),
   cardId: varchar('card_id', { length: 32 }).notNull(),
 });
 

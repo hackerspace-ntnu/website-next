@@ -19,6 +19,13 @@ const coffeeScanRouter = createRouter({
       yield data;
     }
   }),
+  tooMuchChocolate: publicProcedure.subscription(async function* ({ signal }) {
+    for await (const [data] of on(eventEmitter, 'tooMuchChocolate', {
+      signal,
+    })) {
+      yield data;
+    }
+  }),
 });
 
 export { officeRouter, coffeeScanRouter };

@@ -1,6 +1,10 @@
 // import { headers } from 'next/headers';
+
+import { and, eq, gte, lt } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { eventEmitter } from '@/lib/api/eventEmitter';
+import { db } from '@/server/db';
+import { coffeeScanner } from '@/server/db/tables';
 
 export async function POST(request: NextRequest) {
   // const headersList = await headers();
@@ -19,6 +23,37 @@ export async function POST(request: NextRequest) {
         { error: '"cardId" must be a string' },
         { status: 400 },
       );
+    }
+
+    const today = new Date();
+    const startOfDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+    );
+    const endOfDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 1,
+    );
+
+    const entriesToday = await db
+      .select()
+      .from(coffeeScanner)
+      .where(
+        and(
+          eq(coffeeScanner.cardId, cardId),
+          eq(coffeeScanner.drinkType, 'sjokolademelk'),
+          gte(coffeeScanner.createdAt, startOfDay),
+          lt(coffeeScanner.createdAt, endOfDay),
+        ),
+      );
+
+    // TODO: Differentiate between members and non members.
+    if (entriesToday.length >= 2) {
+      eventEmitter.emit('tooMuchChocolate', true);
+    } else {
+      eventEmitter.emit('tooMuchChocolate', false);
     }
 
     eventEmitter.emit('updateCoffee', cardId);
