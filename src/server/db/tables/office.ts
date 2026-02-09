@@ -1,16 +1,30 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import {
   boolean,
+  pgEnum,
   pgTable,
   serial,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
 
+// Consider just using a boolean for chocolate type or not,
+// But this can be cool data to view in the future. :)
+// TODO: Write down all the drink types we have
+export const drinkTypeEnum = pgEnum('drink_type', [
+  'kaffe',
+  'sjokolademelk',
+  'wiener_melange',
+  'kaffe_melk',
+  'varmt_vann',
+]);
+
+// We either do a boolean labeling if this is a chocolate type drink.
+// Or we can OR operatre on all the chocolate drinks when query.
 const coffeeScanner = pgTable('coffee', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  drinkType: varchar('drink_type', { length: 64 }).notNull(),
+  drinkType: drinkTypeEnum('drink_type').notNull(),
   cardId: varchar('card_id', { length: 32 }).notNull(),
 });
 

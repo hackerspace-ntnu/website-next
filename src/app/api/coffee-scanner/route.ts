@@ -1,5 +1,6 @@
 // import { headers } from 'next/headers';
 
+import { addDays, startOfToday } from 'date-fns';
 import { and, eq, gte, lt } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { eventEmitter } from '@/lib/api/eventEmitter';
@@ -25,18 +26,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const today = new Date();
-    const startOfDay = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-    );
-    const endOfDay = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 1,
-    );
-
     const entriesToday = await db
       .select()
       .from(coffeeScanner)
@@ -44,8 +33,8 @@ export async function POST(request: NextRequest) {
         and(
           eq(coffeeScanner.cardId, cardId),
           eq(coffeeScanner.drinkType, 'sjokolademelk'),
-          gte(coffeeScanner.createdAt, startOfDay),
-          lt(coffeeScanner.createdAt, endOfDay),
+          gte(coffeeScanner.createdAt, startOfToday()),
+          lt(coffeeScanner.createdAt, addDays(startOfToday(), 1)),
         ),
       );
 
