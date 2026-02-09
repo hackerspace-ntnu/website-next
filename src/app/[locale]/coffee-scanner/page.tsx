@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { AnimatedCoffeeScannerSVG } from '@/components/assets/CoffeeScannerSVG';
 import { HackerspaceLogo } from '@/components/assets/logos';
 import { api } from '@/lib/api/client';
 
@@ -19,8 +20,6 @@ export default function CoffeePage() {
       setTooMuchChocolate(data);
     },
   });
-
-  // [#EBBE9B]
 
   if (currentCardId === '') {
     return (
@@ -41,6 +40,7 @@ export default function CoffeePage() {
           Scan your <span className='font-extrabold'>student card</span> before
           grabbing a drink
         </h1>
+        <AnimatedCoffeeScannerSVG className='-translate-x-1/2 -translate-y-1/2 absolute top-10/14 left-1/2 h-40 w-70' />
         <div className='-translate-x-1/2 absolute bottom-0 left-1/2 mb-10 flex flex-row items-center gap-2 text-2xl'>
           <span className='font-montserrat'>PROVIDED BY</span>
           <div className='flex flex-row items-center'>
