@@ -28,8 +28,8 @@ export default async function SlidesPage({
 
   const { user } = await api.auth.state();
 
-  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+  if (!user?.groups.includes('admin')) {
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 

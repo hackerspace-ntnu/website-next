@@ -3,7 +3,7 @@ import { and, asc, count, eq, exists, ilike, or, type SQL } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
   authenticatedProcedure,
-  leadershipProcedure,
+  managementProcedure,
   protectedProcedure,
   publicProcedure,
 } from '@/server/api/procedures';
@@ -69,7 +69,7 @@ const usersRouter = createRouter({
         .catch((error) => {
           console.error('Error fetching user:', error);
           throw new TRPCError({
-            code: 'NOT_FOUND',
+            code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('members.api.errorFetchingMember'),
             cause: { toast: 'error' },
           });
@@ -92,7 +92,7 @@ const usersRouter = createRouter({
       // But we allow seeing our own profile
       if (
         (!result.usersGroups || result.usersGroups.length === 0) &&
-        !user?.groups.some((g) => ['admin', 'management'].includes(g)) &&
+        !user?.groups.some((g) => ['management', 'admin'].includes(g)) &&
         !(user && user.id === result.id)
       ) {
         throw new TRPCError({
@@ -306,7 +306,7 @@ const usersRouter = createRouter({
 
       return Math.ceil(totalCount[0].count);
     }),
-  fetchUsers: leadershipProcedure
+  fetchUsers: managementProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )
@@ -361,7 +361,7 @@ const usersRouter = createRouter({
 
       return await Promise.all(usersDataPromises);
     }),
-  totalResultsForUsersQuery: leadershipProcedure
+  totalResultsForUsersQuery: managementProcedure
     .input((input) =>
       fetchUsersSchema(useTranslationsFromContext()).parse(input),
     )

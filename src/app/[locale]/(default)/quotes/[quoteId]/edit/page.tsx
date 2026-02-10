@@ -36,19 +36,20 @@ export default async function NewQuotePage({
     Number.isNaN(processedQuoteId) ||
     !Number.isInteger(processedQuoteId) ||
     processedQuoteId < 1
-  )
+  ) {
     return notFound();
+  }
 
   const quote = await api.quotes.fetchQuote(processedQuoteId);
 
   if (!quote) return notFound();
 
   if (
-    !user?.groups.some((g) => ['labops', 'leadership', 'admin'].includes(g)) &&
+    !user?.groups.some((g) => ['labops', 'management', 'admin'].includes(g)) &&
     quote.saidBy.id !== user?.id &&
     quote.heardBy.id !== user?.id
   ) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={tUpdate('unauthorized')} />;
   }
 

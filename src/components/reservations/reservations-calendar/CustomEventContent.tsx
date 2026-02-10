@@ -32,7 +32,7 @@ function CustomEventContent({ eventInfo, user }: CustomEventContentProps) {
   const t = useTranslations('reservations');
   const format = useFormatter();
   const isManagement = !!user?.groups.some((g) =>
-    ['management', 'leadership', 'admin'].includes(g),
+    ['management', 'admin'].includes(g),
   );
 
   const isOwner = eventInfo.event.extendedProps.userId === user?.id;

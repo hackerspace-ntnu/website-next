@@ -88,9 +88,7 @@ function MentionInputElement(props: PlateElementProps<TComboboxInputElement>) {
       limit: 5,
     },
     {
-      enabled: !!user?.groups.some((group) =>
-        ['labops', 'leadership', 'admin'].includes(group),
-      ),
+      enabled: !!user && user.groups.length > 0,
     },
   );
 

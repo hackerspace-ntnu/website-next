@@ -1,8 +1,7 @@
 import { TRPCError } from '@trpc/server';
-import { and, eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import {
-  leadershipProcedure,
   managementProcedure,
   protectedProcedure,
   publicProcedure,
@@ -16,7 +15,12 @@ import { userToSkillSchema } from '@/validations/skills/userToSkillSchema';
 
 const skillsRouter = createRouter({
   fetchAllSkills: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.query.skills.findMany();
+    return await ctx.db.query.skills.findMany({
+      orderBy:
+        ctx.locale === 'en-GB'
+          ? asc(skills.nameEnglish)
+          : asc(skills.nameNorwegian),
+    });
   }),
   fetchSkill: publicProcedure
     .input((input) =>
@@ -27,7 +31,7 @@ const skillsRouter = createRouter({
         where: eq(skills.identifier, input),
       });
     }),
-  createSkill: leadershipProcedure
+  createSkill: managementProcedure
     .input((input) => skillSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
       const existingSkill = await ctx.db.query.skills.findFirst({
@@ -46,7 +50,7 @@ const skillsRouter = createRouter({
 
       await ctx.db.insert(skills).values(input);
     }),
-  editSkill: leadershipProcedure
+  editSkill: managementProcedure
     .input((input) =>
       editSkillSchema(useTranslationsFromContext()).parse(input),
     )
@@ -72,7 +76,7 @@ const skillsRouter = createRouter({
         })
         .where(eq(skills.id, input.id));
     }),
-  deleteSkill: leadershipProcedure
+  deleteSkill: managementProcedure
     .input((input) =>
       skillIdentifierSchema(useTranslationsFromContext()).parse(input),
     )

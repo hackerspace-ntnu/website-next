@@ -25,8 +25,8 @@ export default async function SkillsManagementPage({
   const t = await getTranslations('management');
   const { user } = await api.auth.state();
 
-  if (!user?.groups.some((g) => ['leadership', 'admin'].includes(g))) {
-    // TODO: Actually return a HTTP 401 Unauthorized reponse whenever `unauthorized.tsx` is stable
+  if (!user?.groups.some((g) => ['management', 'admin'].includes(g))) {
+    // TODO: Actually return a HTTP 401 Unauthorized response whenever `unauthorized.tsx` is stable
     return <ErrorPageContent message={t('unauthorized')} />;
   }
 
@@ -45,14 +45,14 @@ export default async function SkillsManagementPage({
         {t('backToManagement')}
       </Link>
       <div className='relative'>
-        <h1 className='text-center'>{t('skills.title')}</h1>
+        <h1 className='md:text-center'>{t('skills.title')}</h1>
         <div className='-translate-y-1/2 absolute top-1/2 right-0 flex gap-2'>
           <Link variant='default' size='icon' href='/management/skills/new'>
             <PlusIcon />
           </Link>
         </div>
       </div>
-      <div className='my-4 grid grid-cols-2 gap-4'>
+      <div className='my-4 grid grid-cols-1 gap-4 lg:grid-cols-2'>
         {skills.map((skill) => (
           <Link
             href={{

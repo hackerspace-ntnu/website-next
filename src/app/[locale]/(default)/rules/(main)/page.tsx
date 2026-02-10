@@ -2,7 +2,7 @@ import { PlusIcon } from 'lucide-react';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { RuleCard } from '@/components/rules/RuleCard';
-import { Link } from '@/components/ui/Link';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { api } from '@/lib/api/server';
 
 export async function generateMetadata() {
@@ -32,7 +32,7 @@ export default async function RulesPage({
       <div className='relative'>
         <h1 className='text-center'>{t('title')}</h1>
         {user?.groups.some((g) =>
-          ['labops', 'leadership', 'admin'].includes(g),
+          ['labops', 'management', 'admin'].includes(g),
         ) && (
           <Link
             className='-translate-y-1/2 absolute top-1/2 right-0'
@@ -44,6 +44,15 @@ export default async function RulesPage({
           </Link>
         )}
       </div>
+      <p className='text-center'>
+        {t.rich('statutesInfo', {
+          link: (children) => (
+            <ExternalLink href='https://raw.githubusercontent.com/hackerspace-ntnu/statutter/refs/heads/master/main.pdf'>
+              {children}
+            </ExternalLink>
+          ),
+        })}
+      </p>
       <div className='flex shrink flex-wrap justify-center p-4 md:flex-nowrap md:space-x-5'>
         <div className='mt-2 w-full md:size-full md:w-1/2'>
           {isMember && (

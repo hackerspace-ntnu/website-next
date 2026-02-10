@@ -280,13 +280,17 @@ const eventsRouter = createRouter({
         })),
       );
 
+      // TODO: Remove this sorting and replace it with orderBy when it can be used with relations in Drizzle
+      // See GitHub issue: https://github.com/drizzle-team/drizzle-orm/issues/2650
+      const sortedUsers = usersWithPictures.sort((a, b) => {
+        const nameA = `${a.user.firstName} ${a.user.lastName}`.toLowerCase();
+        const nameB = `${b.user.firstName} ${b.user.lastName}`.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+
       return {
-        confirmed: usersWithPictures.filter(
-          (userEvent) => !userEvent.waitlistedAt,
-        ),
-        waitlisted: usersWithPictures.filter(
-          (userEvent) => userEvent.waitlistedAt,
-        ),
+        confirmed: sortedUsers.filter((userEvent) => !userEvent.waitlistedAt),
+        waitlisted: sortedUsers.filter((userEvent) => userEvent.waitlistedAt),
       };
     }),
   createEvent: protectedEditProcedure
