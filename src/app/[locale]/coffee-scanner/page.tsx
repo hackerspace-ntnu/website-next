@@ -37,10 +37,10 @@ export default function CoffeePage() {
           </span>
         </h1>
         <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-5/12 left-1/2 w-max max-w-9/10 text-center font-normal text-6xl'>
-          Scan your <span className='font-extrabold'>student card</span> before
-          grabbing a drink
+          Scan your <span className='font-extrabold'>student card</span>
+          before grabbing a drink
         </h1>
-        <AnimatedCoffeeScannerSVG className='-translate-x-1/2 -translate-y-1/2 absolute top-10/14 left-1/2 h-40 w-70' />
+        <AnimatedCoffeeScannerSVG className='-translate-x-1/2 -translate-y-1/2 absolute top-17/20 left-12/20 h-100 w-100' />
         <div className='absolute bottom-10 left-10 flex flex-row items-center gap-2 text-lg'>
           <span className='font-montserrat'>PROVIDED BY</span>
           <div className='flex flex-row items-center'>

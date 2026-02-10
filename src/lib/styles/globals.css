@@ -147,15 +147,15 @@
   --animate-rfid-card: rfid 4s ease-in-out infinite alternate;
   @keyframes rfid {
     0% {
-      transform: translate(45%, 45%);
+      transform: translate(45%, 20%);
       opacity: 0;
     }
     30% {
-      transform: translate(45%, 45%);
+      transform: translate(45%, 20%);
       opacity: 0;
     }
     40% {
-      transform: translate(45%, 45%);
+      transform: translate(45%, 20%);
       opacity: 1;
     }
     70% {
