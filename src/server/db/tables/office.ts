@@ -13,9 +13,12 @@ import {
 // TODO: Write down all the drink types we have
 export const drinkTypeEnum = pgEnum('drink_type', [
   'kaffe',
+  'kaffe_melk',
+  'cappuccino',
   'sjokolademelk',
   'wiener_melange',
-  'kaffe_melk',
+  'kaffe_sjoko',
+  'latte_macchiato',
   'varmt_vann',
 ]);
 
