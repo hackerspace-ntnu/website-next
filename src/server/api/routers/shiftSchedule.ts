@@ -181,7 +181,7 @@ const shiftScheduleRouter = createRouter({
         userId: ctx.user.id,
         endDate: input.recurring
           ? null
-          : endOfWeek(new Date(), { weekStartsOn: 6 }), // Week ends on Friday
+          : endOfWeek(new Date(), { weekStartsOn: 6 }), // Week ends on Friday (so you can't see the previous week's shifts on the weekend)
       });
     }),
   unregisterShift: protectedProcedure
