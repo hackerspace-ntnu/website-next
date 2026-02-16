@@ -1874,7 +1874,12 @@
       "providedBy": "Provided by",
       "scanYour": "Scan your",
       "studentCard": "student card",
-      "grabDrink": "before grabbing your drink"
+      "grabDrink": "before grabbing your drink",
+      "welcome": "Welcome!",
+      "welcomeBack": "Welcome back!",
+      "yourCardId": "Your card-ID",
+      "selectADrink": "Choose a drink on the tablet before you select your drink on the coffee machine",
+      "yourStats": "Your statistics"
     }
   }
 }

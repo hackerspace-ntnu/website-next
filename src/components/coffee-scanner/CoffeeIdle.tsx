@@ -8,7 +8,7 @@ import { ShimmerText } from '@/components/coffee-scanner/ShimmerText';
 function CoffeeIdle() {
   const t = useTranslations('coffeeScanner');
   return (
-    <div>
+    <>
       <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-2/12 left-1/2 w-max max-w-9/10 text-center font-extrabold text-7xl'>
         {t('ui.wantSome')}{' '}
         <ShimmerText
@@ -33,7 +33,7 @@ function CoffeeIdle() {
           <span className='font-bold font-montserrat'> HACKERSPACE</span>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

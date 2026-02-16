@@ -1874,7 +1874,12 @@
       "providedBy": "Levert av",
       "scanYour": "Scan",
       "studentCard": "student kortet",
-      "grabDrink": "ditt før du tar en drink"
+      "grabDrink": "ditt før du tar en drink",
+      "welcome": "Velkommen!",
+      "welcomeBack": "Velkommen tilbake!",
+      "yourCardId": "Din kort-ID",
+      "selectADrink": "Velg en drink på nettbrettet før du velger den samme på kaffemaskinen",
+      "yourStats": "Din statestikk"
     }
   }
 }

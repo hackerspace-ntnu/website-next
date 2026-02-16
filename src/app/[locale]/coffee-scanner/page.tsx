@@ -1,6 +1,7 @@
 import { type Locale, type Messages, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { CoffeeIdle } from '@/components/coffee-scanner/CoffeeIdle';
+import { CoffeeActive } from '@/components/coffee-scanner/CoffeeActive';
+// import { CoffeeIdle } from '@/components/coffee-scanner/CoffeeIdle';
 // import { AnimatedCoffeeScannerSVG } from '@/components/assets/CoffeeScannerSVG';
 // import { HackerspaceLogo } from '@/components/assets/logos';
 // import { CoffeeCard } from '@/components/coffee-scanner/CoffeeCard';
@@ -52,30 +53,13 @@ export default async function CoffeePage({
   // //   }
   // // }, [currentCardId]);
 
-  // if (cardId.data === '') {
-  // return (
-  //   <main className='absolute top-0 left-0 h-full w-full'>
-  //     {/* <div>This is the current id: {currentCardId}</div>
-  //     {tooMuchChocolate && (
-  //       <div>This user has taken too much chocolate. SHAME ON YOU!</div>
-  //     )} */}
-  //     <div className='m-4 grid grid-cols-4 grid-rows-2 gap-5'>
-  //       {drinkInfoArray.map((drinkInfo, _index) => (
-  //         <CoffeeCard
-  //           imgSource={drinkInfo.imageSource}
-  //           drinkType={drinkInfo.displayText}
-  //           className='text-center h-[150px]'
-  //         />
-  //       ))}
-  //     </div>
-  //   </main>
-  // );
   return (
     <main className='absolute top-0 left-0 h-full w-full'>
       <NextIntlClientProvider
         messages={{ coffeeScanner } as Pick<Messages, 'coffeeScanner'>}
       >
-        <CoffeeIdle />
+        {/* <CoffeeIdle /> */}
+        <CoffeeActive cardId={''} tooMuchChocolate={false} />
       </NextIntlClientProvider>
     </main>
   );
