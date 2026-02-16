@@ -1856,5 +1856,25 @@
       "editToolFailed": "Failed to edit tool",
       "weekendsMemberOnly": "Only members can reserve on weekends"
     }
+  },
+  "coffeeScanner": {
+    "drinks": {
+      "coffee": "Coffee",
+      "coffeeMilk": "Coffee Milk",
+      "cappuccino": "Cappuccino",
+      "chocolateMilkSpaced": "Chocolate Milk",
+      "chocolateMilkNormal": "Chocolate Milk",
+      "wienerMelange": "Wiener Melange",
+      "coffeeChocolate": "Coffee Chocolate",
+      "latteMacchiato": "Latte Macchiato",
+      "hotWater": "Hot Water"
+    },
+    "ui": {
+      "wantSome": "Want some",
+      "providedBy": "Provided by",
+      "scanYour": "Scan your",
+      "studentCard": "student card",
+      "grabDrink": "before grabbing your drink"
+    }
   }
 }

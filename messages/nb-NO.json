@@ -1856,5 +1856,25 @@
       "editToolFailed": "Kunne ikke opprette verktøy",
       "weekendsMemberOnly": "Bare medlemmer kan reservere på helger"
     }
+  },
+  "coffeeScanner": {
+    "drinks": {
+      "coffee": "Kaffe",
+      "coffeeMilk": "Kaffe Melk",
+      "cappuccino": "Cappuccino",
+      "chocolateMilkSpaced": "Sjokolade Melk",
+      "chocolateMilkNormal": "Sjokolademelk",
+      "wienerMelange": "Wiener Melange",
+      "coffeeChocolate": "Kaffe Sjoko",
+      "latteMacchiato": "Latte Macchiato",
+      "hotWater": "Varmt Vann"
+    },
+    "ui": {
+      "wantSome": "Vil du ha noe",
+      "providedBy": "Levert av",
+      "scanYour": "Scan",
+      "studentCard": "student kortet",
+      "grabDrink": "ditt før du tar en drink"
+    }
   }
 }
