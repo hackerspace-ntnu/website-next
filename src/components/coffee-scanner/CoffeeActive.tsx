@@ -6,6 +6,7 @@ import { CoffeeCard } from '@/components/coffee-scanner/CoffeeCard';
 type DrinkInfo = {
   imageSource: string;
   displayText: string;
+  isChocolate: boolean;
 };
 
 function CoffeeActive({
@@ -19,20 +20,46 @@ function CoffeeActive({
   const tUi = useTranslations('coffeeScanner.ui');
 
   const drinks: DrinkInfo[] = [
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('coffee') },
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('coffeeMilk') },
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('cappuccino') },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('coffee'),
+      isChocolate: false,
+    },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('coffeeMilk'),
+      isChocolate: false,
+    },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('cappuccino'),
+      isChocolate: false,
+    },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('chocolateMilkSpaced'),
+      isChocolate: true,
     },
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('wienerMelange') },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('wienerMelange'),
+      isChocolate: true,
+    },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('coffeeChocolate'),
+      isChocolate: true,
     },
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('latteMacchiato') },
-    { imageSource: '/drinks/relax_cat.webp', displayText: t('hotWater') },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('latteMacchiato'),
+      isChocolate: false,
+    },
+    {
+      imageSource: '/drinks/relax_cat.webp',
+      displayText: t('hotWater'),
+      isChocolate: false,
+    },
   ];
 
   return (
@@ -53,8 +80,8 @@ function CoffeeActive({
         <div className='m-10 grid grid-cols-4 grid-rows-2 gap-6'>
           {drinks.map((drinkInfo) => (
             <CoffeeCard
-              imgSource={drinkInfo.imageSource}
-              drinkType={drinkInfo.displayText}
+              data={drinkInfo}
+              tooMuchChocolate={tooMuchChocolate}
               className='h-[150px] text-center'
               key={drinkInfo.displayText}
             />
@@ -65,4 +92,4 @@ function CoffeeActive({
   );
 }
 
-export { CoffeeActive };
+export { CoffeeActive, type DrinkInfo };

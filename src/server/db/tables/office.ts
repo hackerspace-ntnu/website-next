@@ -12,14 +12,14 @@ import {
 // But this can be cool data to view in the future. :)
 // TODO: Write down all the drink types we have
 export const drinkTypeEnum = pgEnum('drink_type', [
-  'kaffe',
-  'kaffe_melk',
+  'coffee',
+  'coffee_milk',
   'cappuccino',
-  'sjokolademelk',
+  'chocolate_milk',
   'wiener_melange',
-  'kaffe_sjoko',
+  'coffee_chocolate',
   'latte_macchiato',
-  'varmt_vann',
+  'hot_water',
 ]);
 
 // We either do a boolean labeling if this is a chocolate type drink.
