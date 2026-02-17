@@ -2,10 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 import { CoffeeCard } from '@/components/coffee-scanner/CoffeeCard';
+import { toast } from '@/components/ui/Toaster';
+import { api } from '@/lib/api/client';
+import type { drinkTypes } from '@/lib/constants';
 
 type DrinkInfo = {
   imageSource: string;
   displayText: string;
+  drinkType: (typeof drinkTypes)[number];
   isChocolate: boolean;
 };
 
@@ -18,49 +22,75 @@ function CoffeeActive({
 }) {
   const t = useTranslations('coffeeScanner.drinks');
   const tUi = useTranslations('coffeeScanner.ui');
+  const tApi = useTranslations('coffeeScanner.api');
 
   const drinks: DrinkInfo[] = [
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('coffee'),
+      drinkType: 'coffee',
       isChocolate: false,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('coffeeMilk'),
+      drinkType: 'coffee_milk',
       isChocolate: false,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('cappuccino'),
+      drinkType: 'cappuccino',
       isChocolate: false,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('chocolateMilkSpaced'),
+      drinkType: 'chocolate_milk',
       isChocolate: true,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('wienerMelange'),
+      drinkType: 'wiener_melange',
       isChocolate: true,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('coffeeChocolate'),
+      drinkType: 'coffee_chocolate',
       isChocolate: true,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('latteMacchiato'),
+      drinkType: 'latte_macchiato',
       isChocolate: false,
     },
     {
       imageSource: '/drinks/relax_cat.webp',
       displayText: t('hotWater'),
+      drinkType: 'hot_water',
       isChocolate: false,
     },
   ];
+
+  const addCoffeeEntry = api.coffeeScanner.addCoffeeEntry.useMutation({
+    onSuccess: () => {
+      toast.success(tApi('addEntrySuccess'));
+    },
+  });
+
+  const sendEntry = (
+    drinkType: (typeof drinkTypes)[number],
+    isChocolate: boolean,
+  ) => {
+    addCoffeeEntry.mutate({
+      drinkType,
+      isChocolate,
+      cardId,
+    });
+  };
 
   return (
     <div className='flex h-full flex-col justify-end'>
@@ -82,7 +112,8 @@ function CoffeeActive({
             <CoffeeCard
               data={drinkInfo}
               tooMuchChocolate={tooMuchChocolate}
-              className='h-[150px] text-center'
+              className='h-40 text-center'
+              onClick={sendEntry}
               key={drinkInfo.displayText}
             />
           ))}

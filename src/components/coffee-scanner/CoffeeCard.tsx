@@ -3,19 +3,30 @@
 import Image from 'next/image';
 import type { DrinkInfo } from '@/components/coffee-scanner/CoffeeActive';
 import { Card, CardContent } from '@/components/ui/Card';
+import type { drinkTypes } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 
 type CoffeeCardProps = {
   data: DrinkInfo;
   tooMuchChocolate: boolean;
   className?: string;
+  onClick: (
+    drinkType: (typeof drinkTypes)[number],
+    isChocolate: boolean,
+  ) => void;
 };
 
-function CoffeeCard({ data, tooMuchChocolate, className }: CoffeeCardProps) {
+function CoffeeCard({
+  data,
+  tooMuchChocolate,
+  className,
+  onClick,
+}: CoffeeCardProps) {
   const isDisabled = data.isChocolate && tooMuchChocolate;
 
   const handleClick = () => {
-    // TODO sent api request.
+    if (isDisabled) return;
+    onClick(data.drinkType, data.isChocolate);
   };
 
   return (
@@ -25,6 +36,8 @@ function CoffeeCard({ data, tooMuchChocolate, className }: CoffeeCardProps) {
         className,
         isDisabled ? 'brightness-50' : 'brightness-100',
       )}
+      aria-disabled={isDisabled}
+      onClick={handleClick}
     >
       <CardContent className='relative m-0 h-full w-full rounded-2xl p-0'>
         <h2

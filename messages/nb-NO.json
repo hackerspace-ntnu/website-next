@@ -1880,6 +1880,12 @@
       "yourCardId": "Din kort-ID",
       "selectADrink": "Velg en drink på nettbrettet før du velger den samme på kaffemaskinen",
       "yourStats": "Din statestikk"
+    },
+    "api": {
+      "invalidDrinkType": "Den spesifiserte drinkType er ikke en godkjent drikke.",
+      "mustSpecifyChocolate": "Må spesifere om drikken er laget av sjokolade (boolean).",
+      "addEntryFailed": "Det oppsto en feil da en drikkeoppføring skulle legges til.",
+      "addEntrySuccess": "Drikkeoppføringen ble vellykket."
     }
   }
 }

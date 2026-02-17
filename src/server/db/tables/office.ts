@@ -7,20 +7,12 @@ import {
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core';
+import { drinkTypes } from '@/lib/constants';
 
 // Consider just using a boolean for chocolate type or not,
 // But this can be cool data to view in the future. :)
 // TODO: Write down all the drink types we have
-export const drinkTypeEnum = pgEnum('drink_type', [
-  'coffee',
-  'coffee_milk',
-  'cappuccino',
-  'chocolate_milk',
-  'wiener_melange',
-  'coffee_chocolate',
-  'latte_macchiato',
-  'hot_water',
-]);
+export const drinkTypeEnum = pgEnum('drink_type', drinkTypes);
 
 // We either do a boolean labeling if this is a chocolate type drink.
 // Or we can OR operatre on all the chocolate drinks when query.
@@ -28,6 +20,7 @@ const coffeeScanner = pgTable('coffee', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   drinkType: drinkTypeEnum('drink_type').notNull(),
+  isChocolate: boolean('is_chocolate').notNull(),
   cardId: varchar('card_id', { length: 32 }).notNull(),
 });
 

@@ -12,7 +12,7 @@ function AnimatedCoffeeScannerSVG({
       {...props}
     >
       <g id='rfid_card_svg'>
-        <g id='rfid-scanner'>
+        <g id='rfid-scanner' transform='translate(130, 0)'>
           <g id='scanner'>
             <rect
               id='top-face'
@@ -78,7 +78,11 @@ function AnimatedCoffeeScannerSVG({
             </g>
           </g>
         </g>
-        <g id='card' className='animate-rfid-card'>
+        <g
+          id='card'
+          className='animate-rfid-card'
+          transform='translate(130, 0)'
+        >
           <rect
             id='kort'
             width='90'

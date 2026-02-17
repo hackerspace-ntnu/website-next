@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       .where(
         and(
           eq(coffeeScanner.cardId, cardId),
-          eq(coffeeScanner.drinkType, 'chocolate_milk'),
+          eq(coffeeScanner.isChocolate, true),
           gte(coffeeScanner.createdAt, startOfToday()),
           lt(coffeeScanner.createdAt, addDays(startOfToday(), 1)),
         ),
