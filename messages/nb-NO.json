@@ -1879,6 +1879,8 @@
       "welcomeBack": "Velkommen tilbake!",
       "yourCardId": "Din kort-ID",
       "selectADrink": "Velg en drink på nettbrettet før du velger den samme på kaffemaskinen",
+      "thankYou": "Tusen takk!",
+      "thankYouDrink": "Fortsett ved å velge drikken din på kaffemaskinen.",
       "yourStats": "Din statestikk"
     },
     "api": {

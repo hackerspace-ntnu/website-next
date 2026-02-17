@@ -16,9 +16,11 @@ type DrinkInfo = {
 function CoffeeActive({
   cardId,
   tooMuchChocolate,
+  onComplete,
 }: {
   cardId: string;
   tooMuchChocolate: boolean;
+  onComplete: () => void;
 }) {
   const t = useTranslations('coffeeScanner.drinks');
   const tUi = useTranslations('coffeeScanner.ui');
@@ -26,49 +28,49 @@ function CoffeeActive({
 
   const drinks: DrinkInfo[] = [
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/Coffee.png',
       displayText: t('coffee'),
       drinkType: 'coffee',
       isChocolate: false,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/CoffeeMilk.png',
       displayText: t('coffeeMilk'),
       drinkType: 'coffee_milk',
       isChocolate: false,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/Cappuccino.png',
       displayText: t('cappuccino'),
       drinkType: 'cappuccino',
       isChocolate: false,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/ChoccyMilk.png',
       displayText: t('chocolateMilkSpaced'),
       drinkType: 'chocolate_milk',
       isChocolate: true,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/WienerMelange.png',
       displayText: t('wienerMelange'),
       drinkType: 'wiener_melange',
       isChocolate: true,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/CoffeeChoco.png',
       displayText: t('coffeeChocolate'),
       drinkType: 'coffee_chocolate',
       isChocolate: true,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/LatteMach.png',
       displayText: t('latteMacchiato'),
       drinkType: 'latte_macchiato',
       isChocolate: false,
     },
     {
-      imageSource: '/drinks/relax_cat.webp',
+      imageSource: '/drinks/HotWater.png',
       displayText: t('hotWater'),
       drinkType: 'hot_water',
       isChocolate: false,
@@ -78,6 +80,7 @@ function CoffeeActive({
   const addCoffeeEntry = api.coffeeScanner.addCoffeeEntry.useMutation({
     onSuccess: () => {
       toast.success(tApi('addEntrySuccess'));
+      onComplete();
     },
   });
 

@@ -42,14 +42,14 @@ function CoffeeCard({
       <CardContent className='relative m-0 h-full w-full rounded-2xl p-0'>
         <h2
           className='-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-10 font-black uppercase'
-          style={{ textShadow: '0px 4px 3px black' }}
+          style={{ textShadow: '0px 0px 6px black' }}
         >
           {data.displayText}
         </h2>
         <Image
           src={data.imageSource}
           alt={data.displayText}
-          className='absolute h-full w-full rounded-2xl object-cover'
+          className='absolute h-full w-full rounded-2xl object-contain pt-4 pb-4'
           fill
         />
       </CardContent>

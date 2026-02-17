@@ -1879,6 +1879,8 @@
       "welcomeBack": "Welcome back!",
       "yourCardId": "Your card-ID",
       "selectADrink": "Choose a drink on the tablet before you select your drink on the coffee machine",
+      "thankYou": "Thank you!",
+      "thankYouDrink": "Proceed by selecting your drink on the coffee machine.",
       "yourStats": "Your statistics"
     },
     "api": {
