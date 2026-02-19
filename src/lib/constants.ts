@@ -60,6 +60,17 @@ const bannerPages = Object.keys(routing.pathnames)
   .filter((path) => !path.startsWith('/auth'))
   .filter((path) => path !== '/too-many-requests');
 
+const drinkTypes = [
+  'coffee',
+  'coffee_milk',
+  'cappuccino',
+  'chocolate_milk',
+  'wiener_melange',
+  'coffee_chocolate',
+  'latte_macchiato',
+  'hot_water',
+] as const;
+
 export {
   fileDirectories,
   notificationSettings,
@@ -71,4 +82,5 @@ export {
   bannerPages,
   tooltype,
   toolStatus,
+  drinkTypes,
 };

@@ -2,7 +2,12 @@
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
-import { httpBatchLink, loggerLink } from '@trpc/client';
+import {
+  httpBatchLink,
+  httpSubscriptionLink,
+  loggerLink,
+  splitLink,
+} from '@trpc/client';
 import { useLocale } from 'next-intl';
 import { cache, useEffect, useState } from 'react';
 import SuperJSON from 'superjson';
@@ -28,14 +33,21 @@ function TRPCProvider(props: { children: React.ReactNode }) {
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
-        httpBatchLink({
-          transformer: SuperJSON,
-          url: `${typeof window === 'undefined' ? env.NEXT_PUBLIC_SITE_URL : ''}/api/data`,
-          headers() {
-            return {
-              'accept-language': locale,
-            };
-          },
+        splitLink({
+          condition: (op) => op.type === 'subscription',
+          true: httpSubscriptionLink({
+            url: '/api/data',
+            transformer: SuperJSON,
+          }),
+          false: httpBatchLink({
+            transformer: SuperJSON,
+            url: `${typeof window === 'undefined' ? env.NEXT_PUBLIC_SITE_URL : ''}/api/data`,
+            headers() {
+              return {
+                'accept-language': locale,
+              };
+            },
+          }),
         }),
       ],
     }),

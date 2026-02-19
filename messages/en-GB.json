@@ -1855,5 +1855,37 @@
       "editToolFailed": "Failed to edit tool",
       "weekendsMemberOnly": "Only members can reserve on weekends"
     }
+  },
+  "coffeeScanner": {
+    "drinks": {
+      "coffee": "Coffee",
+      "coffeeMilk": "Coffee Milk",
+      "cappuccino": "Cappuccino",
+      "chocolateMilkSpaced": "Chocolate Milk",
+      "chocolateMilkNormal": "Chocolate Milk",
+      "wienerMelange": "Wiener Melange",
+      "coffeeChocolate": "Coffee Chocolate",
+      "latteMacchiato": "Latte Macchiato",
+      "hotWater": "Hot Water"
+    },
+    "ui": {
+      "wantSome": "Want some",
+      "providedBy": "Provided by",
+      "scanYour": "Scan your",
+      "studentCard": "student card",
+      "grabDrink": "before grabbing your drink",
+      "welcome": "Welcome!",
+      "welcomeBack": "Welcome back!",
+      "yourCardId": "Your card ID",
+      "selectADrink": "Choose a drink on the tablet before you select your drink on the coffee machine",
+      "thankYou": "Thank you!",
+      "thankYouDrink": "Proceed by selecting your drink on the coffee machine.",
+      "yourStats": "Your statistics"
+    },
+    "api": {
+      "invalidDrinkType": "The specified drinkType is not a valid drink.",
+      "addEntryFailed": "An error occured when adding a drink entry.",
+      "addEntrySuccess": "Coffee entry successfully added"
+    }
   }
 }

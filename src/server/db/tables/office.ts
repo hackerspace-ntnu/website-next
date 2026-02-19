@@ -1,9 +1,21 @@
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
-import { boolean, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  pgEnum,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
+import { drinkTypes } from '@/lib/constants';
 
-const coffee = pgTable('coffee', {
+export const drinkTypeEnum = pgEnum('drink_type', drinkTypes);
+
+const coffeeScans = pgTable('coffee', {
   id: serial('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  drinkType: drinkTypeEnum('drink_type').notNull(),
+  cardId: varchar('card_id', { length: 32 }).notNull(),
 });
 
 const doorStatus = pgTable('door_status', {
@@ -12,14 +24,14 @@ const doorStatus = pgTable('door_status', {
   open: boolean('open').notNull(),
 });
 
-type SelectCoffee = InferSelectModel<typeof coffee>;
-type InsertCoffee = InferInsertModel<typeof coffee>;
+type SelectCoffee = InferSelectModel<typeof coffeeScans>;
+type InsertCoffee = InferInsertModel<typeof coffeeScans>;
 
 type SelectDoorStatus = InferSelectModel<typeof doorStatus>;
 type InsertDoorStatus = InferInsertModel<typeof doorStatus>;
 
 export {
-  coffee,
+  coffeeScans,
   doorStatus,
   type SelectCoffee,
   type InsertCoffee,
