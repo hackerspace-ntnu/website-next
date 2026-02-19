@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import type { DrinkInfo } from '@/components/coffee-scanner/CoffeeActive';
 import { Card, CardContent } from '@/components/ui/Card';
-import type { drinkTypes } from '@/lib/constants';
+import { chocolateDrinks, type drinkTypes } from '@/lib/constants';
 import { cx } from '@/lib/utils';
 
 type CoffeeCardProps = {
@@ -19,8 +19,12 @@ function CoffeeCard({
   className,
   onClick,
 }: CoffeeCardProps) {
+  const isDrinkChocolate = (chocolateDrinks as readonly string[]).includes(
+    data.drinkType,
+  );
+
   const handleClick = () => {
-    if (tooMuchChocolate) return;
+    if (tooMuchChocolate && isDrinkChocolate) return;
     onClick(data.drinkType);
   };
 
@@ -29,9 +33,11 @@ function CoffeeCard({
       className={cx(
         'relative m-0 rounded-2xl p-0 active:brightness-50',
         className,
-        tooMuchChocolate ? 'brightness-50' : 'brightness-100',
+        tooMuchChocolate && isDrinkChocolate
+          ? 'brightness-50'
+          : 'brightness-100',
       )}
-      aria-disabled={tooMuchChocolate}
+      aria-disabled={tooMuchChocolate && isDrinkChocolate}
       onClick={handleClick}
     >
       <CardContent className='relative m-0 h-full w-full rounded-2xl p-0'>

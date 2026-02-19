@@ -71,6 +71,12 @@ const drinkTypes = [
   'hot_water',
 ] as const;
 
+const chocolateDrinks = [
+  'chocolate_milk',
+  'wiener_melange',
+  'coffee_chocolate',
+] as const;
+
 export {
   fileDirectories,
   notificationSettings,
@@ -83,4 +89,5 @@ export {
   tooltype,
   toolStatus,
   drinkTypes,
+  chocolateDrinks,
 };
