@@ -138,101 +138,105 @@ const newsRouter = createRouter({
       newsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const { image, ...restInput } = input;
+      return await ctx.db.transaction(async (tx) => {
+        const { image, ...restInput } = input;
 
-      let fileId: number | null = null;
+        let fileId: number | null = null;
 
-      if (image && image.length > 0) {
-        const file = await insertFile(image, 'news', ctx.user.id, false);
-        fileId = file.id;
-      }
+        if (image && image.length > 0) {
+          const file = await insertFile(image, 'news', ctx.user.id, false);
+          fileId = file.id;
+        }
 
-      const [article] = await ctx.db
-        .insert(newsArticles)
-        .values({
-          authorId: ctx.user.id,
-          imageId: fileId,
-          internal: restInput.internal,
-        })
-        .returning({ id: newsArticles.id });
+        const [article] = await tx
+          .insert(newsArticles)
+          .values({
+            authorId: ctx.user.id,
+            imageId: fileId,
+            internal: restInput.internal,
+          })
+          .returning({ id: newsArticles.id });
 
-      if (!article)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('news.api.insertFailed'),
-          cause: { toast: 'error' },
+        if (!article)
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('news.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+
+        await tx.insert(newsArticleLocalizations).values({
+          articleId: article.id,
+          title: restInput.titleEnglish,
+          preamble: restInput.preambleEnglish,
+          content: restInput.contentEnglish,
+          locale: 'en-GB',
         });
 
-      await ctx.db.insert(newsArticleLocalizations).values({
-        articleId: article.id,
-        title: restInput.titleEnglish,
-        preamble: restInput.preambleEnglish,
-        content: restInput.contentEnglish,
-        locale: 'en-GB',
-      });
+        await tx.insert(newsArticleLocalizations).values({
+          articleId: article.id,
+          title: restInput.titleNorwegian,
+          preamble: restInput.preambleNorwegian,
+          content: restInput.contentNorwegian,
+          locale: 'nb-NO',
+        });
 
-      await ctx.db.insert(newsArticleLocalizations).values({
-        articleId: article.id,
-        title: restInput.titleNorwegian,
-        preamble: restInput.preambleNorwegian,
-        content: restInput.contentNorwegian,
-        locale: 'nb-NO',
+        return article.id;
       });
-
-      return article.id;
     }),
   editArticle: protectedProcedure
     .input((input) =>
       editNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      const { image, ...restInput } = input;
+      return await ctx.db.transaction(async (tx) => {
+        const { image, ...restInput } = input;
 
-      let imageId: number | null = null;
+        let imageId: number | null = null;
 
-      if (image && image.length > 0) {
-        const file = await insertFile(image, 'news', ctx.user.id, false);
-        imageId = file.id;
-      }
+        if (image && image.length > 0) {
+          const file = await insertFile(image, 'news', ctx.user.id, false);
+          imageId = file.id;
+        }
 
-      await ctx.db
-        .update(newsArticles)
-        .set({
-          imageId: input.image ? imageId : undefined,
-          internal: restInput.internal,
-          updatedAt: new Date(),
-        })
-        .where(eq(newsArticles.id, input.id));
+        await tx
+          .update(newsArticles)
+          .set({
+            imageId: input.image ? imageId : undefined,
+            internal: restInput.internal,
+            updatedAt: new Date(),
+          })
+          .where(eq(newsArticles.id, input.id));
 
-      await ctx.db
-        .update(newsArticleLocalizations)
-        .set({
-          title: restInput.titleEnglish,
-          preamble: restInput.preambleEnglish,
-          content: restInput.contentEnglish,
-        })
-        .where(
-          and(
-            eq(newsArticleLocalizations.articleId, input.id),
-            eq(newsArticleLocalizations.locale, 'en-GB'),
-          ),
-        );
+        await tx
+          .update(newsArticleLocalizations)
+          .set({
+            title: restInput.titleEnglish,
+            preamble: restInput.preambleEnglish,
+            content: restInput.contentEnglish,
+          })
+          .where(
+            and(
+              eq(newsArticleLocalizations.articleId, input.id),
+              eq(newsArticleLocalizations.locale, 'en-GB'),
+            ),
+          );
 
-      await ctx.db
-        .update(newsArticleLocalizations)
-        .set({
-          title: restInput.titleNorwegian,
-          preamble: restInput.preambleNorwegian,
-          content: restInput.contentNorwegian,
-        })
-        .where(
-          and(
-            eq(newsArticleLocalizations.articleId, input.id),
-            eq(newsArticleLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(newsArticleLocalizations)
+          .set({
+            title: restInput.titleNorwegian,
+            preamble: restInput.preambleNorwegian,
+            content: restInput.contentNorwegian,
+          })
+          .where(
+            and(
+              eq(newsArticleLocalizations.articleId, input.id),
+              eq(newsArticleLocalizations.locale, 'nb-NO'),
+            ),
+          );
 
-      return input.id;
+        return input.id;
+      });
     }),
   deleteArticle: protectedProcedure
     .input((input) =>

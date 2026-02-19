@@ -298,236 +298,248 @@ const eventsRouter = createRouter({
       createEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      let imageId: number | null = null;
+      return await ctx.db.transaction(async (tx) => {
+        let imageId: number | null = null;
 
-      if (input.image) {
-        const image = await insertFile(
-          input.image,
-          'events',
-          ctx.user.id,
-          false,
-        );
-        imageId = image.id;
-      }
+        if (input.image) {
+          const image = await insertFile(
+            input.image,
+            'events',
+            ctx.user.id,
+            false,
+          );
+          imageId = image.id;
+        }
 
-      const skill =
-        input.skill.length > 0
-          ? await ctx.db.query.skills.findFirst({
-              where: eq(skills.identifier, input.skill),
-            })
-          : null;
+        const skill =
+          input.skill.length > 0
+            ? await ctx.db.query.skills.findFirst({
+                where: eq(skills.identifier, input.skill),
+              })
+            : null;
 
-      const event = await ctx.db
-        .insert(events)
-        .values({
-          startTime: input.startTime,
-          endTime: input.endTime,
-          locationMapLink: input.locationMapLink,
-          internal: input.internal,
-          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
-          maxParticipants: input.setMaxParticipants
-            ? input.maxParticipants
-            : null,
-          imageId: imageId,
-          skillId: skill?.id,
-        })
-        .returning({ id: events.id });
+        const event = await tx
+          .insert(events)
+          .values({
+            startTime: input.startTime,
+            endTime: input.endTime,
+            locationMapLink: input.locationMapLink,
+            internal: input.internal,
+            signUpDeadline: input.setSignUpDeadline
+              ? input.signUpDeadline
+              : null,
+            maxParticipants: input.setMaxParticipants
+              ? input.maxParticipants
+              : null,
+            imageId: imageId,
+            skillId: skill?.id,
+          })
+          .returning({ id: events.id });
 
-      if (!event[0]?.id) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('events.api.insertFailed'),
-          cause: { toast: 'error' },
+        if (!event[0]?.id) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('events.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+        }
+
+        await tx.insert(eventLocalizations).values({
+          eventId: event[0].id,
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          location: input.locationEnglish,
+          locale: 'en-GB',
         });
-      }
 
-      await ctx.db.insert(eventLocalizations).values({
-        eventId: event[0].id,
-        name: input.nameEnglish,
-        summary: input.summaryEnglish,
-        description: input.descriptionEnglish,
-        location: input.locationEnglish,
-        locale: 'en-GB',
+        await tx.insert(eventLocalizations).values({
+          eventId: event[0].id,
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          location: input.locationNorwegian,
+          locale: 'nb-NO',
+        });
+
+        return event[0];
       });
-
-      await ctx.db.insert(eventLocalizations).values({
-        eventId: event[0].id,
-        name: input.nameNorwegian,
-        summary: input.summaryNorwegian,
-        description: input.descriptionNorwegian,
-        location: input.locationNorwegian,
-        locale: 'nb-NO',
-      });
-
-      return event[0];
     }),
   editEvent: protectedEditProcedure
     .input((input) =>
       editEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const event = await ctx.db.query.events.findFirst({
-        where: eq(events.id, input.id),
-        with: {
-          usersEvents: {
-            with: {
-              user: {
-                with: {
-                  usersGroups: true,
+      return await ctx.db.transaction(async (tx) => {
+        const event = await ctx.db.query.events.findFirst({
+          where: eq(events.id, input.id),
+          with: {
+            usersEvents: {
+              with: {
+                user: {
+                  with: {
+                    usersGroups: true,
+                  },
                 },
               },
             },
           },
-        },
-      });
-
-      if (!event) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('events.api.notFound'),
-          cause: { toast: 'error' },
         });
-      }
 
-      const confirmedParticipantsCount = event.usersEvents.filter(
-        (userEvent) => !userEvent.waitlistedAt,
-      ).length;
-
-      if (
-        input.setMaxParticipants &&
-        confirmedParticipantsCount > input.maxParticipants
-      ) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('events.api.maxParticipantsTooLow'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      let imageId: number | null = null;
-
-      if (input.image && input.image.length > 0) {
-        if (event.imageId) {
-          await deleteFile(event.imageId);
+        if (!event) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('events.api.notFound'),
+            cause: { toast: 'error' },
+          });
         }
 
-        const image = await insertFile(
-          input.image,
-          'events',
-          ctx.user.id,
-          false,
-        );
-        imageId = image.id;
-      }
+        const confirmedParticipantsCount = event.usersEvents.filter(
+          (userEvent) => !userEvent.waitlistedAt,
+        ).length;
 
-      const skill =
-        input.skill.length > 0
-          ? await ctx.db.query.skills.findFirst({
-              where: eq(skills.identifier, input.skill),
-            })
-          : null;
+        if (
+          input.setMaxParticipants &&
+          confirmedParticipantsCount > input.maxParticipants
+        ) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: ctx.t('events.api.maxParticipantsTooLow'),
+            cause: { toast: 'error' },
+          });
+        }
 
-      await ctx.db
-        .update(events)
-        .set({
-          startTime: input.startTime,
-          endTime: input.endTime,
-          locationMapLink: input.locationMapLink,
-          internal: input.internal,
-          signUpDeadline: input.setSignUpDeadline ? input.signUpDeadline : null,
-          maxParticipants: input.setMaxParticipants
-            ? input.maxParticipants
-            : null,
-          imageId: input.image ? imageId : undefined,
-          skillId: skill?.id,
-        })
-        .where(eq(events.id, input.id));
+        let imageId: number | null = null;
 
-      await ctx.db
-        .update(eventLocalizations)
-        .set({
-          name: input.nameEnglish,
-          summary: input.summaryEnglish,
-          description: input.descriptionEnglish,
-          location: input.locationEnglish,
-        })
-        .where(
-          and(
-            eq(eventLocalizations.eventId, input.id),
-            eq(eventLocalizations.locale, 'en-GB'),
-          ),
-        );
+        if (input.image && input.image.length > 0) {
+          if (event.imageId) {
+            await deleteFile(event.imageId);
+          }
 
-      await ctx.db
-        .update(eventLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          summary: input.summaryNorwegian,
-          description: input.descriptionNorwegian,
-          location: input.locationNorwegian,
-        })
-        .where(
-          and(
-            eq(eventLocalizations.eventId, input.id),
-            eq(eventLocalizations.locale, 'nb-NO'),
-          ),
-        );
+          const image = await insertFile(
+            input.image,
+            'events',
+            ctx.user.id,
+            false,
+          );
+          imageId = image.id;
+        }
 
-      const maxParticipantsDelta = event.maxParticipants
-        ? input.maxParticipants - event.maxParticipants
-        : 0;
+        const skill =
+          input.skill.length > 0
+            ? await ctx.db.query.skills.findFirst({
+                where: eq(skills.identifier, input.skill),
+              })
+            : null;
 
-      // Promote users from waitlist if maxParticipants increased
-      if (maxParticipantsDelta > 0) {
-        await promoteFromEventWaitlist(ctx.db, event.id, maxParticipantsDelta);
-      }
+        await tx
+          .update(events)
+          .set({
+            startTime: input.startTime,
+            endTime: input.endTime,
+            locationMapLink: input.locationMapLink,
+            internal: input.internal,
+            signUpDeadline: input.setSignUpDeadline
+              ? input.signUpDeadline
+              : null,
+            maxParticipants: input.setMaxParticipants
+              ? input.maxParticipants
+              : null,
+            imageId: input.image ? imageId : undefined,
+            skillId: skill?.id,
+          })
+          .where(eq(events.id, input.id));
 
-      // If event is made internal, remove non-member participants.
-      // Also promote users from waitlist to fill vacant spots.
-      if (!event.internal && input.internal) {
-        const nonMembersSignedUp = event.usersEvents
-          .filter((userEvent) => userEvent.user.usersGroups.length === 0)
-          .map((userEvent) => userEvent.userId);
-
-        const removed = await ctx.db
-          .delete(usersEvents)
+        await tx
+          .update(eventLocalizations)
+          .set({
+            name: input.nameEnglish,
+            summary: input.summaryEnglish,
+            description: input.descriptionEnglish,
+            location: input.locationEnglish,
+          })
           .where(
             and(
-              eq(usersEvents.eventId, event.id),
-              inArray(usersEvents.userId, nonMembersSignedUp),
+              eq(eventLocalizations.eventId, input.id),
+              eq(eventLocalizations.locale, 'en-GB'),
             ),
-          )
-          .returning({
-            userId: usersEvents.userId,
-            waitlistedAt: usersEvents.waitlistedAt,
-          });
-
-        if (removed.length > 0) {
-          const removedFromConfirmed = removed.filter(
-            (r) => r.waitlistedAt === null,
           );
+
+        await tx
+          .update(eventLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            summary: input.summaryNorwegian,
+            description: input.descriptionNorwegian,
+            location: input.locationNorwegian,
+          })
+          .where(
+            and(
+              eq(eventLocalizations.eventId, input.id),
+              eq(eventLocalizations.locale, 'nb-NO'),
+            ),
+          );
+
+        const maxParticipantsDelta = event.maxParticipants
+          ? input.maxParticipants - event.maxParticipants
+          : 0;
+
+        // Promote users from waitlist if maxParticipants increased
+        if (maxParticipantsDelta > 0) {
           await promoteFromEventWaitlist(
             ctx.db,
             event.id,
-            removedFromConfirmed.length,
+            maxParticipantsDelta,
           );
         }
-      }
 
-      // If the event no longer has a max participants limit, clear the waitlist
-      if (event.maxParticipants && !input.setMaxParticipants) {
-        await ctx.db
-          .update(usersEvents)
-          .set({ waitlistedAt: null })
-          .where(
-            and(
-              eq(usersEvents.eventId, event.id),
-              isNotNull(usersEvents.waitlistedAt),
-            ),
-          );
-      }
+        // If event is made internal, remove non-member participants.
+        // Also promote users from waitlist to fill vacant spots.
+        if (!event.internal && input.internal) {
+          const nonMembersSignedUp = event.usersEvents
+            .filter((userEvent) => userEvent.user.usersGroups.length === 0)
+            .map((userEvent) => userEvent.userId);
 
-      return event;
+          const removed = await ctx.db
+            .delete(usersEvents)
+            .where(
+              and(
+                eq(usersEvents.eventId, event.id),
+                inArray(usersEvents.userId, nonMembersSignedUp),
+              ),
+            )
+            .returning({
+              userId: usersEvents.userId,
+              waitlistedAt: usersEvents.waitlistedAt,
+            });
+
+          if (removed.length > 0) {
+            const removedFromConfirmed = removed.filter(
+              (r) => r.waitlistedAt === null,
+            );
+            await promoteFromEventWaitlist(
+              ctx.db,
+              event.id,
+              removedFromConfirmed.length,
+            );
+          }
+        }
+
+        // If the event no longer has a max participants limit, clear the waitlist
+        if (event.maxParticipants && !input.setMaxParticipants) {
+          await ctx.db
+            .update(usersEvents)
+            .set({ waitlistedAt: null })
+            .where(
+              and(
+                eq(usersEvents.eventId, event.id),
+                isNotNull(usersEvents.waitlistedAt),
+              ),
+            );
+        }
+
+        return event;
+      });
     }),
   deleteEvent: protectedEditProcedure
     .input((input) =>

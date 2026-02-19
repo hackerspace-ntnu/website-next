@@ -70,43 +70,45 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
-      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
-          cause: { toast: 'error' },
+      return await ctx.db.transaction(async (tx) => {
+        const convertedRegex = pagesMatchToRegex(input.pagesMatch);
+        if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+            cause: { toast: 'error' },
+          });
+        }
+
+        const [banner] = await tx
+          .insert(banners)
+          .values({
+            active: input.active,
+            expiresAt: input.expiresAt,
+            pagesMatch: input.pagesMatch,
+            pagesRegex: convertedRegex,
+            className: input.className,
+          })
+          .returning({ id: banners.id });
+
+        if (!banner)
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('management.banners.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+
+        await tx.insert(bannerLocalizations).values({
+          bannerId: banner.id,
+          content: input.contentEnglish,
+          locale: 'en-GB',
         });
-      }
 
-      const [banner] = await ctx.db
-        .insert(banners)
-        .values({
-          active: input.active,
-          expiresAt: input.expiresAt,
-          pagesMatch: input.pagesMatch,
-          pagesRegex: convertedRegex,
-          className: input.className,
-        })
-        .returning({ id: banners.id });
-
-      if (!banner)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('management.banners.api.insertFailed'),
-          cause: { toast: 'error' },
+        await tx.insert(bannerLocalizations).values({
+          bannerId: banner.id,
+          content: input.contentNorwegian,
+          locale: 'nb-NO',
         });
-
-      await ctx.db.insert(bannerLocalizations).values({
-        bannerId: banner.id,
-        content: input.contentEnglish,
-        locale: 'en-GB',
-      });
-
-      await ctx.db.insert(bannerLocalizations).values({
-        bannerId: banner.id,
-        content: input.contentNorwegian,
-        locale: 'nb-NO',
       });
     }),
   editBanner: managementProcedure
@@ -114,49 +116,51 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
-      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
-          cause: { toast: 'error' },
-        });
-      }
+      return await ctx.db.transaction(async (tx) => {
+        const convertedRegex = pagesMatchToRegex(input.pagesMatch);
+        if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+            cause: { toast: 'error' },
+          });
+        }
 
-      await ctx.db
-        .update(banners)
-        .set({
-          active: input.active,
-          expiresAt: input.expiresAt,
-          pagesMatch: input.pagesMatch,
-          pagesRegex: convertedRegex,
-          className: input.className,
-        })
-        .where(eq(banners.id, input.id));
+        await tx
+          .update(banners)
+          .set({
+            active: input.active,
+            expiresAt: input.expiresAt,
+            pagesMatch: input.pagesMatch,
+            pagesRegex: convertedRegex,
+            className: input.className,
+          })
+          .where(eq(banners.id, input.id));
 
-      await ctx.db
-        .update(bannerLocalizations)
-        .set({
-          content: input.contentEnglish,
-        })
-        .where(
-          and(
-            eq(bannerLocalizations.bannerId, input.id),
-            eq(bannerLocalizations.locale, 'en-GB'),
-          ),
-        );
+        await tx
+          .update(bannerLocalizations)
+          .set({
+            content: input.contentEnglish,
+          })
+          .where(
+            and(
+              eq(bannerLocalizations.bannerId, input.id),
+              eq(bannerLocalizations.locale, 'en-GB'),
+            ),
+          );
 
-      await ctx.db
-        .update(bannerLocalizations)
-        .set({
-          content: input.contentNorwegian,
-        })
-        .where(
-          and(
-            eq(bannerLocalizations.bannerId, input.id),
-            eq(bannerLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(bannerLocalizations)
+          .set({
+            content: input.contentNorwegian,
+          })
+          .where(
+            and(
+              eq(bannerLocalizations.bannerId, input.id),
+              eq(bannerLocalizations.locale, 'nb-NO'),
+            ),
+          );
+      });
     }),
   deleteBanner: managementProcedure
     .input((input) =>
