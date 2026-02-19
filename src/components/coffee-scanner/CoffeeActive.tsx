@@ -10,7 +10,6 @@ type DrinkInfo = {
   imageSource: string;
   displayText: string;
   drinkType: (typeof drinkTypes)[number];
-  isChocolate: boolean;
 };
 
 function CoffeeActive({
@@ -31,49 +30,41 @@ function CoffeeActive({
       imageSource: '/drinks/Coffee.png',
       displayText: t('coffee'),
       drinkType: 'coffee',
-      isChocolate: false,
     },
     {
       imageSource: '/drinks/CoffeeMilk.png',
       displayText: t('coffeeMilk'),
       drinkType: 'coffee_milk',
-      isChocolate: false,
     },
     {
       imageSource: '/drinks/Cappuccino.png',
       displayText: t('cappuccino'),
       drinkType: 'cappuccino',
-      isChocolate: false,
     },
     {
       imageSource: '/drinks/ChoccyMilk.png',
       displayText: t('chocolateMilkSpaced'),
       drinkType: 'chocolate_milk',
-      isChocolate: true,
     },
     {
       imageSource: '/drinks/WienerMelange.png',
       displayText: t('wienerMelange'),
       drinkType: 'wiener_melange',
-      isChocolate: true,
     },
     {
       imageSource: '/drinks/CoffeeChoco.png',
       displayText: t('coffeeChocolate'),
       drinkType: 'coffee_chocolate',
-      isChocolate: true,
     },
     {
       imageSource: '/drinks/LatteMach.png',
       displayText: t('latteMacchiato'),
       drinkType: 'latte_macchiato',
-      isChocolate: false,
     },
     {
       imageSource: '/drinks/HotWater.png',
       displayText: t('hotWater'),
       drinkType: 'hot_water',
-      isChocolate: false,
     },
   ];
 
@@ -84,13 +75,9 @@ function CoffeeActive({
     },
   });
 
-  const sendEntry = (
-    drinkType: (typeof drinkTypes)[number],
-    isChocolate: boolean,
-  ) => {
+  const sendEntry = (drinkType: (typeof drinkTypes)[number]) => {
     addCoffeeEntry.mutate({
       drinkType,
-      isChocolate,
       cardId,
     });
   };
