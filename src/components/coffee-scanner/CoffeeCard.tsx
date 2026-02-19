@@ -19,8 +19,13 @@ function CoffeeCard({
   className,
   onClick,
 }: CoffeeCardProps) {
+  const isDrinkChocolate =
+    data.drinkType === 'chocolate_milk' ||
+    data.drinkType === 'wiener_melange' ||
+    data.drinkType === 'coffee_chocolate';
+
   const handleClick = () => {
-    if (tooMuchChocolate) return;
+    if (tooMuchChocolate && isDrinkChocolate) return;
     onClick(data.drinkType);
   };
 
@@ -29,9 +34,11 @@ function CoffeeCard({
       className={cx(
         'relative m-0 rounded-2xl p-0 active:brightness-50',
         className,
-        tooMuchChocolate ? 'brightness-50' : 'brightness-100',
+        tooMuchChocolate && isDrinkChocolate
+          ? 'brightness-50'
+          : 'brightness-100',
       )}
-      aria-disabled={tooMuchChocolate}
+      aria-disabled={tooMuchChocolate && isDrinkChocolate}
       onClick={handleClick}
     >
       <CardContent className='relative m-0 h-full w-full rounded-2xl p-0'>
