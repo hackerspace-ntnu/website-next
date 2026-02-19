@@ -43,7 +43,7 @@ function CoffeeSSE() {
 
   useEffect(() => {
     if (currentCardId !== '') {
-      resetPage(60000); // 3 minutes
+      resetPage(60000); // 1 minute
     }
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current); // To prevent memory leak

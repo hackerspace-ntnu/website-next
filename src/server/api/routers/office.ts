@@ -5,7 +5,7 @@ import { eventEmitter } from '@/lib/api/eventEmitter';
 import { useTranslationsFromContext } from '@/server/api/locale';
 import { publicProcedure } from '@/server/api/procedures';
 import { createRouter } from '@/server/api/trpc';
-import { coffeeScanner, doorStatus } from '@/server/db/tables';
+import { coffeeScans, doorStatus } from '@/server/db/tables';
 import { addCoffeeEntrySchema } from '@/validations/coffee-scanner/addCoffeeEntrySchema';
 
 const officeRouter = createRouter({
@@ -35,13 +35,12 @@ const coffeeScanRouter = createRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const [created] = await ctx.db
-        .insert(coffeeScanner)
+        .insert(coffeeScans)
         .values({
           drinkType: input.drinkType,
-          isChocolate: input.isChocolate,
           cardId: input.cardId,
         })
-        .returning({ coffeeEntryId: coffeeScanner.id });
+        .returning({ coffeeEntryId: coffeeScans.id });
 
       if (!created) {
         throw new TRPCError({

@@ -1,10 +1,10 @@
 import { addDays, startOfToday } from 'date-fns';
-import { and, eq, gte, lt } from 'drizzle-orm';
+import { and, eq, gte, lt, or } from 'drizzle-orm';
 import { headers } from 'next/headers';
 import { type NextRequest, NextResponse } from 'next/server';
 import { eventEmitter } from '@/lib/api/eventEmitter';
 import { db } from '@/server/db';
-import { coffeeScanner } from '@/server/db/tables';
+import { coffeeScans } from '@/server/db/tables';
 
 export async function POST(request: NextRequest) {
   const headersList = await headers();
@@ -27,13 +27,17 @@ export async function POST(request: NextRequest) {
 
     const entriesToday = await db
       .select()
-      .from(coffeeScanner)
+      .from(coffeeScans)
       .where(
         and(
-          eq(coffeeScanner.cardId, cardId),
-          eq(coffeeScanner.isChocolate, true),
-          gte(coffeeScanner.createdAt, startOfToday()),
-          lt(coffeeScanner.createdAt, addDays(startOfToday(), 1)),
+          eq(coffeeScans.cardId, cardId),
+          or(
+            eq(coffeeScans.drinkType, 'chocolate_milk'),
+            eq(coffeeScans.drinkType, 'coffee_chocolate'),
+            eq(coffeeScans.drinkType, 'wiener_melange'),
+          ),
+          gte(coffeeScans.createdAt, startOfToday()),
+          lt(coffeeScans.createdAt, addDays(startOfToday(), 1)),
         ),
       );
 

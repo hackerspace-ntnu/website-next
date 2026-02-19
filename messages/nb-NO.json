@@ -1885,7 +1885,6 @@
     },
     "api": {
       "invalidDrinkType": "Den spesifiserte drinkType er ikke en godkjent drikke.",
-      "mustSpecifyChocolate": "Må spesifere om drikken er laget av sjokolade (boolean).",
       "addEntryFailed": "Det oppsto en feil da en drikkeoppføring skulle legges til.",
       "addEntrySuccess": "Drikkeoppføringen ble vellykket."
     }

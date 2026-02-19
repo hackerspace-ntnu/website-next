@@ -1877,7 +1877,7 @@
       "grabDrink": "before grabbing your drink",
       "welcome": "Welcome!",
       "welcomeBack": "Welcome back!",
-      "yourCardId": "Your card-ID",
+      "yourCardId": "Your card ID",
       "selectADrink": "Choose a drink on the tablet before you select your drink on the coffee machine",
       "thankYou": "Thank you!",
       "thankYouDrink": "Proceed by selecting your drink on the coffee machine.",
@@ -1885,7 +1885,6 @@
     },
     "api": {
       "invalidDrinkType": "The specified drinkType is not a valid drink.",
-      "mustSpecifyChocolate": "Entry must specify wether drink is made of chocolate (boolean).",
       "addEntryFailed": "An error occured when adding a drink entry.",
       "addEntrySuccess": "Coffee entry successfully added"
     }

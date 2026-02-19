@@ -7,9 +7,6 @@ function addCoffeeEntrySchema(t: Translations) {
     drinkType: z.enum(drinkTypeEnum.enumValues, {
       message: t('coffeeScanner.api.invalidDrinkType'),
     }),
-    isChocolate: z.boolean({
-      message: t('coffeeScanner.api.mustSpecifyChocolate'),
-    }),
     cardId: z.string().min(1).max(32),
   });
 }

@@ -10,12 +10,17 @@ export default async function CoffeePage({
   const { locale } = await params;
   setRequestLocale(locale as Locale);
 
-  const { coffeeScanner } = await getMessages();
+  const { coffeeScanner, ui, error } = await getMessages();
 
   return (
     <main className='absolute top-0 left-0 h-full w-full'>
       <NextIntlClientProvider
-        messages={{ coffeeScanner } as Pick<Messages, 'coffeeScanner'>}
+        messages={
+          { coffeeScanner, ui, error } as Pick<
+            Messages,
+            'coffeeScanner' | 'ui' | 'error'
+          >
+        }
       >
         <CoffeeSSE />
       </NextIntlClientProvider>
