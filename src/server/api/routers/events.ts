@@ -370,68 +370,67 @@ const eventsRouter = createRouter({
       editEventSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const event = await ctx.db.query.events.findFirst({
-          where: eq(events.id, input.id),
-          with: {
-            usersEvents: {
-              with: {
-                user: {
-                  with: {
-                    usersGroups: true,
-                  },
+      const event = await ctx.db.query.events.findFirst({
+        where: eq(events.id, input.id),
+        with: {
+          usersEvents: {
+            with: {
+              user: {
+                with: {
+                  usersGroups: true,
                 },
               },
             },
           },
+        },
+      });
+
+      if (!event) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('events.api.notFound'),
+          cause: { toast: 'error' },
         });
+      }
 
-        if (!event) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('events.api.notFound'),
-            cause: { toast: 'error' },
-          });
+      const confirmedParticipantsCount = event.usersEvents.filter(
+        (userEvent) => !userEvent.waitlistedAt,
+      ).length;
+
+      if (
+        input.setMaxParticipants &&
+        confirmedParticipantsCount > input.maxParticipants
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('events.api.maxParticipantsTooLow'),
+          cause: { toast: 'error' },
+        });
+      }
+      let imageId: number | null = null;
+
+      if (input.image && input.image.length > 0) {
+        if (event.imageId) {
+          await deleteFile(event.imageId);
         }
 
-        const confirmedParticipantsCount = event.usersEvents.filter(
-          (userEvent) => !userEvent.waitlistedAt,
-        ).length;
+        const image = await insertFile(
+          input.image,
+          'events',
+          ctx.user.id,
+          false,
+        );
+        imageId = image.id;
+      }
 
-        if (
-          input.setMaxParticipants &&
-          confirmedParticipantsCount > input.maxParticipants
-        ) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('events.api.maxParticipantsTooLow'),
-            cause: { toast: 'error' },
-          });
-        }
+      const skill =
+        input.skill.length > 0
+          ? await ctx.db.query.skills.findFirst({
+              where: eq(skills.identifier, input.skill),
+            })
+          : null;
 
-        let imageId: number | null = null;
-
-        if (input.image && input.image.length > 0) {
-          if (event.imageId) {
-            await deleteFile(event.imageId);
-          }
-
-          const image = await insertFile(
-            input.image,
-            'events',
-            ctx.user.id,
-            false,
-          );
-          imageId = image.id;
-        }
-
-        const skill =
-          input.skill.length > 0
-            ? await ctx.db.query.skills.findFirst({
-                where: eq(skills.identifier, input.skill),
-              })
-            : null;
-
+      await ctx.db.transaction(async (tx) => {
         await tx
           .update(events)
           .set({

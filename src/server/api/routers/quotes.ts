@@ -116,30 +116,30 @@ const quotesRouter = createRouter({
       createQuoteSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const [saidBy] = await tx
-          .select({
-            id: users.id,
-          })
-          .from(users)
-          .where(eq(users.id, Number(input.userId)))
-          .catch((error) => {
-            console.error(error);
-            throw new TRPCError({
-              code: 'INTERNAL_SERVER_ERROR',
-              message: ctx.t('api.internalServerError'),
-              cause: { toast: 'error' },
-            });
-          });
-
-        if (!saidBy?.id) {
+      const [saidBy] = await ctx.db
+        .select({
+          id: users.id,
+        })
+        .from(users)
+        .where(eq(users.id, Number(input.userId)))
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('quotes.api.noUserWithUsername'),
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('api.internalServerError'),
             cause: { toast: 'error' },
           });
-        }
+        });
 
+      if (!saidBy?.id) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('quotes.api.noUserWithUsername'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      return await ctx.db.transaction(async (tx) => {
         const [quote] = await tx
           .insert(quotes)
           .values({
@@ -195,50 +195,50 @@ const quotesRouter = createRouter({
       updateQuoteSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const quote = await ctx.db.query.quotes
+        .findFirst({
+          where: eq(quotes.id, input.quoteId),
+          with: {
+            saidBy: true,
+            heardBy: true,
+          },
+        })
+        .catch((error) => {
+          console.error(error);
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('quotes.api.failedToFetchQuotes'),
+            cause: { toast: 'error' },
+          });
+        });
+
+      if (!quote) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('quotes.api.quoteNotFound'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      const { user } = await ctx.auth();
+
+      // Non-admin users can update quotes, so we need to have that
+      // check here instead of using a more strict procedure
+      if (
+        !user?.groups.some((g) =>
+          ['labops', 'management', 'admin'].includes(g),
+        ) &&
+        quote.saidBy.id !== user?.id &&
+        quote.heardBy.id !== user?.id
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('quotes.update.unauthorized'),
+          cause: { toast: 'error' },
+        });
+      }
+
       return await ctx.db.transaction(async (tx) => {
-        const quote = await tx.query.quotes
-          .findFirst({
-            where: eq(quotes.id, input.quoteId),
-            with: {
-              saidBy: true,
-              heardBy: true,
-            },
-          })
-          .catch((error) => {
-            console.error(error);
-            throw new TRPCError({
-              code: 'INTERNAL_SERVER_ERROR',
-              message: ctx.t('quotes.api.failedToFetchQuotes'),
-              cause: { toast: 'error' },
-            });
-          });
-
-        if (!quote) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('quotes.api.quoteNotFound'),
-            cause: { toast: 'error' },
-          });
-        }
-
-        const { user } = await ctx.auth();
-
-        // Non-admin users can update quotes, so we need to have that
-        // check here instead of using a more strict procedure
-        if (
-          !user?.groups.some((g) =>
-            ['labops', 'management', 'admin'].includes(g),
-          ) &&
-          quote.saidBy.id !== user?.id &&
-          quote.heardBy.id !== user?.id
-        ) {
-          throw new TRPCError({
-            code: 'FORBIDDEN',
-            message: ctx.t('quotes.update.unauthorized'),
-            cause: { toast: 'error' },
-          });
-        }
-
         await tx
           .update(quotes)
           .set({

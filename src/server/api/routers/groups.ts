@@ -178,33 +178,33 @@ const groupsRouter = createRouter({
   newGroup: protectedEditProcedure
     .input((input) => groupSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const existingGroup = await ctx.db.query.groups.findFirst({
-          where: eq(groups.identifier, input.identifier),
+      const existingGroup = await ctx.db.query.groups.findFirst({
+        where: eq(groups.identifier, input.identifier),
+      });
+
+      if (existingGroup) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('groups.api.groupWithIdExists', {
+            identifier: input.identifier,
+          }),
+          cause: { toast: 'error' },
         });
+      }
 
-        if (existingGroup) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('groups.api.groupWithIdExists', {
-              identifier: input.identifier,
-            }),
-            cause: { toast: 'error' },
-          });
-        }
+      let imageId: number | null = null;
 
-        let imageId: number | null = null;
+      if (input.image) {
+        const file = await insertFile(
+          input.image,
+          'groups',
+          ctx.user.id,
+          false,
+        );
+        imageId = file.id;
+      }
 
-        if (input.image) {
-          const file = await insertFile(
-            input.image,
-            'groups',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
+      return await ctx.db.transaction(async (tx) => {
         const [group] = await tx
           .insert(groups)
           .values({
@@ -276,35 +276,35 @@ const groupsRouter = createRouter({
       editGroupSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const existingGroup = await ctx.db.query.groups.findFirst({
-          where: eq(groups.id, input.id),
+      const existingGroup = await ctx.db.query.groups.findFirst({
+        where: eq(groups.id, input.id),
+      });
+
+      if (!existingGroup) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('groups.api.groupNotFound'),
+          cause: { toast: 'error' },
         });
+      }
 
-        if (!existingGroup) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('groups.api.groupNotFound'),
-            cause: { toast: 'error' },
-          });
+      let imageId: number | null = null;
+
+      if (input.image) {
+        if (existingGroup?.imageId) {
+          await deleteFile(existingGroup.imageId);
         }
 
-        let imageId: number | null = null;
+        const file = await insertFile(
+          input.image,
+          'groups',
+          ctx.user.id,
+          false,
+        );
+        imageId = file.id;
+      }
 
-        if (input.image) {
-          if (existingGroup?.imageId) {
-            await deleteFile(existingGroup.imageId);
-          }
-
-          const file = await insertFile(
-            input.image,
-            'groups',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
+      return await ctx.db.transaction(async (tx) => {
         await tx
           .update(groups)
           .set({

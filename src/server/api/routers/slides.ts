@@ -67,21 +67,21 @@ const slidesRouter = createRouter({
   createSlide: leadershipProcedure
     .input((input) => slideSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
+      const { image, ...restInput } = input;
+
+      let fileId: number | null = null;
+
+      if (image && image.length > 0) {
+        const file = await insertFile(
+          image,
+          'home-carousel-slides',
+          ctx.user.id,
+          false,
+        );
+        fileId = file.id;
+      }
+
       return await ctx.db.transaction(async (tx) => {
-        const { image, ...restInput } = input;
-
-        let fileId: number | null = null;
-
-        if (image && image.length > 0) {
-          const file = await insertFile(
-            image,
-            'home-carousel-slides',
-            ctx.user.id,
-            false,
-          );
-          fileId = file.id;
-        }
-
         const [slide] = await tx
           .insert(homeCarouselSlides)
           .values({
@@ -119,21 +119,21 @@ const slidesRouter = createRouter({
       editSlideSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const { image, ...restInput } = input;
+
+      let imageId: number | null = null;
+
+      if (image && image.length > 0) {
+        const file = await insertFile(
+          image,
+          'home-carousel-slides',
+          ctx.user.id,
+          false,
+        );
+        imageId = file.id;
+      }
+
       return await ctx.db.transaction(async (tx) => {
-        const { image, ...restInput } = input;
-
-        let imageId: number | null = null;
-
-        if (image && image.length > 0) {
-          const file = await insertFile(
-            image,
-            'home-carousel-slides',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
         await tx
           .update(homeCarouselSlides)
           .set({

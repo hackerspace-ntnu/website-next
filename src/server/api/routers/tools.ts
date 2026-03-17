@@ -76,39 +76,34 @@ const toolsRouter = createRouter({
   createTool: protectedEditProcedure
     .input((input) => toolSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.transaction(async (tx) => {
-        let imageId: number | null = null;
+      let imageId: number | null = null;
 
-        if (input.image) {
-          const file = await insertFile(
-            input.image,
-            'tools',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
+      if (input.image) {
+        const file = await insertFile(input.image, 'tools', ctx.user.id, false);
+        imageId = file.id;
+      }
 
-        const [tool] = await tx
-          .insert(tools)
-          .values({ ...input, imageId })
-          .returning({ id: tools.id })
-          .catch((error) => {
-            console.error(error);
-            throw new TRPCError({
-              code: 'INTERNAL_SERVER_ERROR',
-              message: ctx.t('reservations.api.createToolFailed'),
-              cause: { toast: error },
-            });
-          });
-
-        if (!tool) {
+      const [tool] = await ctx.db
+        .insert(tools)
+        .values({ ...input, imageId })
+        .returning({ id: tools.id })
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('reservations.api.createToolFailed'),
+            cause: { toast: error },
           });
-        }
+        });
 
+      if (!tool) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: ctx.t('reservations.api.createToolFailed'),
+        });
+      }
+
+      return await ctx.db.transaction(async (tx) => {
         await tx
           .insert(toolLocalizations)
           .values([
@@ -159,43 +154,38 @@ const toolsRouter = createRouter({
   editTool: protectedEditProcedure
     .input((input) => editToolSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ input, ctx }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const existingTool = await tx.query.tools
-          .findFirst({
-            where: eq(tools.id, input.id),
-          })
-          .catch((error) => {
-            console.error(error);
-            throw new TRPCError({
-              code: 'INTERNAL_SERVER_ERROR',
-              message: ctx.t('reservations.api.editToolFailed'),
-              cause: { toast: error },
-            });
-          });
-
-        if (!existingTool) {
+      const existingTool = await ctx.db.query.tools
+        .findFirst({
+          where: eq(tools.id, input.id),
+        })
+        .catch((error) => {
+          console.error(error);
           throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('reservations.api.toolNotFound'),
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('reservations.api.editToolFailed'),
+            cause: { toast: error },
           });
+        });
+
+      if (!existingTool) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('reservations.api.toolNotFound'),
+        });
+      }
+
+      let imageId: number | null = null;
+
+      if (input.image) {
+        if (existingTool?.imageId) {
+          await deleteFile(existingTool.imageId);
         }
 
-        let imageId: number | null = null;
+        const file = await insertFile(input.image, 'tools', ctx.user.id, false);
+        imageId = file.id;
+      }
 
-        if (input.image) {
-          if (existingTool?.imageId) {
-            await deleteFile(existingTool.imageId);
-          }
-
-          const file = await insertFile(
-            input.image,
-            'tools',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
+      return await ctx.db.transaction(async (tx) => {
         await tx
           .update(tools)
           .set({ ...input, imageId: input.image ? imageId : undefined })

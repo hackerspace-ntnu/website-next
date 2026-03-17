@@ -70,16 +70,16 @@ const bannersRouter = createRouter({
   createBanner: managementProcedure
     .input((input) => bannerSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const convertedRegex = pagesMatchToRegex(input.pagesMatch);
-        if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
-            cause: { toast: 'error' },
-          });
-        }
+      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
+      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+          cause: { toast: 'error' },
+        });
+      }
 
+      return await ctx.db.transaction(async (tx) => {
         const [banner] = await tx
           .insert(banners)
           .values({
@@ -116,16 +116,15 @@ const bannersRouter = createRouter({
       editBannerSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ ctx, input }) => {
+      const convertedRegex = pagesMatchToRegex(input.pagesMatch);
+      if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
+          cause: { toast: 'error' },
+        });
+      }
       return await ctx.db.transaction(async (tx) => {
-        const convertedRegex = pagesMatchToRegex(input.pagesMatch);
-        if (!safeRegex(input.pagesMatch) || !safeRegex(convertedRegex)) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('management.banners.form.pagesMatch.unsafeRegex'),
-            cause: { toast: 'error' },
-          });
-        }
-
         await tx
           .update(banners)
           .set({

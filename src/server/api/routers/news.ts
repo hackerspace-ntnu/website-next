@@ -138,16 +138,16 @@ const newsRouter = createRouter({
       newsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
+      const { image, ...restInput } = input;
+
+      let fileId: number | null = null;
+
+      if (image && image.length > 0) {
+        const file = await insertFile(image, 'news', ctx.user.id, false);
+        fileId = file.id;
+      }
+
       return await ctx.db.transaction(async (tx) => {
-        const { image, ...restInput } = input;
-
-        let fileId: number | null = null;
-
-        if (image && image.length > 0) {
-          const file = await insertFile(image, 'news', ctx.user.id, false);
-          fileId = file.id;
-        }
-
         const [article] = await tx
           .insert(newsArticles)
           .values({
@@ -188,16 +188,16 @@ const newsRouter = createRouter({
       editNewsArticleSchema(useTranslationsFromContext()).parse(input),
     )
     .mutation(async ({ input, ctx }) => {
+      const { image, ...restInput } = input;
+
+      let imageId: number | null = null;
+
+      if (image && image.length > 0) {
+        const file = await insertFile(image, 'news', ctx.user.id, false);
+        imageId = file.id;
+      }
+
       return await ctx.db.transaction(async (tx) => {
-        const { image, ...restInput } = input;
-
-        let imageId: number | null = null;
-
-        if (image && image.length > 0) {
-          const file = await insertFile(image, 'news', ctx.user.id, false);
-          imageId = file.id;
-        }
-
         await tx
           .update(newsArticles)
           .set({

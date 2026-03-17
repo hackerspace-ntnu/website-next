@@ -96,39 +96,32 @@ const rulesRouter = createRouter({
   createRule: protectedEditProcedure
     .input((input) => ruleSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const existingRule = await tx.query.ruleLocalizations.findFirst({
-          where: or(
-            eq(ruleLocalizations.name, input.nameNorwegian),
-            eq(ruleLocalizations.name, input.nameEnglish),
-          ),
+      const existingRule = await ctx.db.query.ruleLocalizations.findFirst({
+        where: or(
+          eq(ruleLocalizations.name, input.nameNorwegian),
+          eq(ruleLocalizations.name, input.nameEnglish),
+        ),
+      });
+
+      if (existingRule) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: ctx.t('rules.api.ruleWithNameExists', {
+            name:
+              ctx.locale === 'en-GB' ? input.nameEnglish : input.nameNorwegian,
+          }),
+          cause: { toast: 'error' },
         });
+      }
 
-        if (existingRule) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: ctx.t('rules.api.ruleWithNameExists', {
-              name:
-                ctx.locale === 'en-GB'
-                  ? input.nameEnglish
-                  : input.nameNorwegian,
-            }),
-            cause: { toast: 'error' },
-          });
-        }
+      let imageId: number | null = null;
 
-        let imageId: number | null = null;
+      if (input.image) {
+        const file = await insertFile(input.image, 'rules', ctx.user.id, false);
+        imageId = file.id;
+      }
 
-        if (input.image) {
-          const file = await insertFile(
-            input.image,
-            'rules',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
+      return await ctx.db.transaction(async (tx) => {
         const [rule] = await tx
           .insert(rules)
           .values({ internal: input.internal, imageId })
@@ -181,37 +174,32 @@ const rulesRouter = createRouter({
   editRule: protectedEditProcedure
     .input((input) => editRuleSchema(useTranslationsFromContext()).parse(input))
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.transaction(async (tx) => {
-        const existingRule = await tx.query.rules.findFirst({
-          where: eq(rules.id, input.id),
+      const existingRule = await ctx.db.query.rules.findFirst({
+        where: eq(rules.id, input.id),
+      });
+
+      if (!existingRule) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: ctx.t('rules.api.ruleNotFound'),
+          cause: { toast: 'error' },
         });
+      }
 
-        if (!existingRule) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: ctx.t('rules.api.ruleNotFound'),
-            cause: { toast: 'error' },
-          });
+      let imageId: number | null = null;
+
+      if (input.image) {
+        if (existingRule?.imageId) {
+          await deleteFile(existingRule.imageId);
         }
 
-        let imageId: number | null = null;
+        const file = await insertFile(input.image, 'rules', ctx.user.id, false);
+        imageId = file.id;
+      }
 
-        if (input.image) {
-          if (existingRule?.imageId) {
-            await deleteFile(existingRule.imageId);
-          }
+      const { image: _, ...data } = input;
 
-          const file = await insertFile(
-            input.image,
-            'rules',
-            ctx.user.id,
-            false,
-          );
-          imageId = file.id;
-        }
-
-        const { image: _, ...data } = input;
-
+      return await ctx.db.transaction(async (tx) => {
         await tx
           .update(rules)
           .set({
