@@ -1,4 +1,4 @@
-import { Inter, Montserrat } from 'next/font/google';
+import { Comic_Relief } from 'next/font/google';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
@@ -14,16 +14,11 @@ type LocaleLayoutProps = {
   params: Promise<{ locale: string }>;
 };
 
-const inter = Inter({
+const comicRelief = Comic_Relief({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-comic-relief',
   display: 'swap',
-});
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-  display: 'swap',
+  weight: ['400', '700'],
 });
 
 export function generateStaticParams() {
@@ -91,11 +86,7 @@ export default async function LocaleLayout({
 
   return (
     <html
-      className={cx(
-        'h-full w-full scroll-smooth',
-        inter.variable,
-        montserrat.variable,
-      )}
+      className={cx('h-full w-full scroll-smooth', comicRelief.variable)}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning

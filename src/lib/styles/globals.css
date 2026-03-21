@@ -92,8 +92,8 @@
   --font-inter:
     var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-montserrat:
-    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif,
+  --font-comic-relief:
+    var(--font-comic-relief), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   /* Breakpoints */
@@ -171,7 +171,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 font-comic-relief;
   }
   body {
     @apply bg-background text-foreground;
@@ -182,16 +182,16 @@
 
   /* Typography */
   h1 {
-    @apply scroll-m-20 font-montserrat clamp-[text-4xl-5xl-clamp] font-extrabold tracking-tight;
+    @apply scroll-m-20 font-comic-relief clamp-[text-4xl-5xl-clamp] font-extrabold tracking-tight;
   }
   h2 {
-    @apply scroll-m-20 font-montserrat text-3xl font-semibold tracking-tight;
+    @apply scroll-m-20 font-comic-relief text-3xl font-semibold tracking-tight;
   }
   h3 {
-    @apply scroll-m-20 font-montserrat text-2xl font-semibold tracking-tight;
+    @apply scroll-m-20 font-comic-relief text-2xl font-semibold tracking-tight;
   }
   h4 {
-    @apply scroll-m-20 font-montserrat text-xl font-semibold tracking-tight;
+    @apply scroll-m-20 font-comic-relief text-xl font-semibold tracking-tight;
   }
 }
 @layer utilities {

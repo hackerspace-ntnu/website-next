@@ -54,7 +54,7 @@ export default function ForgotPasswordEmail({
         })()}
       </Text>
       <Section className='mb-8 rounded-lg bg-muted px-2.5 py-10'>
-        <Text className='text-center align-middle font-montserrat text-3xl'>
+        <Text className='text-center align-middle font-comic-relief text-3xl'>
           {validationCode.substring(0, 4)}
           <span className='select-none'>-</span>
           {validationCode.substring(4)}

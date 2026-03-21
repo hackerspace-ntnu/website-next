@@ -52,10 +52,10 @@ export default async function SignInPage({
       </div>
       <Separator />
       <div className='absolute bottom-0 left-0 w-full space-y-4'>
-        <p className='text-center font-montserrat'>{t('signInWith')}</p>
+        <p className='text-center font-comic-relief'>{t('signInWith')}</p>
         <FeideButton redirectTo={redirectTo} />
         <Link
-          className='flex w-full gap-1 bg-primary/80 font-montserrat font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
+          className='flex w-full gap-1 bg-primary/80 font-comic-relief font-semibold text-black text-md dark:bg-primary/50 dark:text-white hover:dark:bg-primary/40'
           variant='default'
           size='default'
           href={{ pathname: '/auth/account', query: { r: redirectTo } }}
