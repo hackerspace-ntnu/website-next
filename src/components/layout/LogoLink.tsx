@@ -38,11 +38,11 @@ function LogoLink({
       {!logoOnly && (
         <span
           className={cx(
-            'clamp-[text-lg-2xl-clamp] font-bold font-comic-relief',
+            'clamp-[text-lg-2xl-clamp] -rotate-180 font-bold font-comic-relief',
             titleClassName,
           )}
         >
-          HACKERSPACE
+          BEDRE MAKE NTNU
         </span>
       )}
     </Link>

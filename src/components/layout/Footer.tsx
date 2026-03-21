@@ -201,8 +201,8 @@ async function Footer() {
         </ul>
       </nav>
       <p className='text-center'>
-        {t('copyright')} &copy; {year} Hackerspace NTNU.{' '}
-        {t('allRightsReserved')}.
+        {t('copyright')} &copy; {year} Bedre MAKE NTNU. {t('allRightsReserved')}
+        .
       </p>
     </footer>
   );

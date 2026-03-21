@@ -32,7 +32,7 @@ function CoffeeIdle() {
         </span>
         <div className='flex flex-row items-center'>
           <HackerspaceLogo className='h-6 w-6' />
-          <span className='font-bold font-comic-relief'> HACKERSPACE</span>
+          <span className='font-bold font-comic-relief'> BEDRE MAKE NTNU</span>
         </div>
       </div>
     </>

@@ -69,7 +69,7 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
         </Carousel>
 
         <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-5/12 left-1/2 w-full transform text-center text-4xl-7xl-clamp text-shadow-foreground text-shadow-lg dark:text-foreground dark:text-shadow-background'>
-          Hackerspace NTNU
+          Bedre MAKE NTNU
         </h1>
 
         {canEditSlides && (
