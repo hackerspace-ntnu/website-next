@@ -1,4 +1,5 @@
 import { Comic_Relief } from 'next/font/google';
+import Image from 'next/image';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
@@ -101,6 +102,20 @@ export default async function LocaleLayout({
             </div>
           </ScrollArea>
         </RootProviders>
+        <div className='h-screen w-screen [&>div]:absolute [&>div]:z-50 [&_img]:size-20'>
+          <div className='top-5 left-5'>
+            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
+          </div>
+          <div className='top-5 right-5'>
+            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
+          </div>
+          <div className='bottom-5 left-5'>
+            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
+          </div>
+          <div className='right-5 bottom-5'>
+            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
+          </div>
+        </div>
       </body>
     </html>
   );
