@@ -44,7 +44,7 @@ function eventSchema(t: Translations) {
     internal: z.boolean(),
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
+      allowedFileTypes: ['png', 'jpeg', 'gif', 'webp', 'avif'],
       maxFileSize: 50,
       sizeLimitError: t('events.form.image.sizeLimitError', { size: 50 }),
       wrongFileTypeError: t('events.form.image.wrongFileTypeError'),

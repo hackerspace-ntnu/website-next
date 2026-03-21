@@ -6,7 +6,7 @@ function itemSchema(t: Translations, categories: string[]) {
   return z.object({
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
+      allowedFileTypes: ['png', 'jpeg', 'gif', 'webp', 'avif'],
       maxFileSize: 50,
       sizeLimitError: t('storage.edit.image.sizeLimitError', { size: 50 }),
       wrongFileTypeError: t('storage.edit.image.wrongFileTypeError'),

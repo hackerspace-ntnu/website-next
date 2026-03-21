@@ -389,7 +389,7 @@
         "description": "Upload an image...",
         "required": "Article image is required",
         "sizeLimitError": "Article image must be less than {size} MB",
-        "wrongFileTypeError": "Article image must be a PNG or JPG",
+        "wrongFileTypeError": "Article image must be of type PNG, JPG, GIF, WEBP or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "title": {
@@ -501,8 +501,8 @@
       },
       "profilePicture": {
         "label": "Profile picture",
-        "mustBeImage": "Profile picture must be an image",
-        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "fileNotImageError": "Profile picture must be an image",
+        "wrongFileTypeError": "Profile picture must be of type PNG, JPG, WEBP, or AVIF",
         "sizeLimit": "Profile picture must be less than {size} MB"
       },
       "firstName": {
@@ -640,7 +640,7 @@
         "description": "Upload an image...",
         "required": "Group image is required",
         "sizeLimitError": "Group image must be less than {size} MB",
-        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "wrongFileTypeError": "Group image must be of type PNG, JPG, GIF, WEBP or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -809,7 +809,7 @@
         "label": "Item image",
         "upload": "Upload an image...",
         "sizeLimitError": "Item image must be less than {size} MB",
-        "wrongFileTypeError": "Item image must be a PNG or JPG",
+        "wrongFileTypeError": "Item image must be of type PNG, JPG, GIF, WEBP or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -1051,7 +1051,7 @@
         "label": "Event image",
         "upload": "Upload an image...",
         "sizeLimitError": "Event image must be less than {size} MB",
-        "wrongFileTypeError": "Event image must be a PNG or JPG",
+        "wrongFileTypeError": "Event image must be of type PNG, JPG, GIF, WEBP or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "createSubmit": "Create event",
@@ -1150,7 +1150,7 @@
         "label": "Rule image",
         "description": "Upload an image...",
         "sizeLimitError": "Rule image must be less than {size} MB",
-        "wrongFileTypeError": "Rule image must be a PNG or JPG",
+        "wrongFileTypeError": "Rule image must be of type PNG, JPG, GIF, WEBP or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -1412,7 +1412,7 @@
             "confirmDescription": "This action cannot be undone"
           },
           "sizeLimitError": "Home carousel image must be less than {size} MB",
-          "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
+          "wrongFileTypeError": "Home carousel image must be of type PNG, JPG, GIF, WEBP or AVIF",
           "fileNotImageError": "The file is not an image"
         },
         "editSubmit": "Update slide",
@@ -1686,7 +1686,7 @@
           "label": "Tool image",
           "description": "Upload an image...",
           "sizeLimitError": "Tool image must be less than {size} MB",
-          "wrongFileTypeError": "Tool image must be a PNG or JPG",
+          "wrongFileTypeError": "Tool image must be of type PNG, JPG, GIF, WEBP or AVIF",
           "fileNotImageError": "The file is not an image"
         },
         "type": {

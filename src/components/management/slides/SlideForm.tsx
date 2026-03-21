@@ -128,7 +128,7 @@ function SlideForm({ slide }: SlideFormProps) {
               <Input
                 className='h-58 w-full cursor-pointer rounded-lg border-none opacity-0'
                 type='file'
-                accept='image/jpeg,image/png,image/gif,image/webp'
+                accept='image/png,image/jpeg,image/gif,image/webp,image/avif'
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
                   if (file) {

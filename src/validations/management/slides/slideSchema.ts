@@ -51,7 +51,7 @@ function slideSchema(t: Translations) {
     active: z.boolean({ message: t('management.slides.form.active.invalid') }),
     image: fileUploadZodString({
       allowedMediaType: 'image',
-      allowedFileTypes: ['jpeg', 'png', 'gif', 'webp'],
+      allowedFileTypes: ['png', 'jpeg', 'gif', 'webp', 'avif'],
       maxFileSize: 50,
       sizeLimitError: t('management.slides.form.image.sizeLimitError', {
         size: 50,
