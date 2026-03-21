@@ -131,6 +131,7 @@ function ArticleForm({
                 'image/webp': ['.webp'],
                 'image/avif': ['.avif'],
               }}
+              preview
               validator={(value) => formSchema.shape.image.safeParse(value)}
             />
           )}

@@ -134,6 +134,7 @@ function RuleForm({ rule }: { rule?: RouterOutput['rules']['fetchRule'] }) {
                 'image/webp': ['.webp'],
                 'image/avif': ['.avif'],
               }}
+              preview
               validator={(value) => formSchema.shape.image.safeParse(value)}
             />
           )}

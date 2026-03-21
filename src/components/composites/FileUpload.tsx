@@ -1,8 +1,9 @@
 'use client';
 
-import { Trash2Icon, UploadIcon } from 'lucide-react';
+import { ImageIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, Suspense, useCallback, useState } from 'react';
 import { type FileRejection, useDropzone } from 'react-dropzone';
 import type { ZodError } from 'zod';
 import { Button } from '@/components/ui/Button';
@@ -15,6 +16,7 @@ type FileUploadProps = {
   accept?: Record<string, string[]>;
   maxSize?: number;
   defaultText?: string;
+  preview?: boolean;
   errors?: string | string[];
   validator?: (value: string) => { success: boolean; error?: ZodError };
 };
@@ -37,6 +39,7 @@ function FileUpload({
   accept,
   maxSize,
   defaultText,
+  preview = false,
   onFilesUploaded,
   validator,
   errors: externalErrors,
@@ -165,21 +168,32 @@ function FileUpload({
           {files.map((file) => (
             <div
               key={`${file.name}-${file.size}-${file.lastModified}`}
-              className='flex items-center justify-between rounded-md border bg-background p-3'
+              className='flex flex-col gap-3 rounded-md border p-3'
             >
-              <div className='flex items-center space-x-2'>
-                <span className='font-medium text-sm'>{file.name}</span>
-                <span className='text-muted-foreground text-xs'>
-                  ({(file.size / 1024).toFixed(2)} KB)
-                </span>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center space-x-2'>
+                  <span className='font-medium text-sm'>{file.name}</span>
+                  <span className='text-muted-foreground text-xs'>
+                    ({(file.size / 1024).toFixed(2)} KB)
+                  </span>
+                </div>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  onClick={() => removeFile(file)}
+                >
+                  <Trash2Icon className='h-4 w-4' />
+                </Button>
               </div>
-              <Button
-                variant='ghost'
-                size='sm'
-                onClick={() => removeFile(file)}
-              >
-                <Trash2Icon className='h-4 w-4' />
-              </Button>
+              {preview && (
+                <Image
+                  className='h-fit max-h-[363.383px] w-fit rounded-lg object-contain object-left'
+                  alt={`Preview of ${file.name}`}
+                  src={file.preview}
+                  width={646} // Estimated size, 16:9 max size in form
+                  height={363.383}
+                />
+              )}
             </div>
           ))}
         </div>
