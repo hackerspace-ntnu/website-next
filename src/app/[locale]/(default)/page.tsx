@@ -42,7 +42,7 @@ export default async function HomePage({
         }}
       />
       <TextBlock
-        imgSrc='/whoAreWe.jpg'
+        imgSrc='/whoAreWe.avif'
         imgAlt={t('whoAreWeAlt')}
         imgSide='right'
       >
@@ -50,7 +50,7 @@ export default async function HomePage({
         <p>{t('whoAreWeDescription')}</p>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/workshop.jpg' imgAlt={t('stopByAlt')} imgSide='left'>
+      <TextBlock imgSrc='/workshop.avif' imgAlt={t('stopByAlt')} imgSide='left'>
         <h2>{t('stopBy')}</h2>
         <p>{t('stopByDescription', { membersOnShift })}</p>
         <Link
@@ -63,7 +63,7 @@ export default async function HomePage({
         </Link>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/events.jpg' imgAlt={t('eventsAlt')} imgSide='right'>
+      <TextBlock imgSrc='/events.avif' imgAlt={t('eventsAlt')} imgSide='right'>
         <h2>{t('events')}</h2>
         <div className='flex flex-col gap-3 md:flex-row'>
           <div className='flex flex-col gap-3 lg:w-1/2'>
@@ -76,7 +76,7 @@ export default async function HomePage({
         </div>
       </TextBlock>
       <Separator />
-      <TextBlock imgSrc='/ducks.jpg' imgAlt={t('newsAlt')} imgSide='left'>
+      <TextBlock imgSrc='/ducks.avif' imgAlt={t('newsAlt')} imgSide='left'>
         <h2>{t('news')}</h2>
         <div className='flex flex-col gap-3 md:flex-row '>
           <div className='flex flex-col gap-3 lg:w-1/2'>
