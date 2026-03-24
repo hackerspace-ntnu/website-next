@@ -2,6 +2,7 @@
 
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import {
   DropdownMenu,
@@ -22,6 +23,13 @@ type DarkModeMenuProps = {
 
 function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
   const { setTheme } = useTheme();
+
+  const [reversedSystem] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'light'
+      : 'dark';
+  });
 
   return (
     <DropdownMenu>
@@ -48,7 +56,7 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
       <DropdownMenuContent className='min-w-[6rem]' align='end'>
         <DropdownMenuItem asChild>
           <Button
-            onClick={() => setTheme('light')}
+            onClick={() => setTheme('dark')}
             variant='none'
             size='none'
             className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
@@ -58,7 +66,7 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Button
-            onClick={() => setTheme('dark')}
+            onClick={() => setTheme('light')}
             variant='none'
             size='none'
             className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
@@ -68,7 +76,7 @@ function DarkModeMenu({ t, classname }: DarkModeMenuProps) {
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Button
-            onClick={() => setTheme('system')}
+            onClick={() => setTheme(reversedSystem ?? 'light')}
             variant='none'
             size='none'
             className='w-full justify-start focus-visible:hover:ring-0 focus-visible:hover:ring-offset-0'
