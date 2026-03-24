@@ -102,7 +102,7 @@ export default async function LocaleLayout({
             </div>
           </ScrollArea>
         </RootProviders>
-        <div className='h-screen w-screen [&>div]:absolute [&>div]:z-50 [&_img]:size-20'>
+        <div className='[&>div]:absolute [&>div]:z-50 [&_img]:size-20'>
           <div className='top-5 left-5'>
             <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
           </div>
