@@ -19,6 +19,7 @@ export default async function HomePage({
 
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
+  const tMeta = await getTranslations('meta');
 
   const { user } = await api.auth.state();
 
@@ -39,6 +40,7 @@ export default async function HomePage({
         t={{
           placeholderAlt: t('placeholderAlt'),
           editSlides: t('changeSlides'),
+          titleDefault: tMeta('titleDefault'),
         }}
       />
       <TextBlock

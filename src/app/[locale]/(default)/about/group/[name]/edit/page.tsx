@@ -43,9 +43,13 @@ export default async function EditGroupPage({
     return notFound();
   }
 
-  const groupLocalization = group.localizations.find(
-    (localization) => localization.locale === locale,
-  );
+  const groupLocalization =
+    group.localizations.find(
+      (localization) => localization.locale === locale,
+    ) ??
+    group?.localizations.find(
+      (localization) => localization.locale === 'en-GB',
+    );
 
   if (!groupLocalization) {
     return notFound();

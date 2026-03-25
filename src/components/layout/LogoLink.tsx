@@ -10,6 +10,7 @@ type LogoLinkProps = {
   onClick?: () => void;
   t: {
     hackerspaceHome: string;
+    titleDefault: string;
   };
 };
 
@@ -42,7 +43,7 @@ function LogoLink({
             titleClassName,
           )}
         >
-          BEDRE MAKE NTNU
+          {t.titleDefault}
         </span>
       )}
     </Link>

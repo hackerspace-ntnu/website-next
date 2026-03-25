@@ -25,6 +25,7 @@ export default async function AuthLayout({
   setRequestLocale(locale as Locale);
 
   const t = await getTranslations('layout');
+  const tMeta = await getTranslations('meta');
   const { auth, ui } = await getMessages();
 
   return (
@@ -38,6 +39,7 @@ export default async function AuthLayout({
               titleClassName='text-lg'
               t={{
                 hackerspaceHome: t('hackerspaceHome'),
+                titleDefault: tMeta('titleDefault'),
               }}
             />
           </CardHeader>

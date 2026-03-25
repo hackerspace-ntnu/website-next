@@ -31,8 +31,8 @@ export async function generateMetadata() {
 
   return {
     title: {
-      template: '%s | Bedre MAKE NTNU',
-      default: 'Bedre MAKE NTNU',
+      template: t('titleTemplate'),
+      default: t('titleDefault'),
     },
     description: t('description'),
     icons: [

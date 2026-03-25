@@ -30,9 +30,13 @@ export async function generateMetadata({
     return;
   }
 
-  const groupLocalization = group?.localizations.find(
-    (localization) => localization.locale === locale,
-  );
+  const groupLocalization =
+    group?.localizations.find(
+      (localization) => localization.locale === locale,
+    ) ??
+    group?.localizations.find(
+      (localization) => localization.locale === 'en-GB',
+    );
 
   if (!group || !groupLocalization) return;
 
@@ -69,9 +73,13 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const groupLocalization = group.localizations.find(
-    (localization) => localization.locale === locale,
-  );
+  const groupLocalization =
+    group.localizations.find(
+      (localization) => localization.locale === locale,
+    ) ??
+    group?.localizations.find(
+      (localization) => localization.locale === 'en-GB',
+    );
 
   group.usersGroups = group.usersGroups.sort((a, b) => {
     if (a.user.id === group.leaderId) return -1;

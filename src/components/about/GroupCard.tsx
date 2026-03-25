@@ -14,9 +14,13 @@ type GroupCardProps = {
 
 async function GroupCard({ className, group }: GroupCardProps) {
   const locale = await getLocale();
-  const groupLocalization = group.localizations.find(
-    (localization) => localization.locale === locale,
-  );
+  const groupLocalization =
+    group.localizations.find(
+      (localization) => localization.locale === locale,
+    ) ??
+    group?.localizations.find(
+      (localization) => localization.locale === 'en-GB',
+    );
 
   if (!groupLocalization) {
     return null;

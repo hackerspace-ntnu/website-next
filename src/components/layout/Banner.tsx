@@ -48,9 +48,13 @@ function Banner() {
           >
             <CarouselContent className='ml-0'>
               {banners?.map((banner) => {
-                const bannerLocalization = banner.localizations.find(
-                  (localization) => localization.locale === locale,
-                );
+                const bannerLocalization =
+                  banner.localizations.find(
+                    (localization) => localization.locale === locale,
+                  ) ??
+                  banner?.localizations.find(
+                    (localization) => localization.locale === 'en-GB',
+                  );
 
                 return (
                   <CarouselItem

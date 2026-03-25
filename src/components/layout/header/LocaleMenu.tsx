@@ -21,6 +21,7 @@ type LocaleMenuProps = {
 };
 
 const localeDisplayNameShort: Record<Locale, string> = {
+  'ko-KP': 'KP',
   'en-GB': 'EN',
   'nb-NO': 'NO',
 };

@@ -69,9 +69,13 @@ export default async function SlidesPage({
         </TableHeader>
         <TableBody>
           {slides.map((slide) => {
-            const slideLocalization = slide.localizations.find(
-              (localization) => localization.locale === locale,
-            );
+            const slideLocalization =
+              slide.localizations.find(
+                (localization) => localization.locale === locale,
+              ) ??
+              slide?.localizations.find(
+                (localization) => localization.locale === 'en-GB',
+              );
             return (
               <TableRow key={slide.id}>
                 <TableCell>

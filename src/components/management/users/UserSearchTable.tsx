@@ -38,6 +38,9 @@ async function UserSearchTable({
               (userGroup) =>
                 userGroup.group.localizations.find(
                   (loc) => loc.locale === locale,
+                )?.name ??
+                userGroup.group.localizations.find(
+                  (localization) => localization.locale === 'en-GB',
                 )?.name,
             )
             .filter((name) => !!name)

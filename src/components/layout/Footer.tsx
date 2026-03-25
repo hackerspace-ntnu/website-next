@@ -16,6 +16,7 @@ async function Footer() {
   const t = await getTranslations('layout');
   const year = new Date().getFullYear();
   const tMatrix = await getTranslations('matrixDialog');
+  const tMeta = await getTranslations('meta');
   const { user } = await api.auth.state();
 
   return (
@@ -28,6 +29,7 @@ async function Footer() {
               titleClassName='text-lg'
               t={{
                 hackerspaceHome: t('hackerspaceHome'),
+                titleDefault: tMeta('titleDefault'),
               }}
             />
           </div>
@@ -201,8 +203,8 @@ async function Footer() {
         </ul>
       </nav>
       <p className='text-center'>
-        {t('copyright')} &copy; {year} Bedre MAKE NTNU. {t('allRightsReserved')}
-        .
+        {t('copyright')} &copy; {year} {tMeta('titleDefault')}.{' '}
+        {t('allRightsReserved')}.
       </p>
     </footer>
   );

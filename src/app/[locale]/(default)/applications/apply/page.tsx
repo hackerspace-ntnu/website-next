@@ -29,9 +29,11 @@ export default async function ApplyPage({
   const groups = await api.groups.fetchGroupsOpenToApps();
   const groupOptions = groups
     .map((group) => {
-      const localization = group.localizations.find(
-        (loc) => loc.locale === locale,
-      );
+      const localization =
+        group.localizations.find((loc) => loc.locale === locale) ??
+        group?.localizations.find(
+          (localization) => localization.locale === 'en-GB',
+        );
       if (!localization) return null;
       return {
         value: group.identifier,
