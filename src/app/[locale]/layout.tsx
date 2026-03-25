@@ -4,7 +4,7 @@ import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
 import { RootProviders } from '@/components/providers/RootProviders';
-import { Link } from '@/components/ui/Link';
+import { ExternalLink, Link } from '@/components/ui/Link';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
@@ -112,8 +112,18 @@ export default async function LocaleLayout({
           <div className='bottom-5 left-5'>
             <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
           </div>
-          <div className='right-5 bottom-5'>
+          <div className='right-5 bottom-20'>
             <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
+          </div>
+          <div className='right-5 bottom-5 rounded-lg bg-red-500 p-2'>
+            <ExternalLink
+              href='https://makentnu.no'
+              className='rotate-0 text-white'
+              variant='none'
+              target='_blank'
+            >
+              Dra til et verre sted
+            </ExternalLink>
           </div>
         </div>
       </body>
