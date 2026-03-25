@@ -612,6 +612,8 @@
   "groups": {
     "backToAbout": "Tilbake til Om oss",
     "internalGroup": "Dette er en intern gruppe",
+    "supremeLeader": "Øverste leder",
+    "subordinate": "Undersott",
     "leader": "Leder",
     "deputyLeader": "Nestleder",
     "unauthorized": "Du har ikke rettigheter til å se denne gruppen",

@@ -194,10 +194,12 @@
     @apply scroll-m-20 font-comic-relief text-xl font-semibold tracking-tight;
   }
 
-  h2, h3, h4, a {
+  h2,
+  h3,
+  h4,
+  a {
     @apply -rotate-180;
   }
-
 }
 @layer utilities {
   @keyframes meteor {

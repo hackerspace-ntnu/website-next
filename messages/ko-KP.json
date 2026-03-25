@@ -611,6 +611,8 @@
   "groups": {
     "backToAbout": "소개로 돌아가기",
     "internalGroup": "이것은 내부 그룹입니다",
+    "supremeLeader": "최고 지도자",
+    "subordinate": "부하",
     "leader": "리더",
     "deputyLeader": "부리더",
     "unauthorized": "이 그룹을 볼 권한이 없습니다",

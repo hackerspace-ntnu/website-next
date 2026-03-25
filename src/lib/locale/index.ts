@@ -32,6 +32,7 @@ const phoneNumberInputLocales = {
 const routing = defineRouting({
   locales: ['en-GB', 'nb-NO', 'ko-KP'],
   defaultLocale: 'ko-KP',
+  localeDetection: false,
   localePrefix: {
     mode: 'as-needed',
     prefixes: {

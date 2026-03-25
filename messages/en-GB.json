@@ -612,6 +612,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "supremeLeader": "Supreme Leader",
+    "subordinate": "Subordinate",
     "leader": "Leader",
     "deputyLeader": "Deputy Leader",
     "unauthorized": "Unauthorized to view this group",
