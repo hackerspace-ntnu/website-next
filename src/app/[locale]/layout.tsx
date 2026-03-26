@@ -1,5 +1,7 @@
 import { Comic_Relief } from 'next/font/google';
+import { headers } from 'next/headers';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
@@ -84,6 +86,12 @@ export default async function LocaleLayout({
     accept: tUi('accept'),
     decline: tUi('decline'),
   };
+
+  const host = (await headers()).get('host') ?? '';
+
+  if (host.includes('hackerspace-ntnu.no')) {
+    redirect('https://xn--9t4ba908at7ib6fs3c.website');
+  }
 
   return (
     <html
