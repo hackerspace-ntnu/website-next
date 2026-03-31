@@ -8,12 +8,13 @@ import { Separator } from '@/components/ui/Separator';
 export default async function HomeLoading() {
   const t = await getTranslations('home');
   const tLayout = await getTranslations('layout');
+  const tMeta = await getTranslations('meta');
 
   return (
     <div className='space-y-8'>
       <div className='absolute top-0 left-0 h-screen w-full text-background'>
         <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-5/12 left-1/2 w-full transform text-center text-4xl-7xl-clamp text-shadow-foreground text-shadow-lg dark:text-foreground dark:text-shadow-background'>
-          Hackerspace NTNU
+          {tMeta('titleDefault')}
         </h1>
       </div>
       <div className='h-[calc(100vh-5rem)]' />

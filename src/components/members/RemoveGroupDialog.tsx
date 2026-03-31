@@ -30,9 +30,9 @@ function RemoveGroupDialog({
   const t = useTranslations('members.groupManagement');
   const tUi = useTranslations('ui');
   const locale = useLocale();
-  const groupLocalization = group.localizations.find(
-    (loc) => loc.locale === locale,
-  );
+  const groupLocalization =
+    group.localizations.find((loc) => loc.locale === locale) ??
+    group.localizations.find((localization) => localization.locale === 'en-GB');
 
   if (!groupLocalization) return null;
 

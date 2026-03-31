@@ -31,6 +31,7 @@ export default async function SettingsLayout({
   const { settings, ui } = await getMessages();
   const t = await getTranslations('settings');
   const tLayout = await getTranslations('layout');
+  const tMeta = await getTranslations('meta');
 
   const { user } = await api.auth.state();
 
@@ -58,6 +59,7 @@ export default async function SettingsLayout({
               logoOnly
               t={{
                 hackerspaceHome: tLayout('hackerspaceHome'),
+                titleDefault: tMeta('titleDefault'),
               }}
             />
             <div>

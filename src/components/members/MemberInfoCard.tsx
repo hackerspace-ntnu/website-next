@@ -32,7 +32,10 @@ async function MemberInfoCard({
       (row) =>
         row.group.localizations.find(
           (localization) => localization.locale === locale,
-        )?.name,
+        )?.name ??
+        row.group.localizations.find(
+          (localization) => localization.locale === 'en-GB',
+        ),
     )
     .filter((item) => item !== undefined)
     .join(', ');

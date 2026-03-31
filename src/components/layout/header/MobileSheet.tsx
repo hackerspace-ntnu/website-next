@@ -54,6 +54,7 @@ type MobileSheetProps = {
       openMatrix: string;
       invalidValue: string;
     };
+    titleDefault: string;
   };
 };
 
@@ -93,6 +94,7 @@ function MobileSheet({
               onClick={() => setOpen(false)}
               t={{
                 hackerspaceHome: t.hackerspaceHome,
+                titleDefault: t.titleDefault,
               }}
             />
           </SheetTitle>

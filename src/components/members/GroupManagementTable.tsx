@@ -31,7 +31,9 @@ function GroupManagementTableRow({
   const router = useRouter();
   const utils = api.useUtils();
 
-  const localization = group.localizations.find((loc) => loc.locale === locale);
+  const localization =
+    group.localizations.find((loc) => loc.locale === locale) ??
+    group.localizations.find((localization) => localization.locale === 'en-GB');
   const hasGroup = user.usersGroups?.some(
     (userGroup) => userGroup.groupId === group.id,
   );

@@ -1,0 +1,1894 @@
+{
+  "meta": {
+    "titleTemplate": "%s | 더 나은 MAKE NTNU",
+    "titleDefault": "더 나은 MAKE NTNU",
+    "description": "더 나은 MAKE NTNU는 모든 학생에게 열려 있는 학생 주도 프로젝트로, 3D 프린터와 VR 장비 같은 최신 기술을 이용할 수 있습니다. 회원들은 LED를 깜박이게 하는 것부터 3D 모델 제작까지 다양한 프로젝트를 도와드립니다. 저희 작업실을 방문하거나 Matrix 채팅에 참여하여 도움을 받거나 대화를 나눠보세요."
+  },
+  "ui": {
+    "open": "열기",
+    "close": "닫기",
+    "previous": "이전",
+    "goBack": "뒤로 가기",
+    "goToPreviousPage": "이전 페이지로",
+    "next": "다음",
+    "goToNextPage": "다음 페이지로",
+    "morePages": "더 많은 페이지",
+    "name": "이름",
+    "page": "페이지",
+    "category": "카테고리",
+    "sort": "정렬",
+    "photoOf": "{name}의 사진",
+    "skills": "기술",
+    "yesterday": "어제",
+    "today": "오늘",
+    "tomorrow": "내일",
+    "selected": "선택됨",
+    "week": "주",
+    "nextMonth": "다음 달",
+    "previousMonth": "이전 달",
+    "selectMonth": "월 선택",
+    "pickDate": "날짜 선택",
+    "dateFormat": "yyyy.MM.dd",
+    "search": "검색",
+    "searchCountry": "국가 검색...",
+    "noCountryFound": "국가를 찾을 수 없습니다",
+    "hidePassword": "비밀번호 숨기기",
+    "showPassword": "비밀번호 보기",
+    "confirm": "확인",
+    "delete": "삭제",
+    "cancel": "취소",
+    "decline": "거절",
+    "save": "저장",
+    "copy": "복사",
+    "done": "완료",
+    "accept": "수락",
+    "duplicate": "복제",
+    "redo": "다시 실행",
+    "undo": "실행 취소",
+    "clear": "지우기",
+    "custom": "사용자 정의",
+    "uploadText": "파일을 여기에 끌어다 놓거나 클릭하여 업로드",
+    "noValidFiles": "유효한 파일이 없습니다",
+    "noChoicesFound": "선택 항목 없음",
+    "noResults": "결과 없음",
+    "plate": {
+      "typeSomething": "무언가 입력하세요...",
+      "turnInto": "변환",
+      "paragraph": "단락",
+      "heading1": "제목 1",
+      "heading2": "제목 2",
+      "heading3": "제목 3",
+      "heading4": "제목 4",
+      "heading5": "제목 5",
+      "heading6": "제목 6",
+      "blockquote": "인용 블록",
+      "indent": "들여쓰기",
+      "outdent": "내어쓰기",
+      "align": "정렬",
+      "left": "왼쪽",
+      "center": "가운데",
+      "right": "오른쪽",
+      "dragToMove": "드래그하여 이동",
+      "dragToMoveColumn": "드래그하여 열 이동",
+      "searchLanguages": "언어 검색...",
+      "noLanguageFound": "언어를 찾을 수 없습니다",
+      "addEquation": "TeX 수식 추가",
+      "newEquation": "새 수식",
+      "markAsEquation": "수식으로 표시",
+      "export": "내보내기",
+      "exportAsHtml": "HTML로 내보내기",
+      "exportAsPdf": "PDF로 내보내기",
+      "exportAsImage": "이미지로 내보내기",
+      "exportAsMarkdown": "Markdown으로 내보내기",
+      "import": "가져오기",
+      "importFromHtml": "HTML에서 가져오기",
+      "importFromMarkdown": "Markdown에서 가져오기",
+      "bold": "굵게 (⌘+B)",
+      "italic": "기울임꼴 (⌘+I)",
+      "underline": "밑줄 (⌘+U)",
+      "strikethrough": "취소선 (⌘+⇧+M)",
+      "code": "코드 (⌘+E)",
+      "textColor": "글자 색상",
+      "backgroundColor": "배경 색상",
+      "basicBlocks": "기본 블록",
+      "text": "텍스트",
+      "table": "표",
+      "quote": "인용",
+      "divider": "구분선",
+      "lists": "목록",
+      "bulletedList": "글머리 기호 목록",
+      "numberedList": "번호 매기기 목록",
+      "todo": "할 일",
+      "todoList": "할 일 목록",
+      "expandableList": "확장 가능한 목록",
+      "media": "미디어",
+      "image": "이미지",
+      "embed": "임베드",
+      "advancedBlocks": "고급 블록",
+      "tableOfContents": "목차",
+      "threeColumns": "세 열",
+      "equation": "수식",
+      "inline": "인라인",
+      "link": "링크",
+      "pasteLink": "링크 붙여넣기",
+      "date": "날짜",
+      "inlineEquation": "인라인 수식",
+      "lineHeight": "줄 높이",
+      "textToDisplay": "표시할 텍스트",
+      "editLink": "링크 편집",
+      "default": "기본",
+      "circle": "원형",
+      "square": "사각형",
+      "decimal": "숫자",
+      "lowerAlpha": "소문자",
+      "upperAlpha": "대문자",
+      "lowerRoman": "소문자 로마 숫자",
+      "upperRoman": "대문자 로마 숫자",
+      "caption": "캡션",
+      "writeACaption": "캡션을 입력하세요...",
+      "pasteEmbedLink": "임베드 링크 붙여넣기...",
+      "audio": "오디오",
+      "insertAudio": "오디오 삽입",
+      "file": "파일",
+      "video": "동영상",
+      "insert": "삽입",
+      "insertFile": "파일 삽입",
+      "insertImage": "이미지 삽입",
+      "insertVideo": "동영상 삽입",
+      "uploadFromComputer": "컴퓨터에서 업로드",
+      "insertViaUrl": "URL로 삽입",
+      "invalidUrl": "잘못된 URL",
+      "invalidFileSize": "{files} 파일의 크기가 잘못되었습니다",
+      "invalidFileType": "{files} 파일의 형식이 잘못되었습니다",
+      "tooLargeFiles": "{files} 파일이 너무 큽니다. 최대: {max}",
+      "tooFewFiles": "{type}의 최소 파일 수는 {min}개입니다",
+      "tooManyFiles": "{type}의 최대 파일 수는 {max}개입니다",
+      "editing": "편집",
+      "viewing": "보기",
+      "suggestion": "제안",
+      "editingMode": "편집 모드",
+      "viewingMode": "보기 모드",
+      "keyboardInput": "키보드 입력",
+      "superscript": "위 첨자",
+      "subscript": "아래 첨자",
+      "expandable": "확장 가능",
+      "callout": "콜아웃",
+      "calloutDescription": "강조 블록 삽입.",
+      "cell": "셀",
+      "mergeCells": "셀 병합",
+      "splitCell": "셀 분할",
+      "cellBorders": "셀 테두리",
+      "deleteTable": "표 삭제",
+      "row": "행",
+      "insertRowBefore": "위에 행 삽입",
+      "insertRowAfter": "아래에 행 삽입",
+      "deleteRow": "행 삭제",
+      "column": "열",
+      "insertColumnBefore": "왼쪽에 열 삽입",
+      "insertColumnAfter": "오른쪽에 열 삽입",
+      "deleteColumn": "열 삭제",
+      "topBorder": "위쪽 테두리",
+      "bottomBorder": "아래쪽 테두리",
+      "leftBorder": "왼쪽 테두리",
+      "rightBorder": "오른쪽 테두리",
+      "noBorder": "테두리 없음",
+      "outerBorders": "바깥쪽 테두리",
+      "colors": "색상",
+      "customColors": "사용자 정의 색상",
+      "defaultColors": "기본 색상",
+      "createHeading": "목차를 표시하려면 제목을 만드세요.",
+      "pickADate": "날짜 선택"
+    }
+  },
+  "error": {
+    "notFound": "404 - 페이지를 찾을 수 없습니다",
+    "notFoundDescription": "이런! 이 페이지가 사이버 공간에서 길을 잃은 것 같습니다.",
+    "error": "이런! 문제가 발생했습니다",
+    "errorDescription": "걱정하지 마세요, 저희 최고의 해커들이 해결 중입니다!",
+    "tooManyRequests": "요청이 너무 많습니다",
+    "tooManyRequestsDescription": "잠시 기다렸다가 다시 시도해 주세요.",
+    "goToHomepage": "홈페이지로 돌아가기",
+    "tryAgain": "다시 시도",
+    "invalidLocale": "잘못된 언어: {locale}",
+    "failedToExportPDF": "PDF 내보내기 실패",
+    "failedToExportImage": "이미지 내보내기 실패",
+    "uploadFailed": "파일 업로드 실패"
+  },
+  "auth": {
+    "welcome": "환영합니다!",
+    "description": "처음 오셨나요? Feide를 사용하세요",
+    "signInWith": "로그인",
+    "hackerspaceAccount": "Hackerspace 계정",
+    "success": "성공!",
+    "successDescription": "축하합니다, Hackerspace NTNU의 회원이 되셨습니다!",
+    "home": "홈",
+    "signIn": "로그인",
+    "useYourAccount": "계정 사용",
+    "forgotPassword": "비밀번호 분실",
+    "forgotPasswordDescription": "비밀번호를 재설정하려면 Hackerspace 계정과 연결된 이메일 주소를 입력하세요.",
+    "forgotPasswordInfoToast": "<strong>{email}</strong> 이메일 주소가 Hackerspace 계정에 연결되어 있는 경우 비밀번호 재설정 일회용 코드를 보내드렸습니다.<br></br>잘못된 이메일을 사용하셨다면 새로운 비밀번호 재설정 요청을 해주세요.",
+    "enterTheCode": "비밀번호 변경을 확인하기 위해 이메일로 전송된 코드를 입력해 주세요",
+    "submit": "제출",
+    "invalidCredentials": "잘못된 로그인 정보",
+    "matrixRegistrationFailed": "Matrix 사용자 등록 실패",
+    "createPassword": "비밀번호 만들기",
+    "passwordDescription": "비밀번호는 Matrix 및 Hackerspace 계정 로그인에 사용됩니다",
+    "createAccount": "계정 만들기",
+    "feideNotConfigured": "Feide가 구성되지 않았습니다",
+    "verifyEmail": "이메일 주소 인증",
+    "verifyEmailDescription": "새 이메일 주소로 전송된 인증 코드를 입력하세요. 보이지 않으면 스팸 폴더를 확인해 주세요.",
+    "getNewCode": "새 코드 받기 {seconds, plural, =0 {} =1 {(# 초)} other {(# 초)}}",
+    "newCodeSent": "새 코드가 받은 편지함으로 전송되었습니다",
+    "confirmEmail": "이메일 확인",
+    "unableToCreateVerificationRequest": "이메일 인증 요청을 생성할 수 없습니다",
+    "noVerificationRequest": "인증 요청을 찾을 수 없습니다",
+    "verificationCodeExpired": "인증 코드가 만료되었습니다. 새 코드를 받은 편지함으로 전송했습니다",
+    "emailUpdateSuccess": "이메일 주소가 업데이트되었습니다",
+    "passwordUpdateSuccess": "비밀번호가 업데이트되었습니다! 새 비밀번호로 로그인할 수 있습니다.",
+    "tryAgain": "다시 시도",
+    "form": {
+      "username": {
+        "label": "사용자 이름",
+        "required": "사용자 이름은 필수입니다",
+        "minLength": "사용자 이름은 최소 {count}자 이상이어야 합니다",
+        "maxLength": "사용자 이름은 {count}자 미만이어야 합니다",
+        "invalid": "사용자 이름은 문자만 포함할 수 있습니다"
+      },
+      "password": {
+        "label": "비밀번호",
+        "required": "비밀번호는 필수입니다",
+        "minLength": "비밀번호는 최소 {count}자 이상이어야 합니다",
+        "maxLength": "비밀번호는 {count}자 미만이어야 합니다",
+        "lowercase": "비밀번호에 소문자가 하나 이상 포함되어야 합니다",
+        "uppercase": "비밀번호에 대문자가 하나 이상 포함되어야 합니다",
+        "specialChar": "비밀번호에 특수문자가 하나 이상 포함되어야 합니다",
+        "confirmLabel": "비밀번호 확인",
+        "mismatch": "비밀번호가 일치하지 않습니다",
+        "weak": "비밀번호가 너무 약합니다"
+      },
+      "newPassword": {
+        "label": "새 비밀번호"
+      },
+      "otp": {
+        "label": "일회용 비밀번호",
+        "required": "일회용 비밀번호는 필수입니다",
+        "length": "일회용 비밀번호는 {count}자여야 합니다",
+        "invalid": "일회용 비밀번호는 숫자와 문자만 포함할 수 있습니다",
+        "incorrect": "잘못된 일회용 비밀번호",
+        "expired": "일회용 비밀번호가 만료되었습니다",
+        "used": "일회용 비밀번호가 이미 사용되었습니다. 새로운 비밀번호 재설정 요청을 해주세요."
+      },
+      "email": {
+        "label": "이메일",
+        "required": "이메일은 필수입니다",
+        "invalid": "이메일이 유효하지 않습니다"
+      }
+    },
+    "error": {
+      "authenticationFailed": "인증 실패",
+      "userInfoFailed": "Feide에서 사용자 정보를 가져오지 못했습니다",
+      "userInfoMissing": "Feide의 사용자 정보가 누락되었습니다",
+      "phoneInUse": "전화번호가 이미 사용 중입니다",
+      "emailInUse": "이메일 주소가 이미 사용 중입니다",
+      "invalidUserData": "잘못된 Feide 사용자 데이터",
+      "userCreationFailed": "사용자를 생성하지 못했습니다",
+      "forgotPasswordRequestCreationFailed": "비밀번호 재설정 요청을 생성하지 못했습니다",
+      "failedToSendEmail": "이메일을 전송하지 못했습니다",
+      "forgotPasswordRequestIdRequired": "비밀번호 재설정 요청 ID가 필요합니다",
+      "matrixPasswordUpdateFailed": "Matrix 비밀번호 업데이트 실패",
+      "passwordUpdateFailed": "비밀번호 업데이트 실패"
+    }
+  },
+  "layout": {
+    "hackerspaceHome": "Hackerspace 홈페이지",
+    "navigationMenu": "탐색 메뉴",
+    "news": "뉴스",
+    "events": "이벤트",
+    "storage": "창고",
+    "about": "소개",
+    "apply": "지원하기",
+    "shiftSchedule": "근무 일정",
+    "members": "회원",
+    "quotes": "인용구",
+    "desktopNavMenu": "탐색 메뉴 {open, select, true {열기} other {닫기}}",
+    "rules": "규칙",
+    "applications": "지원서",
+    "changeLocale": "언어 변경",
+    "toggleTheme": "테마 전환",
+    "light": "라이트",
+    "dark": "다크",
+    "system": "시스템",
+    "profile": "프로필",
+    "signIn": "로그인",
+    "signOut": "로그아웃",
+    "forgotPassword": "비밀번호 분실",
+    "settings": "설정",
+    "management": "관리",
+    "links": "링크",
+    "utilities": "유틸리티",
+    "haveYouFoundA": "발견하셨나요",
+    "utilitiesDescription": "The Democratic People's Republic of DevOps에 <MailLink></MailLink> 이메일을 보내거나 Matrix의 \"Dev Public\" 방을 이용해 주세요! <GithubLink>GitHub</GithubLink>에서 버그를 신고하거나 개선 사항을 제안할 수도 있습니다.",
+    "openingHours": "운영 시간",
+    "allWeekdays": "월요일 - 금요일",
+    "socialMedia": "소셜 미디어",
+    "sendAnEmail": "이메일 보내기",
+    "visitFacebook": "Facebook 방문",
+    "visitGithub": "Github 방문",
+    "visitLinkedin": "Linkedin 방문",
+    "visitInstagram": "Instagram 방문",
+    "discordTag": "Discord 태그 복사",
+    "NTNUIDI": "NTNU 컴퓨터 과학 및 정보학과",
+    "NTNUIDIURL": "https://www.ntnu.edu/idi",
+    "NTNUNexus": "직업 네트워크 Nexus",
+    "internal": "내부",
+    "copyright": "저작권",
+    "allRightsReserved": "모든 권리 보유",
+    "reservations": "예약",
+    "cookieConsent": {
+      "title": "쿠키를 사용합니다",
+      "description": "저희는 최상의 경험을 제공하기 위해 쿠키를 사용합니다. 쿠키 사용 방법에 대한 자세한 내용은 <link>개인정보 보호정책</link>을 참조하세요."
+    }
+  },
+  "matrixDialog": {
+    "title": "Matrix 로그인",
+    "descriptionNotLoggedIn": "Matrix를 사용하려면 Hackerspace 계정이 필요합니다. 이미 계정이 있으신가요?",
+    "iHaveAnAccount": "계정이 있습니다, Matrix로 이동",
+    "createAnAccount": "Hackerspace 계정 만들기",
+    "descriptionLoggedIn": "Matrix에 로그인할 때 NTNU 사용자 이름(@ntnu.no 없이)과 Hackerspace 계정 비밀번호를 사용하세요. 사용자 이름과 비밀번호 변경은 Hackerspace 사이트에서 할 수 있습니다.",
+    "dontShowAgain": "알겠습니다, 다시 표시하지 않기",
+    "openMatrix": "Matrix 열기",
+    "api": {
+      "invalidValue": "다시 표시하지 않기에 대한 잘못된 값"
+    }
+  },
+  "home": {
+    "placeholderAlt": "사용 가능한 이미지 없음",
+    "changeSlides": "배너 변경",
+    "whoAreWe": "저희는 누구인가요?",
+    "whoAreWeDescription": "Hackerspace NTNU는 IDI의 학생 주도 프로젝트로, 전공에 관계없이 모든 학생에게 열려 있습니다. 3D 프린터와 가상현실 장비 등 최신 기술을 이용할 수 있습니다. LED를 깜박이게 하고 싶거나 트론헤임의 3D 모델을 만들고 싶든, Hackerspace 회원들이 Hackerspace 회원 여부와 관계없이 다양하고 풍부한 지식으로 도와드릴 수 있습니다.",
+    "whoAreWeAlt": "Hackerspace 후드티를 입고 걷는 회원들 사진",
+    "stopBy": "들러 보세요!",
+    "stopByDescription": "궁금한 것이 있거나 도움이 필요한 프로젝트가 있거나 그냥 대화를 나누고 싶다면, 저희 작업실에서 따뜻하게 맞이하겠습니다. {membersOnShift, plural, =0 {지금 작업실에 아무도 없지만, 근무 일정을 확인하여 적합한 운영 시간을 찾아보세요.} one {지금 작업실에 회원 1명이 근무 중이니 언제든지 들러 주세요. 근무 일정을 확인하여 더 적합한 시간을 찾을 수도 있습니다.} other {지금 작업실에 # 명의 회원이 근무 중이니 언제든지 들러 주세요. 근무 일정을 확인하여 더 적합한 시간을 찾을 수도 있습니다.}}",
+    "stopByAlt": "작업실 사진",
+    "events": "이벤트",
+    "eventsDescription": "새로운 기술을 배우거나 사교 활동에 참여하려면 다가오는 이벤트에 등록하세요.",
+    "eventsAlt": "이벤트 중 테트리스 2 토너먼트 사진",
+    "news": "뉴스",
+    "newsDescription": "Hackerspace의 최신 업데이트를 확인하세요.",
+    "newsAlt": "Hackerspace 로고가 표시된 고무 오리 사진",
+    "workshopOpen": "작업실 운영 중",
+    "workshopClosed": "작업실 휴무"
+  },
+  "news": {
+    "title": "뉴스",
+    "internalArticle": "이것은 내부 기사입니다",
+    "newArticle": "새 기사",
+    "updateArticle": "기사 업데이트",
+    "readTime": "{count, plural, =0 {1분 미만} one {# 분} other {# 분}} 읽기",
+    "views": "조회수",
+    "backToNews": "뉴스로 돌아가기",
+    "backToArticle": "기사로 돌아가기",
+    "lastUpdated": "마지막 업데이트: {date}",
+    "newArticlesUnauthorized": "새 기사를 작성할 권한이 없습니다",
+    "updateArticlesUnauthorized": "기사를 업데이트할 권한이 없습니다",
+    "internalUnauthorized": "내부 기사를 볼 권한이 없습니다",
+    "form": {
+      "createArticle": "기사 작성",
+      "updateArticle": "기사 업데이트",
+      "deleteArticle": "기사 삭제",
+      "articleCreated": "기사가 작성되었습니다",
+      "articleUpdated": "기사가 업데이트되었습니다",
+      "articleImageDeleted": "기사 이미지가 삭제되었습니다",
+      "articleDeleted": "기사가 삭제되었습니다",
+      "deleteArticleImage": "기사 이미지 삭제",
+      "deleteArticleImageTitle": "이 기사 이미지를 삭제하시겠습니까?",
+      "deleteArticleImageDescription": "이 작업은 되돌릴 수 없습니다.",
+      "deleteArticleTitle": "이 기사를 삭제하시겠습니까?",
+      "deleteArticleDescription": "이 작업은 되돌릴 수 없습니다.",
+      "image": {
+        "label": "기사 이미지",
+        "description": "이미지 업로드...",
+        "required": "기사 이미지는 필수입니다",
+        "sizeLimitError": "기사 이미지는 {size}MB 미만이어야 합니다",
+        "wrongFileTypeError": "기사 이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+        "fileNotImageError": "파일이 이미지가 아닙니다"
+      },
+      "title": {
+        "labelNorwegian": "기사 제목 (노르웨이어)",
+        "labelEnglish": "기사 제목 (영어)",
+        "required": "기사 제목은 필수입니다"
+      },
+      "preamble": {
+        "labelNorwegian": "기사 서문 (노르웨이어)",
+        "labelEnglish": "기사 서문 (영어)",
+        "required": "기사 서문은 필수입니다"
+      },
+      "content": {
+        "labelNorwegian": "기사 내용 (노르웨이어)",
+        "labelEnglish": "기사 내용 (영어)",
+        "required": "기사 내용은 필수입니다"
+      },
+      "internal": {
+        "label": "내부",
+        "description": "선택하면 이 기사는 Hackerspace 회원에게만 표시됩니다."
+      }
+    },
+    "api": {
+      "invalidId": "잘못된 ID",
+      "invalidLimit": "잘못된 limit",
+      "invalidOffset": "잘못된 offset",
+      "tooManyArticles": "너무 많은 기사가 요청되었습니다. {count}개 이상의 기사를 가져올 수 없습니다.",
+      "fetchFailed": "뉴스 기사를 가져오지 못했습니다",
+      "insertFailed": "뉴스 기사를 추가하지 못했습니다",
+      "articleNotFound": "기사를 찾을 수 없습니다",
+      "articleImageNotFound": "기사 이미지를 찾을 수 없습니다"
+    }
+  },
+  "members": {
+    "title": "회원",
+    "internalMember": "이것은 내부 회원입니다",
+    "backToMember": "회원 목록으로 돌아가기",
+    "searchPlaceholder": "회원 검색...",
+    "memberSince": "{date}부터 회원",
+    "guest": "게스트",
+    "usernameCopied": "사용자 이름이 클립보드에 복사되었습니다!",
+    "noMembersFound": "회원을 찾을 수 없습니다.",
+    "unauthorized": "이 사용자를 볼 권한이 없습니다",
+    "skillManagement": {
+      "addDialogTitle": "{user}에게 {skill} 기술을 부여하시겠습니까?",
+      "removeDialogTitle": "{user}에서 {skill} 기술을 제거하시겠습니까?",
+      "dialogDescription": "이 변경사항은 프로필에 표시됩니다.",
+      "addSkill": "기술 추가",
+      "addingSkill": "기술 추가 중...",
+      "addedSkill": "기술이 추가되었습니다",
+      "addingSkillFailed": "기술을 추가하지 못했습니다",
+      "removeSkill": "기술 제거",
+      "removingSkill": "기술 제거 중...",
+      "removedSkill": "기술이 제거되었습니다",
+      "removingSkillFailed": "기술을 제거하지 못했습니다",
+      "cancel": "취소"
+    },
+    "groupManagement": {
+      "title": "그룹 관리",
+      "group": "그룹",
+      "actions": "작업",
+      "addToGroup": "그룹에 추가",
+      "addingToGroup": "그룹에 추가 중...",
+      "addingToGroupFailed": "사용자를 그룹에 추가하지 못했습니다",
+      "removeFromGroup": "그룹에서 제거",
+      "removingFromGroup": "그룹에서 제거 중...",
+      "removingFromGroupFailed": "사용자를 그룹에서 제거하지 못했습니다",
+      "userAddedToGroup": "사용자가 그룹에 추가되었습니다",
+      "userRemovedFromGroup": "사용자가 그룹에서 제거되었습니다",
+      "yourself": "본인",
+      "confirmTitle": "{group}에서 {user}을(를) 제거하시겠습니까?",
+      "confirmDescription": "이 변경사항은 즉시 사이트 권한을 제거합니다.",
+      "confirmDescriptionIrreversible": "이 변경사항은 즉시 사이트 권한을 제거합니다. 본인의 프로필을 편집하고 있으므로 이 작업을 되돌릴 수 없습니다."
+    },
+    "api": {
+      "invalidOffset": "잘못된 offset",
+      "invalidLimit": "잘못된 limit",
+      "idOrNameRequired": "ID 또는 이름 중 하나를 입력해야 합니다",
+      "errorFetchingMember": "회원을 가져오지 못했습니다",
+      "errorFetchingMembers": "회원 목록을 가져오지 못했습니다",
+      "pageNumberRequired": "페이지 번호가 필요합니다",
+      "adminGroupRequired": "관리자 사용자를 편집하려면 본인도 관리자여야 합니다"
+    }
+  },
+  "settings": {
+    "manageAccountSettings": "계정 설정을 관리하고 기본 설정을 지정하세요.",
+    "backToHome": "홈으로 돌아가기",
+    "profile": {
+      "title": "프로필",
+      "username": "사용자 이름",
+      "updateProfile": "프로필 업데이트",
+      "updateProfileFailed": "프로필을 업데이트하지 못했습니다",
+      "updateProfileSuccess": "프로필이 업데이트되었습니다",
+      "updateProfilePicture": "프로필 사진 업데이트",
+      "updateProfilePictureFailed": "프로필 사진을 업데이트하지 못했습니다",
+      "updateProfilePictureSuccess": "프로필 사진이 업데이트되었습니다",
+      "updateProfilePictureTooltip": "클릭하여 프로필 사진 변경",
+      "consents": "동의",
+      "showCookieConsent": "쿠키 동의 조정",
+      "photoConsent": {
+        "label": "Hackerspace 미디어(웹사이트, 소셜 미디어 등)에 제 사진 사용에 동의합니다",
+        "consenting": "사진 동의 중...",
+        "retractingConsent": "사진 동의 철회 중...",
+        "successConsenting": "사진 동의가 완료되었습니다",
+        "successRetractingConsent": "사진 동의가 철회되었습니다",
+        "errorConsenting": "사진 동의를 처리하지 못했습니다",
+        "errorRetractingConsent": "사진 동의를 철회하지 못했습니다",
+        "invalid": "사진 동의에 대한 잘못된 값"
+      },
+      "profilePicture": {
+        "label": "프로필 사진",
+        "fileNotImageError": "프로필 사진은 이미지여야 합니다",
+        "wrongFileTypeError": "프로필 사진은 PNG, JPG, WEBP 또는 AVIF 형식이어야 합니다",
+        "sizeLimit": "프로필 사진은 {size}MB 미만이어야 합니다"
+      },
+      "firstName": {
+        "label": "이름",
+        "required": "이름은 필수입니다",
+        "minLength": "이름은 최소 {count}자 이상이어야 합니다",
+        "maxLength": "이름은 {count}자 미만이어야 합니다",
+        "general": "이름이 맞나요?"
+      },
+      "lastName": {
+        "label": "성",
+        "required": "성은 필수입니다",
+        "minLength": "성은 최소 {count}자 이상이어야 합니다",
+        "maxLength": "성은 {count}자 미만이어야 합니다",
+        "general": "성이 맞나요?"
+      },
+      "birthDate": {
+        "label": "생년월일",
+        "invalid": "잘못된 생년월일",
+        "minAge": "최소 {age}세 이상이어야 합니다",
+        "maxAge": "{age}세 미만이어야 합니다"
+      },
+      "foodPreferences": {
+        "label": "식이 선호도",
+        "description": "알레르기, 식이 선호도 또는 기타 관련 정보. 이벤트 담당자에게만 표시됩니다.",
+        "maxLength": "식이 선호도는 {count}자 미만이어야 합니다"
+      }
+    },
+    "account": {
+      "title": "계정",
+      "updateAccount": "계정 업데이트",
+      "updateAccountFailed": "계정을 업데이트하지 못했습니다",
+      "updateAccountSuccess": "계정이 업데이트되었습니다",
+      "email": {
+        "label": "이메일",
+        "description": "이메일 주소를 변경하면 확인 이메일이 전송됩니다.",
+        "required": "이메일은 필수입니다",
+        "invalid": "잘못된 이메일 주소 형식",
+        "confirmLabel": "이메일 확인",
+        "mismatch": "이메일 주소가 일치하지 않습니다",
+        "inUse": "이메일 주소가 이미 사용 중입니다"
+      },
+      "phoneNumber": {
+        "label": "전화번호",
+        "description": "3D 프린터 예약이나 장비 대여 시 전화번호가 표시되어 문제 발생 시 연락할 수 있습니다.",
+        "required": "전화번호는 필수입니다",
+        "invalid": "잘못된 전화번호",
+        "format": "전화번호 형식이 잘못되었습니다",
+        "inUse": "전화번호가 이미 사용 중입니다"
+      },
+      "delete": {
+        "buttonLabel": "계정 삭제",
+        "dialogTitle": "계정을 삭제하시겠습니까?",
+        "dialogDescription": "모든 연락처 정보, 프로필 사진, 창고 대여 내역, 이벤트 등록, 그룹 가입, 예약, 설정 등 모든 관련 데이터가 삭제됩니다. <bold>이 작업은 되돌릴 수 없습니다</bold>. 나중에 마음이 바뀌더라도 데이터 복구는 불가능하지만 새 계정을 만드실 수는 있습니다.",
+        "failedToDelete": "계정을 삭제하지 못했습니다"
+      },
+      "password": {
+        "currentLabel": "현재 비밀번호",
+        "newLabel": "새 비밀번호",
+        "confirmLabel": "비밀번호 확인",
+        "required": "비밀번호는 필수입니다",
+        "minLength": "비밀번호는 최소 {count}자 이상이어야 합니다",
+        "maxLength": "비밀번호는 {count}자 미만이어야 합니다",
+        "lowercase": "비밀번호에 소문자가 하나 이상 포함되어야 합니다",
+        "uppercase": "비밀번호에 대문자가 하나 이상 포함되어야 합니다",
+        "specialChar": "비밀번호에 특수문자가 하나 이상 포함되어야 합니다",
+        "weak": "비밀번호가 너무 약합니다",
+        "mismatch": "비밀번호가 일치하지 않습니다",
+        "update": "비밀번호 업데이트",
+        "updateSuccess": "비밀번호가 업데이트되었습니다",
+        "updateFailed": "비밀번호를 업데이트하지 못했습니다",
+        "incorrectPassword": "잘못된 비밀번호"
+      }
+    },
+    "notifications": {
+      "title": "알림",
+      "updateNotifications": "알림 업데이트",
+      "updateNotificationsFailed": "알림을 업데이트하지 못했습니다",
+      "updateNotificationsSuccess": "알림이 업데이트되었습니다",
+      "notifyMeAbout": "이메일로 알림 받기",
+      "all": "완료된 인쇄물, 대여 마감일, 커피 채워짐, 계정 업데이트",
+      "useful": "완료된 인쇄물, 대여 마감일, 계정 업데이트",
+      "essential": "계정 업데이트"
+    },
+    "administrator": {
+      "title": "관리자"
+    }
+  },
+  "about": {
+    "whatIsHackerspace": "Hackerspace란?",
+    "aboutDescription": "<p1> Hackerspace NTNU는 전공이나 Hackerspace 회원 여부에 관계없이 모든 학생에게 열려 있는 학생 주도 프로젝트입니다. 다양한 학과의 학생들이 참여적이고 포용적인 환경에서 아이디어를 실현할 수 있는 창의적인 공간을 제공합니다. 드론, 3D 프린터, 가상현실 장비 등 최신 기술을 이용할 수 있습니다. </p1> <p2> 첫 번째 Arduino 프로젝트에 도움이 필요한 1학년이든 트론헤임의 3D 모델을 만들고 싶은 4학년이든, 장비와 전문 지식 모두 제공해 드립니다. 초보자와 중급자를 위한 다양한 흥미로운 주제의 정기 강좌도 진행합니다. </p2> <p3> 저희가 무엇을 하는지 보고 대화를 나누러 들러 주세요. </p3> NTNU 글로스하우겐 레알파그빌딩 A동 2층에 있습니다.",
+    "showMap": "지도 보기",
+    "FAQ": {
+      "title": "자주 묻는 질문",
+      "canIUseThe3dPrinter": "3D 프린터를 사용할 수 있나요?",
+      "answerCanIUseThe3dPrinter": "<p1> Hackerspace 회원 여부와 관계없이 모든 학생이 3D 프린터와 작업실을 이용할 수 있습니다. 웹사이트 탐색 메뉴에서 FEIDE 로그인을 통해 모든 학생이 이용 가능한 예약 시스템이 있습니다. </p1> <p2> 운영 시간 중에 방문하여 회원의 도움을 받으세요.</p2>",
+      "canITryVRGames-Equipment": "VR 게임/장비를 체험할 수 있나요?",
+      "answerCanITryVRGames-Equipment": "VR 장비는 Hackerspace 회원 여부에 관계없이 모든 학생이 빌려서 체험할 수 있습니다. 별도의 VR 룸이 있어 Hackerspace 회원이 설치 및 종료를 도와주는 동안 즐길 수 있습니다. 장비는 창고 시스템을 통해 일반적인 방법으로 대여할 수 있습니다. 관심 있으시면 운영 시간 중에 방문해 주세요.",
+      "howDoIBecomeAMember": "회원이 되려면 어떻게 하나요?",
+      "answerHowDoIBecomeAMember": "<p1> Hackerspace는 수시로 회원을 모집합니다. 언제든지 지원할 수 있으며 보통 영업일 기준 3주 이내에 답변 드립니다. </p1> <p2> 장비를 빌리거나 흥미로운 것을 체험하기 위해 회원이 될 필요는 없습니다. 운영 시간 중에 방문하여 저희의 서비스와 회원 혜택에 대해 더 알아보세요. </p2>"
+    },
+    "activeGroup": "활동 중인 그룹",
+    "noMembers": "아직 이 그룹에 속한 회원이 없습니다."
+  },
+  "groups": {
+    "backToAbout": "소개로 돌아가기",
+    "internalGroup": "이것은 내부 그룹입니다",
+    "supremeLeader": "최고 지도자",
+    "subordinate": "부하",
+    "leader": "리더",
+    "deputyLeader": "부리더",
+    "unauthorized": "이 그룹을 볼 권한이 없습니다",
+    "new": {
+      "title": "새 그룹",
+      "createGroup": "그룹 만들기",
+      "unauthorized": "새 그룹을 만들 권한이 없습니다",
+      "groupCreated": "그룹이 만들어졌습니다"
+    },
+    "update": {
+      "title": "그룹 업데이트",
+      "backToGroup": "그룹으로 돌아가기",
+      "unauthorized": "그룹을 업데이트할 권한이 없습니다",
+      "updateGroup": "그룹 업데이트",
+      "groupUpdated": "그룹이 업데이트되었습니다",
+      "deleteGroup": "그룹 삭제",
+      "imageDeleted": "그룹 이미지가 삭제되었습니다",
+      "groupDeleted": "그룹이 삭제되었습니다",
+      "deleteGroupTitle": "이 그룹을 삭제하시겠습니까?",
+      "deleteGroupDescription": "그룹이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "deleteGroupImage": "그룹 이미지 삭제",
+      "deleteGroupImageTitle": "이 그룹 이미지를 삭제하시겠습니까?",
+      "deleteGroupImageDescription": "그룹 이미지가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다."
+    },
+    "form": {
+      "image": {
+        "label": "그룹 이미지",
+        "description": "이미지 업로드...",
+        "required": "그룹 이미지는 필수입니다",
+        "sizeLimitError": "그룹 이미지는 {size}MB 미만이어야 합니다",
+        "wrongFileTypeError": "그룹 이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+        "fileNotImageError": "파일이 이미지가 아닙니다"
+      },
+      "name": {
+        "labelNorwegian": "그룹 이름 (노르웨이어)",
+        "labelEnglish": "그룹 이름 (영어)",
+        "placeholder": "The Democratic People's Republic of DevOps",
+        "required": "그룹 이름은 필수입니다",
+        "maxLength": "그룹 이름은 {count}자 미만이어야 합니다"
+      },
+      "summary": {
+        "labelNorwegian": "요약 (노르웨이어)",
+        "labelEnglish": "요약 (영어)",
+        "placeholderNorwegian": "The Democratic People's Republic of DevOps 그룹은 웹사이트 및 기타 시스템 유지 관리를 담당합니다.",
+        "placeholderEnglish": "The The Democratic People's Republic of DevOps team is responsible for maintaining the website and other systems.",
+        "required": "요약은 필수입니다",
+        "maxLength": "요약은 {count}자 미만이어야 합니다"
+      },
+      "description": {
+        "labelNorwegian": "설명 (노르웨이어)",
+        "labelEnglish": "설명 (영어)",
+        "required": "그룹 설명은 필수입니다"
+      },
+      "leader": {
+        "label": "리더",
+        "placeholder": "사용자 검색...",
+        "description": "리더 선택"
+      },
+      "deputyLeader": {
+        "label": "부리더",
+        "placeholder": "사용자 검색...",
+        "description": "부리더 선택"
+      },
+      "identifier": {
+        "label": "그룹 식별자",
+        "description": "그룹 식별자는 그룹 페이지 URL에 사용됩니다. 고유해야 하며 중복 그룹은 허용되지 않습니다.",
+        "placeholder": "The Democratic People's Republic of DevOps",
+        "isReserved": "죄송합니다, 이 식별자는 내부 시스템에 예약되어 있습니다",
+        "required": "그룹 식별자는 필수입니다",
+        "regex": "그룹 식별자를 URL에 사용할 수 없습니다. 허용 문자: a-z, A-Z, 0-9, -, _, ., ~"
+      },
+      "internal": {
+        "label": "내부 그룹",
+        "description": "선택하면 이 그룹은 Hackerspace 회원에게만 표시됩니다."
+      },
+      "openForApplications": {
+        "label": "지원서 수락",
+        "description": "선택하면 누구든지 이 그룹 가입을 신청할 수 있습니다."
+      },
+      "loadingMembers": "회원 불러오는 중...",
+      "noMembersFound": "회원을 찾을 수 없습니다"
+    },
+    "api": {
+      "fetchGroupsFailed": "활동 중인 그룹을 가져오지 못했습니다",
+      "invalidId": "잘못된 ID",
+      "invalidGroupIdentifier": "잘못된 그룹 식별자",
+      "groupWithIdExists": "\"{identifier}\" 식별자를 가진 그룹이 이미 존재합니다",
+      "insertFailed": "그룹을 추가하지 못했습니다",
+      "groupNotFound": "그룹을 찾을 수 없습니다",
+      "userAlreadyInGroup": "사용자가 이미 그룹의 회원입니다",
+      "userNotInGroup": "사용자가 그룹의 회원이 아닙니다"
+    }
+  },
+  "storage": {
+    "title": "창고",
+    "searchPlaceholder": "제품 검색...",
+    "addNewItem": "새 항목 추가",
+    "viewLoans": "내 대여 내역",
+    "backToStorage": "창고로 돌아가기",
+    "noItemsFound": "항목을 찾을 수 없습니다. 필터 기준을 확인해 주세요.",
+    "card": {
+      "availableUnits": "{units}/{total} 개",
+      "addToCart": "장바구니에 추가",
+      "removeFromCart": "장바구니에서 제거",
+      "loanInAdvance": "사전 대여"
+    },
+    "select": {
+      "ariaLabel": "창고 항목 필터 방법 선택",
+      "filters": "필터",
+      "name": "이름 (알파벳순)",
+      "sortDescending": "재고 (내림차순)",
+      "sortAscending": "재고 (오름차순)"
+    },
+    "combobox": {
+      "defaultDescription": "카테고리 선택...",
+      "defaultPlaceholder": "카테고리 검색...",
+      "cables": "케이블",
+      "sensors": "센서",
+      "peripherals": "PC 주변기기",
+      "miniPC": "미니 PC"
+    },
+    "searchParams": {
+      "name": "name",
+      "descending": "descending",
+      "ascending": "ascending",
+      "cables": "cables",
+      "sensors": "sensors",
+      "peripherals": "peripherals",
+      "miniPC": "minipc"
+    },
+    "tooltips": {
+      "viewShoppingCart": "장바구니 보기"
+    },
+    "item": {
+      "noDescription": "이 항목에 대한 설명이 없습니다.",
+      "noLocation": "위치가 지정되지 않았습니다",
+      "noCategory": "카테고리가 지정되지 않았습니다",
+      "invalidId": "입력된 항목 ID가 잘못되었습니다.",
+      "edit": "항목 편집",
+      "api": {
+        "insertFailed": "항목 추가 실패",
+        "insertLocalizationsFailed": "이 항목에 번역을 추가하지 못했습니다. Hackerspace The Democratic People's Republic of DevOps에 문의해 주세요!"
+      }
+    },
+    "shoppingCart": {
+      "title": "장바구니",
+      "productId": "제품 ID",
+      "productName": "제품명",
+      "location": "위치",
+      "unitsAvailable": "이용 가능 수량",
+      "tableDescription": "장바구니 목록입니다.",
+      "cartEmpty": "장바구니가 비어 있습니다.",
+      "clearCart": "장바구니 비우기",
+      "clear": "비우기",
+      "clearCartDescription": "장바구니를 비우시겠습니까? 모든 항목이 삭제됩니다.",
+      "requestLoan": "대여 요청 보내기",
+      "loanInAdvance": "사전 대여",
+      "loanInAdvanceDescription": "일부 항목이 현재 이용 불가능합니다. 사전 대여 신청을 제출합니다. 다른 대여 요청과 겹치지 않는 날짜를 선택할 수 있습니다.",
+      "amountOfItemAria": "이 항목의 수량 선택",
+      "mustBeLoggedIn": "대여하려면 로그인해야 합니다"
+    },
+    "loanForm": {
+      "loanPeriod": "대여 기간 선택",
+      "loanPeriodDescription": "항목을 얼마나 빌릴지 선택하세요",
+      "notes": "메모 (선택사항)",
+      "autoapprove": "즉시 승인",
+      "autoapproveDescription": "Hackerspace 회원으로서 이 요청을 즉시 승인할 수 있습니다!",
+      "submit": "제출",
+      "dateInFuture": "반납 날짜는 미래여야 합니다",
+      "notesTooLong": "메모는 {count}자 미만이어야 합니다",
+      "success": "대여 요청이 전송되었습니다! 대여 개요로 이동합니다..."
+    },
+    "categories": {
+      "title": "카테고리",
+      "categoryName": "카테고리 이름 (노르웨이어 및 영어)",
+      "categoryTableDescription": "카테고리 표",
+      "actions": "작업",
+      "unauthorized": "항목 카테고리를 관리할 권한이 없습니다",
+      "successAddMessage": "카테고리가 추가되었습니다!",
+      "successEditMessage": "카테고리가 편집되었습니다!",
+      "successDeleteMessage": "카테고리가 삭제되었습니다!",
+      "invalidName": "잘못된 카테고리 이름",
+      "required": "카테고리 이름은 필수입니다",
+      "maxLength": "카테고리 이름은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다.",
+      "addNewCategory": "새 카테고리 추가",
+      "api": {
+        "insertFailed": "카테고리 추가 실패",
+        "updateFailed": "카테고리 편집 실패",
+        "deleteFailed": "카테고리 제거 실패",
+        "duplicateCategory": "같은 이름의 카테고리를 여러 개 추가할 수 없습니다"
+      }
+    },
+    "edit": {
+      "titleNew": "새 항목",
+      "titleEdit": "항목 편집",
+      "image": {
+        "label": "이미지",
+        "upload": "이미지 업로드...",
+        "sizeLimitError": "이미지는 {size}MB 미만이어야 합니다",
+        "wrongFileTypeError": "이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+        "fileNotImageError": "파일이 이미지가 아닙니다"
+      },
+      "name": {
+        "labelEnglish": "이름 (영어)",
+        "labelNorwegian": "이름 (노르웨이어)",
+        "placeholder": "Raspberry Pi 5",
+        "required": "이름은 필수입니다.",
+        "maxLength": "이름은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다."
+      },
+      "description": {
+        "labelEnglish": "설명 (영어)",
+        "labelNorwegian": "설명 (노르웨이어)",
+        "placeholder": "스크립트를 실행하고 전자 부품을 제어할 수 있는 미니 PC입니다.",
+        "maxLength": "설명은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다."
+      },
+      "location": {
+        "labelEnglish": "위치 (영어)",
+        "labelNorwegian": "위치 (노르웨이어)",
+        "placeholder": "박스 2A",
+        "required": "위치는 필수입니다.",
+        "maxLength": "위치는 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다."
+      },
+      "quantity": {
+        "label": "수량",
+        "placeholder": "4",
+        "negative": "수량은 음수가 될 수 없습니다.",
+        "max": "수량은 최대 {count}개입니다."
+      },
+      "category": {
+        "label": "카테고리",
+        "placeholder": "하드웨어"
+      },
+      "submit": "항목 저장",
+      "deleteItem": "항목 삭제",
+      "deleteItemDescription": "이 항목을 삭제하시겠습니까? 이 항목과 관련된 모든 대여 내역도 삭제됩니다. 이 작업은 되돌릴 수 없습니다!",
+      "successNew": "새 창고 항목이 추가되었습니다! 창고로 이동합니다...",
+      "successEdit": "항목이 편집되었습니다! 창고로 이동합니다...",
+      "successDelete": "항목이 삭제되었습니다! 창고로 이동합니다...",
+      "unauthorized": "창고 항목을 관리할 권한이 없습니다"
+    },
+    "loans": {
+      "view": "대여 보기",
+      "title": "대여",
+      "titlePending": "대기 중인 대여",
+      "titleApproved": "승인된 대여",
+      "pendingLoan": "대기 중인 대여",
+      "notReturned": "아직 반납되지 않음",
+      "overdue": "연체",
+      "returned": "{date}에 반납됨",
+      "loanSubheader": "이 대여는 승인 대기 중입니다",
+      "loanItem": "{name}의 {units, plural, other {# 개}}",
+      "askForApproval": "이 요청을 승인하시겠습니까?",
+      "approve": "승인",
+      "confirmLoanReturn": "반납 확인",
+      "deleteLoan": "대여 요청 삭제",
+      "deleteDescription": "{person}의 대여 요청을 삭제하시겠습니까?",
+      "loan": "대여",
+      "loanApproveSuccess": "대여가 승인되었습니다!",
+      "loanDeleteSuccess": "대여가 삭제되었습니다!",
+      "loanReturnSuccess": "대여가 반납 처리되었습니다!",
+      "loanApproved": "이 대여는 승인되었습니다",
+      "borrowTimeline": "{from}부터 {until}까지 대여",
+      "noNotes": "메모가 없습니다",
+      "requestedAt": "{date}에 요청됨",
+      "noPendingLoans": "대기 중인 대여 없음 🎉",
+      "noLoansFound": "대여 내역 없음",
+      "unauthorized": "대여 요청을 관리할 권한이 없습니다"
+    },
+    "api": {
+      "duplicateItem": "같은 이름의 항목을 여러 개 추가할 수 없습니다. 기존 항목을 편집하세요.",
+      "notFound": "선택한 항목을 찾을 수 없습니다.",
+      "categoryNotFound": "선택한 카테고리를 찾을 수 없습니다.",
+      "wantedItemNotFound": "선택한 항목 중 하나 이상을 찾을 수 없습니다.",
+      "borrowingMoreThanQuantity": "이용 가능한 수량보다 더 많이 빌릴 수 없습니다.",
+      "unauthorizedBorrowInAdvance": "대여하려는 항목 중 하나 이상이 현재 이용 불가능합니다. Hackerspace 회원만 사전 대여가 가능합니다.",
+      "itemIsBorrowed": "현재 대여 중인 항목은 삭제할 수 없습니다! 먼저 이 항목의 모든 대여를 삭제 및 확인하세요.",
+      "borrowPositiveAmount": "양수 수량을 빌려야 합니다.",
+      "limitNotInRange": "limit은 1에서 50 사이여야 합니다.",
+      "nonMemberLimitExceeded": "비회원은 한 번에 {count}개 이상의 항목을 빌릴 수 없습니다."
+    }
+  },
+  "shiftSchedule": {
+    "title": "근무 일정",
+    "clearShifts": {
+      "clear": "근무 일정 비우기",
+      "warning": "경고",
+      "confirmationPrompt": "근무 일정을 비우시겠습니까?",
+      "confirm": "비우기",
+      "cancel": "취소",
+      "clearSuccess": "근무 일정이 비워졌습니다"
+    },
+    "table": {
+      "time": "시간",
+      "day": "{day, select, monday {월요일} tuesday {화요일} wednesday {수요일} thursday {목요일} other {금요일}}",
+      "cell": {
+        "onShift": "{count, plural, =1 {1명 근무 중} other {# 명 근무 중}}",
+        "closed": "휴무",
+        "dialog": {
+          "description": "선택한 근무의 회원 보기 또는 직접 등록",
+          "empty": "근무 중인 사람 없음",
+          "recurring": "반복",
+          "register": "등록",
+          "update": "업데이트",
+          "unregister": "등록 취소",
+          "signIn": "로그인",
+          "signInDescription": "근무를 등록하려면 로그인하세요",
+          "registerSuccess": "근무가 등록되었습니다",
+          "updateSuccess": "근무가 업데이트되었습니다",
+          "unregisterSuccess": "근무 등록이 취소되었습니다"
+        }
+      }
+    },
+    "api": {
+      "day": "잘못된 요일",
+      "timeslot": "잘못된 시간대",
+      "recurring": "반복에 대한 잘못된 값",
+      "fetchShiftsFailed": "근무를 가져오지 못했습니다"
+    }
+  },
+  "events": {
+    "title": "이벤트",
+    "activeEvents": "진행 중인 이벤트",
+    "upcomingEvents": "다가오는 이벤트",
+    "pastEvents": "지난 이벤트",
+    "detailsAboutEvent": "{eventName}에 대해 더 읽기",
+    "startsAt": "시작",
+    "startedAt": "시작됨",
+    "endsAt": "종료",
+    "endedAt": "종료됨",
+    "backToEvents": "이벤트 목록으로 돌아가기",
+    "backToEvent": "이벤트로 돌아가기",
+    "attendanceGivesSkill": "이 이벤트에 참석하면 다음 기술을 얻습니다:",
+    "new": {
+      "title": "새 이벤트",
+      "unauthorized": "이벤트를 만들 권한이 없습니다",
+      "success": "이벤트가 만들어졌습니다! 이벤트로 이동합니다..."
+    },
+    "edit": {
+      "title": "이벤트 편집",
+      "unauthorized": "이벤트를 편집할 권한이 없습니다",
+      "delete": "이벤트 삭제",
+      "deleteImage": "이벤트 이미지 삭제",
+      "deleteConfirmTitle": "이 이벤트를 삭제하시겠습니까?",
+      "deleteConfirmDescription": "이 이벤트의 모든 등록도 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "deleteImageConfirmTitle": "이벤트 이미지를 삭제하시겠습니까?",
+      "deleteImageConfirmDescription": "이 작업은 되돌릴 수 없습니다.",
+      "successEdit": "이벤트가 업데이트되었습니다! 이벤트로 이동합니다...",
+      "successDelete": "이벤트가 삭제되었습니다! 이벤트 목록으로 이동합니다...",
+      "successDeleteImage": "이벤트 이미지가 삭제되었습니다!"
+    },
+    "form": {
+      "nameNorwegian": {
+        "label": "이름 (노르웨이어)",
+        "placeholder": "이름",
+        "required": "이름은 필수입니다",
+        "maxLength": "이름은 {count}자 미만이어야 합니다"
+      },
+      "nameEnglish": {
+        "label": "이름 (영어)",
+        "placeholder": "Event name",
+        "required": "이름은 필수입니다",
+        "maxLength": "이름은 {count}자 미만이어야 합니다"
+      },
+      "summaryNorwegian": {
+        "label": "요약 (노르웨이어)",
+        "placeholder": "이벤트에 대한 간략한 설명",
+        "required": "요약은 필수입니다",
+        "maxLength": "요약은 {count}자 미만이어야 합니다"
+      },
+      "summaryEnglish": {
+        "label": "요약 (영어)",
+        "placeholder": "Short description of the event",
+        "required": "요약은 필수입니다",
+        "maxLength": "요약은 {count}자 미만이어야 합니다"
+      },
+      "descriptionNorwegian": {
+        "label": "설명 (노르웨이어)",
+        "required": "설명은 필수입니다"
+      },
+      "descriptionEnglish": {
+        "label": "설명 (영어)",
+        "required": "설명은 필수입니다"
+      },
+      "locationNorwegian": {
+        "label": "장소 (노르웨이어)",
+        "placeholder": "이벤트 장소",
+        "required": "장소는 필수입니다",
+        "maxLength": "장소는 {count}자 미만이어야 합니다"
+      },
+      "locationEnglish": {
+        "label": "장소 (영어)",
+        "placeholder": "Location of the event",
+        "required": "Location is required",
+        "maxLength": "장소는 {count}자 미만이어야 합니다"
+      },
+      "locationMapLink": {
+        "label": "지도 링크",
+        "placeholder": "https://use.mazemap.com/...",
+        "description": "이벤트 장소를 보여주는 지도 링크",
+        "invalid": "잘못된 지도 링크. URL이어야 합니다"
+      },
+      "startTime": {
+        "label": "시작 시간",
+        "required": "시작 시간은 필수입니다",
+        "timeInPast": "시작 시간은 미래여야 합니다"
+      },
+      "setSignUpDeadline": {
+        "label": "등록 마감일 설정",
+        "description": "등록 마감일을 설정할 수 있습니다. 이 날짜 이후로는 새 등록이 허용되지 않습니다"
+      },
+      "signUpDeadline": {
+        "label": "등록 마감일",
+        "timeInPast": "등록 마감일은 미래여야 합니다",
+        "beforeStartTime": "등록 마감일은 이벤트 시작 시간 이전이어야 합니다"
+      },
+      "endTime": {
+        "label": "종료 시간",
+        "required": "종료 시간은 필수입니다",
+        "dateBeforeStart": "종료 시간은 시작 시간 이후여야 합니다"
+      },
+      "setMaxParticipants": {
+        "label": "최대 참가자 수 설정",
+        "description": "이벤트의 최대 참가자 수를 설정할 수 있습니다. 이 수에 도달하면 새 등록은 대기자 명단에 추가됩니다"
+      },
+      "maxParticipants": {
+        "label": "최대 참가자 수",
+        "positive": "최대 참가자 수는 양수여야 합니다"
+      },
+      "internal": {
+        "label": "내부 이벤트",
+        "description": "선택하면 이 이벤트는 Hackerspace 회원에게만 표시됩니다"
+      },
+      "skill": {
+        "label": "기술 선택",
+        "description": "이 이벤트에 참석하여 얻을 수 있는 기술을 선택하세요",
+        "placeholder": "기술 선택"
+      },
+      "image": {
+        "label": "이벤트 이미지",
+        "upload": "이미지 업로드...",
+        "sizeLimitError": "이벤트 이미지는 {size}MB 미만이어야 합니다",
+        "wrongFileTypeError": "이벤트 이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+        "fileNotImageError": "파일이 이미지가 아닙니다"
+      },
+      "createSubmit": "이벤트 만들기",
+      "editSubmit": "이벤트 업데이트"
+    },
+    "attendance": {
+      "signUp": "등록하기",
+      "cancelSignUp": "등록 취소",
+      "cancelWaitlistSignUp": "대기자 명단에서 취소",
+      "signUpForWaitlist": "대기자 명단 등록",
+      "signUpSuccess": "이벤트에 등록되었습니다!",
+      "cancelSignUpSuccess": "이벤트 등록이 취소되었습니다!",
+      "confirmLeave": "이 이벤트에서 등록을 취소하시겠습니까?",
+      "confirmLeaveDescription": "이 이벤트는 꽉 찼습니다. 등록을 취소하면 대기자 명단의 첫 번째 사람이 자리를 받게 됩니다.",
+      "mustBeLoggedIn": "등록하려면 로그인해야 합니다",
+      "signUpClosed": "이 이벤트의 등록이 마감되었습니다",
+      "pastSignUpDeadline": "등록 마감일이 지났습니다",
+      "eventStartedAlready": "이벤트가 이미 시작되었습니다",
+      "eventFinishedAlready": "이벤트가 종료되었습니다",
+      "signUpDeadline": "등록 마감일: {date}",
+      "signedUpTotal": "총 등록자: {count}명 {count, plural, one {참가자} other {참가자}}",
+      "signedUpTotalWithMax": "총 등록자: {count}/{max}명 {count, plural, one {참가자} other {참가자}}",
+      "waitlistTotal": "대기자 명단: {count}명 {count, plural, one {} other {}}",
+      "attendance": "출석",
+      "attended": "참석함",
+      "attendanceDescription": "등록한 사람들의 출석을 확인하세요. 이 이벤트에서 기술을 얻을 수 있는 경우 출석을 확인한 후 참가자에게 부여할 수 있습니다.",
+      "attendeesList": "참가자 목록",
+      "person": "사람",
+      "foodPreferences": "식이 선호도",
+      "photoConsent": "사진 동의",
+      "actions": "작업",
+      "present": "참석",
+      "absent": "결석",
+      "give": "부여",
+      "skillAttained": "기술 획득!",
+      "noParticipants": "이 이벤트에 등록한 회원이 없습니다",
+      "notStartedYet": "출석 변경 불가: 이벤트가 아직 시작되지 않았습니다",
+      "updating": "{name}의 출석 업데이트 중...",
+      "success": "{name}의 출석이 업데이트되었습니다!",
+      "error": "{name}의 출석을 업데이트하지 못했습니다",
+      "givingSkill": "{name}에게 {skill} 기술을 부여하는 중...",
+      "successSkill": "{name}에게 {skill} 기술이 부여되었습니다!",
+      "errorSkill": "{name}에게 {skill} 기술을 부여하지 못했습니다"
+    },
+    "waitlist": {
+      "name": "대기자 명단",
+      "waitlistedAt": "대기자 명단에 추가됨",
+      "noWaitlisted": "이 이벤트의 대기자 명단에 아무도 없습니다"
+    },
+    "api": {
+      "invalidId": "잘못된 이벤트 ID",
+      "invalidUserId": "잘못된 사용자 ID",
+      "invalidSkillId": "잘못된 기술 ID",
+      "fetchEventFailed": "이벤트를 가져오지 못했습니다",
+      "unauthorized": "이 이벤트를 볼 권한이 없습니다",
+      "invalidOffset": "잘못된 offset",
+      "invalidLimit": "잘못된 limit",
+      "insertFailed": "이벤트를 만들지 못했습니다",
+      "notFound": "이벤트를 찾을 수 없습니다",
+      "skillNotFound": "기술을 찾을 수 없습니다",
+      "userNotFound": "사용자를 찾을 수 없습니다",
+      "alreadyHasSkill": "{user}은(는) 이미 {skill} 기술을 보유하고 있습니다",
+      "participantNotFound": "참가자를 찾을 수 없습니다",
+      "noImage": "이 이벤트에 이미지가 없습니다",
+      "maxParticipantsTooLow": "최대 참가자 수는 현재 등록된 인원보다 낮을 수 없습니다"
+    }
+  },
+  "rules": {
+    "title": "규칙",
+    "publicRules": "공개 규칙",
+    "internalRules": "내부 규칙",
+    "backToRules": "규칙으로 돌아가기",
+    "statutesInfo": "규칙 외에도 Hackerspace NTNU의 <link>정관</link>도 읽을 수 있습니다.",
+    "new": {
+      "title": "새 규칙",
+      "createRule": "규칙 만들기",
+      "ruleCreated": "규칙이 만들어졌습니다",
+      "unauthorized": "규칙을 만들 권한이 없습니다"
+    },
+    "update": {
+      "title": "규칙 업데이트",
+      "updateRule": "규칙 업데이트",
+      "deleteRule": "규칙 삭제",
+      "deleteRuleTitle": "이 규칙을 삭제하시겠습니까?",
+      "deleteRuleDescription": "규칙이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "deleteRuleImage": "규칙 이미지 삭제",
+      "deleteRuleImageTitle": "이 규칙 이미지를 삭제하시겠습니까?",
+      "deleteRuleImageDescription": "규칙 이미지가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+      "ruleUpdated": "규칙이 업데이트되었습니다",
+      "ruleDeleted": "규칙이 삭제되었습니다",
+      "imageDeleted": "규칙 이미지가 삭제되었습니다",
+      "unauthorized": "규칙을 업데이트할 권한이 없습니다"
+    },
+    "form": {
+      "image": {
+        "label": "규칙 이미지",
+        "description": "이미지 업로드...",
+        "sizeLimitError": "규칙 이미지는 {size}MB 미만이어야 합니다",
+        "wrongFileTypeError": "규칙 이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+        "fileNotImageError": "파일이 이미지가 아닙니다"
+      },
+      "name": {
+        "labelNorwegian": "이름 (노르웨이어)",
+        "labelEnglish": "이름 (영어)",
+        "placeholderNorwegian": "작업실 규칙",
+        "placeholderEnglish": "Rules for the workshop",
+        "required": "이름은 필수입니다"
+      },
+      "content": {
+        "labelNorwegian": "규칙 내용 (노르웨이어)",
+        "labelEnglish": "규칙 내용 (영어)",
+        "required": "규칙 내용은 필수입니다"
+      },
+      "internal": {
+        "label": "내부 규칙",
+        "description": "선택하면 이 규칙은 Hackerspace 회원에게만 표시됩니다."
+      }
+    },
+    "api": {
+      "invalidRuleId": "잘못된 규칙 ID",
+      "fetchRulesFailed": "규칙을 가져오지 못했습니다",
+      "ruleWithNameExists": "{name} 이름의 규칙이 이미 존재합니다",
+      "ruleNotFound": "규칙을 찾을 수 없습니다",
+      "insertFailed": "규칙을 추가하지 못했습니다",
+      "updateFailed": "규칙을 업데이트하지 못했습니다",
+      "unauthorizedInternalRule": "내부 규칙을 볼 권한이 없습니다"
+    }
+  },
+  "skills": {
+    "api": {
+      "invalidId": "잘못된 기술 ID",
+      "skillNotFound": "기술을 찾을 수 없습니다",
+      "cannotAddSkill": "이 기술을 부여할 수 없습니다",
+      "userAlreadyHasSkill": "사용자가 이미 이 기술을 보유하고 있습니다",
+      "userDoesNotHaveSkill": "사용자가 이 기술을 보유하고 있지 않습니다",
+      "invalidIdentifier": "잘못된 기술 식별자",
+      "skillWithIdExists": "\"{identifier}\" 식별자를 가진 기술이 이미 존재합니다"
+    }
+  },
+  "management": {
+    "title": "웹사이트 관리",
+    "unauthorized": "관리 인터페이스를 사용할 권한이 없습니다",
+    "backToManagement": "관리로 돌아가기",
+    "skills": {
+      "name": "기술",
+      "title": "기술 관리",
+      "description": "회원이 획득할 수 있는 기술을 관리합니다",
+      "backToSkills": "기술 목록으로 돌아가기",
+      "new": {
+        "title": "새 기술",
+        "success": "기술이 추가되었습니다!"
+      },
+      "edit": {
+        "title": "기술 업데이트",
+        "delete": "기술 삭제",
+        "deleteConfirmTitle": "이 기술을 삭제하시겠습니까?",
+        "deleteConfirmDescription": "이 기술을 보유한 모든 사용자가 기술을 잃게 됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "successEdit": "기술이 업데이트되었습니다!",
+        "successDelete": "기술이 삭제되었습니다!"
+      },
+      "form": {
+        "createSubmit": "기술 만들기",
+        "editSubmit": "기술 업데이트",
+        "name": {
+          "labelNorwegian": "기술 이름 (노르웨이어)",
+          "placeholderNorwegian": "웹 개발",
+          "placeholderEnglish": "Web development",
+          "labelEnglish": "기술 이름 (영어)",
+          "required": "기술 이름은 필수입니다",
+          "maxLength": "기술 이름은 {count}자 미만이어야 합니다"
+        },
+        "identifier": {
+          "label": "기술 식별자",
+          "placeholder": "웹개발",
+          "description": "특정 기술 이름에는 미리 정의된 아이콘, 권한 등이 있을 수 있습니다. 확실하지 않으면 The Democratic People's Republic of DevOps 팀에 문의하세요.",
+          "required": "기술 식별자는 필수입니다",
+          "maxLength": "기술 식별자는 {count}자 미만이어야 합니다",
+          "regex": "식별자는 영숫자(a-z, A-Z, 0-9)만 포함해야 합니다"
+        }
+      }
+    },
+    "users": {
+      "name": "사용자",
+      "title": "사용자 검색",
+      "description": "웹사이트의 사용자를 관리합니다",
+      "searchUser": "사용자 검색...",
+      "table": {
+        "name": "이름",
+        "groups": "그룹",
+        "skills": "기술",
+        "noUsersFound": "사용자를 찾을 수 없습니다. 검색 기준을 확인해 주세요.",
+        "caption": "웹사이트의 사용자"
+      },
+      "unauthorized": "사용자를 관리할 권한이 없습니다"
+    },
+    "files": {
+      "name": "파일 및 이미지",
+      "title": "파일 및 이미지 관리",
+      "description": "회원이 업로드한 파일 및 이미지를 관리합니다"
+    },
+    "banners": {
+      "name": "배너",
+      "title": "배너 관리",
+      "description": "웹사이트의 배너를 관리합니다",
+      "content": "내용",
+      "pages": "페이지",
+      "expiresAt": "만료",
+      "active": "활성",
+      "create": "새 배너 만들기",
+      "editBanner": "배너 편집",
+      "edit": {
+        "backToBanners": "배너 목록으로 돌아가기",
+        "edit": "편집",
+        "unauthorized": "배너를 편집할 권한이 없습니다"
+      },
+      "new": {
+        "backToBanners": "배너 목록으로 돌아가기",
+        "create": "배너 만들기",
+        "unauthorized": "새 배너를 만들 권한이 없습니다"
+      },
+      "form": {
+        "contentNorwegian": {
+          "label": "배너 내용 (노르웨이어)",
+          "placeholder": "Hackerspace NTNU에 오신 것을 환영합니다!",
+          "required": "배너 내용은 필수입니다"
+        },
+        "contentEnglish": {
+          "label": "배너 내용 (영어)",
+          "placeholder": "Welcome to Hackerspace NTNU!",
+          "required": "배너 내용은 필수입니다"
+        },
+        "active": {
+          "label": "활성",
+          "invalid": "활성에 대한 잘못된 값"
+        },
+        "expiresAt": {
+          "label": "만료"
+        },
+        "pagesMatch": {
+          "label": "선택한 페이지",
+          "placeholder": "/,/storage*,/management/banners/*/edit",
+          "description": "배너가 선택한 페이지에 표시됩니다. 와일드카드로 *를 사용할 수 있습니다",
+          "required": "페이지 선택은 필수입니다",
+          "charactersInvalid": "다음 문자만 사용할 수 있습니다: {characters}",
+          "doubleSymbolsInvalid": "같은 기호를 연속으로 사용할 수 없습니다 (예: // 또는 **)",
+          "unsafeRegex": "안전하지 않은 정규 표현식",
+          "displayLabel": "모든 페이지 표시"
+        },
+        "className": {
+          "label": "Tailwind CSS 클래스 이름",
+          "placeholder": "bg-red-500 text-white py-4",
+          "description": "선택사항: 사용자 정의 Tailwind CSS 클래스 이름을 지정할 수 있습니다. 예를 들어 배너의 <link>색상</link>을 변경하는 데 사용할 수 있습니다. 주의: 잘못 사용하면 웹사이트 디자인이나 접근성을 손상시킬 수 있으므로 입력에 대한 전적인 책임은 사용자에게 있습니다.",
+          "charactersInvalid": "잘못된 클래스 이름. 다음 문자만 사용할 수 있습니다: {characters}"
+        },
+        "editSubmit": "배너 편집",
+        "createSubmit": "배너 만들기",
+        "delete": {
+          "label": "배너 삭제",
+          "confirmTitle": "이 배너를 삭제하시겠습니까?",
+          "confirmDescription": "이 작업은 되돌릴 수 없습니다"
+        }
+      },
+      "api": {
+        "invalidId": "잘못된 ID",
+        "activeInvalid": "활성에 대한 잘못된 값",
+        "successCreate": "배너가 만들어졌습니다",
+        "successEdit": "배너가 편집되었습니다",
+        "successDelete": "배너가 삭제되었습니다",
+        "changingActive": "배너를 {active, select, true {활성} other {비활성}}으로 변경 중...",
+        "successChangeActive": "배너가 이제 {active, select, true {활성} other {비활성}}입니다",
+        "errorChangingActive": "배너를 {active, select, true {활성} other {비활성}}으로 변경하지 못했습니다",
+        "fetchBannersFailed": "배너를 가져오지 못했습니다",
+        "insertFailed": "배너를 만들지 못했습니다",
+        "bannerNotFound": "배너를 찾을 수 없습니다"
+      },
+      "unauthorized": "배너를 관리할 권한이 없습니다"
+    },
+    "slides": {
+      "name": "슬라이드",
+      "title": "슬라이드 관리",
+      "description": "홈페이지에 표시되는 슬라이드를 관리합니다",
+      "unauthorized": "홈페이지 배너를 관리할 권한이 없습니다",
+      "placeholderAlt": "사용 가능한 이미지 없음",
+      "image": "이미지",
+      "overlay": "내용",
+      "active": "활성",
+      "create": "새 배너 추가",
+      "editSlide": "배너 편집",
+      "new": {
+        "unauthorized": "새 홈페이지 배너를 만들 권한이 없습니다",
+        "backToSlides": "배너 목록으로 돌아가기",
+        "create": "배너 만들기"
+      },
+      "edit": {
+        "unauthorized": "홈페이지 배너를 편집할 권한이 없습니다",
+        "backToSlides": "배너 목록으로 돌아가기",
+        "edit": "배너 편집"
+      },
+      "api": {
+        "invalidId": "잘못된 ID",
+        "insertFailed": "슬라이드를 추가하지 못했습니다",
+        "activeInvalid": "활성에 대한 잘못된 값",
+        "slideNotFound": "배너를 찾을 수 없습니다",
+        "slideImageNotFound": "배너 이미지를 찾을 수 없습니다",
+        "successCreate": "배너가 만들어졌습니다!",
+        "successEdit": "배너가 편집되었습니다!",
+        "successDeleteImage": "배너 이미지가 삭제되었습니다!",
+        "successDelete": "배너가 삭제되었습니다!",
+        "changingActive": "슬라이드를 {active, select, true {활성} other {비활성}}으로 변경 중...",
+        "successChangeActive": "슬라이드가 이제 {active, select, true {활성} other {비활성}}입니다",
+        "errorChangingActive": "슬라이드를 {active, select, true {활성} other {비활성}}으로 변경하지 못했습니다"
+      },
+      "form": {
+        "altNorwegian": {
+          "label": "이미지 대체 텍스트 (노르웨이어)",
+          "placeholder": "대체 텍스트",
+          "maxLength": "대체 텍스트는 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "altEnglish": {
+          "label": "이미지 대체 텍스트 (영어)",
+          "placeholder": "대체 텍스트",
+          "maxLength": "대체 텍스트는 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "headingNorwegian": {
+          "label": "제목 (노르웨이어)",
+          "placeholder": "제목",
+          "required": "제목은 필수입니다",
+          "maxLength": "제목은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "headingEnglish": {
+          "label": "제목 (영어)",
+          "placeholder": "제목",
+          "required": "제목은 필수입니다",
+          "maxLength": "제목은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "descriptionNorwegian": {
+          "label": "설명 (노르웨이어)",
+          "placeholder": "설명",
+          "required": "설명은 필수입니다",
+          "maxLength": "설명은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "descriptionEnglish": {
+          "label": "설명 (영어)",
+          "placeholder": "설명",
+          "required": "설명은 필수입니다",
+          "maxLength": "설명은 최대 {count, plural, one {한 자} other {# 자}}이어야 합니다"
+        },
+        "active": {
+          "label": "활성",
+          "invalid": "활성에 대한 잘못된 값"
+        },
+        "image": {
+          "label": "배너 이미지",
+          "upload": "이미지 업로드...",
+          "delete": {
+            "label": "이미지 삭제",
+            "confirmTitle": "배너 이미지를 삭제하시겠습니까?",
+            "confirmDescription": "이 작업은 되돌릴 수 없습니다"
+          },
+          "sizeLimitError": "이미지는 {size}MB 미만이어야 합니다",
+          "wrongFileTypeError": "이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+          "fileNotImageError": "파일이 이미지가 아닙니다"
+        },
+        "editSubmit": "배너 업데이트",
+        "createSubmit": "배너 만들기",
+        "delete": {
+          "label": "배너 삭제",
+          "confirmTitle": "이 배너를 삭제하시겠습니까?",
+          "confirmDescription": "이 작업은 되돌릴 수 없습니다"
+        }
+      }
+    }
+  },
+  "applications": {
+    "apply": {
+      "title": "Hackerspace NTNU 지원",
+      "pageDescription": "관심을 가져주셔서 감사합니다! 많은 재미, 학습, 성장이 기다리고 있습니다. 아래 양식을 작성하여 지원하시면 가능한 빨리(최대 2주 이내) 연락 드리겠습니다.",
+      "dataNote": "참고: 지원 과정이 완료되면 모든 데이터가 삭제됩니다.",
+      "sendApplication": "지원서 제출",
+      "applicationSubmitted": "지원서가 제출되었습니다!",
+      "noGroupsAvailable": "죄송합니다, 현재 모든 Hackerspace 그룹이 꽉 찼습니다. 나중에 다시 시도하시거나 메시지를 보내거나 작업실 회원에게 문의해 주세요.",
+      "name": {
+        "label": "전체 이름",
+        "required": "이름은 필수입니다"
+      },
+      "email": {
+        "label": "이메일",
+        "required": "이메일은 필수입니다",
+        "invalid": "잘못된 이메일 주소"
+      },
+      "phoneNumber": {
+        "label": "전화번호",
+        "required": "전화번호는 필수입니다"
+      },
+      "studyProgram": {
+        "label": "전공 프로그램",
+        "description": "예: 컴퓨터 과학, 물리 및 수학, 사이버네틱스 및 로보틱스",
+        "required": "전공 프로그램은 필수입니다"
+      },
+      "studyYear": {
+        "label": "학년",
+        "required": "학년은 필수입니다",
+        "other": "기타 / 답하기 어려움"
+      },
+      "learnedAboutUsHow": {
+        "label": "Hackerspace를 어떻게 알게 되셨나요?",
+        "required": "이 항목은 필수입니다"
+      },
+      "about": {
+        "label": "자기소개",
+        "description": "더 알고 싶습니다! 자신을 어떻게 설명하시겠습니까? 여가 시간에 무엇을 즐기시나요? 다른 사람들은 당신을 어떻게 묘사하나요? 등",
+        "required": "이 항목은 필수입니다"
+      },
+      "motivation": {
+        "label": "Hackerspace에 지원하는 이유는 무엇인가요?",
+        "description": "그룹에서 하고 싶은 것이나 참여 동기를 설명해 주세요.",
+        "required": "이 항목은 필수입니다"
+      },
+      "groupIdentifier": {
+        "label": "그룹",
+        "description": "관심 있는 그룹이 여러 개라면 첫 번째 선택을 입력해 주세요. 선택한 그룹이 꽉 찬 경우를 대비해 '기타 프로젝트' 항목에 다른 관심 그룹을 명시할 수 있습니다.",
+        "required": "그룹은 필수입니다"
+      },
+      "otherProjects": {
+        "label": "관심 있는 다른 프로젝트가 있나요?",
+        "description": "관심 있는 다른 프로젝트가 있으면 알려주세요. 모든 Hackerspace 회원은 새 프로젝트를 시작할 수 있습니다!",
+        "required": "이 항목은 필수입니다"
+      }
+    },
+    "thankYou": {
+      "title": "감사합니다",
+      "description1": "Hackerspace NTNU에 관심을 가져주셔서 감사합니다!",
+      "description2": "지원서를 검토한 후 곧 연락 드리겠습니다.",
+      "backToHome": "홈으로 돌아가기"
+    },
+    "view": {
+      "title": "지원서",
+      "application": "지원서",
+      "noPending": "대기 중인 지원서 없음 ✅",
+      "noPendingDescription": "참고: 볼 권한이 없는 대기 중인 지원서가 있을 수 있습니다.",
+      "backToHome": "홈으로 돌아가기",
+      "backToApplications": "지원서 목록으로 돌아가기",
+      "submittedBy": "제출자: {name}",
+      "submittedAt": "제출: {date}",
+      "userInfo": "사용자 정보",
+      "email": "이메일: <link>{email}</link>",
+      "phoneNumber": "전화번호: <link>{phone}</link>",
+      "studyProgram": "전공 프로그램: {program}",
+      "studyYear": "학년: {year}",
+      "deleteApplication": "지원서 삭제",
+      "deleteApplicationTitle": "이 지원서를 삭제하시겠습니까?",
+      "deleteApplicationDescription": "이 작업은 되돌릴 수 없습니다.",
+      "applicationDeleted": "지원서가 삭제되었습니다",
+      "unauthorized": "지원서를 볼 권한이 없습니다"
+    },
+    "api": {
+      "fetchGroupFailed": "그룹을 가져오지 못했습니다",
+      "groupNotFound": "그룹을 찾을 수 없습니다",
+      "insertAppFailed": "지원서를 제출하지 못했습니다",
+      "invalidId": "잘못된 ID",
+      "deleteAppFailed": "지원서를 삭제하지 못했습니다"
+    }
+  },
+  "privacy": {
+    "title": "개인정보 보호정책",
+    "lastUpdated": "마지막 업데이트: 2025년 7월 9일",
+    "intro": {
+      "part1": "Hackerspace에서는 개인정보를 보호하고 데이터 처리에 대해 투명하게 공개하는 것을 약속합니다. EU 일반 데이터 보호 규정(GDPR)을 포함한 관련 법률에 따라 개인 데이터를 처리하도록 보장하고자 합니다.",
+      "part2": "저희 조직은 개인 데이터 처리 및 IT 보안 조치에 대해 개방적으로 공개하는 것을 목표로 합니다. Hackerspace에는 개인 데이터의 올바른 처리를 보장하기 위한 절차가 항상 있습니다.",
+      "part3": "이 개인정보 보호정책은 귀하가 저희 웹사이트를 방문하거나 사용하거나 상호작용할 때 개인 데이터를 어떻게 수집, 사용 및 보호하는지 설명합니다. 또한 개인 데이터에 대한 귀하의 권리에 관한 정보도 포함합니다."
+    },
+    "dataResponsibility": {
+      "title": "데이터 책임자는 누구인가요?",
+      "organization": "Hackerspace NTNU",
+      "address": "Høgskoleringen 5, 7034 Trondheim, 노르웨이",
+      "email": "해커스페이스-dev@idi.ntnu.no",
+      "comment": "저희는 귀하의 개인 데이터 처리를 책임지는 기관입니다."
+    },
+    "collect": {
+      "title": "어떤 데이터를 수집하나요?",
+      "intro1": "Hackerspace가 이 웹사이트에서 제공하는 서비스를 제공하고 최신 회원 등록을 유지하기 위해 이 개인정보 보호정책에 명시된 개인 데이터를 수집해야 합니다.",
+      "intro2": "개인 데이터는 주로 사용자 계정을 특정인과 연결하는 완전한 프로필을 만들기 위한 것입니다. 전체 이름을 통해 회원 및 사용자를 잘 파악할 수 있으며, 이벤트 참여, 장비 대여 등의 서비스를 제공할 수 있습니다.",
+      "weCollectTheFollowing": "저희는 다음과 같은 개인 데이터를 수집합니다:",
+      "weCollect1": "연락처 정보: Hackerspace에 계정을 등록하기로 결정하면 이름과 이메일 주소를 수집합니다. 또한 귀하가 제공하기로 선택한 경우 연락 목적으로 전화번호를 수집합니다.",
+      "weCollect2": "사용 데이터: 귀하의 상호작용, 기기 정보, 브라우저 유형 및 방문 시간 등 웹사이트 사용 방법에 관한 정보.",
+      "weCollect3": "쿠키: 저희는 웹사이트의 사용자 경험을 향상시키기 위해 쿠키를 사용합니다. 여기에는 기본 설정, 방문 기록 및 기타 기술 정보가 포함될 수 있습니다.",
+      "weCollect4": "기타 데이터: 양식 작성이나 이메일 전송 등 귀하가 자발적으로 제공하는 데이터를 수집할 수 있습니다."
+    },
+    "dataPurpose": {
+      "title": "데이터를 어떻게 사용하나요?",
+      "intro": "저희는 다음 목적으로 개인 데이터를 사용합니다:",
+      "purpose11": "서비스 제공:",
+      "purpose12": "주문 처리, 문의 응답, 이벤트 관리, 장비 대여 관리, 지원 제공 등.",
+      "purpose21": "사용자 경험 향상:",
+      "purpose22": "웹사이트 사용 방법 이해, 콘텐츠 및 기능 개선.",
+      "purpose31": "보안:",
+      "purpose32": "사기 또는 무단 접근으로부터 웹사이트와 사용자 보호."
+    },
+    "protection": {
+      "title": "데이터를 어떻게 보호하나요?",
+      "content": "저희는 개인 데이터를 손실, 오용 또는 무단 접근으로부터 보호하기 위해 최신 보안 조치를 사용합니다. 여기에는 암호화, 방화벽 및 접근 제어가 포함됩니다. 보안 조치에 대한 추가 질문이 있으시면 Hackerspace The Democratic People's Republic of DevOps 팀에 문의해 주세요."
+    },
+    "rights": {
+      "title": "귀하의 권리",
+      "gdprIntro": "노르웨이 법률 및 GDPR에 따라 귀하는 다음과 같은 권리를 가집니다:",
+      "gdpr11": "열람권:",
+      "gdpr12": "저희가 귀하에 대해 보유한 정보를 요청할 권리가 있습니다.",
+      "gdpr21": "정정권:",
+      "gdpr22": "귀하에 대한 부정확한 개인 데이터의 수정을 요청할 권리가 있습니다.",
+      "gdpr31": "삭제권:",
+      "gdpr32": "개인 데이터의 삭제를 요청할 권리가 있습니다.",
+      "gdpr41": "동의 철회권:",
+      "gdpr42": "데이터 처리 중단을 요청할 권리가 있습니다.",
+      "consentComment": "데이터 처리에 대한 동의는 자발적이며 언제든지 철회할 수 있습니다. 동의를 철회하면 사용자 계정이 삭제되고 제공한 정보에 의존하는 내부 서비스 및 조직 시설에 대한 물리적 접근을 포함한 내부 서비스에 대한 접근을 잃을 수 있습니다.",
+      "exercise": "권리를 행사하려면 hackerspace-dev@idi.ntnu.no로 연락해 주세요",
+      "responseTime": "저희는 모든 요청에 최대한 답변 드리며, 요청 수신 후 한 달 이내에 처리하겠습니다."
+    },
+    "cookies": {
+      "title": "쿠키",
+      "content": "저희는 웹사이트의 사용자 경험을 향상시키기 위해 쿠키를 사용합니다. 쿠키는 기기에 저장되는 작은 텍스트 파일입니다. 브라우저에서 쿠키를 관리할 수 있습니다. 저희는 필수적이고 기능적인 쿠키와 분석을 위한 제3자 정보를 모두 사용합니다."
+    },
+    "policyChange": {
+      "title": "개인정보 보호정책 변경",
+      "content": "저희는 언제든지 이 개인정보 보호정책을 변경할 권리를 보유합니다. 변경사항은 이 페이지에 게시되며 변경 날짜가 업데이트됩니다. 개인정보 보호 방법에 대한 최신 정보를 얻으려면 정기적으로 정책을 읽어 보시기 바랍니다."
+    }
+  },
+  "quotes": {
+    "title": "영감을 주는 인용구",
+    "backToQuotes": "인용구 목록으로 돌아가기",
+    "heardByUser": "들은 사람: {user}",
+    "new": {
+      "title": "새 인용구",
+      "createQuote": "인용구 만들기",
+      "success": "인용구가 만들어졌습니다",
+      "unauthorized": "새 인용구를 만들 권한이 없습니다"
+    },
+    "update": {
+      "title": "인용구 업데이트",
+      "updateQuote": "인용구 업데이트",
+      "success": "인용구가 업데이트되었습니다",
+      "unauthorized": "인용구를 업데이트할 권한이 없습니다"
+    },
+    "delete": {
+      "title": "이 인용구를 삭제하시겠습니까?",
+      "description": "이 작업은 되돌릴 수 없습니다.",
+      "success": "인용구가 삭제되었습니다",
+      "unauthorized": "인용구를 삭제할 권한이 없습니다"
+    },
+    "form": {
+      "userId": {
+        "label": "사용자",
+        "required": "사용자는 필수입니다",
+        "placeholder": "사용자 검색...",
+        "description": "사용자 선택"
+      },
+      "content": {
+        "labelEnglish": "인용구 (영어)",
+        "labelNorwegian": "인용구 (노르웨이어)",
+        "placeholderEnglish": "My heart cries because I do not own a 3D printer",
+        "placeholderNorwegian": "3D 프린터가 없어서 마음이 울어요",
+        "required": "인용구는 필수입니다",
+        "minLength": "인용구는 최소 {count}자 이상이어야 합니다"
+      },
+      "internal": {
+        "label": "내부 인용구",
+        "description": "선택하면 이 인용구는 Hackerspace 회원에게만 표시됩니다."
+      },
+      "loadingMembers": "회원 불러오는 중...",
+      "noMembersFound": "회원을 찾을 수 없습니다"
+    },
+    "api": {
+      "invalidId": "잘못된 ID",
+      "invalidOffset": "잘못된 offset",
+      "insertFailed": "인용구를 만들지 못했습니다",
+      "updateFailed": "인용구를 업데이트하지 못했습니다",
+      "deleteFailed": "인용구를 삭제하지 못했습니다",
+      "failedToFetchQuotes": "서버에서 인용구를 가져오지 못했습니다",
+      "noUserWithUsername": "입력된 사용자 이름의 사용자를 찾을 수 없습니다",
+      "quoteNotFound": "인용구를 찾을 수 없습니다"
+    }
+  },
+  "api": {
+    "internalServerError": "내부 서버 오류",
+    "tooManyRequests": "요청이 너무 많습니다. 몇 분 기다렸다가 다시 시도해 주세요",
+    "notAuthenticated": "인증되지 않음",
+    "notAuthorized": "권한 없음",
+    "noFileFound": "파일을 찾을 수 없습니다",
+    "fileUploadFailed": "파일을 업로드하지 못했습니다",
+    "unableToUpdateMatrix": "Matrix에서 업데이트하지 못했습니다",
+    "fileDeleteFailed": "파일을 삭제하지 못했습니다"
+  },
+  "reservations": {
+    "title": "예약",
+    "backButton": "뒤로",
+    "tools": {
+      "available": "예약",
+      "unavailable": "이용 불가",
+      "supervision": "감독 필요",
+      "tooltip": "이 장비에 대해 더 읽기",
+      "outOfOrder": "고장",
+      "myReservations": "내 예약",
+      "requires": "필요",
+      "difficulty": "난이도",
+      "filamentSize": "필라멘트 크기",
+      "filamentType": "필라멘트 종류",
+      "slicer": "슬라이서",
+      "backToReservations": "예약으로 돌아가기",
+      "unavailableError": "이 도구는 현재 예약이 불가능합니다.",
+      "new": {
+        "title": "새 예약 도구",
+        "createTool": "도구 만들기",
+        "toolCreated": "도구가 만들어졌습니다",
+        "unauthorized": "예약 도구를 만들 권한이 없습니다"
+      },
+      "edit": {
+        "title": "예약 도구 업데이트",
+        "updateTool": "도구 업데이트",
+        "toolUpdated": "도구가 업데이트되었습니다",
+        "deleteTool": "도구 삭제",
+        "deleteToolTitle": "이 도구를 삭제하시겠습니까?",
+        "deleteToolDescription": "이 도구의 모든 예약도 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "toolDeleted": "도구가 삭제되었습니다",
+        "deleteToolImage": "도구 이미지 삭제",
+        "deleteToolImageTitle": "이 도구 이미지를 삭제하시겠습니까?",
+        "deleteToolImageDescription": "이 작업은 되돌릴 수 없습니다.",
+        "imageDeleted": "도구 이미지가 삭제되었습니다",
+        "unauthorized": "예약 도구를 업데이트할 권한이 없습니다"
+      },
+      "form": {
+        "3dprinterOptions": "3D 프린터 옵션",
+        "image": {
+          "label": "도구 이미지",
+          "description": "이미지 업로드...",
+          "sizeLimitError": "도구 이미지는 {size}MB 미만이어야 합니다",
+          "wrongFileTypeError": "도구 이미지는 PNG, JPG, GIF, WEBP 또는 AVIF 형식이어야 합니다",
+          "fileNotImageError": "파일이 이미지가 아닙니다"
+        },
+        "type": {
+          "label": "도구 유형",
+          "required": "도구 유형은 필수입니다",
+          "3dprinter": "3D 프린터",
+          "other": "기타"
+        },
+        "name": {
+          "labelNorwegian": "도구 이름 (노르웨이어)",
+          "labelEnglish": "도구 이름 (영어)",
+          "placeholder": "3D 프린터",
+          "required": "도구 이름은 필수입니다",
+          "maxLength": "도구 이름은 {count}자 미만이어야 합니다"
+        },
+        "nickName": {
+          "label": "별명",
+          "placeholder": "Geir Ove Mjølsnes",
+          "maxLength": "별명은 {count}자 미만이어야 합니다"
+        },
+        "description": {
+          "labelNorwegian": "도구 설명 (노르웨이어)",
+          "labelEnglish": "도구 설명 (영어)",
+          "placeholder": "도구에 대한 간략한 설명",
+          "required": "도구 설명은 필수입니다",
+          "maxLength": "도구 설명은 {count}자 미만이어야 합니다"
+        },
+        "status": {
+          "label": "도구 상태",
+          "description": "도구의 현재 상태를 선택하세요.",
+          "required": "도구 상태는 필수입니다",
+          "available": "이용 가능",
+          "unavailable": "이용 불가",
+          "requires_supervision": "감독 필요",
+          "out_of_order": "고장"
+        },
+        "requires": {
+          "label": "필요한 물품",
+          "description": "예: SD 카드, USB 드라이브 등",
+          "maxLength": "필요한 물품은 {count}자 미만이어야 합니다"
+        },
+        "difficultyLevel": {
+          "label": "난이도",
+          "description": "도구 사용 난이도를 선택하세요."
+        },
+        "filamentSize": {
+          "label": "필라멘트 크기",
+          "description": "예: 1.75mm 또는 2.85mm",
+          "maxLength": "필라멘트 크기는 {count}자 미만이어야 합니다"
+        },
+        "filamentType": {
+          "label": "필라멘트 종류",
+          "description": "예: PLA, ABS, PETG 등",
+          "maxLength": "필라멘트 종류는 {count}자 미만이어야 합니다"
+        },
+        "slicer": {
+          "label": "슬라이서 소프트웨어",
+          "description": "예: Bambu Studio, PrusaSlicer 등",
+          "maxLength": "슬라이서 소프트웨어는 {count}자 미만이어야 합니다"
+        }
+      }
+    },
+    "myReservationsTable": {
+      "title": "내 예약",
+      "edit": "편집",
+      "cancel": "취소",
+      "remove": "제거",
+      "tool": "도구",
+      "from": "시작",
+      "until": "종료",
+      "empty": "예약이 없습니다",
+      "notLoggedIn": "로그인되어 있지 않습니다. 예약을 확인하려면 로그인하세요.",
+      "deletedSuccess": "예약이 삭제되었습니다"
+    },
+    "information": {
+      "importantTitle": "중요 정보!",
+      "importantText": "시작하기 전에 <link>3D 프린터 사용 규칙</link>을 읽어주세요. 예약 시스템을 사용하면 저희 자원(프린터와 감독하는 근무 인원 모두)을 예약하게 됩니다. 따라서 시간에 맞게 도착(예약 시간 5분 전)하고 예약한 시간을 초과하지 않을 것으로 예상합니다."
+    },
+    "toolbar": {
+      "prev": "이전",
+      "today": "오늘",
+      "next": "다음",
+      "day": "일",
+      "week": "주",
+      "3days": "3일",
+      "dayTitle": "일 보기",
+      "weekTitle": "주 보기",
+      "3daysTitle": "3일 보기",
+      "prevWeekTitle": "이전 주",
+      "prev3daysTitle": "이전 3일",
+      "prevDayTitle": "이전 날",
+      "todayTitle": "오늘 보기",
+      "nextWeekTitle": "다음 주",
+      "next3daysTitle": "다음 3일",
+      "nextDayTitle": "다음 날"
+    },
+    "form": {
+      "titleCreate": "예약 만들기",
+      "descriptionCreate": "필드를 입력하고 '저장'을 클릭하여 예약하세요",
+      "titleEdit": "예약 편집",
+      "descriptionEdit": "편집할 필드를 수정하고 '저장'을 누르세요",
+      "cancel": "취소",
+      "save": "저장",
+      "delete": "삭제",
+      "create": "만들기",
+      "name": "이름",
+      "notes": "메모",
+      "reservedFrom": "시작 날짜",
+      "reservedUntil": "종료 날짜",
+      "hour": "시",
+      "min": "분",
+      "specifyTime": "시작 및 종료 시간을 입력해 주세요",
+      "endDateAfterStart": "종료 날짜는 시작 날짜 이후여야 합니다",
+      "endHourAfterStart": "종료 시간은 시작 시간 이후여야 합니다",
+      "endMinAfterStart": "종료 분은 시작 분 이후여야 합니다",
+      "startDateInPast": "시작 날짜는 과거일 수 없습니다",
+      "startHourInPast": "시작 시간은 과거일 수 없습니다",
+      "startMinuteInPast": "시작 분은 과거일 수 없습니다",
+      "cannotChangeOngoingStart": "진행 중인 예약의 시작 시간을 변경할 수 없습니다",
+      "specifyStart": "시작 날짜는 필수입니다",
+      "specifyEnd": "종료 날짜는 필수입니다",
+      "invalidHour": "잘못된 시간",
+      "invalidMinute": "잘못된 분",
+      "longerThan15min": "예약은 15분 이상이어야 합니다",
+      "successCreate": "예약이 만들어졌습니다.",
+      "successUpdate": "예약이 업데이트되었습니다.",
+      "successDelete": "예약이 삭제되었습니다.",
+      "weekendsMemberOnly": "주말 예약은 회원만 가능합니다",
+      "phoneNumberRequired": "예약하려면 계정에 휴대폰 번호를 연결해야 합니다. 설정에서 변경할 수 있습니다.",
+      "setPhoneNumber": "휴대폰 번호 설정"
+    },
+    "confirmDialog": {
+      "confirm": "확인",
+      "cancel": "취소",
+      "title": "작업 확인",
+      "description": "이 예약을 삭제하시겠습니까?"
+    },
+    "calendar": {
+      "createButton": "예약 만들기",
+      "createButtonLoggedOut": "로그인하여 예약하기",
+      "locale": "ko"
+    },
+    "customEventContent": {
+      "details": "예약 세부정보",
+      "tooltipUserEvent": "클릭하여 편집",
+      "tooltipOtherEvents": "클릭하여 자세히 보기",
+      "close": "닫기"
+    },
+    "api": {
+      "startBeforeEndError": "종료 시간은 시작 시간 이전일 수 없습니다",
+      "invalidId": "잘못된 ID",
+      "reservationNotFound": "예약을 찾을 수 없습니다",
+      "toolNotFound": "도구를 찾을 수 없습니다",
+      "toolUnavailable": "도구를 이용할 수 없습니다",
+      "newMustBeInFuture": "시작/종료 시간은 과거일 수 없습니다",
+      "specifyStart": "시작 날짜는 필수입니다",
+      "specifyEnd": "종료 날짜는 필수입니다",
+      "rangeTooLarge": "시간 범위가 너무 큽니다",
+      "fetchReservationsFailed": "예약을 가져오지 못했습니다",
+      "createReservationTimeConflict": "시작/종료 시간이 기존 예약과 겹칠 수 없습니다",
+      "cannotChangePast": "완료된 예약은 변경할 수 없습니다",
+      "updateFailed": "예약을 업데이트하지 못했습니다",
+      "createFailed": "예약을 만들지 못했습니다",
+      "cannotChangeOngoingStart": "진행 중인 예약의 시작 시간을 변경할 수 없습니다",
+      "createToolFailed": "도구를 만들지 못했습니다",
+      "editToolFailed": "도구를 만들지 못했습니다",
+      "weekendsMemberOnly": "주말 예약은 회원만 가능합니다"
+    }
+  },
+  "coffeeScanner": {
+    "drinks": {
+      "coffee": "커피",
+      "coffeeMilk": "카페라테",
+      "cappuccino": "카푸치노",
+      "chocolateMilkSpaced": "초콜릿 우유",
+      "chocolateMilkNormal": "초콜릿우유",
+      "wienerMelange": "비엔나 멜란지",
+      "coffeeChocolate": "커피 초코",
+      "latteMacchiato": "라테 마키아토",
+      "hotWater": "따뜻한 물"
+    },
+    "ui": {
+      "wantSome": "드시겠습니까",
+      "providedBy": "제공",
+      "scanYour": "스캔하세요",
+      "studentCard": "학생증을",
+      "grabDrink": "음료를 받기 전에",
+      "welcome": "환영합니다!",
+      "welcomeBack": "다시 오셨네요!",
+      "yourCardId": "카드 ID",
+      "selectADrink": "태블릿에서 음료를 선택한 후 커피 머신에서 같은 음료를 선택하세요",
+      "thankYou": "감사합니다!",
+      "thankYouDrink": "커피 머신에서 음료를 선택하여 계속하세요.",
+      "yourStats": "내 통계"
+    },
+    "api": {
+      "invalidDrinkType": "지정된 drinkType은 승인된 음료가 아닙니다.",
+      "addEntryFailed": "음료 항목을 추가하는 중 오류가 발생했습니다.",
+      "addEntrySuccess": "음료 항목이 성공적으로 추가되었습니다."
+    }
+  }
+}

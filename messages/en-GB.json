@@ -1,6 +1,8 @@
 {
   "meta": {
-    "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Matrix chat for assistance or a friendly chat."
+    "titleTemplate": "%s | Better MAKE NTNU",
+    "titleDefault": "Better MAKE NTNU",
+    "description": "Better MAKE NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Matrix chat for assistance or a friendly chat."
   },
   "ui": {
     "open": "Open",
@@ -306,7 +308,7 @@
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
-    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the Dev Public room on Matrix! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
+    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to The Democratic People's Republic of DevOps or use the Dev Public room on Matrix! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
     "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
@@ -610,6 +612,8 @@
   "groups": {
     "backToAbout": "Back to About",
     "internalGroup": "This is an internal group",
+    "supremeLeader": "Supreme Leader",
+    "subordinate": "Subordinate",
     "leader": "Leader",
     "deputyLeader": "Deputy Leader",
     "unauthorized": "Unauthorized to view this group",
@@ -646,15 +650,15 @@
       "name": {
         "labelNorwegian": "Group name (Norwegian)",
         "labelEnglish": "Group name (English)",
-        "placeholder": "DevOps",
+        "placeholder": "The Democratic People's Republic of DevOps",
         "required": "Group name is required",
         "maxLength": "Group name must be less than {count} characters"
       },
       "summary": {
         "labelNorwegian": "Summary (Norwegian)",
         "labelEnglish": "Summary (English)",
-        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
-        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "placeholderNorwegian": "The Democratic People's Republic of DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The The Democratic People's Republic of DevOps team is responsible for maintaining the website and other systems.",
         "required": "Group summary is required",
         "maxLength": "Group summary must be less than {count} characters"
       },
@@ -676,7 +680,7 @@
       "identifier": {
         "label": "Group identifier",
         "description": "The group identifier will be used in the URL for the group page. It must be unique - duplicate groups are not allowed.",
-        "placeholder": "devops",
+        "placeholder": "The Democratic People's Republic of DevOps",
         "isReserved": "Sorry, this identifier is reserved by internal systems",
         "required": "Group identifier is required",
         "regex": "The identifier can't be used in a URL. Allowed character: a-z, A-Z, 0-9, -, _, ., and ~"
@@ -751,7 +755,7 @@
       "edit": "Edit item",
       "api": {
         "insertFailed": "Failed to add storage item",
-        "insertLocalizationsFailed": "Failed to add storage item translations. Please contact Hackerspace DevOps about this issue!"
+        "insertLocalizationsFailed": "Failed to add storage item translations. Please contact Hackerspace The Democratic People's Republic of DevOps about this issue!"
       }
     },
     "shoppingCart": {
@@ -1226,7 +1230,7 @@
         "identifier": {
           "label": "Skill identifier",
           "placeholder": "webdevelopment",
-          "description": "Certain skill names may have predefined icons, permissions or similar. If in doubt, ask the DevOps-team.",
+          "description": "Certain skill names may have predefined icons, permissions or similar. If in doubt, ask the The Democratic People's Republic of DevOps-team.",
           "required": "Skill identifier is required",
           "maxLength": "Skill identifier must be less than {count} characters",
           "regex": "The identifier must only contain alphanumeric characters (a-z, A-Z, 0-9)"
@@ -1552,7 +1556,7 @@
     },
     "protection": {
       "title": "How do we protect your data?",
-      "content": "We use modern security measures to protect your personal information from loss, misuse or unauthorized access. This includes encryption, firewalls and access controls. In case of additional questions regarding our security measures, please contact the DevOps Team at Hackerspace."
+      "content": "We use modern security measures to protect your personal information from loss, misuse or unauthorized access. This includes encryption, firewalls and access controls. In case of additional questions regarding our security measures, please contact the The Democratic People's Republic of DevOps Team at Hackerspace."
     },
     "rights": {
       "title": "Your rights",

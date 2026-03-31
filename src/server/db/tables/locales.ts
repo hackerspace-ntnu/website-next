@@ -1,7 +1,11 @@
 import { pgEnum } from 'drizzle-orm/pg-core';
-
 import { routing } from '@/lib/locale';
 
-const localesEnum = pgEnum('locale', routing.locales);
+type DBLocale = Exclude<(typeof routing.locales)[number], 'ko-KP'>;
+const dbLocales = routing.locales.filter(
+  (l): l is DBLocale => l !== 'ko-KP',
+) as [DBLocale, ...DBLocale[]];
 
-export { localesEnum };
+const localesEnum = pgEnum('locale', dbLocales);
+
+export { type DBLocale, dbLocales, localesEnum };

@@ -73,9 +73,13 @@ export default async function BannersPage({
         </TableHeader>
         <TableBody>
           {banners.map((banner) => {
-            const bannerLocalization = banner.localizations.find(
-              (localization) => localization.locale === locale,
-            );
+            const bannerLocalization =
+              banner.localizations.find(
+                (localization) => localization.locale === locale,
+              ) ??
+              banner?.localizations.find(
+                (localization) => localization.locale === 'en-GB',
+              );
             return (
               <TableRow key={banner.id}>
                 <TableCell>{bannerLocalization?.content}</TableCell>

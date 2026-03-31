@@ -1,6 +1,8 @@
 {
   "meta": {
-    "description": "Hackerspace NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Matrix-chat for assistanse eller en vennlig prat."
+    "titleTemplate": "%s | Bedre MAKE NTNU",
+    "titleDefault": "Bedre MAKE NTNU",
+    "description": "Bedre MAKE NTNU, et studentledet prosjekt åpent for alle studenter, tilbyr tilgang til ny teknologi som 3D-printere og VR-utstyr. Våre medlemmer gir variert ekspertise for å hjelpe med prosjektene dine, fra å få en LED-lys til å blinke til å lage en 3D-modell. Besøk vårt verksted eller bli med i vår Matrix-chat for assistanse eller en vennlig prat."
   },
   "ui": {
     "open": "Åpne",
@@ -306,7 +308,7 @@
     "links": "Lenker",
     "utilities": "Verktøy",
     "haveYouFoundA": "Har du funnet en",
-    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til DevOps eller bruk \"Dev Public\"-rommet på Matrix! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
+    "utilitiesDescription": "Send gjerne en <MailLink></MailLink> til The Democratic People's Republic of DevOps eller bruk \"Dev Public\"-rommet på Matrix! Du kan også rapportere feil eller gi oss forslag til forbedringer på <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Åpningstider",
     "allWeekdays": "Mandag - Fredag",
     "socialMedia": "Sosiale medier",
@@ -610,6 +612,8 @@
   "groups": {
     "backToAbout": "Tilbake til Om oss",
     "internalGroup": "Dette er en intern gruppe",
+    "supremeLeader": "Øverste leder",
+    "subordinate": "Undersott",
     "leader": "Leder",
     "deputyLeader": "Nestleder",
     "unauthorized": "Du har ikke rettigheter til å se denne gruppen",
@@ -646,15 +650,15 @@
       "name": {
         "labelNorwegian": "Gruppenavn (norsk)",
         "labelEnglish": "Gruppenavn (engelsk)",
-        "placeholder": "DevOps",
+        "placeholder": "The Democratic People's Republic of DevOps",
         "required": "Gruppenavn er påkrevd",
         "maxLength": "Gruppenavn må være mindre enn {count} tegn"
       },
       "summary": {
         "labelNorwegian": "Sammendrag (norsk)",
         "labelEnglish": "Sammendrag (engelsk)",
-        "placeholderNorwegian": "DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
-        "placeholderEnglish": "The DevOps team is responsible for maintaining the website and other systems.",
+        "placeholderNorwegian": "The Democratic People's Republic of DevOps-gruppen er ansvarlig for å vedlikeholde nettsiden og andre systemer.",
+        "placeholderEnglish": "The The Democratic People's Republic of DevOps team is responsible for maintaining the website and other systems.",
         "required": "Sammendrag er påkrevd",
         "maxLength": "Sammendraget må være mindre enn {count} tegn"
       },
@@ -676,7 +680,7 @@
       "identifier": {
         "label": "Gruppe-identifikator",
         "description": "Gruppe-identifikatoren vil bli brukt i URL-en for gruppesiden. Den må være unik - duplikate grupper er ikke tillatt.",
-        "placeholder": "devops",
+        "placeholder": "The Democratic People's Republic of DevOps",
         "isReserved": "Beklager, denne identifikatoren er reservert av interne systemer",
         "required": "Gruppe-identifikator er påkrevd",
         "regex": "Gruppe-identifikatoren kan ikke brukes i en URL. Tillatte tegn: a-z, A-Z, 0-9, -, _, ., og ~"
@@ -751,7 +755,7 @@
       "edit": "Rediger gjenstand",
       "api": {
         "insertFailed": "Feilet å legge til gjenstanden",
-        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace DevOps om denne feilen!"
+        "insertLocalizationsFailed": "Feilet å legge til oversettelser til denne gjenstanden. Vennligst kontakt Hackerspace The Democratic People's Republic of DevOps om denne feilen!"
       }
     },
     "shoppingCart": {
@@ -1226,7 +1230,7 @@
         "identifier": {
           "label": "Ferdighetsidentifikator",
           "placeholder": "Webutvikling",
-          "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør DevOps-teamet.",
+          "description": "Visse ferdighetsnavn kan ha forhåndsdefinerte ikoner, tillatelser eller lignende. Hvis du er i tvil, spør The Democratic People's Republic of DevOps-teamet.",
           "required": "Ferdighetsidentifikator er påkrevd",
           "maxLength": "Ferdighetsidentifikator må være mindre enn {count} tegn",
           "regex": "Identifikatoren må bare inneholde alfanumeriske tegn (a-z, A-Z, 0-9)"
@@ -1552,7 +1556,7 @@
     },
     "protection": {
       "title": "Hvordan beskytter vi dataene dine?",
-      "content": "Vi bruker moderne sikkerhetstiltak for å beskytte personopplysningene dine mot tap, misbruk eller uautorisert tilgang. Dette inkluderer kryptering, brannmurer og tilgangskontroller. Ved ytterligere spørsmål om våre sikkerhetstiltak, vennligst kontakt DevOps-teamet på Hackerspace."
+      "content": "Vi bruker moderne sikkerhetstiltak for å beskytte personopplysningene dine mot tap, misbruk eller uautorisert tilgang. Dette inkluderer kryptering, brannmurer og tilgangskontroller. Ved ytterligere spørsmål om våre sikkerhetstiltak, vennligst kontakt The Democratic People's Republic of DevOps-teamet på Hackerspace."
     },
     "rights": {
       "title": "Dine rettigheter",

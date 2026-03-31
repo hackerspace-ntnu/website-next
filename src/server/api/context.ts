@@ -1,24 +1,22 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
-import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import type { Translations } from '@/lib/locale';
-import { routing } from '@/lib/locale';
 import { auth } from '@/server/auth';
 import { db } from '@/server/db';
-import { itemCategories } from '@/server/db/tables';
+import { type DBLocale, itemCategories } from '@/server/db/tables';
 import { s3 } from '@/server/s3';
 
 type TRPCContext = {
-  locale: Locale;
+  locale: DBLocale;
   db: typeof db;
   auth: typeof auth;
   s3: typeof s3;
   t: Translations;
 };
 
-async function createContext(locale: Locale): Promise<TRPCContext> {
+async function createContext(locale: DBLocale): Promise<TRPCContext> {
   const t = await getTranslations({
-    locale: locale ?? routing.defaultLocale,
+    locale: locale ?? 'en-GB',
   });
   return {
     locale,
