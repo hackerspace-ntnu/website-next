@@ -52,13 +52,9 @@ export async function generateMetadata({
     return;
   }
 
-  const localization =
-    event?.localizations.find(
-      (localization) => localization.locale === locale,
-    ) ??
-    event?.localizations.find(
-      (localization) => localization.locale === 'en-GB',
-    );
+  const localization = event?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
 
   if (!event || !localization) return;
 
@@ -114,13 +110,9 @@ export default async function EventDetailsPage({
     }
   }
 
-  const localization =
-    event?.localizations.find(
-      (localization) => localization.locale === locale,
-    ) ??
-    event?.localizations.find(
-      (localization) => localization.locale === 'en-GB',
-    );
+  const localization = event?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
 
   if (!event || !localization) return notFound();
 

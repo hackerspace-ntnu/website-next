@@ -1,20 +1,18 @@
+import type { Locale } from 'next-intl';
 import { routing } from '@/lib/locale';
 import { getContext } from '@/server/api/context';
-import type { DBLocale } from '@/server/db/tables';
 
 function getLocaleFromRequest(request: Request) {
   const acceptLanguage = request.headers.get('accept-language');
   if (!acceptLanguage) {
-    return 'en-GB';
+    return routing.defaultLocale;
   }
   const preferredLocale =
     acceptLanguage.split(',').at(0)?.split(';').at(0)?.trim() ?? '';
 
-  return routing.locales
-    .filter((l) => l !== 'ko-KP')
-    .includes(preferredLocale as DBLocale)
-    ? (preferredLocale as DBLocale)
-    : 'en-GB';
+  return routing.locales.includes(preferredLocale as Locale)
+    ? (preferredLocale as Locale)
+    : routing.defaultLocale;
 }
 
 function useTranslationsFromContext() {

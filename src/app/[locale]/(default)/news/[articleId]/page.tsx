@@ -166,7 +166,7 @@ export default async function ArticlePage({
             </Avatar>
           )}
           <div className='flex flex-col'>
-            <p className='font-comic-relief font-semibold'>{authorName}</p>
+            <p className='font-montserrat font-semibold'>{authorName}</p>
             <small className='text-foreground/60'>
               {t('readTime', { count: Math.ceil(minutes) })}
               &nbsp;&nbsp;•&nbsp;&nbsp;

@@ -14,7 +14,6 @@ async function Header() {
   const locale = await getLocale();
   const t = await getTranslations('layout');
   const tMatrix = await getTranslations('matrixDialog');
-  const tMeta = await getTranslations('meta');
   const { user } = await api.auth.state();
 
   if (user && !user.isAccountComplete) {
@@ -63,14 +62,12 @@ async function Header() {
                 openMatrix: tMatrix('openMatrix'),
                 invalidValue: tMatrix('api.invalidValue'),
               },
-              titleDefault: tMeta('titleDefault'),
             }}
           />
           <LogoLink
             className='md:clamp-[ml-12-0-clamp-md]'
             t={{
               hackerspaceHome: t('hackerspaceHome'),
-              titleDefault: tMeta('titleDefault'),
             }}
           />
         </div>

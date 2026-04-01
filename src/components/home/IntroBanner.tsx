@@ -19,7 +19,6 @@ type IntroBannerProps = {
   t: {
     placeholderAlt: string;
     editSlides: string;
-    titleDefault: string;
   };
 };
 
@@ -41,13 +40,9 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
         >
           <CarouselContent className='ml-0 h-screen w-screen'>
             {slides.map((slide) => {
-              const slideLocalization =
-                slide.localizations.find(
-                  (localization) => localization.locale === locale,
-                ) ??
-                slide?.localizations.find(
-                  (localization) => localization.locale === 'en-GB',
-                );
+              const slideLocalization = slide.localizations.find(
+                (localization) => localization.locale === locale,
+              );
 
               return (
                 <CarouselItem key={slide.id} className='h-screen w-screen pl-0'>
@@ -74,7 +69,7 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
         </Carousel>
 
         <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-5/12 left-1/2 w-full transform text-center text-4xl-7xl-clamp text-shadow-foreground text-shadow-lg dark:text-foreground dark:text-shadow-background'>
-          {t.titleDefault}
+          Hackerspace NTNU
         </h1>
 
         {canEditSlides && (

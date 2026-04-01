@@ -7,8 +7,6 @@ import { ShimmerText } from '@/components/coffee-scanner/ShimmerText';
 
 function CoffeeIdle() {
   const t = useTranslations('coffeeScanner');
-  const tMeta = useTranslations('meta');
-
   return (
     <>
       <h1 className='-translate-x-1/2 -translate-y-1/2 absolute top-2/12 left-1/2 w-max max-w-9/10 text-center font-extrabold text-7xl'>
@@ -29,15 +27,10 @@ function CoffeeIdle() {
       </h1>
       <AnimatedCoffeeScannerSVG className='-translate-x-1/2 -translate-y-1/2 absolute top-16/20 left-1/2 h-60 w-100' />
       <div className='absolute bottom-10 left-10 flex flex-row items-center gap-2 text-lg'>
-        <span className='font-comic-relief uppercase'>
-          {t('ui.providedBy')}
-        </span>
+        <span className='font-montserrat uppercase'>{t('ui.providedBy')}</span>
         <div className='flex flex-row items-center'>
           <HackerspaceLogo className='h-6 w-6' />
-          <span className='font-bold font-comic-relief'>
-            {' '}
-            {tMeta('titleDefault')}
-          </span>
+          <span className='font-bold font-montserrat'> HACKERSPACE</span>
         </div>
       </div>
     </>

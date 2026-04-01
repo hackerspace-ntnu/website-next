@@ -31,7 +31,7 @@ function Header({
             </Link>
           </Column>
           <Column>
-            <span className='font-comic-relief font-semibold text-xl'>
+            <span className='font-montserrat font-semibold text-xl'>
               HACKERSPACE NTNU
             </span>
           </Column>

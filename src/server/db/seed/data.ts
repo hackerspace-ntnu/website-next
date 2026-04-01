@@ -1,8 +1,8 @@
 import { fakerEN, fakerNB_NO } from '@faker-js/faker';
+import type { Locale } from 'next-intl';
 import type { Value } from 'platejs';
 import { hashPassword } from '@/server/auth/password';
 import type {
-  DBLocale,
   InsertBanner,
   InsertBannerLocalization,
   InsertDoorStatus,
@@ -1946,12 +1946,12 @@ for (let i = 3; i < 100; i++) {
       {
         quoteId: i,
         content: faker['nb-NO'].lorem.sentence(),
-        locale: 'nb-NO' as DBLocale,
+        locale: 'nb-NO' as Locale,
       },
       {
         quoteId: i,
         content: faker['en-GB'].lorem.sentence(),
-        locale: 'en-GB' as DBLocale,
+        locale: 'en-GB' as Locale,
       },
     ],
   );

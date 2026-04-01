@@ -14,7 +14,6 @@ import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/components/ui/Link';
 import { PlateEditorView } from '@/components/ui/plate/PlateEditorView';
 import { api } from '@/lib/api/server';
-import { cx } from '@/lib/utils';
 import type { RouterOutput } from '@/server/api';
 
 export async function generateMetadata({
@@ -31,22 +30,14 @@ export async function generateMetadata({
     return;
   }
 
-  const groupLocalization =
-    group?.localizations.find(
-      (localization) => localization.locale === locale,
-    ) ??
-    group?.localizations.find(
-      (localization) => localization.locale === 'en-GB',
-    );
+  const groupLocalization = group?.localizations.find(
+    (localization) => localization.locale === locale,
+  );
 
   if (!group || !groupLocalization) return;
 
-  const isDPRD = group.identifier === 'devops';
-
   return {
-    title: isDPRD
-      ? "The Democratic People's Republic of DevOps"
-      : groupLocalization.name,
+    title: groupLocalization.name,
   };
 }
 
@@ -78,13 +69,9 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const groupLocalization =
-    group.localizations.find(
-      (localization) => localization.locale === locale,
-    ) ??
-    group?.localizations.find(
-      (localization) => localization.locale === 'en-GB',
-    );
+  const groupLocalization = group.localizations.find(
+    (localization) => localization.locale === locale,
+  );
 
   group.usersGroups = group.usersGroups.sort((a, b) => {
     if (a.user.id === group.leaderId) return -1;
@@ -100,8 +87,6 @@ export default async function GroupPage({
     return notFound();
   }
 
-  const isDPRD = group.identifier === 'devops';
-
   return (
     <>
       <Link
@@ -114,11 +99,7 @@ export default async function GroupPage({
         <span>{t('backToAbout')}</span>
       </Link>
       <div className='relative'>
-        <h1 className='mb-4 text-center'>
-          {isDPRD
-            ? "The Democratic People's Republic of DevOps"
-            : groupLocalization.name}
-        </h1>
+        <h1 className='mb-4 text-center'>{groupLocalization.name}</h1>
         {group.internal && (
           <Badge className='mx-auto block w-fit rounded-full'>
             {tLayout('internal')}
@@ -142,26 +123,16 @@ export default async function GroupPage({
       </div>
       <div className='flex flex-col items-center justify-center gap-4 p-4'>
         <h3>{groupLocalization.summary}</h3>
-        {isDPRD ? (
-          <Image
-            src='/devopsFlag.webp'
-            alt="The Democratic People's Republic of DevOps' flag"
-            width={1280}
-            height={640}
-            className='rounded-lg object-cover'
-          />
-        ) : (
-          group.imageUrl && (
-            <div className='relative mx-auto h-auto w-64 max-w-2xl overflow-hidden rounded-lg md:w-96'>
-              <Image
-                src={group.imageUrl}
-                alt={groupLocalization.name}
-                width={512}
-                height={512}
-                className='rounded-lg object-cover'
-              />
-            </div>
-          )
+        {group.imageUrl && (
+          <div className='relative mx-auto h-auto w-64 max-w-2xl overflow-hidden rounded-lg md:w-96'>
+            <Image
+              src={group.imageUrl}
+              alt={groupLocalization.name}
+              width={512}
+              height={512}
+              className='rounded-lg object-cover'
+            />
+          </div>
         )}
         <PlateEditorView value={groupLocalization.description} />
         {group.usersGroups.length === 0 && (
@@ -179,10 +150,7 @@ export default async function GroupPage({
                   pathname: '/members/[memberId]',
                   params: { memberId: member.id },
                 }}
-                className={cx(
-                  'group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 duration-200 hover:border-primary',
-                  isDPRD && 'rotate-0',
-                )}
+                className='group relative box-border flex h-72 w-72 flex-col items-center justify-center gap-1 overflow-hidden rounded-lg border border-border bg-card px-10 py-7 duration-200 hover:border-primary'
               >
                 <div className='relative h-44 w-44 self-center overflow-hidden rounded-lg object-cover'>
                   {member?.profilePictureUrl ? (
@@ -200,24 +168,11 @@ export default async function GroupPage({
                   {member.firstName} {member.lastName}
                 </p>
                 {member.id === group.leaderId && (
-                  <Badge className='rounded-full'>
-                    {isDPRD ? t('supremeLeader') : t('leader')}
-                  </Badge>
+                  <Badge className='rounded-full'>{t('leader')}</Badge>
                 )}
                 {member.id === group.deputyLeaderId && (
-                  <Badge
-                    className={cx('rounded-full', isDPRD && 'bg-orange-300')}
-                  >
-                    {isDPRD ? `${t('subordinate')}+` : t('deputyLeader')}
-                  </Badge>
+                  <Badge className='rounded-full'>{t('deputyLeader')}</Badge>
                 )}
-                {isDPRD &&
-                  member.id !== group.leaderId &&
-                  member.id !== group.deputyLeaderId && (
-                    <Badge className='rounded-full bg-red-400'>
-                      {t('subordinate')}
-                    </Badge>
-                  )}
               </Link>
             );
           })}

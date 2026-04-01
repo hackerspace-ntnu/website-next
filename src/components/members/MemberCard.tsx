@@ -43,10 +43,7 @@ async function MemberCard({ user, className }: MemberItemCardProps) {
                 (row) =>
                   row.group.localizations.find(
                     (localization) => localization.locale === locale,
-                  )?.name ??
-                  row.group.localizations.find(
-                    (localization) => localization.locale === 'en-GB',
-                  ),
+                  )?.name,
               )
               .filter((item) => item !== undefined)
               .join(', ')}

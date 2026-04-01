@@ -6,17 +6,13 @@ import { cache } from 'react';
 import { createQueryClient } from '@/lib/api/queryClient';
 import { createCaller, type router } from '@/server/api';
 import { createContext } from '@/server/api/context';
-import { type DBLocale, dbLocales } from '@/server/db/tables';
 
 const getQueryClient = cache(createQueryClient);
 
 const getApiClient = cache(async () => {
-  const rawLocale = await getLocale();
-  const locale: DBLocale = dbLocales.includes(rawLocale as DBLocale)
-    ? (rawLocale as DBLocale)
-    : 'en-GB';
-
+  const locale = await getLocale();
   const caller = createCaller(await createContext(locale));
+
   return createHydrationHelpers<typeof router>(caller, getQueryClient);
 });
 

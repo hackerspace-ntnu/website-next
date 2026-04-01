@@ -1,12 +1,9 @@
-import { Comic_Relief } from 'next/font/google';
-import { headers } from 'next/headers';
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { Inter, Montserrat } from 'next/font/google';
 import type { Locale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppCookieConsent } from '@/components/layout/AppCookieConsent';
 import { RootProviders } from '@/components/providers/RootProviders';
-import { ExternalLink, Link } from '@/components/ui/Link';
+import { Link } from '@/components/ui/Link';
 import { ScrollArea } from '@/components/ui/ScrollArea';
 import { Toaster } from '@/components/ui/Toaster';
 import { routing } from '@/lib/locale';
@@ -17,11 +14,16 @@ type LocaleLayoutProps = {
   params: Promise<{ locale: string }>;
 };
 
-const comicRelief = Comic_Relief({
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-comic-relief',
+  variable: '--font-inter',
   display: 'swap',
-  weight: ['400', '700'],
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  display: 'swap',
 });
 
 export function generateStaticParams() {
@@ -33,8 +35,8 @@ export async function generateMetadata() {
 
   return {
     title: {
-      template: t('titleTemplate'),
-      default: t('titleDefault'),
+      template: '%s | Hackerspace NTNU',
+      default: 'Hackerspace NTNU',
     },
     description: t('description'),
     icons: [
@@ -87,15 +89,13 @@ export default async function LocaleLayout({
     decline: tUi('decline'),
   };
 
-  const host = (await headers()).get('host') ?? '';
-
-  if (host.includes('hackerspace-ntnu.no')) {
-    redirect('https://xn--9t4ba908at7ib6fs3c.website');
-  }
-
   return (
     <html
-      className={cx('h-full w-full scroll-smooth', comicRelief.variable)}
+      className={cx(
+        'h-full w-full scroll-smooth',
+        inter.variable,
+        montserrat.variable,
+      )}
       lang={locale}
       dir='ltr'
       suppressHydrationWarning
@@ -110,30 +110,6 @@ export default async function LocaleLayout({
             </div>
           </ScrollArea>
         </RootProviders>
-        <div className='[&>div]:absolute [&>div]:z-50 [&_img]:size-20'>
-          <div className='top-20 left-5'>
-            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
-          </div>
-          <div className='top-5 right-5'>
-            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
-          </div>
-          <div className='bottom-5 left-5'>
-            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
-          </div>
-          <div className='right-5 bottom-20'>
-            <Image src='/tungsten.gif' width={80} height={80} alt='Tungsten' />
-          </div>
-          <div className='right-5 bottom-5 rounded-lg bg-red-500 p-2'>
-            <ExternalLink
-              href='https://makentnu.no'
-              className='rotate-0 text-white'
-              variant='none'
-              target='_blank'
-            >
-              Dra til et verre sted
-            </ExternalLink>
-          </div>
-        </div>
       </body>
     </html>
   );
