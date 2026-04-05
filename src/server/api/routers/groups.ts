@@ -449,12 +449,13 @@ const groupsRouter = createRouter({
         });
       }
 
-      if (group.identifier === 'admin' && !ctx.user.groups.includes('admin'))
+      if (group.identifier === 'admin' && !ctx.user.groups.includes('admin')) {
         throw new TRPCError({
           code: 'FORBIDDEN',
           message: ctx.t('members.api.adminGroupRequired'),
           cause: { toast: 'error' },
         });
+      }
 
       const existingUserGroup = await ctx.db.query.usersGroups.findFirst({
         where: and(
@@ -501,6 +502,14 @@ const groupsRouter = createRouter({
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: ctx.t('members.api.errorFetchingMember'),
+          cause: { toast: 'error' },
+        });
+      }
+
+      if (group.identifier === 'admin' && !ctx.user.groups.includes('admin')) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: ctx.t('members.api.adminGroupRequired'),
           cause: { toast: 'error' },
         });
       }

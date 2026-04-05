@@ -25,9 +25,10 @@ function Banner() {
     { enabled: fetchBanners },
   );
 
-  const { data: doorStatus } = api.office.fetchDoorStatus.useQuery(undefined, {
-    enabled: path === '/',
-  });
+  const { data: doorStatus, isEnabled: showDoorStatus } =
+    api.office.fetchDoorStatus.useQuery(undefined, {
+      enabled: path === '/',
+    });
 
   return (
     <div className='-mb-4 relative z-10 mt-4'>
@@ -71,7 +72,7 @@ function Banner() {
       )}
       {/* We show the workshop status badge for the home page here,
           because we want to place it below all banners */}
-      {doorStatus && (
+      {showDoorStatus && doorStatus && (
         <div
           className={cx(
             'flex justify-end pr-8',

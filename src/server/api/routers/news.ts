@@ -107,9 +107,12 @@ const newsRouter = createRouter({
       if (!localization) return null;
 
       if (input.incrementViews) {
-        await ctx.db.update(newsArticles).set({
-          views: sql`${newsArticles.views} + 1`,
-        });
+        await ctx.db
+          .update(newsArticles)
+          .set({
+            views: sql`${newsArticles.views} + 1`,
+          })
+          .where(eq(newsArticles.id, input.id));
       }
 
       return {

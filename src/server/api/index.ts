@@ -3,6 +3,7 @@ import {
   applicationsRouter,
   authRouter,
   bannersRouter,
+  coffeeScanRouter,
   eventsRouter,
   forgotPasswordRouter,
   groupsRouter,
@@ -44,6 +45,7 @@ const router = createRouter({
   tools: toolsRouter,
   users: usersRouter,
   utils: utilsRouter,
+  coffeeScanner: coffeeScanRouter,
 });
 
 const createCaller = createCallerFactory(router);

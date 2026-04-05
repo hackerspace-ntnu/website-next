@@ -21,6 +21,7 @@ import { matrixDialogSchema } from '@/validations/matrix-dialog/matrixDialogSche
 type MatrixLinkProps = {
   className?: string;
   isLoggedIn: boolean;
+  size?: React.ComponentProps<typeof Button>['size'];
   t: {
     title: string;
     descriptionNotLoggedIn: string;
@@ -33,7 +34,7 @@ type MatrixLinkProps = {
   };
 };
 
-function MatrixLink({ className, isLoggedIn, t }: MatrixLinkProps) {
+function MatrixLink({ className, isLoggedIn, size, t }: MatrixLinkProps) {
   const [showMatrixDialog, setShowMatrixDialog] = useLocalStorage(
     'matrix-info',
     true,
@@ -78,7 +79,7 @@ function MatrixLink({ className, isLoggedIn, t }: MatrixLinkProps) {
         <Button
           className={className}
           variant='ghost'
-          size='icon'
+          size={size ?? 'icon'}
           title={t.title}
           aria-label={t.title}
         >

@@ -4,9 +4,9 @@ import {
   FacebookIcon,
   GitHubIcon,
   InstagramIcon,
-  SlackIcon,
 } from '@/components/assets/icons';
 import { IDILogo, NexusLogo } from '@/components/assets/logos';
+import { MatrixLink } from '@/components/layout/header/MatrixLink';
 import { Nav } from '@/components/layout/header/Nav';
 import { LogoLink } from '@/components/layout/LogoLink';
 import { ExternalLink, Link } from '@/components/ui/Link';
@@ -15,6 +15,7 @@ import { api } from '@/lib/api/server';
 async function Footer() {
   const t = await getTranslations('layout');
   const year = new Date().getFullYear();
+  const tMatrix = await getTranslations('matrixDialog');
   const { user } = await api.auth.state();
 
   return (
@@ -63,30 +64,21 @@ async function Footer() {
               </ExternalLink>
             </li>
             <li>
-              <ExternalLink
-                variant='ghost'
+              <MatrixLink
+                isLoggedIn={!!user}
+                t={{
+                  title: tMatrix('title'),
+                  descriptionNotLoggedIn: tMatrix('descriptionNotLoggedIn'),
+                  descriptionLoggedIn: tMatrix('descriptionLoggedIn'),
+                  iHaveAnAccount: tMatrix('iHaveAnAccount'),
+                  createAnAccount: tMatrix('createAnAccount'),
+                  dontShowAgain: tMatrix('dontShowAgain'),
+                  openMatrix: tMatrix('openMatrix'),
+                  invalidValue: tMatrix('api.invalidValue'),
+                }}
+                className='xs:flex hidden'
                 size='sm-icon'
-                href='https://hackerspace-ntnu.slack.com/'
-                prefetch={false}
-                aria-label={t('visitSlack')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <SlackIcon className='h-4 w-4' />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink
-                variant='ghost'
-                size='sm-icon'
-                href='https://www.facebook.com/hackerspacentnu'
-                prefetch={false}
-                aria-label={t('visitFacebook')}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <FacebookIcon className='h-4 w-4' />
-              </ExternalLink>
+              />
             </li>
             <li>
               <ExternalLink
@@ -114,6 +106,19 @@ async function Footer() {
                 <InstagramIcon className='h-4 w-4' />
               </ExternalLink>
             </li>
+            <li>
+              <ExternalLink
+                variant='ghost'
+                size='sm-icon'
+                href='https://www.facebook.com/hackerspacentnu'
+                prefetch={false}
+                aria-label={t('visitFacebook')}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <FacebookIcon className='h-4 w-4' />
+              </ExternalLink>
+            </li>
           </ul>
         </div>
         <div>
@@ -132,16 +137,14 @@ async function Footer() {
         <div>
           <h4>{t('utilities')}</h4>
           <p className='mt-2'>
-            <Link variant='link' href='/'>
+            <Link variant='link' href='/auth'>
               {t('signIn')}
             </Link>
+            <br />
             <br />
             {t('haveYouFoundA')} <BugIcon className='inline h-4 w-4' />?
             <br />
             {t.rich('utilitiesDescription', {
-              code: (children) => (
-                <code className='inline-block text-xs'>{children}</code>
-              ),
               MailLink: () => (
                 <ExternalLink
                   className='inline'
@@ -149,18 +152,6 @@ async function Footer() {
                   aria-label={t('sendAnEmail')}
                 >
                   <MailIcon className='inline h-4 w-4' />
-                </ExternalLink>
-              ),
-              SlackLink: (children) => (
-                <ExternalLink
-                  className='inline'
-                  href='https://hackerspace-ntnu.slack.com/archives/CDK99FYTY'
-                  prefetch={false}
-                  aria-label={t('visitSlack')}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  {children}
                 </ExternalLink>
               ),
               GithubLink: (children) => (
