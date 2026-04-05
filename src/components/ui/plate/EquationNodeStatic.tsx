@@ -1,8 +1,7 @@
 import { getEquationHtml } from '@platejs/math';
 import { RadicalIcon } from 'lucide-react';
-import type { TEquationElement } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
-import { SlateElement } from 'platejs/static';
+import type { SlateElementProps, TEquationElement } from 'platejs';
+import { SlateElement } from 'platejs';
 import { cx } from '@/lib/utils/index';
 
 // Cannot be translated, as next-intl context is unavailable,
