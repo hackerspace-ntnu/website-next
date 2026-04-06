@@ -139,54 +139,56 @@ const quotesRouter = createRouter({
         });
       }
 
-      const [quote] = await ctx.db
-        .insert(quotes)
-        .values({
-          internal: input.internal,
-          saidBy: saidBy.id,
-          heardBy: ctx.user.id,
-        })
-        .returning({ id: quotes.id })
-        .catch((error) => {
-          console.error(error);
+      return await ctx.db.transaction(async (tx) => {
+        const [quote] = await tx
+          .insert(quotes)
+          .values({
+            internal: input.internal,
+            saidBy: saidBy.id,
+            heardBy: ctx.user.id,
+          })
+          .returning({ id: quotes.id })
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('quotes.api.insertFailed'),
+              cause: { toast: 'error' },
+            });
+          });
+
+        if (!quote?.id) {
+          console.error('No quote ID returned after insert');
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('quotes.api.insertFailed'),
             cause: { toast: 'error' },
           });
-        });
+        }
 
-      if (!quote?.id) {
-        console.error('No quote ID returned after insert');
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('quotes.api.insertFailed'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      await ctx.db
-        .insert(quoteLocalizations)
-        .values([
-          {
-            quoteId: quote.id,
-            content: input.contentNorwegian,
-            locale: 'nb-NO',
-          },
-          {
-            quoteId: quote.id,
-            content: input.contentEnglish,
-            locale: 'en-GB',
-          },
-        ])
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.insertFailed'),
-            cause: { toast: 'error' },
+        await tx
+          .insert(quoteLocalizations)
+          .values([
+            {
+              quoteId: quote.id,
+              content: input.contentNorwegian,
+              locale: 'nb-NO',
+            },
+            {
+              quoteId: quote.id,
+              content: input.contentEnglish,
+              locale: 'en-GB',
+            },
+          ])
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('quotes.api.insertFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
+      });
     }),
   updateQuote: protectedProcedure
     .input((input) =>
@@ -236,62 +238,64 @@ const quotesRouter = createRouter({
         });
       }
 
-      await ctx.db
-        .update(quotes)
-        .set({
-          internal: input.internal,
-          saidBy: input.userId,
-          heardBy: ctx.user.id,
-        })
-        .where(eq(quotes.id, input.quoteId))
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.updateFailed'),
-            cause: { toast: 'error' },
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(quotes)
+          .set({
+            internal: input.internal,
+            saidBy: input.userId,
+            heardBy: ctx.user.id,
+          })
+          .where(eq(quotes.id, input.quoteId))
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('quotes.api.updateFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
 
-      await ctx.db
-        .update(quoteLocalizations)
-        .set({
-          content: input.contentNorwegian,
-        })
-        .where(
-          and(
-            eq(quoteLocalizations.quoteId, input.quoteId),
-            eq(quoteLocalizations.locale, 'nb-NO'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.updateFailed'),
-            cause: { toast: 'error' },
+        await tx
+          .update(quoteLocalizations)
+          .set({
+            content: input.contentNorwegian,
+          })
+          .where(
+            and(
+              eq(quoteLocalizations.quoteId, input.quoteId),
+              eq(quoteLocalizations.locale, 'nb-NO'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('quotes.api.updateFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
 
-      await ctx.db
-        .update(quoteLocalizations)
-        .set({
-          content: input.contentEnglish,
-        })
-        .where(
-          and(
-            eq(quoteLocalizations.quoteId, input.quoteId),
-            eq(quoteLocalizations.locale, 'en-GB'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('quotes.api.updateFailed'),
-            cause: { toast: 'error' },
+        await tx
+          .update(quoteLocalizations)
+          .set({
+            content: input.contentEnglish,
+          })
+          .where(
+            and(
+              eq(quoteLocalizations.quoteId, input.quoteId),
+              eq(quoteLocalizations.locale, 'en-GB'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('quotes.api.updateFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
+      });
     }),
   deleteQuote: protectedProcedure
     .input((input) =>
