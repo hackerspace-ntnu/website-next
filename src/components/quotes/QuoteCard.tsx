@@ -39,7 +39,54 @@ async function QuoteCard({
   return (
     <Card key={quote.id} className='overflow-hidden'>
       <CardHeader className='bg-muted/50 p-4'>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col gap-2 sm:hidden'>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <MemberAvatar
+                user={quote.saidBy}
+                profilePictureUrl={profileImageUrl}
+              />
+              <div>
+                <p className='font-medium'>{saidByName}</p>
+              </div>
+            </div>
+            <div className='flex flex-col items-center gap-2'>
+              <Badge variant='outline'>
+                {formatter.dateTime(quote.createdAt)}
+              </Badge>
+              {quote.internal && (
+                <Badge className='justify-center rounded-full'>
+                  {tLayout('internal')}
+                </Badge>
+              )}
+            </div>
+          </div>
+          {canEdit && (
+            <div className='flex items-center gap-2 pl-14'>
+              <Link
+                href={{
+                  pathname: '/quotes/[quoteId]/edit',
+                  params: { quoteId: quote.id },
+                }}
+                variant='default'
+                size='sm-icon'
+              >
+                <EditIcon />
+              </Link>
+              <DeleteQuoteButton
+                quote={quote}
+                t={{
+                  title: t('delete.title'),
+                  description: t('delete.description'),
+                  cancel: tUi('cancel'),
+                  confirm: tUi('confirm'),
+                  success: t('delete.success'),
+                }}
+              />
+            </div>
+          )}
+        </div>
+        <div className='hidden items-center justify-between sm:flex'>
           <div className='flex items-center gap-2'>
             <MemberAvatar
               user={quote.saidBy}
