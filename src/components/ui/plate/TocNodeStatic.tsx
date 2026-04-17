@@ -1,7 +1,8 @@
 import { BaseTocPlugin, type Heading, isHeading } from '@platejs/toc';
 import { cva } from 'cva';
-import type { SlateEditor, SlateElementProps, TElement } from 'platejs';
-import { NodeApi, SlateElement } from 'platejs';
+import type { SlateEditor, TElement } from 'platejs';
+import { NodeApi } from 'platejs';
+import { SlateElement, type SlateElementProps } from 'platejs/static';
 import { Button } from '@/components/ui/Button';
 
 const headingItemVariants = cva({
