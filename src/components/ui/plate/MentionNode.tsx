@@ -2,8 +2,12 @@
 
 import { getMentionOnSelectItem } from '@platejs/mention';
 import { useTranslations } from 'next-intl';
-import type { TComboboxInputElement, TMentionElement } from 'platejs';
-import { IS_APPLE, KEYS } from 'platejs';
+import {
+  IS_APPLE,
+  KEYS,
+  type TComboboxInputElement,
+  type TMentionElement,
+} from 'platejs';
 import type { PlateElementProps } from 'platejs/react';
 import {
   PlateElement,

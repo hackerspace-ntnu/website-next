@@ -1,6 +1,5 @@
 import type { TDateElement } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
-import { SlateElement } from 'platejs/static';
+import { SlateElement, type SlateElementProps } from 'platejs/static';
 
 // Cannot be translated, as next-intl context is unavailable,
 // and the component must be rendered synchronously to work with Plate.js

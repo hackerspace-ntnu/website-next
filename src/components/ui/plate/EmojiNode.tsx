@@ -3,8 +3,11 @@
 import { EmojiInlineIndexSearch, insertEmoji } from '@platejs/emoji';
 import { EmojiPlugin } from '@platejs/emoji/react';
 import { useTranslations } from 'next-intl';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, usePluginOption } from 'platejs/react';
+import {
+  PlateElement,
+  type PlateElementProps,
+  usePluginOption,
+} from 'platejs/react';
 import { useMemo, useState } from 'react';
 import {
   InlineCombobox,

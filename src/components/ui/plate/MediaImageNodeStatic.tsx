@@ -4,8 +4,7 @@ import {
   type TImageElement,
   type TResizableProps,
 } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
-import { SlateElement } from 'platejs/static';
+import { SlateElement, type SlateElementProps } from 'platejs/static';
 import { cx } from '@/lib/utils/index';
 
 function ImageElementStatic(

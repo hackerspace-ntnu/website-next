@@ -5,8 +5,12 @@ import { ResizableProvider } from '@platejs/resizable';
 import { FileUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { TFileElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, useReadOnly, withHOC } from 'platejs/react';
+import {
+  PlateElement,
+  type PlateElementProps,
+  useReadOnly,
+  withHOC,
+} from 'platejs/react';
 import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
 import { api } from '@/lib/api/client';
 

@@ -3,8 +3,7 @@
 import { useTocElement, useTocElementState } from '@platejs/toc/react';
 import { cva } from 'cva';
 import { useTranslations } from 'next-intl';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement } from 'platejs/react';
+import { PlateElement, type PlateElementProps } from 'platejs/react';
 import { Button } from '@/components/ui/Button';
 
 const headingItemVariants = cva({

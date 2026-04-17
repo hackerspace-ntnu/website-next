@@ -20,8 +20,11 @@ import {
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { KEYS, type TComboboxInputElement } from 'platejs';
-import type { PlateEditor, PlateElementProps } from 'platejs/react';
-import { PlateElement } from 'platejs/react';
+import {
+  type PlateEditor,
+  PlateElement,
+  type PlateElementProps,
+} from 'platejs/react';
 import {
   InlineCombobox,
   InlineComboboxContent,

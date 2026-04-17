@@ -1,5 +1,4 @@
-import type { TMentionElement } from 'platejs';
-import { KEYS } from 'platejs';
+import { KEYS, type TMentionElement } from 'platejs';
 import { SlateElement, type SlateElementProps } from 'platejs/static';
 import { Fragment } from 'react';
 import { cx } from '@/lib/utils/index';
