@@ -15,11 +15,8 @@ import {
 } from 'platejs/react';
 import {
   Children,
-  type ComponentProps,
-  type ComponentPropsWithoutRef,
   cloneElement,
   memo,
-  type ReactElement,
   useCallback,
   useEffect,
   useMemo,
@@ -232,7 +229,7 @@ function PureColorPicker({
   updateCustomColor,
   updatedColor,
   ...props
-}: ComponentProps<'div'> & {
+}: React.ComponentProps<'div'> & {
   colors: TColor[];
   colorsQueue: string[];
   customColors: TColor[];
@@ -310,7 +307,7 @@ function ColorCustom({
   updateCustomColor: (color: string) => void;
   color?: string;
   updatedColor?: string;
-} & ComponentPropsWithoutRef<'div'>) {
+} & React.ComponentPropsWithoutRef<'div'>) {
   const [value, setValue] = useState<string>(color || '#000000');
   const t = useTranslations('ui');
 
@@ -434,7 +431,7 @@ function ColorInput({
   className,
   value = '#000000',
   ...props
-}: ComponentProps<'input'> & { className?: string }) {
+}: React.ComponentProps<'input'> & { className?: string }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -443,7 +440,7 @@ function ColorInput({
         if (!child) return child;
 
         return cloneElement(
-          child as ReactElement<{
+          child as React.ReactElement<{
             onClick: () => void;
           }>,
           {
@@ -525,7 +522,7 @@ function ColorDropdownMenuItems({
   colors: TColor[];
   updateColor: (color: string) => void;
   color?: string;
-} & ComponentProps<'div'>) {
+} & React.ComponentProps<'div'>) {
   return (
     <div
       className={cx(

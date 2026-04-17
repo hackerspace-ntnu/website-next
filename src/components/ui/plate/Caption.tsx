@@ -8,7 +8,6 @@ import {
 } from '@platejs/caption/react';
 import { createPrimitiveComponent } from '@udecode/cn';
 import { cva, type VariantProps } from 'cva';
-import type * as React from 'react';
 import { Button } from '@/components/ui/Button';
 import { cx } from '@/lib/utils/index';
 

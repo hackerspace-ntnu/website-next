@@ -6,7 +6,6 @@ import {
 } from '@platejs/link/react';
 import { Link } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type * as React from 'react';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function LinkToolbarButton(props: React.ComponentProps<typeof ToolbarButton>) {

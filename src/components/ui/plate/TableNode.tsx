@@ -69,13 +69,8 @@ import {
   withHOC,
 } from 'platejs/react';
 import {
-  type ComponentProps,
-  type CSSProperties,
   createContext,
   memo,
-  type ReactNode,
-  type Ref,
-  type RefObject,
   useCallback,
   useContext,
   useEffect,
@@ -178,13 +173,13 @@ function useTableResizeController({
   wrapperRef,
 }: {
   deferColumnResize: boolean;
-  dragIndicatorRef: RefObject<HTMLDivElement | null>;
-  hoverIndicatorRef: RefObject<HTMLDivElement | null>;
+  dragIndicatorRef: React.RefObject<HTMLDivElement | null>;
+  hoverIndicatorRef: React.RefObject<HTMLDivElement | null>;
   marginLeft: number;
   controlColumnWidth: number;
   tablePath: number[];
-  tableRef: RefObject<HTMLTableElement | null>;
-  wrapperRef: RefObject<HTMLDivElement | null>;
+  tableRef: React.RefObject<HTMLTableElement | null>;
+  wrapperRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const { editor, getOptions } = useEditorPlugin(TablePlugin);
   const { disableMarginLeft = false, minColumnWidth = 0 } = getOptions();
@@ -670,7 +665,7 @@ const TableElement = withHOC(
             `${colSize}px`,
           ]),
         ),
-      } as CSSProperties;
+      } as React.CSSProperties;
     }, [resolvedColSizes]);
     const tableStyle = useMemo(
       () =>
@@ -679,7 +674,7 @@ const TableElement = withHOC(
             resolvedColSizes.reduce((total, colSize) => total + colSize, 0) +
             controlColumnWidth
           }px`,
-        }) as CSSProperties,
+        }) as React.CSSProperties,
       [controlColumnWidth, resolvedColSizes],
     );
 
@@ -772,7 +767,7 @@ const TableElement = withHOC(
 function TableFloatingToolbar({
   children,
   ...props
-}: ComponentProps<typeof PopoverContent>) {
+}: React.ComponentProps<typeof PopoverContent>) {
   const selectedCellCount = useEditorSelector(
     (editor) =>
       editor.getApi(TablePlugin).table.getSelectedCellIds()?.length ?? 0,
@@ -825,7 +820,7 @@ function TableFloatingToolbar({
 }
 
 function ExpandedSelectionTableFloatingToolbarContent(
-  props: ComponentProps<typeof PopoverContent>,
+  props: React.ComponentProps<typeof PopoverContent>,
 ) {
   const { tf } = useEditorPlugin(TablePlugin);
   const { canMerge, canSplit } = useTableMergeState();
@@ -844,7 +839,7 @@ function ExpandedSelectionTableFloatingToolbarContent(
 }
 
 function CollapsedTableFloatingToolbarContent(
-  props: ComponentProps<typeof PopoverContent>,
+  props: React.ComponentProps<typeof PopoverContent>,
 ) {
   const { tf } = useEditorPlugin(TablePlugin);
   const element = useElement<TTableElement>();
@@ -894,8 +889,8 @@ function TableFloatingToolbarContent({
   onMerge,
   onSplit,
   ...props
-}: ComponentProps<typeof PopoverContent> & {
-  buttonProps?: ComponentProps<typeof ToolbarButton>;
+}: React.ComponentProps<typeof PopoverContent> & {
+  buttonProps?: React.ComponentProps<typeof ToolbarButton>;
   canMerge?: boolean;
   canSplit?: boolean;
   collapsedInside?: boolean;
@@ -1022,7 +1017,7 @@ function TableFloatingToolbarContent({
 }
 
 function TableBordersDropdownMenuContent(
-  props: ComponentProps<typeof DropdownMenuContent>,
+  props: React.ComponentProps<typeof DropdownMenuContent>,
 ) {
   const editor = useEditorRef();
   const {
@@ -1048,7 +1043,7 @@ function TableBordersDropdownMenuContent(
       sideOffset={0}
       {...props}
     >
-      <DropdownMenuGroup>
+      <DropdownMenuGroup className='[&>div]:gap-2'>
         <DropdownMenuCheckboxItem
           checked={hasTopBorder}
           onCheckedChange={getOnSelectTableBorder('top')}
@@ -1079,7 +1074,7 @@ function TableBordersDropdownMenuContent(
         </DropdownMenuCheckboxItem>
       </DropdownMenuGroup>
 
-      <DropdownMenuGroup>
+      <DropdownMenuGroup className='[&>div]:gap-2'>
         <DropdownMenuCheckboxItem
           checked={hasNoBorders}
           onCheckedChange={getOnSelectTableBorder('none')}
@@ -1103,7 +1098,7 @@ function ColorDropdownMenu({
   children,
   tooltip,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   tooltip: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -1208,7 +1203,7 @@ function TableRowElement({
         {
           ...props.style,
           '--tableRowMinHeight': rowMinHeight ? `${rowMinHeight}px` : undefined,
-        } as CSSProperties
+        } as React.CSSProperties
       }
     >
       {hasControls && (
@@ -1252,7 +1247,7 @@ function useTableCellPresentation(element: TTableCellElement) {
   };
 }
 
-function RowDragHandle({ dragRef }: { dragRef: Ref<HTMLButtonElement> }) {
+function RowDragHandle({ dragRef }: { dragRef: React.Ref<HTMLButtonElement> }) {
   const editor = useEditorRef();
   const element = useElement();
 
@@ -1336,7 +1331,7 @@ function TableCellElement({
           '--cellBackground': element.background,
           maxWidth: width,
           minWidth: width,
-        } as CSSProperties
+        } as React.CSSProperties
       }
       attributes={{
         ...props.attributes,
@@ -1368,7 +1363,7 @@ function TableCellElement({
 }
 
 function TableCellHeaderElement(
-  props: ComponentProps<typeof TableCellElement>,
+  props: React.ComponentProps<typeof TableCellElement>,
 ) {
   return <TableCellElement {...props} isHeader />;
 }

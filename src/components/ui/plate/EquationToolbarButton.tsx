@@ -4,7 +4,6 @@ import { insertInlineEquation } from '@platejs/math';
 import { RadicalIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEditorRef } from 'platejs/react';
-import type * as React from 'react';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function InlineEquationToolbarButton(

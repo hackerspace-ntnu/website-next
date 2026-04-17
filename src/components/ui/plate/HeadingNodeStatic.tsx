@@ -1,7 +1,6 @@
 import { cva, type VariantProps } from 'cva';
 import type { SlateElementProps } from 'platejs/static';
 import { SlateElement } from 'platejs/static';
-import type * as React from 'react';
 
 const headingVariants = cva({
   base: 'relative mb-1',

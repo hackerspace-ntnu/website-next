@@ -14,7 +14,6 @@ import {
   useEventEditorValue,
   usePluginOption,
 } from 'platejs/react';
-import type * as React from 'react';
 import { Toolbar } from '@/components/ui/plate/Toolbar';
 import { cx } from '@/lib/utils/index';
 
