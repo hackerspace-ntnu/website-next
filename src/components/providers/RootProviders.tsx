@@ -1,4 +1,5 @@
 import type { Locale } from 'next-intl';
+import { DndProvider } from '@/components/providers/DndProvider';
 import { IntlClientProvider } from '@/components/providers/IntlClientProvider';
 import { LazyMotionProvider } from '@/components/providers/LazyMotionProvider';
 import { NuqsProvider } from '@/components/providers/NuqsProvider';
@@ -18,7 +19,9 @@ function RootProviders({ children, locale }: RootProvidersProps) {
         <TRPCProvider>
           <NuqsProvider>
             <LazyMotionProvider>
-              <PostHogProvider>{children}</PostHogProvider>
+              <PostHogProvider>
+                <DndProvider>{children}</DndProvider>
+              </PostHogProvider>
             </LazyMotionProvider>
           </NuqsProvider>
         </TRPCProvider>
