@@ -63,12 +63,11 @@ const reservationsRouter = createRouter({
       return row;
     }),
   fetchUserReservations: authenticatedProcedure.query(async ({ ctx }) => {
-    const userReservations = await ctx.db
+    return await ctx.db
       .select({
         reservation: reservations,
         toolId: tools.id,
         toolName: toolLocalizations.name,
-        finished: sql<boolean>`now() >= ${reservations.reservedUntil}`,
       })
       .from(reservations)
       .innerJoin(tools, eq(tools.id, reservations.toolId))
@@ -79,11 +78,11 @@ const reservationsRouter = createRouter({
       .where(
         and(
           eq(reservations.userId, ctx.user.id),
+          gt(reservations.reservedUntil, new Date()),
           eq(toolLocalizations.locale, ctx.locale),
         ),
       )
       .orderBy(asc(reservations.reservedFrom))
-      .limit(25)
       .catch((error) => {
         console.error(error);
         throw new TRPCError({
@@ -92,8 +91,6 @@ const reservationsRouter = createRouter({
           cause: { toast: error },
         });
       });
-
-    return userReservations.filter((res) => res.finished !== true);
   }),
   fetchCalendarReservations: publicProcedure
     .input((input) =>
