@@ -42,7 +42,7 @@ export default async function HomePage({
         }}
       />
       <TextBlock
-        imgSrc='/whoAreWe.avif'
+        imgSrc='/who-are-we.avif'
         imgAlt={t('whoAreWeAlt')}
         imgSide='right'
       >

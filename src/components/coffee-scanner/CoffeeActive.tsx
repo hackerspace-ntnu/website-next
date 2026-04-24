@@ -27,42 +27,42 @@ function CoffeeActive({
 
   const drinks: DrinkInfo[] = [
     {
-      imageSource: '/drinks/Coffee.png',
+      imageSource: '/drinks/coffee.png',
       displayText: t('coffee'),
       drinkType: 'coffee',
     },
     {
-      imageSource: '/drinks/CoffeeMilk.png',
+      imageSource: '/drinks/coffee-milk.png',
       displayText: t('coffeeMilk'),
       drinkType: 'coffee_milk',
     },
     {
-      imageSource: '/drinks/Cappuccino.png',
+      imageSource: '/drinks/cappuccino.png',
       displayText: t('cappuccino'),
       drinkType: 'cappuccino',
     },
     {
-      imageSource: '/drinks/ChoccyMilk.png',
+      imageSource: '/drinks/choccy-milk.png',
       displayText: t('chocolateMilkSpaced'),
       drinkType: 'chocolate_milk',
     },
     {
-      imageSource: '/drinks/WienerMelange.png',
+      imageSource: '/drinks/wiener-melange.png',
       displayText: t('wienerMelange'),
       drinkType: 'wiener_melange',
     },
     {
-      imageSource: '/drinks/CoffeeChoco.png',
+      imageSource: '/drinks/coffee-choco.png',
       displayText: t('coffeeChocolate'),
       drinkType: 'coffee_chocolate',
     },
     {
-      imageSource: '/drinks/LatteMach.png',
+      imageSource: '/drinks/latte-mach.png',
       displayText: t('latteMacchiato'),
       drinkType: 'latte_macchiato',
     },
     {
-      imageSource: '/drinks/HotWater.png',
+      imageSource: '/drinks/hot-water.png',
       displayText: t('hotWater'),
       drinkType: 'hot_water',
     },
