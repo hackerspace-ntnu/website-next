@@ -52,7 +52,7 @@ export default async function QuotesPage({
   const { user } = await api.auth.state();
 
   return (
-    <div className='container space-y-8 py-10'>
+    <div className='mx-auto max-w-4xl space-y-8 py-10'>
       <div className='relative'>
         <h1 className='text-center text-4xl tracking-tight'>{t('title')}</h1>
         {user?.groups && user.groups.length > 0 && (
