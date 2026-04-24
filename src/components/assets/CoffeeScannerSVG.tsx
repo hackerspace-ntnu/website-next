@@ -11,7 +11,7 @@ function AnimatedCoffeeScannerSVG({
       aria-hidden='true'
       {...props}
     >
-      <g id='rfid_card_svg'>
+      <g id='rfid-card'>
         <g id='rfid-scanner' transform='translate(130, 0)'>
           <g id='scanner'>
             <rect

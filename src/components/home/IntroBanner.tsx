@@ -48,7 +48,7 @@ function IntroBanner({ slides, locale, canEditSlides, t }: IntroBannerProps) {
                 <CarouselItem key={slide.id} className='h-screen w-screen pl-0'>
                   <div className='relative h-full w-full'>
                     <Image
-                      src={slide.imageUrl ?? '/bg.jpg'}
+                      src={slide.imageUrl ?? '/bg.avif'}
                       alt={slideLocalization?.imgAlt ?? t.placeholderAlt}
                       fill
                       className='object-cover brightness-75'

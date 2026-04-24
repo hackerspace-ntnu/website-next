@@ -389,7 +389,7 @@
         "description": "Last opp et bilde...",
         "required": "Artikkelbilde er påkrevd",
         "sizeLimitError": "Artikkelbilde må være mindre enn {size} MB",
-        "wrongFileTypeError": "Artikkelbilde må være en PNG eller JPG",
+        "wrongFileTypeError": "Artikkelbilde må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "title": {
@@ -501,8 +501,8 @@
       },
       "profilePicture": {
         "label": "Profilbilde",
-        "mustBeImage": "Profilbilde må være et bilde",
-        "mustbePngOrJpg": "Profilbilde må være PNG eller JPG",
+        "fileNotImageError": "Profilbilde må være et bilde",
+        "wrongFileTypeError": "Profilbilde må være av filtype PNG, JPG, WEBP eller AVIF",
         "sizeLimit": "Profilbilde må være mindre enn {size} MB"
       },
       "firstName": {
@@ -640,7 +640,7 @@
         "description": "Last opp et bilde...",
         "required": "Gruppebilde er påkrevd",
         "sizeLimitError": "Gruppebildet må være mindre enn {size} MB",
-        "wrongFileTypeError": "Gruppebildet må være i formatet PNG eller JPG",
+        "wrongFileTypeError": "Gruppebildet må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "name": {
@@ -809,7 +809,7 @@
         "label": "Bilde",
         "upload": "Last opp et bilde...",
         "sizeLimitError": "Bildet må være mindre enn {size} MB",
-        "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+        "wrongFileTypeError": "Bildet må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "name": {
@@ -1051,7 +1051,7 @@
         "label": "Arrangementsbilde",
         "upload": "Last opp et bilde...",
         "sizeLimitError": "Arrangementsbilde må være mindre enn {size} MB",
-        "wrongFileTypeError": "Arrangementsbilde må være en PNG eller JPG",
+        "wrongFileTypeError": "Arrangementsbilde må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "createSubmit": "Opprett arrangement",
@@ -1150,7 +1150,7 @@
         "label": "Regelbilde",
         "description": "Last opp et bilde...",
         "sizeLimitError": "Regelbildet må være mindre enn {size} MB",
-        "wrongFileTypeError": "Regelbildet må være en PNG eller JPG",
+        "wrongFileTypeError": "Regelbildet må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
         "fileNotImageError": "Filen er ikke et bilde"
       },
       "name": {
@@ -1412,7 +1412,7 @@
             "confirmDescription": "Denne handlingen kan ikke angres"
           },
           "sizeLimitError": "Bildet må være mindre enn {size} MB",
-          "wrongFileTypeError": "Bildet må være i formatet PNG eller JPG",
+          "wrongFileTypeError": "Bildet må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
           "fileNotImageError": "Filen er ikke et bilde"
         },
         "editSubmit": "Oppdater banner",
@@ -1686,7 +1686,7 @@
           "label": "Verktøybilde",
           "description": "Last opp et bilde...",
           "sizeLimitError": "Vertøybilde må være mindre enn {size} MB",
-          "wrongFileTypeError": "Vertøybilde må være en PNG eller JPG",
+          "wrongFileTypeError": "Vertøybilde må være av filtype PNG, JPG, GIF, WEBP eller AVIF",
           "fileNotImageError": "Filen er ikke et bilde"
         },
         "type": {

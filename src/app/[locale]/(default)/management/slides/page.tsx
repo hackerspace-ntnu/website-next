@@ -76,7 +76,7 @@ export default async function SlidesPage({
               <TableRow key={slide.id}>
                 <TableCell>
                   <Image
-                    src={slide.imageUrl ?? '/bg.jpg'}
+                    src={slide.imageUrl ?? '/bg.avif'}
                     alt={slideLocalization?.imgAlt ?? t('placeholderAlt')}
                     width={160}
                     height={90}

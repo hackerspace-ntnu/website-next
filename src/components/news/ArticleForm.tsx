@@ -125,11 +125,13 @@ function ArticleForm({
               label={t('image.label')}
               description={t('image.description')}
               accept={{
-                'image/jpeg': ['.jpeg', '.jpg'],
                 'image/png': ['.png'],
+                'image/jpeg': ['.jpeg', '.jpg'],
                 'image/gif': ['.gif'],
                 'image/webp': ['.webp'],
+                'image/avif': ['.avif'],
               }}
+              preview
               validator={(value) => formSchema.shape.image.safeParse(value)}
             />
           )}
