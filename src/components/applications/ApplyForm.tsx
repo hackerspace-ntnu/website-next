@@ -87,6 +87,7 @@ function ApplyForm({
               label={t('phoneNumber.label')}
               placeholder='+47 123 45 678'
               autoComplete='tel'
+              defaultCountry='NO'
               international
             />
           )}

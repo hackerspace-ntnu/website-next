@@ -6,7 +6,6 @@ import { MapPinIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { Value } from 'platejs';
 import { Plate, usePlateEditor } from 'platejs/react';
-import type React from 'react';
 import {
   Fragment,
   useCallback,

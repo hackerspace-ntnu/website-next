@@ -235,6 +235,7 @@ function ToolbarSplitButtonSecondary({
         className,
       )}
       onClick={(e) => e.stopPropagation()}
+      role='button'
       {...props}
     >
       <ChevronDown className='size-3.5 text-muted-foreground' data-icon />
@@ -382,9 +383,10 @@ function ToolbarMenuGroup({
 
 export {
   Toolbar,
-  ToolbarButton,
+  ToolbarToggleGroup,
   ToolbarLink,
   ToolbarSeparator,
+  ToolbarButton,
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,

@@ -1,13 +1,8 @@
 import { BaseTablePlugin } from '@platejs/table';
 
-import type {
-  SlateElementProps,
-  TTableCellElement,
-  TTableElement,
-} from 'platejs';
-import { SlateElement } from 'platejs';
-import type * as React from 'react';
-import { cx } from '@/lib/utils/index';
+import type { TTableCellElement, TTableElement } from 'platejs';
+import { SlateElement, type SlateElementProps } from 'platejs/static';
+import { cx } from '@/lib/utils';
 
 function TableElementStatic({
   children,
@@ -23,7 +18,10 @@ function TableElementStatic({
       style={{ paddingLeft: marginLeft }}
     >
       <div className='group/table relative w-fit'>
-        <table className='mr-0 ml-px table h-px table-fixed border-collapse'>
+        <table
+          className='mr-0 ml-px table h-px table-fixed border-collapse'
+          style={{ borderCollapse: 'collapse', width: '100%' }}
+        >
           <tbody className='min-w-full'>{children}</tbody>
         </table>
       </div>

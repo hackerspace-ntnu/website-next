@@ -2,8 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 import type { TDateElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, useReadOnly } from 'platejs/react';
+import {
+  PlateElement,
+  type PlateElementProps,
+  useReadOnly,
+} from 'platejs/react';
 import { Calendar } from '@/components/ui/Calendar';
 import {
   Popover,

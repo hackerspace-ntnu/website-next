@@ -2,7 +2,6 @@
 
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react';
-import type * as React from 'react';
 
 import { cx } from '@/lib/utils';
 
