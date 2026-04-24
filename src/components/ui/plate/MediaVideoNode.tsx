@@ -6,8 +6,12 @@ import { useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
 import { useTranslations } from 'next-intl';
 import type { TResizableProps, TVideoElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, useEditorMounted, withHOC } from 'platejs/react';
+import {
+  PlateElement,
+  type PlateElementProps,
+  useEditorMounted,
+  withHOC,
+} from 'platejs/react';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import ReactPlayer from 'react-player';
 import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';

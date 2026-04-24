@@ -2,9 +2,6 @@
 
 import { DndPlugin } from '@platejs/dnd';
 import { PlaceholderPlugin } from '@platejs/media/react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-
 import { BlockDraggable } from '@/components/ui/plate/BlockDraggable';
 
 const DndKit = [
@@ -19,9 +16,7 @@ const DndKit = [
     },
     render: {
       aboveNodes: BlockDraggable,
-      aboveSlate: ({ children }) => (
-        <DndProvider backend={HTML5Backend}>{children}</DndProvider>
-      ),
+      // DndProvider is added in RootProviders instead to avoid errors with multiple HTML5 backends when using react-dnd
     },
   }),
 ];

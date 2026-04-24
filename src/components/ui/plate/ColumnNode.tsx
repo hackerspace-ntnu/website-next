@@ -7,11 +7,10 @@ import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { useComposedRef } from '@udecode/cn';
 import { GripHorizontal, type LucideProps, Trash2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { TColumnElement } from 'platejs';
-import { PathApi } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
+import { PathApi, type TColumnElement } from 'platejs';
 import {
   PlateElement,
+  type PlateElementProps,
   useEditorRef,
   useEditorSelector,
   useElement,

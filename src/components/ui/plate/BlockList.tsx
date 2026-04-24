@@ -11,7 +11,6 @@ import {
   type RenderNodeWrapper,
   useReadOnly,
 } from 'platejs/react';
-import type React from 'react';
 
 import { Checkbox } from '@/components/ui/Checkbox';
 import { cx } from '@/lib/utils/index';

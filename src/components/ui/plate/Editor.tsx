@@ -1,8 +1,13 @@
 'use client';
 
 import { cva, type VariantProps } from 'cva';
-import type { PlateContentProps, PlateViewProps } from 'platejs/react';
-import { PlateContainer, PlateContent, PlateView } from 'platejs/react';
+import {
+  PlateContainer,
+  PlateContent,
+  type PlateContentProps,
+  PlateView,
+  type PlateViewProps,
+} from 'platejs/react';
 import { forwardRef } from 'react';
 import { TooltipProvider } from '@/components/ui/Tooltip';
 import { cx } from '@/lib/utils/index';

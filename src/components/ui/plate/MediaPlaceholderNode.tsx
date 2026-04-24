@@ -8,10 +8,13 @@ import {
 import { AudioLines, FileUp, Film, ImageIcon, Loader2Icon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import type { TPlaceholderElement } from 'platejs';
-import { KEYS } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, useEditorPlugin, withHOC } from 'platejs/react';
+import { KEYS, type TPlaceholderElement } from 'platejs';
+import {
+  PlateElement,
+  type PlateElementProps,
+  useEditorPlugin,
+  withHOC,
+} from 'platejs/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
 import { toast } from '@/components/ui/Toaster';

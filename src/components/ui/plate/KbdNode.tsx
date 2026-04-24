@@ -1,7 +1,6 @@
 'use client';
 
-import type { PlateLeafProps } from 'platejs/react';
-import { PlateLeaf } from 'platejs/react';
+import { PlateLeaf, type PlateLeafProps } from 'platejs/react';
 
 function KbdLeaf(props: PlateLeafProps) {
   return (

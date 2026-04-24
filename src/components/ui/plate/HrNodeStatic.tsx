@@ -1,5 +1,4 @@
-import type { SlateElementProps } from 'platejs';
-import { SlateElement } from 'platejs';
+import { SlateElement, type SlateElementProps } from 'platejs/static';
 import { cx } from '@/lib/utils/index';
 
 function HrElementStatic(props: SlateElementProps) {

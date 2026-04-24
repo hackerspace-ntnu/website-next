@@ -6,7 +6,6 @@ import {
 } from '@platejs/toggle/react';
 import { ListCollapseIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type * as React from 'react';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function ToggleToolbarButton(
