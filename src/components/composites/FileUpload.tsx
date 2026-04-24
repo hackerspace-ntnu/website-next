@@ -1,9 +1,9 @@
 'use client';
 
-import { ImageIcon, Trash2Icon, UploadIcon } from 'lucide-react';
+import { Trash2Icon, UploadIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Fragment, Suspense, useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { type FileRejection, useDropzone } from 'react-dropzone';
 import type { ZodError } from 'zod';
 import { Button } from '@/components/ui/Button';
