@@ -49,9 +49,9 @@ async function QuoteCard({
               <p className='font-medium'>{saidByName}</p>
             </div>
           </div>
-          <div className='flex items-center gap-2'>
+          <div className='flex flex-col-reverse items-center gap-2 sm:flex-row'>
             {canEdit && (
-              <>
+              <div className='flex gap-2'>
                 <Link
                   href={{
                     pathname: '/quotes/[quoteId]/edit',
@@ -72,7 +72,7 @@ async function QuoteCard({
                     success: t('delete.success'),
                   }}
                 />
-              </>
+              </div>
             )}
             <div className='flex flex-col gap-2'>
               <Badge variant='outline'>

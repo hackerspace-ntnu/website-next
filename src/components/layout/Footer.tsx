@@ -157,7 +157,7 @@ async function Footer() {
               GithubLink: (children) => (
                 <ExternalLink
                   className='inline'
-                  href='https://github.com/hackerspace-ntnu/website-frontend/issues'
+                  href='https://github.com/hackerspace-ntnu/website-next/issues'
                   prefetch={false}
                   aria-label={t('visitGithub')}
                   target='_blank'
