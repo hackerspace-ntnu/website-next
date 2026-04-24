@@ -103,40 +103,23 @@ const toolsRouter = createRouter({
         });
       }
 
-      await ctx.db
-        .insert(toolLocalizations)
-        .values([
-          {
-            toolId: tool.id,
-            name: input.nameEnglish,
-            description: input.descriptionEnglish,
-            locale: 'en-GB',
-          },
-          {
-            toolId: tool.id,
-            name: input.nameNorwegian,
-            description: input.descriptionNorwegian,
-            locale: 'nb-NO',
-          },
-        ])
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('reservations.api.createToolFailed'),
-            cause: { toast: error },
-          });
-        });
-
-      if (input.type === '3dprinter') {
-        await ctx.db
-          .insert(printerSpecs)
-          .values({
-            printerId: tool.id,
-            filamentSize: input.filamentSize,
-            filamentType: input.filamentType,
-            slicer: input.slicer,
-          })
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .insert(toolLocalizations)
+          .values([
+            {
+              toolId: tool.id,
+              name: input.nameEnglish,
+              description: input.descriptionEnglish,
+              locale: 'en-GB',
+            },
+            {
+              toolId: tool.id,
+              name: input.nameNorwegian,
+              description: input.descriptionNorwegian,
+              locale: 'nb-NO',
+            },
+          ])
           .catch((error) => {
             console.error(error);
             throw new TRPCError({
@@ -145,9 +128,28 @@ const toolsRouter = createRouter({
               cause: { toast: error },
             });
           });
-      }
 
-      return tool.id;
+        if (input.type === '3dprinter') {
+          await tx
+            .insert(printerSpecs)
+            .values({
+              printerId: tool.id,
+              filamentSize: input.filamentSize,
+              filamentType: input.filamentType,
+              slicer: input.slicer,
+            })
+            .catch((error) => {
+              console.error(error);
+              throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: ctx.t('reservations.api.createToolFailed'),
+                cause: { toast: error },
+              });
+            });
+        }
+
+        return tool.id;
+      });
     }),
   editTool: protectedEditProcedure
     .input((input) => editToolSchema(useTranslationsFromContext()).parse(input))
@@ -183,94 +185,96 @@ const toolsRouter = createRouter({
         imageId = file.id;
       }
 
-      await ctx.db
-        .update(tools)
-        .set({ ...input, imageId: input.image ? imageId : undefined })
-        .where(eq(tools.id, input.id))
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('reservations.api.editToolFailed'),
-            cause: { toast: error },
-          });
-        });
-
-      await ctx.db
-        .update(toolLocalizations)
-        .set({
-          name: input.nameEnglish,
-          description: input.descriptionEnglish,
-        })
-        .where(
-          and(
-            eq(toolLocalizations.toolId, input.id),
-            eq(toolLocalizations.locale, 'en-GB'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('reservations.api.editToolFailed'),
-            cause: { toast: error },
-          });
-        });
-
-      await ctx.db
-        .update(toolLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          description: input.descriptionNorwegian,
-        })
-        .where(
-          and(
-            eq(toolLocalizations.toolId, input.id),
-            eq(toolLocalizations.locale, 'nb-NO'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('reservations.api.editToolFailed'),
-            cause: { toast: error },
-          });
-        });
-
-      if (input.type === '3dprinter') {
-        // The printer spec might exist, but not necessarily. Create it if necessary.
-        await ctx.db
-          .insert(printerSpecs)
-          .values({
-            printerId: input.id,
-            filamentSize: input.filamentSize,
-            filamentType: input.filamentType,
-            slicer: input.slicer,
-          })
-          .onConflictDoUpdate({
-            target: printerSpecs.printerId,
-            set: {
-              filamentSize: input.filamentSize,
-              filamentType: input.filamentType,
-              slicer: input.slicer,
-            },
-          })
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(tools)
+          .set({ ...input, imageId: input.image ? imageId : undefined })
+          .where(eq(tools.id, input.id))
           .catch((error) => {
             console.error(error);
             throw new TRPCError({
               code: 'INTERNAL_SERVER_ERROR',
-              message: ctx.t('reservations.api.createToolFailed'),
+              message: ctx.t('reservations.api.editToolFailed'),
               cause: { toast: error },
             });
           });
-      } else {
-        await ctx.db
-          .delete(printerSpecs)
-          .where(eq(printerSpecs.printerId, input.id));
-      }
 
-      return input.id;
+        await tx
+          .update(toolLocalizations)
+          .set({
+            name: input.nameEnglish,
+            description: input.descriptionEnglish,
+          })
+          .where(
+            and(
+              eq(toolLocalizations.toolId, input.id),
+              eq(toolLocalizations.locale, 'en-GB'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('reservations.api.editToolFailed'),
+              cause: { toast: error },
+            });
+          });
+
+        await tx
+          .update(toolLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            description: input.descriptionNorwegian,
+          })
+          .where(
+            and(
+              eq(toolLocalizations.toolId, input.id),
+              eq(toolLocalizations.locale, 'nb-NO'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('reservations.api.editToolFailed'),
+              cause: { toast: error },
+            });
+          });
+
+        if (input.type === '3dprinter') {
+          // The printer spec might exist, but not necessarily. Create it if necessary.
+          await tx
+            .insert(printerSpecs)
+            .values({
+              printerId: input.id,
+              filamentSize: input.filamentSize,
+              filamentType: input.filamentType,
+              slicer: input.slicer,
+            })
+            .onConflictDoUpdate({
+              target: printerSpecs.printerId,
+              set: {
+                filamentSize: input.filamentSize,
+                filamentType: input.filamentType,
+                slicer: input.slicer,
+              },
+            })
+            .catch((error) => {
+              console.error(error);
+              throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: ctx.t('reservations.api.createToolFailed'),
+                cause: { toast: error },
+              });
+            });
+        } else {
+          await tx
+            .delete(printerSpecs)
+            .where(eq(printerSpecs.printerId, input.id));
+        }
+
+        return input.id;
+      });
     }),
   deleteToolImage: protectedEditProcedure
     .input((input) =>

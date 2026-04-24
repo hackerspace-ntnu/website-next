@@ -121,53 +121,55 @@ const rulesRouter = createRouter({
         imageId = file.id;
       }
 
-      const [rule] = await ctx.db
-        .insert(rules)
-        .values({ internal: input.internal, imageId })
-        .returning({ id: rules.id })
-        .catch((error) => {
-          console.error(error);
+      return await ctx.db.transaction(async (tx) => {
+        const [rule] = await tx
+          .insert(rules)
+          .values({ internal: input.internal, imageId })
+          .returning({ id: rules.id })
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('rules.api.insertFailed'),
+              cause: { toast: 'error' },
+            });
+          });
+
+        if (!rule) {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
             message: ctx.t('rules.api.insertFailed'),
             cause: { toast: 'error' },
           });
-        });
+        }
 
-      if (!rule) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('rules.api.insertFailed'),
-          cause: { toast: 'error' },
-        });
-      }
-
-      await ctx.db
-        .insert(ruleLocalizations)
-        .values([
-          {
-            ruleId: rule.id,
-            name: input.nameNorwegian,
-            content: input.contentNorwegian,
-            locale: 'nb-NO',
-          },
-          {
-            ruleId: rule.id,
-            name: input.nameEnglish,
-            content: input.contentEnglish,
-            locale: 'en-GB',
-          },
-        ])
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.insertFailed'),
-            cause: { toast: 'error' },
+        await tx
+          .insert(ruleLocalizations)
+          .values([
+            {
+              ruleId: rule.id,
+              name: input.nameNorwegian,
+              content: input.contentNorwegian,
+              locale: 'nb-NO',
+            },
+            {
+              ruleId: rule.id,
+              name: input.nameEnglish,
+              content: input.contentEnglish,
+              locale: 'en-GB',
+            },
+          ])
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('rules.api.insertFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
 
-      return rule.id;
+        return rule.id;
+      });
     }),
   editRule: protectedEditProcedure
     .input((input) => editRuleSchema(useTranslationsFromContext()).parse(input))
@@ -197,58 +199,82 @@ const rulesRouter = createRouter({
 
       const { image: _, ...data } = input;
 
-      await ctx.db
-        .update(rules)
-        .set({
-          internal: data.internal,
-          updatedAt: new Date(),
-          imageId: input.image ? imageId : existingRule.imageId,
-        })
-        .where(eq(rules.id, input.id));
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(rules)
+          .set({
+            internal: data.internal,
+            updatedAt: new Date(),
+            imageId: input.image ? imageId : existingRule.imageId,
+          })
+          .where(eq(rules.id, input.id));
 
-      await ctx.db
-        .update(ruleLocalizations)
-        .set({
-          name: data.nameEnglish,
-          content: data.contentEnglish,
-        })
-        .where(
-          and(
-            eq(ruleLocalizations.ruleId, input.id),
-            eq(ruleLocalizations.locale, 'en-GB'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed'),
-            cause: { toast: 'error' },
+        await ctx.db
+          .update(ruleLocalizations)
+          .set({
+            name: data.nameEnglish,
+            content: data.contentEnglish,
+          })
+          .where(
+            and(
+              eq(ruleLocalizations.ruleId, input.id),
+              eq(ruleLocalizations.locale, 'en-GB'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('rules.api.updateFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
-
-      await ctx.db
-        .update(ruleLocalizations)
-        .set({
-          name: data.nameNorwegian,
-          content: data.contentNorwegian,
-        })
-        .where(
-          and(
-            eq(ruleLocalizations.ruleId, input.id),
-            eq(ruleLocalizations.locale, 'nb-NO'),
-          ),
-        )
-        .catch((error) => {
-          console.error(error);
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: ctx.t('rules.api.updateFailed'),
-            cause: { toast: 'error' },
+        await tx
+          .update(ruleLocalizations)
+          .set({
+            name: data.nameEnglish,
+            content: data.contentEnglish,
+          })
+          .where(
+            and(
+              eq(ruleLocalizations.ruleId, input.id),
+              eq(ruleLocalizations.locale, 'en-GB'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('rules.api.updateFailed'),
+              cause: { toast: 'error' },
+            });
           });
-        });
 
-      return input.id;
+        await tx
+          .update(ruleLocalizations)
+          .set({
+            name: data.nameNorwegian,
+            content: data.contentNorwegian,
+          })
+          .where(
+            and(
+              eq(ruleLocalizations.ruleId, input.id),
+              eq(ruleLocalizations.locale, 'nb-NO'),
+            ),
+          )
+          .catch((error) => {
+            console.error(error);
+            throw new TRPCError({
+              code: 'INTERNAL_SERVER_ERROR',
+              message: ctx.t('rules.api.updateFailed', {
+                error: error.message,
+              }),
+              cause: { toast: 'error' },
+            });
+          });
+
+        return input.id;
+      });
     }),
   deleteRuleImage: protectedEditProcedure
     .input((input) =>

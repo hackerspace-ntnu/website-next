@@ -79,34 +79,36 @@ const bannersRouter = createRouter({
         });
       }
 
-      const [banner] = await ctx.db
-        .insert(banners)
-        .values({
-          active: input.active,
-          expiresAt: input.expiresAt,
-          pagesMatch: input.pagesMatch,
-          pagesRegex: convertedRegex,
-          className: input.className,
-        })
-        .returning({ id: banners.id });
+      return await ctx.db.transaction(async (tx) => {
+        const [banner] = await tx
+          .insert(banners)
+          .values({
+            active: input.active,
+            expiresAt: input.expiresAt,
+            pagesMatch: input.pagesMatch,
+            pagesRegex: convertedRegex,
+            className: input.className,
+          })
+          .returning({ id: banners.id });
 
-      if (!banner)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: ctx.t('management.banners.api.insertFailed'),
-          cause: { toast: 'error' },
+        if (!banner)
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: ctx.t('management.banners.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
+
+        await tx.insert(bannerLocalizations).values({
+          bannerId: banner.id,
+          content: input.contentEnglish,
+          locale: 'en-GB',
         });
 
-      await ctx.db.insert(bannerLocalizations).values({
-        bannerId: banner.id,
-        content: input.contentEnglish,
-        locale: 'en-GB',
-      });
-
-      await ctx.db.insert(bannerLocalizations).values({
-        bannerId: banner.id,
-        content: input.contentNorwegian,
-        locale: 'nb-NO',
+        await tx.insert(bannerLocalizations).values({
+          bannerId: banner.id,
+          content: input.contentNorwegian,
+          locale: 'nb-NO',
+        });
       });
     }),
   editBanner: managementProcedure
@@ -122,41 +124,42 @@ const bannersRouter = createRouter({
           cause: { toast: 'error' },
         });
       }
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(banners)
+          .set({
+            active: input.active,
+            expiresAt: input.expiresAt,
+            pagesMatch: input.pagesMatch,
+            pagesRegex: convertedRegex,
+            className: input.className,
+          })
+          .where(eq(banners.id, input.id));
 
-      await ctx.db
-        .update(banners)
-        .set({
-          active: input.active,
-          expiresAt: input.expiresAt,
-          pagesMatch: input.pagesMatch,
-          pagesRegex: convertedRegex,
-          className: input.className,
-        })
-        .where(eq(banners.id, input.id));
+        await tx
+          .update(bannerLocalizations)
+          .set({
+            content: input.contentEnglish,
+          })
+          .where(
+            and(
+              eq(bannerLocalizations.bannerId, input.id),
+              eq(bannerLocalizations.locale, 'en-GB'),
+            ),
+          );
 
-      await ctx.db
-        .update(bannerLocalizations)
-        .set({
-          content: input.contentEnglish,
-        })
-        .where(
-          and(
-            eq(bannerLocalizations.bannerId, input.id),
-            eq(bannerLocalizations.locale, 'en-GB'),
-          ),
-        );
-
-      await ctx.db
-        .update(bannerLocalizations)
-        .set({
-          content: input.contentNorwegian,
-        })
-        .where(
-          and(
-            eq(bannerLocalizations.bannerId, input.id),
-            eq(bannerLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(bannerLocalizations)
+          .set({
+            content: input.contentNorwegian,
+          })
+          .where(
+            and(
+              eq(bannerLocalizations.bannerId, input.id),
+              eq(bannerLocalizations.locale, 'nb-NO'),
+            ),
+          );
+      });
     }),
   deleteBanner: managementProcedure
     .input((input) =>
