@@ -5,8 +5,7 @@ import { Image, ImagePlugin, useMediaState } from '@platejs/media/react';
 import { ResizableProvider, useResizableValue } from '@platejs/resizable';
 import { useTranslations } from 'next-intl';
 import type { TImageElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement, withHOC } from 'platejs/react';
+import { PlateElement, type PlateElementProps, withHOC } from 'platejs/react';
 import { Caption, CaptionTextarea } from '@/components/ui/plate/Caption';
 import { MediaToolbar } from '@/components/ui/plate/MediaToolbar';
 import {

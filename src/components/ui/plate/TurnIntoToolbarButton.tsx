@@ -20,8 +20,7 @@ import {
   SquareIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { TElement } from 'platejs';
-import { KEYS } from 'platejs';
+import { KEYS, type TElement } from 'platejs';
 import { useEditorRef, useSelectionFragmentProp } from 'platejs/react';
 import { useMemo, useState } from 'react';
 import {

@@ -6,12 +6,13 @@ import {
   useImagePreviewValue,
   useScaleInput,
 } from '@platejs/media/react';
-import { cva } from 'class-variance-authority';
+import { cva } from 'cva';
 import { ArrowLeft, ArrowRight, Download, Minus, Plus, X } from 'lucide-react';
 import { useEditorRef } from 'platejs/react';
 import { cx } from '@/lib/utils';
 
-const buttonVariants = cva('rounded bg-[rgba(0,0,0,0.5)] px-1', {
+const buttonVariants = cva({
+  base: 'rounded bg-[rgba(0,0,0,0.5)] px-1',
   defaultVariants: {
     variant: 'default',
   },

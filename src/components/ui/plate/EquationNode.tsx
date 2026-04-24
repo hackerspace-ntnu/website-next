@@ -5,10 +5,10 @@ import { BlockSelectionPlugin } from '@platejs/selection/react';
 import { CornerDownLeftIcon, RadicalIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { TEquationElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
 import {
   createPrimitiveComponent,
   PlateElement,
+  type PlateElementProps,
   useEditorRef,
   useEditorSelector,
   useElement,

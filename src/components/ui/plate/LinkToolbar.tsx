@@ -17,8 +17,7 @@ import {
 import { cva } from 'cva';
 import { ExternalLink, Link, Text, Unlink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { TLinkElement } from 'platejs';
-import { KEYS } from 'platejs';
+import { KEYS, type TLinkElement } from 'platejs';
 import {
   useEditorRef,
   useEditorSelection,

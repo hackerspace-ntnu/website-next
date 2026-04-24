@@ -1,7 +1,6 @@
 'use client';
 
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement } from 'platejs/react';
+import { PlateElement, type PlateElementProps } from 'platejs/react';
 import { cx } from '@/lib/utils/index';
 
 function ParagraphElement(props: PlateElementProps) {

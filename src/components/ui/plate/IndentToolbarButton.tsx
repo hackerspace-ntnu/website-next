@@ -3,7 +3,6 @@
 import { useIndentButton, useOutdentButton } from '@platejs/indent/react';
 import { IndentIcon, OutdentIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type * as React from 'react';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function IndentToolbarButton(

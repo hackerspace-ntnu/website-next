@@ -204,70 +204,72 @@ const groupsRouter = createRouter({
         imageId = file.id;
       }
 
-      const [group] = await ctx.db
-        .insert(groups)
-        .values({
-          identifier: input.identifier,
-          imageId,
-          openForApplications: input.openForApplications,
-          leaderId: input.leaderId ? Number(input.leaderId) : null,
-          deputyLeaderId: input.deputyLeaderId
-            ? Number(input.deputyLeaderId)
-            : null,
-          internal: input.internal,
-        })
-        .returning({ id: groups.id });
+      return await ctx.db.transaction(async (tx) => {
+        const [group] = await tx
+          .insert(groups)
+          .values({
+            identifier: input.identifier,
+            imageId,
+            openForApplications: input.openForApplications,
+            leaderId: input.leaderId ? Number(input.leaderId) : null,
+            deputyLeaderId: input.deputyLeaderId
+              ? Number(input.deputyLeaderId)
+              : null,
+            internal: input.internal,
+          })
+          .returning({ id: groups.id });
 
-      if (!group)
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: ctx.t('groups.api.insertFailed'),
-          cause: { toast: 'error' },
-        });
+        if (!group)
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: ctx.t('groups.api.insertFailed'),
+            cause: { toast: 'error' },
+          });
 
-      await ctx.db.insert(groupLocalizations).values({
-        groupId: group.id,
-        name: input.nameNorwegian,
-        summary: input.summaryNorwegian,
-        description: input.descriptionNorwegian,
-        locale: 'nb-NO',
-      });
-
-      await ctx.db.insert(groupLocalizations).values({
-        groupId: group.id,
-        name: input.nameEnglish,
-        summary: input.summaryEnglish,
-        description: input.descriptionEnglish,
-        locale: 'en-GB',
-      });
-
-      const leadersToInsert = [];
-
-      if (input.leaderId) {
-        leadersToInsert.push({
+        await tx.insert(groupLocalizations).values({
           groupId: group.id,
-          userId: Number(input.leaderId),
+          name: input.nameNorwegian,
+          summary: input.summaryNorwegian,
+          description: input.descriptionNorwegian,
+          locale: 'nb-NO',
         });
-      }
 
-      if (input.deputyLeaderId) {
-        leadersToInsert.push({
+        await tx.insert(groupLocalizations).values({
           groupId: group.id,
-          userId: Number(input.deputyLeaderId),
+          name: input.nameEnglish,
+          summary: input.summaryEnglish,
+          description: input.descriptionEnglish,
+          locale: 'en-GB',
         });
-      }
 
-      // Group leader and deputy leader should always be members of the group.
-      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
-      // avoids database errors
-      if (leadersToInsert.length > 0) {
-        await ctx.db
-          .insert(usersGroups)
-          .values(leadersToInsert)
-          .onConflictDoNothing();
-      }
+        const leadersToInsert = [];
 
-      return input.identifier;
+        if (input.leaderId) {
+          leadersToInsert.push({
+            groupId: group.id,
+            userId: Number(input.leaderId),
+          });
+        }
+
+        if (input.deputyLeaderId) {
+          leadersToInsert.push({
+            groupId: group.id,
+            userId: Number(input.deputyLeaderId),
+          });
+        }
+
+        // Group leader and deputy leader should always be members of the group.
+        // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+        // avoids database errors
+        if (leadersToInsert.length > 0) {
+          await ctx.db
+            .insert(usersGroups)
+            .values(leadersToInsert)
+            .onConflictDoNothing();
+        }
+
+        return input.identifier;
+      });
     }),
   editGroup: protectedEditProcedure
     .input((input) =>
@@ -302,77 +304,79 @@ const groupsRouter = createRouter({
         imageId = file.id;
       }
 
-      await ctx.db
-        .update(groups)
-        .set({
-          identifier: input.identifier,
-          imageId: input.image ? imageId : undefined,
-          openForApplications: input.openForApplications,
-          leaderId: input.leaderId ? Number(input.leaderId) : null,
-          deputyLeaderId: input.deputyLeaderId
-            ? Number(input.deputyLeaderId)
-            : null,
-          internal: input.internal,
-        })
-        .where(eq(groups.identifier, input.previousIdentifier));
+      return await ctx.db.transaction(async (tx) => {
+        await tx
+          .update(groups)
+          .set({
+            identifier: input.identifier,
+            imageId: input.image ? imageId : undefined,
+            openForApplications: input.openForApplications,
+            leaderId: input.leaderId ? Number(input.leaderId) : null,
+            deputyLeaderId: input.deputyLeaderId
+              ? Number(input.deputyLeaderId)
+              : null,
+            internal: input.internal,
+          })
+          .where(eq(groups.identifier, input.previousIdentifier));
 
-      await ctx.db
-        .update(groupLocalizations)
-        .set({
-          name: input.nameNorwegian,
-          summary: input.summaryNorwegian,
-          description: input.descriptionNorwegian,
-          locale: 'nb-NO',
-        })
-        .where(
-          and(
-            eq(groupLocalizations.groupId, input.id),
-            eq(groupLocalizations.locale, 'nb-NO'),
-          ),
-        );
+        await tx
+          .update(groupLocalizations)
+          .set({
+            name: input.nameNorwegian,
+            summary: input.summaryNorwegian,
+            description: input.descriptionNorwegian,
+            locale: 'nb-NO',
+          })
+          .where(
+            and(
+              eq(groupLocalizations.groupId, input.id),
+              eq(groupLocalizations.locale, 'nb-NO'),
+            ),
+          );
 
-      await ctx.db
-        .update(groupLocalizations)
-        .set({
-          name: input.nameEnglish,
-          summary: input.summaryEnglish,
-          description: input.descriptionEnglish,
-          locale: 'en-GB',
-        })
-        .where(
-          and(
-            eq(groupLocalizations.groupId, input.id),
-            eq(groupLocalizations.locale, 'en-GB'),
-          ),
-        );
+        await tx
+          .update(groupLocalizations)
+          .set({
+            name: input.nameEnglish,
+            summary: input.summaryEnglish,
+            description: input.descriptionEnglish,
+            locale: 'en-GB',
+          })
+          .where(
+            and(
+              eq(groupLocalizations.groupId, input.id),
+              eq(groupLocalizations.locale, 'en-GB'),
+            ),
+          );
 
-      const leadersToInsert = [];
+        const leadersToInsert = [];
 
-      if (input.leaderId) {
-        leadersToInsert.push({
-          groupId: existingGroup.id,
-          userId: Number(input.leaderId),
-        });
-      }
+        if (input.leaderId) {
+          leadersToInsert.push({
+            groupId: existingGroup.id,
+            userId: Number(input.leaderId),
+          });
+        }
 
-      if (input.deputyLeaderId) {
-        leadersToInsert.push({
-          groupId: existingGroup.id,
-          userId: Number(input.deputyLeaderId),
-        });
-      }
+        if (input.deputyLeaderId) {
+          leadersToInsert.push({
+            groupId: existingGroup.id,
+            userId: Number(input.deputyLeaderId),
+          });
+        }
 
-      // Group leader and deputy leader should always be members of the group.
-      // In case they are already a part of the group, then ON CONFLICT DO NOTHING
-      // avoids database errors
-      if (leadersToInsert.length > 0) {
-        await ctx.db
-          .insert(usersGroups)
-          .values(leadersToInsert)
-          .onConflictDoNothing();
-      }
+        // Group leader and deputy leader should always be members of the group.
+        // In case they are already a part of the group, then ON CONFLICT DO NOTHING
+        // avoids database errors
+        if (leadersToInsert.length > 0) {
+          await ctx.db
+            .insert(usersGroups)
+            .values(leadersToInsert)
+            .onConflictDoNothing();
+        }
 
-      return input.identifier;
+        return input.identifier;
+      });
     }),
   deleteGroupImage: protectedEditProcedure
     .input((input) =>
