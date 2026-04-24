@@ -1,4 +1,4 @@
-import { EditIcon, Maximize2Icon } from 'lucide-react';
+import { EditIcon } from 'lucide-react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ToolCardDetails } from '@/components/reservations/ToolCardDetails';
@@ -82,15 +82,7 @@ async function ToolCard({ tool, user }: ToolCardProps) {
             fill
             className='object-cover duration-150 group-hover:scale-105'
           />
-          <ToolCardDetails tool={tool}>
-            <Button
-              className='absolute top-2 right-2 z-10 size-10 rounded-full bg-stone-500/70 p-0 backdrop-blur-sm transition-transform duration-150 ease-in-out hover:scale-105 hover:bg-primary'
-              key={`cardHeaderButton-${tool.name}`}
-              title={t('tools.tooltip')}
-            >
-              <Maximize2Icon className='size-6 stroke-stone-300' />
-            </Button>
-          </ToolCardDetails>
+          <ToolCardDetails tool={tool} />
           {user?.groups.some((g) =>
             ['labops', 'management', 'admin'].includes(g),
           ) && (

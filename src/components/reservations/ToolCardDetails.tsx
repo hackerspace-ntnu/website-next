@@ -1,6 +1,8 @@
-import { Minimize2Icon } from 'lucide-react';
+'use client';
+
+import { Maximize2Icon, Minimize2Icon } from 'lucide-react';
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import {
   ResponsiveDialogClose,
   ResponsiveDialogContent,
@@ -18,11 +20,10 @@ import { Link } from '@/lib/locale/navigation';
 
 type ExpandedToolCardProps = {
   tool: Tool;
-  children: React.ReactNode;
 };
 
-async function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
-  const t = await getTranslations('reservations');
+function ToolCardDetails({ tool }: ExpandedToolCardProps) {
+  const t = useTranslations('reservations');
 
   const footerButton = (() => {
     switch (tool.status) {
@@ -73,7 +74,15 @@ async function ToolCardDetails({ tool, children }: ExpandedToolCardProps) {
 
   return (
     <ResponsiveDialogWrapper>
-      <ResponsiveDialogTrigger asChild>{children}</ResponsiveDialogTrigger>
+      <ResponsiveDialogTrigger asChild>
+        <Button
+          className='absolute top-2 right-2 z-10 size-10 rounded-full bg-stone-500/70 p-0 backdrop-blur-sm transition-transform duration-150 ease-in-out hover:scale-105 hover:bg-primary'
+          key={`cardHeaderButton-${tool.name}`}
+          title={t('tools.tooltip')}
+        >
+          <Maximize2Icon className='size-6 stroke-stone-300' />
+        </Button>
+      </ResponsiveDialogTrigger>
       <ResponsiveDialogContent className='overflow-hidden rounded-2xl p-0 shadow-2xl shadow-black'>
         <ResponsiveDialogHeader className='h-fit w-full'>
           <div className='relative h-72 w-full'>
