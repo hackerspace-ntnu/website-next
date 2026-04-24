@@ -169,6 +169,13 @@
       "when": 1763134222704,
       "tag": "0023_lyrical_shriek",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1771497075170,
+      "tag": "0024_crazy_bruce_banner",
+      "breakpoints": true
     }
   ]
 }

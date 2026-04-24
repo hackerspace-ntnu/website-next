@@ -1,7 +1,6 @@
 'use client';
 
 import { useMarkToolbarButton, useMarkToolbarButtonState } from 'platejs/react';
-import type * as React from 'react';
 import { ToolbarButton } from '@/components/ui/plate/Toolbar';
 
 function MarkToolbarButton({

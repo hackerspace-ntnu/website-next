@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Slack channel for assistance or a friendly chat."
+    "description": "Hackerspace NTNU, a student-led project open to all students, offers access to new technology like 3D printers and VR equipment. Our members provide varied expertise to help with your projects, from making an LED light blink to creating a 3D model. Visit our workshop or join our Matrix chat for assistance or a friendly chat."
   },
   "ui": {
     "open": "Open",
@@ -306,12 +306,11 @@
     "links": "Links",
     "utilities": "Utilities",
     "haveYouFoundA": "Have you found a",
-    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the <code>#dev-public</code> channel on <SlackLink>Slack</SlackLink>! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
+    "utilitiesDescription": "Feel free to send a <MailLink></MailLink> to DevOps or use the Dev Public room on Matrix! You can also report errors or suggest improvements on <GithubLink>GitHub</GithubLink>.",
     "openingHours": "Opening hours",
     "allWeekdays": "Monday-Friday",
     "socialMedia": "Social media",
     "sendAnEmail": "Send an email",
-    "visitSlack": "Visit Slack",
     "visitFacebook": "Visit Facebook",
     "visitGithub": "Visit Github",
     "visitLinkedin": "Visit Linkedin",
@@ -390,7 +389,7 @@
         "description": "Upload an image...",
         "required": "Article image is required",
         "sizeLimitError": "Article image must be less than {size} MB",
-        "wrongFileTypeError": "Article image must be a PNG or JPG",
+        "wrongFileTypeError": "Article image must be of type PNG, JPG, GIF, WEBP, or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "title": {
@@ -502,8 +501,8 @@
       },
       "profilePicture": {
         "label": "Profile picture",
-        "mustBeImage": "Profile picture must be an image",
-        "mustbePngOrJpg": "Profile picture must be a PNG or JPG",
+        "fileNotImageError": "Profile picture must be an image",
+        "wrongFileTypeError": "Profile picture must be of type PNG, JPG, WEBP, or AVIF",
         "sizeLimit": "Profile picture must be less than {size} MB"
       },
       "firstName": {
@@ -641,7 +640,7 @@
         "description": "Upload an image...",
         "required": "Group image is required",
         "sizeLimitError": "Group image must be less than {size} MB",
-        "wrongFileTypeError": "Group image must be a PNG or JPG",
+        "wrongFileTypeError": "Group image must be of type PNG, JPG, GIF, WEBP, or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -810,7 +809,7 @@
         "label": "Item image",
         "upload": "Upload an image...",
         "sizeLimitError": "Item image must be less than {size} MB",
-        "wrongFileTypeError": "Item image must be a PNG or JPG",
+        "wrongFileTypeError": "Item image must be of type PNG, JPG, GIF, WEBP, or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -1052,7 +1051,7 @@
         "label": "Event image",
         "upload": "Upload an image...",
         "sizeLimitError": "Event image must be less than {size} MB",
-        "wrongFileTypeError": "Event image must be a PNG or JPG",
+        "wrongFileTypeError": "Event image must be of type PNG, JPG, GIF, WEBP, or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "createSubmit": "Create event",
@@ -1151,7 +1150,7 @@
         "label": "Rule image",
         "description": "Upload an image...",
         "sizeLimitError": "Rule image must be less than {size} MB",
-        "wrongFileTypeError": "Rule image must be a PNG or JPG",
+        "wrongFileTypeError": "Rule image must be of type PNG, JPG, GIF, WEBP, or AVIF",
         "fileNotImageError": "The file is not an image"
       },
       "name": {
@@ -1413,7 +1412,7 @@
             "confirmDescription": "This action cannot be undone"
           },
           "sizeLimitError": "Home carousel image must be less than {size} MB",
-          "wrongFileTypeError": "Home carousel image must be a PNG or JPG",
+          "wrongFileTypeError": "Home carousel image must be of type PNG, JPG, GIF, WEBP, or AVIF",
           "fileNotImageError": "The file is not an image"
         },
         "editSubmit": "Update slide",
@@ -1687,7 +1686,7 @@
           "label": "Tool image",
           "description": "Upload an image...",
           "sizeLimitError": "Tool image must be less than {size} MB",
-          "wrongFileTypeError": "Tool image must be a PNG or JPG",
+          "wrongFileTypeError": "Tool image must be of type PNG, JPG, GIF, WEBP, or AVIF",
           "fileNotImageError": "The file is not an image"
         },
         "type": {
@@ -1855,6 +1854,38 @@
       "createToolFailed": "Failed to create tool",
       "editToolFailed": "Failed to edit tool",
       "weekendsMemberOnly": "Only members can reserve on weekends"
+    }
+  },
+  "coffeeScanner": {
+    "drinks": {
+      "coffee": "Coffee",
+      "coffeeMilk": "Coffee Milk",
+      "cappuccino": "Cappuccino",
+      "chocolateMilkSpaced": "Chocolate Milk",
+      "chocolateMilkNormal": "Chocolate Milk",
+      "wienerMelange": "Wiener Melange",
+      "coffeeChocolate": "Coffee Chocolate",
+      "latteMacchiato": "Latte Macchiato",
+      "hotWater": "Hot Water"
+    },
+    "ui": {
+      "wantSome": "Want some",
+      "providedBy": "Provided by",
+      "scanYour": "Scan your",
+      "studentCard": "student card",
+      "grabDrink": "before grabbing your drink",
+      "welcome": "Welcome!",
+      "welcomeBack": "Welcome back!",
+      "yourCardId": "Your card ID",
+      "selectADrink": "Choose a drink on the tablet before you select your drink on the coffee machine",
+      "thankYou": "Thank you!",
+      "thankYouDrink": "Proceed by selecting your drink on the coffee machine.",
+      "yourStats": "Your statistics"
+    },
+    "api": {
+      "invalidDrinkType": "The specified drinkType is not a valid drink.",
+      "addEntryFailed": "An error occured when adding a drink entry.",
+      "addEntrySuccess": "Coffee entry successfully added"
     }
   }
 }

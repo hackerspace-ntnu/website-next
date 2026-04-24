@@ -2,8 +2,7 @@
 
 import { getLinkAttributes } from '@platejs/link';
 import type { TLinkElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
-import { PlateElement } from 'platejs/react';
+import { PlateElement, type PlateElementProps } from 'platejs/react';
 
 function LinkElement(props: PlateElementProps<TLinkElement>) {
   return (
