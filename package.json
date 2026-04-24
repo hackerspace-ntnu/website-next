@@ -128,7 +128,7 @@
     "next": "~16.2.4",
     "next-intl": "^4.9.1",
     "next-themes": "1.0.0-beta.0",
-    "nodemailer": "^7.0.13",
+    "nodemailer": "^8.0.5",
     "nuqs": "^2.8.9",
     "oslo": "^1.2.1",
     "pdf-lib": "^1.17.1",
