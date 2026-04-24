@@ -430,7 +430,7 @@ const eventsRouter = createRouter({
             })
           : null;
 
-      await ctx.db.transaction(async (tx) => {
+      return await ctx.db.transaction(async (tx) => {
         await tx
           .update(events)
           .set({
