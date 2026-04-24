@@ -313,7 +313,7 @@ const eventsRouter = createRouter({
 
         const skill =
           input.skill.length > 0
-            ? await ctx.db.query.skills.findFirst({
+            ? await tx.query.skills.findFirst({
                 where: eq(skills.identifier, input.skill),
               })
             : null;
