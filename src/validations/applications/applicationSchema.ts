@@ -6,7 +6,7 @@ import { phoneNumberSchema } from '@/validations/settings/phoneNumberSchema';
 function applicationSchema(t: Translations) {
   return z.object({
     name: z.string().min(1, t('applications.apply.name.required')),
-    email: z.string().email(t('applications.apply.email.invalid')),
+    email: z.email(t('applications.apply.email.invalid')),
     phoneNumber: phoneNumberSchema(t).shape.phoneNumber,
     studyProgram: z
       .string()
