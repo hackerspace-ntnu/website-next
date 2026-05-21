@@ -4,11 +4,11 @@ import { eventSchema } from '@/validations/events/eventSchema';
 function editEventWithoutIdSchema(t: Translations) {
   return eventSchema(t)
     .refine((data) => !data.setMaxParticipants || data.maxParticipants > 0, {
-      message: t('events.form.maxParticipants.positive'),
+      error: t('events.form.maxParticipants.positive'),
       path: ['maxParticipants'],
     })
     .refine((data) => data.endTime > data.startTime, {
-      message: t('events.form.endTime.dateBeforeStart'),
+      error: t('events.form.endTime.dateBeforeStart'),
       path: ['endTime'],
     })
     .refine(
@@ -17,7 +17,7 @@ function editEventWithoutIdSchema(t: Translations) {
         !data.signUpDeadline ||
         data.signUpDeadline < data.startTime,
       {
-        message: t('events.form.signUpDeadline.beforeStartTime'),
+        error: t('events.form.signUpDeadline.beforeStartTime'),
         path: ['signUpDeadline'],
       },
     );

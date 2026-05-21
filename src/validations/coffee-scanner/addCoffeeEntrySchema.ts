@@ -5,7 +5,7 @@ import { drinkTypeEnum } from '@/server/db/tables';
 function addCoffeeEntrySchema(t: Translations) {
   return z.object({
     drinkType: z.enum(drinkTypeEnum.enumValues, {
-      message: t('coffeeScanner.api.invalidDrinkType'),
+      error: t('coffeeScanner.api.invalidDrinkType'),
     }),
     cardId: z.string().min(1).max(32),
   });

@@ -4,7 +4,7 @@ import { bannerSchema } from '@/validations/banners/bannerSchema';
 
 function editBannerSchema(t: Translations) {
   return bannerSchema(t).extend({
-    id: z.number({ message: t('management.banners.api.invalidId') }),
+    id: z.number({ error: t('management.banners.api.invalidId') }),
   });
 }
 

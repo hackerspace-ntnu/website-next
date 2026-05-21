@@ -4,7 +4,7 @@ import { selectBannerSchema } from '@/validations/banners/selectBannerSchema';
 
 function changeBannerActiveSchema(t: Translations) {
   return selectBannerSchema(t).extend({
-    active: z.boolean({ message: t('management.banners.api.activeInvalid') }),
+    active: z.boolean({ error: t('management.banners.api.activeInvalid') }),
   });
 }
 

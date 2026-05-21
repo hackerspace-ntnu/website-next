@@ -6,11 +6,11 @@ function searchMembersSchema(t: Translations) {
     name: z.string().optional(),
     limit: z
       .number()
-      .min(1, { message: t('members.api.invalidLimit') })
+      .min(1, { error: t('members.api.invalidLimit') })
       .optional(),
     offset: z
       .number()
-      .min(0, { message: t('members.api.invalidOffset') })
+      .min(0, { error: t('members.api.invalidOffset') })
       .optional(),
   });
 }

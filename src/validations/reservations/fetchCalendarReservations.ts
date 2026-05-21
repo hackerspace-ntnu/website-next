@@ -6,14 +6,12 @@ function fetchCalendarReservationsSchema(t: Translations) {
   return z
     .object({
       toolId: z.number().min(1, t('reservations.api.invalidId')),
-      from: z
-        .string()
-        .datetime({ message: t('reservations.api.specifyStart') }),
-      until: z.string().datetime({ message: t('reservations.api.specifyEnd') }),
+      from: z.string().datetime({ error: t('reservations.api.specifyStart') }),
+      until: z.string().datetime({ error: t('reservations.api.specifyEnd') }),
     })
     .refine(({ from, until }) => isBefore(new Date(from), new Date(until)), {
       path: ['until'],
-      message: t('reservations.api.startBeforeEndError'),
+      error: t('reservations.api.startBeforeEndError'),
     })
     .refine(
       ({ from, until }) => {
@@ -22,7 +20,7 @@ function fetchCalendarReservationsSchema(t: Translations) {
         return limit > 0 && limit <= 14 * 24 * 60 * 60 * 1000;
       },
       {
-        message: t('reservations.api.rangeTooLarge'),
+        error: t('reservations.api.rangeTooLarge'),
       },
     );
 }

@@ -8,7 +8,7 @@ function fetchMemberSchema(t: Translations) {
       name: z.string().optional(),
     })
     .refine((data) => data.id !== undefined || data.name !== undefined, {
-      message: t('members.api.idOrNameRequired'),
+      error: t('members.api.idOrNameRequired'),
     });
 }
 

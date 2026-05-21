@@ -7,8 +7,8 @@ function updateReservationSchema(t: Translations) {
     .object({
       reservationId: z.number().int().positive(t('reservations.api.invalidId')),
       toolId: z.number().int().positive(t('reservations.api.invalidId')),
-      reservedFrom: z.date({ message: t('reservations.api.specifyStart') }),
-      reservedUntil: z.date({ message: t('reservations.api.specifyEnd') }),
+      reservedFrom: z.date({ error: t('reservations.api.specifyStart') }),
+      reservedUntil: z.date({ error: t('reservations.api.specifyEnd') }),
       notes: z.string().max(500).optional(),
       isMember: z.boolean().default(false),
     })

@@ -4,7 +4,7 @@ import type { Translations } from '@/lib/locale';
 function fetchSlidesSchema(t: Translations) {
   return z.object({
     onlyActive: z
-      .boolean({ message: t('management.slides.api.activeInvalid') })
+      .boolean({ error: t('management.slides.api.activeInvalid') })
       .optional(),
   });
 }

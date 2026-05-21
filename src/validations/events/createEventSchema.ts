@@ -8,17 +8,17 @@ function createEventSchema(t: Translations) {
       // If we're creating a new event, the start time must be in the future
       // When editing, the start time can be in the past
       startTime: z
-        .date({ message: t('events.form.startTime.required') })
+        .date({ error: t('events.form.startTime.required') })
         .refine((date) => date > new Date(), {
-          message: t('events.form.startTime.timeInPast'),
+          error: t('events.form.startTime.timeInPast'),
         }),
     })
     .refine((data) => !data.setMaxParticipants || data.maxParticipants > 0, {
-      message: t('events.form.maxParticipants.positive'),
+      error: t('events.form.maxParticipants.positive'),
       path: ['maxParticipants'],
     })
     .refine((data) => data.endTime > data.startTime, {
-      message: t('events.form.endTime.dateBeforeStart'),
+      error: t('events.form.endTime.dateBeforeStart'),
       path: ['endTime'],
     })
     .refine(
@@ -27,7 +27,7 @@ function createEventSchema(t: Translations) {
         !data.signUpDeadline ||
         data.signUpDeadline > new Date(),
       {
-        message: t('events.form.signUpDeadline.timeInPast'),
+        error: t('events.form.signUpDeadline.timeInPast'),
         path: ['signUpDeadline'],
       },
     )
@@ -37,7 +37,7 @@ function createEventSchema(t: Translations) {
         !data.signUpDeadline ||
         data.signUpDeadline < data.startTime,
       {
-        message: t('events.form.signUpDeadline.beforeStartTime'),
+        error: t('events.form.signUpDeadline.beforeStartTime'),
         path: ['signUpDeadline'],
       },
     );

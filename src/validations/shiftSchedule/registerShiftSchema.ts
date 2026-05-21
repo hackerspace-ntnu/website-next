@@ -5,13 +5,13 @@ import type { Translations } from '@/lib/locale';
 function registerShiftSchema(t: Translations) {
   return z.object({
     day: z.enum(days, {
-      message: t('shiftSchedule.api.day'),
+      error: t('shiftSchedule.api.day'),
     }),
     timeslot: z.enum(timeslots, {
-      message: t('shiftSchedule.api.timeslot'),
+      error: t('shiftSchedule.api.timeslot'),
     }),
     recurring: z.boolean({
-      message: t('shiftSchedule.api.recurring'),
+      error: t('shiftSchedule.api.recurring'),
     }),
   });
 }
@@ -19,10 +19,10 @@ function registerShiftSchema(t: Translations) {
 function unregisterShiftSchema(t: Translations) {
   return z.object({
     day: z.enum(days, {
-      message: t('shiftSchedule.api.day'),
+      error: t('shiftSchedule.api.day'),
     }),
     timeslot: z.enum(timeslots, {
-      message: t('shiftSchedule.api.timeslot'),
+      error: t('shiftSchedule.api.timeslot'),
     }),
   });
 }

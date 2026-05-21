@@ -35,10 +35,10 @@ function eventSchema(t: Translations) {
       .string()
       .url(t('events.form.locationMapLink.invalid'))
       .or(z.literal('')),
-    startTime: z.date({ message: t('events.form.startTime.required') }),
+    startTime: z.date({ error: t('events.form.startTime.required') }),
     setSignUpDeadline: z.boolean(),
     signUpDeadline: z.date().nullable(),
-    endTime: z.date({ message: t('events.form.endTime.required') }),
+    endTime: z.date({ error: t('events.form.endTime.required') }),
     setMaxParticipants: z.boolean(),
     maxParticipants: z.number().int(),
     internal: z.boolean(),

@@ -4,7 +4,7 @@ import type { Translations } from '@/lib/locale';
 function photoConsentSchema(t: Translations) {
   return z.object({
     photoConsent: z.boolean({
-      message: t('settings.profile.photoConsent.invalid'),
+      error: t('settings.profile.photoConsent.invalid'),
     }),
   });
 }

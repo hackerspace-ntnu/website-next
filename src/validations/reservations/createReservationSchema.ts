@@ -7,10 +7,10 @@ function createReservationSchema(t: Translations) {
     .object({
       toolId: z.number().int().positive(t('reservations.api.invalidId')),
       reservedFrom: z.coerce.date({
-        message: t('reservations.api.specifyStart'),
+        error: t('reservations.api.specifyStart'),
       }),
       reservedUntil: z.coerce.date({
-        message: t('reservations.api.specifyEnd'),
+        error: t('reservations.api.specifyEnd'),
       }),
       notes: z.string().max(500).optional(),
       isMember: z.boolean().default(false),

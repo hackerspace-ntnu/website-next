@@ -11,7 +11,7 @@ function bannerSchema(t: Translations) {
     contentEnglish: z
       .string()
       .min(1, t('management.banners.form.contentEnglish.required')),
-    active: z.boolean({ message: t('management.banners.form.active.invalid') }),
+    active: z.boolean({ error: t('management.banners.form.active.invalid') }),
     expiresAt: z.date().nullable(),
     pagesMatch: z
       .string()
@@ -27,7 +27,7 @@ function bannerSchema(t: Translations) {
         t('management.banners.form.pagesMatch.doubleSymbolsInvalid'),
       )
       .refine((val) => safeRegex(pagesMatchToRegex(val)), {
-        message: t('management.banners.form.pagesMatch.unsafeRegex'),
+        error: t('management.banners.form.pagesMatch.unsafeRegex'),
       }),
     className: z.string().regex(
       /^[a-zA-Z0-9-\s]*$/,

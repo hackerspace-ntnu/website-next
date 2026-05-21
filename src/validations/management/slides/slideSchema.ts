@@ -48,7 +48,7 @@ function slideSchema(t: Translations) {
           count: 255,
         }),
       ),
-    active: z.boolean({ message: t('management.slides.form.active.invalid') }),
+    active: z.boolean({ error: t('management.slides.form.active.invalid') }),
     image: fileUploadZodString({
       allowedMediaType: 'image',
       allowedFileTypes: ['png', 'jpeg', 'gif', 'webp', 'avif'],

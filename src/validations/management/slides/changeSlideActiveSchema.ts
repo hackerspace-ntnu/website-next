@@ -4,7 +4,7 @@ import { selectSlideSchema } from '@/validations/management/slides/fetchSlideSch
 
 function changeSlideActiveSchema(t: Translations) {
   return selectSlideSchema(t).extend({
-    active: z.boolean({ message: t('management.slides.api.activeInvalid') }),
+    active: z.boolean({ error: t('management.slides.api.activeInvalid') }),
   });
 }
 

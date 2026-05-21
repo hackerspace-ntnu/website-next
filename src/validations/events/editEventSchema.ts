@@ -6,14 +6,14 @@ function editEventSchema(t: Translations) {
   return eventSchema(t)
     .extend({
       id: z.number(),
-      startTime: z.date({ message: t('events.form.startTime.required') }),
+      startTime: z.date({ error: t('events.form.startTime.required') }),
     })
     .refine((data) => !data.setMaxParticipants || data.maxParticipants > 0, {
-      message: t('events.form.maxParticipants.positive'),
+      error: t('events.form.maxParticipants.positive'),
       path: ['maxParticipants'],
     })
     .refine((data) => data.endTime > data.startTime, {
-      message: t('events.form.endTime.dateBeforeStart'),
+      error: t('events.form.endTime.dateBeforeStart'),
       path: ['endTime'],
     })
     .refine(
@@ -22,7 +22,7 @@ function editEventSchema(t: Translations) {
         !data.signUpDeadline ||
         data.signUpDeadline < data.startTime,
       {
-        message: t('events.form.signUpDeadline.beforeStartTime'),
+        error: t('events.form.signUpDeadline.beforeStartTime'),
         path: ['signUpDeadline'],
       },
     );
