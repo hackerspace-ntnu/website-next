@@ -157,7 +157,7 @@
     "tsparticles": "^3.9.1",
     "use-file-picker": "2.1.2",
     "vaul": "^1.1.2",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
