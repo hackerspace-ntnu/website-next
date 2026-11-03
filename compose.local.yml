@@ -44,7 +44,7 @@ services:
     container_name: website-create-bucket
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/rc alias set rustfs http://website-minio:9000 ${S3_USER} ${S3_PASSWORD} --region us-east-1 --bucket-lookup path;
+      /usr/bin/rc alias set rustfs http://s3:9000 ${S3_USER} ${S3_PASSWORD};
       /usr/bin/rc bucket create rustfs/${S3_NAME} --ignore-existing;
       exit 0;
       "
