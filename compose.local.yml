@@ -17,17 +17,18 @@ services:
     ports:
       - 5432:5432
   s3:
-    image: minio/minio
+    image: rustfs/rustfs:1.0.4
     restart: unless-stopped
-    container_name: website-minio
-    command: server /data --console-address ":9001"
+    container_name: website-rustfs
+    user: "0:0"
     environment:
-      MINIO_ROOT_USER: ${S3_USER}
-      MINIO_ROOT_PASSWORD: ${S3_PASSWORD}
+      RUSTFS_ACCESS_KEY: ${S3_USER}
+      RUSTFS_SECRET_KEY: ${S3_PASSWORD}
+      RUSTFS_VOLUMES: /data
     volumes:
       - ./data/s3:/data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health/ready"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -35,7 +36,7 @@ services:
       - 9000:9000
       - 9001:9001
   create-bucket:
-    image: minio/mc
+    image: rustfs/rc:v0.1.36
     depends_on:
       s3:
         condition: service_healthy
@@ -43,7 +44,7 @@ services:
     container_name: website-create-bucket
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc alias set minio http://website-minio:9000 ${S3_USER} ${S3_PASSWORD};
-      /usr/bin/mc mb minio/${S3_NAME} --ignore-existing;
+      /usr/bin/rc alias set rustfs http://website-minio:9000 ${S3_USER} ${S3_PASSWORD} --region us-east-1 --bucket-lookup path;
+      /usr/bin/rc bucket create rustfs/${S3_NAME} --ignore-existing;
       exit 0;
       "
